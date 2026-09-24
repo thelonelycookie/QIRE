@@ -234,7 +234,7 @@
   {
    "id": "I-015",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.kaskade",
    "frage": "Magie-Kaskade: erst die Clifford-Schaltung (0 T-Gatter) rechnen, nur bei unsicheren Bildern magische Winkel zuschalten -- mittlere T-Zahl je Bild statt fester T-Zahl",
    "prioritaet": 1,
@@ -277,6 +277,16 @@
    "frage": "Magie-Konzentration im Laden: Moettoenen-Baum grob-zu-fein -- nur die oberen Baumebenen (bzw. Top-m Winkel je Bild) exakt, Rest auf das Clifford-Gitter; T je Bild gegen Genauigkeit",
    "prioritaet": 1,
    "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei <= 50 % der Lade-T (duenn exakt) die Genauigkeit mehr als 1 pp unter exakt geladen liegt (Mittel ueber Seeds, TOST-Grenze 1 pp). Test: MNIST 16x16, trainierte volle Zelle (C-mnist-Rezept) je Seed, Laden mit (a) oberen e Ebenen exakt, e = 0..8, (b) Top-m Winkel je Bild nach |Abstand zum Gitter|, Rest gerundet; Kopf + Schaltung mit gleicher zweiter Phase auf genaeherten Zustaenden nachtrainieren, Referenz exakt geladen mit gleicher Phase; T aus kodierung.py: ~30-45 min. | Modul gebaut (Forscher-Agent): gerundet werden die 255 Gatterwinkel phi der Gray-Code-Zerlegung (duenn besetzte Basis aus I-020), Arme referenz (exakt, faire zweite Phase), alle_pi2, ebene_4/5/6, top_4/16/32/48, zufall_16, Identitaet; Seeds 140-149. L-0 Positivkontrolle, L-1 Hauptstufen ebene_6 + top_48 (<= 50 % Lade-T, TOST 1 pp, Holm), L-2 top_16 vs zufall_16, L-3 Kurven. ~60-65 min.",
+   "folgen": {}
+  },
+  {
+   "id": "I-015-hybrid",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.kaskade_hybrid",
+   "prioritaet": 1,
+   "frage": "Hybrid-Magie-Kaskade: Clifford-Stufe klassisch (0 T, kein Laden, nur Additionen), nur unsichere Bilder auf den Quantenrechner -- spart sie >= 75 % Hardware-T von k=2 ohne Genauigkeitsverlust?",
+   "notiz": "Direktor 24.09. nach I-015 (post hoc 5 Seeds: 14,5 % der Hardware-T bei gleicher Genauigkeit). Bestaetigung vorregistriert: 10 frische Seeds 100-109, tau auf Validierung nach Hybrid-Kosten, H-1 T <= 25 % und Nichtunterlegenheit 0,5 pp, H-2 Konfidenz vs. Zufall. ~15 min.",
    "folgen": {}
   }
  ]

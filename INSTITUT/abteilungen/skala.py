@@ -80,6 +80,17 @@ der Arm mit allen Winkeln frei instabil (Fashion, Rate 0,32: 4 von 10 Seeds
 brachen auf 0,73-0,81 ein, voll 0,83). Als Sicherung zaehlt S-2 je
 Konfiguration die Seeds mit nachtrainiert < voll - 1 pp („Instabilitaet“).
 
+DIAGNOSE 24.09. (d_nach = 0 bei fest10 im Rauchtest): kein Fehler. Mit
+Rauchtest-Budget sagen nachtrainiert und voll 93-97 % der Testbilder gleich
+voraus, die Winkel bewegen sich in der zweiten Phase (max |Delta theta| 0,15-1,1)
+und haben Gradienten != 0; auf den Rauchtest-Seeds 0/1 war d = -0,003 und
++0,003, das Mittel also zufaellig genau 0. Strukturell wirkungslose Winkel
+gibt es im Arm fest nicht: Ry(theta)|+> ist fuer theta != 0 kein X-Eigenzustand
+mehr, die folgenden CNOTs wirken also; die Ableitung der Born-Merkmale je
+Winkel liegt bei fest10 zwischen 60 und 100 % der groessten (echt10: 72-100 %).
+Effektive Winkelzahl im Arm fest = 40 = n*L; S-3 bleibt mit n*L normiert fair
+(Vortest-Pruefung 5b).
+
 VORREGISTRIERT (vor dem ersten Lauf, Regel 7):
   Gewinnanteil wie clifford.py v3, aber mit fairer Referenz:
   G_n(k) = Mittel(acc_k - acc_ohne) / Gewinn_n, Gewinn_n = Mittel ueber Seeds
@@ -794,6 +805,26 @@ def _vortest_struktur() -> bool:
     plus = v[:, :, :1, :, :1].expand_as(v)
     if not torch.allclose(v, plus) or not torch.allclose(v[:, :, 0, :, 0] * 4, x8.reshape(3, 8, 8) / x8.norm(dim=1).reshape(3, 1, 1), atol=1e-6):
         fehler("Hochskalierung ist kein Produktzustand |x> (x) |+>^4")
+    # 5b) Kein Winkel strukturell wirkungslos im Arm fest (|x> (x) |+>^4): Wirkung je
+    #     Winkel = Norm der Ableitung der Born-Merkmale (zentrale Differenz) bei
+    #     zufaelligen Winkeln; jede muss >= 10 % der groessten sein (Diagnose 24.09.:
+    #     fest10 0,60-1,00, echt10 0,72-1,00 -- keine effektiv fehlenden Winkel).
+    torch.manual_seed(4)
+    x = _hochskalieren(torch.rand(16, 64), 32)
+    m = SkalaZelle(n=10)
+    wirkung = torch.zeros(LAGEN * 10)
+    with torch.no_grad():
+        for i in range(LAGEN * 10):
+            l, q = divmod(i, 10)
+            t0 = float(m.theta[l, q])
+            m.theta[l, q] = t0 + 1e-3
+            plus = m.merkmale(x)
+            m.theta[l, q] = t0 - 1e-3
+            minus = m.merkmale(x)
+            m.theta[l, q] = t0
+            wirkung[i] = (plus - minus).norm()
+    if float(wirkung.min() / wirkung.max()) < 0.1:
+        fehler(f"Arm fest: strukturell (fast) wirkungslose Winkel, min/max = {float(wirkung.min() / wirkung.max()):.3f}")
     # 6) Stufen ganzzahlig, Anteile vergleichbar
     for n in BREITEN:
         ks = stufen(n)
