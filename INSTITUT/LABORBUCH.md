@@ -103,3 +103,44 @@ frischem Kopf und eigener, auf Tuning-Seeds 902/903 gesuchter Rate
 H1, ganz darunter → H0); frische Mess-Seeds 10–19. `C-mnist` war durch
 C-2: H0 vorregistriert freigeschaltet und läuft ebenfalls mit v2 — die
 Änderung liegt vor jeder MNIST-Zahl.
+
+## 24.09.2026, 16:30 — C-clifford-v2 (frische Seeds 10–19, faires Design)
+
+Rohdaten `ergebnisse/C-clifford-v2__20260924_162826.json`, 11,7 min.
+
+| Arm | Genauigkeit | | Arm | Genauigkeit |
+|---|---|---|---|---|
+| voll | 0,9683 ± 0,0101 | | clifford_k0 | 0,9499 ± 0,0087 |
+| dicht_linear | 0,9623 ± 0,0097 | | clifford_k1 | 0,9571 ± 0,0114 |
+| ohne_schaltung | 0,9516 ± 0,0062 | | clifford_k2 | 0,9601 ± 0,0138 |
+| hadamard_fest (entartet) | 0,9516 ± 0,0062 | | clifford_k4 | 0,9642 ± 0,0101 |
+| zufall_clifford | 0,9495 ± 0,0218 | | clifford_k8 | 0,9660 ± 0,0075 |
+| voll_z | 0,8410 ± 0,0211 | | clifford_k12 | 0,9686 ± 0,0054 |
+
+**Vorregistrierte Urteile:** C-0 **H1** (repliziert: +1,7 pp, p = 0,002,
+frische Seeds). C-1 **HU** (−1,84 pp, KI [−2,57; −1,11] überdeckt −2 pp).
+C-2 **H0** (gerundet = zufällige Clifford = Identität). C-3 M\* = 0 — aber
+nichtssagend, siehe FEHLERBUCH (Grenze > Effekt).
+
+**Was das heißt:** Die Rundung auf das Clifford-Gitter vernichtet den
+*ganzen* Gewinn der Schaltung — der Nutzen lebt vollständig in den
+Nicht-Clifford-Winkeln, also in der „Magie“. Das ist die quantenphysikalisch
+interessante Lesart: *Clifford allein bringt nichts, genau wie Clifford-
+Schaltungen allein keinen Quantenvorteil bringen (Gottesman–Knill).*
+
+**Nachträglich, beschreibend (nicht vorregistriert):** Gewinnanteil
+G(k) = (acc_k − acc_Identität)/(acc_voll − acc_Identität):
+
+| k (freie Winkel von 24) | 0 | 1 | 2 | 4 | 8 | 12 |
+|---|---|---|---|---|---|---|
+| G(k) | −0,10 | 0,33 | **0,51** | 0,76 | 0,87 | 1,02 |
+
+**Die Hälfte des Nutzens steckt in 2 von 24 Winkeln, drei Viertel in 4.**
+Die Magie ist *konzentriert*. Das ist die Hypothese, die jetzt zählt; G(k),
+M50 und M90 sind für MNIST vorregistriert (Code-Änderung vor der ersten
+MNIST-Zahl). Wenn sich das auf MNIST und Fashion hält, ist das die Größe,
+die einen Namen verdient: **die Magie-Konzentration einer Aufgabe.**
+
+**Verfolgt:** `C-bewusst` ist durch C-1: HU vorregistriert freigeschaltet
+und als Modul gebaut (Vortest bestanden — erst nach Korrektur eines Fehlers
+im eigenen synthetischen Grenzfall).

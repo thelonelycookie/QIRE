@@ -27,7 +27,7 @@
   {
    "id": "C-clifford-v2",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.clifford",
    "frage": "Wiederholung mit fairem Design (frischer Kopf, eigene Lernrate, Nichtunterlegenheits-KI) auf frischen Seeds 10-19.",
    "folgen": {
@@ -77,10 +77,15 @@
   {
    "id": "C-bewusst",
    "abteilung": "Clifford",
-   "status": "wartet",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.clifford_bewusst",
    "frage": "Clifford-bewusstes Training (Winkel werden waehrend des Trainings zum Gitter gezogen) senkt M*.",
-   "notiz": "Modul noch nicht gebaut; wird gebaut, sobald freigeschaltet."
+   "notiz": "Kriterien B-1..B-3 im Modul; freigeschaltet durch C-clifford-v2 C-1:HU.",
+   "folgen": {
+    "B-1:H1": [
+     "C-skala"
+    ]
+   }
   },
   {
    "id": "C-skala",

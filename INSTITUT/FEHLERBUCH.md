@@ -52,3 +52,23 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
   vom Zufälligen (W₀) trennen, wie LoRA es tut.
 - **Folge:** erste Schicht, ΔW = W − W₀, zusätzliche menschliche Ordnung
   „Morton“ (Z-Kurve der Pixel) als harte Konkurrenz. Vor dem Lauf korrigiert.
+
+### 24.09.2026 16:28 — C-clifford-v2 (automatisch)
+- **C-1**: HU: KI ueberdeckt die 2-pp-Grenze -- kein Urteil
+- **C-2**: H0: gelernte Rundung nicht besser als feste Clifford-Mischung
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 24.09.2026 — C-clifford-v2: zwei Fehler im eigenen Design
+- **Entartete Kontrolle.** `hadamard_fest` lieferte in *jedem* Seed exakt
+  dieselbe Genauigkeit wie die Identität (0,9516 ± 0,0062). Grund: Bei gerader
+  Lagenzahl heben sich Ry(π/2)-Lagen mit CNOT-Ring zu einer
+  Vorzeichen-Permutation auf (geprüft: 1 Nicht-Null-Eintrag je Zeile bei 2
+  und 4 Lagen, 64 bei 1 und 3). **Lehre:** Jede Kontrolle wird vor dem Lauf
+  darauf geprüft, dass sie *tatsächlich* das tut, was ihr Name sagt — hier:
+  Matrix ansehen. v3: Hadamard nur in Lage 1.
+- **Falsch skalierte Grenze.** C-1 fragte „Verlust ≤ 2 pp?“ — aber der
+  *gesamte* Gewinn der Schaltung über die Identität beträgt auf den Ziffern
+  nur 1,7 pp. Eine Grenze, die größer ist als der Effekt, kann nichts
+  entscheiden. **Lehre:** Grenzen relativ zum Effekt setzen, den man erhalten
+  will. v3: Gewinnanteil G(k) und M50/M90 zusätzlich vorregistriert
+  (vor der ersten MNIST-Zahl).

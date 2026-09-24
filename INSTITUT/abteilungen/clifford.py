@@ -159,7 +159,12 @@ def _baue(arm, seed, n=N_QUBITS):
     if arm == "ohne_schaltung":
         m.fixiere(torch.zeros(L, n), torch.zeros(L, n))
     elif arm == "hadamard_fest":
-        m.fixiere(torch.full((L, n), GITTER), torch.zeros(L, n))
+        # v3: Hadamard NUR in der ersten Lage. Bei gerader Lagenzahl heben sich
+        # Hadamard-Lagen zu einer Vorzeichen-Permutation auf (= Identitaet);
+        # so war die Kontrolle in v1/v2 entartet (FEHLERBUCH 24.09.).
+        h = torch.zeros(L, n)
+        h[0] = GITTER
+        m.fixiere(h, torch.zeros(L, n))
     elif arm == "zufall_clifford":
         g = torch.Generator().manual_seed(10_000 + seed)
         m.fixiere(torch.randint(0, 4, (L, n), generator=g).float() * GITTER, torch.zeros(L, n))
@@ -305,6 +310,16 @@ def auswertung(zeilen) -> dict:
     kurve = {k: float((a(f"clifford_k{k}") - a("voll")).mean()) for k in MAGIE_STUFEN}
     aus["C3_kurve"] = kurve
     aus["C3_Mstern"] = next((k for k in MAGIE_STUFEN if kurve[k] >= -TOLERANZ), None)
+    # v3: Gewinnanteil G(k) = (acc_k - acc_identitaet) / (acc_voll - acc_identitaet).
+    # Die feste 2-pp-Grenze war groesser als der ganze Gewinn der Schaltung auf
+    # den Ziffern (1,7 pp) und damit nichtssagend (FEHLERBUCH 24.09.).
+    gewinn = float((a("voll") - a("ohne_schaltung")).mean())
+    anteil = {k: float((a(f"clifford_k{k}") - a("ohne_schaltung")).mean()) / gewinn if gewinn > 0 else None
+              for k in MAGIE_STUFEN}
+    aus["C3_gewinnanteil"] = anteil
+    for stufe in (50, 90):
+        aus[f"C3_M{stufe}"] = next((k for k in MAGIE_STUFEN
+                                    if anteil[k] is not None and anteil[k] >= stufe / 100), None)
     aus["n"] = len(zeilen)
     return aus
 
@@ -330,7 +345,8 @@ def urteil(a: dict) -> dict:
         u["C-2"] = "HU: schlaegt nur " + ("Zufall" if sig_z else "Hadamard")
     else:
         u["C-2"] = "H0: gelernte Rundung nicht besser als feste Clifford-Mischung"
-    u["C-3"] = f"M* = {a['C3_Mstern']} (Stufen {MAGIE_STUFEN})"
+    u["C-3"] = (f"M* = {a['C3_Mstern']}; M50 = {a.get('C3_M50')}, M90 = {a.get('C3_M90')} "
+                f"(Stufen {MAGIE_STUFEN}, von {LAGEN}*n Winkeln)")
     return u
 
 

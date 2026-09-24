@@ -86,6 +86,10 @@ def lauf(pid, schnell=False):
     print("Urteil:", e.get("urteil"))
     if schnell:
         return
+    # Agenda NEU laden: waehrend des (stundenlangen) Laufs kann sie jemand
+    # geaendert haben -- nur diesen Punkt und seine Folgen anfassen.
+    agenda = lade()
+    p = next(q for q in agenda["punkte"] if q["id"] == pid)
     p["status"] = "erledigt"
     fehlerbuch(pid, e.get("urteil", {}))
     # Vorregistrierte Folgefragen freischalten: {"C-1:H0": ["C-bewusst"], ...}
