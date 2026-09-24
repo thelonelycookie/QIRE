@@ -225,7 +225,7 @@
   {
    "id": "I-020",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.gesamtbudget",
    "frage": "Gemeinsames Magie-Budget fuer Kodierung + Schaltung: Zelle direkt auf billiger Quantenkodierung trainieren (MPS chi=2, duenn besetzte Praeparation) und Gesamt-T gegen Genauigkeit optimieren",
    "prioritaet": 1,

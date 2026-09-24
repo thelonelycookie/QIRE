@@ -436,3 +436,30 @@ Ziffern 8×8 (6 Qubits, 24 Winkel), Seeds 60–69, Forscher-Agent-Modul
 Lehre: *exakt lösbar* ≠ *lernbar*. Eine Positivkontrolle muss mit dem
 Verfahren feuern können, nicht nur mit der Architektur. I-005 (diskrete
 Clifford-Suche) bekommt dadurch Gewicht; I-003-v2 als Idee eingetragen.
+
+## 24.09.2026, 23:05 — I-020 Gesamtbudget (Q3): Laden halbiert, nicht geviertelt
+
+MNIST 16×16, 3 Seeds, beschreibend (vorregistriert, kein Signifikanztest);
+Rohdaten `ergebnisse/I-020__20260924_230045.json`, 56 min (Modul Forscher-Agent).
+T-Zahl gesamt = Laden (Qiskit-Synthese, exakt) + Schaltung (≈ 31·k).
+
+| Kodierung | k | T gesamt | Genauigkeit | Anteil Laden |
+|---|---|---|---|---|
+| dicht exakt (Referenz) | 32 | 8.776 | 0,940 | — |
+| **dünn besetzt exakt** | 32 | **4.372** | **0,940** | 77 % |
+| dünn besetzt exakt | 4 | 3.506 | 0,933 | 96 % |
+| dünn besetzt exakt | 0 | 3.382 | 0,911 | 100 % |
+| MPS χ=2 | 32 | 2.178 | 0,881 | 55 % |
+| MPS χ=2 | 4 | 1.312 | 0,857 | 91 % |
+| dünn, π/4-gerundet | 32 | 1.001 | 0,731 | 1 % |
+
+- G-1 **H0** (Abbruchkriterium der Karte): keine Kombination ≤ 2.194 T (25 %)
+  hält 2 pp an der Referenz. Aber: **dünn besetzte Präparation halbiert die
+  T-Zahl ohne Verlust**, mit k=4 auf 40 % bei −0,7 pp.
+- Kodierungs-Verluste (MPS, π/4) sind nicht durch Schaltungs-Magie
+  aufzuholen: Die Zelle auf billiger Kodierung neu zu trainieren rettet 6–20
+  pp nicht.
+- Kernsatz wird schärfer: *Mit Magie-Konzentration (k=4) ist die Schaltung
+  4 % der Rechnung; 96 % sind Datenladen.* Die nächste Front ist eindeutig
+  die Kodierung selbst.
+- Vorbehalt: Die Magie-Arme nutzen `_gerundet` (Nachtrain-Fehler, C-referenz).
