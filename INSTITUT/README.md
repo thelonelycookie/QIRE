@@ -17,7 +17,9 @@ und wo sieht es nur so aus?
 | **Abt. Clifford** | `abteilungen/clifford.py` | Magie-Budget: wie viele „teure“ Nicht-Clifford-Winkel braucht eine Aufgabe? → multiplikationsfreie Schichten |
 | **Abt. Theorie** | Claude, auf Papier (`LABORBUCH.md`) | Ideen **vor** dem Rechnen durchdenken; was sich auf Papier widerlegen lässt, wird nicht gerechnet |
 | **Abt. Kontrolle** („Red Team“) | Kontrollarme in jedem Modul | für jede Behauptung die langweiligste Erklärung als eigenen Arm mitlaufen lassen (Zufall, Hadamard, Identität, linear) |
-| **Abt. Literatur** | Websuche, sparsam | Neuheit prüfen, bevor gebaut wird; Quellen im Laborbuch |
+| **Abt. Ideenschmiede** | `abteilungen/ideenschmiede.py`, `ideen.json` | erfindet neue Ideen (morphologischer Kasten: 24 Quantenkonzepte × 10 KI-Engpässe × 8 Denkzüge, Gewinner-Abteilungen werden bevorzugt), schickt jede Karte durch ein Tor (Papierprüfung → Neuheit → Abbruchkriterium, billigster Test, Kontrolle) und **leitet bestandene Karten an die zuständige Abteilung in die Agenda weiter** |
+| **Abt. Verschränkung** | `abteilungen/kompass.py` | Tensornetz-/Verschränkungsmethoden (erste Linie: DMRG-Ordnung, ruht nach HU/HU) |
+| **Abt. Literatur** | Websuche bzw. ein Recherche-Agent, sparsam | Neuheit prüfen, bevor gebaut wird; Quellen auf der Ideenkarte |
 | **Labor** | `labor/gemeinsam.py` | Daten (Ziffern, MNIST, Fashion), exakter Wilcoxon, Parallelisierung, Ablage |
 
 Weitere Abteilungen kommen dazu, sobald eine Idee aus `IDEEN.md` die
@@ -64,7 +66,20 @@ cd INSTITUT
 python direktor.py vortest          # Pflicht vor jedem Lauf
 python direktor.py naechstes        # rechnet den nächsten offenen Punkt
 python direktor.py status           # schreibt STAND.md (eine Seite)
+python direktor.py alle             # alles Freigeschaltete nacheinander (über Nacht)
+python direktor.py ideen neu 8      # Ideenschmiede: 8 neue Rohlinge
+python direktor.py ideen leiten I-006   # Karte durchs Tor schicken
 ```
+
+Auf Windows einfach `institut.cmd alle` (benutzt Maltes QIRE-Umgebung, 5 Kerne,
+Log in `ergebnisse/direktor.log`). Energiesparmodus aus, sonst stirbt der Lauf
+mit dem Ruhezustand (Lehre aus Q-011).
+
+**Wie aus einem Rohling eine Idee wird:** Die Schmiede zieht nur *Fragen*
+(„Wie senkt Konzept X den Engpass Y, wenn man Z tut?“). Ein Rohling wird in
+`ideen.json` ausgefüllt — oder in einer Zeile verworfen (Status `verworfen`,
+Grund dazu; verworfene Karten bleiben stehen). Das Ausfüllen ist der einzige
+Schritt, der Denken (Malte oder Claude) braucht; alles andere ist Mechanik.
 
 Mit Maltes Umgebung: `..\UEBERARBEITUNG_2026-09-23\A\py.cmd direktor.py ...`
 bzw. der dort genannte Python-Pfad. Braucht nur `torch`, `numpy`,
@@ -85,7 +100,9 @@ Großteil der Tokens.
 | `agenda.json` | Forschungsagenda mit vorregistrierten Folgefragen |
 | `LABORBUCH.md` | datierte Einträge: Überlegungen, Ergebnisse, Zahlen mit Herleitung |
 | `FEHLERBUCH.md` | jeder gescheiterte Ausgang und was daraus gelernt wurde |
-| `IDEEN.md` | Ideenbörse: neue Ansätze mit Papierprüfung und Abbruchkriterium |
+| `IDEEN.md` | Ideenbörse (erste Runde, ausführlich) |
+| `ideen.json` | Ideenschmiede: alle Karten mit Status, Prüfungen, Quellen |
+| `institut.cmd` | Startknopf für Windows |
 | `ergebnisse/` | Rohdaten (JSON), nie überschreiben |
 
 ## 5. Zum Namen

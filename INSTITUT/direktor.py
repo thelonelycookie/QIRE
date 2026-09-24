@@ -5,6 +5,9 @@
     python direktor.py naechstes       # naechsten offenen Punkt der Agenda rechnen
     python direktor.py lauf C-bewusst  # einen bestimmten Punkt rechnen
     python direktor.py lauf C-bewusst --schnell   # Rauchtest (Minuten)
+    python direktor.py alle            # alle offenen Punkte nacheinander (ueber Nacht)
+    python direktor.py ideen neu 8     # Ideenschmiede: 8 Rohlinge ziehen
+    python direktor.py ideen leiten I-003   # Karte durchs Tor an ihre Abteilung
 
 Was er tut: Er liest `agenda.json`, startet die Abteilung, sichert die
 Rohdaten, liest das vorregistrierte Urteil und schaltet danach die
@@ -55,6 +58,14 @@ def status():
         e = neuestes_ergebnis(p["id"])
         u = "; ".join(f"{k}: {v}" for k, v in (e or {}).get("urteil", {}).items()) or p.get("notiz", "–")
         z.append(f"| {p['id']} | {p['abteilung']} | {p['status']} | {p['frage']} | {u} |")
+    try:
+        from abteilungen.ideenschmiede import lade as lade_ideen
+        karten = lade_ideen()["karten"]
+        z += ["", "**Ideenschmiede:** " + " -> ".join(
+            f"{s} {sum(k['status'] == s for k in karten)}"
+            for s in ("roh", "geprueft", "neu", "weitergeleitet", "verworfen"))]
+    except Exception:
+        pass
     z += ["", "Naechster offener Punkt: " + next((p["id"] for p in agenda["punkte"]
                                                if p["status"] == "offen" and p.get("modul")), "keiner")]
     (WURZEL / "STAND.md").write_text("\n".join(z) + "\n", encoding="utf-8")
@@ -118,5 +129,25 @@ if __name__ == "__main__":
     elif arg[0] == "naechstes":
         p = next((p for p in lade()["punkte"] if p["status"] == "offen" and p.get("modul")), None)
         lauf(p["id"], "--schnell" in arg) if p else print("Agenda leer.")
+    elif arg[0] == "ideen":
+        from abteilungen import ideenschmiede
+        if len(arg) > 1 and arg[1] == "neu":
+            ideenschmiede.neu(int(arg[2]) if len(arg) > 2 else 8)
+        elif len(arg) > 2 and arg[1] == "leiten":
+            ideenschmiede.leiten(arg[2])
+        ideenschmiede.liste()
+    elif arg[0] == "alle":
+        erledigt = set()
+        while True:
+            p = next((p for p in lade()["punkte"] if p["status"] == "offen" and p.get("modul")
+                      and p["id"] not in erledigt), None)
+            if not p:
+                print("Agenda leer -- alles gerechnet, was freigeschaltet ist.")
+                break
+            erledigt.add(p["id"])
+            try:
+                lauf(p["id"])
+            except Exception as fehler:          # ein Absturz haelt die Nacht nicht an
+                print("ABSTURZ in", p["id"], ":", repr(fehler))
     elif arg[0] == "lauf":
         lauf(arg[1], "--schnell" in arg)

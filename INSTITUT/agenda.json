@@ -137,6 +137,46 @@
    },
    "frage": "Replikation des Verschraenkungs-Kompasses auf Fashion-MNIST.",
    "folgen": {}
+  },
+  {
+   "id": "I-001",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn Verlust-Ranking G(2) nicht um >=0,1 ueber Abstands-Ranking hebt (gepaart, 10 Seeds). Test: Ziffern, Winkel aus C-clifford-v2-Rohdaten, zwei Rankings, k in {1,2,4}: ~10 min CPU."
+  },
+  {
+   "id": "I-002",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Rangkorrelation SRE vs. gemessenem Rundungsverlust ueber Seeds und Datensaetze |rho| < 0,3. Test: SRE aus gespeicherten Winkeln der C-Laeufe berechnen, gegen G(k) korrelieren: <5 min, kein Training."
+  },
+  {
+   "id": "I-003",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle."
+  },
+  {
+   "id": "I-004",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min."
+  },
+  {
+   "id": "I-005",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min."
   }
  ]
 }

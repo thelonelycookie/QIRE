@@ -165,3 +165,24 @@ die 8 Ausgangsbits und die 8 Eingangsbits je in eine Hälfte — sie
 positiv für die Methode des Instituts: Das Rote Team (SVD) hat den Befund
 gefunden, den keine der „quanteninspirierten“ Varianten zeigt. Linie
 V-kompass ruht; Folgeidee „Rang außen, Tensornetz innen“ in FEHLERBUCH.
+
+## 24.09.2026, 18:00 — Neue Abteilung: Ideenschmiede (auf Maltes Wunsch)
+
+Aufbau siehe README. Erste Runde: fünf Karten aus dem Befund
+„Magie-Konzentration“ abgeleitet, Neuheit von einem Recherche-Agenten geprüft
+(11 Websuchen, nur Trefferlisten — „nicht gefunden“ heißt nicht „existiert
+nicht“). Alle fünf durchs Tor an Abt. Clifford:
+
+| Karte | Idee | Neuheit |
+|---|---|---|
+| I-001 | Magie-Pruning (Winkel nach Verlustanstieg statt Gitterabstand) | teilweise |
+| I-002 | Stabilisator-Rényi-Entropie sagt M50 vorher, ohne Rundungsversuche | nicht gefunden |
+| I-003 | Magie-Konzentration als Kennzahl einer *Aufgabe* (Kontrolle: Zufallsetiketten) | teilweise |
+| I-004 | Clifford-Gerüst + k Winkel von Anfang an | teilweise (CAFQA, VQE) |
+| I-005 | nur diskrete Clifford-Wahl, Magie allein aus den Daten | teilweise (Stabilizer Bootstrap) |
+
+Reihenfolge-Empfehlung des Direktors: **I-002 zuerst** (kein Training,
+Minuten, rechnet auf gespeicherten Winkeln), dann I-001, dann I-003 mit
+Zufallsetiketten. I-005 hat nach C-2 (feste Clifford = Identität) die
+schlechteste Papierprognose — bleibt trotzdem stehen, weil ein klares Nein
+dort die C-2-Aussage verallgemeinern würde.
