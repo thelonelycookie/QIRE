@@ -1,0 +1,7908 @@
+{
+ "abteilung": "clifford/hardware",
+ "agenda": "C-hardware",
+ "quantenstufe": "Q3 (lokal simuliert)",
+ "hypothesen": {
+  "H-1": "Pruefung (Positivkontrolle): k = 0 (alle Winkel auf k·pi/2) ergibt T-Zahl exakt 0 und einen EXAKTEN Operator (Fehler < 1e-5) -- Clifford braucht keine Magie. Fuer jeden Seed, jede Synthese.",
+  "H-2": "Beschreibend: die T-Zahl waechst linear in k (T ≈ t_eps · k); berichtet werden Steigung t_eps je Genauigkeit und R²."
+ },
+ "vortest_bestanden": true,
+ "vortest_maxfehler": 3.7862747143124764e-07,
+ "bitordnung": "Modell-Qubit q <-> Qiskit-Qubit n-1-q; Basisindex identisch",
+ "synthesen": {
+  "sk_r1": {
+   "art": "sk",
+   "parameter": 1
+  },
+  "sk_r2": {
+   "art": "sk",
+   "parameter": 2
+  },
+  "sk_r3": {
+   "art": "sk",
+   "parameter": 3
+  },
+  "grid_1e-2": {
+   "art": "grid",
+   "parameter": 0.01
+  },
+  "grid_1e-3": {
+   "art": "grid",
+   "parameter": 0.001
+  },
+  "grid_1e-4": {
+   "art": "grid",
+   "parameter": 0.0001
+  }
+ },
+ "grenze": "Magiewinkel = winkel_voll (nachtrainierte Werte nicht gespeichert); SK-Basis h,t,tdg (S zaehlt dort als 2 T).",
+ "datensaetze": {
+  "mnist": {
+   "rohdatei": "C-mnist__20260924_181325.json",
+   "qubits": 8,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "M50": 2,
+   "M90": 12,
+   "tabelle": [
+    {
+     "k": 0,
+     "gewinnanteil": 0.16640278041699014,
+     "fehler_exakt_max": 4.440892098500626e-16,
+     "sk_r1": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 37.8,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 32,
+      "operatorfehler_max": 2.0594996416718776e-15,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 37.8,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 32,
+      "operatorfehler_max": 2.0594996416718776e-15,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 37.8,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 32,
+      "operatorfehler_max": 2.0594996416718776e-15,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 37.8,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 32,
+      "operatorfehler_max": 2.0594996416718776e-15,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 37.8,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 32,
+      "operatorfehler_max": 2.0594996416718776e-15,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 37.8,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 32,
+      "operatorfehler_max": 2.0594996416718776e-15,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 1,
+     "gewinnanteil": 0.49128340973885887,
+     "fehler_exakt_max": 7.771561172376096e-16,
+     "sk_r1": {
+      "T_mittel": 5.0,
+      "T_min": 5,
+      "T_max": 5,
+      "tiefe_mittel": 39.4,
+      "t_tiefe_mittel": 5.0,
+      "cnot": 32,
+      "operatorfehler_max": 0.03100216098699163,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 40.6,
+      "T_min": 5,
+      "T_max": 81,
+      "tiefe_mittel": 103.0,
+      "t_tiefe_mittel": 40.6,
+      "cnot": 32,
+      "operatorfehler_max": 0.03686380674260555,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 435.8,
+      "T_min": 337,
+      "T_max": 555,
+      "tiefe_mittel": 818.7,
+      "t_tiefe_mittel": 435.8,
+      "cnot": 32,
+      "operatorfehler_max": 0.004794371944651235,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 10.7,
+      "T_min": 1,
+      "T_max": 21,
+      "tiefe_mittel": 63.7,
+      "t_tiefe_mittel": 10.7,
+      "cnot": 32,
+      "operatorfehler_max": 0.004972480978143829,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 30.3,
+      "T_min": 22,
+      "T_max": 33,
+      "tiefe_mittel": 115.3,
+      "t_tiefe_mittel": 30.3,
+      "cnot": 32,
+      "operatorfehler_max": 0.000478338362506587,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 41.7,
+      "T_min": 40,
+      "T_max": 43,
+      "tiefe_mittel": 144.0,
+      "t_tiefe_mittel": 41.7,
+      "cnot": 32,
+      "operatorfehler_max": 4.877700860413138e-05,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 2,
+     "gewinnanteil": 0.5324880786756242,
+     "fehler_exakt_max": 9.43689570931383e-16,
+     "sk_r1": {
+      "T_mittel": 14.2,
+      "T_min": 10,
+      "T_max": 32,
+      "tiefe_mittel": 49.1,
+      "t_tiefe_mittel": 12.7,
+      "cnot": 32,
+      "operatorfehler_max": 0.06858477099762295,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 118.2,
+      "T_min": 10,
+      "T_max": 206,
+      "tiefe_mittel": 222.9,
+      "t_tiefe_mittel": 109.9,
+      "cnot": 32,
+      "operatorfehler_max": 0.04686234450399102,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 911.8,
+      "T_min": 820,
+      "T_max": 990,
+      "tiefe_mittel": 1443.5,
+      "t_tiefe_mittel": 786.5,
+      "cnot": 32,
+      "operatorfehler_max": 0.008806014621352526,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 27.6,
+      "T_min": 2,
+      "T_max": 43,
+      "tiefe_mittel": 102.1,
+      "t_tiefe_mittel": 25.3,
+      "cnot": 32,
+      "operatorfehler_max": 0.008428430358501184,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 61.5,
+      "T_min": 52,
+      "T_max": 67,
+      "tiefe_mittel": 171.4,
+      "t_tiefe_mittel": 52.3,
+      "cnot": 32,
+      "operatorfehler_max": 0.0008979662716158103,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 84.3,
+      "T_min": 81,
+      "T_max": 87,
+      "tiefe_mittel": 221.1,
+      "t_tiefe_mittel": 72.0,
+      "cnot": 32,
+      "operatorfehler_max": 9.113064882561147e-05,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 4,
+     "gewinnanteil": 0.6804016087903797,
+     "fehler_exakt_max": 5.560087721253288e-16,
+     "sk_r1": {
+      "T_mittel": 47.0,
+      "T_min": 20,
+      "T_max": 84,
+      "tiefe_mittel": 81.9,
+      "t_tiefe_mittel": 33.9,
+      "cnot": 32,
+      "operatorfehler_max": 0.1463060351983003,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 325.0,
+      "T_min": 186,
+      "T_max": 426,
+      "tiefe_mittel": 438.8,
+      "t_tiefe_mittel": 232.1,
+      "cnot": 32,
+      "operatorfehler_max": 0.09087362908608666,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 1998.8,
+      "T_min": 1732,
+      "T_max": 2154,
+      "tiefe_mittel": 2324.2,
+      "t_tiefe_mittel": 1279.1,
+      "cnot": 32,
+      "operatorfehler_max": 0.01599708112031952,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 68.6,
+      "T_min": 43,
+      "T_max": 85,
+      "tiefe_mittel": 160.3,
+      "t_tiefe_mittel": 48.1,
+      "cnot": 32,
+      "operatorfehler_max": 0.01505471116904204,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 123.2,
+      "T_min": 115,
+      "T_max": 127,
+      "tiefe_mittel": 238.0,
+      "t_tiefe_mittel": 79.0,
+      "cnot": 32,
+      "operatorfehler_max": 0.0016606268161168105,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 168.0,
+      "T_min": 162,
+      "T_max": 174,
+      "tiefe_mittel": 307.0,
+      "t_tiefe_mittel": 106.3,
+      "cnot": 32,
+      "operatorfehler_max": 0.0001799820927848868,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 8,
+     "gewinnanteil": 0.8853669944817677,
+     "fehler_exakt_max": 8.326672684688674e-16,
+     "sk_r1": {
+      "T_mittel": 138.9,
+      "T_min": 84,
+      "T_max": 192,
+      "tiefe_mittel": 152.0,
+      "t_tiefe_mittel": 75.3,
+      "cnot": 32,
+      "operatorfehler_max": 0.3263752002268188,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 801.3,
+      "T_min": 660,
+      "T_max": 938,
+      "tiefe_mittel": 712.3,
+      "t_tiefe_mittel": 383.8,
+      "cnot": 32,
+      "operatorfehler_max": 0.1420415713068085,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 4214.3,
+      "T_min": 3966,
+      "T_max": 4508,
+      "tiefe_mittel": 3219.5,
+      "t_tiefe_mittel": 1769.6,
+      "cnot": 32,
+      "operatorfehler_max": 0.031893445226488376,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 152.1,
+      "T_min": 125,
+      "T_max": 173,
+      "tiefe_mittel": 213.4,
+      "t_tiefe_mittel": 68.0,
+      "cnot": 32,
+      "operatorfehler_max": 0.024508633193026045,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 247.1,
+      "T_min": 238,
+      "T_max": 256,
+      "tiefe_mittel": 299.0,
+      "t_tiefe_mittel": 103.1,
+      "cnot": 32,
+      "operatorfehler_max": 0.002910991845507694,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 337.2,
+      "T_min": 328,
+      "T_max": 344,
+      "tiefe_mittel": 388.7,
+      "t_tiefe_mittel": 138.7,
+      "cnot": 32,
+      "operatorfehler_max": 0.0002607364277489355,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 12,
+     "gewinnanteil": 0.9165345923465168,
+     "fehler_exakt_max": 8.326672684688674e-16,
+     "sk_r1": {
+      "T_mittel": 237.9,
+      "T_min": 166,
+      "T_max": 292,
+      "tiefe_mittel": 182.9,
+      "t_tiefe_mittel": 95.5,
+      "cnot": 32,
+      "operatorfehler_max": 0.3943845867049209,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 1293.5,
+      "T_min": 1168,
+      "T_max": 1438,
+      "tiefe_mittel": 881.6,
+      "t_tiefe_mittel": 483.1,
+      "cnot": 32,
+      "operatorfehler_max": 0.1818745109867697,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 6383.5,
+      "T_min": 5921,
+      "T_max": 6760,
+      "tiefe_mittel": 3948.1,
+      "t_tiefe_mittel": 2169.9,
+      "cnot": 32,
+      "operatorfehler_max": 0.04013698594056369,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 236.0,
+      "T_min": 211,
+      "T_max": 259,
+      "tiefe_mittel": 246.0,
+      "t_tiefe_mittel": 82.1,
+      "cnot": 32,
+      "operatorfehler_max": 0.03234549677458211,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 370.8,
+      "T_min": 357,
+      "T_max": 382,
+      "tiefe_mittel": 359.1,
+      "t_tiefe_mittel": 125.4,
+      "cnot": 32,
+      "operatorfehler_max": 0.0035294718625585616,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 503.0,
+      "T_min": 495,
+      "T_max": 511,
+      "tiefe_mittel": 461.6,
+      "t_tiefe_mittel": 168.0,
+      "cnot": 32,
+      "operatorfehler_max": 0.0003369321549133808,
+      "nur_clifford_t": true
+     }
+    }
+   ],
+   "linear": {
+    "sk_r1": {
+     "steigung_T_je_winkel": 20.408372093023257,
+     "achsenabschnitt": -18.004341085271346,
+     "R2": 0.9815164505925787
+    },
+    "sk_r2": {
+     "steigung_T_je_winkel": 110.7506976744186,
+     "achsenabschnitt": -68.61147286821719,
+     "R2": 0.9926915342099597
+    },
+    "sk_r3": {
+     "steigung_T_je_winkel": 537.8800000000001,
+     "achsenabschnitt": -96.42666666666723,
+     "R2": 0.999429215573253
+    },
+    "grid_1e-2": {
+     "steigung_T_je_winkel": 20.107906976744186,
+     "achsenabschnitt": -7.985581395348845,
+     "R2": 0.9974786465517532
+    },
+    "grid_1e-3": {
+     "steigung_T_je_winkel": 30.92511627906977,
+     "achsenabschnitt": -0.3463565891473139,
+     "R2": 0.99999780642863
+    },
+    "grid_1e-4": {
+     "steigung_T_je_winkel": 41.972093023255816,
+     "achsenabschnitt": 0.15891472868215162,
+     "R2": 0.9999866427066711
+    }
+   },
+   "je_seed": [
+    {
+     "seed": 10,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.7755575615628914e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4522271721258626e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4522271721258626e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4522271721258626e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4522271721258626e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4522271721258626e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4522271721258626e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.0596477458889675e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 81,
+        "tiefe": 39,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001822543883087227
+       },
+       "sk_r2": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 81,
+        "tiefe": 39,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001822543883087227
+       },
+       "sk_r3": {
+        "T": 337,
+        "cnot": 32,
+        "gatter": 673,
+        "tiefe": 631,
+        "t_tiefe": 337,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0007874343400986687
+       },
+       "grid_1e-2": {
+        "T": 1,
+        "cnot": 32,
+        "gatter": 82,
+        "tiefe": 40,
+        "t_tiefe": 1,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0018225438830871592
+       },
+       "grid_1e-3": {
+        "T": 32,
+        "cnot": 32,
+        "gatter": 161,
+        "tiefe": 119,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001772452135611566
+       },
+       "grid_1e-4": {
+        "T": 43,
+        "cnot": 32,
+        "gatter": 190,
+        "tiefe": 148,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.877700860413138e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.337696377423074e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 87,
+        "tiefe": 43,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.010440773329377638
+       },
+       "sk_r2": {
+        "T": 96,
+        "cnot": 32,
+        "gatter": 239,
+        "tiefe": 195,
+        "t_tiefe": 96,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.010723302017045395
+       },
+       "sk_r3": {
+        "T": 854,
+        "cnot": 32,
+        "gatter": 1595,
+        "tiefe": 1551,
+        "t_tiefe": 854,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00261306756933337
+       },
+       "grid_1e-2": {
+        "T": 23,
+        "cnot": 32,
+        "gatter": 142,
+        "tiefe": 98,
+        "t_tiefe": 23,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0037146971428248677
+       },
+       "grid_1e-3": {
+        "T": 60,
+        "cnot": 32,
+        "gatter": 235,
+        "tiefe": 191,
+        "t_tiefe": 60,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003940357935568987
+       },
+       "grid_1e-4": {
+        "T": 87,
+        "cnot": 32,
+        "gatter": 309,
+        "tiefe": 265,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.113064882561147e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.33923533696785e-16,
+       "sk_r1": {
+        "T": 58,
+        "cnot": 32,
+        "gatter": 171,
+        "tiefe": 81,
+        "t_tiefe": 35,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08917542092554778
+       },
+       "sk_r2": {
+        "T": 344,
+        "cnot": 32,
+        "gatter": 685,
+        "tiefe": 407,
+        "t_tiefe": 219,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03853812351389491
+       },
+       "sk_r3": {
+        "T": 2076,
+        "cnot": 32,
+        "gatter": 3777,
+        "tiefe": 2645,
+        "t_tiefe": 1469,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007848647455530265
+       },
+       "grid_1e-2": {
+        "T": 64,
+        "cnot": 32,
+        "gatter": 254,
+        "tiefe": 149,
+        "t_tiefe": 44,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007940186754885092
+       },
+       "grid_1e-3": {
+        "T": 127,
+        "cnot": 32,
+        "gatter": 408,
+        "tiefe": 273,
+        "t_tiefe": 93,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0012758584490430004
+       },
+       "grid_1e-4": {
+        "T": 174,
+        "cnot": 32,
+        "gatter": 531,
+        "tiefe": 370,
+        "t_tiefe": 130,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001799820927848868
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 2.5087245153243866e-16,
+       "sk_r1": {
+        "T": 148,
+        "cnot": 32,
+        "gatter": 323,
+        "tiefe": 139,
+        "t_tiefe": 69,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3263752002268188
+       },
+       "sk_r2": {
+        "T": 826,
+        "cnot": 32,
+        "gatter": 1553,
+        "tiefe": 724,
+        "t_tiefe": 389,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.09784710380394457
+       },
+       "sk_r3": {
+        "T": 4344,
+        "cnot": 32,
+        "gatter": 7867,
+        "tiefe": 3229,
+        "t_tiefe": 1777,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.024219540044789496
+       },
+       "grid_1e-2": {
+        "T": 147,
+        "cnot": 32,
+        "gatter": 490,
+        "tiefe": 202,
+        "t_tiefe": 64,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013322854614913697
+       },
+       "grid_1e-3": {
+        "T": 254,
+        "cnot": 32,
+        "gatter": 755,
+        "tiefe": 297,
+        "t_tiefe": 101,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00215631592547901
+       },
+       "grid_1e-4": {
+        "T": 343,
+        "cnot": 32,
+        "gatter": 971,
+        "tiefe": 370,
+        "t_tiefe": 131,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002607364277489355
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 4.454337125898672e-16,
+       "sk_r1": {
+        "T": 248,
+        "cnot": 32,
+        "gatter": 496,
+        "tiefe": 193,
+        "t_tiefe": 100,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3943845867049209
+       },
+       "sk_r2": {
+        "T": 1304,
+        "cnot": 32,
+        "gatter": 2408,
+        "tiefe": 925,
+        "t_tiefe": 504,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11384203405228398
+       },
+       "sk_r3": {
+        "T": 6636,
+        "cnot": 32,
+        "gatter": 12026,
+        "tiefe": 4237,
+        "t_tiefe": 2314,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.028986099710658752
+       },
+       "grid_1e-2": {
+        "T": 232,
+        "cnot": 32,
+        "gatter": 706,
+        "tiefe": 257,
+        "t_tiefe": 88,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.023470202330079216
+       },
+       "grid_1e-3": {
+        "T": 372,
+        "cnot": 32,
+        "gatter": 1073,
+        "tiefe": 361,
+        "t_tiefe": 125,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.003033102203926942
+       },
+       "grid_1e-4": {
+        "T": 506,
+        "cnot": 32,
+        "gatter": 1399,
+        "tiefe": 474,
+        "t_tiefe": 174,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003369321549133808
+       }
+      }
+     }
+    },
+    {
+     "seed": 11,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.6390005631943253e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.7981651719556152e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.7981651719556152e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.7981651719556152e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.7981651719556152e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.7981651719556152e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.7981651719556152e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.056375594246179e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 91,
+        "tiefe": 38,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004273332881152234
+       },
+       "sk_r2": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 91,
+        "tiefe": 38,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004273332881152234
+       },
+       "sk_r3": {
+        "T": 419,
+        "cnot": 32,
+        "gatter": 849,
+        "tiefe": 795,
+        "t_tiefe": 419,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004216628331726961
+       },
+       "grid_1e-2": {
+        "T": 1,
+        "cnot": 32,
+        "gatter": 89,
+        "tiefe": 38,
+        "t_tiefe": 1,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004273332881152219
+       },
+       "grid_1e-3": {
+        "T": 31,
+        "cnot": 32,
+        "gatter": 172,
+        "tiefe": 118,
+        "t_tiefe": 31,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00025137348400887757
+       },
+       "grid_1e-4": {
+        "T": 42,
+        "cnot": 32,
+        "gatter": 202,
+        "tiefe": 148,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 3.2377927609293934e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.0531133177191805e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 98,
+        "tiefe": 38,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.012716771905459794
+       },
+       "sk_r2": {
+        "T": 98,
+        "cnot": 32,
+        "gatter": 252,
+        "tiefe": 191,
+        "t_tiefe": 93,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.015048686575605494
+       },
+       "sk_r3": {
+        "T": 988,
+        "cnot": 32,
+        "gatter": 1886,
+        "tiefe": 1067,
+        "t_tiefe": 569,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006982041132406813
+       },
+       "grid_1e-2": {
+        "T": 21,
+        "cnot": 32,
+        "gatter": 147,
+        "tiefe": 88,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007874772127648092
+       },
+       "grid_1e-3": {
+        "T": 64,
+        "cnot": 32,
+        "gatter": 265,
+        "tiefe": 123,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0006536871684350411
+       },
+       "grid_1e-4": {
+        "T": 87,
+        "cnot": 32,
+        "gatter": 316,
+        "tiefe": 148,
+        "t_tiefe": 45,
+        "nur_clifford_t": true,
+        "operatorfehler": 7.657015599848597e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.885780586188048e-16,
+       "sk_r1": {
+        "T": 58,
+        "cnot": 32,
+        "gatter": 184,
+        "tiefe": 81,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.09819050855733809
+       },
+       "sk_r2": {
+        "T": 344,
+        "cnot": 32,
+        "gatter": 690,
+        "tiefe": 412,
+        "t_tiefe": 220,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.034254151813816455
+       },
+       "sk_r3": {
+        "T": 2126,
+        "cnot": 32,
+        "gatter": 3942,
+        "tiefe": 2092,
+        "t_tiefe": 1140,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013876781636309699
+       },
+       "grid_1e-2": {
+        "T": 62,
+        "cnot": 32,
+        "gatter": 260,
+        "tiefe": 142,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.014040769763644536
+       },
+       "grid_1e-3": {
+        "T": 124,
+        "cnot": 32,
+        "gatter": 428,
+        "tiefe": 204,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00128212245774834
+       },
+       "grid_1e-4": {
+        "T": 169,
+        "cnot": 32,
+        "gatter": 530,
+        "tiefe": 253,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00014005816885972997
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 4.17220780727726e-16,
+       "sk_r1": {
+        "T": 142,
+        "cnot": 32,
+        "gatter": 327,
+        "tiefe": 164,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.20640613185392104
+       },
+       "sk_r2": {
+        "T": 800,
+        "cnot": 32,
+        "gatter": 1521,
+        "tiefe": 644,
+        "t_tiefe": 341,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.09485440517253566
+       },
+       "sk_r3": {
+        "T": 4508,
+        "cnot": 32,
+        "gatter": 8283,
+        "tiefe": 3288,
+        "t_tiefe": 1791,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02761391312724242
+       },
+       "grid_1e-2": {
+        "T": 144,
+        "cnot": 32,
+        "gatter": 479,
+        "tiefe": 189,
+        "t_tiefe": 62,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02373106226916999
+       },
+       "grid_1e-3": {
+        "T": 252,
+        "cnot": 32,
+        "gatter": 771,
+        "tiefe": 283,
+        "t_tiefe": 98,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0019500380704229221
+       },
+       "grid_1e-4": {
+        "T": 335,
+        "cnot": 32,
+        "gatter": 955,
+        "tiefe": 359,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002445016561884915
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 4.440892098500626e-16,
+       "sk_r1": {
+        "T": 254,
+        "cnot": 32,
+        "gatter": 511,
+        "tiefe": 167,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.36248655313328765
+       },
+       "sk_r2": {
+        "T": 1230,
+        "cnot": 32,
+        "gatter": 2277,
+        "tiefe": 851,
+        "t_tiefe": 470,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1385333768347952
+       },
+       "sk_r3": {
+        "T": 6760,
+        "cnot": 32,
+        "gatter": 12355,
+        "tiefe": 4164,
+        "t_tiefe": 2288,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03695652860800794
+       },
+       "grid_1e-2": {
+        "T": 226,
+        "cnot": 32,
+        "gatter": 705,
+        "tiefe": 245,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03234549677458211
+       },
+       "grid_1e-3": {
+        "T": 376,
+        "cnot": 32,
+        "gatter": 1095,
+        "tiefe": 362,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0026231269816848067
+       },
+       "grid_1e-4": {
+        "T": 504,
+        "cnot": 32,
+        "gatter": 1390,
+        "tiefe": 458,
+        "t_tiefe": 171,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003179349145460563
+       }
+      }
+     }
+    },
+    {
+     "seed": 12,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.779775804656382e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 82,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.503796501331152e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 82,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.503796501331152e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 82,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.503796501331152e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 82,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.503796501331152e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 82,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.503796501331152e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 82,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.503796501331152e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 2.7755575615628914e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 89,
+        "tiefe": 39,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002182410723306716
+       },
+       "sk_r2": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 89,
+        "tiefe": 39,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002182410723306716
+       },
+       "sk_r3": {
+        "T": 417,
+        "cnot": 32,
+        "gatter": 833,
+        "tiefe": 783,
+        "t_tiefe": 417,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0016719487279225128
+       },
+       "grid_1e-2": {
+        "T": 1,
+        "cnot": 32,
+        "gatter": 90,
+        "tiefe": 40,
+        "t_tiefe": 1,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002182410723306732
+       },
+       "grid_1e-3": {
+        "T": 32,
+        "cnot": 32,
+        "gatter": 169,
+        "tiefe": 119,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00044063134641589903
+       },
+       "grid_1e-4": {
+        "T": 40,
+        "cnot": 32,
+        "gatter": 187,
+        "tiefe": 137,
+        "t_tiefe": 40,
+        "nur_clifford_t": true,
+        "operatorfehler": 3.0419985471785763e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 2.220446049250313e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 96,
+        "tiefe": 39,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004656167594620704
+       },
+       "sk_r2": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 96,
+        "tiefe": 39,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004656167594620704
+       },
+       "sk_r3": {
+        "T": 822,
+        "cnot": 32,
+        "gatter": 1564,
+        "tiefe": 783,
+        "t_tiefe": 417,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0035712388208527825
+       },
+       "grid_1e-2": {
+        "T": 2,
+        "cnot": 32,
+        "gatter": 95,
+        "tiefe": 40,
+        "t_tiefe": 1,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004656167594620706
+       },
+       "grid_1e-3": {
+        "T": 65,
+        "cnot": 32,
+        "gatter": 260,
+        "tiefe": 123,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0008979662716158103
+       },
+       "grid_1e-4": {
+        "T": 84,
+        "cnot": 32,
+        "gatter": 303,
+        "tiefe": 148,
+        "t_tiefe": 44,
+        "nur_clifford_t": true,
+        "operatorfehler": 6.866621939617367e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.0531133177191805e-16,
+       "sk_r1": {
+        "T": 20,
+        "cnot": 32,
+        "gatter": 109,
+        "tiefe": 40,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.031054510548427793
+       },
+       "sk_r2": {
+        "T": 186,
+        "cnot": 32,
+        "gatter": 401,
+        "tiefe": 331,
+        "t_tiefe": 176,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.042123691578772375
+       },
+       "sk_r3": {
+        "T": 1932,
+        "cnot": 32,
+        "gatter": 3569,
+        "tiefe": 2031,
+        "t_tiefe": 1110,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01599708112031952
+       },
+       "grid_1e-2": {
+        "T": 44,
+        "cnot": 32,
+        "gatter": 216,
+        "tiefe": 147,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0090451785388934
+       },
+       "grid_1e-3": {
+        "T": 126,
+        "cnot": 32,
+        "gatter": 419,
+        "tiefe": 199,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0014235567556331677
+       },
+       "grid_1e-4": {
+        "T": 169,
+        "cnot": 32,
+        "gatter": 522,
+        "tiefe": 249,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001081761660547559
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 126,
+        "cnot": 32,
+        "gatter": 296,
+        "tiefe": 168,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2106889782361343
+       },
+       "sk_r2": {
+        "T": 660,
+        "cnot": 32,
+        "gatter": 1248,
+        "tiefe": 676,
+        "t_tiefe": 365,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.07814482612584718
+       },
+       "sk_r3": {
+        "T": 4038,
+        "cnot": 32,
+        "gatter": 7402,
+        "tiefe": 3002,
+        "t_tiefe": 1641,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.031893445226488376
+       },
+       "grid_1e-2": {
+        "T": 130,
+        "cnot": 32,
+        "gatter": 447,
+        "tiefe": 202,
+        "t_tiefe": 64,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.021986578176722376
+       },
+       "grid_1e-3": {
+        "T": 243,
+        "cnot": 32,
+        "gatter": 740,
+        "tiefe": 283,
+        "t_tiefe": 96,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002910991845507694
+       },
+       "grid_1e-4": {
+        "T": 338,
+        "cnot": 32,
+        "gatter": 969,
+        "tiefe": 378,
+        "t_tiefe": 134,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00021221660312872685
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.900164176301892e-16,
+       "sk_r1": {
+        "T": 218,
+        "cnot": 32,
+        "gatter": 452,
+        "tiefe": 185,
+        "t_tiefe": 96,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.36734141282646027
+       },
+       "sk_r2": {
+        "T": 1168,
+        "cnot": 32,
+        "gatter": 2162,
+        "tiefe": 923,
+        "t_tiefe": 502,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11420481182061745
+       },
+       "sk_r3": {
+        "T": 6282,
+        "cnot": 32,
+        "gatter": 11510,
+        "tiefe": 4209,
+        "t_tiefe": 2306,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04013698594056369
+       },
+       "grid_1e-2": {
+        "T": 211,
+        "cnot": 32,
+        "gatter": 668,
+        "tiefe": 249,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.028662338627772767
+       },
+       "grid_1e-3": {
+        "T": 374,
+        "cnot": 32,
+        "gatter": 1084,
+        "tiefe": 370,
+        "t_tiefe": 130,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0035294718625585616
+       },
+       "grid_1e-4": {
+        "T": 504,
+        "cnot": 32,
+        "gatter": 1411,
+        "tiefe": 482,
+        "t_tiefe": 176,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002926979349571935
+       }
+      }
+     }
+    },
+    {
+     "seed": 13,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.220446049250313e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4728354088179504e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4728354088179504e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4728354088179504e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4728354088179504e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4728354088179504e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4728354088179504e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 2.498001805406602e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 83,
+        "tiefe": 36,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01565615141029167
+       },
+       "sk_r2": {
+        "T": 73,
+        "cnot": 32,
+        "gatter": 205,
+        "tiefe": 157,
+        "t_tiefe": 73,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02363951921686773
+       },
+       "sk_r3": {
+        "T": 429,
+        "cnot": 32,
+        "gatter": 839,
+        "tiefe": 791,
+        "t_tiefe": 429,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0013850413491719397
+       },
+       "grid_1e-2": {
+        "T": 21,
+        "cnot": 32,
+        "gatter": 140,
+        "tiefe": 92,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0008326966844708568
+       },
+       "grid_1e-3": {
+        "T": 32,
+        "cnot": 32,
+        "gatter": 166,
+        "tiefe": 118,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0004144444559406435
+       },
+       "grid_1e-4": {
+        "T": 43,
+        "cnot": 32,
+        "gatter": 195,
+        "tiefe": 147,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.436500814637677e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 2.918332177037995e-16,
+       "sk_r1": {
+        "T": 32,
+        "cnot": 32,
+        "gatter": 130,
+        "tiefe": 82,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06422939825761562
+       },
+       "sk_r2": {
+        "T": 200,
+        "cnot": 32,
+        "gatter": 430,
+        "tiefe": 381,
+        "t_tiefe": 200,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.035262091531833475
+       },
+       "sk_r3": {
+        "T": 982,
+        "cnot": 32,
+        "gatter": 1856,
+        "tiefe": 1807,
+        "t_tiefe": 982,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004750804166564062
+       },
+       "grid_1e-2": {
+        "T": 43,
+        "cnot": 32,
+        "gatter": 199,
+        "tiefe": 150,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.005131672396537717
+       },
+       "grid_1e-3": {
+        "T": 63,
+        "cnot": 32,
+        "gatter": 246,
+        "tiefe": 197,
+        "t_tiefe": 63,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0006781284304257476
+       },
+       "grid_1e-4": {
+        "T": 87,
+        "cnot": 32,
+        "gatter": 312,
+        "tiefe": 263,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 8.100007825032377e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.3350044890533274e-16,
+       "sk_r1": {
+        "T": 84,
+        "cnot": 32,
+        "gatter": 218,
+        "tiefe": 160,
+        "t_tiefe": 79,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1463060351983003
+       },
+       "sk_r2": {
+        "T": 426,
+        "cnot": 32,
+        "gatter": 832,
+        "tiefe": 652,
+        "t_tiefe": 353,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06363149850867529
+       },
+       "sk_r3": {
+        "T": 1964,
+        "cnot": 32,
+        "gatter": 3620,
+        "tiefe": 2806,
+        "t_tiefe": 1535,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.012473991784058412
+       },
+       "grid_1e-2": {
+        "T": 85,
+        "cnot": 32,
+        "gatter": 319,
+        "tiefe": 210,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006458320901725774
+       },
+       "grid_1e-3": {
+        "T": 120,
+        "cnot": 32,
+        "gatter": 394,
+        "tiefe": 272,
+        "t_tiefe": 93,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0010242080230067896
+       },
+       "grid_1e-4": {
+        "T": 171,
+        "cnot": 32,
+        "gatter": 536,
+        "tiefe": 366,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00013975465191605306
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 3.899087438857085e-16,
+       "sk_r1": {
+        "T": 192,
+        "cnot": 32,
+        "gatter": 398,
+        "tiefe": 198,
+        "t_tiefe": 106,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.27759905948162433
+       },
+       "sk_r2": {
+        "T": 938,
+        "cnot": 32,
+        "gatter": 1728,
+        "tiefe": 914,
+        "t_tiefe": 506,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1339541762747901
+       },
+       "sk_r3": {
+        "T": 4142,
+        "cnot": 32,
+        "gatter": 7558,
+        "tiefe": 3795,
+        "t_tiefe": 2086,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0200551462721363
+       },
+       "grid_1e-2": {
+        "T": 173,
+        "cnot": 32,
+        "gatter": 569,
+        "tiefe": 278,
+        "t_tiefe": 89,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.019852203164885222
+       },
+       "grid_1e-3": {
+        "T": 245,
+        "cnot": 32,
+        "gatter": 719,
+        "tiefe": 357,
+        "t_tiefe": 126,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0020604108309115157
+       },
+       "grid_1e-4": {
+        "T": 341,
+        "cnot": 32,
+        "gatter": 982,
+        "tiefe": 476,
+        "t_tiefe": 172,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00024344761156866717
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.3477205379865466e-16,
+       "sk_r1": {
+        "T": 292,
+        "cnot": 32,
+        "gatter": 566,
+        "tiefe": 203,
+        "t_tiefe": 110,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3380354494811249
+       },
+       "sk_r2": {
+        "T": 1438,
+        "cnot": 32,
+        "gatter": 2606,
+        "tiefe": 992,
+        "t_tiefe": 558,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1635049321841594
+       },
+       "sk_r3": {
+        "T": 6370,
+        "cnot": 32,
+        "gatter": 11580,
+        "tiefe": 4103,
+        "t_tiefe": 2260,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03325579051791666
+       },
+       "grid_1e-2": {
+        "T": 259,
+        "cnot": 32,
+        "gatter": 801,
+        "tiefe": 279,
+        "t_tiefe": 90,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.029274324692023568
+       },
+       "grid_1e-3": {
+        "T": 368,
+        "cnot": 32,
+        "gatter": 1044,
+        "tiefe": 357,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002863077276020382
+       },
+       "grid_1e-4": {
+        "T": 509,
+        "cnot": 32,
+        "gatter": 1423,
+        "tiefe": 479,
+        "t_tiefe": 172,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003074189296212359
+       }
+      }
+     }
+    },
+    {
+     "seed": 14,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.220446049250313e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.8528495324924398e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.8528495324924398e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.8528495324924398e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.8528495324924398e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.8528495324924398e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.8528495324924398e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 2.0816681711721685e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 85,
+        "tiefe": 36,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.019054731535768917
+       },
+       "sk_r2": {
+        "T": 81,
+        "cnot": 32,
+        "gatter": 221,
+        "tiefe": 171,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03686380674260555
+       },
+       "sk_r3": {
+        "T": 555,
+        "cnot": 32,
+        "gatter": 1063,
+        "tiefe": 1013,
+        "t_tiefe": 555,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00123380331447431
+       },
+       "grid_1e-2": {
+        "T": 20,
+        "cnot": 32,
+        "gatter": 135,
+        "tiefe": 85,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004972480978143829
+       },
+       "grid_1e-3": {
+        "T": 31,
+        "cnot": 32,
+        "gatter": 161,
+        "tiefe": 111,
+        "t_tiefe": 31,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0004447917879644102
+       },
+       "grid_1e-4": {
+        "T": 41,
+        "cnot": 32,
+        "gatter": 186,
+        "tiefe": 136,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.824146773279521e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 2.220446049250313e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 91,
+        "tiefe": 38,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.037459717860780145
+       },
+       "sk_r2": {
+        "T": 174,
+        "cnot": 32,
+        "gatter": 389,
+        "tiefe": 335,
+        "t_tiefe": 174,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04686234450399102
+       },
+       "sk_r3": {
+        "T": 956,
+        "cnot": 32,
+        "gatter": 1799,
+        "tiefe": 1745,
+        "t_tiefe": 956,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0037777056717461584
+       },
+       "grid_1e-2": {
+        "T": 39,
+        "cnot": 32,
+        "gatter": 191,
+        "tiefe": 137,
+        "t_tiefe": 39,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00789982455373284
+       },
+       "grid_1e-3": {
+        "T": 63,
+        "cnot": 32,
+        "gatter": 243,
+        "tiefe": 189,
+        "t_tiefe": 63,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0008377074592935041
+       },
+       "grid_1e-4": {
+        "T": 81,
+        "cnot": 32,
+        "gatter": 292,
+        "tiefe": 238,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 8.325022104944384e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 2.2233933358047793e-16,
+       "sk_r1": {
+        "T": 64,
+        "cnot": 32,
+        "gatter": 183,
+        "tiefe": 80,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.10301234930361802
+       },
+       "sk_r2": {
+        "T": 400,
+        "cnot": 32,
+        "gatter": 807,
+        "tiefe": 414,
+        "t_tiefe": 210,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.09087362908608666
+       },
+       "sk_r3": {
+        "T": 2154,
+        "cnot": 32,
+        "gatter": 3953,
+        "tiefe": 1852,
+        "t_tiefe": 1002,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.011303282544496442
+       },
+       "grid_1e-2": {
+        "T": 81,
+        "cnot": 32,
+        "gatter": 312,
+        "tiefe": 146,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.009894526417129821
+       },
+       "grid_1e-3": {
+        "T": 123,
+        "cnot": 32,
+        "gatter": 409,
+        "tiefe": 193,
+        "t_tiefe": 63,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0016606268161168105
+       },
+       "grid_1e-4": {
+        "T": 163,
+        "cnot": 32,
+        "gatter": 516,
+        "tiefe": 249,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00013232206971095542
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 2.782379830833962e-16,
+       "sk_r1": {
+        "T": 168,
+        "cnot": 32,
+        "gatter": 354,
+        "tiefe": 161,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.27332799823481235
+       },
+       "sk_r2": {
+        "T": 856,
+        "cnot": 32,
+        "gatter": 1622,
+        "tiefe": 730,
+        "t_tiefe": 391,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1420415713068085
+       },
+       "sk_r3": {
+        "T": 4454,
+        "cnot": 32,
+        "gatter": 8114,
+        "tiefe": 3246,
+        "t_tiefe": 1787,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02463437988661899
+       },
+       "grid_1e-2": {
+        "T": 164,
+        "cnot": 32,
+        "gatter": 539,
+        "tiefe": 206,
+        "t_tiefe": 66,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02130826080018224
+       },
+       "grid_1e-3": {
+        "T": 238,
+        "cnot": 32,
+        "gatter": 717,
+        "tiefe": 267,
+        "t_tiefe": 91,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0026212819996200083
+       },
+       "grid_1e-4": {
+        "T": 334,
+        "cnot": 32,
+        "gatter": 969,
+        "tiefe": 371,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00023027289399125733
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 2.506653050958961e-16,
+       "sk_r1": {
+        "T": 280,
+        "cnot": 32,
+        "gatter": 540,
+        "tiefe": 216,
+        "t_tiefe": 116,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3350620404200228
+       },
+       "sk_r2": {
+        "T": 1394,
+        "cnot": 32,
+        "gatter": 2580,
+        "tiefe": 935,
+        "t_tiefe": 512,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1818745109867697
+       },
+       "sk_r3": {
+        "T": 6560,
+        "cnot": 32,
+        "gatter": 11884,
+        "tiefe": 4175,
+        "t_tiefe": 2292,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.034769750947620366
+       },
+       "grid_1e-2": {
+        "T": 244,
+        "cnot": 32,
+        "gatter": 761,
+        "tiefe": 245,
+        "t_tiefe": 84,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.029038724466664594
+       },
+       "grid_1e-3": {
+        "T": 368,
+        "cnot": 32,
+        "gatter": 1071,
+        "tiefe": 372,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0032304912905003233
+       },
+       "grid_1e-4": {
+        "T": 495,
+        "cnot": 32,
+        "gatter": 1392,
+        "tiefe": 476,
+        "t_tiefe": 171,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002791986387502005
+       }
+      }
+     }
+    },
+    {
+     "seed": 15,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.8978232066644963e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.5501948427294678e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.5501948427294678e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.5501948427294678e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.5501948427294678e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.5501948427294678e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.5501948427294678e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.3427876641236296e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013228078596320376
+       },
+       "sk_r2": {
+        "T": 73,
+        "cnot": 32,
+        "gatter": 208,
+        "tiefe": 162,
+        "t_tiefe": 73,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.025312422298187878
+       },
+       "sk_r3": {
+        "T": 479,
+        "cnot": 32,
+        "gatter": 936,
+        "tiefe": 890,
+        "t_tiefe": 479,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004794371944651235
+       },
+       "grid_1e-2": {
+        "T": 21,
+        "cnot": 32,
+        "gatter": 132,
+        "tiefe": 86,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00320216662999664
+       },
+       "grid_1e-3": {
+        "T": 22,
+        "cnot": 32,
+        "gatter": 139,
+        "tiefe": 93,
+        "t_tiefe": 22,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0004599949657575476
+       },
+       "grid_1e-4": {
+        "T": 42,
+        "cnot": 32,
+        "gatter": 187,
+        "tiefe": 141,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.8582724086100952e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.064535574927099e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 92,
+        "tiefe": 40,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02004281279126459
+       },
+       "sk_r2": {
+        "T": 144,
+        "cnot": 32,
+        "gatter": 334,
+        "tiefe": 282,
+        "t_tiefe": 144,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04107160477487213
+       },
+       "sk_r3": {
+        "T": 912,
+        "cnot": 32,
+        "gatter": 1698,
+        "tiefe": 1646,
+        "t_tiefe": 912,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006072339702624373
+       },
+       "grid_1e-2": {
+        "T": 42,
+        "cnot": 32,
+        "gatter": 190,
+        "tiefe": 138,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007373529686598858
+       },
+       "grid_1e-3": {
+        "T": 52,
+        "cnot": 32,
+        "gatter": 216,
+        "tiefe": 164,
+        "t_tiefe": 52,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0005835638235113862
+       },
+       "grid_1e-4": {
+        "T": 85,
+        "cnot": 32,
+        "gatter": 301,
+        "tiefe": 249,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 6.529566804769453e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 20,
+        "cnot": 32,
+        "gatter": 104,
+        "tiefe": 46,
+        "t_tiefe": 15,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.07125220399275986
+       },
+       "sk_r2": {
+        "T": 310,
+        "cnot": 32,
+        "gatter": 622,
+        "tiefe": 442,
+        "t_tiefe": 237,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08424353213795228
+       },
+       "sk_r3": {
+        "T": 2012,
+        "cnot": 32,
+        "gatter": 3654,
+        "tiefe": 2746,
+        "t_tiefe": 1533,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01447024915538701
+       },
+       "grid_1e-2": {
+        "T": 80,
+        "cnot": 32,
+        "gatter": 289,
+        "tiefe": 185,
+        "t_tiefe": 61,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.012827211413496228
+       },
+       "grid_1e-3": {
+        "T": 115,
+        "cnot": 32,
+        "gatter": 380,
+        "tiefe": 269,
+        "t_tiefe": 93,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0011248742763402687
+       },
+       "grid_1e-4": {
+        "T": 171,
+        "cnot": 32,
+        "gatter": 521,
+        "tiefe": 362,
+        "t_tiefe": 129,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00013099308651881144
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 104,
+        "cnot": 32,
+        "gatter": 247,
+        "tiefe": 141,
+        "t_tiefe": 69,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.19645365513709281
+       },
+       "sk_r2": {
+        "T": 772,
+        "cnot": 32,
+        "gatter": 1453,
+        "tiefe": 799,
+        "t_tiefe": 436,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.13143117567330306
+       },
+       "sk_r3": {
+        "T": 4142,
+        "cnot": 32,
+        "gatter": 7551,
+        "tiefe": 3655,
+        "t_tiefe": 2000,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.024847621963173947
+       },
+       "grid_1e-2": {
+        "T": 163,
+        "cnot": 32,
+        "gatter": 519,
+        "tiefe": 253,
+        "t_tiefe": 84,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.022833298273683553
+       },
+       "grid_1e-3": {
+        "T": 242,
+        "cnot": 32,
+        "gatter": 726,
+        "tiefe": 346,
+        "t_tiefe": 124,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002052164265631148
+       },
+       "grid_1e-4": {
+        "T": 341,
+        "cnot": 32,
+        "gatter": 964,
+        "tiefe": 478,
+        "t_tiefe": 176,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00023350896676502627
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.0684245575781467e-16,
+       "sk_r1": {
+        "T": 176,
+        "cnot": 32,
+        "gatter": 368,
+        "tiefe": 162,
+        "t_tiefe": 84,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.28624347155784324
+       },
+       "sk_r2": {
+        "T": 1262,
+        "cnot": 32,
+        "gatter": 2338,
+        "tiefe": 912,
+        "t_tiefe": 498,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.18168733551646155
+       },
+       "sk_r3": {
+        "T": 6126,
+        "cnot": 32,
+        "gatter": 11158,
+        "tiefe": 3979,
+        "t_tiefe": 2168,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03286900268605124
+       },
+       "grid_1e-2": {
+        "T": 245,
+        "cnot": 32,
+        "gatter": 748,
+        "tiefe": 257,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.027095656442040053
+       },
+       "grid_1e-3": {
+        "T": 367,
+        "cnot": 32,
+        "gatter": 1068,
+        "tiefe": 370,
+        "t_tiefe": 131,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0029892735817038055
+       },
+       "grid_1e-4": {
+        "T": 504,
+        "cnot": 32,
+        "gatter": 1392,
+        "tiefe": 478,
+        "t_tiefe": 176,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00030565154724779915
+       }
+      }
+     }
+    },
+    {
+     "seed": 16,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.8978232066644963e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 72,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.606783544388061e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 72,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.606783544388061e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 72,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.606783544388061e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 72,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.606783544388061e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 72,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.606783544388061e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 72,
+        "tiefe": 36,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.606783544388061e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 5.011943115858495e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 78,
+        "tiefe": 36,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0037121781263787512
+       },
+       "sk_r2": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 78,
+        "tiefe": 36,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0037121781263787512
+       },
+       "sk_r3": {
+        "T": 417,
+        "cnot": 32,
+        "gatter": 832,
+        "tiefe": 790,
+        "t_tiefe": 417,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0012256875419224401
+       },
+       "grid_1e-2": {
+        "T": 1,
+        "cnot": 32,
+        "gatter": 76,
+        "tiefe": 36,
+        "t_tiefe": 1,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0037121781263787044
+       },
+       "grid_1e-3": {
+        "T": 29,
+        "cnot": 32,
+        "gatter": 151,
+        "tiefe": 109,
+        "t_tiefe": 29,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.000455986236625488
+       },
+       "grid_1e-4": {
+        "T": 43,
+        "cnot": 32,
+        "gatter": 187,
+        "tiefe": 145,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 3.269148653631626e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 6.12812497728593e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 84,
+        "tiefe": 38,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.019534347269736598
+       },
+       "sk_r2": {
+        "T": 78,
+        "cnot": 32,
+        "gatter": 206,
+        "tiefe": 160,
+        "t_tiefe": 78,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02426904713611276
+       },
+       "sk_r3": {
+        "T": 856,
+        "cnot": 32,
+        "gatter": 1634,
+        "tiefe": 1588,
+        "t_tiefe": 856,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004464434374687543
+       },
+       "grid_1e-2": {
+        "T": 21,
+        "cnot": 32,
+        "gatter": 130,
+        "tiefe": 86,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006662326405935669
+       },
+       "grid_1e-3": {
+        "T": 60,
+        "cnot": 32,
+        "gatter": 231,
+        "tiefe": 185,
+        "t_tiefe": 60,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0007917586915052409
+       },
+       "grid_1e-4": {
+        "T": 82,
+        "cnot": 32,
+        "gatter": 293,
+        "tiefe": 247,
+        "t_tiefe": 82,
+        "nur_clifford_t": true,
+        "operatorfehler": 5.023396157928761e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 4.996003610813204e-16,
+       "sk_r1": {
+        "T": 20,
+        "cnot": 32,
+        "gatter": 96,
+        "tiefe": 38,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.05723714236733703
+       },
+       "sk_r2": {
+        "T": 232,
+        "cnot": 32,
+        "gatter": 480,
+        "tiefe": 298,
+        "t_tiefe": 154,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06280155604310642
+       },
+       "sk_r3": {
+        "T": 1922,
+        "cnot": 32,
+        "gatter": 3520,
+        "tiefe": 1910,
+        "t_tiefe": 1066,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01514732931640707
+       },
+       "grid_1e-2": {
+        "T": 60,
+        "cnot": 32,
+        "gatter": 247,
+        "tiefe": 141,
+        "t_tiefe": 40,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.012363072228497784
+       },
+       "grid_1e-3": {
+        "T": 125,
+        "cnot": 32,
+        "gatter": 411,
+        "tiefe": 204,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0012224887604003172
+       },
+       "grid_1e-4": {
+        "T": 165,
+        "cnot": 32,
+        "gatter": 509,
+        "tiefe": 247,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.931105393863796e-05
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 6.106226635438361e-16,
+       "sk_r1": {
+        "T": 84,
+        "cnot": 32,
+        "gatter": 203,
+        "tiefe": 102,
+        "t_tiefe": 49,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1761717167154239
+       },
+       "sk_r2": {
+        "T": 686,
+        "cnot": 32,
+        "gatter": 1289,
+        "tiefe": 608,
+        "t_tiefe": 331,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11467710515930725
+       },
+       "sk_r3": {
+        "T": 3966,
+        "cnot": 32,
+        "gatter": 7253,
+        "tiefe": 2971,
+        "t_tiefe": 1639,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.024290417656742468
+       },
+       "grid_1e-2": {
+        "T": 139,
+        "cnot": 32,
+        "gatter": 469,
+        "tiefe": 195,
+        "t_tiefe": 60,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01896182197221875
+       },
+       "grid_1e-3": {
+        "T": 256,
+        "cnot": 32,
+        "gatter": 743,
+        "tiefe": 287,
+        "t_tiefe": 101,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002370376281838838
+       },
+       "grid_1e-4": {
+        "T": 336,
+        "cnot": 32,
+        "gatter": 950,
+        "tiefe": 355,
+        "t_tiefe": 130,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00021785034685521554
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.885780586188048e-16,
+       "sk_r1": {
+        "T": 166,
+        "cnot": 32,
+        "gatter": 343,
+        "tiefe": 132,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3355466179559023
+       },
+       "sk_r2": {
+        "T": 1214,
+        "cnot": 32,
+        "gatter": 2233,
+        "tiefe": 715,
+        "t_tiefe": 389,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.17125943445249017
+       },
+       "sk_r3": {
+        "T": 6386,
+        "cnot": 32,
+        "gatter": 11581,
+        "tiefe": 3281,
+        "t_tiefe": 1833,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03376850217231175
+       },
+       "grid_1e-2": {
+        "T": 228,
+        "cnot": 32,
+        "gatter": 707,
+        "tiefe": 196,
+        "t_tiefe": 67,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02769268253098741
+       },
+       "grid_1e-3": {
+        "T": 373,
+        "cnot": 32,
+        "gatter": 1058,
+        "tiefe": 287,
+        "t_tiefe": 101,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.003194141747899551
+       },
+       "grid_1e-4": {
+        "T": 504,
+        "cnot": 32,
+        "gatter": 1404,
+        "tiefe": 367,
+        "t_tiefe": 131,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003017729772243432
+       }
+      }
+     }
+    },
+    {
+     "seed": 17,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 4.440892098500626e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2768236087536115e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2768236087536115e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2768236087536115e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2768236087536115e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2768236087536115e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 80,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2768236087536115e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 7.771561172376096e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0041351259085613545
+       },
+       "sk_r2": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0041351259085613545
+       },
+       "sk_r3": {
+        "T": 413,
+        "cnot": 32,
+        "gatter": 824,
+        "tiefe": 778,
+        "t_tiefe": 413,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0006537123518372764
+       },
+       "grid_1e-2": {
+        "T": 1,
+        "cnot": 32,
+        "gatter": 84,
+        "tiefe": 38,
+        "t_tiefe": 1,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004135125908561264
+       },
+       "grid_1e-3": {
+        "T": 30,
+        "cnot": 32,
+        "gatter": 165,
+        "tiefe": 119,
+        "t_tiefe": 30,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.000478338362506587
+       },
+       "grid_1e-4": {
+        "T": 41,
+        "cnot": 32,
+        "gatter": 189,
+        "tiefe": 143,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 3.528326839421479e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 9.43689570931383e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 92,
+        "tiefe": 41,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006349791898184013
+       },
+       "sk_r2": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 92,
+        "tiefe": 41,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006349791898184013
+       },
+       "sk_r3": {
+        "T": 820,
+        "cnot": 32,
+        "gatter": 1564,
+        "tiefe": 1513,
+        "t_tiefe": 820,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004033670072616141
+       },
+       "grid_1e-2": {
+        "T": 2,
+        "cnot": 32,
+        "gatter": 88,
+        "tiefe": 38,
+        "t_tiefe": 2,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0063497918981838975
+       },
+       "grid_1e-3": {
+        "T": 61,
+        "cnot": 32,
+        "gatter": 252,
+        "tiefe": 201,
+        "t_tiefe": 61,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0007113834249561026
+       },
+       "grid_1e-4": {
+        "T": 85,
+        "cnot": 32,
+        "gatter": 304,
+        "tiefe": 253,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 6.646317667081081e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.885780586188048e-16,
+       "sk_r1": {
+        "T": 34,
+        "cnot": 32,
+        "gatter": 130,
+        "tiefe": 68,
+        "t_tiefe": 29,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.07605202606014753
+       },
+       "sk_r2": {
+        "T": 220,
+        "cnot": 32,
+        "gatter": 466,
+        "tiefe": 403,
+        "t_tiefe": 215,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.023286974232918513
+       },
+       "sk_r3": {
+        "T": 1732,
+        "cnot": 32,
+        "gatter": 3214,
+        "tiefe": 2413,
+        "t_tiefe": 1319,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006987741345937937
+       },
+       "grid_1e-2": {
+        "T": 43,
+        "cnot": 32,
+        "gatter": 200,
+        "tiefe": 140,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.012479375931728303
+       },
+       "grid_1e-3": {
+        "T": 124,
+        "cnot": 32,
+        "gatter": 420,
+        "tiefe": 278,
+        "t_tiefe": 94,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0009493010774006642
+       },
+       "grid_1e-4": {
+        "T": 168,
+        "cnot": 32,
+        "gatter": 513,
+        "tiefe": 350,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00010790309168472261
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 8.326672684688674e-16,
+       "sk_r1": {
+        "T": 132,
+        "cnot": 32,
+        "gatter": 294,
+        "tiefe": 150,
+        "t_tiefe": 73,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.253343622960952
+       },
+       "sk_r2": {
+        "T": 672,
+        "cnot": 32,
+        "gatter": 1282,
+        "tiefe": 683,
+        "t_tiefe": 369,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08653839358454433
+       },
+       "sk_r3": {
+        "T": 3996,
+        "cnot": 32,
+        "gatter": 7332,
+        "tiefe": 3090,
+        "t_tiefe": 1693,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.022512331411010642
+       },
+       "grid_1e-2": {
+        "T": 125,
+        "cnot": 32,
+        "gatter": 413,
+        "tiefe": 195,
+        "t_tiefe": 62,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02401752971369493
+       },
+       "grid_1e-3": {
+        "T": 242,
+        "cnot": 32,
+        "gatter": 727,
+        "tiefe": 282,
+        "t_tiefe": 98,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0017917000879373055
+       },
+       "grid_1e-4": {
+        "T": 344,
+        "cnot": 32,
+        "gatter": 969,
+        "tiefe": 365,
+        "t_tiefe": 133,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00019676147305250924
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 8.326672684688674e-16,
+       "sk_r1": {
+        "T": 241,
+        "cnot": 32,
+        "gatter": 474,
+        "tiefe": 166,
+        "t_tiefe": 84,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3275376999985648
+       },
+       "sk_r2": {
+        "T": 1171,
+        "cnot": 32,
+        "gatter": 2168,
+        "tiefe": 756,
+        "t_tiefe": 417,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.14923013498164922
+       },
+       "sk_r3": {
+        "T": 5921,
+        "cnot": 32,
+        "gatter": 10770,
+        "tiefe": 3396,
+        "t_tiefe": 1859,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.026158110243255168
+       },
+       "grid_1e-2": {
+        "T": 211,
+        "cnot": 32,
+        "gatter": 644,
+        "tiefe": 202,
+        "t_tiefe": 66,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03017748237977061
+       },
+       "grid_1e-3": {
+        "T": 371,
+        "cnot": 32,
+        "gatter": 1075,
+        "tiefe": 357,
+        "t_tiefe": 126,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002724691728343685
+       },
+       "grid_1e-4": {
+        "T": 511,
+        "cnot": 32,
+        "gatter": 1405,
+        "tiefe": 459,
+        "t_tiefe": 170,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002717711469646903
+       }
+      }
+     }
+    },
+    {
+     "seed": 18,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.8918065544428225e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.0594996416718776e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.0594996416718776e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.0594996416718776e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.0594996416718776e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.0594996416718776e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 86,
+        "tiefe": 40,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.0594996416718776e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 4.445463060789994e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 92,
+        "tiefe": 45,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01892859988546078
+       },
+       "sk_r2": {
+        "T": 73,
+        "cnot": 32,
+        "gatter": 214,
+        "tiefe": 167,
+        "t_tiefe": 73,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02161264088855005
+       },
+       "sk_r3": {
+        "T": 429,
+        "cnot": 32,
+        "gatter": 878,
+        "tiefe": 831,
+        "t_tiefe": 429,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0022360703728619906
+       },
+       "grid_1e-2": {
+        "T": 21,
+        "cnot": 32,
+        "gatter": 138,
+        "tiefe": 91,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0025424383715836186
+       },
+       "grid_1e-3": {
+        "T": 31,
+        "cnot": 32,
+        "gatter": 166,
+        "tiefe": 119,
+        "t_tiefe": 31,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00047236201463834044
+       },
+       "grid_1e-4": {
+        "T": 41,
+        "cnot": 32,
+        "gatter": 197,
+        "tiefe": 150,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.620899997373397e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 5.279924651242944e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 32,
+        "gatter": 98,
+        "tiefe": 45,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.05532468056885062
+       },
+       "sk_r2": {
+        "T": 166,
+        "cnot": 32,
+        "gatter": 382,
+        "tiefe": 204,
+        "t_tiefe": 93,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03524124197917501
+       },
+       "sk_r3": {
+        "T": 990,
+        "cnot": 32,
+        "gatter": 1872,
+        "tiefe": 1030,
+        "t_tiefe": 561,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.008806014621352526
+       },
+       "grid_1e-2": {
+        "T": 42,
+        "cnot": 32,
+        "gatter": 203,
+        "tiefe": 101,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007025502432664184
+       },
+       "grid_1e-3": {
+        "T": 60,
+        "cnot": 32,
+        "gatter": 243,
+        "tiefe": 119,
+        "t_tiefe": 31,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0005409930655669681
+       },
+       "grid_1e-4": {
+        "T": 83,
+        "cnot": 32,
+        "gatter": 306,
+        "tiefe": 150,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 7.687314151151336e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 5.560087721253288e-16,
+       "sk_r1": {
+        "T": 42,
+        "cnot": 32,
+        "gatter": 151,
+        "tiefe": 82,
+        "t_tiefe": 27,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.13212087219131
+       },
+       "sk_r2": {
+        "T": 368,
+        "cnot": 32,
+        "gatter": 755,
+        "tiefe": 254,
+        "t_tiefe": 117,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06292536732271
+       },
+       "sk_r3": {
+        "T": 2024,
+        "cnot": 32,
+        "gatter": 3747,
+        "tiefe": 1070,
+        "t_tiefe": 571,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.012042707417100484
+       },
+       "grid_1e-2": {
+        "T": 83,
+        "cnot": 32,
+        "gatter": 325,
+        "tiefe": 101,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013205351829313292
+       },
+       "grid_1e-3": {
+        "T": 121,
+        "cnot": 32,
+        "gatter": 406,
+        "tiefe": 121,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0013910766530845177
+       },
+       "grid_1e-4": {
+        "T": 162,
+        "cnot": 32,
+        "gatter": 530,
+        "tiefe": 150,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001357615041385404
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 6.661338147750939e-16,
+       "sk_r1": {
+        "T": 139,
+        "cnot": 32,
+        "gatter": 314,
+        "tiefe": 124,
+        "t_tiefe": 56,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2773329236200884
+       },
+       "sk_r2": {
+        "T": 911,
+        "cnot": 32,
+        "gatter": 1716,
+        "tiefe": 512,
+        "t_tiefe": 262,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.12804248655188455
+       },
+       "sk_r3": {
+        "T": 4343,
+        "cnot": 32,
+        "gatter": 7872,
+        "tiefe": 2242,
+        "t_tiefe": 1236,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.023700093179112938
+       },
+       "grid_1e-2": {
+        "T": 169,
+        "cnot": 32,
+        "gatter": 556,
+        "tiefe": 158,
+        "t_tiefe": 44,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.022011984979613212
+       },
+       "grid_1e-3": {
+        "T": 252,
+        "cnot": 32,
+        "gatter": 762,
+        "tiefe": 211,
+        "t_tiefe": 66,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00205512275215083
+       },
+       "grid_1e-4": {
+        "T": 328,
+        "cnot": 32,
+        "gatter": 967,
+        "tiefe": 261,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00019919674456845462
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 7.216449660063518e-16,
+       "sk_r1": {
+        "T": 246,
+        "cnot": 32,
+        "gatter": 497,
+        "tiefe": 202,
+        "t_tiefe": 110,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3586514583964243
+       },
+       "sk_r2": {
+        "T": 1334,
+        "cnot": 32,
+        "gatter": 2475,
+        "tiefe": 849,
+        "t_tiefe": 455,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.15789541145207694
+       },
+       "sk_r3": {
+        "T": 6310,
+        "cnot": 32,
+        "gatter": 11463,
+        "tiefe": 3777,
+        "t_tiefe": 2073,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.029910610845406173
+       },
+       "grid_1e-2": {
+        "T": 251,
+        "cnot": 32,
+        "gatter": 784,
+        "tiefe": 266,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03101268088030312
+       },
+       "grid_1e-3": {
+        "T": 382,
+        "cnot": 32,
+        "gatter": 1115,
+        "tiefe": 376,
+        "t_tiefe": 129,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002703143027105173
+       },
+       "grid_1e-4": {
+        "T": 495,
+        "cnot": 32,
+        "gatter": 1409,
+        "tiefe": 469,
+        "t_tiefe": 168,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00028373028459626994
+       }
+      }
+     }
+    },
+    {
+     "seed": 19,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.918353097442426e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 70,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4090791453387954e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 70,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4090791453387954e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 70,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4090791453387954e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 70,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4090791453387954e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 70,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4090791453387954e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 32,
+        "gatter": 70,
+        "tiefe": 38,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4090791453387954e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 2.636779683484747e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 32,
+        "gatter": 77,
+        "tiefe": 45,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03100216098699163
+       },
+       "sk_r2": {
+        "T": 81,
+        "cnot": 32,
+        "gatter": 213,
+        "tiefe": 181,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.026066019394542287
+       },
+       "sk_r3": {
+        "T": 463,
+        "cnot": 32,
+        "gatter": 917,
+        "tiefe": 885,
+        "t_tiefe": 463,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0032791132576907504
+       },
+       "grid_1e-2": {
+        "T": 19,
+        "cnot": 32,
+        "gatter": 123,
+        "tiefe": 91,
+        "t_tiefe": 19,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0034709117398473615
+       },
+       "grid_1e-3": {
+        "T": 33,
+        "cnot": 32,
+        "gatter": 160,
+        "tiefe": 128,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003825090509813504
+       },
+       "grid_1e-4": {
+        "T": 41,
+        "cnot": 32,
+        "gatter": 177,
+        "tiefe": 145,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.1333010123018177e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.0585868266354787e-16,
+       "sk_r1": {
+        "T": 30,
+        "cnot": 32,
+        "gatter": 121,
+        "tiefe": 87,
+        "t_tiefe": 30,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06858477099762295
+       },
+       "sk_r2": {
+        "T": 206,
+        "cnot": 32,
+        "gatter": 435,
+        "tiefe": 401,
+        "t_tiefe": 206,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.032108285203204454
+       },
+       "sk_r3": {
+        "T": 938,
+        "cnot": 32,
+        "gatter": 1739,
+        "tiefe": 1705,
+        "t_tiefe": 938,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006067734240145046
+       },
+       "grid_1e-2": {
+        "T": 41,
+        "cnot": 32,
+        "gatter": 179,
+        "tiefe": 145,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.008428430358501184
+       },
+       "grid_1e-3": {
+        "T": 67,
+        "cnot": 32,
+        "gatter": 256,
+        "tiefe": 222,
+        "t_tiefe": 67,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0006436036482279042
+       },
+       "grid_1e-4": {
+        "T": 82,
+        "cnot": 32,
+        "gatter": 284,
+        "tiefe": 250,
+        "t_tiefe": 82,
+        "nur_clifford_t": true,
+        "operatorfehler": 3.5211685104992505e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.6142136738940384e-16,
+       "sk_r1": {
+        "T": 70,
+        "cnot": 32,
+        "gatter": 189,
+        "tiefe": 143,
+        "t_tiefe": 70,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.14362969271045006
+       },
+       "sk_r2": {
+        "T": 420,
+        "cnot": 32,
+        "gatter": 821,
+        "tiefe": 775,
+        "t_tiefe": 420,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.051363347993961875
+       },
+       "sk_r3": {
+        "T": 2046,
+        "cnot": 32,
+        "gatter": 3723,
+        "tiefe": 3677,
+        "t_tiefe": 2046,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01238676000689878
+       },
+       "grid_1e-2": {
+        "T": 84,
+        "cnot": 32,
+        "gatter": 288,
+        "tiefe": 242,
+        "t_tiefe": 84,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01505471116904204
+       },
+       "grid_1e-3": {
+        "T": 127,
+        "cnot": 32,
+        "gatter": 413,
+        "tiefe": 367,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001201231326404559
+       },
+       "grid_1e-4": {
+        "T": 168,
+        "cnot": 32,
+        "gatter": 520,
+        "tiefe": 474,
+        "t_tiefe": 168,
+        "nur_clifford_t": true,
+        "operatorfehler": 7.563047518709614e-05
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 3.0669325402365246e-16,
+       "sk_r1": {
+        "T": 154,
+        "cnot": 32,
+        "gatter": 331,
+        "tiefe": 173,
+        "t_tiefe": 84,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.31259178201486304
+       },
+       "sk_r2": {
+        "T": 892,
+        "cnot": 32,
+        "gatter": 1669,
+        "tiefe": 833,
+        "t_tiefe": 448,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11516598895719003
+       },
+       "sk_r3": {
+        "T": 4210,
+        "cnot": 32,
+        "gatter": 7685,
+        "tiefe": 3677,
+        "t_tiefe": 2046,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02436649221391035
+       },
+       "grid_1e-2": {
+        "T": 167,
+        "cnot": 32,
+        "gatter": 515,
+        "tiefe": 256,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.024508633193026045
+       },
+       "grid_1e-3": {
+        "T": 247,
+        "cnot": 32,
+        "gatter": 723,
+        "tiefe": 377,
+        "t_tiefe": 130,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002095100463254646
+       },
+       "grid_1e-4": {
+        "T": 332,
+        "cnot": 32,
+        "gatter": 947,
+        "tiefe": 474,
+        "t_tiefe": 169,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00019991330088952623
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.608224830031759e-16,
+       "sk_r1": {
+        "T": 258,
+        "cnot": 32,
+        "gatter": 505,
+        "tiefe": 203,
+        "t_tiefe": 104,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3916043966166004
+       },
+       "sk_r2": {
+        "T": 1420,
+        "cnot": 32,
+        "gatter": 2605,
+        "tiefe": 958,
+        "t_tiefe": 526,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.14685388221005474
+       },
+       "sk_r3": {
+        "T": 6484,
+        "cnot": 32,
+        "gatter": 11797,
+        "tiefe": 4160,
+        "t_tiefe": 2306,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.031063766389217734
+       },
+       "grid_1e-2": {
+        "T": 253,
+        "cnot": 32,
+        "gatter": 740,
+        "tiefe": 264,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.029110882745555212
+       },
+       "grid_1e-3": {
+        "T": 357,
+        "cnot": 32,
+        "gatter": 1036,
+        "tiefe": 379,
+        "t_tiefe": 130,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0028338452927226198
+       },
+       "grid_1e-4": {
+        "T": 498,
+        "cnot": 32,
+        "gatter": 1374,
+        "tiefe": 474,
+        "t_tiefe": 171,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00028805364353066016
+       }
+      }
+     }
+    }
+   ]
+  },
+  "ziffern": {
+   "rohdatei": "C-clifford-v2__20260924_162826.json",
+   "qubits": 6,
+   "seeds": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+   ],
+   "M50": 2,
+   "M90": 12,
+   "tabelle": [
+    {
+     "k": 0,
+     "gewinnanteil": -0.09999996430344783,
+     "fehler_exakt_max": 4.1745783602540615e-16,
+     "sk_r1": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 31.2,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 24,
+      "operatorfehler_max": 1.4640312159460365e-15,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 31.2,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 24,
+      "operatorfehler_max": 1.4640312159460365e-15,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 31.2,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 24,
+      "operatorfehler_max": 1.4640312159460365e-15,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 31.2,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 24,
+      "operatorfehler_max": 1.4640312159460365e-15,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 31.2,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 24,
+      "operatorfehler_max": 1.4640312159460365e-15,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 0.0,
+      "T_min": 0,
+      "T_max": 0,
+      "tiefe_mittel": 31.2,
+      "t_tiefe_mittel": 0.0,
+      "cnot": 24,
+      "operatorfehler_max": 1.4640312159460365e-15,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 1,
+     "gewinnanteil": 0.33333333333333337,
+     "fehler_exakt_max": 4.996003610813204e-16,
+     "sk_r1": {
+      "T_mittel": 5.0,
+      "T_min": 5,
+      "T_max": 5,
+      "tiefe_mittel": 33.8,
+      "t_tiefe_mittel": 5.0,
+      "cnot": 24,
+      "operatorfehler_max": 0.030083164552611508,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 76.4,
+      "T_min": 5,
+      "T_max": 95,
+      "tiefe_mittel": 160.4,
+      "t_tiefe_mittel": 76.4,
+      "cnot": 24,
+      "operatorfehler_max": 0.03757832603254527,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 518.0,
+      "T_min": 411,
+      "T_max": 607,
+      "tiefe_mittel": 955.8,
+      "t_tiefe_mittel": 518.0,
+      "cnot": 24,
+      "operatorfehler_max": 0.0068554013254616955,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 18.1,
+      "T_min": 1,
+      "T_max": 21,
+      "tiefe_mittel": 78.6,
+      "t_tiefe_mittel": 18.1,
+      "cnot": 24,
+      "operatorfehler_max": 0.004836905690499335,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 31.2,
+      "T_min": 22,
+      "T_max": 33,
+      "tiefe_mittel": 112.1,
+      "t_tiefe_mittel": 31.2,
+      "cnot": 24,
+      "operatorfehler_max": 0.0004829606733347136,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 40.2,
+      "T_min": 38,
+      "T_max": 42,
+      "tiefe_mittel": 132.9,
+      "t_tiefe_mittel": 40.2,
+      "cnot": 24,
+      "operatorfehler_max": 4.8201060989053246e-05,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 2,
+     "gewinnanteil": 0.5111110873134097,
+     "fehler_exakt_max": 5.563867149079186e-16,
+     "sk_r1": {
+      "T_mittel": 19.2,
+      "T_min": 10,
+      "T_max": 34,
+      "tiefe_mittel": 53.8,
+      "t_tiefe_mittel": 17.7,
+      "cnot": 24,
+      "operatorfehler_max": 0.1108986108237203,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 179.2,
+      "T_min": 88,
+      "T_max": 222,
+      "tiefe_mittel": 295.6,
+      "t_tiefe_mittel": 153.7,
+      "cnot": 24,
+      "operatorfehler_max": 0.06887416767772526,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 1056.4,
+      "T_min": 876,
+      "T_max": 1200,
+      "tiefe_mittel": 1624.3,
+      "t_tiefe_mittel": 890.5,
+      "cnot": 24,
+      "operatorfehler_max": 0.010078691080783488,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 38.9,
+      "T_min": 20,
+      "T_max": 43,
+      "tiefe_mittel": 118.3,
+      "t_tiefe_mittel": 32.9,
+      "cnot": 24,
+      "operatorfehler_max": 0.008947351074427073,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 60.8,
+      "T_min": 52,
+      "T_max": 67,
+      "tiefe_mittel": 166.5,
+      "t_tiefe_mittel": 52.3,
+      "cnot": 24,
+      "operatorfehler_max": 0.000891503239150387,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 82.8,
+      "T_min": 80,
+      "T_max": 87,
+      "tiefe_mittel": 210.2,
+      "t_tiefe_mittel": 71.0,
+      "cnot": 24,
+      "operatorfehler_max": 9.163908078194162e-05,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 4,
+     "gewinnanteil": 0.7555546512429004,
+     "fehler_exakt_max": 6.120978117283728e-16,
+     "sk_r1": {
+      "T_mittel": 61.7,
+      "T_min": 20,
+      "T_max": 78,
+      "tiefe_mittel": 108.7,
+      "t_tiefe_mittel": 51.0,
+      "cnot": 24,
+      "operatorfehler_max": 0.18697037415699183,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 412.5,
+      "T_min": 342,
+      "T_max": 465,
+      "tiefe_mittel": 580.6,
+      "t_tiefe_mittel": 315.0,
+      "cnot": 24,
+      "operatorfehler_max": 0.08484834838884503,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 2074.9,
+      "T_min": 1764,
+      "T_max": 2299,
+      "tiefe_mittel": 2781.7,
+      "t_tiefe_mittel": 1530.4,
+      "cnot": 24,
+      "operatorfehler_max": 0.021091890829925783,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 80.3,
+      "T_min": 60,
+      "T_max": 87,
+      "tiefe_mittel": 188.1,
+      "t_tiefe_mittel": 59.9,
+      "cnot": 24,
+      "operatorfehler_max": 0.01726531945130075,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 122.8,
+      "T_min": 110,
+      "T_max": 129,
+      "tiefe_mittel": 265.7,
+      "t_tiefe_mittel": 90.8,
+      "cnot": 24,
+      "operatorfehler_max": 0.0013665616793300565,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 164.1,
+      "T_min": 160,
+      "T_max": 168,
+      "tiefe_mittel": 338.9,
+      "t_tiefe_mittel": 120.4,
+      "cnot": 24,
+      "operatorfehler_max": 0.00015723152480319848,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 8,
+     "gewinnanteil": 0.8666658813425189,
+     "fehler_exakt_max": 4.996003610813204e-16,
+     "sk_r1": {
+      "T_mittel": 158.2,
+      "T_min": 108,
+      "T_max": 189,
+      "tiefe_mittel": 158.8,
+      "t_tiefe_mittel": 81.3,
+      "cnot": 24,
+      "operatorfehler_max": 0.3356462200085874,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 871.6,
+      "T_min": 752,
+      "T_max": 945,
+      "tiefe_mittel": 765.9,
+      "t_tiefe_mittel": 417.9,
+      "cnot": 24,
+      "operatorfehler_max": 0.14538857575408262,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 4233.4,
+      "T_min": 3874,
+      "T_max": 4561,
+      "tiefe_mittel": 3501.4,
+      "t_tiefe_mittel": 1932.6,
+      "cnot": 24,
+      "operatorfehler_max": 0.032121916405399714,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 163.9,
+      "T_min": 142,
+      "T_max": 170,
+      "tiefe_mittel": 227.6,
+      "t_tiefe_mittel": 74.4,
+      "cnot": 24,
+      "operatorfehler_max": 0.025349454046411556,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 244.0,
+      "T_min": 228,
+      "T_max": 254,
+      "tiefe_mittel": 321.6,
+      "t_tiefe_mittel": 112.6,
+      "cnot": 24,
+      "operatorfehler_max": 0.002470145844818313,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 330.5,
+      "T_min": 323,
+      "T_max": 335,
+      "tiefe_mittel": 414.5,
+      "t_tiefe_mittel": 148.1,
+      "cnot": 24,
+      "operatorfehler_max": 0.00024567574793215067,
+      "nur_clifford_t": true
+     }
+    },
+    {
+     "k": 12,
+     "gewinnanteil": 1.0222221746268194,
+     "fehler_exakt_max": 6.661338147750939e-16,
+     "sk_r1": {
+      "T_mittel": 259.3,
+      "T_min": 208,
+      "T_max": 289,
+      "tiefe_mittel": 194.1,
+      "t_tiefe_mittel": 102.9,
+      "cnot": 24,
+      "operatorfehler_max": 0.3945900675165044,
+      "nur_clifford_t": true
+     },
+     "sk_r2": {
+      "T_mittel": 1349.5,
+      "T_min": 1185,
+      "T_max": 1458,
+      "tiefe_mittel": 911.1,
+      "t_tiefe_mittel": 503.4,
+      "cnot": 24,
+      "operatorfehler_max": 0.18152827402444885,
+      "nur_clifford_t": true
+     },
+     "sk_r3": {
+      "T_mittel": 6402.3,
+      "T_min": 6069,
+      "T_max": 6784,
+      "tiefe_mittel": 4126.3,
+      "t_tiefe_mittel": 2280.8,
+      "cnot": 24,
+      "operatorfehler_max": 0.038509981759640544,
+      "nur_clifford_t": true
+     },
+     "grid_1e-2": {
+      "T_mittel": 247.9,
+      "T_min": 225,
+      "T_max": 257,
+      "tiefe_mittel": 260.0,
+      "t_tiefe_mittel": 86.5,
+      "cnot": 24,
+      "operatorfehler_max": 0.03236394450429766,
+      "nur_clifford_t": true
+     },
+     "grid_1e-3": {
+      "T_mittel": 370.2,
+      "T_min": 356,
+      "T_max": 383,
+      "tiefe_mittel": 367.5,
+      "t_tiefe_mittel": 130.2,
+      "cnot": 24,
+      "operatorfehler_max": 0.0029122904676509836,
+      "nur_clifford_t": true
+     },
+     "grid_1e-4": {
+      "T_mittel": 496.7,
+      "T_min": 488,
+      "T_max": 505,
+      "tiefe_mittel": 470.6,
+      "t_tiefe_mittel": 170.2,
+      "cnot": 24,
+      "operatorfehler_max": 0.00030577202779218874,
+      "nur_clifford_t": true
+     }
+    }
+   ],
+   "linear": {
+    "sk_r1": {
+     "steigung_T_je_winkel": 22.345116279069767,
+     "achsenabschnitt": -16.653023255813967,
+     "R2": 0.9897878222713583
+    },
+    "sk_r2": {
+     "steigung_T_je_winkel": 113.9553488372093,
+     "achsenabschnitt": -31.2657364341086,
+     "R2": 0.9987688751155261
+    },
+    "sk_r3": {
+     "steigung_T_je_winkel": 533.4204651162792,
+     "achsenabschnitt": -19.558759689923036,
+     "R2": 0.9999129810151016
+    },
+    "grid_1e-2": {
+     "steigung_T_je_winkel": 20.764186046511632,
+     "achsenabschnitt": -1.922170542635658,
+     "R2": 0.9998716323053473
+    },
+    "grid_1e-3": {
+     "steigung_T_je_winkel": 30.771162790697673,
+     "achsenabschnitt": -0.30356589147289903,
+     "R2": 0.9999423939535754
+    },
+    "grid_1e-4": {
+     "steigung_T_je_winkel": 41.41627906976744,
+     "achsenabschnitt": -0.656589147286852,
+     "R2": 0.9999885039541947
+    }
+   },
+   "je_seed": [
+    {
+     "seed": 10,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.7923923012294157e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.82939500411672e-16
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.82939500411672e-16
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.82939500411672e-16
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.82939500411672e-16
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.82939500411672e-16
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.82939500411672e-16
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 2.790224930265229e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 36,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.025200688521618678
+       },
+       "sk_r2": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 206,
+        "tiefe": 176,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.029512620911110333
+       },
+       "sk_r3": {
+        "T": 607,
+        "cnot": 24,
+        "gatter": 1130,
+        "tiefe": 1100,
+        "t_tiefe": 607,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0068554013254616955
+       },
+       "grid_1e-2": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 115,
+        "tiefe": 85,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004180530087302273
+       },
+       "grid_1e-3": {
+        "T": 32,
+        "cnot": 24,
+        "gatter": 150,
+        "tiefe": 120,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001435237456720027
+       },
+       "grid_1e-4": {
+        "T": 39,
+        "cnot": 24,
+        "gatter": 162,
+        "tiefe": 132,
+        "t_tiefe": 39,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.615804386562648e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 2.5123862596876317e-16,
+       "sk_r1": {
+        "T": 32,
+        "cnot": 24,
+        "gatter": 115,
+        "tiefe": 76,
+        "t_tiefe": 27,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08190421108303524
+       },
+       "sk_r2": {
+        "T": 210,
+        "cnot": 24,
+        "gatter": 433,
+        "tiefe": 254,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03880770664059824
+       },
+       "sk_r3": {
+        "T": 1200,
+        "cnot": 24,
+        "gatter": 2223,
+        "tiefe": 1120,
+        "t_tiefe": 607,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00964079461554513
+       },
+       "grid_1e-2": {
+        "T": 41,
+        "cnot": 24,
+        "gatter": 173,
+        "tiefe": 85,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.008947351074427073
+       },
+       "grid_1e-3": {
+        "T": 66,
+        "cnot": 24,
+        "gatter": 244,
+        "tiefe": 121,
+        "t_tiefe": 34,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0004985518955962914
+       },
+       "grid_1e-4": {
+        "T": 80,
+        "cnot": 24,
+        "gatter": 276,
+        "tiefe": 141,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.163908078194162e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 2.7755575615628914e-16,
+       "sk_r1": {
+        "T": 71,
+        "cnot": 24,
+        "gatter": 182,
+        "tiefe": 113,
+        "t_tiefe": 51,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.18697037415699183
+       },
+       "sk_r2": {
+        "T": 465,
+        "cnot": 24,
+        "gatter": 892,
+        "tiefe": 493,
+        "t_tiefe": 263,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08484834838884503
+       },
+       "sk_r3": {
+        "T": 2299,
+        "cnot": 24,
+        "gatter": 4216,
+        "tiefe": 2164,
+        "t_tiefe": 1186,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.021091890829925783
+       },
+       "grid_1e-2": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 280,
+        "tiefe": 136,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01726531945130075
+       },
+       "grid_1e-3": {
+        "T": 125,
+        "cnot": 24,
+        "gatter": 399,
+        "tiefe": 196,
+        "t_tiefe": 64,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0010957032733989477
+       },
+       "grid_1e-4": {
+        "T": 165,
+        "cnot": 24,
+        "gatter": 495,
+        "tiefe": 252,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00015723152480319848
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 2.7755575615628914e-16,
+       "sk_r1": {
+        "T": 163,
+        "cnot": 24,
+        "gatter": 351,
+        "tiefe": 156,
+        "t_tiefe": 77,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2713956556596482
+       },
+       "sk_r2": {
+        "T": 945,
+        "cnot": 24,
+        "gatter": 1755,
+        "tiefe": 712,
+        "t_tiefe": 389,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11514126455181853
+       },
+       "sk_r3": {
+        "T": 4561,
+        "cnot": 24,
+        "gatter": 8335,
+        "tiefe": 3236,
+        "t_tiefe": 1776,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.030608822525175976
+       },
+       "grid_1e-2": {
+        "T": 167,
+        "cnot": 24,
+        "gatter": 523,
+        "tiefe": 197,
+        "t_tiefe": 64,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.025349454046411556
+       },
+       "grid_1e-3": {
+        "T": 248,
+        "cnot": 24,
+        "gatter": 721,
+        "tiefe": 275,
+        "t_tiefe": 95,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0020232069244275255
+       },
+       "grid_1e-4": {
+        "T": 331,
+        "cnot": 24,
+        "gatter": 931,
+        "tiefe": 366,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00021749854215982127
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 4.440892098500626e-16,
+       "sk_r1": {
+        "T": 270,
+        "cnot": 24,
+        "gatter": 532,
+        "tiefe": 158,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3153462694071658
+       },
+       "sk_r2": {
+        "T": 1458,
+        "cnot": 24,
+        "gatter": 2658,
+        "tiefe": 871,
+        "t_tiefe": 487,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.13809096224470252
+       },
+       "sk_r3": {
+        "T": 6784,
+        "cnot": 24,
+        "gatter": 12334,
+        "tiefe": 4283,
+        "t_tiefe": 2377,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.038509981759640544
+       },
+       "grid_1e-2": {
+        "T": 248,
+        "cnot": 24,
+        "gatter": 747,
+        "tiefe": 247,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03236394450429766
+       },
+       "grid_1e-3": {
+        "T": 372,
+        "cnot": 24,
+        "gatter": 1061,
+        "tiefe": 361,
+        "t_tiefe": 126,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0029122904676509836
+       },
+       "grid_1e-4": {
+        "T": 497,
+        "cnot": 24,
+        "gatter": 1386,
+        "tiefe": 470,
+        "t_tiefe": 170,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002952233703754846
+       }
+      }
+     }
+    },
+    {
+     "seed": 11,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 4.1745783602540615e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3736234834231424e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3736234834231424e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3736234834231424e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3736234834231424e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3736234834231424e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3736234834231424e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 4.172986722058437e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 69,
+        "tiefe": 35,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006696558400115374
+       },
+       "sk_r2": {
+        "T": 95,
+        "cnot": 24,
+        "gatter": 227,
+        "tiefe": 193,
+        "t_tiefe": 95,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.011808312917535684
+       },
+       "sk_r3": {
+        "T": 535,
+        "cnot": 24,
+        "gatter": 1043,
+        "tiefe": 1009,
+        "t_tiefe": 535,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001821620398148435
+       },
+       "grid_1e-2": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 121,
+        "tiefe": 87,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002167589135345452
+       },
+       "grid_1e-3": {
+        "T": 33,
+        "cnot": 24,
+        "gatter": 153,
+        "tiefe": 119,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00019533736601073498
+       },
+       "grid_1e-4": {
+        "T": 41,
+        "cnot": 24,
+        "gatter": 171,
+        "tiefe": 137,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.2334927367831883e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.6178558519321226e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 24,
+        "gatter": 74,
+        "tiefe": 37,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02327490958396208
+       },
+       "sk_r2": {
+        "T": 188,
+        "cnot": 24,
+        "gatter": 388,
+        "tiefe": 193,
+        "t_tiefe": 95,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03441319282211676
+       },
+       "sk_r3": {
+        "T": 1052,
+        "cnot": 24,
+        "gatter": 1998,
+        "tiefe": 1009,
+        "t_tiefe": 535,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006676155045263342
+       },
+       "grid_1e-2": {
+        "T": 41,
+        "cnot": 24,
+        "gatter": 184,
+        "tiefe": 95,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00255762727428975
+       },
+       "grid_1e-3": {
+        "T": 54,
+        "cnot": 24,
+        "gatter": 216,
+        "tiefe": 119,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0005853757696716494
+       },
+       "grid_1e-4": {
+        "T": 84,
+        "cnot": 24,
+        "gatter": 281,
+        "tiefe": 142,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 6.92535400981384e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 4.440892098500626e-16,
+       "sk_r1": {
+        "T": 34,
+        "cnot": 24,
+        "gatter": 114,
+        "tiefe": 66,
+        "t_tiefe": 24,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.07938767752814191
+       },
+       "sk_r2": {
+        "T": 396,
+        "cnot": 24,
+        "gatter": 754,
+        "tiefe": 412,
+        "t_tiefe": 222,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.07029718403617097
+       },
+       "sk_r3": {
+        "T": 1964,
+        "cnot": 24,
+        "gatter": 3654,
+        "tiefe": 1868,
+        "t_tiefe": 1010,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013966857285623817
+       },
+       "grid_1e-2": {
+        "T": 80,
+        "cnot": 24,
+        "gatter": 292,
+        "tiefe": 146,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.008842340402212469
+       },
+       "grid_1e-3": {
+        "T": 119,
+        "cnot": 24,
+        "gatter": 389,
+        "tiefe": 204,
+        "t_tiefe": 66,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0011603516782262829
+       },
+       "grid_1e-4": {
+        "T": 164,
+        "cnot": 24,
+        "gatter": 496,
+        "tiefe": 249,
+        "t_tiefe": 84,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00010661571720150689
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 4.440892098500626e-16,
+       "sk_r1": {
+        "T": 136,
+        "cnot": 24,
+        "gatter": 282,
+        "tiefe": 127,
+        "t_tiefe": 63,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2463815019824962
+       },
+       "sk_r2": {
+        "T": 836,
+        "cnot": 24,
+        "gatter": 1536,
+        "tiefe": 661,
+        "t_tiefe": 361,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11465978251797902
+       },
+       "sk_r3": {
+        "T": 4312,
+        "cnot": 24,
+        "gatter": 7860,
+        "tiefe": 3061,
+        "t_tiefe": 1687,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02615622450354214
+       },
+       "grid_1e-2": {
+        "T": 168,
+        "cnot": 24,
+        "gatter": 527,
+        "tiefe": 207,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.017852894162746755
+       },
+       "grid_1e-3": {
+        "T": 242,
+        "cnot": 24,
+        "gatter": 716,
+        "tiefe": 290,
+        "t_tiefe": 99,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0020714276918252427
+       },
+       "grid_1e-4": {
+        "T": 332,
+        "cnot": 24,
+        "gatter": 938,
+        "tiefe": 358,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00020040569611743384
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 235,
+        "cnot": 24,
+        "gatter": 449,
+        "tiefe": 171,
+        "t_tiefe": 92,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3522081255347537
+       },
+       "sk_r2": {
+        "T": 1309,
+        "cnot": 24,
+        "gatter": 2379,
+        "tiefe": 859,
+        "t_tiefe": 476,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.12950747466736506
+       },
+       "sk_r3": {
+        "T": 6527,
+        "cnot": 24,
+        "gatter": 11875,
+        "tiefe": 4137,
+        "t_tiefe": 2284,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.029567735664488688
+       },
+       "grid_1e-2": {
+        "T": 254,
+        "cnot": 24,
+        "gatter": 762,
+        "tiefe": 259,
+        "t_tiefe": 85,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.023974947508751544
+       },
+       "grid_1e-3": {
+        "T": 371,
+        "cnot": 24,
+        "gatter": 1065,
+        "tiefe": 376,
+        "t_tiefe": 133,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002891204244382998
+       },
+       "grid_1e-4": {
+        "T": 500,
+        "cnot": 24,
+        "gatter": 1380,
+        "tiefe": 464,
+        "t_tiefe": 170,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00025236352380374026
+       }
+      }
+     }
+    },
+    {
+     "seed": 12,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.608224830031759e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2713924460526155e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2713924460526155e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2713924460526155e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2713924460526155e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2713924460526155e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 62,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.2713924460526155e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.6193548469822643e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 68,
+        "tiefe": 32,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00661094276414711
+       },
+       "sk_r2": {
+        "T": 95,
+        "cnot": 24,
+        "gatter": 224,
+        "tiefe": 188,
+        "t_tiefe": 95,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.011978109053382214
+       },
+       "sk_r3": {
+        "T": 563,
+        "cnot": 24,
+        "gatter": 1070,
+        "tiefe": 1034,
+        "t_tiefe": 563,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0021034571785120766
+       },
+       "grid_1e-2": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 121,
+        "tiefe": 85,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0021094872071934973
+       },
+       "grid_1e-3": {
+        "T": 32,
+        "cnot": 24,
+        "gatter": 147,
+        "tiefe": 111,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00047809177352975483
+       },
+       "grid_1e-4": {
+        "T": 40,
+        "cnot": 24,
+        "gatter": 159,
+        "tiefe": 123,
+        "t_tiefe": 40,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.0620709394528154e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.064480179408948e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 24,
+        "gatter": 74,
+        "tiefe": 36,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.016976124491499406
+       },
+       "sk_r2": {
+        "T": 168,
+        "cnot": 24,
+        "gatter": 352,
+        "tiefe": 314,
+        "t_tiefe": 168,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03308156768669935
+       },
+       "sk_r3": {
+        "T": 992,
+        "cnot": 24,
+        "gatter": 1832,
+        "tiefe": 1794,
+        "t_tiefe": 992,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0034792163312734672
+       },
+       "grid_1e-2": {
+        "T": 41,
+        "cnot": 24,
+        "gatter": 181,
+        "tiefe": 143,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006203304248557223
+       },
+       "grid_1e-3": {
+        "T": 64,
+        "cnot": 24,
+        "gatter": 236,
+        "tiefe": 198,
+        "t_tiefe": 64,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0008425889114119002
+       },
+       "grid_1e-4": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 277,
+        "tiefe": 239,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 7.308995249319283e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 4.461499659389762e-16,
+       "sk_r1": {
+        "T": 64,
+        "cnot": 24,
+        "gatter": 172,
+        "tiefe": 81,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1325112885353867
+       },
+       "sk_r2": {
+        "T": 422,
+        "cnot": 24,
+        "gatter": 806,
+        "tiefe": 415,
+        "t_tiefe": 222,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.054360605406493095
+       },
+       "sk_r3": {
+        "T": 2032,
+        "cnot": 24,
+        "gatter": 3736,
+        "tiefe": 2049,
+        "t_tiefe": 1118,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.011314227852432803
+       },
+       "grid_1e-2": {
+        "T": 85,
+        "cnot": 24,
+        "gatter": 305,
+        "tiefe": 147,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013696583463612973
+       },
+       "grid_1e-3": {
+        "T": 125,
+        "cnot": 24,
+        "gatter": 402,
+        "tiefe": 198,
+        "t_tiefe": 64,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0012755452750204657
+       },
+       "grid_1e-4": {
+        "T": 163,
+        "cnot": 24,
+        "gatter": 487,
+        "tiefe": 239,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00014770589444513803
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 4.454120967199488e-16,
+       "sk_r1": {
+        "T": 158,
+        "cnot": 24,
+        "gatter": 329,
+        "tiefe": 158,
+        "t_tiefe": 77,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3356462200085874
+       },
+       "sk_r2": {
+        "T": 892,
+        "cnot": 24,
+        "gatter": 1649,
+        "tiefe": 731,
+        "t_tiefe": 391,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1017573896527668
+       },
+       "sk_r3": {
+        "T": 4210,
+        "cnot": 24,
+        "gatter": 7717,
+        "tiefe": 3148,
+        "t_tiefe": 1713,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.019683838548140393
+       },
+       "grid_1e-2": {
+        "T": 167,
+        "cnot": 24,
+        "gatter": 531,
+        "tiefe": 212,
+        "t_tiefe": 66,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02297346533819748
+       },
+       "grid_1e-3": {
+        "T": 251,
+        "cnot": 24,
+        "gatter": 729,
+        "tiefe": 288,
+        "t_tiefe": 99,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0021587277349615374
+       },
+       "grid_1e-4": {
+        "T": 330,
+        "cnot": 24,
+        "gatter": 913,
+        "tiefe": 358,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00024567574793215067
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 6.661338147750939e-16,
+       "sk_r1": {
+        "T": 266,
+        "cnot": 24,
+        "gatter": 510,
+        "tiefe": 200,
+        "t_tiefe": 106,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3945900675165044
+       },
+       "sk_r2": {
+        "T": 1376,
+        "cnot": 24,
+        "gatter": 2518,
+        "tiefe": 929,
+        "t_tiefe": 502,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.15711317768044264
+       },
+       "sk_r3": {
+        "T": 6272,
+        "cnot": 24,
+        "gatter": 11456,
+        "tiefe": 4142,
+        "t_tiefe": 2268,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.028120930411204063
+       },
+       "grid_1e-2": {
+        "T": 252,
+        "cnot": 24,
+        "gatter": 756,
+        "tiefe": 257,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02826050719043612
+       },
+       "grid_1e-3": {
+        "T": 378,
+        "cnot": 24,
+        "gatter": 1072,
+        "tiefe": 374,
+        "t_tiefe": 132,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002772799899870082
+       },
+       "grid_1e-4": {
+        "T": 489,
+        "cnot": 24,
+        "gatter": 1327,
+        "tiefe": 447,
+        "t_tiefe": 166,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00030577202779218874
+       }
+      }
+     }
+    },
+    {
+     "seed": 13,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 4.1745783602540615e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3771508549355457e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3771508549355457e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3771508549355457e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3771508549355457e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3771508549355457e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.3771508549355457e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.608224830031759e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 65,
+        "tiefe": 37,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.017024860798715857
+       },
+       "sk_r2": {
+        "T": 73,
+        "cnot": 24,
+        "gatter": 187,
+        "tiefe": 159,
+        "t_tiefe": 73,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02275652581618217
+       },
+       "sk_r3": {
+        "T": 451,
+        "cnot": 24,
+        "gatter": 881,
+        "tiefe": 853,
+        "t_tiefe": 451,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001451468426072397
+       },
+       "grid_1e-2": {
+        "T": 21,
+        "cnot": 24,
+        "gatter": 114,
+        "tiefe": 86,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0007078760770987466
+       },
+       "grid_1e-3": {
+        "T": 33,
+        "cnot": 24,
+        "gatter": 142,
+        "tiefe": 114,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001926077560864306
+       },
+       "grid_1e-4": {
+        "T": 42,
+        "cnot": 24,
+        "gatter": 170,
+        "tiefe": 142,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.1259323450191685e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.608224830031759e-16,
+       "sk_r1": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 89,
+        "tiefe": 57,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04406466665230443
+       },
+       "sk_r2": {
+        "T": 196,
+        "cnot": 24,
+        "gatter": 407,
+        "tiefe": 375,
+        "t_tiefe": 196,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04258227878122628
+       },
+       "sk_r3": {
+        "T": 976,
+        "cnot": 24,
+        "gatter": 1831,
+        "tiefe": 1799,
+        "t_tiefe": 976,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0038466812605256685
+       },
+       "grid_1e-2": {
+        "T": 43,
+        "cnot": 24,
+        "gatter": 175,
+        "tiefe": 143,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0027672083340390414
+       },
+       "grid_1e-3": {
+        "T": 62,
+        "cnot": 24,
+        "gatter": 219,
+        "tiefe": 187,
+        "t_tiefe": 62,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0004884772014417917
+       },
+       "grid_1e-4": {
+        "T": 87,
+        "cnot": 24,
+        "gatter": 284,
+        "tiefe": 252,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 7.077505990112047e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 78,
+        "cnot": 24,
+        "gatter": 183,
+        "tiefe": 127,
+        "t_tiefe": 63,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1612913122955352
+       },
+       "sk_r2": {
+        "T": 414,
+        "cnot": 24,
+        "gatter": 801,
+        "tiefe": 560,
+        "t_tiefe": 299,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06292362938943034
+       },
+       "sk_r3": {
+        "T": 1934,
+        "cnot": 24,
+        "gatter": 3609,
+        "tiefe": 2627,
+        "t_tiefe": 1419,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.009387860252178172
+       },
+       "grid_1e-2": {
+        "T": 84,
+        "cnot": 24,
+        "gatter": 286,
+        "tiefe": 194,
+        "t_tiefe": 64,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00791502079930904
+       },
+       "grid_1e-3": {
+        "T": 128,
+        "cnot": 24,
+        "gatter": 386,
+        "tiefe": 277,
+        "t_tiefe": 99,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0010192829844959538
+       },
+       "grid_1e-4": {
+        "T": 168,
+        "cnot": 24,
+        "gatter": 494,
+        "tiefe": 350,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00013020171236219398
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 2.807634974809205e-16,
+       "sk_r1": {
+        "T": 189,
+        "cnot": 24,
+        "gatter": 367,
+        "tiefe": 164,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3048958804419836
+       },
+       "sk_r2": {
+        "T": 849,
+        "cnot": 24,
+        "gatter": 1581,
+        "tiefe": 658,
+        "t_tiefe": 357,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1324771193762566
+       },
+       "sk_r3": {
+        "T": 4009,
+        "cnot": 24,
+        "gatter": 7369,
+        "tiefe": 2987,
+        "t_tiefe": 1643,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01888198147195145
+       },
+       "grid_1e-2": {
+        "T": 167,
+        "cnot": 24,
+        "gatter": 510,
+        "tiefe": 197,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.016701410793241382
+       },
+       "grid_1e-3": {
+        "T": 250,
+        "cnot": 24,
+        "gatter": 721,
+        "tiefe": 285,
+        "t_tiefe": 99,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002081080938661046
+       },
+       "grid_1e-4": {
+        "T": 334,
+        "cnot": 24,
+        "gatter": 932,
+        "tiefe": 357,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001798306359943861
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.3737985098256915e-16,
+       "sk_r1": {
+        "T": 289,
+        "cnot": 24,
+        "gatter": 541,
+        "tiefe": 205,
+        "t_tiefe": 112,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3616374597854997
+       },
+       "sk_r2": {
+        "T": 1259,
+        "cnot": 24,
+        "gatter": 2327,
+        "tiefe": 858,
+        "t_tiefe": 474,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1483412072664487
+       },
+       "sk_r3": {
+        "T": 6119,
+        "cnot": 24,
+        "gatter": 11217,
+        "tiefe": 4011,
+        "t_tiefe": 2200,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02435265443107527
+       },
+       "grid_1e-2": {
+        "T": 248,
+        "cnot": 24,
+        "gatter": 740,
+        "tiefe": 252,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.024784069938944317
+       },
+       "grid_1e-3": {
+        "T": 377,
+        "cnot": 24,
+        "gatter": 1061,
+        "tiefe": 357,
+        "t_tiefe": 130,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002571803395676414
+       },
+       "grid_1e-4": {
+        "T": 505,
+        "cnot": 24,
+        "gatter": 1384,
+        "tiefe": 476,
+        "t_tiefe": 173,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00026818084656009007
+       }
+      }
+     }
+    },
+    {
+     "seed": 14,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.0531133177191805e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.1468978467356797e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.1468978467356797e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.1468978467356797e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.1468978467356797e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.1468978467356797e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 60,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.1468978467356797e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 2.7755575615628914e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 32,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.029504217359923958
+       },
+       "sk_r2": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 206,
+        "tiefe": 172,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02533632487683997
+       },
+       "sk_r3": {
+        "T": 471,
+        "cnot": 24,
+        "gatter": 894,
+        "tiefe": 860,
+        "t_tiefe": 471,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006402676460834146
+       },
+       "grid_1e-2": {
+        "T": 19,
+        "cnot": 24,
+        "gatter": 111,
+        "tiefe": 77,
+        "t_tiefe": 19,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0034230852108778887
+       },
+       "grid_1e-3": {
+        "T": 22,
+        "cnot": 24,
+        "gatter": 127,
+        "tiefe": 93,
+        "t_tiefe": 22,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0004829606733347136
+       },
+       "grid_1e-4": {
+        "T": 42,
+        "cnot": 24,
+        "gatter": 167,
+        "tiefe": 133,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.408896634429316e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 2.498001805406602e-16,
+       "sk_r1": {
+        "T": 34,
+        "cnot": 24,
+        "gatter": 116,
+        "tiefe": 80,
+        "t_tiefe": 34,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08621578386797088
+       },
+       "sk_r2": {
+        "T": 222,
+        "cnot": 24,
+        "gatter": 448,
+        "tiefe": 412,
+        "t_tiefe": 222,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03970329693656987
+       },
+       "sk_r3": {
+        "T": 1050,
+        "cnot": 24,
+        "gatter": 1940,
+        "tiefe": 1904,
+        "t_tiefe": 1050,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0077101169122098644
+       },
+       "grid_1e-2": {
+        "T": 41,
+        "cnot": 24,
+        "gatter": 169,
+        "tiefe": 133,
+        "t_tiefe": 41,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006861757118522868
+       },
+       "grid_1e-3": {
+        "T": 52,
+        "cnot": 24,
+        "gatter": 204,
+        "tiefe": 168,
+        "t_tiefe": 52,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.000746973270914252
+       },
+       "grid_1e-4": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 275,
+        "tiefe": 239,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 8.706841669876089e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 76,
+        "cnot": 24,
+        "gatter": 187,
+        "tiefe": 123,
+        "t_tiefe": 61,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1560022449745176
+       },
+       "sk_r2": {
+        "T": 438,
+        "cnot": 24,
+        "gatter": 839,
+        "tiefe": 585,
+        "t_tiefe": 319,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.07749488492406321
+       },
+       "sk_r3": {
+        "T": 2126,
+        "cnot": 24,
+        "gatter": 3869,
+        "tiefe": 2925,
+        "t_tiefe": 1631,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01184950116423701
+       },
+       "grid_1e-2": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 279,
+        "tiefe": 186,
+        "t_tiefe": 62,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01223719715062507
+       },
+       "grid_1e-3": {
+        "T": 110,
+        "cnot": 24,
+        "gatter": 363,
+        "tiefe": 253,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0012021863322154247
+       },
+       "grid_1e-4": {
+        "T": 165,
+        "cnot": 24,
+        "gatter": 496,
+        "tiefe": 356,
+        "t_tiefe": 126,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00014527213159379367
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 2.801232226312273e-16,
+       "sk_r1": {
+        "T": 166,
+        "cnot": 24,
+        "gatter": 346,
+        "tiefe": 152,
+        "t_tiefe": 76,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.21663714852524507
+       },
+       "sk_r2": {
+        "T": 920,
+        "cnot": 24,
+        "gatter": 1698,
+        "tiefe": 684,
+        "t_tiefe": 373,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11093077085204443
+       },
+       "sk_r3": {
+        "T": 4018,
+        "cnot": 24,
+        "gatter": 7298,
+        "tiefe": 2925,
+        "t_tiefe": 1631,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.020547236221556405
+       },
+       "grid_1e-2": {
+        "T": 165,
+        "cnot": 24,
+        "gatter": 505,
+        "tiefe": 189,
+        "t_tiefe": 63,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.023291403129837737
+       },
+       "grid_1e-3": {
+        "T": 228,
+        "cnot": 24,
+        "gatter": 675,
+        "tiefe": 278,
+        "t_tiefe": 94,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0018905986598488406
+       },
+       "grid_1e-4": {
+        "T": 330,
+        "cnot": 24,
+        "gatter": 940,
+        "tiefe": 364,
+        "t_tiefe": 128,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002032798694543888
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 2.8103650242623205e-16,
+       "sk_r1": {
+        "T": 265,
+        "cnot": 24,
+        "gatter": 522,
+        "tiefe": 206,
+        "t_tiefe": 107,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.279460167742185
+       },
+       "sk_r2": {
+        "T": 1323,
+        "cnot": 24,
+        "gatter": 2432,
+        "tiefe": 821,
+        "t_tiefe": 447,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.14564298546244434
+       },
+       "sk_r3": {
+        "T": 6197,
+        "cnot": 24,
+        "gatter": 11222,
+        "tiefe": 4023,
+        "t_tiefe": 2231,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.028000925065143505
+       },
+       "grid_1e-2": {
+        "T": 252,
+        "cnot": 24,
+        "gatter": 740,
+        "tiefe": 261,
+        "t_tiefe": 88,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03128431247972288
+       },
+       "grid_1e-3": {
+        "T": 356,
+        "cnot": 24,
+        "gatter": 1010,
+        "tiefe": 362,
+        "t_tiefe": 129,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00270342658981311
+       },
+       "grid_1e-4": {
+        "T": 497,
+        "cnot": 24,
+        "gatter": 1374,
+        "tiefe": 463,
+        "t_tiefe": 167,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002640599208613431
+       }
+      }
+     }
+    },
+    {
+     "seed": 15,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.8978232066644963e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4640312159460365e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4640312159460365e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4640312159460365e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4640312159460365e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4640312159460365e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4640312159460365e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.885780586188048e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 72,
+        "tiefe": 34,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.019241001422337978
+       },
+       "sk_r2": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 210,
+        "tiefe": 172,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.036690009585057894
+       },
+       "sk_r3": {
+        "T": 557,
+        "cnot": 24,
+        "gatter": 1052,
+        "tiefe": 1014,
+        "t_tiefe": 557,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001313374868085792
+       },
+       "grid_1e-2": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 123,
+        "tiefe": 85,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004836905690499335
+       },
+       "grid_1e-3": {
+        "T": 31,
+        "cnot": 24,
+        "gatter": 149,
+        "tiefe": 111,
+        "t_tiefe": 31,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.000467646998551652
+       },
+       "grid_1e-4": {
+        "T": 40,
+        "cnot": 24,
+        "gatter": 172,
+        "tiefe": 134,
+        "t_tiefe": 40,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.541632912639956e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.8948621016625114e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 24,
+        "gatter": 78,
+        "tiefe": 36,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04244002022613936
+       },
+       "sk_r2": {
+        "T": 166,
+        "cnot": 24,
+        "gatter": 354,
+        "tiefe": 312,
+        "t_tiefe": 166,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06887416767772526
+       },
+       "sk_r3": {
+        "T": 1070,
+        "cnot": 24,
+        "gatter": 1974,
+        "tiefe": 1932,
+        "t_tiefe": 1070,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004159346927161745
+       },
+       "grid_1e-2": {
+        "T": 40,
+        "cnot": 24,
+        "gatter": 180,
+        "tiefe": 138,
+        "t_tiefe": 40,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007752462184314167
+       },
+       "grid_1e-3": {
+        "T": 54,
+        "cnot": 24,
+        "gatter": 214,
+        "tiefe": 172,
+        "t_tiefe": 54,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.000891503239150387
+       },
+       "grid_1e-4": {
+        "T": 82,
+        "cnot": 24,
+        "gatter": 276,
+        "tiefe": 234,
+        "t_tiefe": 82,
+        "nur_clifford_t": true,
+        "operatorfehler": 6.770386954034753e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.885780586188048e-16,
+       "sk_r1": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 90,
+        "tiefe": 44,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06600557053543261
+       },
+       "sk_r2": {
+        "T": 342,
+        "cnot": 24,
+        "gatter": 666,
+        "tiefe": 620,
+        "t_tiefe": 342,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08190988755875862
+       },
+       "sk_r3": {
+        "T": 2046,
+        "cnot": 24,
+        "gatter": 3752,
+        "tiefe": 3706,
+        "t_tiefe": 2046,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.011283258118509817
+       },
+       "grid_1e-2": {
+        "T": 78,
+        "cnot": 24,
+        "gatter": 286,
+        "tiefe": 240,
+        "t_tiefe": 78,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013560490741147554
+       },
+       "grid_1e-3": {
+        "T": 118,
+        "cnot": 24,
+        "gatter": 373,
+        "tiefe": 327,
+        "t_tiefe": 118,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0013665616793300565
+       },
+       "grid_1e-4": {
+        "T": 163,
+        "cnot": 24,
+        "gatter": 492,
+        "tiefe": 446,
+        "t_tiefe": 163,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.000108089612744227
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 3.885780586188048e-16,
+       "sk_r1": {
+        "T": 108,
+        "cnot": 24,
+        "gatter": 238,
+        "tiefe": 108,
+        "t_tiefe": 54,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2243096211155849
+       },
+       "sk_r2": {
+        "T": 808,
+        "cnot": 24,
+        "gatter": 1500,
+        "tiefe": 776,
+        "t_tiefe": 424,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.14538857575408262
+       },
+       "sk_r3": {
+        "T": 4042,
+        "cnot": 24,
+        "gatter": 7404,
+        "tiefe": 3828,
+        "t_tiefe": 2120,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.025069337005610644
+       },
+       "grid_1e-2": {
+        "T": 161,
+        "cnot": 24,
+        "gatter": 507,
+        "tiefe": 251,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02392487730241318
+       },
+       "grid_1e-3": {
+        "T": 241,
+        "cnot": 24,
+        "gatter": 699,
+        "tiefe": 349,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002470145844818313
+       },
+       "grid_1e-4": {
+        "T": 323,
+        "cnot": 24,
+        "gatter": 916,
+        "tiefe": 454,
+        "t_tiefe": 165,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00019000264336520726
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.1950617005493626e-16,
+       "sk_r1": {
+        "T": 208,
+        "cnot": 24,
+        "gatter": 406,
+        "tiefe": 203,
+        "t_tiefe": 107,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3093390836771254
+       },
+       "sk_r2": {
+        "T": 1362,
+        "cnot": 24,
+        "gatter": 2470,
+        "tiefe": 994,
+        "t_tiefe": 554,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.18152827402444885
+       },
+       "sk_r3": {
+        "T": 6112,
+        "cnot": 24,
+        "gatter": 11124,
+        "tiefe": 3887,
+        "t_tiefe": 2167,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.032173903356420695
+       },
+       "grid_1e-2": {
+        "T": 247,
+        "cnot": 24,
+        "gatter": 736,
+        "tiefe": 259,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.028618088539330448
+       },
+       "grid_1e-3": {
+        "T": 366,
+        "cnot": 24,
+        "gatter": 1026,
+        "tiefe": 360,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0028139689664231364
+       },
+       "grid_1e-4": {
+        "T": 490,
+        "cnot": 24,
+        "gatter": 1361,
+        "tiefe": 476,
+        "t_tiefe": 170,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002695123008795578
+       }
+      }
+     }
+    },
+    {
+     "seed": 16,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.914335439641036e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.194066919416748e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.194066919416748e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.194066919416748e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.194066919416748e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.194066919416748e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.194066919416748e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 64,
+        "tiefe": 34,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.022465474816627078
+       },
+       "sk_r2": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 202,
+        "tiefe": 172,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03370245932000082
+       },
+       "sk_r3": {
+        "T": 549,
+        "cnot": 24,
+        "gatter": 1052,
+        "tiefe": 1022,
+        "t_tiefe": 549,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0031261300043683633
+       },
+       "grid_1e-2": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 114,
+        "tiefe": 84,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.003372334808186633
+       },
+       "grid_1e-3": {
+        "T": 32,
+        "cnot": 24,
+        "gatter": 148,
+        "tiefe": 118,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003449586933052222
+       },
+       "grid_1e-4": {
+        "T": 38,
+        "cnot": 24,
+        "gatter": 161,
+        "tiefe": 131,
+        "t_tiefe": 38,
+        "nur_clifford_t": true,
+        "operatorfehler": 3.706424617027784e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 24,
+        "gatter": 71,
+        "tiefe": 34,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04777044901568253
+       },
+       "sk_r2": {
+        "T": 162,
+        "cnot": 24,
+        "gatter": 343,
+        "tiefe": 172,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.06310231909757492
+       },
+       "sk_r3": {
+        "T": 1152,
+        "cnot": 24,
+        "gatter": 2117,
+        "tiefe": 1091,
+        "t_tiefe": 603,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.010078691080783488
+       },
+       "grid_1e-2": {
+        "T": 40,
+        "cnot": 24,
+        "gatter": 169,
+        "tiefe": 84,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007617708850982687
+       },
+       "grid_1e-3": {
+        "T": 64,
+        "cnot": 24,
+        "gatter": 234,
+        "tiefe": 118,
+        "t_tiefe": 32,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00042386894225435087
+       },
+       "grid_1e-4": {
+        "T": 81,
+        "cnot": 24,
+        "gatter": 276,
+        "tiefe": 141,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 8.195657328405984e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.608224830031759e-16,
+       "sk_r1": {
+        "T": 62,
+        "cnot": 24,
+        "gatter": 158,
+        "tiefe": 113,
+        "t_tiefe": 57,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.09594453117113591
+       },
+       "sk_r2": {
+        "T": 424,
+        "cnot": 24,
+        "gatter": 804,
+        "tiefe": 625,
+        "t_tiefe": 345,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.08081828102504648
+       },
+       "sk_r3": {
+        "T": 2272,
+        "cnot": 24,
+        "gatter": 4150,
+        "tiefe": 3116,
+        "t_tiefe": 1723,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01846709516609556
+       },
+       "grid_1e-2": {
+        "T": 82,
+        "cnot": 24,
+        "gatter": 281,
+        "tiefe": 188,
+        "t_tiefe": 62,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01340467453213106
+       },
+       "grid_1e-3": {
+        "T": 126,
+        "cnot": 24,
+        "gatter": 412,
+        "tiefe": 288,
+        "t_tiefe": 94,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0008909360495521701
+       },
+       "grid_1e-4": {
+        "T": 164,
+        "cnot": 24,
+        "gatter": 503,
+        "tiefe": 360,
+        "t_tiefe": 126,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00013452823156599364
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 3.0531133177191805e-16,
+       "sk_r1": {
+        "T": 163,
+        "cnot": 24,
+        "gatter": 327,
+        "tiefe": 198,
+        "t_tiefe": 107,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.17334775924978343
+       },
+       "sk_r2": {
+        "T": 921,
+        "cnot": 24,
+        "gatter": 1681,
+        "tiefe": 924,
+        "t_tiefe": 511,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1240585783631694
+       },
+       "sk_r3": {
+        "T": 4537,
+        "cnot": 24,
+        "gatter": 8235,
+        "tiefe": 4145,
+        "t_tiefe": 2291,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0231627588805157
+       },
+       "grid_1e-2": {
+        "T": 167,
+        "cnot": 24,
+        "gatter": 506,
+        "tiefe": 252,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.021221736196033333
+       },
+       "grid_1e-3": {
+        "T": 240,
+        "cnot": 24,
+        "gatter": 714,
+        "tiefe": 364,
+        "t_tiefe": 124,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0016010936985170977
+       },
+       "grid_1e-4": {
+        "T": 334,
+        "cnot": 24,
+        "gatter": 949,
+        "tiefe": 490,
+        "t_tiefe": 173,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00021933411174696318
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 2.220446049250313e-16,
+       "sk_r1": {
+        "T": 268,
+        "cnot": 24,
+        "gatter": 501,
+        "tiefe": 205,
+        "t_tiefe": 112,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2575790002738377
+       },
+       "sk_r2": {
+        "T": 1432,
+        "cnot": 24,
+        "gatter": 2595,
+        "tiefe": 989,
+        "t_tiefe": 554,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.16106431127031917
+       },
+       "sk_r3": {
+        "T": 6754,
+        "cnot": 24,
+        "gatter": 12239,
+        "tiefe": 4226,
+        "t_tiefe": 2346,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02816943860494164
+       },
+       "grid_1e-2": {
+        "T": 247,
+        "cnot": 24,
+        "gatter": 729,
+        "tiefe": 264,
+        "t_tiefe": 89,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.027534124741082352
+       },
+       "grid_1e-3": {
+        "T": 367,
+        "cnot": 24,
+        "gatter": 1054,
+        "tiefe": 375,
+        "t_tiefe": 131,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001997783553152548
+       },
+       "grid_1e-4": {
+        "T": 503,
+        "cnot": 24,
+        "gatter": 1386,
+        "tiefe": 498,
+        "t_tiefe": 176,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002751648984038377
+       }
+      }
+     }
+    },
+    {
+     "seed": 17,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.0531133177191805e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.149935471594385e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.149935471594385e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.149935471594385e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.149935471594385e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.149935471594385e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 58,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.149935471594385e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 64,
+        "tiefe": 34,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.018290267739543824
+       },
+       "sk_r2": {
+        "T": 83,
+        "cnot": 24,
+        "gatter": 202,
+        "tiefe": 172,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03757832603254527
+       },
+       "sk_r3": {
+        "T": 541,
+        "cnot": 24,
+        "gatter": 1012,
+        "tiefe": 982,
+        "t_tiefe": 541,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0038712592021811947
+       },
+       "grid_1e-2": {
+        "T": 21,
+        "cnot": 24,
+        "gatter": 118,
+        "tiefe": 88,
+        "t_tiefe": 21,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0019122718868813384
+       },
+       "grid_1e-3": {
+        "T": 33,
+        "cnot": 24,
+        "gatter": 141,
+        "tiefe": 111,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00047862637538517234
+       },
+       "grid_1e-4": {
+        "T": 38,
+        "cnot": 24,
+        "gatter": 162,
+        "tiefe": 132,
+        "t_tiefe": 38,
+        "nur_clifford_t": true,
+        "operatorfehler": 2.6912203167688496e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 2.7923836864393723e-16,
+       "sk_r1": {
+        "T": 30,
+        "cnot": 24,
+        "gatter": 108,
+        "tiefe": 78,
+        "t_tiefe": 30,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.050421861950704326
+       },
+       "sk_r2": {
+        "T": 200,
+        "cnot": 24,
+        "gatter": 414,
+        "tiefe": 384,
+        "t_tiefe": 200,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.044071996243072516
+       },
+       "sk_r3": {
+        "T": 1136,
+        "cnot": 24,
+        "gatter": 2090,
+        "tiefe": 2060,
+        "t_tiefe": 1136,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.008845408447738791
+       },
+       "grid_1e-2": {
+        "T": 43,
+        "cnot": 24,
+        "gatter": 178,
+        "tiefe": 148,
+        "t_tiefe": 43,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006603917674335459
+       },
+       "grid_1e-3": {
+        "T": 62,
+        "cnot": 24,
+        "gatter": 219,
+        "tiefe": 189,
+        "t_tiefe": 62,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0008867797394639814
+       },
+       "grid_1e-4": {
+        "T": 81,
+        "cnot": 24,
+        "gatter": 270,
+        "tiefe": 240,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 5.791449886161944e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 2.7755575615628914e-16,
+       "sk_r1": {
+        "T": 78,
+        "cnot": 24,
+        "gatter": 196,
+        "tiefe": 157,
+        "t_tiefe": 78,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1272073437176131
+       },
+       "sk_r2": {
+        "T": 448,
+        "cnot": 24,
+        "gatter": 858,
+        "tiefe": 819,
+        "t_tiefe": 448,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.055197724392441645
+       },
+       "sk_r3": {
+        "T": 2200,
+        "cnot": 24,
+        "gatter": 4018,
+        "tiefe": 3979,
+        "t_tiefe": 2200,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.009515266544331784
+       },
+       "grid_1e-2": {
+        "T": 87,
+        "cnot": 24,
+        "gatter": 304,
+        "tiefe": 265,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.011843589553370979
+       },
+       "grid_1e-3": {
+        "T": 129,
+        "cnot": 24,
+        "gatter": 402,
+        "tiefe": 363,
+        "t_tiefe": 129,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0010539081055320715
+       },
+       "grid_1e-4": {
+        "T": 160,
+        "cnot": 24,
+        "gatter": 479,
+        "tiefe": 440,
+        "t_tiefe": 160,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001100884573817326
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 162,
+        "cnot": 24,
+        "gatter": 336,
+        "tiefe": 167,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.3061574219414524
+       },
+       "sk_r2": {
+        "T": 912,
+        "cnot": 24,
+        "gatter": 1694,
+        "tiefe": 823,
+        "t_tiefe": 450,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.10413829177759275
+       },
+       "sk_r3": {
+        "T": 4382,
+        "cnot": 24,
+        "gatter": 8018,
+        "tiefe": 4041,
+        "t_tiefe": 2226,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.01550695518332979
+       },
+       "grid_1e-2": {
+        "T": 170,
+        "cnot": 24,
+        "gatter": 531,
+        "tiefe": 265,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0197746936756464
+       },
+       "grid_1e-3": {
+        "T": 254,
+        "cnot": 24,
+        "gatter": 729,
+        "tiefe": 369,
+        "t_tiefe": 133,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0015773512666419308
+       },
+       "grid_1e-4": {
+        "T": 327,
+        "cnot": 24,
+        "gatter": 907,
+        "tiefe": 458,
+        "t_tiefe": 164,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002133495694646532
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.3306690738754696e-16,
+       "sk_r1": {
+        "T": 266,
+        "cnot": 24,
+        "gatter": 509,
+        "tiefe": 208,
+        "t_tiefe": 110,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.37653487655619555
+       },
+       "sk_r2": {
+        "T": 1396,
+        "cnot": 24,
+        "gatter": 2553,
+        "tiefe": 929,
+        "t_tiefe": 512,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.16378842092063564
+       },
+       "sk_r3": {
+        "T": 6770,
+        "cnot": 24,
+        "gatter": 12307,
+        "tiefe": 4395,
+        "t_tiefe": 2434,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03219141539460333
+       },
+       "grid_1e-2": {
+        "T": 257,
+        "cnot": 24,
+        "gatter": 778,
+        "tiefe": 279,
+        "t_tiefe": 90,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.027511030983029164
+       },
+       "grid_1e-3": {
+        "T": 383,
+        "cnot": 24,
+        "gatter": 1074,
+        "tiefe": 378,
+        "t_tiefe": 134,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0023807594339269184
+       },
+       "grid_1e-4": {
+        "T": 488,
+        "cnot": 24,
+        "gatter": 1331,
+        "tiefe": 464,
+        "t_tiefe": 166,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0003007214794379241
+       }
+      }
+     }
+    },
+    {
+     "seed": 18,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 3.8978232066644963e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4098444581754452e-15
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4098444581754452e-15
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4098444581754452e-15
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4098444581754452e-15
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4098444581754452e-15
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 66,
+        "tiefe": 32,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 1.4098444581754452e-15
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 4.996003610813204e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 73,
+        "tiefe": 33,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.030083164552611508
+       },
+       "sk_r2": {
+        "T": 81,
+        "cnot": 24,
+        "gatter": 209,
+        "tiefe": 169,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.026862132518608483
+       },
+       "sk_r3": {
+        "T": 495,
+        "cnot": 24,
+        "gatter": 951,
+        "tiefe": 911,
+        "t_tiefe": 495,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.003036109144687649
+       },
+       "grid_1e-2": {
+        "T": 19,
+        "cnot": 24,
+        "gatter": 119,
+        "tiefe": 79,
+        "t_tiefe": 19,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0033634471730384224
+       },
+       "grid_1e-3": {
+        "T": 33,
+        "cnot": 24,
+        "gatter": 152,
+        "tiefe": 112,
+        "t_tiefe": 33,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00035373905215850283
+       },
+       "grid_1e-4": {
+        "T": 42,
+        "cnot": 24,
+        "gatter": 176,
+        "tiefe": 136,
+        "t_tiefe": 42,
+        "nur_clifford_t": true,
+        "operatorfehler": 4.8201060989053246e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 5.563867149079186e-16,
+       "sk_r1": {
+        "T": 26,
+        "cnot": 24,
+        "gatter": 109,
+        "tiefe": 69,
+        "t_tiefe": 26,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1108986108237203
+       },
+       "sk_r2": {
+        "T": 192,
+        "cnot": 24,
+        "gatter": 407,
+        "tiefe": 367,
+        "t_tiefe": 192,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04611928172824356
+       },
+       "sk_r3": {
+        "T": 1060,
+        "cnot": 24,
+        "gatter": 1955,
+        "tiefe": 1915,
+        "t_tiefe": 1060,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007019578403143198
+       },
+       "grid_1e-2": {
+        "T": 39,
+        "cnot": 24,
+        "gatter": 177,
+        "tiefe": 137,
+        "t_tiefe": 39,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.006666181274228264
+       },
+       "grid_1e-3": {
+        "T": 67,
+        "cnot": 24,
+        "gatter": 241,
+        "tiefe": 201,
+        "t_tiefe": 67,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0006036922261285421
+       },
+       "grid_1e-4": {
+        "T": 86,
+        "cnot": 24,
+        "gatter": 284,
+        "tiefe": 244,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 6.475274282104242e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 6.120978117283728e-16,
+       "sk_r1": {
+        "T": 70,
+        "cnot": 24,
+        "gatter": 187,
+        "tiefe": 141,
+        "t_tiefe": 65,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1572566826032205
+       },
+       "sk_r2": {
+        "T": 426,
+        "cnot": 24,
+        "gatter": 831,
+        "tiefe": 649,
+        "t_tiefe": 345,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.061508993523257526
+       },
+       "sk_r3": {
+        "T": 2112,
+        "cnot": 24,
+        "gatter": 3853,
+        "tiefe": 2929,
+        "t_tiefe": 1618,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.016631710431651864
+       },
+       "grid_1e-2": {
+        "T": 81,
+        "cnot": 24,
+        "gatter": 291,
+        "tiefe": 199,
+        "t_tiefe": 62,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.013201832692260551
+       },
+       "grid_1e-3": {
+        "T": 125,
+        "cnot": 24,
+        "gatter": 395,
+        "tiefe": 275,
+        "t_tiefe": 96,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0010723920687366177
+       },
+       "grid_1e-4": {
+        "T": 162,
+        "cnot": 24,
+        "gatter": 483,
+        "tiefe": 342,
+        "t_tiefe": 123,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001094411099072271
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 4.996003610813204e-16,
+       "sk_r1": {
+        "T": 177,
+        "cnot": 24,
+        "gatter": 366,
+        "tiefe": 190,
+        "t_tiefe": 98,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.1861775754419844
+       },
+       "sk_r2": {
+        "T": 881,
+        "cnot": 24,
+        "gatter": 1644,
+        "tiefe": 886,
+        "t_tiefe": 481,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0999035605724978
+       },
+       "sk_r3": {
+        "T": 4389,
+        "cnot": 24,
+        "gatter": 7952,
+        "tiefe": 4036,
+        "t_tiefe": 2243,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.028397916991669613
+       },
+       "grid_1e-2": {
+        "T": 165,
+        "cnot": 24,
+        "gatter": 531,
+        "tiefe": 270,
+        "t_tiefe": 86,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.022964778663623564
+       },
+       "grid_1e-3": {
+        "T": 246,
+        "cnot": 24,
+        "gatter": 709,
+        "tiefe": 358,
+        "t_tiefe": 131,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0016090792381318081
+       },
+       "grid_1e-4": {
+        "T": 329,
+        "cnot": 24,
+        "gatter": 925,
+        "tiefe": 467,
+        "t_tiefe": 171,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00020219987100904315
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 4.440892098500626e-16,
+       "sk_r1": {
+        "T": 283,
+        "cnot": 24,
+        "gatter": 536,
+        "tiefe": 198,
+        "t_tiefe": 105,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2754015666616865
+       },
+       "sk_r2": {
+        "T": 1395,
+        "cnot": 24,
+        "gatter": 2548,
+        "tiefe": 948,
+        "t_tiefe": 523,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.13841053126753536
+       },
+       "sk_r3": {
+        "T": 6419,
+        "cnot": 24,
+        "gatter": 11606,
+        "tiefe": 4136,
+        "t_tiefe": 2306,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.038431213284852724
+       },
+       "grid_1e-2": {
+        "T": 249,
+        "cnot": 24,
+        "gatter": 755,
+        "tiefe": 270,
+        "t_tiefe": 87,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.02605156937356246
+       },
+       "grid_1e-3": {
+        "T": 374,
+        "cnot": 24,
+        "gatter": 1043,
+        "tiefe": 364,
+        "t_tiefe": 133,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002589077745473794
+       },
+       "grid_1e-4": {
+        "T": 496,
+        "cnot": 24,
+        "gatter": 1360,
+        "tiefe": 471,
+        "t_tiefe": 171,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00025803015129396333
+       }
+      }
+     }
+    },
+    {
+     "seed": 19,
+     "k": {
+      "0": {
+       "fehler_exakt_vs_modell": 2.7923923012294157e-16,
+       "sk_r1": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 54,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.812241774053545e-16
+       },
+       "sk_r2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 54,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.812241774053545e-16
+       },
+       "sk_r3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 54,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.812241774053545e-16
+       },
+       "grid_1e-2": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 54,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.812241774053545e-16
+       },
+       "grid_1e-3": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 54,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.812241774053545e-16
+       },
+       "grid_1e-4": {
+        "T": 0,
+        "cnot": 24,
+        "gatter": 54,
+        "tiefe": 30,
+        "t_tiefe": 0,
+        "nur_clifford_t": true,
+        "operatorfehler": 9.812241774053545e-16
+       }
+      },
+      "1": {
+       "fehler_exakt_vs_modell": 2.2384542708401537e-16,
+       "sk_r1": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 59,
+        "tiefe": 31,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004380233561381302
+       },
+       "sk_r2": {
+        "T": 5,
+        "cnot": 24,
+        "gatter": 59,
+        "tiefe": 31,
+        "t_tiefe": 5,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004380233561381302
+       },
+       "sk_r3": {
+        "T": 411,
+        "cnot": 24,
+        "gatter": 801,
+        "tiefe": 773,
+        "t_tiefe": 411,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0033947735712607273
+       },
+       "grid_1e-2": {
+        "T": 1,
+        "cnot": 24,
+        "gatter": 57,
+        "tiefe": 30,
+        "t_tiefe": 1,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.004380233561381238
+       },
+       "grid_1e-3": {
+        "T": 31,
+        "cnot": 24,
+        "gatter": 140,
+        "tiefe": 112,
+        "t_tiefe": 31,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001987013351913852
+       },
+       "grid_1e-4": {
+        "T": 40,
+        "cnot": 24,
+        "gatter": 157,
+        "tiefe": 129,
+        "t_tiefe": 40,
+        "nur_clifford_t": true,
+        "operatorfehler": 3.832337391729075e-05
+       }
+      },
+      "2": {
+       "fehler_exakt_vs_modell": 2.799493413860393e-16,
+       "sk_r1": {
+        "T": 10,
+        "cnot": 24,
+        "gatter": 65,
+        "tiefe": 35,
+        "t_tiefe": 10,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03134457756503044
+       },
+       "sk_r2": {
+        "T": 88,
+        "cnot": 24,
+        "gatter": 203,
+        "tiefe": 173,
+        "t_tiefe": 88,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.027201088586206016
+       },
+       "sk_r3": {
+        "T": 876,
+        "cnot": 24,
+        "gatter": 1649,
+        "tiefe": 1619,
+        "t_tiefe": 876,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0055163769149838655
+       },
+       "grid_1e-2": {
+        "T": 20,
+        "cnot": 24,
+        "gatter": 106,
+        "tiefe": 77,
+        "t_tiefe": 20,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.007057049458045998
+       },
+       "grid_1e-3": {
+        "T": 63,
+        "cnot": 24,
+        "gatter": 222,
+        "tiefe": 192,
+        "t_tiefe": 63,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0006586079498855513
+       },
+       "grid_1e-4": {
+        "T": 81,
+        "cnot": 24,
+        "gatter": 260,
+        "tiefe": 230,
+        "t_tiefe": 81,
+        "nur_clifford_t": true,
+        "operatorfehler": 6.436543287468912e-05
+       }
+      },
+      "4": {
+       "fehler_exakt_vs_modell": 3.3518040743524673e-16,
+       "sk_r1": {
+        "T": 64,
+        "cnot": 24,
+        "gatter": 159,
+        "tiefe": 122,
+        "t_tiefe": 59,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.10805544663205413
+       },
+       "sk_r2": {
+        "T": 350,
+        "cnot": 24,
+        "gatter": 665,
+        "tiefe": 628,
+        "t_tiefe": 345,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.04560370132621623
+       },
+       "sk_r3": {
+        "T": 1764,
+        "cnot": 24,
+        "gatter": 3233,
+        "tiefe": 2454,
+        "t_tiefe": 1353,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.011518910098353595
+       },
+       "grid_1e-2": {
+        "T": 60,
+        "cnot": 24,
+        "gatter": 215,
+        "tiefe": 180,
+        "t_tiefe": 59,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.012693883089533032
+       },
+       "grid_1e-3": {
+        "T": 123,
+        "cnot": 24,
+        "gatter": 383,
+        "tiefe": 276,
+        "t_tiefe": 95,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.001292253480177236
+       },
+       "grid_1e-4": {
+        "T": 167,
+        "cnot": 24,
+        "gatter": 490,
+        "tiefe": 355,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0001255427243729021
+       }
+      },
+      "8": {
+       "fehler_exakt_vs_modell": 4.480647912243904e-16,
+       "sk_r1": {
+        "T": 160,
+        "cnot": 24,
+        "gatter": 324,
+        "tiefe": 168,
+        "t_tiefe": 88,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.22570739756059327
+       },
+       "sk_r2": {
+        "T": 752,
+        "cnot": 24,
+        "gatter": 1398,
+        "tiefe": 804,
+        "t_tiefe": 442,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.11872816314769448
+       },
+       "sk_r3": {
+        "T": 3874,
+        "cnot": 24,
+        "gatter": 7014,
+        "tiefe": 3607,
+        "t_tiefe": 1996,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.032121916405399714
+       },
+       "grid_1e-2": {
+        "T": 142,
+        "cnot": 24,
+        "gatter": 439,
+        "tiefe": 236,
+        "t_tiefe": 80,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.023109386531374492
+       },
+       "grid_1e-3": {
+        "T": 240,
+        "cnot": 24,
+        "gatter": 709,
+        "tiefe": 360,
+        "t_tiefe": 125,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0021145397323947576
+       },
+       "grid_1e-4": {
+        "T": 335,
+        "cnot": 24,
+        "gatter": 940,
+        "tiefe": 473,
+        "t_tiefe": 169,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.00020394354390612088
+       }
+      },
+      "12": {
+       "fehler_exakt_vs_modell": 3.885780586188048e-16,
+       "sk_r1": {
+        "T": 243,
+        "cnot": 24,
+        "gatter": 469,
+        "tiefe": 187,
+        "t_tiefe": 97,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.2693710545866259
+       },
+       "sk_r2": {
+        "T": 1185,
+        "cnot": 24,
+        "gatter": 2173,
+        "tiefe": 913,
+        "t_tiefe": 505,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.14270797745537425
+       },
+       "sk_r3": {
+        "T": 6069,
+        "cnot": 24,
+        "gatter": 11021,
+        "tiefe": 4023,
+        "t_tiefe": 2195,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.03830471340954706
+       },
+       "grid_1e-2": {
+        "T": 225,
+        "cnot": 24,
+        "gatter": 673,
+        "tiefe": 252,
+        "t_tiefe": 83,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.030255562375759673
+       },
+       "grid_1e-3": {
+        "T": 358,
+        "cnot": 24,
+        "gatter": 1024,
+        "tiefe": 368,
+        "t_tiefe": 127,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.002670993274777485
+       },
+       "grid_1e-4": {
+        "T": 502,
+        "cnot": 24,
+        "gatter": 1378,
+        "tiefe": 477,
+        "t_tiefe": 173,
+        "nur_clifford_t": true,
+        "operatorfehler": 0.0002785212207751747
+       }
+      }
+     }
+    }
+   ]
+  }
+ },
+ "born_vergleich": {
+  "seed": 10,
+  "k": 2,
+  "bilder": 20,
+  "exakt": {
+   "max_abs_diff": 1.8041124150158794e-16,
+   "totalvariation_max": 1.2578113369261865e-15
+  },
+  "sk_r1": {
+   "max_abs_diff": 0.0007282404581193669,
+   "totalvariation_max": 0.007691348181289134
+  },
+  "sk_r2": {
+   "max_abs_diff": 0.00039550843686107784,
+   "totalvariation_max": 0.003964573890067523
+  },
+  "sk_r3": {
+   "max_abs_diff": 6.477530070898851e-05,
+   "totalvariation_max": 0.0006122803829092377
+  },
+  "grid_1e-2": {
+   "max_abs_diff": 0.0002320697881702978,
+   "totalvariation_max": 0.0022551210823479766
+  },
+  "grid_1e-3": {
+   "max_abs_diff": 1.313693021190096e-05,
+   "totalvariation_max": 0.0001264788419214687
+  },
+  "grid_1e-4": {
+   "max_abs_diff": 1.6758196423119487e-06,
+   "totalvariation_max": 1.7495110118139956e-05
+  },
+  "statepreparation_diff": 1.0557527074794848e-14
+ },
+ "urteil": {
+  "H-1": "H1: k=0 -> T-Zahl 0 und exakter Operator (alle Seeds, alle Synthesen)",
+  "H-2": "beschreibend: mnist sk_r2: T ≈ 110.8·k + -68.6 (R² 0.9927); mnist grid_1e-3: T ≈ 30.9·k + -0.3 (R² 1.0000); ziffern sk_r2: T ≈ 114.0·k + -31.3 (R² 0.9988); ziffern grid_1e-3: T ≈ 30.8·k + -0.3 (R² 0.9999)"
+ },
+ "sekunden": 464.69759583473206
+}

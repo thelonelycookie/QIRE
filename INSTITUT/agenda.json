@@ -197,10 +197,10 @@
   {
    "id": "C-hardware",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "erledigt",
+   "modul": "abteilungen.hardware",
    "frage": "Q3-Bruecke: die gerundete Schaltung mit k Magiewinkeln mit Qiskit nach Clifford+T uebersetzen (T-Zahl zaehlen) und auf IBM-Hardware laufen lassen. Uebersetzt M50 direkt in T-Gatter.",
-   "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7).",
+   "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7). | Gebaut und gerechnet 24.09. (T ~ 31*k bei eps=1e-3). Offen: Kosten der Amplitudenkodierung, Lauf auf IBM-Hardware.",
    "prioritaet": 1
   },
   {

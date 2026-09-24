@@ -266,3 +266,33 @@ Hardware rund **1.000 Schüsse je Bild** (MNIST: 1.000 → −1,4 pp,
 10.000 → −0,3 pp). Das ist die Zahl, die in jede ehrliche Aussage über
 „Quantenhardware als KI-Beschleuniger“ gehört — und eine gute Frage fürs
 MPI-Gespräch.
+
+## 24.09.2026, 18:45 — C-hardware (Q3): Magie-Konzentration in T-Gattern
+
+Forscher-Agent, Modul `abteilungen/hardware.py`, Rohdaten `ergebnisse/C-hardware__20260924_184246.json`.
+Die QIRE-Zelle als Qiskit-Schaltung (Bitordnung: Modell-Qubit q =
+Qiskit-Qubit n−1−q), Operatorfehler 5·10⁻¹⁶ (float64); vom Direktor mit
+eigenen Zufallswinkeln nachgeprüft: 2,5·10⁻⁷ (float32-Modell). Negativ-
+kontrolle ohne Umnummerierung: 0,4–0,7 (der Test *kann* die Bitordnung
+erkennen). Clifford-Winkel exakt als h/x/z, magische Ry-Winkel mit
+Ross–Selinger-gridsynth bzw. Solovay–Kitaev nach Clifford+T übersetzt.
+
+| k magische Winkel (MNIST, 32 CNOT) | T-Gatter ε=10⁻² | ε=10⁻³ | ε=10⁻⁴ | Gewinnanteil G(k) |
+|---|---|---|---|---|
+| 0 | **0** | **0** | **0** | 0,17 |
+| 1 | 11 | 30 | 42 | 0,49 |
+| 2 | 28 | 62 | 84 | 0,53 |
+| 4 | 69 | 123 | 168 | 0,68 |
+| 8 | 152 | 247 | 337 | 0,89 |
+| 12 | 236 | 371 | 503 | 0,92 |
+
+H-1 **bestätigt** (k=0 → 0 T-Gatter, exakter Operator, alle Seeds).
+T ≈ 30,9·k bei ε=10⁻³ (R² = 1,000). Born-Verteilung der Clifford+T-Schaltung
+weicht bei ε=10⁻³ höchstens 1,3·10⁻⁵ vom Modell ab.
+
+**Bedeutung:** Damit ist das Magie-Budget in die Kostenwährung eines
+fehlertoleranten Quantencomputers übersetzt: *die Hälfte des Quantennutzens
+für ~30–60 T-Gatter, 90 % für ~370.* Die volle Schaltung (32 magische
+Winkel) bräuchte ~990 T-Gatter. Grenzen: nur rauschfrei simuliert; die Kosten
+der Amplitudenkodierung (Zustandspräparation, selbst sehr T-teuer) sind nicht
+mitgezählt — das ist die nächste ehrliche Frage.
