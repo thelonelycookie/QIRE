@@ -1,0 +1,2 @@
+breite,lagen,koepfe,seq,batch,vocab,parameter,sekunden_je_schritt,token_je_sekunde,zustands_mb,threads,mess_schritte
+128,4,4,128,16,4096,1858304,0.33204292000009444,6167.877333446584,28.35546875,6,10

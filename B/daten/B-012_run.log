@@ -1,0 +1,106 @@
+﻿
+##########################################################################
+# B-012 -- mnist
+##########################################################################
+  mnist seed 2001 fertig (1/12)
+  mnist seed 2002 fertig (2/12)
+  mnist seed 2003 fertig (3/12)
+  mnist seed 2004 fertig (4/12)
+  mnist seed 2005 fertig (5/12)
+  mnist seed 2006 fertig (6/12)
+  mnist seed 2007 fertig (7/12)
+  mnist seed 2008 fertig (8/12)
+  mnist seed 2009 fertig (9/12)
+  mnist seed 2010 fertig (10/12)
+  mnist seed 2011 fertig (11/12)
+  mnist seed 2012 fertig (12/12)
+
+RESEARCH ID B-012 | mnist, 12 Seeds, dichte Referenz 0.9377
+
+Effektivrang der Mittelschicht waehrend des dichten Trainings:
+   Epoche  Effektivrang  Entropie-Rang  Energie@64
+  ------------------------------------------------
+        1           5.1            6.6      0.9990
+        2           5.9            7.7      0.9987
+        3           6.0            8.1      0.9985
+        4           6.3            8.4      0.9983
+        5           6.2            8.5      0.9982
+        6           6.4            8.7      0.9981
+        7           6.5            8.8      0.9980
+        8           6.5            9.0      0.9979
+        9           6.6            9.0      0.9978
+       10           6.7            9.2      0.9977
+  -> Effektivrang steigt: Spearman rho=+0.988, p=0.0000
+
+Klassenweise Unterraeume: Effektivrang je Klasse 3.9, mittlerer Hauptkosinus 0.749
+  (nahe 1 = alle Klassen teilen denselben Unterraum;
+   nahe 0 = jede Klasse hat ihren eigenen -> implizites MoE)
+
+Dosis-Wirkungs-Kurve: Genauigkeit nach Verzweigungszeitpunkt k
+    Rang       k=0       k=1       k=2       k=3       k=5       k=7      k=10   Spearman        p
+  ------------------------------------------------------------------------------------------------
+       8    0.9365    0.9354    0.9338    0.9345    0.9359    0.9388    0.9012     -0.214   0.6445   bestes k=7
+      32    0.9283    0.9386    0.9393    0.9355    0.9399    0.9377    0.9375      0.179   0.7017   bestes k=5
+      64    0.9297    0.9376    0.9379    0.9408    0.9366    0.9368    0.9379      0.214   0.6445   bestes k=3
+
+==============================================================================
+BEWERTUNG (Kriterien vor dem Lauf festgelegt)
+  H0 -- kein monotoner Zusammenhang bei Rang 64. Der Vorteil in B-011 kam nicht vom Weg.
+  H2 nicht gestuetzt -- das optimale k waechst nicht mit dem Rang ({8: 7, 32: 5, 64: 3}).
+==============================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-012-mnist__20260804_043512.json
+  Messzeilen (384): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-012-mnist__20260804_043512.csv
+
+##########################################################################
+# B-012 -- fashion_mnist
+##########################################################################
+  fashion_mnist seed 2001 fertig (1/12)
+  fashion_mnist seed 2002 fertig (2/12)
+  fashion_mnist seed 2003 fertig (3/12)
+  fashion_mnist seed 2004 fertig (4/12)
+  fashion_mnist seed 2005 fertig (5/12)
+  fashion_mnist seed 2006 fertig (6/12)
+  fashion_mnist seed 2007 fertig (7/12)
+  fashion_mnist seed 2008 fertig (8/12)
+  fashion_mnist seed 2009 fertig (9/12)
+  fashion_mnist seed 2010 fertig (10/12)
+  fashion_mnist seed 2011 fertig (11/12)
+  fashion_mnist seed 2012 fertig (12/12)
+
+RESEARCH ID B-012 | fashion_mnist, 12 Seeds, dichte Referenz 0.8362
+
+Effektivrang der Mittelschicht waehrend des dichten Trainings:
+   Epoche  Effektivrang  Entropie-Rang  Energie@64
+  ------------------------------------------------
+        1           3.0            4.2      0.9997
+        2           3.8            5.2      0.9997
+        3           3.9            5.6      0.9996
+        4           4.3            6.0      0.9995
+        5           4.3            6.1      0.9994
+        6           4.4            6.3      0.9994
+        7           4.5            6.5      0.9993
+        8           4.9            6.9      0.9992
+        9           4.6            6.7      0.9991
+       10           4.8            6.9      0.9990
+  -> Effektivrang steigt: Spearman rho=+0.964, p=0.0000
+
+Klassenweise Unterraeume: Effektivrang je Klasse 2.5, mittlerer Hauptkosinus 0.656
+  (nahe 1 = alle Klassen teilen denselben Unterraum;
+   nahe 0 = jede Klasse hat ihren eigenen -> implizites MoE)
+
+Dosis-Wirkungs-Kurve: Genauigkeit nach Verzweigungszeitpunkt k
+    Rang       k=0       k=1       k=2       k=3       k=5       k=7      k=10   Spearman        p
+  ------------------------------------------------------------------------------------------------
+       8    0.8317    0.8311    0.8342    0.8336    0.8369    0.8351    0.7260      0.143   0.7599   bestes k=5
+      32    0.8257    0.8298    0.8319    0.8351    0.8344    0.8367    0.8334      0.750   0.0522   bestes k=7
+      64    0.8269    0.8298    0.8347    0.8346    0.8363    0.8368    0.8353      0.857   0.0137   bestes k=7
+
+==============================================================================
+BEWERTUNG (Kriterien vor dem Lauf festgelegt)
+  H1 -- bei Rang 64 steigt die Genauigkeit monoton mit dem Verzweigungszeitpunkt (rho=+0.857, p=0.0137). Der Weg hat einen messbaren Wert, bei identischem Budget.
+  H2 gestuetzt -- das optimale k waechst mit dem Rang ({8: 5, 32: 7, 64: 7}, rho=+0.866). Damit sind der Faktor-6,4-Befund und B-011 Spezialfaelle derselben Regel.
+==============================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-012-fashion_mnist__20260804_052407.json
+  Messzeilen (384): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-012-fashion_mnist__20260804_052407.csv

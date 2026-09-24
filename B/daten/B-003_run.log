@@ -1,0 +1,55 @@
+﻿  seed 1101 fertig (8/80 Laeufe)
+  seed 1102 fertig (16/80 Laeufe)
+  seed 1103 fertig (24/80 Laeufe)
+  seed 1104 fertig (32/80 Laeufe)
+  seed 1105 fertig (40/80 Laeufe)
+  seed 1106 fertig (48/80 Laeufe)
+  seed 1107 fertig (56/80 Laeufe)
+  seed 1108 fertig (64/80 Laeufe)
+  seed 1109 fertig (72/80 Laeufe)
+  seed 1110 fertig (80/80 Laeufe)
+
+RESEARCH ID B-003 | MNIST, Breite 4096, 10 frische Seeds
+
+--- depth 1 ----------------------------------------------------------
+               arm  accuracy     std       params   vs dicht   fwd ms
+---------------------------------------------------------------------
+             dense    0.9237  0.0099   16,781,312          -     39.3
+       block_plain    0.9362  0.0095       20,480       819x     10.9
+    block_spectral    0.9394  0.0098       20,480       819x     13.1
+  block_orthogonal    0.9442  0.0047       20,480       819x     12.2
+
+  Kernvergleich -- jeder Blockarm gegen die dichte Schicht:
+           block_plain vs dense:  +0.0125  10/10 Siege  p=0.0020 *signifikant*
+        block_spectral vs dense:  +0.0157  10/10 Siege  p=0.0020 *signifikant*
+      block_orthogonal vs dense:  +0.0204  10/10 Siege  p=0.0020 *signifikant*
+
+  Traegt die Beschraenkung zusaetzlich etwas bei?
+        block_spectral vs block_plain:  +0.0032  p=0.4316 (nicht signifikant)
+      block_orthogonal vs block_plain:  +0.0080  p=0.0137 *signifikant*
+
+--- depth 3 ----------------------------------------------------------
+               arm  accuracy     std       params   vs dicht   fwd ms
+---------------------------------------------------------------------
+             dense    0.9035  0.0216   50,343,936          -    105.6
+       block_plain    0.9307  0.0043       61,440       819x     15.6
+    block_spectral    0.9382  0.0057       61,440       819x     23.2
+  block_orthogonal    0.9450  0.0071       61,440       819x     19.8
+
+  Kernvergleich -- jeder Blockarm gegen die dichte Schicht:
+           block_plain vs dense:  +0.0272  10/10 Siege  p=0.0020 *signifikant*
+        block_spectral vs dense:  +0.0346  10/10 Siege  p=0.0020 *signifikant*
+      block_orthogonal vs dense:  +0.0415  10/10 Siege  p=0.0020 *signifikant*
+
+  Traegt die Beschraenkung zusaetzlich etwas bei?
+        block_spectral vs block_plain:  +0.0075  p=0.0273 *signifikant*
+      block_orthogonal vs block_plain:  +0.0143  p=0.0039 *signifikant*
+
+========================================================================
+BEWERTUNG (Kriterien vor dem Lauf festgelegt)
+  depth 1: H2 -- Blockstruktur traegt, Spektralnormalisierung nicht nachweisbar. Aussage auf 'Blockschicht' kuerzen.
+  depth 3: H1 -- Aussage haelt vollstaendig (spektral > dicht UND > unbeschraenkt)
+========================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-003__20260803_021746.json
+  Messzeilen (80): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-003__20260803_021746.csv

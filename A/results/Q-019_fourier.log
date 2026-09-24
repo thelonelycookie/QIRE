@@ -1,0 +1,16 @@
+============================================================================================
+ERREICHBARKEIT DER FOURIERMATRIX -- gemessen, nicht behauptet
+============================================================================================
+  Positivkontrolle (Ziel liegt in der Familie)   Rest 0.9441  ACHTUNG -- Anpassung konvergiert nicht
+
+  butterfly (geteilt, 40)      relativer Restfehler 1.3856  (   40 Parameter)
+  untied (ungeteilt, 5.120)    relativer Restfehler 0.9448  (5,120 Parameter)
+
+  Bezugspunkt: zwei zufaellige orthogonale 256x256-Matrizen haben
+  einen relativen Abstand von sqrt(2) = 1,414. Ein Wert nahe daran
+  heisst 'keinerlei Ausrichtung'.
+  Lesart: 0 heisst 'stellt die Fouriermatrix exakt dar'. Ein grosser
+  Rest heisst, die Familie KANN sie nicht -- dann ist ein Rueckstand
+  gegen `fft_fest` im Lauf keine Trainings-, sondern eine
+  Darstellbarkeitsfrage.
+============================================================================================

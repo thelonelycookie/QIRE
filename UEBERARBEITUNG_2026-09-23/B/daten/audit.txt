@@ -1,0 +1,62 @@
+﻿==========================================================================================
+1. INVENTAR DER GESPEICHERTEN ROHDATEN
+==========================================================================================
+  B-003            2026-08-03T02:17:46    80 Zeilen  10 Seeds  mnist
+  B-004-lr         2026-08-03T02:54:54   126 Zeilen   0 Seeds  
+  B-004            2026-08-03T03:52:28   210 Zeilen  10 Seeds  mnist
+  B-005            2026-08-03T05:53:05    10 Zeilen   5 Seeds  mnist
+  B-006            2026-08-03T05:46:55    48 Zeilen   6 Seeds  mnist
+  B-008            2026-08-03T19:27:30   480 Zeilen  30 Seeds  ['mnist', 'fashion_mnist']
+  B-009-fashion_mnist 2026-08-03T20:13:12    90 Zeilen  30 Seeds  fashion_mnist
+  B-009-mnist      2026-08-03T19:49:49    90 Zeilen  30 Seeds  mnist
+  B-010            2026-08-04T00:31:43   720 Zeilen  15 Seeds  ['mnist', 'fashion_mnist']
+  B-011-fashion_mnist 2026-08-04T01:31:58   135 Zeilen  15 Seeds  fashion_mnist
+  B-011-mnist      2026-08-04T01:03:06   135 Zeilen  15 Seeds  mnist
+  B-012-fashion_mnist 2026-08-04T05:24:07   384 Zeilen  12 Seeds  fashion_mnist
+  B-012-mnist      2026-08-04T04:35:12   384 Zeilen  12 Seeds  mnist
+  B-013-fashion_mnist 2026-08-04T14:56:21    60 Zeilen  15 Seeds  fashion_mnist
+  B-013-mnist      2026-08-04T14:29:28    60 Zeilen  15 Seeds  mnist
+  B-014            2026-08-04T18:36:24   240 Zeilen  10 Seeds  
+
+==========================================================================================
+2. KERNZAHLEN AUS DEN ROHDATEN GEGEN DIE ANGABEN IM TAGEBUCH
+==========================================================================================
+  [OK    ] B-003 d1: Block unbeschraenkt vs dicht       Tagebuch +0.0125 | Rohdaten +0.0125
+  [OK    ] B-003 d1: dichte Schicht                     Tagebuch +0.9237 | Rohdaten +0.9237
+  [OK    ] B-003 d3: dichte Schicht                     Tagebuch +0.9035 | Rohdaten +0.9035
+  [OK    ] B-004 dense_ends: dicht                      Tagebuch +0.9347 | Rohdaten +0.9347
+  [OK    ] B-004 local_ends: Monarch vs Block           Tagebuch +0.0115 | Rohdaten +0.0115
+  [OK    ] B-004 Permutation: Monarch verliert          Tagebuch -0.0133 | Rohdaten -0.0133
+  [OK    ] B-004 lowrank_r64 vs dicht (dense_ends)      Tagebuch +0.0003 | Rohdaten +0.0003
+  [OK    ] B-006 dense_ends: dicht                      Tagebuch +0.9605 | Rohdaten +0.9605
+  [OK    ] B-012 mnist: dichte Referenz                 Tagebuch +0.9377 | Rohdaten +0.9377
+  [OK    ] B-012 mnist: Zweig k=0, Rang 64              Tagebuch +0.9297 | Rohdaten +0.9297
+  [OK    ] B-012 mnist: Zweig k=3, Rang 64              Tagebuch +0.9408 | Rohdaten +0.9408
+  [OK    ] B-013 mnist: ein Schnitt bei Epoche 5        Tagebuch +0.9399 | Rohdaten +0.9399
+  [OK    ] B-013 mnist: fester Rang 64                  Tagebuch +0.9303 | Rohdaten +0.9303
+  [OK    ] B-012 mnist: Effektivrang nach Epoche 1      Tagebuch    5.10 | Rohdaten    5.06
+  [OK    ] B-012 mnist: Effektivrang nach Epoche 10     Tagebuch    6.70 | Rohdaten    6.72
+
+==========================================================================================
+3. IM TAGEBUCH GENANNTE EXPERIMENTE OHNE ROHDATEN
+==========================================================================================
+  genannt: A-001, A-002, A-003, B-002, B-003, B-004, B-005, B-006, B-008, B-009, B-010, B-011, B-012, B-013, B-014, C-001, Q-001, Q-002, Q-003
+  mit Rohdaten: B-003, B-004, B-004-lr, B-005, B-006, B-008, B-009-fashion_mnist, B-009-mnist, B-010, B-011-fashion_mnist, B-011-mnist, B-012-fashion_mnist, B-012-mnist, B-013-fashion_mnist, B-013-mnist, B-014
+
+  OHNE ROHDATEN (8): A-001, A-002, A-003, B-002, C-001, Q-001, Q-002, Q-003
+  -> Diese Zahlen sind nur durch einen kompletten Neulauf belegbar.
+     Fuer die schriftliche Arbeit entweder neu rechnen oder als
+     'nicht mehr reproduzierbar' kennzeichnen.
+
+==========================================================================================
+4. UMGEBUNG
+==========================================================================================
+  torch 2.12.0+cpu, Threads 6
+  KEINE GPU verfuegbar. Alle Zeitaussagen gelten nur fuer CPU;
+  Monarchs eigentliches Argument (Hardware-Effizienz auf GPUs)
+  ist auf diesem Rechner nicht pruefbar und muss als Grenze
+  der Arbeit benannt werden.
+
+==========================================================================================
+ERGEBNIS: Alle geprueften Kernzahlen stimmen mit den Rohdaten ueberein.
+==========================================================================================

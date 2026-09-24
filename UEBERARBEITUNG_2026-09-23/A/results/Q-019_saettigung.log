@@ -1,0 +1,16 @@
+============================================================================================
+SAETTIGUNGSPRUEFUNG Q-019 -- vor dem Lauf
+  Aufgabe: 3 Anteile, Rauschen 0.45, Amplitudenabstand 0.15
+  Rateniveau 0.125 | Boden 0.225 | Saettigung 0.95
+============================================================================================
+  periodisch  butterfly  0.6624
+  periodisch  dense      0.9130
+  periodisch  fft_fest   0.8039
+  periodisch  narrow     0.7853
+  permutiert  butterfly  0.1426  <== unter dem Boden
+  permutiert  dense      0.9154
+  permutiert  fft_fest   0.1509  <== unter dem Boden
+  permutiert  narrow     0.7973
+
+  In Ordnung: kein Arm gesaettigt, mindestens einer ueber dem Boden.
+============================================================================================

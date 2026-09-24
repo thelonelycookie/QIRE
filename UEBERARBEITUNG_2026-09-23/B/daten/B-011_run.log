@@ -1,0 +1,100 @@
+﻿
+##########################################################################
+# B-011 -- mnist
+##########################################################################
+  mnist seed 1901 fertig (1/15)
+  mnist seed 1902 fertig (2/15)
+  mnist seed 1903 fertig (3/15)
+  mnist seed 1904 fertig (4/15)
+  mnist seed 1905 fertig (5/15)
+  mnist seed 1906 fertig (6/15)
+  mnist seed 1907 fertig (7/15)
+  mnist seed 1908 fertig (8/15)
+  mnist seed 1909 fertig (9/15)
+  mnist seed 1910 fertig (10/15)
+  mnist seed 1911 fertig (11/15)
+  mnist seed 1912 fertig (12/15)
+  mnist seed 1913 fertig (13/15)
+  mnist seed 1914 fertig (14/15)
+  mnist seed 1915 fertig (15/15)
+
+RESEARCH ID B-011 | mnist, 15 Seeds, dichte Referenz 0.9403
+
+Spektren der trainierten dichten Schicht (kumulierte Energie):
+    Rang   Gewichte W   Daten (Ausgaben)
+  --------------------------------------
+       8       0.4586             0.9232
+      64       0.6463             0.9977
+
+--- Rang 8 ----------------------------------------------------
+           Arm  accuracy   vs dicht        p   TOST p                       Lesart
+----------------------------------------------------------------------------------
+       scratch    0.9344    -0.0059   0.0353   0.6444           Unterschied belegt
+    svd_frozen    0.9082    -0.0321   0.0001   0.9981           Unterschied belegt
+  svd_finetune    0.9383    -0.0020   0.7615   0.1609     unentschieden (+-0.0072)
+       distill    0.9178    -0.0226   0.0001   0.9977           Unterschied belegt
+  relativer Nachbildungsfehler der Destillation: 0.0588
+  -> DARSTELLUNGSGRENZE -- auch die Destillation erreicht die dichte Schicht nicht. Rang ist die falsche Struktur.
+
+--- Rang 64 ----------------------------------------------------
+           Arm  accuracy   vs dicht        p   TOST p                       Lesart
+----------------------------------------------------------------------------------
+       scratch    0.9290    -0.0114   0.0067   0.9606           Unterschied belegt
+    svd_frozen    0.9407    +0.0003   0.2721   0.0000                 gleichwertig
+  svd_finetune    0.9369    -0.0034   0.2293   0.2622     unentschieden (+-0.0077)
+       distill    0.9387    -0.0016   0.0067   0.0000                 gleichwertig
+  relativer Nachbildungsfehler der Destillation: 0.0074
+  -> OPTIMIERUNGSLUECKE -- die Familie kann die Funktion darstellen, das Training von null findet sie nicht.
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-011-mnist__20260804_010306.json
+  Messzeilen (135): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-011-mnist__20260804_010306.csv
+
+##########################################################################
+# B-011 -- fashion_mnist
+##########################################################################
+  fashion_mnist seed 1901 fertig (1/15)
+  fashion_mnist seed 1902 fertig (2/15)
+  fashion_mnist seed 1903 fertig (3/15)
+  fashion_mnist seed 1904 fertig (4/15)
+  fashion_mnist seed 1905 fertig (5/15)
+  fashion_mnist seed 1906 fertig (6/15)
+  fashion_mnist seed 1907 fertig (7/15)
+  fashion_mnist seed 1908 fertig (8/15)
+  fashion_mnist seed 1909 fertig (9/15)
+  fashion_mnist seed 1910 fertig (10/15)
+  fashion_mnist seed 1911 fertig (11/15)
+  fashion_mnist seed 1912 fertig (12/15)
+  fashion_mnist seed 1913 fertig (13/15)
+  fashion_mnist seed 1914 fertig (14/15)
+  fashion_mnist seed 1915 fertig (15/15)
+
+RESEARCH ID B-011 | fashion_mnist, 15 Seeds, dichte Referenz 0.8287
+
+Spektren der trainierten dichten Schicht (kumulierte Energie):
+    Rang   Gewichte W   Daten (Ausgaben)
+  --------------------------------------
+       8       0.4705             0.9629
+      64       0.6329             0.9990
+
+--- Rang 8 ----------------------------------------------------
+           Arm  accuracy   vs dicht        p   TOST p                       Lesart
+----------------------------------------------------------------------------------
+       scratch    0.8283    -0.0003   0.6788   0.0601     unentschieden (+-0.0053)
+    svd_frozen    0.7162    -0.1124   0.0001   1.0000           Unterschied belegt
+  svd_finetune    0.8386    +0.0099   0.0833   0.8374     unentschieden (+-0.0184)
+       distill    0.7635    -0.0652   0.0001   1.0000           Unterschied belegt
+  relativer Nachbildungsfehler der Destillation: 0.0403
+  -> kein klares Bild bei diesem Rang.
+
+--- Rang 64 ----------------------------------------------------
+           Arm  accuracy   vs dicht        p   TOST p                       Lesart
+----------------------------------------------------------------------------------
+       scratch    0.8275    -0.0011   0.8040   0.1392     unentschieden (+-0.0072)
+    svd_frozen    0.8298    +0.0011   0.1688   0.0001                 gleichwertig
+  svd_finetune    0.8376    +0.0089   0.0730   0.8016     unentschieden (+-0.0168)
+       distill    0.8251    -0.0036   0.0054   0.1080           Unterschied belegt
+  relativer Nachbildungsfehler der Destillation: 0.0052
+  -> kein klares Bild bei diesem Rang.
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-011-fashion_mnist__20260804_013158.json
+  Messzeilen (135): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-011-fashion_mnist__20260804_013158.csv

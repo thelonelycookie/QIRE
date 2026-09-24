@@ -1,0 +1,104 @@
+﻿=== Q-003-replication (2. Anlauf, LR_GRID mit 0.1) gestartet 2026-08-05T01:22:28 ===
+
+  Lernratensuche fuer mnist
+             mnist / hybrid               -> lr 0.1  0.003:0.8008  0.01:0.8542  0.03:0.8792  0.1:0.8875
+             mnist / hybrid_no_entangle   -> lr 0.1  0.003:0.8258  0.01:0.8733  0.03:0.8842  0.1:0.8925
+             mnist / hybrid_1layer        -> lr 0.1  0.003:0.7717  0.01:0.8492  0.03:0.8792  0.1:0.8892
+             mnist / classical_quadratic  -> lr 0.03  0.003:0.5500  0.01:0.6442  0.03:0.6717  0.1:0.6575
+             mnist / classical_quad_free  -> lr 0.03  0.003:0.5917  0.01:0.8492  0.03:0.8900  0.1:0.8733
+             mnist / classical_norm_deep  -> lr 0.01  0.003:0.7167  0.01:0.7517  0.03:0.6883  0.1:0.4008
+    WARNUNG: am Gitterrand -> hybrid, hybrid_no_entangle, hybrid_1layer
+    Das Optimum kann ausserhalb (0.003, 0.01, 0.03, 0.1) liegen.
+    mnist seed 2301 fertig (1/15)
+    mnist seed 2302 fertig (2/15)
+    mnist seed 2303 fertig (3/15)
+    mnist seed 2304 fertig (4/15)
+    mnist seed 2305 fertig (5/15)
+    mnist seed 2306 fertig (6/15)
+    mnist seed 2307 fertig (7/15)
+    mnist seed 2308 fertig (8/15)
+    mnist seed 2309 fertig (9/15)
+    mnist seed 2310 fertig (10/15)
+    mnist seed 2311 fertig (11/15)
+    mnist seed 2312 fertig (12/15)
+    mnist seed 2313 fertig (13/15)
+    mnist seed 2314 fertig (14/15)
+    mnist seed 2315 fertig (15/15)
+    Zwischenstand nach mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-003-replication__20260805_014606.json
+  Messzeilen (90): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-003-replication__20260805_014606.csv
+
+  Lernratensuche fuer fashion_mnist
+     fashion_mnist / hybrid               -> lr 0.1  0.003:0.5858  0.01:0.6100  0.03:0.6525  0.1:0.6817
+     fashion_mnist / hybrid_no_entangle   -> lr 0.1  0.003:0.6742  0.01:0.6925  0.03:0.6925  0.1:0.7017
+     fashion_mnist / hybrid_1layer        -> lr 0.1  0.003:0.6850  0.01:0.6683  0.03:0.6983  0.1:0.7092
+     fashion_mnist / classical_quadratic  -> lr 0.01  0.003:0.4858  0.01:0.5358  0.03:0.4967  0.1:0.4667
+     fashion_mnist / classical_quad_free  -> lr 0.1  0.003:0.3567  0.01:0.7117  0.03:0.7625  0.1:0.7700
+     fashion_mnist / classical_norm_deep  -> lr 0.003  0.003:0.7042  0.01:0.7025  0.03:0.5358  0.1:0.2858
+    WARNUNG: am Gitterrand -> hybrid, hybrid_no_entangle, hybrid_1layer, classical_quad_free, classical_norm_deep
+    Das Optimum kann ausserhalb (0.003, 0.01, 0.03, 0.1) liegen.
+    fashion_mnist seed 2301 fertig (1/15)
+    fashion_mnist seed 2302 fertig (2/15)
+    fashion_mnist seed 2303 fertig (3/15)
+    fashion_mnist seed 2304 fertig (4/15)
+    fashion_mnist seed 2305 fertig (5/15)
+    fashion_mnist seed 2306 fertig (6/15)
+    fashion_mnist seed 2307 fertig (7/15)
+    fashion_mnist seed 2308 fertig (8/15)
+    fashion_mnist seed 2309 fertig (9/15)
+    fashion_mnist seed 2310 fertig (10/15)
+    fashion_mnist seed 2311 fertig (11/15)
+    fashion_mnist seed 2312 fertig (12/15)
+    fashion_mnist seed 2313 fertig (13/15)
+    fashion_mnist seed 2314 fertig (14/15)
+    fashion_mnist seed 2315 fertig (15/15)
+    Zwischenstand nach fashion_mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-003-replication__20260805_020957.json
+  Messzeilen (180): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-003-replication__20260805_020957.csv
+
+RESEARCH ID Q-003-replication | 8 Qubits, 15 Seeds
+
+--- mnist ---------------------------------------------------
+                   Arm  accuracy  balanced     std    Params     lr
+  -----------------------------------------------------------------
+                hybrid    0.9347    0.9339  0.0062        80    0.1
+    hybrid_no_entangle    0.9362    0.9355  0.0071        80    0.1
+         hybrid_1layer    0.9344    0.9337  0.0063        16    0.1
+   classical_quadratic    0.8898    0.8881  0.0109     2,048   0.03
+   classical_quad_free    0.9223    0.9213  0.0102     2,048   0.03
+   classical_norm_deep    0.8435    0.8407  0.0133    67,848   0.01
+
+                hybrid vs classical_norm_deep   +0.0932  p=0.0001  Holm=0.0001  Unterschied belegt   [PRIMAER]
+   classical_quadratic vs hybrid                -0.0459  p=0.0001  Holm=0.0001  Unterschied belegt   [P2]
+                hybrid vs hybrid_1layer         +0.0002  p=0.7615  Holm=    --  gleichwertig (+-0.005)   [KONTROLLE]
+                hybrid vs hybrid_no_entangle    -0.0015  p=0.8469  Holm=    --  gleichwertig (+-0.005)   [Verschraenkung]
+   classical_quadratic vs classical_quad_free   -0.0333  p=0.0001  Holm=    --  Unterschied (unkorrigiert)   [Normerhaltung]
+
+--- fashion_mnist -------------------------------------------
+                   Arm  accuracy  balanced     std    Params     lr
+  -----------------------------------------------------------------
+                hybrid    0.8196    0.8190  0.0195        80    0.1
+    hybrid_no_entangle    0.8236    0.8231  0.0138        80    0.1
+         hybrid_1layer    0.8208    0.8203  0.0145        16    0.1
+   classical_quadratic    0.7234    0.7231  0.0402     2,048   0.01
+   classical_quad_free    0.8142    0.8139  0.0138     2,048    0.1
+   classical_norm_deep    0.7597    0.7591  0.0179    67,848  0.003
+
+                hybrid vs classical_norm_deep   +0.0599  p=0.0001  Holm=0.0001  Unterschied belegt   [PRIMAER]
+   classical_quadratic vs hybrid                -0.0960  p=0.0001  Holm=0.0001  Unterschied belegt   [P2]
+                hybrid vs hybrid_1layer         -0.0013  p=0.9780  Holm=    --  unentschieden (+-0.0093)   [KONTROLLE]
+                hybrid vs hybrid_no_entangle    -0.0041  p=0.0554  Holm=    --  unentschieden (+-0.0100)   [Verschraenkung]
+   classical_quadratic vs classical_quad_free   -0.0908  p=0.0001  Holm=    --  Unterschied (unkorrigiert)   [Normerhaltung]
+
+==================================================================================
+BEWERTUNG (Kriterium vor dem Lauf festgelegt)
+  H1 -- die Kernaussage von Projekt A haelt: die Quantenschaltung schlaegt das klassische Netz auch unter dem strengeren Protokoll, auf beiden Datensaetzen.
+
+  Positivkontrolle NICHT BESTANDEN: 5 Lagen trennen sich nicht von 1 Lage (+0.0002, p=0.7615). Ein Nullbefund oben darf NICHT als Gleichwertigkeit gelesen werden -- der Aufbau ist fuer seine eigene Frage moeglicherweise blind. Das ist derselbe Fehler wie in B-004 und muss so berichtet werden.
+==================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-003-replication__20260805_020957.json
+  Messzeilen (180): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-003-replication__20260805_020957.csv
+=== beendet 2026-08-05T02:09:58, ExitCode 0 ===

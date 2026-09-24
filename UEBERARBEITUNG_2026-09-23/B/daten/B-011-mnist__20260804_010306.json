@@ -1,0 +1,1389 @@
+{
+  "experiment_id": "B-011-mnist",
+  "description": "Ist die Luecke zwischen strukturierter und dichter Schicht eine Darstellungs- oder eine Optimierungsluecke? Vergleicht Training von null, SVD-Initialisierung, Nachtrainieren und Funktionsdestillation. Misst zusaetzlich das datengewichtete Spektrum.",
+  "created": "2026-08-04T01:03:06",
+  "config": {
+    "dataset": "mnist",
+    "ranks": [
+      8,
+      64
+    ],
+    "width": 4096,
+    "seeds": [
+      1901,
+      1902,
+      1903,
+      1904,
+      1905,
+      1906,
+      1907,
+      1908,
+      1909,
+      1910,
+      1911,
+      1912,
+      1913,
+      1914,
+      1915
+    ],
+    "max_samples": 6000,
+    "epochs": 10,
+    "lr": 0.003,
+    "batch_size": 256,
+    "torch_threads": 6,
+    "distill_steps": 400,
+    "arms": [
+      "dense",
+      "scratch",
+      "svd_frozen",
+      "svd_finetune",
+      "distill"
+    ],
+    "fairness_note": "svd_* und distill setzen ein fertig trainiertes dichtes Modell voraus und kosten daher MEHR Gesamtrechenzeit als scratch. Dieses Experiment beantwortet Erreichbarkeit, nicht Effizienz."
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 135,
+  "records": [
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9444537707263884,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4517468406458406,
+      "w_energy_64": 0.6440160960649627,
+      "d_energy_8": 0.9221403157271377,
+      "d_energy_64": 0.9976885517713516
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9377328446827672,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.8369557671752007,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9331124513516645,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9215242278878385,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.05321535294344814
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9271935807634636,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9449094717693451,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9334694836743056,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9402547851221073,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007221570307798163
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9372433575481317,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4645837742099079,
+      "w_energy_64": 0.6504266974772066,
+      "d_energy_8": 0.9126996767101492,
+      "d_energy_64": 0.9975289369118084
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9189923421900421,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9096797771935045,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9244153240557209,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9135875219765353,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.05819672942680873
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9375682236656662,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9366841448743596,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9296412779022878,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9345760191571092,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007341294207251612
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9439175194932862,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.46061906969263805,
+      "w_energy_64": 0.648100088633552,
+      "d_energy_8": 0.9207514011992575,
+      "d_energy_64": 0.9972392062451423
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.938727037418583,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.93134665097622,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9391390553295439,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.934056381760438,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.05998398110955541
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9274332577460402,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9433114588872256,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9439242513241028,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9416698546185055,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.0077996869058413
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.942038223367115,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4545098057502177,
+      "w_energy_64": 0.6476575645645224,
+      "d_energy_8": 0.922313556033612,
+      "d_energy_64": 0.9978352505736768
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9434245995453509,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9370887375686369,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9435066368356191,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9352723637623781,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.05787700175096999
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9393053571643787,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9443747136673055,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9500762103645325,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9432192360271736,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.006687370744537581
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9341259595580607,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4614609299229484,
+      "w_energy_64": 0.6475764768162364,
+      "d_energy_8": 0.92136664712941,
+      "d_energy_64": 0.997741605853115
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9417137070725667,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.901074093437116,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9472944310665758,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.8856789224978343,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.0632187846273783
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9391766405137538,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9341259595580607,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.91464468271208,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9306580709478611,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.0071515235820222905
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9356985842991719,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4517212482763243,
+      "w_energy_64": 0.6450324936613319,
+      "d_energy_8": 0.923150961204636,
+      "d_energy_64": 0.9974881631037795
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9409327925736918,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.8915720527509421,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9486154678140373,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9205130805971129,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.048919924195749045
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9382595473139148,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.936114928722539,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9243465536691531,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9334141590744792,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007775533969822354
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9398303027053041,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.45899979383082695,
+      "w_energy_64": 0.6451481680405297,
+      "d_energy_8": 0.9234709661257341,
+      "d_energy_64": 0.9977530802309057
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9447265753823306,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9349622811993517,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9474195963032912,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9375683663785319,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.05934696822948418
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9423774351611588,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.941523544104428,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9397497329452575,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9393656556965395,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007812646762488225
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9298144520613716,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.45355949118772854,
+      "w_energy_64": 0.6435471669042596,
+      "d_energy_8": 0.9268485069555034,
+      "d_energy_64": 0.9974371396449387
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9224238958971698,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9023749213193041,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9357090874493326,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9234825678898586,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.06268266507371889
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9178448650654017,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9286448614180968,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9252657950024314,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9257435591313714,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007805881491818215
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9404534482222504,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4688381641321585,
+      "w_energy_64": 0.6445293234199155,
+      "d_energy_8": 0.9219175394474534,
+      "d_energy_64": 0.9977625460600356
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9439198322700756,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9304055855331933,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9311751636003311,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9219035505916666,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.060115299451089815
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9279143075467859,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9403989629408018,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9440264445574623,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9387973783341239,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.006517288548736376
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9362306052317353,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.46391806666558477,
+      "w_energy_64": 0.6462072611502314,
+      "d_energy_8": 0.9274542261762178,
+      "d_energy_64": 0.9979202095057269
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9226757060674471,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9237805503969442,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9383064152145068,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9190070872260925,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.04958666815723695
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9294619862374269,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9379153479364526,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.947334440306577,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9367873564222096,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.00734234437913475
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9424445166417745,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4725013408554395,
+      "w_energy_64": 0.6470194967092663,
+      "d_energy_8": 0.933283991925101,
+      "d_energy_64": 0.9974950829198402
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9402635472027109,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9251495693789433,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9403736612463186,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9198541018992596,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.05155493745597222
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9414863377219642,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9424445166417745,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9525800596553919,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9412469118513555,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007707295215325465
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9504034799948459,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.44669130128817786,
+      "w_energy_64": 0.647105607679573,
+      "d_energy_8": 0.9089527815214532,
+      "d_energy_64": 0.9974450631215108
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9388609865910054,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9346734629462686,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.944075667228652,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.866888790003357,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.07517595717003818
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9316608213040581,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9509360326278739,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9341037192124368,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9498491401389193,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.008384185842350001
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9466940322238605,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4598579543796579,
+      "w_energy_64": 0.644610506895422,
+      "d_energy_8": 0.9321259076392403,
+      "d_energy_64": 0.997865859924186
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9326248469377753,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9295553861287393,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.939863461175317,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9174505154058668,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.0692785108091551
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.914186558491793,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9466940322238605,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9373982833804317,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9477909445104669,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007118811534314048
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9493774438850545,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4595057441439374,
+      "w_energy_64": 0.6468277353257444,
+      "d_energy_8": 0.9213835845490717,
+      "d_energy_64": 0.9977569692523754
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9276461809468216,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.8808222467796201,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9202495852521665,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9330853177074687,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.059092474063846906
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9249540558272997,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.949778111884213,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.943968117810255,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9487600649268769,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.0076232258561150165
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9321811224851974,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.45003692386290367,
+      "w_energy_64": 0.6473883249316509,
+      "d_energy_8": 0.9293935590879344,
+      "d_energy_64": 0.9978336278557702
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9219168620718268,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.8536654140702271,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9419843656285813,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9164125033589476,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.054048154954543154
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.8957750979911292,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9322481965201913,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9329481683369213,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9283221246544311,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.007113441873352848
+    }
+  ],
+  "analysis": {
+    "dataset": "mnist",
+    "per_rank": {
+      "8": {
+        "scratch": {
+          "delta": -0.005888337439558744,
+          "p": 0.03533935546875,
+          "p_tost": 0.6444458693313342
+        },
+        "svd_frozen": {
+          "delta": -0.03212002143928916,
+          "p": 6.103515625e-05,
+          "p_tost": 0.9981377895152487
+        },
+        "svd_finetune": {
+          "delta": -0.0019777632594590866,
+          "p": 0.76153564453125,
+          "p_tost": 0.16088238323190812
+        },
+        "distill": {
+          "delta": -0.02257476796669089,
+          "p": 6.103515625e-05,
+          "p_tost": 0.9977234164494637
+        },
+        "distill_rel_error": 0.05881956062793301,
+        "verdict": "DARSTELLUNGSGRENZE -- auch die Destillation erreicht die dichte Schicht nicht. Rang ist die falsche Struktur."
+      },
+      "64": {
+        "scratch": {
+          "delta": -0.0113539163952876,
+          "p": 0.0067138671875,
+          "p_tost": 0.9605812547339897
+        },
+        "svd_frozen": {
+          "delta": 0.0003464976888654103,
+          "p": 0.272095182736126,
+          "p_tost": 8.8839176940667e-12
+        },
+        "svd_finetune": {
+          "delta": -0.0034286398393279516,
+          "p": 0.22930908203125,
+          "p_tost": 0.2622106342175169
+        },
+        "distill": {
+          "delta": -0.0016301038553345748,
+          "p": 0.0067138671875,
+          "p_tost": 2.4642308033943697e-06
+        },
+        "distill_rel_error": 0.00742680674806055,
+        "verdict": "OPTIMIERUNGSLUECKE -- die Familie kann die Funktion darstellen, das Training von null findet sie nicht."
+      }
+    },
+    "w_energy_8": 0.45857002992295276,
+    "d_energy_8": 0.9231502414287942,
+    "w_energy_64": 0.646346200551627,
+    "d_energy_64": 0.9976527528649443
+  }
+}

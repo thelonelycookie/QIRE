@@ -1,0 +1,47 @@
+
+==============================================================================================
+T-000 -- TRAININGSDURCHSATZ
+4 Lagen, 4 Koepfe, Sequenz 128, Batch 16, Vokabular 4096, 6 Threads
+==============================================================================================
+   Breite    Parameter  s/Schritt    Token/s   Adam-MB
+  ----------------------------------------------------
+      128    1,858,304      0.332      6,168        28
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163757.json
+  Messzeilen (1): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163757.csv
+      256    5,289,472      0.627      3,267        81
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163806.json
+  Messzeilen (2): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163806.csv
+      512   16,870,400      1.482      1,382       257
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163826.json
+  Messzeilen (3): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163826.csv
+     1024   58,906,624      5.387        380       899
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163936.json
+  Messzeilen (4): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163936.csv
+
+==============================================================================================
+ABLEITUNG -- groesste trainierbare Breite je Zeitbudget
+Kriterium: mindestens 20 Token je Parameter (Chinchilla-Faustregel)
+==============================================================================================
+    Budget  Breite    Parameter   Token im Budget  Token/Par.
+  -----------------------------------------------------------
+       12h     256    5,289,472       141,139,283          27
+       24h     256    5,289,472       282,278,566          53
+       48h     256    5,289,472       564,557,133         107
+       96h     512   16,870,400       477,587,889          28
+
+EINORDNUNG
+  Der Uebergangspunkt der Butterfly-Struktur liegt laut Tagebuch
+  (5. August, 7 Messreihen) bei 16.384 Dimensionen. Die groesste hier
+  vermessene Breite ist 1024. Zwischen dem, was trainierbar ist,
+  und dem, wo die Struktur gewinnt, liegen damit Faktor 16 und mehr.
+  Das ist keine Panne, sondern die Lage, aus der die T-Serie folgt:
+  Qualitaet wird bei trainierbarer Breite gemessen, Effizienz dort,
+  wo sie auftritt. Beides gehoert getrennt berichtet.
+==============================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163936.json
+  Messzeilen (4): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-000__20260810_163936.csv

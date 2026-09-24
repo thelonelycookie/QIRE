@@ -1,0 +1,187 @@
+﻿
+RESEARCH ID B-010 | Datenmenge gegen Struktur, 15 Seeds
+
+--- mnist -------------------------------------------------------
+ n_train  Epochen           dense      lowrank_r8         monarch  block_diag_128
+---------------------------------------------------------------------------------
+     200      170          0.7941          0.7737          0.7920          0.8090 
+     400       85          0.8613          0.8545          0.8480          0.8651 
+     800       42          0.9043          0.8985          0.8638          0.8940 
+    1600       24          0.9238          0.9208          0.9120          0.9190 
+    4200       10          0.9374          0.9412          0.9339          0.9400 
+   13676        3          0.9590          0.9538          0.9449          0.9526 
+   13687        3          0.9545          0.9585          0.9465          0.9431 
+   13689        3          0.9549          0.9506          0.9521          0.9403 
+   13699        3          0.9535          0.9524          0.9398          0.9491 
+   13703        3          0.9377          0.9544          0.9318          0.9467 
+   13709        3          0.9577          0.9540          0.9520          0.9527 
+   13713        3          0.9592          0.9624          0.9534          0.9494 
+   13719        3          0.9610          0.9556          0.9463          0.9432 
+   13720        3          0.9529          0.9523          0.9511          0.9520 
+   13725        3          0.9420          0.9426          0.9351          0.9371 
+   13735        3          0.9435          0.9488          0.9494          0.9478 
+   13743        3          0.9504          0.9481          0.9457          0.9461 
+   13756        3          0.9665          0.9655          0.9563          0.9592 
+python.exe : C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\qire_ai\sample
+_efficiency.py:225: RuntimeWarning: Mean of empty slice
+In Zeile:1 Zeichen:450
++ ... TH = $root; & ".\.venv\Scripts\python.exe" -u -c "from qire_ai import ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\Malte\... of empty slice:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  line += f'{v.mean():>15.4f} '
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\.venv\Lib\site-packages\num
+py\_core\_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+   13863        0             nan             nan             nan             nan 
+   13878        0             nan             nan             nan             nan 
+   13880        0             nan             nan             nan             nan 
+   13882        0             nan             nan             nan             nan 
+   13883        0             nan             nan             nan             nan 
+   13889        0             nan             nan             nan             nan 
+   13895        0             nan             nan             nan             nan 
+   13901        0             nan             nan             nan             nan 
+   13903        0             nan             nan             nan             nan 
+   13913        0             nan             nan             nan             nan 
+   13923        0             nan             nan             nan             nan 
+   13926        0             nan             nan             nan             nan 
+   13943        0             nan             nan             nan             nan 
+   13945        0             nan             nan             nan             nan 
+
+  Abstand zur dichten Schicht (positiv = Struktur vorn):
+ n_train        lowrank_r8           monarch    block_diag_128
+  ------------------------------------------------------------
+     200         -0.0204*         -0.0021          +0.0149* 
+     400         -0.0068*         -0.0133*         +0.0037  
+     800         -0.0057*         -0.0405*         -0.0102* 
+    1600         -0.0030          -0.0118*         -0.0048* 
+    4200         +0.0038          -0.0035          +0.0026  
+   13676         -0.0052          -0.0140          -0.0063  
+   13687         +0.0040          -0.0080          -0.0115  
+   13689         -0.0043          -0.0028          -0.0147  
+   13699         -0.0012          -0.0138          -0.0045  
+   13703         +0.0167          -0.0060          +0.0090  
+   13709         -0.0037          -0.0057          -0.0050  
+   13713         +0.0032          -0.0058          -0.0098  
+   13719         -0.0055          -0.0148          -0.0179  
+   13720         -0.0006          -0.0018          -0.0009  
+   13725         +0.0007          -0.0068          -0.0048  
+   13735         +0.0053          +0.0059          +0.0043  
+   13743         -0.0023          -0.0047          -0.0043  
+   13756         -0.0010          -0.0102          -0.0073  
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\.venv\Lib\site-packages\sci
+py\_lib\_util.py:951: SmallSampleWarning: One or more sample arguments is too small; all returned values will be NaN. 
+See documentation for sample size requirements.
+  return fun(*args, **kwargs)
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\qire_ai\sample_efficiency.p
+y:239: RuntimeWarning: Mean of empty slice
+  deltas[arm].append(float(v.mean() - d.mean()))
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\qire_ai\sample_efficiency.p
+y:241: RuntimeWarning: Mean of empty slice
+  line += f'{v.mean()-d.mean():>+15.4f}{star} '
+   13863            +nan             +nan             +nan  
+   13878            +nan             +nan             +nan  
+   13880            +nan             +nan             +nan  
+   13882            +nan             +nan             +nan  
+   13883            +nan             +nan             +nan  
+   13889            +nan             +nan             +nan  
+   13895            +nan             +nan             +nan  
+   13901            +nan             +nan             +nan  
+   13903            +nan             +nan             +nan  
+   13913            +nan             +nan             +nan  
+   13923            +nan             +nan             +nan  
+   13926            +nan             +nan             +nan  
+   13943            +nan             +nan             +nan  
+   13945            +nan             +nan             +nan  
+
+  PRIMAER -- Trend ueber die Datenmenge (Spearman, log n):
+           lowrank_r8: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+              monarch: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+       block_diag_128: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+
+--- fashion_mnist -----------------------------------------------
+ n_train  Epochen           dense      lowrank_r8         monarch  block_diag_128
+---------------------------------------------------------------------------------
+     200      170          0.7429          0.7440          0.7481          0.7568 
+     400       85          0.7872          0.7877          0.7870          0.7899 
+     800       42          0.7963          0.7894          0.7912          0.7956 
+    1600       24          0.8142          0.8063          0.8131          0.8231 
+    4200       10          0.8353          0.8278          0.8329          0.8374 
+   13676        0             nan             nan             nan             nan 
+   13687        0             nan             nan             nan             nan 
+   13689        0             nan             nan             nan             nan 
+   13699        0             nan             nan             nan             nan 
+   13703        0             nan             nan             nan             nan 
+   13709        0             nan             nan             nan             nan 
+   13713        0             nan             nan             nan             nan 
+   13719        0             nan             nan             nan             nan 
+   13720        0             nan             nan             nan             nan 
+   13725        0             nan             nan             nan             nan 
+   13735        0             nan             nan             nan             nan 
+   13743        0             nan             nan             nan             nan 
+   13756        0             nan             nan             nan             nan 
+   13863        3          0.8326          0.8074          0.7549          0.8124 
+   13878        3          0.8179          0.8359          0.8338          0.8287 
+   13880        3          0.8477          0.8420          0.8363          0.8480 
+   13882        3          0.8188          0.7973          0.8136          0.8389 
+   13883        3          0.8455          0.8373          0.8559          0.8637 
+   13889        3          0.8246          0.8219          0.8321          0.8212 
+   13895        3          0.8510          0.8451          0.8376          0.8347 
+   13901        3          0.8303          0.8423          0.8438          0.8442 
+   13903        3          0.8463          0.8301          0.8436          0.8522 
+   13913        3          0.8539          0.8460          0.8550          0.8598 
+   13923        3          0.8315          0.8537          0.8428          0.8406 
+   13926        3          0.8350          0.8512          0.8267          0.8364 
+   13943        3          0.8313          0.8245          0.8281          0.8389 
+   13945        3          0.8537          0.8379          0.8172          0.8469 
+
+  Abstand zur dichten Schicht (positiv = Struktur vorn):
+ n_train        lowrank_r8           monarch    block_diag_128
+  ------------------------------------------------------------
+     200         +0.0011          +0.0052*         +0.0139* 
+     400         +0.0005          -0.0003          +0.0027* 
+     800         -0.0070          -0.0052          -0.0008  
+    1600         -0.0079          -0.0011          +0.0090* 
+    4200         -0.0074*         -0.0024          +0.0021  
+   13676            +nan             +nan             +nan  
+   13687            +nan             +nan             +nan  
+   13689            +nan             +nan             +nan  
+   13699            +nan             +nan             +nan  
+   13703            +nan             +nan             +nan  
+   13709            +nan             +nan             +nan  
+   13713            +nan             +nan             +nan  
+   13719            +nan             +nan             +nan  
+   13720            +nan             +nan             +nan  
+   13725            +nan             +nan             +nan  
+   13735            +nan             +nan             +nan  
+   13743            +nan             +nan             +nan  
+   13756            +nan             +nan             +nan  
+   13863         -0.0252          -0.0777          -0.0202  
+   13878         +0.0180          +0.0159          +0.0108  
+   13880         -0.0057          -0.0113          +0.0004  
+   13882         -0.0215          -0.0052          +0.0202  
+   13883         -0.0082          +0.0104          +0.0182  
+   13889         -0.0026          +0.0076          -0.0033  
+   13895         -0.0059          -0.0134          -0.0163  
+   13901         +0.0119          +0.0135          +0.0138  
+   13903         -0.0162          -0.0028          +0.0058  
+   13913         -0.0079          +0.0011          +0.0059  
+   13923         +0.0222          +0.0113          +0.0091  
+   13926         +0.0163          -0.0082          +0.0015  
+   13943         -0.0068          -0.0032          +0.0076  
+   13945         -0.0158          -0.0365          -0.0068  
+
+  PRIMAER -- Trend ueber die Datenmenge (Spearman, log n):
+           lowrank_r8: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+              monarch: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+       block_diag_128: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+
+==============================================================================
+BEWERTUNG (Kriterium vor dem Lauf festgelegt)
+         lowrank_r8: Trend negativ&sig=False, bei n=200 vorn&sig=False, zweiter Datensatz gleiche Richtung=False
+            monarch: Trend negativ&sig=False, bei n=200 vorn&sig=False, zweiter Datensatz gleiche Richtung=False
+     block_diag_128: Trend negativ&sig=False, bei n=200 vorn&sig=True, zweiter Datensatz gleiche Richtung=False
+
+  H0 -- kein Arm erfuellt alle drei Bedingungen. Auch die Datenachse gibt keinen Vorteil fuer Struktur her.
+==============================================================================

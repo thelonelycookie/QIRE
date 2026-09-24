@@ -1,0 +1,170 @@
+{
+  "experiment_id": "Q-009",
+  "description": "Butterfly gegen dicht bei GLEICHEM ZEITBUDGET statt gleicher Breite, ueber drei Schwierigkeitsstufen. Die isochrone dichte Breite wird empirisch einkalibriert.",
+  "created": "2026-08-06T02:05:54",
+  "config": {
+    "arms": [
+      "butterfly",
+      "dense_isotime",
+      "dense_quarter"
+    ],
+    "num_qubits": 14,
+    "layers": 5,
+    "widths": {
+      "butterfly": 16384,
+      "dense_isotime": 14400,
+      "dense_quarter": 3600
+    },
+    "clusters": [
+      64,
+      256,
+      1024
+    ],
+    "seeds": [
+      9101,
+      9102,
+      9103
+    ],
+    "lr_grid": [
+      0.0003,
+      0.001,
+      0.003,
+      0.01
+    ],
+    "epochs": 3,
+    "batch_size": 64,
+    "n_train": 6000,
+    "intrinsic_dim": 64,
+    "margin_accuracy": 0.02,
+    "calibration": {
+      "target_step_s": 1.7683990000004997,
+      "rel_error": 0.09159320568096364
+    },
+    "torch_threads": 6,
+    "test_metric": "balanced_accuracy",
+    "primary": "butterfly > dense_isotime bei der leichtesten Aufgabe",
+    "resolution_check": "dense_quarter muss schlechter sein als dense_isotime"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 9,
+  "records": [
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 64,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 634.3483839,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 64,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 613.1892245000017,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 64,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 463.1997889999984,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 64,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9997191011905671,
+      "accuracy": 0.999666690826416,
+      "train_seconds": 486.30139479999707,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 64,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9880782902240753,
+      "accuracy": 0.9863333106040955,
+      "train_seconds": 505.2222582000031,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 64,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.993819260597229,
+      "accuracy": 0.9929999709129333,
+      "train_seconds": 499.6091686,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 64,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 30.797772500001884,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 64,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 31.706197200001043,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 64,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 31.797481499997957,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    }
+  ],
+  "analysis": {}
+}

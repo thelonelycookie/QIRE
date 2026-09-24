@@ -1,0 +1,1 @@
+"""Efficiency-oriented scheduling helpers."""

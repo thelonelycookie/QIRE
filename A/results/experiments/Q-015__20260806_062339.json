@@ -1,0 +1,679 @@
+{
+  "experiment_id": "Q-015",
+  "description": "Die fehlende Kontrolle: volle globale orthogonale Auslese gegen die Quantenschaltung. Trennt Funktionsklasse (global vs blocklokal) von Parametrisierung (80 vs 32.640).",
+  "created": "2026-08-06T06:23:39",
+  "config": {
+    "arms": [
+      "hybrid",
+      "global_orth",
+      "block_orth",
+      "quad_free"
+    ],
+    "datasets": [
+      "mnist",
+      "fashion_mnist"
+    ],
+    "seeds": [
+      7701,
+      7702,
+      7703,
+      7704,
+      7705,
+      7706,
+      7707,
+      7708,
+      7709,
+      7710,
+      7711,
+      7712,
+      7713,
+      7714,
+      7715
+    ],
+    "num_qubits": 8,
+    "layers": 5,
+    "lr_grid": [
+      0.003,
+      0.01,
+      0.03,
+      0.1,
+      0.3
+    ],
+    "max_samples": 4000,
+    "epochs": 12,
+    "batch_size": 128,
+    "margin": 0.005,
+    "torch_threads": 6,
+    "test_metric": "balanced_accuracy",
+    "primary": "hybrid gleichwertig zu global_orth (+-0,005)",
+    "p2": "global_orth besser als block_orth",
+    "holm_family": [
+      "PRIMAER",
+      "P2"
+    ],
+    "primary_dataset": "mnist",
+    "resolution_check": "P2 selbst: global muss blocklokal schlagen",
+    "anlass": "Charakterisierung der Auslese als Rayleigh-Quotient am 6. August; dabei fiel auf, dass die bisherige Kontrolle blockdiagonal ist und damit eine andere Funktionsklasse als die global mischende Schaltung",
+    "lr_map_mnist": {
+      "hybrid": 0.1,
+      "global_orth": 0.03,
+      "block_orth": 0.1,
+      "quad_free": 0.1
+    },
+    "lr_at_grid_edge_mnist": []
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 60,
+  "records": [
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7701,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9316226303577423,
+      "accuracy": 0.9325000047683716,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7701,
+      "lr": 0.03,
+      "balanced_accuracy": 0.7965434521436692,
+      "accuracy": 0.8075000047683716,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7701,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9069263637065887,
+      "accuracy": 0.9075000286102295,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7701,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9178475141525269,
+      "accuracy": 0.9183333516120911,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7702,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9351586997509003,
+      "accuracy": 0.9366666674613953,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7702,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8546624839305877,
+      "accuracy": 0.8525000214576721,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7702,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9104187428951264,
+      "accuracy": 0.9116666913032532,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7702,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9022670865058899,
+      "accuracy": 0.9049999713897705,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7703,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9249322772026062,
+      "accuracy": 0.9266666769981384,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7703,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8803629577159882,
+      "accuracy": 0.8841666579246521,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7703,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8847469747066498,
+      "accuracy": 0.8858333230018616,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7703,
+      "lr": 0.1,
+      "balanced_accuracy": 0.910951828956604,
+      "accuracy": 0.9133333563804626,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7704,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9373754262924194,
+      "accuracy": 0.9383333325386047,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7704,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8595039963722229,
+      "accuracy": 0.8616666793823242,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7704,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8977191984653473,
+      "accuracy": 0.8991666436195374,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7704,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9181791782379151,
+      "accuracy": 0.9200000166893005,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7705,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9276139378547669,
+      "accuracy": 0.9283333420753479,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7705,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8810350120067596,
+      "accuracy": 0.8824999928474426,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7705,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8810369074344635,
+      "accuracy": 0.8841666579246521,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7705,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9126449644565582,
+      "accuracy": 0.9141666889190674,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7706,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9300273835659028,
+      "accuracy": 0.9316666722297668,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7706,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8841182112693786,
+      "accuracy": 0.8866666555404663,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7706,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9059558808803558,
+      "accuracy": 0.9083333611488342,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7706,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9080843269824982,
+      "accuracy": 0.9100000262260437,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7707,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9369623780250549,
+      "accuracy": 0.9383333325386047,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7707,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8767643630504608,
+      "accuracy": 0.8766666650772095,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7707,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8989862442016602,
+      "accuracy": 0.8999999761581421,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7707,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9295597016811371,
+      "accuracy": 0.9291666746139526,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7708,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9209337770938874,
+      "accuracy": 0.9225000143051147,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7708,
+      "lr": 0.03,
+      "balanced_accuracy": 0.7855642527341843,
+      "accuracy": 0.7875000238418579,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7708,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8939733147621155,
+      "accuracy": 0.8958333134651184,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7708,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8912960708141326,
+      "accuracy": 0.8949999809265137,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7709,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9446755170822143,
+      "accuracy": 0.9449999928474426,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7709,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8938847541809082,
+      "accuracy": 0.8949999809265137,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7709,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9139078378677368,
+      "accuracy": 0.9141666889190674,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7709,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9177065014839172,
+      "accuracy": 0.9200000166893005,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7710,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9299960434436798,
+      "accuracy": 0.9308333396911621,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7710,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8806018710136414,
+      "accuracy": 0.8824999928474426,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7710,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8809945225715637,
+      "accuracy": 0.8841666579246521,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7710,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9193523406982422,
+      "accuracy": 0.9208333492279053,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7711,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9406585156917572,
+      "accuracy": 0.940833330154419,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7711,
+      "lr": 0.03,
+      "balanced_accuracy": 0.84507896900177,
+      "accuracy": 0.8441666960716248,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7711,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9115031659603119,
+      "accuracy": 0.9116666913032532,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7711,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9195704877376556,
+      "accuracy": 0.9208333492279053,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7712,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9291630625724793,
+      "accuracy": 0.9300000071525574,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7712,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8892490208148957,
+      "accuracy": 0.8891666531562805,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7712,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8959680736064911,
+      "accuracy": 0.8966666460037231,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7712,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8952403604984284,
+      "accuracy": 0.8966666460037231,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7713,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9228757321834564,
+      "accuracy": 0.9241666793823242,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7713,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8553631484508515,
+      "accuracy": 0.8583333492279053,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7713,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8895247280597687,
+      "accuracy": 0.8924999833106995,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7713,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8966085076332092,
+      "accuracy": 0.8983333110809326,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7714,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9294943988323212,
+      "accuracy": 0.9308333396911621,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7714,
+      "lr": 0.03,
+      "balanced_accuracy": 0.8867211878299713,
+      "accuracy": 0.8891666531562805,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7714,
+      "lr": 0.1,
+      "balanced_accuracy": 0.8917544722557068,
+      "accuracy": 0.8933333158493042,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7714,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9198738634586334,
+      "accuracy": 0.9191666841506958,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 7715,
+      "lr": 0.1,
+      "balanced_accuracy": 0.948874032497406,
+      "accuracy": 0.949999988079071,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "global_orth",
+      "dataset": "mnist",
+      "seed": 7715,
+      "lr": 0.03,
+      "balanced_accuracy": 0.9097356796264648,
+      "accuracy": 0.9116666913032532,
+      "middle_parameters": 32640,
+      "total_parameters": 266586
+    },
+    {
+      "arm": "block_orth",
+      "dataset": "mnist",
+      "seed": 7715,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9274530112743378,
+      "accuracy": 0.9283333420753479,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "quad_free",
+      "dataset": "mnist",
+      "seed": 7715,
+      "lr": 0.1,
+      "balanced_accuracy": 0.9139264225959778,
+      "accuracy": 0.9166666865348816,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    }
+  ],
+  "analysis": {}
+}

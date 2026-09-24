@@ -1,0 +1,126 @@
+==============================================================================================
+T-001 VERIFIKATION -- ButterflyFast gegen ButterflyQuantumLayer
+Schranke 1e-06. Ohne bestandene Pruefung keine Zeitmessung.
+==============================================================================================
+   Qubits  Lagen  entangle  Batch    max. Abw.       
+  ---------------------------------------------------
+        3      1      True      7    5.960e-08     OK
+        3      1     False      7    1.192e-07     OK
+        3      2      True      7    5.960e-08     OK
+        3      2     False      7    1.192e-07     OK
+        3      5      True      7    8.941e-08     OK
+        3      5     False      7    5.960e-08     OK
+        4      1      True      7    1.043e-07     OK
+        4      1     False      7    8.941e-08     OK
+        4      2      True      7    8.941e-08     OK
+        4      2     False      7    8.941e-08     OK
+        4      5      True      7    8.941e-08     OK
+        4      5     False      7    8.941e-08     OK
+        6      1      True      7    1.043e-07     OK
+        6      1     False      7    8.941e-08     OK
+        6      2      True      7    1.192e-07     OK
+        6      2     False      7    1.043e-07     OK
+        6      5      True      7    1.639e-07     OK
+        6      5     False      7    1.192e-07     OK
+        8      1      True      7    1.192e-07     OK
+        8      1     False      7    1.937e-07     OK
+        8      2      True      7    1.788e-07     OK
+        8      2     False      7    1.639e-07     OK
+        8      5      True      7    3.576e-07     OK
+        8      5     False      7    1.490e-07     OK
+       10      1      True      7    2.980e-07     OK
+       10      1     False      7    3.278e-07     OK
+       10      2      True      7    3.278e-07     OK
+       10      2     False      7    3.129e-07     OK
+       10      5      True      7    2.757e-07     OK
+       10      5     False      7    4.023e-07     OK
+
+==============================================================================================
+VERIFIKATION BESTANDEN -- groesste Abweichung 4.023e-07
+Die Umschreibungen R1, R5 und R6 sind verhaltenserhaltend.
+==============================================================================================
+
+  Gradientenpruefung: groesste Abweichung 0.000e+00 -> OK
+
+==============================================================================================
+T-001 -- ZEITMESSUNG
+7 Reihen, abwechselnd, Batch 64, 5 Lagen, einfaedig
+==============================================================================================
+
+  d = 1,024 (10 Qubits)
+    Reihe 1/7: referenz=92.7ms  schnell=46.8ms  dicht=3.5ms
+    Reihe 2/7: referenz=86.3ms  schnell=46.3ms  dicht=2.3ms
+    Reihe 3/7: referenz=110.1ms  schnell=51.8ms  dicht=4.1ms
+    Reihe 4/7: referenz=81.2ms  schnell=56.7ms  dicht=3.1ms
+    Reihe 5/7: referenz=82.4ms  schnell=46.9ms  dicht=2.4ms
+    Reihe 6/7: referenz=82.0ms  schnell=47.3ms  dicht=3.5ms
+    Reihe 7/7: referenz=69.4ms  schnell=54.0ms  dicht=2.5ms
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_163952.json
+  Messzeilen (21): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_163952.csv
+
+  d = 2,048 (11 Qubits)
+    Reihe 1/7: referenz=157.5ms  schnell=87.9ms  dicht=13.2ms
+    Reihe 2/7: referenz=144.2ms  schnell=116.8ms  dicht=15.6ms
+    Reihe 3/7: referenz=149.1ms  schnell=95.1ms  dicht=12.8ms
+    Reihe 4/7: referenz=174.9ms  schnell=92.4ms  dicht=23.3ms
+    Reihe 5/7: referenz=155.6ms  schnell=97.7ms  dicht=13.5ms
+    Reihe 6/7: referenz=176.2ms  schnell=87.4ms  dicht=14.8ms
+    Reihe 7/7: referenz=141.9ms  schnell=98.2ms  dicht=12.9ms
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164002.json
+  Messzeilen (42): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164002.csv
+
+  d = 4,096 (12 Qubits)
+    Reihe 1/7: referenz=392.5ms  schnell=246.6ms  dicht=56.5ms
+    Reihe 2/7: referenz=329.5ms  schnell=194.8ms  dicht=58.3ms
+    Reihe 3/7: referenz=307.7ms  schnell=172.2ms  dicht=59.6ms
+    Reihe 4/7: referenz=407.0ms  schnell=201.3ms  dicht=67.1ms
+    Reihe 5/7: referenz=363.9ms  schnell=244.5ms  dicht=62.3ms
+    Reihe 6/7: referenz=306.9ms  schnell=172.8ms  dicht=61.5ms
+    Reihe 7/7: referenz=317.2ms  schnell=184.4ms  dicht=61.0ms
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164024.json
+  Messzeilen (63): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164024.csv
+
+  d = 8,192 (13 Qubits)
+    Reihe 1/7: referenz=673.1ms  schnell=445.6ms  dicht=241.2ms
+    Reihe 2/7: referenz=581.4ms  schnell=473.6ms  dicht=262.6ms
+    Reihe 3/7: referenz=710.7ms  schnell=373.8ms  dicht=258.3ms
+    Reihe 4/7: referenz=725.6ms  schnell=440.0ms  dicht=291.4ms
+    Reihe 5/7: referenz=709.9ms  schnell=431.6ms  dicht=254.8ms
+    Reihe 6/7: referenz=655.1ms  schnell=452.5ms  dicht=276.3ms
+    Reihe 7/7: referenz=636.9ms  schnell=438.3ms  dicht=235.6ms
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164113.json
+  Messzeilen (84): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164113.csv
+
+  d = 16,384 (14 Qubits)
+    Reihe 1/7: referenz=1536.2ms  schnell=1160.4ms  dicht=2441.9ms
+    Reihe 2/7: referenz=1593.7ms  schnell=1120.9ms  dicht=2363.9ms
+    Reihe 3/7: referenz=1367.8ms  schnell=1019.3ms  dicht=2355.7ms
+    Reihe 4/7: referenz=1433.8ms  schnell=998.0ms  dicht=2548.8ms
+    Reihe 5/7: referenz=1544.3ms  schnell=951.5ms  dicht=2152.7ms
+    Reihe 6/7: referenz=1350.6ms  schnell=815.2ms  dicht=2084.4ms
+    Reihe 7/7: referenz=1116.9ms  schnell=661.4ms  dicht=2011.7ms
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164400.json
+  Messzeilen (105): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164400.csv
+
+==============================================================================================
+T-001 | Vorteil gegen die dichte Schicht (>1 heisst schneller als dicht)
+         d   referenz    schnell   Gewinn  Reihen schnell>dicht
+  -------------------------------------------------------------
+     1,024      0.037      0.055     1.49x                   0/7
+     2,048      0.087      0.138     1.59x                   0/7
+     4,096      0.177      0.331     1.87x                   0/7
+     8,192      0.370      0.590     1.60x                   0/7
+    16,384      1.590      2.311     1.45x                   7/7
+
+  Aufloesungspruefung BESTANDEN: bei d=16,384 ist schnell um Faktor 1.44 gegenueber referenz.
+
+BEWERTUNG: T0 -- der Uebergang liegt bei 16,384, also ueber 8.192. Die Fusion allein traegt nicht weit genug. Ausstiegskriterium der Roadmap greift.
+==============================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164400.json
+  Messzeilen (105): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-001__20260810_164400.csv

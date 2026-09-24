@@ -1,0 +1,90 @@
+
+  Lernratensuche fuer mnist
+             mnist / tied_L1          -> lr 0.1  0.001:0.7115  0.003:0.7950  0.01:0.8492  0.03:0.8687  0.1:0.8737  0.3:0.8618
+             mnist / tied_L5          -> lr 0.1  0.001:0.7727  0.003:0.8133  0.01:0.8368  0.03:0.8627  0.1:0.8713  0.3:0.8380
+             mnist / tied_L80         -> lr 0.03  0.001:0.6433  0.003:0.7468  0.01:0.8017  0.03:0.8178  0.1:0.7845  0.3:0.1080
+             mnist / untied_L1        -> lr 0.1  0.001:0.6996  0.003:0.7691  0.01:0.8374  0.03:0.8475  0.1:0.8707  0.3:0.8600
+             mnist / untied_L5        -> lr 0.03  0.001:0.7304  0.003:0.7860  0.01:0.8317  0.03:0.8545  0.1:0.8413  0.3:0.6365
+             mnist / tied_L5_frozen   -> lr 0.1  0.001:0.7780  0.003:0.8157  0.01:0.8414  0.03:0.8670  0.1:0.8827  0.3:0.8706
+    mnist seed 6601 fertig (1/15)
+    mnist seed 6602 fertig (2/15)
+    mnist seed 6603 fertig (3/15)
+    mnist seed 6604 fertig (4/15)
+    mnist seed 6605 fertig (5/15)
+    mnist seed 6606 fertig (6/15)
+    mnist seed 6607 fertig (7/15)
+    mnist seed 6608 fertig (8/15)
+    mnist seed 6609 fertig (9/15)
+    mnist seed 6610 fertig (10/15)
+    mnist seed 6611 fertig (11/15)
+    mnist seed 6612 fertig (12/15)
+    mnist seed 6613 fertig (13/15)
+    mnist seed 6614 fertig (14/15)
+    mnist seed 6615 fertig (15/15)
+    Zwischenstand nach mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-014__20260810_041708.json
+  Messzeilen (90): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-014__20260810_041708.csv
+
+  Lernratensuche fuer fashion_mnist
+     fashion_mnist / tied_L1          -> lr 0.03  0.001:0.6500  0.003:0.6925  0.01:0.6968  0.03:0.7098  0.1:0.7027  0.3:0.7056
+     fashion_mnist / tied_L5          -> lr 0.3  0.001:0.6615  0.003:0.6598  0.01:0.6605  0.03:0.6793  0.1:0.7021  0.3:0.7193
+     fashion_mnist / tied_L80         -> lr 0.003  0.001:0.5574  0.003:0.6728  0.01:0.6630  0.03:0.6391  0.1:0.5796  0.3:0.1119
+     fashion_mnist / untied_L1        -> lr 0.1  0.001:0.5421  0.003:0.6157  0.01:0.6644  0.03:0.6789  0.1:0.7086  0.3:0.7003
+     fashion_mnist / untied_L5        -> lr 0.01  0.001:0.6318  0.003:0.6683  0.01:0.7003  0.03:0.6912  0.1:0.6772  0.3:0.3667
+     fashion_mnist / tied_L5_frozen   -> lr 0.3  0.001:0.6598  0.003:0.6642  0.01:0.6662  0.03:0.6956  0.1:0.7205  0.3:0.7407
+    WARNUNG: am Gitterrand -> tied_L5, tied_L5_frozen
+    fashion_mnist seed 6601 fertig (1/15)
+    fashion_mnist seed 6602 fertig (2/15)
+    fashion_mnist seed 6603 fertig (3/15)
+    fashion_mnist seed 6604 fertig (4/15)
+    fashion_mnist seed 6605 fertig (5/15)
+    fashion_mnist seed 6606 fertig (6/15)
+    fashion_mnist seed 6607 fertig (7/15)
+    fashion_mnist seed 6608 fertig (8/15)
+    fashion_mnist seed 6609 fertig (9/15)
+    fashion_mnist seed 6610 fertig (10/15)
+    fashion_mnist seed 6611 fertig (11/15)
+    fashion_mnist seed 6612 fertig (12/15)
+    fashion_mnist seed 6613 fertig (13/15)
+    fashion_mnist seed 6614 fertig (14/15)
+    fashion_mnist seed 6615 fertig (15/15)
+    Zwischenstand nach fashion_mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-014__20260810_062132.json
+  Messzeilen (180): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-014__20260810_062132.csv
+
+RESEARCH ID Q-014 | Gewichtsteilung, 8 Qubits
+
+--- mnist ---------------------------------------------------------
+               Arm  geteilt  Lagen  Block-Par.   balanced      std     lr
+  -----------------------------------------------------------------------
+           tied_L1     True      1          16     0.9344   0.0059    0.1
+           tied_L5     True      5          80     0.9363   0.0065    0.1
+          tied_L80     True     80       1,280     0.9098   0.0103   0.03
+         untied_L1    False      1       2,048     0.9341   0.0079    0.1
+         untied_L5    False      5      10,240     0.9107   0.0101   0.03
+    tied_L5_frozen     True      5          80     0.9346   0.0079    0.1
+
+--- fashion_mnist -------------------------------------------------
+               Arm  geteilt  Lagen  Block-Par.   balanced      std     lr
+  -----------------------------------------------------------------------
+           tied_L1     True      1          16     0.8330   0.0126   0.03
+           tied_L5     True      5          80     0.7987   0.0213    0.3
+          tied_L80     True     80       1,280     0.7894   0.0292  0.003
+         untied_L1    False      1       2,048     0.8312   0.0182    0.1
+         untied_L5    False      5      10,240     0.8186   0.0109   0.01
+    tied_L5_frozen     True      5          80     0.8198   0.0165    0.3
+
+==============================================================================================
+VORREGISTRIERTE FAMILIE auf mnist, Grenze +-0.005
+  [PRIMAER] tied_L5 (80) vs untied_L5 (10,240):  +0.0257  15/15  p=0.0001  Holm=0.0001  Unterschied belegt
+  [     P2] tied_L80 (1,280) vs untied_L1 (2,048):  -0.0243  0/15  p=0.0001  Holm=0.0001  Unterschied belegt
+
+  Aufloesungspruefung NICHT BESTANDEN: trainiert gegen eingefroren +0.0018, p=0.1205. Der Block lernt nichts -- kein Vergleich oben ist interpretierbar.
+
+BEWERTUNG: HU -- Aufloesungspruefung durchgefallen, Lauf nicht verwertbar.
+==============================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-014__20260810_062132.json
+  Messzeilen (180): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-014__20260810_062132.csv

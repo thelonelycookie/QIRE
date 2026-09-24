@@ -1,0 +1,11 @@
+﻿=== Q-010 circuit_vs_replica gestartet 2026-08-06T06:37:01 ===
+
+  Lernratensuche fuer mnist
+             mnist / hybrid               -> lr 0.1  0.003:0.7584  0.01:0.8124  0.03:0.8611  0.1:0.8887  0.3:0.8661
+             mnist / hybrid_1layer        -> lr 0.1  0.003:0.8308  0.01:0.8377  0.03:0.8805  0.1:0.8826  0.3:0.8727
+             mnist / classical_quad_free  -> lr 0.03  0.003:0.5958  0.01:0.8437  0.03:0.8775  0.1:0.8755  0.3:0.8718
+             mnist / classical_norm_deep  -> lr 0.01  0.003:0.7649  0.01:0.7894  0.03:0.7064  0.1:0.4918  0.3:0.2199
+    mnist seed 3305 fertig (5/30)
+    mnist seed 3310 fertig (10/30)
+    mnist seed 3315 fertig (15/30)
+    mnist seed 3320 fertig (20/30)

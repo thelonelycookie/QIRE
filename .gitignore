@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Grosse, jederzeit neu erzeugbare Daten
+**/results/datasets/
+**/results/korpus/train.npy
+**/results/korpus/*.parquet
+**/results/korpus/de_text.txt
+**/results/korpus/bpe_train.txt
+**/results/modelle/
+
+# Werkzeug-Zustand
+.claude-flow/
+**/.claude-flow/
+
+# Zugangsdaten niemals einchecken
+*token*.txt
+.env
+*.pem

@@ -1,0 +1,212 @@
+{
+  "experiment_id": "T-001",
+  "description": "Verschiebt der Umbau R1/R5/R6 den Uebergangspunkt der Butterfly-Architektur? Sieben Messreihen, abwechselnd, gepaart je Reihe. Inferenz, einfaedig.",
+  "created": "2026-08-10T16:39:52",
+  "config": {
+    "qubits": [
+      10,
+      11,
+      12,
+      13,
+      14
+    ],
+    "lagen": 5,
+    "batch": 64,
+    "reihen": 7,
+    "wiederholungen": 3,
+    "warmup": 2,
+    "arme": [
+      "referenz",
+      "schnell",
+      "dicht"
+    ],
+    "threads": 1,
+    "messgroesse": "inferenz_sekunden",
+    "primary": "Uebergangspunkt sinkt von 16384 auf <= 4096",
+    "resolution_check": "schnell darf bei d=16384 nicht langsamer sein als referenz",
+    "methodik": "wie 5. August: 7 Reihen, abwechselnd, Faktor je Reihe gepaart",
+    "erwartung_vorher": "TU -- rund 89 auf rund 46 Durchlaeufe, also etwa Faktor 2, was den Uebergang eher auf 8192 als auf 4096 schiebt"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "1"
+  },
+  "n_records": 21,
+  "records": [
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.09271840000292286
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "schnell",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.04681899999559391
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.00346920000447426
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0862801000039326
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "schnell",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.046297699998831376
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0022836999996798113
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.11013780000212137
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "schnell",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.05184640000516083
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.004073400006745942
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.08123359999444801
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "schnell",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.05671780000557192
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.0031186999985948205
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.08238749999145512
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "schnell",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.04692090000025928
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0023646000045118853
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.0819682000001194
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "schnell",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.04730360000394285
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.003548000007867813
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.06942679999337997
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "schnell",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.054008999999496154
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.00248910000664182
+    }
+  ],
+  "analysis": {}
+}

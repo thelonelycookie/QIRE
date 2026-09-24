@@ -1,0 +1,30 @@
+{
+  "backend": "ibm_fez",
+  "processor_qubits": 156,
+  "runs": [
+    {
+      "label": "flach (4 Qubits, 33 Gatter)",
+      "job_id": "d9ns0pc60llc73caf80g",
+      "sim_accuracy": 0.5,
+      "hw_accuracy": 0.5,
+      "agreement": 0.85,
+      "z_error": 0.1076,
+      "damping": 0.852
+    },
+    {
+      "label": "tief (6 Qubits, 67 Gatter)",
+      "job_id": "d9ns10ssfqic73ardag0",
+      "sim_accuracy": 0.45,
+      "hw_accuracy": 0.45,
+      "agreement": 0.75,
+      "z_error": 0.1498,
+      "damping": 0.707
+    }
+  ],
+  "bell_ghz": {
+    "bell_error_percent": 1.57,
+    "ghz_error_percent": 2.06,
+    "p_value": 0.043
+  },
+  "note": "Am Stand rechnet die Simulation, damit die Vorhersage sofort erscheint. Dieselben Schaltungen liefen nachweislich auf echter Hardware -- die Job-IDs sind ueber quantum.ibm.com pruefbar."
+}

@@ -1,0 +1,57 @@
+{
+  "experiment_id": "T-000",
+  "description": "Durchsatzkalibrierung: wie gross darf das Sprachmodell auf diesem Rechner sein? Kalibrierung, kein Experiment.",
+  "created": "2026-08-10T16:37:57",
+  "config": {
+    "breiten": [
+      128,
+      256,
+      512,
+      1024
+    ],
+    "lagen": 4,
+    "koepfe": 4,
+    "seq": 128,
+    "batch": 16,
+    "vocab": 4096,
+    "warmup": 3,
+    "mess_schritte": 10,
+    "token_je_parameter": 20,
+    "budgets_stunden": [
+      12,
+      24,
+      48,
+      96
+    ],
+    "threads": 6,
+    "art": "kalibrierung -- keine Hypothese, kein p-Wert"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 1,
+  "records": [
+    {
+      "breite": 128,
+      "lagen": 4,
+      "koepfe": 4,
+      "seq": 128,
+      "batch": 16,
+      "vocab": 4096,
+      "parameter": 1858304,
+      "sekunden_je_schritt": 0.33204292000009444,
+      "token_je_sekunde": 6167.877333446584,
+      "zustands_mb": 28.35546875,
+      "threads": 6,
+      "mess_schritte": 10
+    }
+  ],
+  "analysis": {}
+}

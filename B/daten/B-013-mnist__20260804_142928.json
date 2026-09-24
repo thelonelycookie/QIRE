@@ -1,0 +1,581 @@
+{
+  "experiment_id": "B-013-mnist",
+  "description": "Rang-Curriculum gegen festen Rang und gegen einen einzelnen spaeten Schnitt. Gleiches Epochenbudget, gleicher Endrang.",
+  "created": "2026-08-04T14:29:28",
+  "config": {
+    "dataset": "mnist",
+    "final_rank": 64,
+    "width": 4096,
+    "total_epochs": 10,
+    "seeds": [
+      2101,
+      2102,
+      2103,
+      2104,
+      2105,
+      2106,
+      2107,
+      2108,
+      2109,
+      2110,
+      2111,
+      2112,
+      2113,
+      2114,
+      2115
+    ],
+    "max_samples": 6000,
+    "lr": 0.003,
+    "batch_size": 256,
+    "torch_threads": 6,
+    "arms": [
+      "dense",
+      "fixed",
+      "single_cut",
+      "curriculum"
+    ],
+    "curriculum": [
+      [
+        2,
+        512
+      ],
+      [
+        4,
+        256
+      ],
+      [
+        6,
+        128
+      ],
+      [
+        8,
+        64
+      ]
+    ],
+    "single_cut_epoch": 5,
+    "primary": "curriculum gegen fixed",
+    "secondary": "curriculum gegen single_cut",
+    "caveat": "gleiche Epochenzahl und gleicher Endrang, aber nicht gleiche Rechenzeit -- das Curriculum rechnet frueh mit mehr Parametern. Kein Effizienzanspruch."
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 60,
+  "records": [
+    {
+      "arm": "dense",
+      "seed": 2101,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9335888158295701,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2101,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9374143324278927,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2101,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9305483327636358,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2101,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.91855868961539,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2102,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.927671449458783,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2102,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9314094676516674,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2102,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9400436693998611,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2102,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.921603212702595,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2103,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9392616688297565,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2103,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9296909554780374,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2103,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9418735004520424,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2103,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9319889405068528,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2104,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9315630944431049,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2104,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.8929852423352049,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2104,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9268595281088325,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2104,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9388975387056192,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2105,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9410290577846503,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2105,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9275822186909777,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2105,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9430917666426504,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2105,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.940107521105207,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2106,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9406897947820394,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2106,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9313048260301633,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2106,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9381128367454586,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2106,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.94402958704129,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2107,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9328356827812575,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2107,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9177952961487221,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2107,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9394572432457371,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2107,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9348949193057555,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2108,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9406937142699532,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2108,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9397845059655671,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2108,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9363205601061694,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2108,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.94208877122818,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2109,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9208212244393168,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2109,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9305971422965518,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2109,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9441738881918134,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2109,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9328910275879763,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2110,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9352769502319724,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2110,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9402118922387863,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2110,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9379660231744443,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2110,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.926154402230895,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2111,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9434417680825726,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2111,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.938627696657449,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2111,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9349687821622898,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2111,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9273327389876677,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2112,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9354391033609752,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2112,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9406770859696916,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2112,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9461386275220919,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2112,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9491246974440257,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2113,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9483331572255173,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2113,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9348706717088197,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2113,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9510060181881036,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2113,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9509995902688368,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2114,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.948111841081154,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2114,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9274144233140735,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2114,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9493460811165605,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2114,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9438655203671702,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    },
+    {
+      "arm": "dense",
+      "seed": 2115,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9322274672045552,
+      "final_middle_parameters": 16781312,
+      "schedule": "[]"
+    },
+    {
+      "arm": "fixed",
+      "seed": 2115,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9334252888433016,
+      "final_middle_parameters": 528384,
+      "schedule": "[(0, 64)]"
+    },
+    {
+      "arm": "single_cut",
+      "seed": 2115,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9390251836548652,
+      "final_middle_parameters": 528384,
+      "schedule": "[(5, 64)]"
+    },
+    {
+      "arm": "curriculum",
+      "seed": 2115,
+      "dataset": "mnist",
+      "balanced_accuracy": 0.9231657244056267,
+      "final_middle_parameters": 528384,
+      "schedule": "[(2, 512), (4, 256), (6, 128), (8, 64)]"
+    }
+  ],
+  "analysis": {
+    "dataset": "mnist",
+    "curriculum_vs_fixed": {
+      "delta": 0.004794122383078747,
+      "p": 0.33026123046875,
+      "p_holm": 0.6605224609375,
+      "p_tost": 0.48122444584873997
+    },
+    "curriculum_vs_single_cut": {
+      "delta": -0.004881943998098048,
+      "p": 0.083251953125,
+      "p_holm": 0.249755859375,
+      "p_tost": 0.4796328150236163
+    },
+    "single_cut_vs_fixed": {
+      "delta": 0.009676066381176796,
+      "p": 0.00537109375,
+      "p_holm": 0.021484375,
+      "p_tost": 0.9343923556263107
+    },
+    "curriculum_vs_dense": {
+      "delta": -0.0016854605534729616,
+      "p": 0.52447509765625,
+      "p_holm": 0.6605224609375,
+      "p_tost": 0.08730266579328828
+    },
+    "verdict": "H0 -- kein signifikanter Vorteil gegenueber festem Rang. Der Befund aus B-012 laesst sich nicht in ein Verfahren uebersetzen."
+  }
+}

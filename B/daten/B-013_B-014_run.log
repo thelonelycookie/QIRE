@@ -1,0 +1,149 @@
+﻿
+##########################################################################
+# B-013 -- Rang-Curriculum -- mnist
+##########################################################################
+  mnist seed 2101 fertig (1/15)
+  mnist seed 2102 fertig (2/15)
+  mnist seed 2103 fertig (3/15)
+  mnist seed 2104 fertig (4/15)
+  mnist seed 2105 fertig (5/15)
+  mnist seed 2106 fertig (6/15)
+  mnist seed 2107 fertig (7/15)
+  mnist seed 2108 fertig (8/15)
+  mnist seed 2109 fertig (9/15)
+  mnist seed 2110 fertig (10/15)
+  mnist seed 2111 fertig (11/15)
+  mnist seed 2112 fertig (12/15)
+  mnist seed 2113 fertig (13/15)
+  mnist seed 2114 fertig (14/15)
+  mnist seed 2115 fertig (15/15)
+
+RESEARCH ID B-013 | mnist, 15 Seeds, Endrang 64
+           Arm  accuracy     std    Parameter
+  -------------------------------------------
+         dense    0.9367  0.0074   16,781,312
+         fixed    0.9303  0.0120      528,384
+    single_cut    0.9399  0.0065      528,384
+    curriculum    0.9350  0.0102      528,384
+
+    curriculum vs fixed         +0.0048  p=0.3303  Holm=0.6605  unentschieden (+-0.0124)   [PRIMAER]
+    curriculum vs single_cut    -0.0049  p=0.0833  Holm=0.2498  unentschieden (+-0.0089)   [sekundaer]
+    single_cut vs fixed         +0.0097  p=0.0054  Holm=0.0215  Unterschied belegt   [sekundaer]
+    curriculum vs dense         -0.0017  p=0.5245  Holm=0.6605  unentschieden (+-0.0058)   [Bezug]
+
+  H0 -- kein signifikanter Vorteil gegenueber festem Rang. Der Befund aus B-012 laesst sich nicht in ein Verfahren uebersetzen.
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-013-mnist__20260804_142928.json
+  Messzeilen (60): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-013-mnist__20260804_142928.csv
+
+##########################################################################
+# B-013 -- Rang-Curriculum -- fashion_mnist
+##########################################################################
+  fashion_mnist seed 2101 fertig (1/15)
+  fashion_mnist seed 2102 fertig (2/15)
+  fashion_mnist seed 2103 fertig (3/15)
+  fashion_mnist seed 2104 fertig (4/15)
+  fashion_mnist seed 2105 fertig (5/15)
+  fashion_mnist seed 2106 fertig (6/15)
+  fashion_mnist seed 2107 fertig (7/15)
+  fashion_mnist seed 2108 fertig (8/15)
+  fashion_mnist seed 2109 fertig (9/15)
+  fashion_mnist seed 2110 fertig (10/15)
+  fashion_mnist seed 2111 fertig (11/15)
+  fashion_mnist seed 2112 fertig (12/15)
+  fashion_mnist seed 2113 fertig (13/15)
+  fashion_mnist seed 2114 fertig (14/15)
+  fashion_mnist seed 2115 fertig (15/15)
+
+RESEARCH ID B-013 | fashion_mnist, 15 Seeds, Endrang 64
+           Arm  accuracy     std    Parameter
+  -------------------------------------------
+         dense    0.8329  0.0115   16,781,312
+         fixed    0.8334  0.0101      528,384
+    single_cut    0.8378  0.0095      528,384
+    curriculum    0.8272  0.0115      528,384
+
+    curriculum vs fixed         -0.0062  p=0.1205  Holm=0.3616  unentschieden (+-0.0122)   [PRIMAER]
+    curriculum vs single_cut    -0.0106  p=0.0003  Holm=0.0012  Unterschied belegt   [sekundaer]
+    single_cut vs fixed         +0.0044  p=0.1354  Holm=0.3616  unentschieden (+-0.0101)   [sekundaer]
+    curriculum vs dense         -0.0057  p=0.1688  Holm=0.3616  unentschieden (+-0.0116)   [Bezug]
+
+  H0 -- kein signifikanter Vorteil gegenueber festem Rang. Der Befund aus B-012 laesst sich nicht in ein Verfahren uebersetzen.
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-013-fashion_mnist__20260804_145621.json
+  Messzeilen (60): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-013-fashion_mnist__20260804_145621.csv
+
+##########################################################################
+# B-014 -- intrinsische Dimension gegen Klassenzahl
+##########################################################################
+  seed 2201 fertig (1/10)
+  seed 2202 fertig (2/10)
+  seed 2203 fertig (3/10)
+  seed 2204 fertig (4/10)
+python.exe : C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\.venv\Lib\site
+-packages\sklearn\metrics\_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+In Zeile:1 Zeichen:506
++ ... 4_run.log"; & ".\.venv\Scripts\python.exe" -u run_project_b4.py *> $l ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\Malte\...s not in y_true:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  warnings.warn("y_pred contains classes not in y_true")
+  seed 2205 fertig (5/10)
+  seed 2206 fertig (6/10)
+  seed 2207 fertig (7/10)
+  seed 2208 fertig (8/10)
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\.venv\Lib\site-packages\skl
+earn\metrics\_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+  seed 2209 fertig (9/10)
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\.venv\Lib\site-packages\skl
+earn\metrics\_classification.py:2939: UserWarning: y_pred contains classes not in y_true
+  warnings.warn("y_pred contains classes not in y_true")
+  seed 2210 fertig (10/10)
+
+RESEARCH ID B-014 | synthetische Mannigfaltigkeiten, 10 Seeds, Breite 4096
+Effektivrang der Mittelschicht nach dem Training:
+   d / Klassen         2         5        10        20
+  ----------------------------------------------------
+             2       1.4       1.7       1.7       1.7 
+             5       1.5       2.0       2.2       2.0 
+            10       1.5       2.4       2.1       2.7 
+            20       1.5       2.4       3.2       4.0 
+            50       1.6       2.6       3.5       4.7 
+           100       1.7       3.0       3.7       4.6 
+
+Dieselbe Tabelle am UNTRAINIERTEN Netz (Kontrolle):
+   d / Klassen         2         5        10        20
+  ----------------------------------------------------
+             2       3.7       3.7       3.7       3.7 
+             5       9.5       9.5       9.5       9.5 
+            10      19.1      19.2      19.1      19.1 
+            20      38.0      38.0      37.9      38.0 
+            50      90.1      90.3      90.2      90.2 
+           100     165.4     165.6     165.5     165.6 
+
+Welche Variable sagt den Rang vorher?
+  trainiert  : Spearman(d, Rang)       rho=+0.565  p=1.14e-21
+               Spearman(Klassen, Rang) rho=+0.575  p=1.70e-22
+  untrainiert: Spearman(d, Rang)       rho=+0.986  p=3.08e-187
+               Spearman(Klassen, Rang) rho=+0.002  p=9.81e-01
+
+  d-Effekt innerhalb fester Klassenzahl : rho im Mittel +0.957
+  Klassen-Effekt innerhalb festem d     : rho im Mittel +0.833
+
+  Vergleich mit der Vorhersage "Rang = Klassenzahl - 1":
+    Klassen   2: vorhergesagt   1, gemessen    1.5 (gemittelt ueber alle d)
+    Klassen   5: vorhergesagt   4, gemessen    2.3 (gemittelt ueber alle d)
+    Klassen  10: vorhergesagt   9, gemessen    2.7 (gemittelt ueber alle d)
+    Klassen  20: vorhergesagt  19, gemessen    3.3 (gemittelt ueber alle d)
+
+==============================================================================
+BEWERTUNG (Kriterium vor dem Lauf festgelegt)
+  H1 -- die intrinsische Datendimension setzt den Rang; sie erklaert mehr als die Klassenzahl. Vorbehalt: das UNTRAINIERTE Netz zeigt den d-Zusammenhang bereits; der Anteil, der aus dem Lernen stammt, ist nur die Differenz zur Kontrolle.
+==============================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-014__20260804_183624.json
+  Messzeilen (240): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-014__20260804_183624.csv
+
+Fertig in 4.57 h.

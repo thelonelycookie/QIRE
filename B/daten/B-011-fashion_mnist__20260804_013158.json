@@ -1,0 +1,1389 @@
+{
+  "experiment_id": "B-011-fashion_mnist",
+  "description": "Ist die Luecke zwischen strukturierter und dichter Schicht eine Darstellungs- oder eine Optimierungsluecke? Vergleicht Training von null, SVD-Initialisierung, Nachtrainieren und Funktionsdestillation. Misst zusaetzlich das datengewichtete Spektrum.",
+  "created": "2026-08-04T01:31:58",
+  "config": {
+    "dataset": "fashion_mnist",
+    "ranks": [
+      8,
+      64
+    ],
+    "width": 4096,
+    "seeds": [
+      1901,
+      1902,
+      1903,
+      1904,
+      1905,
+      1906,
+      1907,
+      1908,
+      1909,
+      1910,
+      1911,
+      1912,
+      1913,
+      1914,
+      1915
+    ],
+    "max_samples": 6000,
+    "epochs": 10,
+    "lr": 0.003,
+    "batch_size": 256,
+    "torch_threads": 6,
+    "distill_steps": 400,
+    "arms": [
+      "dense",
+      "scratch",
+      "svd_frozen",
+      "svd_finetune",
+      "distill"
+    ],
+    "fairness_note": "svd_* und distill setzen ein fertig trainiertes dichtes Modell voraus und kosten daher MEHR Gesamtrechenzeit als scratch. Dieses Experiment beantwortet Erreichbarkeit, nicht Effizienz."
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 135,
+  "records": [
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8432238143925591,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4547754839296762,
+      "w_energy_64": 0.627692038772372,
+      "d_energy_8": 0.9634147331880997,
+      "d_energy_64": 0.9991202344658558
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8277948336740041,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.770960543481011,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8472514879092385,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7511996206810971,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.045359866493760996
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8218065511210856,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.83981020324965,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8353478141505727,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1901,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8370630742483887,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.004980642106035584
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8323203742631211,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.48278261294325675,
+      "w_energy_64": 0.6397384469722865,
+      "d_energy_8": 0.9615350151193909,
+      "d_energy_64": 0.9990492612263191
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8197337731836372,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.6328351731533323,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8209366914670418,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7523475041118519,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.04497986606481011
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.819724085372116,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8385958684325402,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8217593545029193,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1902,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8324962854621759,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005119404932209201
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.826745749010203,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.46167907533864905,
+      "w_energy_64": 0.6284028253291777,
+      "d_energy_8": 0.9637116277589621,
+      "d_energy_64": 0.999105054542682
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8329784451641817,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.6809882456163849,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8390334277955942,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7866747899570996,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.03163651059134419
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8351562408970205,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8280367530466364,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.843587312758854,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1903,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8283853354094329,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.004839682596401177
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8237039906233505,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4668085734528404,
+      "w_energy_64": 0.6329775319813012,
+      "d_energy_8": 0.9574349816156228,
+      "d_energy_64": 0.9987746622352099
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8234001818666957,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7582031014571843,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8349868370992957,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7779422379991048,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.04777273517801866
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8203763456767756,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8271436750215455,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.83676449757302,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1904,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8219165067645042,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005821090879906407
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8397808296879818,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.47233603309803857,
+      "w_energy_64": 0.6329868194886651,
+      "d_energy_8": 0.9634254949967987,
+      "d_energy_64": 0.9991163412087511
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8357551386375635,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8019623454282552,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8399955658096706,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7971371152305948,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.03850849808415157
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8432686575822961,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8391092352964075,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8270132009370098,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1905,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8385208181931875,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005109705326478038
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.824692633603763,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.47347148278204954,
+      "w_energy_64": 0.6339789019005113,
+      "d_energy_8": 0.9688498271837308,
+      "d_energy_64": 0.999130238247721
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8133337234507835,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7146380122074089,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8375968979003167,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7896897722659657,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.03561569515964772
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.826132579265149,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8252691533863897,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8408873568886148,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1906,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8212682111972104,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.004626681386084981
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.834089361729248,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.48312381276979,
+      "w_energy_64": 0.6373503181018517,
+      "d_energy_8": 0.9656256888942302,
+      "d_energy_64": 0.9989621759404474
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8387347351843981,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7210299825945437,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8538973313345878,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7960497542412158,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.02603048097122707
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8483806228050137,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8336165783186112,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8365818548227282,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1907,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8246993800961648,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005509900083618481
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8255232812716822,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4772620861830251,
+      "w_energy_64": 0.6346245878212278,
+      "d_energy_8": 0.9641976802014873,
+      "d_energy_64": 0.9990661120608407
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8282716407028949,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7088487698436161,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8268412347923924,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.728515681766163,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.045878377780042744
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8351858198847788,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8231356829867658,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8321904176132833,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1908,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8244630840236574,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005232786880478065
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8202781274021582,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.471810759312772,
+      "w_energy_64": 0.6361622712549402,
+      "d_energy_8": 0.9601732419834773,
+      "d_energy_64": 0.9989894324121239
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8476898944880367,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.6539953549973032,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8545351776830608,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8178098073203092,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.036216676852868425
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8023759924955891,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8246872614403644,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8460105807230198,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1909,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.815457104136622,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005507508817182107
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8414986749225472,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.46977284472863595,
+      "w_energy_64": 0.6297127845964521,
+      "d_energy_8": 0.9630060697316141,
+      "d_energy_64": 0.9989620141088177
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8346765951656204,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.6766742754464694,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8309031278721519,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7014288867694364,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.05402369377206198
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8337453686154648,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8434472692450061,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8418692802426607,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1910,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8280558795364794,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005015454676592185
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7777068801066424,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.45552184638730003,
+      "w_energy_64": 0.626379771168061,
+      "d_energy_8": 0.9521873544206282,
+      "d_energy_64": 0.998879840388045
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7850052243314501,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7002962825701646,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8370624384019283,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7043694921033443,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.03547996581364637
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7881278895922526,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7821744038905492,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8268941121352811,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1911,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7727601085558942,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.005471989159681477
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8541454652565503,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4605431360522178,
+      "w_energy_64": 0.6297732377344724,
+      "d_energy_8": 0.960445919515651,
+      "d_energy_64": 0.9989210551440452
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8567488663692062,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7789291779948525,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8525753058721095,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7866476664505558,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.04458324498788675
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8340546441102274,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8541864465616124,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8452538157835308,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1912,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8468369307016502,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.0050771723313534885
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8303104484549525,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4777486107758836,
+      "w_energy_64": 0.6339194116684764,
+      "d_energy_8": 0.9675714363645923,
+      "d_energy_64": 0.999180771650649
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8198296671106343,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7848779880312844,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8262571368223732,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7588063508292158,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.040046807661748056
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8432552177431196,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8290439721270906,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8297717507347933,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1913,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8301923947562434,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.004707147361212164
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8463741630866675,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4710938476074301,
+      "w_energy_64": 0.6337792212745675,
+      "d_energy_8": 0.9631873242701527,
+      "d_energy_64": 0.9990280522075726
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8425718561249924,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.6710416830934587,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8442368209378962,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7358255988674843,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.04110958859598652
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8349693009906141,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.849873160520192,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8594801505760877,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1914,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8480905309267877,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.004904124228612886
+    },
+    {
+      "arm": "dense",
+      "rank": 0,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8097877867027885,
+      "middle_parameters": 16781312,
+      "distill_rel_error": NaN,
+      "w_energy_8": 0.4785409414445065,
+      "w_energy_64": 0.635735843226796,
+      "d_energy_8": 0.9684209953113849,
+      "d_energy_64": 0.9990690218847222
+    },
+    {
+      "arm": "scratch",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8186360287568817,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.6882590358760894,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8327183694768264,
+      "middle_parameters": 69632,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 8,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.7684594921166518,
+      "middle_parameters": 69632,
+      "distill_rel_error": 0.03656303354100971
+    },
+    {
+      "arm": "scratch",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8265454509938591,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_frozen",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8092762667959776,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "svd_finetune",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8402495879191628,
+      "middle_parameters": 528384,
+      "distill_rel_error": NaN
+    },
+    {
+      "arm": "distill",
+      "rank": 64,
+      "seed": 1915,
+      "dataset": "fashion_mnist",
+      "balanced_accuracy": 0.8062446256323141,
+      "middle_parameters": 528384,
+      "distill_rel_error": 0.0064101665760196765
+    }
+  ],
+  "analysis": {
+    "dataset": "fashion_mnist",
+    "per_rank": {
+      "8": {
+        "scratch": {
+          "delta": -0.0003347317535489225,
+          "p": 0.67877197265625,
+          "p_tost": 0.06007965945707712
+        },
+        "svd_frozen": {
+          "delta": -0.11244277391485691,
+          "p": 6.103515625e-05,
+          "p_tost": 0.9999995776340427
+        },
+        "svd_finetune": {
+          "delta": 0.009909751377351284,
+          "p": 0.083251953125,
+          "p_tost": 0.8373817549895144
+        },
+        "distill": {
+          "delta": -0.06515185398694157,
+          "p": 6.103515625e-05,
+          "p_tost": 0.9999941407027588
+        },
+        "distill_rel_error": 0.0402536694365474,
+        "verdict": "kein klares Bild bei diesem Rang."
+      },
+      "64": {
+        "scratch": {
+          "delta": -0.0011384542245898022,
+          "p": 0.803955078125,
+          "p_tost": 0.139224765857989
+        },
+        "svd_frozen": {
+          "delta": 0.001148289987008333,
+          "p": 0.1688232421875,
+          "p_tost": 5.104662119920495e-05
+        },
+        "svd_finetune": {
+          "delta": 0.008898633789821697,
+          "p": 0.072998046875,
+          "p_tost": 0.8016191561056075
+        },
+        "distill": {
+          "delta": -0.003582087391566624,
+          "p": 0.00537109375,
+          "p_tost": 0.10796379325559403
+        },
+        "distill_rel_error": 0.005222230489457728,
+        "verdict": "kein klares Bild bei diesem Rang."
+      }
+    },
+    "w_energy_8": 0.4704847431204048,
+    "d_energy_8": 0.9628791593703883,
+    "w_energy_64": 0.6328809340860773,
+    "d_energy_64": 0.9990236178482536
+  }
+}

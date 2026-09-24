@@ -1,0 +1,84 @@
+﻿=== Q-015 global_orthogonal gestartet 2026-08-06T06:12:12 ===
+
+  Lernratensuche fuer mnist
+             mnist / hybrid        -> lr 0.1  0.003:0.7800  0.01:0.8165  0.03:0.8585  0.1:0.8781  0.3:0.8619
+             mnist / global_orth   -> lr 0.03  0.003:0.7466  0.01:0.7497  0.03:0.8139  0.1:0.2823  0.3:0.1086
+             mnist / block_orth    -> lr 0.1  0.003:0.5715  0.01:0.6017  0.03:0.6517  0.1:0.6766  0.3:0.5170
+             mnist / quad_free     -> lr 0.1  0.003:0.5908  0.01:0.8287  0.03:0.8785  0.1:0.8831  0.3:0.8431
+    mnist seed 7701 fertig (1/15)
+    mnist seed 7702 fertig (2/15)
+    mnist seed 7703 fertig (3/15)
+    mnist seed 7704 fertig (4/15)
+    mnist seed 7705 fertig (5/15)
+    mnist seed 7706 fertig (6/15)
+    mnist seed 7707 fertig (7/15)
+    mnist seed 7708 fertig (8/15)
+    mnist seed 7709 fertig (9/15)
+    mnist seed 7710 fertig (10/15)
+    mnist seed 7711 fertig (11/15)
+    mnist seed 7712 fertig (12/15)
+    mnist seed 7713 fertig (13/15)
+    mnist seed 7714 fertig (14/15)
+    mnist seed 7715 fertig (15/15)
+    Zwischenstand nach mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-015__20260806_062339.json
+  Messzeilen (60): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-015__20260806_062339.csv
+
+  Lernratensuche fuer fashion_mnist
+     fashion_mnist / hybrid        -> lr 0.1  0.003:0.6159  0.01:0.6259  0.03:0.6538  0.1:0.6601  0.3:0.6578
+     fashion_mnist / global_orth   -> lr 0.003  0.003:0.6903  0.01:0.6206  0.03:0.6252  0.1:0.2047  0.3:0.1000
+     fashion_mnist / block_orth    -> lr 0.03  0.003:0.5560  0.01:0.5396  0.03:0.5712  0.1:0.5239  0.3:0.4461
+     fashion_mnist / quad_free     -> lr 0.1  0.003:0.5383  0.01:0.7433  0.03:0.7557  0.1:0.7622  0.3:0.7423
+    WARNUNG: am Gitterrand -> global_orth
+    fashion_mnist seed 7701 fertig (1/15)
+    fashion_mnist seed 7702 fertig (2/15)
+    fashion_mnist seed 7703 fertig (3/15)
+    fashion_mnist seed 7704 fertig (4/15)
+    fashion_mnist seed 7705 fertig (5/15)
+    fashion_mnist seed 7706 fertig (6/15)
+    fashion_mnist seed 7707 fertig (7/15)
+    fashion_mnist seed 7708 fertig (8/15)
+    fashion_mnist seed 7709 fertig (9/15)
+    fashion_mnist seed 7710 fertig (10/15)
+    fashion_mnist seed 7711 fertig (11/15)
+    fashion_mnist seed 7712 fertig (12/15)
+    fashion_mnist seed 7713 fertig (13/15)
+    fashion_mnist seed 7714 fertig (14/15)
+    fashion_mnist seed 7715 fertig (15/15)
+    Zwischenstand nach fashion_mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-015__20260806_063447.json
+  Messzeilen (120): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-015__20260806_063447.csv
+
+RESEARCH ID Q-015 | 15 Seeds
+
+--- mnist ---------------------------------------------------------
+            Arm     Mischung   balanced      std  Freiheitsgrade     lr
+  ---------------------------------------------------------------------
+         hybrid       global     0.9327   0.0079              80    0.1
+    global_orth       global     0.8653   0.0346          32,640   0.03
+     block_orth   blocklokal     0.8994   0.0132           2,048    0.1
+      quad_free   blocklokal     0.9115   0.0108           2,048    0.1
+
+--- fashion_mnist -------------------------------------------------
+            Arm     Mischung   balanced      std  Freiheitsgrade     lr
+  ---------------------------------------------------------------------
+         hybrid       global     0.8232   0.0124              80    0.1
+    global_orth       global     0.8031   0.0102          32,640  0.003
+     block_orth   blocklokal     0.7635   0.0334           2,048   0.03
+      quad_free   blocklokal     0.8143   0.0183           2,048    0.1
+
+==============================================================================================
+VORREGISTRIERTE FAMILIE auf mnist, Grenze +-0.005
+  [PRIMAER] hybrid (80) vs global_orth (32,640):  +0.0674  15/15  p=0.0001  Holm=0.0001  Unterschied belegt
+  [     P2] global_orth (32,640) vs block_orth (2,048):  -0.0341  0/15  p=0.0001  Holm=0.0001  Unterschied belegt
+
+  Aufloesungspruefung NICHT BESTANDEN: globale gegen blocklokale Mischung -0.0341, Holm p=0.0001. Der Aufbau trennt globale und blocklokale Mischung nicht -- dann ist auch der Primaertest nicht interpretierbar.
+
+BEWERTUNG: HU -- Aufloesungspruefung durchgefallen, Lauf nicht verwertbar.
+==============================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-015__20260806_063447.json
+  Messzeilen (120): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-015__20260806_063447.csv
+=== beendet 2026-08-06T06:34:48, ExitCode 0 ===

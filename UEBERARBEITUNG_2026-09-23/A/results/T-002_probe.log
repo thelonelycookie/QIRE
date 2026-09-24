@@ -1,0 +1,40 @@
+==========================================================================================
+T-002 | 4 Arme x 2 Seeds x 60 Schritte auf cpu
+==========================================================================================
+               dense seed 2101 Schritt     60/60  val 7.1701 nats  ppl   1300.0  (27 s)
+       butterfly_ffn seed 2101 Schritt     60/60  val 7.5369 nats  ppl   1875.9  (151 s)
+       butterfly_qkv seed 2101 Schritt     60/60  val 7.1869 nats  ppl   1322.0  (154 s)
+              narrow seed 2101 Schritt     60/60  val 7.2363 nats  ppl   1389.0  (16 s)
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-002__20260810_222237.json
+  Messzeilen (4): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-002__20260810_222237.csv
+    Zwischenstand nach seed 2101 gesichert
+               dense seed 2102 Schritt     60/60  val 7.1707 nats  ppl   1300.8  (26 s)
+       butterfly_ffn seed 2102 Schritt     60/60  val 7.4356 nats  ppl   1695.3  (144 s)
+       butterfly_qkv seed 2102 Schritt     60/60  val 7.1629 nats  ppl   1290.6  (155 s)
+              narrow seed 2102 Schritt     60/60  val 7.2522 nats  ppl   1411.2  (16 s)
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-002__20260810_222818.json
+  Messzeilen (8): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-002__20260810_222818.csv
+    Zwischenstand nach seed 2102 gesichert
+
+RESEARCH ID T-002 | Sprachmodell, d_model 256, deutscher Text
+               Arm   Parameter  Struktur  val nats     std  Perplex.   Token/s
+  ----------------------------------------------------------------------------
+             dense   5,289,472 2,102,272    7.1704  0.0004    1300.4     4,665
+     butterfly_ffn   3,187,524       324    7.4862  0.0716    1783.3       836
+     butterfly_qkv   4,500,448       480    7.1749  0.0170    1306.2       794
+            narrow   3,319,552   132,352    7.2442  0.0112    1400.0     7,551
+
+==========================================================================================
+VORREGISTRIERTE FAMILIE, Grenze +-0.05 nats (positiv = Butterfly besser)
+  [PRIMAER] butterfly_ffn vs dense:  -0.3158 nats  0/2  p=0.5000  Holm=1.0000  unentschieden (+-0.6373)
+  [     P2] butterfly_qkv vs dense:  -0.0045 nats  1/2  p=1.0000  Holm=1.0000  unentschieden (+-0.0821)
+
+  Aufloesungspruefung NICHT BESTANDEN: dense gegen narrow +0.0738 nats, p=0.5000 -- dense besser, wie erwartet. Der Aufbau sieht Kapazitaetsunterschiede im FFN nicht -- kein FFN-Vergleich oben ist interpretierbar.
+
+BEWERTUNG: TU -- Aufloesungspruefung durchgefallen, Lauf nicht verwertbar.
+==========================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-002__20260810_222818.json
+  Messzeilen (8): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\T-002__20260810_222818.csv

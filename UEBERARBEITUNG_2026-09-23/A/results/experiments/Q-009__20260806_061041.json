@@ -1,0 +1,423 @@
+{
+  "experiment_id": "Q-009",
+  "description": "Butterfly gegen dicht bei GLEICHEM ZEITBUDGET statt gleicher Breite, ueber drei Schwierigkeitsstufen. Die isochrone dichte Breite wird empirisch einkalibriert.",
+  "created": "2026-08-06T06:10:41",
+  "config": {
+    "arms": [
+      "butterfly",
+      "dense_isotime",
+      "dense_quarter"
+    ],
+    "num_qubits": 14,
+    "layers": 5,
+    "widths": {
+      "butterfly": 16384,
+      "dense_isotime": 14400,
+      "dense_quarter": 3600
+    },
+    "clusters": [
+      64,
+      256,
+      1024
+    ],
+    "seeds": [
+      9101,
+      9102,
+      9103
+    ],
+    "lr_grid": [
+      0.0003,
+      0.001,
+      0.003,
+      0.01
+    ],
+    "epochs": 3,
+    "batch_size": 64,
+    "n_train": 6000,
+    "intrinsic_dim": 64,
+    "margin_accuracy": 0.02,
+    "calibration": {
+      "target_step_s": 1.7683990000004997,
+      "rel_error": 0.09159320568096364
+    },
+    "torch_threads": 6,
+    "test_metric": "balanced_accuracy",
+    "primary": "butterfly > dense_isotime bei der leichtesten Aufgabe",
+    "resolution_check": "dense_quarter muss schlechter sein als dense_isotime"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 27,
+  "records": [
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 64,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 634.3483839,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 64,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 613.1892245000017,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 64,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 463.1997889999984,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 64,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9997191011905671,
+      "accuracy": 0.999666690826416,
+      "train_seconds": 486.30139479999707,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 64,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9880782902240753,
+      "accuracy": 0.9863333106040955,
+      "train_seconds": 505.2222582000031,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 64,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.993819260597229,
+      "accuracy": 0.9929999709129333,
+      "train_seconds": 499.6091686,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 64,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 30.797772500001884,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 64,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 31.706197200001043,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 64,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 31.797481499997957,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 256,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 690.1985549000019,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 256,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 568.4649441000001,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 256,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 616.6198550000045,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 256,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9752563178539276,
+      "accuracy": 0.9753333330154419,
+      "train_seconds": 665.4564713,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 256,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9711512207984925,
+      "accuracy": 0.9710000157356262,
+      "train_seconds": 595.400527400001,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 256,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9643768012523651,
+      "accuracy": 0.968999981880188,
+      "train_seconds": 532.8470253999985,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 256,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 30.75031360000139,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 256,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 31.31990030000452,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 256,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 1.0,
+      "accuracy": 1.0,
+      "train_seconds": 30.981421199998294,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 1024,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9748544156551361,
+      "accuracy": 0.9733333587646484,
+      "train_seconds": 713.4273568999997,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 1024,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9661926388740539,
+      "accuracy": 0.9639999866485596,
+      "train_seconds": 726.4473433000021,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "butterfly",
+      "width": 16384,
+      "clusters": 1024,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9762867987155914,
+      "accuracy": 0.9753333330154419,
+      "train_seconds": 704.9369560999985,
+      "block_parameters": 140,
+      "total_parameters": 4374678
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 1024,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.7967728495597839,
+      "accuracy": 0.7916666865348816,
+      "train_seconds": 512.8811322000038,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 1024,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.8126986205577851,
+      "accuracy": 0.8053333163261414,
+      "train_seconds": 524.0715324000048,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_isotime",
+      "width": 14400,
+      "clusters": 1024,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.83152676820755,
+      "accuracy": 0.8259999752044678,
+      "train_seconds": 521.7348141999973,
+      "block_parameters": 207374400,
+      "total_parameters": 211219210
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 1024,
+      "seed": 9101,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9918928980827332,
+      "accuracy": 0.9926666617393494,
+      "train_seconds": 28.14230050000333,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 1024,
+      "seed": 9102,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.9893690824508667,
+      "accuracy": 0.9893333315849304,
+      "train_seconds": 27.953150900000765,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    },
+    {
+      "arm": "dense_quarter",
+      "width": 3600,
+      "clusters": 1024,
+      "seed": 9103,
+      "lr": 0.0003,
+      "balanced_accuracy": 0.985016918182373,
+      "accuracy": 0.9836666584014893,
+      "train_seconds": 29.892422600001737,
+      "block_parameters": 12963600,
+      "total_parameters": 13924810
+    }
+  ],
+  "analysis": {
+    "clusters_64": {
+      "delta": 0.006127782662709524,
+      "butterfly": 1.0,
+      "dense": 0.9938722173372905,
+      "time_ratio": 1.147273651695469
+    },
+    "clusters_256": {
+      "delta": 0.029738553365071585,
+      "butterfly": 1.0,
+      "dense": 0.9702614466349284,
+      "time_ratio": 1.0454809315271174
+    },
+    "clusters_1024": {
+      "delta": 0.15877853830655408,
+      "butterfly": 0.9724446177482605,
+      "dense": 0.8136660794417064,
+      "time_ratio": 1.376037009004035
+    },
+    "primary": {
+      "delta": 0.006127782662709524,
+      "p": 0.25,
+      "p_holm": 0.25,
+      "p_tost": 0.02698833389077099,
+      "achieved": 0.015940443813349744
+    },
+    "trend": {
+      "rho": 1.0,
+      "p": 0.0,
+      "p_holm": 0.0
+    },
+    "resolution_check": {
+      "passed": false,
+      "p": 0.25,
+      "text": "Aufloesungspruefung NICHT BESTANDEN (p=0.2500): der Aufbau trennt Kapazitaetsunterschiede nicht. Kein Ergebnis oben ist interpretierbar -- die Aufgabe muss schwerer werden."
+    },
+    "verdict": "HU -- Aufloesungspruefung durchgefallen, Lauf nicht verwertbar."
+  }
+}

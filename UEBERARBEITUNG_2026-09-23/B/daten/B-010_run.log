@@ -1,0 +1,132 @@
+﻿
+  Lernratensuche fuer mnist
+             mnist n=200    -> dense:0.003, lowrank_r8:0.003, monarch:0.003, block_diag_128:0.003
+             mnist n=400    -> dense:0.003, lowrank_r8:0.003, monarch:0.01, block_diag_128:0.01
+             mnist n=800    -> dense:0.003, lowrank_r8:0.003, monarch:0.01, block_diag_128:0.003
+             mnist n=1600   -> dense:0.003, lowrank_r8:0.003, monarch:0.003, block_diag_128:0.003
+             mnist n=4200   -> dense:0.003, lowrank_r8:0.003, monarch:0.003, block_diag_128:0.003
+             mnist n=14000  -> dense:0.003, lowrank_r8:0.003, monarch:0.01, block_diag_128:0.01
+    mnist seed 1801 fertig (1/15)
+    mnist seed 1802 fertig (2/15)
+    mnist seed 1803 fertig (3/15)
+    mnist seed 1804 fertig (4/15)
+    mnist seed 1805 fertig (5/15)
+    mnist seed 1806 fertig (6/15)
+    mnist seed 1807 fertig (7/15)
+    mnist seed 1808 fertig (8/15)
+    mnist seed 1809 fertig (9/15)
+    mnist seed 1810 fertig (10/15)
+    mnist seed 1811 fertig (11/15)
+    mnist seed 1812 fertig (12/15)
+    mnist seed 1813 fertig (13/15)
+    mnist seed 1814 fertig (14/15)
+    mnist seed 1815 fertig (15/15)
+
+  Lernratensuche fuer fashion_mnist
+     fashion_mnist n=200    -> dense:0.003, lowrank_r8:0.003, monarch:0.01, block_diag_128:0.01
+     fashion_mnist n=400    -> dense:0.003, lowrank_r8:0.003, monarch:0.01, block_diag_128:0.003
+     fashion_mnist n=800    -> dense:0.003, lowrank_r8:0.003, monarch:0.003, block_diag_128:0.003
+     fashion_mnist n=1600   -> dense:0.003, lowrank_r8:0.003, monarch:0.003, block_diag_128:0.003
+     fashion_mnist n=4200   -> dense:0.003, lowrank_r8:0.003, monarch:0.003, block_diag_128:0.003
+     fashion_mnist n=14000  -> dense:0.003, lowrank_r8:0.003, monarch:0.01, block_diag_128:0.003
+    fashion_mnist seed 1801 fertig (1/15)
+    fashion_mnist seed 1802 fertig (2/15)
+    fashion_mnist seed 1803 fertig (3/15)
+    fashion_mnist seed 1804 fertig (4/15)
+    fashion_mnist seed 1805 fertig (5/15)
+    fashion_mnist seed 1806 fertig (6/15)
+    fashion_mnist seed 1807 fertig (7/15)
+    fashion_mnist seed 1808 fertig (8/15)
+    fashion_mnist seed 1809 fertig (9/15)
+    fashion_mnist seed 1810 fertig (10/15)
+    fashion_mnist seed 1811 fertig (11/15)
+    fashion_mnist seed 1812 fertig (12/15)
+    fashion_mnist seed 1813 fertig (13/15)
+    fashion_mnist seed 1814 fertig (14/15)
+    fashion_mnist seed 1815 fertig (15/15)
+
+RESEARCH ID B-010 | Datenmenge gegen Struktur, 15 Seeds
+
+--- mnist -------------------------------------------------------
+ n_train  Epochen           dense      lowrank_r8         monarch  block_diag_128
+---------------------------------------------------------------------------------
+     200      170          0.7941          0.7737          0.7920          0.8090 
+     400       85          0.8613          0.8545          0.8480          0.8651 
+     800       42          0.9043          0.8985          0.8638          0.8940 
+    1600       24          0.9238          0.9208          0.9120          0.9190 
+    4200       10          0.9374          0.9412          0.9339          0.9400 
+python.exe : C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\qire_ai\sample
+_efficiency.py:220: RuntimeWarning: Mean of empty slice
+In Zeile:1 Zeichen:500
++ ... 0_run.log"; & ".\.venv\Scripts\python.exe" -u -m qire_ai.sample_effic ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (C:\Users\Malte\... of empty slice:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  line += f'{v.mean():>15.4f} '
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\.venv\Lib\site-packages\num
+py\_core\_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+   14000        0             nan             nan             nan             nan 
+
+  Abstand zur dichten Schicht (positiv = Struktur vorn):
+ n_train        lowrank_r8           monarch    block_diag_128
+  ------------------------------------------------------------
+     200         -0.0204*         -0.0021          +0.0149* 
+     400         -0.0068*         -0.0133*         +0.0037  
+     800         -0.0057*         -0.0405*         -0.0102* 
+    1600         -0.0030          -0.0118*         -0.0048* 
+    4200         +0.0038          -0.0035          +0.0026  
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\.venv\Lib\site-packages\sci
+py\_lib\_util.py:951: SmallSampleWarning: One or more sample arguments is too small; all returned values will be NaN. 
+See documentation for sample size requirements.
+  return fun(*args, **kwargs)
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\qire_ai\sample_efficiency.p
+y:234: RuntimeWarning: Mean of empty slice
+  deltas[arm].append(float(v.mean() - d.mean()))
+C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\qire_ai\sample_efficiency.p
+y:236: RuntimeWarning: Mean of empty slice
+  line += f'{v.mean()-d.mean():>+15.4f}{star} '
+   14000            +nan             +nan             +nan  
+
+  PRIMAER -- Trend ueber die Datenmenge (Spearman, log n):
+           lowrank_r8: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+              monarch: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+       block_diag_128: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+
+--- fashion_mnist -----------------------------------------------
+ n_train  Epochen           dense      lowrank_r8         monarch  block_diag_128
+---------------------------------------------------------------------------------
+     200      170          0.7429          0.7440          0.7481          0.7568 
+     400       85          0.7872          0.7877          0.7870          0.7899 
+     800       42          0.7963          0.7894          0.7912          0.7956 
+    1600       24          0.8142          0.8063          0.8131          0.8231 
+    4200       10          0.8353          0.8278          0.8329          0.8374 
+   14000        0             nan             nan             nan             nan 
+
+  Abstand zur dichten Schicht (positiv = Struktur vorn):
+ n_train        lowrank_r8           monarch    block_diag_128
+  ------------------------------------------------------------
+     200         +0.0011          +0.0052*         +0.0139* 
+     400         +0.0005          -0.0003          +0.0027* 
+     800         -0.0070          -0.0052          -0.0008  
+    1600         -0.0079          -0.0011          +0.0090* 
+    4200         -0.0074*         -0.0024          +0.0021  
+   14000            +nan             +nan             +nan  
+
+  PRIMAER -- Trend ueber die Datenmenge (Spearman, log n):
+           lowrank_r8: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+              monarch: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+       block_diag_128: rho=  +nan  Holm p=0.0000  *signifikant*  Vorteil waechst mit mehr Daten
+
+==============================================================================
+BEWERTUNG (Kriterium vor dem Lauf festgelegt)
+         lowrank_r8: Trend negativ&sig=False, bei n=200 vorn&sig=False, zweiter Datensatz gleiche Richtung=False
+            monarch: Trend negativ&sig=False, bei n=200 vorn&sig=False, zweiter Datensatz gleiche Richtung=False
+     block_diag_128: Trend negativ&sig=False, bei n=200 vorn&sig=True, zweiter Datensatz gleiche Richtung=False
+
+  H0 -- kein Arm erfuellt alle drei Bedingungen. Auch die Datenachse gibt keinen Vorteil fuer Struktur her.
+==============================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-010__20260804_003143.json
+  Messzeilen (720): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-010__20260804_003143.csv

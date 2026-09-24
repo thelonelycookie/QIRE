@@ -1,0 +1,69 @@
+﻿=== Q-009 isotime_accuracy gestartet 2026-08-06T00:18:36 ===
+KALIBRIERUNG -- gleiches Zeitbudget
+  Butterfly bei Breite 16,384: 1768 ms je Schritt
+    dicht bei Breite  8,448:     632 ms  (0.36x des Ziels)
+    dicht bei Breite 12,416:    1568 ms  (0.89x des Ziels)
+    dicht bei Breite 14,400:    1930 ms  (1.09x des Ziels)
+    dicht bei Breite 13,408:    1486 ms  (0.84x des Ziels)
+    dicht bei Breite 13,904:    1518 ms  (0.86x des Ziels)
+    dicht bei Breite 14,152:    1541 ms  (0.87x des Ziels)
+  -> isochrone dichte Breite: 14,400 (Abweichung 9.2 %)
+  Breiten: {'butterfly': 16384, 'dense_isotime': 14400, 'dense_quarter': 3600}
+
+=== 64 Haufen ===
+  butterfly: lr 0.0003
+         butterfly  1.0000 +-0.0000  (570s Training)
+  dense_isotime: lr 0.0003
+     dense_isotime  0.9939 +-0.0058  (497s Training)
+  dense_quarter: lr 0.0003
+     dense_quarter  1.0000 +-0.0000  (31s Training)
+  Zwischenstand nach 64 Haufen gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_020554.json
+  Messzeilen (9): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_020554.csv
+
+=== 256 Haufen ===
+  butterfly: lr 0.0003
+         butterfly  1.0000 +-0.0000  (625s Training)
+  dense_isotime: lr 0.0003
+     dense_isotime  0.9703 +-0.0055  (598s Training)
+  dense_quarter: lr 0.0003
+     dense_quarter  1.0000 +-0.0000  (31s Training)
+  Zwischenstand nach 256 Haufen gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_041053.json
+  Messzeilen (18): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_041053.csv
+
+=== 1024 Haufen ===
+  butterfly: lr 0.0003
+         butterfly  0.9724 +-0.0055  (715s Training)
+  dense_isotime: lr 0.0003
+     dense_isotime  0.8137 +-0.0174  (520s Training)
+  dense_quarter: lr 0.0003
+     dense_quarter  0.9888 +-0.0035  (29s Training)
+  Zwischenstand nach 1024 Haufen gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_061041.json
+  Messzeilen (27): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_061041.csv
+
+RESEARCH ID Q-009 | gleiches Zeitbudget, Breiten {'butterfly': 16384, 'dense_isotime': 14400, 'dense_quarter': 3600}
+
+   Haufen          butterfly      dense_isotime  Differenz  Zeit bf/dicht
+  -----------------------------------------------------------------------
+       64     1.0000 +-0.0000     0.9939 +-0.0058    +0.0061    570s/497s
+      256     1.0000 +-0.0000     0.9703 +-0.0055    +0.0297    625s/598s
+     1024     0.9724 +-0.0055     0.8137 +-0.0174    +0.1588    715s/520s
+
+============================================================================================
+PRIMAER bei 64 Haufen: butterfly - dense = +0.0061  p=0.2500  Holm=0.2500
+P2 Grenze:  rho=+1.000 ueber die Schwierigkeit  p=0.0000  Holm=0.0000
+TOST +-0.02: p=0.0270, erreichte Schranke +-0.0159
+
+  Aufloesungspruefung NICHT BESTANDEN (p=0.2500): der Aufbau trennt Kapazitaetsunterschiede nicht. Kein Ergebnis oben ist interpretierbar -- die Aufgabe muss schwerer werden.
+
+BEWERTUNG: HU -- Aufloesungspruefung durchgefallen, Lauf nicht verwertbar.
+============================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_061041.json
+  Messzeilen (27): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\Q-009__20260806_061041.csv
+=== beendet 2026-08-06T06:10:44, ExitCode 0 ===

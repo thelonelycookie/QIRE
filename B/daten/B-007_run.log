@@ -1,0 +1,125 @@
+﻿
+  Lernratensuche fuer mnist
+             mnist d1 / plain         -> lr 0.01  0.003:0.9351  0.01:0.9391
+             mnist d1 / orthogonal    -> lr 0.003  0.003:0.9476  0.01:0.9457
+             mnist d1 / spectral      -> lr 0.003  0.003:0.9440  0.01:0.9365
+             mnist d1 / frobenius     -> lr 0.003  0.003:0.9446  0.01:0.9387
+             mnist d1 / weight_decay  -> lr 0.003  0.003:0.9279  0.01:0.9277
+             mnist d3 / plain         -> lr 0.01  0.003:0.9274  0.01:0.9340
+             mnist d3 / orthogonal    -> lr 0.003  0.003:0.9462  0.01:0.9442
+             mnist d3 / spectral      -> lr 0.003  0.003:0.9418  0.01:0.9370
+             mnist d3 / frobenius     -> lr 0.003  0.003:0.9388  0.01:0.9266
+             mnist d3 / weight_decay  -> lr 0.003  0.003:0.1000  0.01:0.1000
+    mnist seed 1701 fertig (1/20)
+    mnist seed 1702 fertig (2/20)
+    mnist seed 1703 fertig (3/20)
+    mnist seed 1704 fertig (4/20)
+    mnist seed 1705 fertig (5/20)
+    mnist seed 1706 fertig (6/20)
+    mnist seed 1707 fertig (7/20)
+    mnist seed 1708 fertig (8/20)
+    mnist seed 1709 fertig (9/20)
+    mnist seed 1710 fertig (10/20)
+    mnist seed 1711 fertig (11/20)
+    mnist seed 1712 fertig (12/20)
+    mnist seed 1713 fertig (13/20)
+    mnist seed 1714 fertig (14/20)
+    mnist seed 1715 fertig (15/20)
+    mnist seed 1716 fertig (16/20)
+    mnist seed 1717 fertig (17/20)
+    mnist seed 1718 fertig (18/20)
+    mnist seed 1719 fertig (19/20)
+    mnist seed 1720 fertig (20/20)
+    Zwischenstand nach mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-007__20260804_230114.json
+  Messzeilen (200): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-007__20260804_230114.csv
+
+  Lernratensuche fuer fashion_mnist
+     fashion_mnist d1 / plain         -> lr 0.003  0.003:0.8331  0.01:0.8279
+     fashion_mnist d1 / orthogonal    -> lr 0.003  0.003:0.8341  0.01:0.8254
+     fashion_mnist d1 / spectral      -> lr 0.01  0.003:0.8255  0.01:0.8370
+     fashion_mnist d1 / frobenius     -> lr 0.01  0.003:0.8235  0.01:0.8301
+     fashion_mnist d1 / weight_decay  -> lr 0.003  0.003:0.8169  0.01:0.8072
+     fashion_mnist d3 / plain         -> lr 0.003  0.003:0.8187  0.01:0.8134
+     fashion_mnist d3 / orthogonal    -> lr 0.01  0.003:0.8379  0.01:0.8385
+     fashion_mnist d3 / spectral      -> lr 0.003  0.003:0.8351  0.01:0.8301
+     fashion_mnist d3 / frobenius     -> lr 0.003  0.003:0.8332  0.01:0.8094
+     fashion_mnist d3 / weight_decay  -> lr 0.003  0.003:0.1000  0.01:0.1000
+    fashion_mnist seed 1701 fertig (1/20)
+    fashion_mnist seed 1702 fertig (2/20)
+    fashion_mnist seed 1703 fertig (3/20)
+    fashion_mnist seed 1704 fertig (4/20)
+    fashion_mnist seed 1705 fertig (5/20)
+    fashion_mnist seed 1706 fertig (6/20)
+    fashion_mnist seed 1707 fertig (7/20)
+    fashion_mnist seed 1708 fertig (8/20)
+    fashion_mnist seed 1709 fertig (9/20)
+    fashion_mnist seed 1710 fertig (10/20)
+    fashion_mnist seed 1711 fertig (11/20)
+    fashion_mnist seed 1712 fertig (12/20)
+    fashion_mnist seed 1713 fertig (13/20)
+    fashion_mnist seed 1714 fertig (14/20)
+    fashion_mnist seed 1715 fertig (15/20)
+    fashion_mnist seed 1716 fertig (16/20)
+    fashion_mnist seed 1717 fertig (17/20)
+    fashion_mnist seed 1718 fertig (18/20)
+    fashion_mnist seed 1719 fertig (19/20)
+    fashion_mnist seed 1720 fertig (20/20)
+    Zwischenstand nach fashion_mnist gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-007__20260804_234809.json
+  Messzeilen (400): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-007__20260804_234809.csv
+
+RESEARCH ID B-007 | Breite 4096, Blockgroesse 4, 20 Seeds, Datensaetze: mnist, fashion_mnist
+
+--- mnist, Tiefe 1 ---------------------------------------
+           Arm  accuracy     std      lr   vs plain
+---------------------------------------------------
+         plain    0.9409  0.0080    0.01           
+    orthogonal    0.9497  0.0039   0.003    +0.0088
+      spectral    0.9472  0.0051   0.003    +0.0063
+     frobenius    0.9473  0.0055   0.003    +0.0063
+  weight_decay    0.9336  0.0049   0.003    -0.0073
+
+--- mnist, Tiefe 3 ---------------------------------------
+           Arm  accuracy     std      lr   vs plain
+---------------------------------------------------
+         plain    0.9344  0.0046    0.01           
+    orthogonal    0.9500  0.0038   0.003    +0.0156
+      spectral    0.9449  0.0053   0.003    +0.0105
+     frobenius    0.9418  0.0070   0.003    +0.0073
+  weight_decay    0.1000  0.0000   0.003    -0.8344
+
+--- fashion_mnist, Tiefe 1 -------------------------------
+           Arm  accuracy     std      lr   vs plain
+---------------------------------------------------
+         plain    0.8334  0.0147   0.003           
+    orthogonal    0.8335  0.0190   0.003    +0.0000
+      spectral    0.8287  0.0132    0.01    -0.0047
+     frobenius    0.8279  0.0211    0.01    -0.0055
+  weight_decay    0.8261  0.0149   0.003    -0.0073
+
+--- fashion_mnist, Tiefe 3 -------------------------------
+           Arm  accuracy     std      lr   vs plain
+---------------------------------------------------
+         plain    0.8247  0.0097   0.003           
+    orthogonal    0.8304  0.0159    0.01    +0.0057
+      spectral    0.8349  0.0141   0.003    +0.0102
+     frobenius    0.8336  0.0141   0.003    +0.0088
+  weight_decay    0.1000  0.0000   0.003    -0.7247
+
+==================================================================================
+PRIMAERTEST -- orthogonal gegen spectral auf mnist, Holm ueber beide Tiefen
+  Tiefe 1: +0.0025  17/20  p=0.0020  Holm=0.0020  TOST p=0.0007  d=+0.84  -> Unterschied belegt
+  Tiefe 3: +0.0051  17/20  p=0.0001  Holm=0.0001  TOST p=0.5388  d=+1.18  -> Unterschied belegt
+
+WIEDERHOLUNG (sekundaer, entscheidet nichts allein):
+  fashion_mnist, Tiefe 1: +0.0048  p=0.1140
+  fashion_mnist, Tiefe 3: -0.0045  p=0.1327
+
+  HU -- auf mnist signifikant, aber die Wiederholung zeigt nicht dieselbe Richtung. Nach dem vorregistrierten Kriterium reicht das nicht. Befund 4 bleibt unsicher.
+==================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-007__20260804_234809.json
+  Messzeilen (400): C:\Users\Malte\Downloads\qire_ai_console_v1_0_remote_research_platform\qire_ai_console_v1_0\results\experiments\B-007__20260804_234809.csv

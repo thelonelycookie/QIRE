@@ -1,0 +1,199 @@
+{
+  "experiment_id": "B-005",
+  "description": "Struktur der gelernten dichten Mittelschicht: wieviel Betragsmasse liegt in Diagonalbloecken, verglichen mit zufaelliger Permutation als Nullverteilung, vor und nach dem Training.",
+  "created": "2026-08-03T05:53:05",
+  "config": {
+    "dataset": "mnist",
+    "width": 4096,
+    "block": 128,
+    "n_blocks": 32,
+    "seeds": [
+      1501,
+      1502,
+      1503,
+      1504,
+      1505
+    ],
+    "archs": [
+      "dense_ends",
+      "local_ends"
+    ],
+    "max_samples": 6000,
+    "epochs": 10,
+    "lr": 0.01,
+    "batch_size": 256,
+    "torch_threads": 6,
+    "chance_level_diag": 0.03125,
+    "note": "nur der Arm mit dichter Mittelschicht wird analysiert"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 10,
+  "records": [
+    {
+      "seed": 1501,
+      "arch": "dense_ends",
+      "balanced_accuracy": 0.9270175928079982,
+      "diag_identity_trained": 0.0312404353171587,
+      "diag_identity_init": 0.03125420957803726,
+      "diag_random_trained": 0.0312819741666317,
+      "diag_random_init": 0.031262919306755066,
+      "top64_energy_trained": 0.7156386375427246,
+      "top64_energy_init": 0.05425213649868965,
+      "diag_clustered_trained": 0.03564265259026977,
+      "diag_clustered_init": 0.033798045234488844
+    },
+    {
+      "seed": 1501,
+      "arch": "local_ends",
+      "balanced_accuracy": 0.9238761871738174,
+      "diag_identity_trained": 0.03127582371234894,
+      "diag_identity_init": 0.03124198317527771,
+      "diag_random_trained": 0.031270015984773636,
+      "diag_random_init": 0.031238576397299767,
+      "top64_energy_trained": 0.7639541625976562,
+      "top64_energy_init": 0.05416035279631615,
+      "diag_clustered_trained": 0.035716047178447285,
+      "diag_clustered_init": 0.03391661862871608
+    },
+    {
+      "seed": 1502,
+      "arch": "dense_ends",
+      "balanced_accuracy": 0.9217162404661801,
+      "diag_identity_trained": 0.0312606580555439,
+      "diag_identity_init": 0.031268004328012466,
+      "diag_random_trained": 0.03124331496655941,
+      "diag_random_init": 0.03129303455352783,
+      "top64_energy_trained": 0.7114576697349548,
+      "top64_energy_init": 0.05419998988509178,
+      "diag_clustered_trained": 0.03179855504469995,
+      "diag_clustered_init": 0.03424771492844577
+    },
+    {
+      "seed": 1502,
+      "arch": "local_ends",
+      "balanced_accuracy": 0.9275544038640102,
+      "diag_identity_trained": 0.031177787110209465,
+      "diag_identity_init": 0.031217072159051895,
+      "diag_random_trained": 0.031246626749634743,
+      "diag_random_init": 0.03123028390109539,
+      "top64_energy_trained": 0.7612979412078857,
+      "top64_energy_init": 0.054177653044462204,
+      "diag_clustered_trained": 0.030607788467037666,
+      "diag_clustered_init": 0.03422984802536988
+    },
+    {
+      "seed": 1503,
+      "arch": "dense_ends",
+      "balanced_accuracy": 0.9202899451662956,
+      "diag_identity_trained": 0.031232433393597603,
+      "diag_identity_init": 0.03126893565058708,
+      "diag_random_trained": 0.03127805516123772,
+      "diag_random_init": 0.03128307685256004,
+      "top64_energy_trained": 0.7131502032279968,
+      "top64_energy_init": 0.054239533841609955,
+      "diag_clustered_trained": 0.03556751069160584,
+      "diag_clustered_init": 0.03405322945196089
+    },
+    {
+      "seed": 1503,
+      "arch": "local_ends",
+      "balanced_accuracy": 0.927652679063954,
+      "diag_identity_trained": 0.03121592104434967,
+      "diag_identity_init": 0.03123798407614231,
+      "diag_random_trained": 0.03123735636472702,
+      "diag_random_init": 0.031251560896635056,
+      "top64_energy_trained": 0.7657612562179565,
+      "top64_energy_init": 0.05435911566019058,
+      "diag_clustered_trained": 0.02639826048587415,
+      "diag_clustered_init": 0.03403484550682184
+    },
+    {
+      "seed": 1504,
+      "arch": "dense_ends",
+      "balanced_accuracy": 0.934502186268744,
+      "diag_identity_trained": 0.03123760223388672,
+      "diag_identity_init": 0.03126323223114014,
+      "diag_random_trained": 0.03125801309943199,
+      "diag_random_init": 0.031231261789798737,
+      "top64_energy_trained": 0.7182428240776062,
+      "top64_energy_init": 0.054238494485616684,
+      "diag_clustered_trained": 0.028090927431015777,
+      "diag_clustered_init": 0.03416894969592718
+    },
+    {
+      "seed": 1504,
+      "arch": "local_ends",
+      "balanced_accuracy": 0.9319296935355228,
+      "diag_identity_trained": 0.031347956508398056,
+      "diag_identity_init": 0.031275976449251175,
+      "diag_random_trained": 0.03127149119973183,
+      "diag_random_init": 0.031299740076065063,
+      "top64_energy_trained": 0.7581137418746948,
+      "top64_energy_init": 0.05423470214009285,
+      "diag_clustered_trained": 0.033615875631158185,
+      "diag_clustered_init": 0.03429954293775246
+    },
+    {
+      "seed": 1505,
+      "arch": "dense_ends",
+      "balanced_accuracy": 0.9382252136039828,
+      "diag_identity_trained": 0.031237764284014702,
+      "diag_identity_init": 0.031304970383644104,
+      "diag_random_trained": 0.03125998377799988,
+      "diag_random_init": 0.031219616532325745,
+      "top64_energy_trained": 0.7137261033058167,
+      "top64_energy_init": 0.05422560125589371,
+      "diag_clustered_trained": 0.03368318488201257,
+      "diag_clustered_init": 0.03404439600373307
+    },
+    {
+      "seed": 1505,
+      "arch": "local_ends",
+      "balanced_accuracy": 0.9311260885825068,
+      "diag_identity_trained": 0.03121541254222393,
+      "diag_identity_init": 0.03126562386751175,
+      "diag_random_trained": 0.03125293552875519,
+      "diag_random_init": 0.03129630908370018,
+      "top64_energy_trained": 0.7508314847946167,
+      "top64_energy_init": 0.054182302206754684,
+      "diag_clustered_trained": 0.03251744943369917,
+      "diag_clustered_init": 0.03405698828712239
+    }
+  ],
+  "analysis": {
+    "chance_level": 0.03125,
+    "per_arch": {
+      "dense_ends": {
+        "diag_identity_init": 0.03127187043428421,
+        "diag_identity_trained": 0.031241778656840323,
+        "diag_random_init": 0.03125798180699348,
+        "diag_random_trained": 0.03126426823437214,
+        "diag_clustered_init": 0.034062467062911155,
+        "diag_clustered_trained": 0.032956566127920785,
+        "top64_energy_init": 0.05423115119338036,
+        "top64_energy_trained": 0.7144430875778198,
+        "reading": "Die dichte Schicht ist NICHT blockartig in ihrer eigenen Reihenfolge -- sie liegt auf Zufallsniveau. Dass die Blockdiagonale mithaelt, ist damit nicht dadurch erklaert, dass die dichte Schicht ihre Freiheit nicht nutzt."
+      },
+      "local_ends": {
+        "diag_identity_init": 0.031247727945446967,
+        "diag_identity_trained": 0.031246580183506012,
+        "diag_random_init": 0.03126329407095909,
+        "diag_random_trained": 0.03125568516552448,
+        "diag_clustered_init": 0.03410756867715653,
+        "diag_clustered_trained": 0.03177108423924329,
+        "top64_energy_init": 0.054222825169563296,
+        "top64_energy_trained": 0.759991717338562,
+        "reading": "Die dichte Schicht ist NICHT blockartig in ihrer eigenen Reihenfolge -- sie liegt auf Zufallsniveau. Dass die Blockdiagonale mithaelt, ist damit nicht dadurch erklaert, dass die dichte Schicht ihre Freiheit nicht nutzt."
+      }
+    }
+  }
+}

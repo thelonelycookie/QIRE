@@ -1,0 +1,11 @@
+torch
+scikit-learn
+scipy
+numpy
+pandas
+openpyxl
+matplotlib
+psutil
+customtkinter
+qiskit
+qiskit-ibm-runtime

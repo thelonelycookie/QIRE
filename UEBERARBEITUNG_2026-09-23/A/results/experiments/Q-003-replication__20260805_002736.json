@@ -1,0 +1,1985 @@
+{
+  "experiment_id": "Q-003-replication",
+  "description": "Q-001 bis Q-003 unter dem Protokoll vom August 2026: 15 Seeds, Lernrate je Arm, zwei Datensaetze, Holm, TOST, Rohdaten gespeichert. Modelle unveraendert uebernommen.",
+  "created": "2026-08-05T00:27:36",
+  "config": {
+    "arms": [
+      "hybrid",
+      "hybrid_no_entangle",
+      "hybrid_1layer",
+      "classical_quadratic",
+      "classical_quad_free",
+      "classical_norm_deep"
+    ],
+    "datasets": [
+      "mnist",
+      "fashion_mnist"
+    ],
+    "seeds": [
+      2301,
+      2302,
+      2303,
+      2304,
+      2305,
+      2306,
+      2307,
+      2308,
+      2309,
+      2310,
+      2311,
+      2312,
+      2313,
+      2314,
+      2315
+    ],
+    "num_qubits": 8,
+    "num_layers": 5,
+    "max_samples": 4000,
+    "epochs": 12,
+    "batch_size": 128,
+    "lr_grid": [
+      0.003,
+      0.01,
+      0.03
+    ],
+    "torch_threads": 6,
+    "margin": 0.005,
+    "primary": "hybrid vs classical_norm_deep auf mnist",
+    "primary_dataset": "mnist",
+    "test_metric": "balanced_accuracy",
+    "holm_family": [
+      "PRIMAER",
+      "P2"
+    ],
+    "positive_control": "hybrid vs hybrid_1layer (5 gegen 1 Lagen)",
+    "original": "Q-003 lief mit 8 Seeds, fester lr 0,01, einem Datensatz und ohne Aequivalenztest",
+    "lr_map_mnist": {
+      "hybrid": 0.03,
+      "hybrid_no_entangle": 0.03,
+      "hybrid_1layer": 0.03,
+      "classical_quadratic": 0.03,
+      "classical_quad_free": 0.03,
+      "classical_norm_deep": 0.01
+    },
+    "lr_map_fashion_mnist": {
+      "hybrid": 0.03,
+      "hybrid_no_entangle": 0.01,
+      "hybrid_1layer": 0.03,
+      "classical_quadratic": 0.01,
+      "classical_quad_free": 0.03,
+      "classical_norm_deep": 0.003
+    }
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 180,
+  "records": [
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.9391666650772095,
+      "balanced_accuracy": 0.9381226897239685,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.9308333396911621,
+      "balanced_accuracy": 0.9297353029251099,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.9391666650772095,
+      "balanced_accuracy": 0.9384748220443726,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.9049999713897705,
+      "balanced_accuracy": 0.9031966388225555,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.9399999976158142,
+      "balanced_accuracy": 0.9388610601425171,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2301,
+      "lr": 0.01,
+      "accuracy": 0.8483333587646484,
+      "balanced_accuracy": 0.8446858406066895,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.9283333420753479,
+      "balanced_accuracy": 0.9268869638442994,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.925000011920929,
+      "balanced_accuracy": 0.9230744063854217,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.9225000143051147,
+      "balanced_accuracy": 0.9215242445468903,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.887499988079071,
+      "balanced_accuracy": 0.8857257306575775,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.9049999713897705,
+      "balanced_accuracy": 0.9025333166122437,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2302,
+      "lr": 0.01,
+      "accuracy": 0.8741666674613953,
+      "balanced_accuracy": 0.8714401721954346,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.9191666841506958,
+      "balanced_accuracy": 0.9171389818191529,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.9166666865348816,
+      "balanced_accuracy": 0.914927339553833,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.9100000262260437,
+      "balanced_accuracy": 0.9083144307136536,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.8924999833106995,
+      "balanced_accuracy": 0.890384316444397,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.9150000214576721,
+      "balanced_accuracy": 0.913658720254898,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2303,
+      "lr": 0.01,
+      "accuracy": 0.8500000238418579,
+      "balanced_accuracy": 0.8470926761627198,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.9291666746139526,
+      "balanced_accuracy": 0.9284088313579559,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.9258333444595337,
+      "balanced_accuracy": 0.9249484539031982,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.9208333492279053,
+      "balanced_accuracy": 0.9199194967746734,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.8999999761581421,
+      "balanced_accuracy": 0.899628096818924,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.9283333420753479,
+      "balanced_accuracy": 0.9277588307857514,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2304,
+      "lr": 0.01,
+      "accuracy": 0.840833306312561,
+      "balanced_accuracy": 0.8417071402072906,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.92166668176651,
+      "balanced_accuracy": 0.9199774086475372,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.9316666722297668,
+      "balanced_accuracy": 0.9305534303188324,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.9258333444595337,
+      "balanced_accuracy": 0.9242471933364869,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.8691666722297668,
+      "balanced_accuracy": 0.8643202900886535,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.925000011920929,
+      "balanced_accuracy": 0.9238386034965516,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2305,
+      "lr": 0.01,
+      "accuracy": 0.8274999856948853,
+      "balanced_accuracy": 0.8204411387443542,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.9125000238418579,
+      "balanced_accuracy": 0.9105163276195526,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.9175000190734863,
+      "balanced_accuracy": 0.9159391582012176,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.92166668176651,
+      "balanced_accuracy": 0.9199706375598907,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.8816666603088379,
+      "balanced_accuracy": 0.8792860031127929,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.9225000143051147,
+      "balanced_accuracy": 0.9217074990272522,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2306,
+      "lr": 0.01,
+      "accuracy": 0.8349999785423279,
+      "balanced_accuracy": 0.832009744644165,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.9183333516120911,
+      "balanced_accuracy": 0.9165190756320953,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.9166666865348816,
+      "balanced_accuracy": 0.9147429168224335,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.9158333539962769,
+      "balanced_accuracy": 0.9146058440208436,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.8924999833106995,
+      "balanced_accuracy": 0.8899296760559082,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.9275000095367432,
+      "balanced_accuracy": 0.9264706552028656,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2307,
+      "lr": 0.01,
+      "accuracy": 0.8391666412353516,
+      "balanced_accuracy": 0.8368272900581359,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.9225000143051147,
+      "balanced_accuracy": 0.9217098355293274,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.9116666913032532,
+      "balanced_accuracy": 0.9111135959625244,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.9183333516120911,
+      "balanced_accuracy": 0.9181612253189086,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.8891666531562805,
+      "balanced_accuracy": 0.887865024805069,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.925000011920929,
+      "balanced_accuracy": 0.9240665316581727,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2308,
+      "lr": 0.01,
+      "accuracy": 0.8391666412353516,
+      "balanced_accuracy": 0.8377439498901367,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.9316666722297668,
+      "balanced_accuracy": 0.9301961362361908,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.9316666722297668,
+      "balanced_accuracy": 0.9302708029747009,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.9200000166893005,
+      "balanced_accuracy": 0.9186005294322968,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.8933333158493042,
+      "balanced_accuracy": 0.892099928855896,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.9066666960716248,
+      "balanced_accuracy": 0.9044406950473786,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2309,
+      "lr": 0.01,
+      "accuracy": 0.8491666913032532,
+      "balanced_accuracy": 0.842813003063202,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.9391666650772095,
+      "balanced_accuracy": 0.938675332069397,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.9350000023841858,
+      "balanced_accuracy": 0.9345262050628662,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.9316666722297668,
+      "balanced_accuracy": 0.9309035897254944,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.8983333110809326,
+      "balanced_accuracy": 0.8975527167320252,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.9358333349227905,
+      "balanced_accuracy": 0.9357130944728851,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2310,
+      "lr": 0.01,
+      "accuracy": 0.8633333444595337,
+      "balanced_accuracy": 0.8618042647838593,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.9241666793823242,
+      "balanced_accuracy": 0.9226968348026275,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.9208333492279053,
+      "balanced_accuracy": 0.9192221224308014,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.9208333492279053,
+      "balanced_accuracy": 0.9194174826145172,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.8799999952316284,
+      "balanced_accuracy": 0.876835024356842,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.9283333420753479,
+      "balanced_accuracy": 0.9282258987426758,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2311,
+      "lr": 0.01,
+      "accuracy": 0.8383333086967468,
+      "balanced_accuracy": 0.8341178715229034,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.9183333516120911,
+      "balanced_accuracy": 0.9185177505016326,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.9075000286102295,
+      "balanced_accuracy": 0.9074787139892578,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.9200000166893005,
+      "balanced_accuracy": 0.9202312529087067,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.8883333206176758,
+      "balanced_accuracy": 0.8881548583507538,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.9225000143051147,
+      "balanced_accuracy": 0.9216588258743286,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2312,
+      "lr": 0.01,
+      "accuracy": 0.8241666555404663,
+      "balanced_accuracy": 0.8235796213150024,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.9391666650772095,
+      "balanced_accuracy": 0.9394448399543762,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.9391666650772095,
+      "balanced_accuracy": 0.9393973290920258,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.9283333420753479,
+      "balanced_accuracy": 0.9276500523090363,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.9058333039283752,
+      "balanced_accuracy": 0.9051474511623383,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.9108333587646484,
+      "balanced_accuracy": 0.9109057664871216,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2313,
+      "lr": 0.01,
+      "accuracy": 0.8349999785423279,
+      "balanced_accuracy": 0.8333077728748322,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.9350000023841858,
+      "balanced_accuracy": 0.9338603019714355,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.925000011920929,
+      "balanced_accuracy": 0.9237590551376342,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.925000011920929,
+      "balanced_accuracy": 0.9239440798759461,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.8833333253860474,
+      "balanced_accuracy": 0.8803215861320496,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.9225000143051147,
+      "balanced_accuracy": 0.921179986000061,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2314,
+      "lr": 0.01,
+      "accuracy": 0.8525000214576721,
+      "balanced_accuracy": 0.8492778718471528,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.9241666793823242,
+      "balanced_accuracy": 0.9237691223621368,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.9150000214576721,
+      "balanced_accuracy": 0.9142677903175354,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.92166668176651,
+      "balanced_accuracy": 0.92119460105896,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.8808333277702332,
+      "balanced_accuracy": 0.8805133461952209,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.9200000166893005,
+      "balanced_accuracy": 0.91916823387146,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "mnist",
+      "seed": 2315,
+      "lr": 0.01,
+      "accuracy": 0.8358333110809326,
+      "balanced_accuracy": 0.8343494057655334,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.824999988079071,
+      "balanced_accuracy": 0.8222561955451966,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2301,
+      "lr": 0.01,
+      "accuracy": 0.7933333516120911,
+      "balanced_accuracy": 0.7904135942459106,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.809166669845581,
+      "balanced_accuracy": 0.8061506152153015,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2301,
+      "lr": 0.01,
+      "accuracy": 0.7325000166893005,
+      "balanced_accuracy": 0.7275373503565788,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2301,
+      "lr": 0.03,
+      "accuracy": 0.8308333158493042,
+      "balanced_accuracy": 0.8280769139528275,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2301,
+      "lr": 0.003,
+      "accuracy": 0.7508333325386047,
+      "balanced_accuracy": 0.7466555491089821,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.8191666603088379,
+      "balanced_accuracy": 0.820647943019867,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2302,
+      "lr": 0.01,
+      "accuracy": 0.8108333349227905,
+      "balanced_accuracy": 0.8123565375804901,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.8241666555404663,
+      "balanced_accuracy": 0.8252365589141846,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2302,
+      "lr": 0.01,
+      "accuracy": 0.7250000238418579,
+      "balanced_accuracy": 0.7285175636410713,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2302,
+      "lr": 0.03,
+      "accuracy": 0.7991666793823242,
+      "balanced_accuracy": 0.8000861585140229,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2302,
+      "lr": 0.003,
+      "accuracy": 0.7283333539962769,
+      "balanced_accuracy": 0.7299886293709278,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.8458333611488342,
+      "balanced_accuracy": 0.8458161652088165,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2303,
+      "lr": 0.01,
+      "accuracy": 0.8341666460037231,
+      "balanced_accuracy": 0.8346109986305237,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.8399999737739563,
+      "balanced_accuracy": 0.8399956881999969,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2303,
+      "lr": 0.01,
+      "accuracy": 0.7333333492279053,
+      "balanced_accuracy": 0.7327909678220749,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2303,
+      "lr": 0.03,
+      "accuracy": 0.8374999761581421,
+      "balanced_accuracy": 0.8376070857048035,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2303,
+      "lr": 0.003,
+      "accuracy": 0.7774999737739563,
+      "balanced_accuracy": 0.7775420069694519,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.82833331823349,
+      "balanced_accuracy": 0.8284367442131042,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2304,
+      "lr": 0.01,
+      "accuracy": 0.8258333206176758,
+      "balanced_accuracy": 0.8263490051031113,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.8358333110809326,
+      "balanced_accuracy": 0.8356045484542847,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2304,
+      "lr": 0.01,
+      "accuracy": 0.6933333277702332,
+      "balanced_accuracy": 0.6976467549800873,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2304,
+      "lr": 0.03,
+      "accuracy": 0.8333333134651184,
+      "balanced_accuracy": 0.8337583065032959,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2304,
+      "lr": 0.003,
+      "accuracy": 0.7666666507720947,
+      "balanced_accuracy": 0.766385805606842,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.8274999856948853,
+      "balanced_accuracy": 0.8288702249526978,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2305,
+      "lr": 0.01,
+      "accuracy": 0.8066666722297668,
+      "balanced_accuracy": 0.8081348598003387,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.8241666555404663,
+      "balanced_accuracy": 0.8251617133617402,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2305,
+      "lr": 0.01,
+      "accuracy": 0.737500011920929,
+      "balanced_accuracy": 0.7420444022864103,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2305,
+      "lr": 0.03,
+      "accuracy": 0.8174999952316284,
+      "balanced_accuracy": 0.8184993088245391,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2305,
+      "lr": 0.003,
+      "accuracy": 0.7616666555404663,
+      "balanced_accuracy": 0.7618625849485398,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.8533333539962769,
+      "balanced_accuracy": 0.8522742629051209,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2306,
+      "lr": 0.01,
+      "accuracy": 0.8416666388511658,
+      "balanced_accuracy": 0.8401750862598419,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.8441666960716248,
+      "balanced_accuracy": 0.8429562628269196,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2306,
+      "lr": 0.01,
+      "accuracy": 0.6875,
+      "balanced_accuracy": 0.6870253257453441,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2306,
+      "lr": 0.03,
+      "accuracy": 0.8566666841506958,
+      "balanced_accuracy": 0.8554640114307404,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2306,
+      "lr": 0.003,
+      "accuracy": 0.7566666603088379,
+      "balanced_accuracy": 0.7543956696987152,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.82833331823349,
+      "balanced_accuracy": 0.8264563322067261,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2307,
+      "lr": 0.01,
+      "accuracy": 0.8333333134651184,
+      "balanced_accuracy": 0.8308504074811935,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.8258333206176758,
+      "balanced_accuracy": 0.824163842201233,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2307,
+      "lr": 0.01,
+      "accuracy": 0.7716666460037231,
+      "balanced_accuracy": 0.7700921475887299,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2307,
+      "lr": 0.03,
+      "accuracy": 0.8233333230018616,
+      "balanced_accuracy": 0.8219826519489288,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2307,
+      "lr": 0.003,
+      "accuracy": 0.7933333516120911,
+      "balanced_accuracy": 0.7920485585927963,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.7950000166893005,
+      "balanced_accuracy": 0.7964325666427612,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2308,
+      "lr": 0.01,
+      "accuracy": 0.8183333277702332,
+      "balanced_accuracy": 0.8200296223163605,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.8149999976158142,
+      "balanced_accuracy": 0.8153232991695404,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2308,
+      "lr": 0.01,
+      "accuracy": 0.7408333420753479,
+      "balanced_accuracy": 0.74500732421875,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2308,
+      "lr": 0.03,
+      "accuracy": 0.824999988079071,
+      "balanced_accuracy": 0.8261819303035736,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2308,
+      "lr": 0.003,
+      "accuracy": 0.746666669845581,
+      "balanced_accuracy": 0.7511653050780296,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.8299999833106995,
+      "balanced_accuracy": 0.8284570872783661,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2309,
+      "lr": 0.01,
+      "accuracy": 0.8199999928474426,
+      "balanced_accuracy": 0.8183358401060105,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.8208333253860474,
+      "balanced_accuracy": 0.8199221760034561,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2309,
+      "lr": 0.01,
+      "accuracy": 0.6691666841506958,
+      "balanced_accuracy": 0.6584221382625401,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2309,
+      "lr": 0.03,
+      "accuracy": 0.8141666650772095,
+      "balanced_accuracy": 0.8138107925653457,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2309,
+      "lr": 0.003,
+      "accuracy": 0.7716666460037231,
+      "balanced_accuracy": 0.7676752060651779,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.8216666579246521,
+      "balanced_accuracy": 0.8221288561820984,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2310,
+      "lr": 0.01,
+      "accuracy": 0.8149999976158142,
+      "balanced_accuracy": 0.8150170266628265,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.8333333134651184,
+      "balanced_accuracy": 0.8341800659894943,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2310,
+      "lr": 0.01,
+      "accuracy": 0.7108333110809326,
+      "balanced_accuracy": 0.7114610493183136,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2310,
+      "lr": 0.03,
+      "accuracy": 0.8166666626930237,
+      "balanced_accuracy": 0.8175543785095215,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2310,
+      "lr": 0.003,
+      "accuracy": 0.7724999785423279,
+      "balanced_accuracy": 0.7731109976768493,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.8324999809265137,
+      "balanced_accuracy": 0.832103717327118,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2311,
+      "lr": 0.01,
+      "accuracy": 0.82833331823349,
+      "balanced_accuracy": 0.8280585765838623,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.8399999737739563,
+      "balanced_accuracy": 0.839728593826294,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2311,
+      "lr": 0.01,
+      "accuracy": 0.762499988079071,
+      "balanced_accuracy": 0.76244358420372,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2311,
+      "lr": 0.03,
+      "accuracy": 0.8141666650772095,
+      "balanced_accuracy": 0.8137863099575042,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2311,
+      "lr": 0.003,
+      "accuracy": 0.7508333325386047,
+      "balanced_accuracy": 0.7490244328975677,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.8125,
+      "balanced_accuracy": 0.8105173826217651,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2312,
+      "lr": 0.01,
+      "accuracy": 0.8075000047683716,
+      "balanced_accuracy": 0.8047544956207275,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.8308333158493042,
+      "balanced_accuracy": 0.8297574788331985,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2312,
+      "lr": 0.01,
+      "accuracy": 0.7308333516120911,
+      "balanced_accuracy": 0.7288284324109554,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2312,
+      "lr": 0.03,
+      "accuracy": 0.8141666650772095,
+      "balanced_accuracy": 0.8114762425422668,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2312,
+      "lr": 0.003,
+      "accuracy": 0.7699999809265137,
+      "balanced_accuracy": 0.7670063301920891,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.8333333134651184,
+      "balanced_accuracy": 0.832492345571518,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2313,
+      "lr": 0.01,
+      "accuracy": 0.8349999785423279,
+      "balanced_accuracy": 0.8339966714382172,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.8308333158493042,
+      "balanced_accuracy": 0.8296687424182891,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2313,
+      "lr": 0.01,
+      "accuracy": 0.7833333611488342,
+      "balanced_accuracy": 0.783805325627327,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2313,
+      "lr": 0.03,
+      "accuracy": 0.8199999928474426,
+      "balanced_accuracy": 0.8208340108394623,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2313,
+      "lr": 0.003,
+      "accuracy": 0.7699999809265137,
+      "balanced_accuracy": 0.7701564624905586,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.85916668176651,
+      "balanced_accuracy": 0.8586207032203674,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2314,
+      "lr": 0.01,
+      "accuracy": 0.8391666412353516,
+      "balanced_accuracy": 0.8390905380249023,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.840833306312561,
+      "balanced_accuracy": 0.8406364321708679,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2314,
+      "lr": 0.01,
+      "accuracy": 0.7333333492279053,
+      "balanced_accuracy": 0.7351221829652786,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2314,
+      "lr": 0.03,
+      "accuracy": 0.8458333611488342,
+      "balanced_accuracy": 0.8450041353702545,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2314,
+      "lr": 0.003,
+      "accuracy": 0.7200000286102295,
+      "balanced_accuracy": 0.7223927408456803,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    },
+    {
+      "arm": "hybrid",
+      "dataset": "fashion_mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.8149999976158142,
+      "balanced_accuracy": 0.8124174416065216,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_no_entangle",
+      "dataset": "fashion_mnist",
+      "seed": 2315,
+      "lr": 0.01,
+      "accuracy": 0.8191666603088379,
+      "balanced_accuracy": 0.8179093420505523,
+      "middle_parameters": 80,
+      "total_parameters": 201130
+    },
+    {
+      "arm": "hybrid_1layer",
+      "dataset": "fashion_mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.8308333158493042,
+      "balanced_accuracy": 0.8290977776050568,
+      "middle_parameters": 16,
+      "total_parameters": 201066
+    },
+    {
+      "arm": "classical_quadratic",
+      "dataset": "fashion_mnist",
+      "seed": 2315,
+      "lr": 0.01,
+      "accuracy": 0.6391666531562805,
+      "balanced_accuracy": 0.6350286159664392,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_quad_free",
+      "dataset": "fashion_mnist",
+      "seed": 2315,
+      "lr": 0.03,
+      "accuracy": 0.8316666483879089,
+      "balanced_accuracy": 0.8284829020500183,
+      "middle_parameters": 2048,
+      "total_parameters": 203098
+    },
+    {
+      "arm": "classical_norm_deep",
+      "dataset": "fashion_mnist",
+      "seed": 2315,
+      "lr": 0.003,
+      "accuracy": 0.7583333253860474,
+      "balanced_accuracy": 0.7570667922496795,
+      "middle_parameters": 67848,
+      "total_parameters": 268898
+    }
+  ],
+  "analysis": {
+    "mnist|hybrid_vs_classical_norm_deep": {
+      "delta": 0.08501617789268501,
+      "p": 6.103515625e-05,
+      "p_holm": 0.0001220703125,
+      "p_tost": 0.9999999999997802,
+      "achieved": 0.09059071435393398,
+      "registered": true,
+      "metric": "balanced_accuracy"
+    },
+    "mnist|classical_quadratic_vs_hybrid": {
+      "delta": -0.03769864956537883,
+      "p": 6.103515625e-05,
+      "p_holm": 0.0001220703125,
+      "p_tost": 0.9999999993620847,
+      "achieved": 0.041815460614098535,
+      "registered": true,
+      "metric": "balanced_accuracy"
+    },
+    "mnist|hybrid_vs_hybrid_1layer": {
+      "delta": 0.003952063322067212,
+      "p": 0.0301513671875,
+      "p_holm": null,
+      "p_tost": 0.2583380226557718,
+      "achieved": 0.006726403743287928,
+      "registered": false,
+      "metric": "balanced_accuracy"
+    },
+    "mnist|hybrid_vs_hybrid_no_entangle": {
+      "delta": 0.003498920599619648,
+      "p": 0.041259765625,
+      "p_holm": null,
+      "p_tost": 0.1777655563791809,
+      "achieved": 0.006265901538388547,
+      "registered": false,
+      "metric": "balanced_accuracy"
+    },
+    "mnist|classical_quadratic_vs_classical_quad_free": {
+      "delta": -0.03328180193901065,
+      "p": 6.103515625e-05,
+      "p_holm": null,
+      "p_tost": 0.9999989434858712,
+      "achieved": 0.039746332525348205,
+      "registered": false,
+      "metric": "balanced_accuracy"
+    },
+    "fashion_mnist|hybrid_vs_classical_norm_deep": {
+      "delta": 0.06876339311401047,
+      "p": 6.103515625e-05,
+      "p_holm": 0.0001220703125,
+      "p_tost": 0.9999999248135756,
+      "achieved": 0.08043618502818416,
+      "registered": true,
+      "metric": "balanced_accuracy"
+    },
+    "fashion_mnist|classical_quadratic_vs_hybrid": {
+      "delta": -0.10481032020722825,
+      "p": 6.103515625e-05,
+      "p_holm": 0.0001220703125,
+      "p_tost": 0.9999998607345143,
+      "achieved": 0.12402921833274898,
+      "registered": true,
+      "metric": "balanced_accuracy"
+    },
+    "fashion_mnist|hybrid_vs_hybrid_1layer": {
+      "delta": -0.0013103884458540715,
+      "p": 0.67877197265625,
+      "p_holm": null,
+      "p_tost": 0.12913754336375582,
+      "achieved": 0.006825064057258691,
+      "registered": false,
+      "metric": "balanced_accuracy"
+    },
+    "fashion_mnist|hybrid_vs_hybrid_no_entangle": {
+      "delta": 0.0065230244398117865,
+      "p": 0.041259765625,
+      "p_holm": null,
+      "p_tost": 0.6722860313873527,
+      "achieved": 0.012406562181556759,
+      "registered": false,
+      "metric": "balanced_accuracy"
+    },
+    "fashion_mnist|classical_quadratic_vs_classical_quad_free": {
+      "delta": -0.1017887982415655,
+      "p": 6.103515625e-05,
+      "p_holm": null,
+      "p_tost": 0.9999995543123072,
+      "achieved": 0.12233097860521279,
+      "registered": false,
+      "metric": "balanced_accuracy"
+    },
+    "verdict": "H1 -- die Kernaussage von Projekt A haelt: die Quantenschaltung schlaegt das klassische Netz auch unter dem strengeren Protokoll, auf beiden Datensaetzen.",
+    "positive_control": {
+      "passed": true,
+      "delta": 0.003952063322067212,
+      "p": 0.0301513671875,
+      "text": "Positivkontrolle BESTANDEN: 5 Lagen schlagen 1 Lage (+0.0040, p=0.0302). Der Aufbau loest Unterschiede dieser Groessenordnung auf, das Urteil oben ist also belastbar."
+    }
+  }
+}
