@@ -105,3 +105,8 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
   Schussvarianz ~1/S wie eine Wahrscheinlichkeit; Mitteln hilft nur, wenn die
   Information in wenigen Paritäten *steckt*. Fairer Nachtest: Schaltung
   gemeinsam mit dem Paritätskopf trainieren.
+
+### 24.09.2026 18:53 — C-bewusst (automatisch)
+- **B-1**: H0: kein nachweisbarer Vorteil des bewussten Trainings
+- **B-2**: HU: KI ueberdeckt die Grenze
+- **Lehre:** Konsistent mit C-2: Clifford-Schaltungen allein bringen nichts. Wer die Winkel waehrend des Trainings zum Clifford-Gitter zieht (Abstand 0,23 statt 0,40 rad), zieht sie zum nutzlosen Bereich -- das volle Modell verliert schon vor dem Runden 1,4 pp (0,947 gegen 0,961), und die Rundung wird nicht besser (B-1: -0,4 pp, p=1,0). Magie laesst sich nicht wegtrainieren, sie IST der Nutzen. Folgerung: nicht ALLE Winkel zum Gitter ziehen, sondern nur die unwichtigen -- das ist genau I-001 (Magie-Pruning) bzw. I-004 (Gerüst + k Winkel).

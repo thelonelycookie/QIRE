@@ -296,3 +296,22 @@ für ~30–60 T-Gatter, 90 % für ~370.* Die volle Schaltung (32 magische
 Winkel) bräuchte ~990 T-Gatter. Grenzen: nur rauschfrei simuliert; die Kosten
 der Amplitudenkodierung (Zustandspräparation, selbst sehr T-teuer) sind nicht
 mitgezählt — das ist die nächste ehrliche Frage.
+
+## 24.09.2026, 19:10 — C-bewusst: Magie lässt sich nicht wegtrainieren
+
+Ziffern, frische Seeds 20–29, λ auf Tuning-Seeds gesucht (0,3, innen),
+Rohdaten `ergebnisse/C-bewusst__20260924_185324.json`, 27 min.
+
+| | normal | Clifford-bewusst |
+|---|---|---|
+| volles Modell | 0,9609 ± 0,0133 | 0,9473 ± 0,0200 |
+| Abstand zum Gitter (rad) | 0,396 | 0,229 |
+| gerundet k=0 | 0,9477 | 0,9438 |
+| k=2 | 0,9536 | 0,9514 |
+| k=4 | 0,9623 | 0,9590 |
+
+B-1 **H0** (−0,4 pp, p = 1,0). B-2 **HU**. Deutung im FEHLERBUCH: Der
+Strafterm zieht *alle* Winkel in den Clifford-Bereich, der nachweislich
+nichts bringt (C-2). Das Institut hat damit drei unabhängige Belege für
+denselben Satz: **Der Nutzen der Schaltung sitzt in der Magie, und zwar in
+wenigen Winkeln.** (C-2 auf zwei Datensätzen, C-3/G(k), jetzt C-bewusst.)
