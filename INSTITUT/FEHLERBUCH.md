@@ -19,3 +19,36 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 - **Lehre:** Training in der schnellsten *äquivalenten* Form (ganze Matrix),
   Kosten der Inferenz getrennt und analytisch zählen. Gleiche Trennung wie in
   Projekt A (Qualität bei trainierbarer Breite, Effizienz bei eigener Breite).
+
+### 24.09.2026 — C-clifford (v1): der geerbte Kopf
+- **Was:** Rundung kostete scheinbar 9,7 pp und war *schlechter* als eine
+  zufällige Clifford-Schaltung (C-2: H0, p = 0,004).
+- **Diagnose (explorativ, `clifford_diagnose.py`):** Die Rundungsarme erbten
+  den Kopf des vollen Modells (auf andere Merkmale eingestellt, groß,
+  übersättigt) und lernten mit der kleinen Rate 0,02 nach. Die Kontrollarme
+  starteten mit frischem Kopf und eigener Rate. Mit frischem Kopf: k=0
+  0,950 statt 0,870. **Der Befund war ein Artefakt des Aufbaus.**
+- **Fehlerklasse (Regel „nach der Klasse suchen“):** *Arme mit
+  unterschiedlichem Ausgangszustand* — jeder Arm, der von einem anderen Arm
+  erbt, braucht denselben Start wie seine Kontrollen oder eine eigene
+  Lernratensuche. Gesucht in `kompass.py`: dort erbt nichts, nicht betroffen.
+- **Zweiter Fehler:** Auflösungsprüfung als absoluter SE-Schwellwert (1 pp)
+  statt Konfidenzintervall relativ zur 2-pp-Grenze. Sie hätte bei einem
+  Verlust von 10 ± 1,4 pp „kein Urteil“ gesagt, obwohl das eindeutig ist.
+  v2: Nichtunterlegenheit mit einseitigem 95-%-KI.
+- **Lehre:** Ein überraschender Befund ist zuerst ein Verdacht gegen den
+  eigenen Aufbau. Die langweiligste Erklärung zuerst prüfen — hat 4 Minuten
+  gekostet.
+- **Folge:** `C-clifford-v2` auf frischen Seeds 10–19 (die Seeds 0–9 sind
+  durch die Diagnose „verbraucht“), Design vor dem Lauf committet.
+
+### 24.09.2026 — V-kompass Rauchtest: Bits ohne Bedeutung
+- **Was:** Erster Entwurf komprimierte die *versteckte* 256×256-Schicht.
+  Deren Neuronen-Reihenfolge ist willkürlich — eine Bitordnung *kann* dort
+  nichts bedeuten. Außerdem wurde die ganze Matrix komprimiert, deren
+  Zufallsstart unkomprimierbar ist (Fehler 0,94, Genauigkeit 19 %).
+- **Lehre:** Eine Struktur-Methode nur dort testen, wo die Indizes Struktur
+  *haben* (Eingang = Pixel: Zeilen- und Spaltenbits). Das Gelernte (ΔW)
+  vom Zufälligen (W₀) trennen, wie LoRA es tut.
+- **Folge:** erste Schicht, ΔW = W − W₀, zusätzliche menschliche Ordnung
+  „Morton“ (Z-Kurve der Pixel) als harte Konkurrenz. Vor dem Lauf korrigiert.

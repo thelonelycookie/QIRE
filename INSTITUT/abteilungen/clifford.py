@@ -30,7 +30,7 @@ import numpy as np
 import torch
 from torch import nn
 
-from labor.gemeinsam import (genauigkeit, parallel, speichere, trainiere, wilcoxon_exakt,
+from labor.gemeinsam import (bilder, genauigkeit, parallel, speichere, trainiere, wilcoxon_exakt,
                              ziffern, zusammenfassung)
 
 N_QUBITS = 6            # 2^6 = 64 = 8x8-Pixel
@@ -38,6 +38,13 @@ LAGEN = 4
 GITTER = math.pi / 2    # Clifford-Gitter fuer reelle Ry-Drehungen
 TOLERANZ = 0.02         # 2 Prozentpunkte: „gleich gut“ im Sinne dieser Frage
 MAGIE_STUFEN = [0, 1, 2, 4, 8, 12]
+QUBITS_JE_DATENSATZ = {"ziffern": 6, "mnist": 8, "fashion_mnist": 8}
+
+
+def daten(datensatz, seed):
+    if datensatz == "ziffern":
+        return ziffern(seed)
+    return bilder(datensatz, seed, n_train=6_000, n_test=5_000, seite=16)
 
 HYPOTHESEN = {
     "C-0": "Vorbedingung: die trainierte Schaltung schlaegt die Identitaet "
@@ -121,9 +128,9 @@ class QireZelle(nn.Module):
 
 
 class Linear(nn.Module):
-    def __init__(self):
+    def __init__(self, d=64):
         super().__init__()
-        self.kopf = nn.Linear(64, 10)
+        self.kopf = nn.Linear(d, 10)
 
     def forward(self, x):
         return self.kopf(x)
@@ -143,11 +150,11 @@ def multiplikationen(n=N_QUBITS, lagen=LAGEN, magie=None, auslese="born") -> int
 
 
 # ------------------------------------------------------------------ Arme
-def _baue(arm, seed):
+def _baue(arm, seed, n=N_QUBITS):
     torch.manual_seed(seed)
     if arm == "dicht_linear":
-        return Linear(), None
-    m = QireZelle(auslese="z" if arm == "voll_z" else "born")
+        return Linear(2 ** n), None
+    m = QireZelle(n=n, auslese="z" if arm == "voll_z" else "born")
     L, n = m.lagen, m.n
     if arm == "ohne_schaltung":
         m.fixiere(torch.zeros(L, n), torch.zeros(L, n))
@@ -163,15 +170,20 @@ ARME_FREI = ["voll", "voll_z", "dicht_linear", "ohne_schaltung", "hadamard_fest"
 
 
 def _tuning_punkt(a):
-    arm, lr, s, schritte = a
-    xtr, ytr, _, _ = ziffern(s)
+    arm, lr, s, schritte, ds = a[:5]
+    xtr, ytr, _, _ = daten(ds, s)
     n_val = len(ytr) // 4
-    m, _ = _baue(arm, s)
+    if arm == "rundung":      # v2: erst voll trainieren, runden, FRISCHER Kopf mit Kandidatenrate
+        m, _ = _baue("voll", s, QUBITS_JE_DATENSATZ[ds])
+        trainiere(m, xtr[n_val:], ytr[n_val:], schritte, a[5], seed=s)
+        m = _gerundet(m, 0, s)
+    else:
+        m, _ = _baue(arm, s, QUBITS_JE_DATENSATZ[ds])
     trainiere(m, xtr[n_val:], ytr[n_val:], schritte, lr, seed=s)
     return genauigkeit(m(xtr[:n_val]), ytr[:n_val])
 
 
-def _lr_waehlen(arme, tuning_seeds, schritte, gitter=(0.005, 0.02, 0.08)):
+def _lr_waehlen(arme, tuning_seeds, schritte, ds="ziffern", gitter=(0.005, 0.02, 0.08), extra=()):
     """Regel 1: eigene Rate je Arm, auf eigenen Tuning-Seeds, Validierung aus dem
     Trainingsteil, volles Budget (1c), Gitter wird verlaengert, wenn das Optimum
     am Rand liegt -- in BEIDE Richtungen (1b)."""
@@ -180,11 +192,11 @@ def _lr_waehlen(arme, tuning_seeds, schritte, gitter=(0.005, 0.02, 0.08)):
     offen = set(arme)
     info = {}
     for _ in range(4):
-        aufg = [(arm, lr, s, schritte) for arm in offen for lr in gitter[arm]
+        aufg = [(arm, lr, s, schritte, ds, *extra) for arm in offen for lr in gitter[arm]
                 if lr not in wert[arm] for s in tuning_seeds]
         erg = parallel(_tuning_punkt, aufg)
         tmp = {}
-        for (arm, lr, s, _), acc in zip(aufg, erg):
+        for (arm, lr, s, *_), acc in zip(aufg, erg):
             tmp.setdefault((arm, lr), []).append(acc)
         for (arm, lr), v in tmp.items():
             wert[arm][lr] = float(np.mean(v))
@@ -212,12 +224,30 @@ def _magie_reihenfolge(theta_voll):
     return torch.argsort(abstand, descending=True)
 
 
+def _gerundet(voll, k, seed):
+    """v2 (nach Fehlerbuch 24.09.): Winkel runden, k Magiewinkel frei (Start beim
+    trainierten Wert), Kopf FRISCH initialisiert -- wie bei den Kontrollarmen."""
+    n = voll.n
+    th = voll.theta.detach().clone()
+    m = QireZelle(n=n)
+    m.load_state_dict(voll.state_dict())
+    torch.manual_seed(seed)
+    m.kopf.reset_parameters()
+    frei = torch.zeros(LAGEN * n)
+    frei[_magie_reihenfolge(th)[:k]] = 1
+    m.fixiere(runde_clifford(th), frei.reshape(LAGEN, n))
+    with torch.no_grad():
+        m.theta.copy_(torch.where(m.frei.bool(), th, runde_clifford(th)))
+    return m
+
+
 def _seed_lauf(a):
-    s, schritte, lr = a
-    xtr, ytr, xte, yte = ziffern(s)
+    s, schritte, lr, ds = a
+    n = QUBITS_JE_DATENSATZ[ds]
+    xtr, ytr, xte, yte = daten(ds, s)
     z = {"seed": s}
     for arm in ARME_FREI:
-        m, _ = _baue(arm, s)
+        m, _ = _baue(arm, s, n)
         trainiere(m, xtr, ytr, schritte, lr[arm], seed=s)
         z[arm] = genauigkeit(m(xte), yte)
         if arm == "voll":
@@ -225,39 +255,32 @@ def _seed_lauf(a):
     th = voll.theta.detach().clone()
     z["winkel_voll"] = th.flatten().tolist()
     z["abstand_zum_gitter"] = float((th - runde_clifford(th)).abs().mean())
-    reihenfolge = _magie_reihenfolge(th)
     for k in MAGIE_STUFEN:
-        m = QireZelle()
-        m.load_state_dict(voll.state_dict())
-        frei = torch.zeros(LAGEN * N_QUBITS)
-        frei[reihenfolge[:k]] = 1
-        m.fixiere(runde_clifford(th), frei.reshape(LAGEN, N_QUBITS))
-        with torch.no_grad():   # freie Winkel starten beim trainierten Wert
-            m.theta.copy_(torch.where(m.frei.bool(), th, runde_clifford(th)))
-        z[f"clifford_k{k}_ohne_nachtraining"] = genauigkeit(m(xte), yte)
-        trainiere(m, xtr, ytr, schritte, lr["kopf"], seed=s)
+        m = _gerundet(voll, k, s)
+        trainiere(m, xtr, ytr, schritte, lr["rundung"], seed=s)
         z[f"clifford_k{k}"] = genauigkeit(m(xte), yte)
     return z
 
 
-def lauf(seeds=range(10), schritte=1500, tuning_seeds=(900, 901), schnell=False):
+def lauf(seeds=range(10, 20), schritte=1500, tuning_seeds=(902, 903), schnell=False, datensatz="ziffern"):
     if schnell:
         seeds, schritte, tuning_seeds = range(2), 150, (900,)
     t0 = time.time()
-    lr_info = _lr_waehlen(ARME_FREI, tuning_seeds, schritte)
+    n = QUBITS_JE_DATENSATZ[datensatz]
+    lr_info = _lr_waehlen(ARME_FREI, tuning_seeds, schritte, datensatz)
     lr = {arm: v["lr"] for arm, v in lr_info.items()}
-    # Rundungsarme trainieren nur Kopf (+k Magiewinkel): Rate von hadamard_fest
-    # (gleiche Lage: feste Schaltung, trainierter Kopf).
-    lr["kopf"] = lr["hadamard_fest"]
-    zeilen = parallel(_seed_lauf, [(s, schritte, lr) for s in seeds])
+    # v2: eigene Rate fuer die Rundungsarme (frischer Kopf), getunt an k=0
+    lr_info.update(_lr_waehlen(["rundung"], tuning_seeds, schritte, datensatz, extra=(lr["voll"],)))
+    lr["rundung"] = lr_info["rundung"]["lr"]
+    zeilen = parallel(_seed_lauf, [(s, schritte, lr, datensatz) for s in seeds])
     for z in zeilen:
         print(f"  Seed {z['seed']}: voll {z['voll']:.4f}  k0 {z['clifford_k0']:.4f}  "
               f"zufall {z['zufall_clifford']:.4f}  ohne {z['ohne_schaltung']:.4f}", flush=True)
-    ergebnis = {"abteilung": "clifford", "hypothesen": HYPOTHESEN, "lr": lr_info,
+    ergebnis = {"abteilung": "clifford", "version": 2, "datensatz": datensatz, "qubits": n, "hypothesen": HYPOTHESEN, "lr": lr_info,
                 "schritte": schritte, "zeilen": zeilen, "sekunden": time.time() - t0,
-                "multiplikationen": {"voll": multiplikationen(),
-                                     **{f"clifford_k{k}": multiplikationen(magie=k) for k in MAGIE_STUFEN},
-                                     "dicht_linear": 640, "voll_z": multiplikationen(auslese="z")}}
+                "multiplikationen": {"voll": multiplikationen(n),
+                                     **{f"clifford_k{k}": multiplikationen(n, magie=k) for k in MAGIE_STUFEN},
+                                     "dicht_linear": 2 ** n * 10, "voll_z": multiplikationen(n, auslese="z")}}
     ergebnis["auswertung"] = auswertung(zeilen)
     ergebnis["urteil"] = urteil(ergebnis["auswertung"])
     return ergebnis
@@ -273,7 +296,10 @@ def auswertung(zeilen) -> dict:
     d2h = a("clifford_k0") - a("hadamard_fest")
     aus["C0_diff"], aus["C0_p"] = float(d0.mean()), wilcoxon_exakt(d0)
     aus["C1_diff"] = float(d1.mean())
-    aus["C1_aufloesung"] = float(d1.std(ddof=1) / math.sqrt(len(d1))) if len(d1) > 1 else 1.0
+    from scipy.stats import t as t_vert
+    se = float(d1.std(ddof=1) / math.sqrt(len(d1)))
+    q = float(t_vert.ppf(0.95, len(d1) - 1))
+    aus["C1_ki_unten"], aus["C1_ki_oben"] = float(d1.mean()) - q * se, float(d1.mean()) + q * se
     aus["C2_diff_zufall"], aus["C2_p_zufall"] = float(d2z.mean()), wilcoxon_exakt(d2z)
     aus["C2_diff_hadamard"], aus["C2_p_hadamard"] = float(d2h.mean()), wilcoxon_exakt(d2h)
     kurve = {k: float((a(f"clifford_k{k}") - a("voll")).mean()) for k in MAGIE_STUFEN}
@@ -286,12 +312,14 @@ def auswertung(zeilen) -> dict:
 def urteil(a: dict) -> dict:
     """Vorregistrierter Entscheidungsbaum. Jeder Zweig hat eigenen Text."""
     u = {}
-    if a["C1_aufloesung"] > TOLERANZ / 2:
-        u["C-1"] = "HU: Aufloesung reicht nicht (SE der Differenz > 1 pp) -- kein Urteil"
-    elif a["C1_diff"] >= -TOLERANZ:
-        u["C-1"] = "H1: Clifford-Rundung kostet < 2 pp"
+    # v2: Nichtunterlegenheit. H1 nur, wenn das ganze einseitige 95-%-KI
+    # oberhalb von -2 pp liegt; H0, wenn es ganz darunter liegt; sonst HU.
+    if a["C1_ki_unten"] > -TOLERANZ:
+        u["C-1"] = "H1: Clifford-Rundung kostet nachweislich < 2 pp"
+    elif a["C1_ki_oben"] < -TOLERANZ:
+        u["C-1"] = "H0: Rundung kostet nachweislich > 2 pp -- Magie wird gebraucht (siehe C-3)"
     else:
-        u["C-1"] = "H0: Rundung kostet > 2 pp -- Magie wird gebraucht (siehe C-3)"
+        u["C-1"] = "HU: KI ueberdeckt die 2-pp-Grenze -- kein Urteil"
     u["C-0"] = ("H1: Schaltung schlaegt Identitaet" if a["C0_diff"] > 0 and a["C0_p"] < 0.05
                 else "H0: Schaltung nicht nachweisbar besser als Identitaet")
     sig_z = a["C2_diff_zufall"] > 0 and a["C2_p_zufall"] < 0.05
@@ -302,7 +330,7 @@ def urteil(a: dict) -> dict:
         u["C-2"] = "HU: schlaegt nur " + ("Zufall" if sig_z else "Hadamard")
     else:
         u["C-2"] = "H0: gelernte Rundung nicht besser als feste Clifford-Mischung"
-    u["C-3"] = f"M* = {a['C3_Mstern']} von {LAGEN * N_QUBITS} Winkeln"
+    u["C-3"] = f"M* = {a['C3_Mstern']} (Stufen {MAGIE_STUFEN})"
     return u
 
 
@@ -327,6 +355,7 @@ def vortest(ziehungen=5) -> bool:
         ((0.95, 0.94, 0.90, 0.90, 0.90), {"C-1": "H1", "C-2": "H1", "C-0": "H1"}),
         ((0.95, 0.85, 0.80, 0.90, 0.90), {"C-1": "H0", "C-2": "HU"}),
         ((0.95, 0.94, 0.94, 0.94, 0.96), {"C-1": "H1", "C-2": "H0", "C-0": "H0"}),
+        ((0.95, 0.93, 0.90, 0.90, 0.90), {"C-1": "HU"}),     # genau auf der Grenze
     ]
     ok = True
     for (werte, erwartet) in faelle:

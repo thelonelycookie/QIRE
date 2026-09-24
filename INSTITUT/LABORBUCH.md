@@ -65,3 +65,41 @@ Zurückgestellt als MPI-Frage.
 *Lehre (→ FEHLERBUCH):* Eine Idee, die „aus der Quantenphysik kommt“, trägt
 deren **Voraussetzungen** mit. Zuerst die Voraussetzung prüfen, dann bauen.
 Hat 0 Rechenstunden gekostet.
+
+## 24.09.2026, nachmittags — C-clifford v1: ein Artefakt, sauber gefangen
+
+Lauf 15 min, 10 Seeds, Rohdaten `ergebnisse/C-clifford__20260924_160847.json`.
+
+| Arm | Genauigkeit (Mittel ± SD) | Mult./Inferenz |
+|---|---|---|
+| voll (24 Winkel + Kopf) | 0,9664 ± 0,0067 | 3.776 |
+| dicht_linear | 0,9584 ± 0,0092 | 640 |
+| ohne_schaltung (Identität) | 0,9432 ± 0,0096 | – |
+| hadamard_fest | 0,9429 ± 0,0098 | 704 |
+| zufall_clifford | 0,9386 ± 0,0179 | 704 |
+| voll_z (nur ⟨Z_q⟩) | 0,8566 ± 0,0209 | – |
+| clifford_k0 (v1, geerbter Kopf) | 0,8696 ± 0,0419 | 704 |
+
+- **C-0: H1** — die trainierte Schaltung schlägt die Identität (+2,3 pp,
+  p = 0,002, 10/10 Seeds). *Erste belastbare Zahl des Instituts.*
+- **C-1/C-2/C-3 (v1): nicht verwertbar** — siehe FEHLERBUCH. Die
+  explorative Diagnose mit frischem Kopf gab k=0: 0,950; k=4: 0,962;
+  k=8: 0,965 (Rate nach Testergebnis gewählt → nur Hinweis, kein Befund).
+- **Winkel liegen nicht am Gitter:** mittlerer Abstand 0,390 rad — exakt
+  der Wert für gleichverteilte Winkel (π/8 = 0,393). Das Training zieht die
+  Winkel *nicht* von selbst zu Clifford-Punkten. → Begründet `C-bewusst`.
+- **Ehrliche Effizienzeinordnung:** Auf 8×8-Ziffern ist ein rein linearer
+  Klassifikator (640 Mult., 0,958) billiger als jede QIRE-Zelle. Das
+  Magie-Budget misst die Kosten der *Mischschicht* (64×64 dicht: 4.096 Mult.;
+  Clifford: 0 Mult.; volle Winkel: 3.072). Relevant wird das erst in der
+  Mitte eines größeren Netzes — dieselbe Lage wie in Projekt A.
+- **⟨Z_q⟩ allein (6 Zahlen) verliert 11 pp** gegenüber der vollen
+  Born-Verteilung (64 Zahlen). Bestätigt den Engpass aus dem Review →
+  stützt `B-paritaet`.
+
+**Design v2 (vor jeder neuen Zahl festgelegt, committet):** Rundungsarme mit
+frischem Kopf und eigener, auf Tuning-Seeds 902/903 gesuchter Rate
+(an k=0); C-1 als Nichtunterlegenheit (einseitiges 95-%-KI ganz über −2 pp →
+H1, ganz darunter → H0); frische Mess-Seeds 10–19. `C-mnist` war durch
+C-2: H0 vorregistriert freigeschaltet und läuft ebenfalls mit v2 — die
+Änderung liegt vor jeder MNIST-Zahl.
