@@ -408,3 +408,31 @@ trennbar, und alle G(k) gegen „voll“ können aufgebläht sein (FEHLERBUCH).
 alle Winkel frei, identische zweite Phase; MNIST + Fashion, frische Seeds
 30–39) vorregistriert; C-skala und I-024 bekommen denselben Arm als
 Referenz. Der Name „Magie-Konzentration“ wartet auf C-referenz.
+
+## 24.09.2026, 22:10 — I-003: Aufgabe oder Architektur? Positivkontrolle scheitert am Lernverfahren
+
+Ziffern 8×8 (6 Qubits, 24 Winkel), Seeds 60–69, Forscher-Agent-Modul
+`magie_aufgabe.py` (Rohdaten `ergebnisse/I-003__*.json`, 22 min).
+
+| Aufgabe (Messgröße) | Identität | k0 | k1 | k2 | k4 | k8 | k12 | voll |
+|---|---|---|---|---|---|---|---|---|
+| echt (Test) | 0,945 | 0,941 | 0,953 | 0,957 | 0,962 | 0,958 | 0,963 | 0,959 |
+| zufall (Training, Memorieren) | 0,240 | 0,252 | 0,250 | 0,254 | 0,251 | 0,278 | 0,285 | 0,272 |
+| struktur (Test, Clifford-Lehrer) | 0,784 | 0,735 | 0,737 | 0,751 | 0,766 | 0,773 | **0,786** | **0,726** |
+
+- T-1 **HU (Vorbedingung)**: Auf der Strukturaufgabe — per Konstruktion mit
+  Magie 0 exakt lösbar, Kopf auf den Lehrer-Merkmalen 0,934 — landet die
+  voll trainierte Zelle *unter* der Identität (−5,7 pp, p = 0,010).
+  Gradientenabstieg aus Zufallswinkeln findet die diskrete Clifford-Lösung
+  nicht. T-2 damit nicht auswertbar (vorregistriert).
+- Zweiter Beleg für den Nachtrain-Fehler (C-fashion): k12 schlägt voll auf
+  der Strukturaufgabe um **+6 pp**, allein durch die zweite Trainingsphase.
+- Explorativ (T-3, beschreibend): echt M50 = 1, M90 = 4; zufall (Memorieren)
+  M50 = 8. Die G-Kurve von echt liegt über zufall (+0,51 G, p = 0,002).
+  Hinweis, dass Generalisieren weniger Magie braucht als Auswendiglernen —
+  **nicht belastbar**, bis Referenz (C-referenz) und Positivkontrolle
+  (I-003-v2) stehen.
+
+Lehre: *exakt lösbar* ≠ *lernbar*. Eine Positivkontrolle muss mit dem
+Verfahren feuern können, nicht nur mit der Architektur. I-005 (diskrete
+Clifford-Suche) bekommt dadurch Gewicht; I-003-v2 als Idee eingetragen.

@@ -171,7 +171,7 @@
   {
    "id": "I-003",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.magie_aufgabe",
    "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
    "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle. | Modul gebaut (Forscher-Agent): echt / Zufallsetiketten (Trainingsgenauigkeit) / Struktur-Aufgabe ohne Magiebedarf als Positivkontrolle (T-1). T-2 mit Wilcoxon + TOST.",
@@ -192,7 +192,7 @@
    "status": "idee",
    "modul": null,
    "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min.",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min. | Aufgewertet nach I-003: Gradientenabstieg findet eine bekannte Clifford-Loesung nicht (voll unter Identitaet) -- diskrete Suche ist ein eigener, noetiger Lerner.",
    "prioritaet": 1
   },
   {
@@ -259,6 +259,15 @@
    "prioritaet": 1,
    "notiz": "Direktor 24.09. nach C-fashion (k8 schlug voll um +0,53 pp): Rundungsarme bekommen ein zweites volles Training, voll nicht (FEHLERBUCH). R-1 Verzerrung (Holm, TOST 0,3 pp), R-2 Gm*(4) >= 0,5 auf beiden Datensaetzen, R-3 Runden als Regularisierer (Fashion), R-4 M50*/M90*. ~1 h bei 4 Kernen.",
    "folgen": {}
+  },
+  {
+   "id": "I-003-v2",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "prioritaet": 1,
+   "frage": "Magie-Konzentration: Aufgabe oder Architektur? -- mit einer Positivkontrolle, die das LERNVERFAHREN erreicht, und fairer Referenz (nachtrainiert).",
+   "notiz": "Folge aus I-003 (T-1 HU: Gradient findet die Clifford-Lehrer-Loesung nicht, voll 0,726 < Identitaet 0,784). Kandidaten fuer die Kontrolle: Lehrer = gerundete (k0) Schaltung eines trainierten Schuelers auf echten Ziffern (sicher erreichbar), oder diskrete Clifford-Suche (I-005). Explorativer Hinweis aus I-003: echt-Kurve ueber zufall-Kurve (+0,51 G, p = 0,002), Memorieren M50 = 8 vs. Generalisieren M50 = 1. Erst nach C-referenz bauen."
   }
  ]
 }
