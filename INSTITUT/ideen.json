@@ -15,7 +15,9 @@
    "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "herkunft": "Claude (Ideenschmiede), Neuheit: Recherche-Agent",
-   "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford"
+   "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford",
+   "quantenkern": "Clifford-Hierarchie/Magie: Nicht-Clifford-Gatter sind DIE teure Ressource eines fehlertoleranten Quantencomputers (T-Gatter-Destillation). Weniger Magie = billiger auf echter Quantenhardware UND multiplikationsfrei im Simulator.",
+   "quantenstufe": "Q3"
   },
   {
    "titel": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
@@ -32,7 +34,9 @@
    "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "herkunft": "Claude (Ideenschmiede), Neuheit: Recherche-Agent",
-   "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche"
+   "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
+   "quantenkern": "Stabilisator-Renyi-Entropie ist ein Magie-Monoton der Quanteninformation (Leone/Oliviero/Hamma 2022), auf Hardware messbar.",
+   "quantenstufe": "Q3"
   },
   {
    "titel": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
@@ -49,7 +53,9 @@
    "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "herkunft": "Claude (Ideenschmiede), Neuheit: Recherche-Agent",
-   "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln"
+   "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
+   "quantenkern": "Magie als Ressource einer Lernaufgabe -- Frage der Quanten-Ressourcentheorie.",
+   "quantenstufe": "Q3"
   },
   {
    "titel": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
@@ -66,7 +72,9 @@
    "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "herkunft": "Claude (Ideenschmiede), Neuheit: Recherche-Agent",
-   "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)"
+   "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
+   "quantenkern": "Clifford+T-Schaltung mit T-Zahl k: das Standard-Kostenmodell fehlertoleranter Quantenrechner.",
+   "quantenstufe": "Q3"
   },
   {
    "titel": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
@@ -83,7 +91,9 @@
    "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "herkunft": "Claude (Ideenschmiede), Neuheit: Recherche-Agent",
-   "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten"
+   "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
+   "quantenkern": "Gottesman-Knill: reine Clifford-Schaltungen sind klassisch simulierbar; Magie nur ueber den Eingangszustand (magische Zustaende/Injektion).",
+   "quantenstufe": "Q3"
   },
   {
    "id": "I-006",

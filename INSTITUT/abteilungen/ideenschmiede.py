@@ -76,7 +76,18 @@ DENKZUEGE = [
     "nur einen kleinen Teil quantisch macht und den Rest klassisch laesst",
     "den Grenzfall sucht, in dem es exakt wird",
 ]
-PFLICHT = ["frage", "papierpruefung", "neuheit", "abbruch", "billigster_test", "kontrolle", "abteilung"]
+PFLICHT = ["frage", "quantenkern", "quantenstufe", "papierpruefung", "neuheit", "abbruch",
+           "billigster_test", "kontrolle", "abteilung"]
+
+# Maltes Grundsatz (24.09.): Das Institut arbeitet quantenphysikalisch, nicht mit
+# „optimierten klassischen Algorithmen“. Jede Karte nennt ihren Quantenkern:
+#   Q3 = laeuft als echte Quantenschaltung (Qiskit/IBM-Hardware moeglich), der
+#        Effekt ist eine Quantenressource (Magie, Verschraenkung, Messung ...)
+#   Q2 = exakte Quantenmechanik (Zustandsvektor, Unitaere, Born-Regel), im
+#        Simulator gerechnet, auf Hardware uebertragbar
+#   Q1 = nur mathematische Analogie (z. B. Tensor-Train auf klassischen Gewichten)
+# Q1 kommt NICHT durchs Tor. Q3 wird beim Ziehen bevorzugt.
+MIN_QUANTENSTUFE = 2
 
 
 def lade():
@@ -142,6 +153,12 @@ def leiten(kid):
     fehlt = [f for f in PFLICHT if not k.get(f)]
     if fehlt:
         print("Tor zu -- es fehlt:", ", ".join(fehlt))
+        return False
+    if int(str(k["quantenstufe"]).lstrip("Qq")) < MIN_QUANTENSTUFE:
+        k["status"] = "verworfen"
+        k["grund"] = f"kein echter Quantenkern ({k['quantenstufe']}) -- nur Analogie"
+        sichere(d)
+        print("Verworfen: nur klassische Analogie (Q1). Maltes Grundsatz: quantenphysikalisch arbeiten.")
         return False
     if str(k["neuheit"]).upper().startswith("BEKANNT"):
         k["status"] = "verworfen"

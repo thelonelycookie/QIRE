@@ -109,7 +109,7 @@
    "status": "erledigt",
    "modul": "abteilungen.kompass",
    "frage": "Qubit-Reihenfolge nach Mutual Information (wie Orbital-Ordnung in der DMRG-Quantenchemie) macht die Tensor-Train-Kompression trainierter Gewichte besser als zufaellige Reihenfolge bei gleicher Parameterzahl.",
-   "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3).",
+   "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3). | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- nach Maltes Grundsatz ruhend.",
    "argumente": {
     "datensatz": "mnist"
    },
@@ -130,13 +130,14 @@
   {
    "id": "V-fashion",
    "abteilung": "Verschraenkung",
-   "status": "wartet",
+   "status": "ruht",
    "modul": "abteilungen.kompass",
    "argumente": {
     "datensatz": "fashion_mnist"
    },
    "frage": "Replikation des Verschraenkungs-Kompasses auf Fashion-MNIST.",
-   "folgen": {}
+   "folgen": {},
+   "notiz": " | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- nach Maltes Grundsatz ruhend."
   },
   {
    "id": "I-001",
@@ -177,6 +178,14 @@
    "modul": null,
    "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
    "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min."
+  },
+  {
+   "id": "C-hardware",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Q3-Bruecke: die gerundete Schaltung mit k Magiewinkeln mit Qiskit nach Clifford+T uebersetzen (T-Zahl zaehlen) und auf IBM-Hardware laufen lassen. Uebersetzt M50 direkt in T-Gatter.",
+   "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7)."
   }
  ]
 }

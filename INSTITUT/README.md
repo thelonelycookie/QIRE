@@ -25,6 +25,26 @@ und wo sieht es nur so aus?
 Weitere Abteilungen kommen dazu, sobald eine Idee aus `IDEEN.md` die
 Papierprüfung besteht.
 
+## 1a. Grundsatz: quantenphysikalisch, nicht klassisch optimiert
+
+*Maltes Vorgabe vom 24.09.2026.* Das Institut sucht Effizienz **mit**
+Quantenphysik, nicht mit gut getarnten klassischen Tricks. Jede Idee trägt
+eine Quantenstufe:
+
+- **Q3** — läuft als echte Quantenschaltung (Qiskit, IBM-Hardware), der Effekt
+  ist eine Quantenressource (Magie, Verschränkung, Messung).
+- **Q2** — exakte Quantenmechanik (Zustandsvektor, Unitäre, Born-Regel) im
+  Simulator, auf Hardware übertragbar.
+- **Q1** — nur mathematische Analogie. **Kommt nicht durchs Tor der
+  Ideenschmiede.** (Deshalb ruht die Linie V-kompass: Tensor-Train auf
+  klassischen Gewichten ist Q1.)
+
+Die Hauptlinie *Magie-Budget* ist Q3: Nicht-Clifford-Gatter (T-Gatter) sind
+die teuerste Ressource eines fehlertoleranten Quantencomputers. Eine Aufgabe,
+die nur wenige magische Winkel braucht, ist **auf echter Quantenhardware
+billiger** — und im Simulator zugleich multiplikationsfrei. Dieselbe Zahl
+spart in beiden Welten.
+
 ## 2. Wie große Forschungszentren forschen — und was wir davon übernehmen
 
 Kein Forschungszentrum hat ein Geheimrezept, aber die guten teilen dieselben
