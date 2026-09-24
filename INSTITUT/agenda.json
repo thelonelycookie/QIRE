@@ -1,0 +1,252 @@
+{
+ "hinweis": "Status: aktiv | offen | wartet (erst nach vorregistrierter Bedingung) | erledigt | verworfen_papier | idee. 'folgen' wurde VOR dem jeweiligen Lauf festgelegt (Frage:Marke -> Punkte).",
+ "punkte": [
+  {
+   "id": "C-clifford",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.clifford",
+   "frage": "Wie viele Nicht-Clifford-Winkel braucht die QIRE-Zelle auf 8x8-Ziffern (6 Qubits)?",
+   "folgen": {
+    "C-1:H1": [
+     "C-mnist"
+    ],
+    "C-1:H0": [
+     "C-mnist",
+     "C-bewusst"
+    ],
+    "C-0:H0": [
+     "C-mnist"
+    ],
+    "C-2:H0": [
+     "C-mnist"
+    ]
+   },
+   "notiz": "v1: Rundungsarme mit geerbtem Kopf -- unfair gegen Kontrollen (FEHLERBUCH 24.09.). Ersetzt durch C-clifford-v2.",
+   "prioritaet": 1
+  },
+  {
+   "id": "C-clifford-v2",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.clifford",
+   "frage": "Wiederholung mit fairem Design (frischer Kopf, eigene Lernrate, Nichtunterlegenheits-KI) auf frischen Seeds 10-19.",
+   "folgen": {
+    "C-1:H0": [
+     "C-bewusst"
+    ],
+    "C-1:HU": [
+     "C-bewusst"
+    ]
+   },
+   "prioritaet": 1
+  },
+  {
+   "id": "C-mnist",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.clifford",
+   "argumente": {
+    "datensatz": "mnist"
+   },
+   "frage": "Dasselbe auf MNIST 16x16 (8 Qubits, 256 Dim.). Traegt die Schaltung dort mehr bei als die Identitaet?",
+   "folgen": {
+    "C-1:H1": [
+     "C-fashion",
+     "C-skala"
+    ],
+    "C-1:H0": [
+     "C-fashion",
+     "C-bewusst"
+    ],
+    "C-0:H0": [
+     "C-fashion"
+    ]
+   },
+   "notiz": "freigeschaltet durch C-clifford C-2:H0; laeuft mit Design v2 (Aenderung vor jeder MNIST-Zahl, LABORBUCH).",
+   "prioritaet": 1
+  },
+  {
+   "id": "C-fashion",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.clifford",
+   "argumente": {
+    "datensatz": "fashion_mnist"
+   },
+   "frage": "Replikation auf Fashion-MNIST 16x16 (schwerer, viermal hoehere Streuung laut Projekt A).",
+   "folgen": {},
+   "prioritaet": 1
+  },
+  {
+   "id": "C-bewusst",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.clifford_bewusst",
+   "frage": "Clifford-bewusstes Training (Winkel werden waehrend des Trainings zum Gitter gezogen) senkt M*.",
+   "notiz": "Kriterien B-1..B-3 im Modul; freigeschaltet durch C-clifford-v2 C-1:HU.",
+   "folgen": {
+    "B-1:H1": [
+     "C-skala"
+    ]
+   },
+   "prioritaet": 1
+  },
+  {
+   "id": "C-skala",
+   "abteilung": "Clifford",
+   "status": "wartet",
+   "modul": null,
+   "frage": "Magie-Skalierung: waechst M* langsamer als die Winkelzahl n*L (n=6,8,10)? Dann wird die Schicht mit wachsender Breite fast multiplikationsfrei.",
+   "notiz": "Modul noch nicht gebaut.",
+   "prioritaet": 1
+  },
+  {
+   "id": "Z-zne",
+   "abteilung": "Theorie",
+   "status": "verworfen_papier",
+   "modul": null,
+   "frage": "Zero-Noise-Extrapolation ueber verschachtelte Bitbreiten (b, b-1) ersetzt ein Bit Genauigkeit.",
+   "notiz": "Auf Papier widerlegt, siehe LABORBUCH 24.09. (Extrapolation verschiebt ungerade Codes weg vom Sollwert, MSE 7x schlechter).",
+   "prioritaet": 2
+  },
+  {
+   "id": "V-kompass",
+   "abteilung": "Verschraenkung",
+   "status": "erledigt",
+   "modul": "abteilungen.kompass",
+   "frage": "Qubit-Reihenfolge nach Mutual Information (wie Orbital-Ordnung in der DMRG-Quantenchemie) macht die Tensor-Train-Kompression trainierter Gewichte besser als zufaellige Reihenfolge bei gleicher Parameterzahl.",
+   "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3). | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
+   "argumente": {
+    "datensatz": "mnist"
+   },
+   "folgen": {
+    "V-1:H1": [
+     "V-fashion"
+    ]
+   },
+   "prioritaet": 3
+  },
+  {
+   "id": "B-paritaet",
+   "abteilung": "Auslese",
+   "status": "idee",
+   "modul": null,
+   "frage": "Paritaetsmerkmale <Z_S> niedriger Ordnung aus EINER Messbasis schlagen <Z_q> bei gleicher Kopfgroesse.",
+   "notiz": "IDEEN.md Nr. 5",
+   "prioritaet": 1
+  },
+  {
+   "id": "V-fashion",
+   "abteilung": "Verschraenkung",
+   "status": "wartet",
+   "modul": "abteilungen.kompass",
+   "argumente": {
+    "datensatz": "fashion_mnist"
+   },
+   "frage": "Replikation des Verschraenkungs-Kompasses auf Fashion-MNIST.",
+   "folgen": {},
+   "notiz": " | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
+   "prioritaet": 3
+  },
+  {
+   "id": "I-001",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.magie_pruning",
+   "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn Verlust-Ranking G(2) nicht um >=0,1 ueber Abstands-Ranking hebt (gepaart, 10 Seeds). Test: Ziffern, Winkel aus C-clifford-v2-Rohdaten, zwei Rankings, k in {1,2,4}: ~10 min CPU. | Modul gebaut (Forscher-Agent), P-0..P-3 im Code. Rauchtest: abstand/verlust korrelieren 0,94.",
+   "prioritaet": 1
+  },
+  {
+   "id": "I-002",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.sre",
+   "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Rangkorrelation SRE vs. gemessenem Rundungsverlust ueber Seeds und Datensaetze |rho| < 0,3. Test: SRE aus gespeicherten Winkeln der C-Laeufe berechnen, gegen G(k) korrelieren: <5 min, kein Training.",
+   "prioritaet": 1
+  },
+  {
+   "id": "I-003",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.magie_aufgabe",
+   "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle. | Modul gebaut (Forscher-Agent): echt / Zufallsetiketten (Trainingsgenauigkeit) / Struktur-Aufgabe ohne Magiebedarf als Positivkontrolle (T-1). T-2 mit Wilcoxon + TOST.",
+   "prioritaet": 1
+  },
+  {
+   "id": "I-004",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.geruest",
+   "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min. | Modul gebaut (Forscher-Agent), R-0..R-4 im Code, Holm ueber R-1/R-2.",
+   "prioritaet": 1
+  },
+  {
+   "id": "I-005",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min.",
+   "prioritaet": 1
+  },
+  {
+   "id": "C-hardware",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.hardware",
+   "frage": "Q3-Bruecke: die gerundete Schaltung mit k Magiewinkeln mit Qiskit nach Clifford+T uebersetzen (T-Zahl zaehlen) und auf IBM-Hardware laufen lassen. Uebersetzt M50 direkt in T-Gatter.",
+   "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7). | Gebaut und gerechnet 24.09. (T ~ 31*k bei eps=1e-3). Offen: Kosten der Amplitudenkodierung, Lauf auf IBM-Hardware.",
+   "prioritaet": 1
+  },
+  {
+   "id": "I-008",
+   "abteilung": "Auslese",
+   "status": "erledigt",
+   "modul": "abteilungen.schuesse",
+   "frage": "Schuss-Budget: wie viele Messungen braucht die Born-Auslese auf echter Hardware -- und welche Auslese ist am schusssparsamsten?",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn alle Ausleseformen bei S=1.000 innerhalb 1 pp der exakten Genauigkeit liegen -> Schuesse sind kein Engpass, Linie ruht. Test: Trainiertes Modell (Ziffern/MNIST), Multinomial-Stichproben mit S in {10,100,1.000,10.000} aus p ziehen, Kopf unveraendert: Minuten, kein Training. | Modul gebaut, Kriterien A-1..A-3 im Code. Abweichung Regel 1: feste Rate 0,08 (voll-Rate aus C-v2/C-mnist); Koepfe paritaet/z ungetunt -> A-2 eher gegen H1 verzerrt."
+  },
+  {
+   "id": "I-010",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magie-Quantisierung grosser Rotationsschichten: Clifford-Winkel mit 2 Bit speichern, nur die wenigen magischen Winkel als Gleitkomma (z. B. ButterflyFFN/QKV im Chatbot T-002)",
+   "prioritaet": 2,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn in den Butterfly-Schichten des Chatbots G(k) fuer k = 10 % der Winkel unter 0,5 bleibt. Test: Projekt-A-Modell butterfly_qkv nach kurzem Training runden (Validierungs-Perplexitaet), ~1-2 h CPU."
+  },
+  {
+   "id": "I-020",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.gesamtbudget",
+   "frage": "Gemeinsames Magie-Budget fuer Kodierung + Schaltung: Zelle direkt auf billiger Quantenkodierung trainieren (MPS chi=2, duenn besetzte Praeparation) und Gesamt-T gegen Genauigkeit optimieren",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt. Test: MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit. | Modul gebaut (Forscher-Agent); duenne Praeparation 2.384-3.870 T statt ~7.800 T (exakt, obere Schranke). G-1/G-2 im Code."
+  },
+  {
+   "id": "I-015",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.kaskade",
+   "frage": "Magie-Kaskade: erst die Clifford-Schaltung (0 T-Gatter) rechnen, nur bei unsicheren Bildern magische Winkel zuschalten -- mittlere T-Zahl je Bild statt fester T-Zahl",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei gleicher Genauigkeit wie k=2 die mittlere Schaltungs-T-Zahl nicht unter 50 % von k=2 faellt -- oder wenn mit Ladekosten keine Ersparnis bleibt. Test: MNIST, Modelle k=0/2/8 je Seed trainieren, Schwelle auf Kopf-Konfidenz (Validierung) waehlen, Genauigkeit gegen mittlere T (hardware.py-Zahlen) und Schuesse (I-008) auftragen: ~1 h CPU. | Modul gebaut (Forscher-Agent). Papier: mit Ladekosten lohnt die Kaskade erst bei < 0,8 % Weiterleitung."
+  },
+  {
+   "id": "I-024",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magie gegen Datenmenge: braucht die Zelle mit weniger Trainingsdaten weniger Magie? (Clifford-Gitter als Regularisierer, M50 als Funktion von n_train)",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 (und der Abstand voll - k=0) bei n_train = 500 / 2.000 / 10.000 innerhalb der Seed-Streuung gleich bleibt (TOST 0,5 pp auf dem Abstand). Test: MNIST 16x16, n_train in {500, 2000, 10000}, 10 Seeds, Arme voll / k=0 / k=2 / k=8 (Rundung nach Abstand wie C-mnist), Kopf-Lernrate je Arm auf Tuning-Seeds: ~1 h CPU."
+  }
+ ]
+}

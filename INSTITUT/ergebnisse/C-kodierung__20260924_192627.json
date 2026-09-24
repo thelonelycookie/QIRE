@@ -1,0 +1,681 @@
+{
+ "abteilung": "clifford/hardware",
+ "agenda": "C-kodierung",
+ "quantenstufe": "Q3 (lokal simuliert)",
+ "hypothesen": {
+  "K-1": "Vorregistriert: exakte Amplitudenkodierung eines MNIST-16x16-Bildes kostet MEHR T-Gatter als die ganze gelernte Schaltung mit k = 32 magischen Winkeln (~990 T bei eps = 1e-3). Entschieden am Mittel ueber 20 Testbilder.",
+  "K-2": "Beschreibend (1 Seed, kein Signifikanztest): unter den gemessenen Varianten gibt es eine Kodierung mit < 10 % der T-Kosten der exakten Kodierung, die weniger als 2 pp Testgenauigkeit verliert (primaer: Zustand direkt in die trainierte Zelle eingespeist; sekundaer: Kopf auf der Kodierung nachtrainiert)."
+ },
+ "vortest_bestanden": true,
+ "vortest": [
+  [
+   "(a) Moettoenen n=8",
+   1.1102230246251565e-15,
+   true
+  ],
+  [
+   "(b) StatePreparation n=8",
+   1.2774503677093207e-13,
+   true
+  ],
+  [
+   "(c) MPS chi=max=16 Vektor n=8",
+   7.181755190543981e-16,
+   true
+  ],
+  [
+   "(c) MPS chi=max qiskit-Isometrie n=8",
+   1.0391687510491465e-13,
+   true
+  ],
+  [
+   "(d) MPS chi=1 eigen Schaltung==Vektor n=8",
+   0.0,
+   true
+  ],
+  [
+   "(d) MPS chi=1 qiskit Schaltung==Vektor n=8",
+   -8.881784197001252e-16,
+   true
+  ],
+  [
+   "(d) MPS chi=2 eigen Schaltung==Vektor n=8",
+   0.0,
+   true
+  ],
+  [
+   "(d) MPS chi=2 qiskit Schaltung==Vektor n=8",
+   1.3322676295501878e-15,
+   true
+  ],
+  [
+   "(d) MPS chi=4 qiskit Schaltung==Vektor n=8",
+   1.7319479184152442e-14,
+   true
+  ],
+  [
+   "(a) Moettoenen n=6",
+   0.0,
+   true
+  ],
+  [
+   "(b) StatePreparation n=6",
+   5.287437154777308e-15,
+   true
+  ],
+  [
+   "(c) MPS chi=max=8 Vektor n=6",
+   6.38378239159465e-16,
+   true
+  ],
+  [
+   "(c) MPS chi=max qiskit-Isometrie n=6",
+   1.9539925233402755e-14,
+   true
+  ],
+  [
+   "(d) MPS chi=1 eigen Schaltung==Vektor n=6",
+   -8.881784197001252e-16,
+   true
+  ],
+  [
+   "(d) MPS chi=1 qiskit Schaltung==Vektor n=6",
+   -8.881784197001252e-16,
+   true
+  ],
+  [
+   "(d) MPS chi=2 eigen Schaltung==Vektor n=6",
+   -8.881784197001252e-16,
+   true
+  ],
+  [
+   "(d) MPS chi=2 qiskit Schaltung==Vektor n=6",
+   2.4424906541753444e-15,
+   true
+  ],
+  [
+   "(d) MPS chi=4 qiskit Schaltung==Vektor n=6",
+   1.2434497875801753e-14,
+   true
+  ],
+  [
+   "(a) Moettoenen n=8",
+   -8.881784197001252e-16,
+   true
+  ],
+  [
+   "(b) StatePreparation n=8",
+   8.446715549226269e-14,
+   true
+  ],
+  [
+   "(c) MPS chi=max=16 Vektor n=8",
+   1.2906342661267445e-15,
+   true
+  ],
+  [
+   "(c) MPS chi=max qiskit-Isometrie n=8",
+   8.72635297355373e-14,
+   true
+  ],
+  [
+   "(d) MPS chi=1 eigen Schaltung==Vektor n=8",
+   4.440892098500626e-16,
+   true
+  ],
+  [
+   "(d) MPS chi=1 qiskit Schaltung==Vektor n=8",
+   -1.3322676295501878e-15,
+   true
+  ],
+  [
+   "(d) MPS chi=2 eigen Schaltung==Vektor n=8",
+   0.0,
+   true
+  ],
+  [
+   "(d) MPS chi=2 qiskit Schaltung==Vektor n=8",
+   2.886579864025407e-15,
+   true
+  ],
+  [
+   "(d) MPS chi=4 qiskit Schaltung==Vektor n=8",
+   2.0650148258027912e-14,
+   true
+  ],
+  [
+   "(e) Produktzustand chi=1 Treue-Defekt",
+   -4.440892098500626e-16,
+   true
+  ],
+  [
+   "(e) Produktzustand: 2. Singulaerwert (Schnitt Mitte)",
+   1.2037213766868894e-16,
+   true
+  ],
+  [
+   "(f) Rundung pi/2 -> T",
+   0.0,
+   true
+  ],
+  [
+   "(f) Rundung pi/4 -> T - #ungerade",
+   0.0,
+   true
+  ]
+ ],
+ "eps_je_rotation": 0.001,
+ "eps_gesamt_zusatz": 0.01,
+ "t_lernschaltung_k32": 989.2573643410853,
+ "t_lernschaltung_quelle": "C-hardware__20260924_184246.json",
+ "bitordnung": "Modell-Qubit q <-> Qiskit-Qubit n-1-q; Basisindex identisch",
+ "kosten": {
+  "mnist_16x16_n8": {
+   "exakt (Moettoenen, reell)": {
+    "rotationen_magisch": 250.3,
+    "T": 7636.25,
+    "T_budget_gesamt": 11408.65,
+    "cnot": 250.4,
+    "tiefe": 493.8,
+    "T_min": 6408,
+    "T_max": 7920,
+    "treue_mittel": 1.0000000000000004,
+    "treue_min": 0.9999999999999969,
+    "nur_basis": true
+   },
+   "exakt, Winkel gerundet pi/2": {
+    "rotationen_magisch": 0.0,
+    "T": 0.0,
+    "T_budget_gesamt": 0.0,
+    "cnot": 250.4,
+    "tiefe": 253.45,
+    "T_min": 0,
+    "T_max": 0,
+    "treue_mittel": 0.1102824676017005,
+    "treue_min": 9.41648633082214e-05,
+    "nur_basis": true
+   },
+   "exakt, Winkel gerundet pi/4": {
+    "rotationen_magisch": 14.05,
+    "T": 14.05,
+    "T_budget_gesamt": 14.05,
+    "cnot": 250.4,
+    "tiefe": 262.55,
+    "T_min": 9,
+    "T_max": 17,
+    "treue_mittel": 0.36954770811080995,
+    "treue_min": 0.04674362438373378,
+    "nur_basis": true
+   },
+   "qiskit StatePreparation (komplex)": {
+    "rotationen_magisch": 367.7,
+    "T": 10315.45,
+    "T_budget_gesamt": 15916.5,
+    "cnot": 243.8,
+    "tiefe": 876.4,
+    "T_min": 8158,
+    "T_max": 13361,
+    "treue_mittel": 0.9999999999999997,
+    "treue_min": 0.9999999999999969,
+    "nur_basis": true
+   },
+   "MPS chi=1 (eigen)": {
+    "rotationen_magisch": 7.4,
+    "T": 224.55,
+    "T_budget_gesamt": 215.0,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "parameter_untergrenze": 8.0,
+    "T_min": 179,
+    "T_max": 252,
+    "treue_mittel": 0.30384300106308737,
+    "treue_min": 0.24330487099681672,
+    "nur_basis": true
+   },
+   "MPS chi=1 (qiskit)": {
+    "rotationen_magisch": 7.4,
+    "T": 224.55,
+    "T_budget_gesamt": 215.0,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "parameter_untergrenze": 8.0,
+    "T_min": 179,
+    "T_max": 252,
+    "treue_mittel": 0.30384300106308737,
+    "treue_min": 0.24330487099681672,
+    "nur_basis": true
+   },
+   "MPS chi=1, Winkel gerundet pi/2": {
+    "rotationen_magisch": 0.0,
+    "T": 0.0,
+    "T_budget_gesamt": 0.0,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "T_min": 0,
+    "T_max": 0,
+    "treue_mittel": 0.2236775302662831,
+    "treue_min": 0.11487394454797516,
+    "nur_basis": true
+   },
+   "MPS chi=1, Winkel gerundet pi/4": {
+    "rotationen_magisch": 2.75,
+    "T": 2.75,
+    "T_budget_gesamt": 8.35,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "T_min": 0,
+    "T_max": 6,
+    "treue_mittel": 0.28215954418318107,
+    "treue_min": 0.20787212601931387,
+    "nur_basis": true
+   },
+   "MPS chi=2 (eigen)": {
+    "rotationen_magisch": 38.3,
+    "T": 1176.45,
+    "T_budget_gesamt": 1424.2,
+    "cnot": 37.5,
+    "tiefe": 70.05,
+    "parameter_untergrenze": 34.0,
+    "T_min": 1017,
+    "T_max": 1271,
+    "treue_mittel": 0.7241960400852332,
+    "treue_min": 0.553245338575807,
+    "nur_basis": true
+   },
+   "MPS chi=2 (qiskit)": {
+    "rotationen_magisch": 43.5,
+    "T": 1175.95,
+    "T_budget_gesamt": 1439.25,
+    "cnot": 18.75,
+    "tiefe": 58.45,
+    "parameter_untergrenze": 34.0,
+    "T_min": 943,
+    "T_max": 1276,
+    "treue_mittel": 0.7241960400852326,
+    "treue_min": 0.5532453385758064,
+    "nur_basis": true
+   },
+   "MPS chi=2, Winkel gerundet pi/4": {
+    "rotationen_magisch": 13.4,
+    "T": 13.4,
+    "T_budget_gesamt": 13.4,
+    "cnot": 37.5,
+    "tiefe": 60.45,
+    "T_min": 6,
+    "T_max": 23,
+    "treue_mittel": 0.5190258466202989,
+    "treue_min": 0.2706083674930496,
+    "nur_basis": true
+   },
+   "MPS chi=4 (qiskit)": {
+    "rotationen_magisch": 216.4,
+    "T": 6328.6,
+    "T_budget_gesamt": 9167.55,
+    "cnot": 106.75,
+    "tiefe": 365.0,
+    "parameter_untergrenze": 111.0,
+    "T_min": 5374,
+    "T_max": 6893,
+    "treue_mittel": 0.9455956693953805,
+    "treue_min": 0.8868782661318639,
+    "nur_basis": true
+   }
+  },
+  "ziffern_8x8_n6": {
+   "exakt (Moettoenen, reell)": {
+    "rotationen_magisch": 63.0,
+    "T": 1945.15,
+    "T_budget_gesamt": 2497.3,
+    "cnot": 62.0,
+    "tiefe": 120.0,
+    "T_min": 1888,
+    "T_max": 1981,
+    "treue_mittel": 1.0,
+    "treue_min": 0.9999999999999982,
+    "nur_basis": true
+   },
+   "exakt, Winkel gerundet pi/2": {
+    "rotationen_magisch": 0.0,
+    "T": 0.0,
+    "T_budget_gesamt": 0.0,
+    "cnot": 62.0,
+    "tiefe": 64.2,
+    "T_min": 0,
+    "T_max": 0,
+    "treue_mittel": 0.5956314362163769,
+    "treue_min": 0.2615775136206042,
+    "nur_basis": true
+   },
+   "exakt, Winkel gerundet pi/4": {
+    "rotationen_magisch": 5.1,
+    "T": 5.1,
+    "T_budget_gesamt": 5.1,
+    "cnot": 62.0,
+    "tiefe": 67.6,
+    "T_min": 2,
+    "T_max": 7,
+    "treue_mittel": 0.6891118982334808,
+    "treue_min": 0.42733120640882377,
+    "nur_basis": true
+   },
+   "qiskit StatePreparation (komplex)": {
+    "rotationen_magisch": 88.5,
+    "T": 2554.5,
+    "T_budget_gesamt": 3375.25,
+    "cnot": 57.0,
+    "tiefe": 205.2,
+    "T_min": 2119,
+    "T_max": 3735,
+    "treue_mittel": 1.0,
+    "treue_min": 0.9999999999999987,
+    "nur_basis": true
+   },
+   "MPS chi=1 (eigen)": {
+    "rotationen_magisch": 6.0,
+    "T": 187.05,
+    "T_budget_gesamt": 168.65,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "parameter_untergrenze": 6.0,
+    "T_min": 150,
+    "T_max": 200,
+    "treue_mittel": 0.4840811193599757,
+    "treue_min": 0.39287408575484134,
+    "nur_basis": true
+   },
+   "MPS chi=1 (qiskit)": {
+    "rotationen_magisch": 6.0,
+    "T": 187.05,
+    "T_budget_gesamt": 168.65,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "parameter_untergrenze": 6.0,
+    "T_min": 150,
+    "T_max": 200,
+    "treue_mittel": 0.4840811193599756,
+    "treue_min": 0.39287408575484134,
+    "nur_basis": true
+   },
+   "MPS chi=1, Winkel gerundet pi/2": {
+    "rotationen_magisch": 0.0,
+    "T": 0.0,
+    "T_budget_gesamt": 0.0,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "T_min": 0,
+    "T_max": 0,
+    "treue_mittel": 0.3945864483252127,
+    "treue_min": 0.22525440044004394,
+    "nur_basis": true
+   },
+   "MPS chi=1, Winkel gerundet pi/4": {
+    "rotationen_magisch": 1.9,
+    "T": 1.9,
+    "T_budget_gesamt": 6.1,
+    "cnot": 0.0,
+    "tiefe": 1.0,
+    "T_min": 0,
+    "T_max": 4,
+    "treue_mittel": 0.46065210817978597,
+    "treue_min": 0.3592746837508571,
+    "nur_basis": true
+   },
+   "MPS chi=2 (eigen)": {
+    "rotationen_magisch": 28.0,
+    "T": 866.45,
+    "T_budget_gesamt": 1002.25,
+    "cnot": 26.0,
+    "tiefe": 49.0,
+    "parameter_untergrenze": 24.0,
+    "T_min": 833,
+    "T_max": 886,
+    "treue_mittel": 0.8460753576887446,
+    "treue_min": 0.7347723734544955,
+    "nur_basis": true
+   },
+   "MPS chi=2 (qiskit)": {
+    "rotationen_magisch": 32.0,
+    "T": 873.1,
+    "T_budget_gesamt": 1022.1,
+    "cnot": 13.0,
+    "tiefe": 42.05,
+    "parameter_untergrenze": 24.0,
+    "T_min": 841,
+    "T_max": 899,
+    "treue_mittel": 0.8460753576887443,
+    "treue_min": 0.734772373454495,
+    "nur_basis": true
+   },
+   "MPS chi=2, Winkel gerundet pi/4": {
+    "rotationen_magisch": 9.05,
+    "T": 9.05,
+    "T_budget_gesamt": 9.05,
+    "cnot": 26.0,
+    "tiefe": 41.9,
+    "T_min": 5,
+    "T_max": 15,
+    "treue_mittel": 0.6689613370822773,
+    "treue_min": 0.5023378509892125,
+    "nur_basis": true
+   },
+   "MPS chi=4 (qiskit)": {
+    "rotationen_magisch": 129.75,
+    "T": 3764.75,
+    "T_budget_gesamt": 5193.3,
+    "cnot": 62.6,
+    "tiefe": 215.05,
+    "parameter_untergrenze": 67.0,
+    "T_min": 3487,
+    "T_max": 3969,
+    "treue_mittel": 0.9941424710738215,
+    "treue_min": 0.9762320747403014,
+    "nur_basis": true
+   }
+  }
+ },
+ "sekunden_kosten": 153.4467852115631,
+ "klassifikation_mnist": {
+  "seed": 10,
+  "genauigkeit_modell": 0.9323999881744385,
+  "genauigkeit_rohdaten": 0.9323999881744385,
+  "winkel_abweichung_zu_rohdaten": 0.0,
+  "varianten": {
+   "exakt": {
+    "genauigkeit_direkt": 0.9323999881744385,
+    "genauigkeit_kopf_nachtrainiert": 0.9333999752998352,
+    "treue_test_mittel": 1.0
+   },
+   "mps1": {
+    "genauigkeit_direkt": 0.31839999556541443,
+    "genauigkeit_kopf_nachtrainiert": 0.6444000005722046,
+    "treue_test_mittel": 0.32113303184928216
+   },
+   "mps2": {
+    "genauigkeit_direkt": 0.7081999778747559,
+    "genauigkeit_kopf_nachtrainiert": 0.8759999871253967,
+    "treue_test_mittel": 0.7356524407960598
+   },
+   "mps4": {
+    "genauigkeit_direkt": 0.9258000254631042,
+    "genauigkeit_kopf_nachtrainiert": 0.9319999814033508,
+    "treue_test_mittel": 0.9500403105929072
+   },
+   "produkt_pi2": {
+    "genauigkeit_direkt": 0.2935999929904938,
+    "genauigkeit_kopf_nachtrainiert": 0.436599999666214,
+    "treue_test_mittel": 0.2600683158258802
+   },
+   "produkt_pi4": {
+    "genauigkeit_direkt": 0.31279999017715454,
+    "genauigkeit_kopf_nachtrainiert": 0.5297999978065491,
+    "treue_test_mittel": 0.30030505224487863
+   },
+   "exakt_pi2": {
+    "genauigkeit_direkt": 0.133200004696846,
+    "genauigkeit_kopf_nachtrainiert": 0.5067999958992004,
+    "treue_test_mittel": 0.1020778682524102
+   },
+   "exakt_pi4": {
+    "genauigkeit_direkt": 0.3944000005722046,
+    "genauigkeit_kopf_nachtrainiert": 0.7224000096321106,
+    "treue_test_mittel": 0.39136706935150567
+   },
+   "mps2_pi4": {
+    "genauigkeit_direkt": 0.47920000553131104,
+    "genauigkeit_kopf_nachtrainiert": 0.682200014591217,
+    "treue_test_mittel": 0.537022177829444
+   }
+  }
+ },
+ "tabelle_mnist": [
+  {
+   "kodierung": "exakt (Moettoenen, reell)",
+   "T": 7636.25,
+   "T_anteil_von_exakt": 1.0,
+   "T_budget_gesamt": 11408.65,
+   "cnot": 250.4,
+   "tiefe": 493.8,
+   "rotationen_magisch": 250.3,
+   "T_untergrenze_parameter": null,
+   "treue_20": 1.0000000000000004,
+   "treue_test": 1.0,
+   "genauigkeit_direkt": 0.9323999881744385,
+   "verlust_pp_direkt": 0.0,
+   "genauigkeit_kopf_neu": 0.9333999752998352,
+   "verlust_pp_kopf_neu": 0.0
+  },
+  {
+   "kodierung": "exakt, Winkel gerundet pi/2",
+   "T": 0.0,
+   "T_anteil_von_exakt": 0.0,
+   "T_budget_gesamt": 0.0,
+   "cnot": 250.4,
+   "tiefe": 253.45,
+   "rotationen_magisch": 0.0,
+   "T_untergrenze_parameter": null,
+   "treue_20": 0.1102824676017005,
+   "treue_test": 0.1020778682524102,
+   "genauigkeit_direkt": 0.133200004696846,
+   "verlust_pp_direkt": 79.91999834775925,
+   "genauigkeit_kopf_neu": 0.5067999958992004,
+   "verlust_pp_kopf_neu": 42.65999794006348
+  },
+  {
+   "kodierung": "exakt, Winkel gerundet pi/4",
+   "T": 14.05,
+   "T_anteil_von_exakt": 0.0018399083319692259,
+   "T_budget_gesamt": 14.05,
+   "cnot": 250.4,
+   "tiefe": 262.55,
+   "rotationen_magisch": 14.05,
+   "T_untergrenze_parameter": null,
+   "treue_20": 0.36954770811080995,
+   "treue_test": 0.39136706935150567,
+   "genauigkeit_direkt": 0.3944000005722046,
+   "verlust_pp_direkt": 53.79999876022339,
+   "genauigkeit_kopf_neu": 0.7224000096321106,
+   "verlust_pp_kopf_neu": 21.09999656677246
+  },
+  {
+   "kodierung": "MPS chi=1 (eigen)",
+   "T": 224.55,
+   "T_anteil_von_exakt": 0.029405794729088233,
+   "T_budget_gesamt": 215.0,
+   "cnot": 0.0,
+   "tiefe": 1.0,
+   "rotationen_magisch": 7.4,
+   "T_untergrenze_parameter": 242.75675675675674,
+   "treue_20": 0.30384300106308737,
+   "treue_test": 0.32113303184928216,
+   "genauigkeit_direkt": 0.31839999556541443,
+   "verlust_pp_direkt": 61.399999260902405,
+   "genauigkeit_kopf_neu": 0.6444000005722046,
+   "verlust_pp_kopf_neu": 28.89999747276306
+  },
+  {
+   "kodierung": "MPS chi=1, Winkel gerundet pi/2",
+   "T": 0.0,
+   "T_anteil_von_exakt": 0.0,
+   "T_budget_gesamt": 0.0,
+   "cnot": 0.0,
+   "tiefe": 1.0,
+   "rotationen_magisch": 0.0,
+   "T_untergrenze_parameter": null,
+   "treue_20": 0.2236775302662831,
+   "treue_test": 0.2600683158258802,
+   "genauigkeit_direkt": 0.2935999929904938,
+   "verlust_pp_direkt": 63.87999951839447,
+   "genauigkeit_kopf_neu": 0.436599999666214,
+   "verlust_pp_kopf_neu": 49.67999756336212
+  },
+  {
+   "kodierung": "MPS chi=1, Winkel gerundet pi/4",
+   "T": 2.75,
+   "T_anteil_von_exakt": 0.00036012440661319366,
+   "T_budget_gesamt": 8.35,
+   "cnot": 0.0,
+   "tiefe": 1.0,
+   "rotationen_magisch": 2.75,
+   "T_untergrenze_parameter": null,
+   "treue_20": 0.28215954418318107,
+   "treue_test": 0.30030505224487863,
+   "genauigkeit_direkt": 0.31279999017715454,
+   "verlust_pp_direkt": 61.959999799728394,
+   "genauigkeit_kopf_neu": 0.5297999978065491,
+   "verlust_pp_kopf_neu": 40.35999774932861
+  },
+  {
+   "kodierung": "MPS chi=2 (eigen)",
+   "T": 1176.45,
+   "T_anteil_von_exakt": 0.15406122114912424,
+   "T_budget_gesamt": 1424.2,
+   "cnot": 37.5,
+   "tiefe": 70.05,
+   "rotationen_magisch": 38.3,
+   "T_untergrenze_parameter": 1044.3681462140994,
+   "treue_20": 0.7241960400852332,
+   "treue_test": 0.7356524407960598,
+   "genauigkeit_direkt": 0.7081999778747559,
+   "verlust_pp_direkt": 22.42000102996826,
+   "genauigkeit_kopf_neu": 0.8759999871253967,
+   "verlust_pp_kopf_neu": 5.739998817443848
+  },
+  {
+   "kodierung": "MPS chi=2, Winkel gerundet pi/4",
+   "T": 13.4,
+   "T_anteil_von_exakt": 0.0017547880176788345,
+   "T_budget_gesamt": 13.4,
+   "cnot": 37.5,
+   "tiefe": 60.45,
+   "rotationen_magisch": 13.4,
+   "T_untergrenze_parameter": null,
+   "treue_20": 0.5190258466202989,
+   "treue_test": 0.537022177829444,
+   "genauigkeit_direkt": 0.47920000553131104,
+   "verlust_pp_direkt": 45.319998264312744,
+   "genauigkeit_kopf_neu": 0.682200014591217,
+   "verlust_pp_kopf_neu": 25.119996070861816
+  },
+  {
+   "kodierung": "MPS chi=4 (qiskit)",
+   "T": 6328.6,
+   "T_anteil_von_exakt": 0.8287575707971845,
+   "T_budget_gesamt": 9167.55,
+   "cnot": 106.75,
+   "tiefe": 365.0,
+   "rotationen_magisch": 216.4,
+   "T_untergrenze_parameter": 3246.185767097967,
+   "treue_20": 0.9455956693953805,
+   "treue_test": 0.9500403105929072,
+   "genauigkeit_direkt": 0.9258000254631042,
+   "verlust_pp_direkt": 0.6599962711334229,
+   "genauigkeit_kopf_neu": 0.9319999814033508,
+   "verlust_pp_kopf_neu": 0.1399993896484375
+  }
+ ],
+ "urteil": {
+  "K-1": "H1: exakte Kodierung 7636 T > Lernschaltung k=32 989 T (Faktor 7.7)",
+  "K-2": "beschreibend, 1 Seed: primaer (direkt eingespeist) NEIN, keine Variante; sekundaer (Kopf nachtrainiert) NEIN, keine Variante"
+ },
+ "sekunden": 983.114444732666
+}

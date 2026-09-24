@@ -20,3 +20,5 @@ __pycache__/
 *token*.txt
 .env
 *.pem
+INSTITUT/daten/
+INSTITUT/ergebnisse/*.log
