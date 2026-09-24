@@ -206,7 +206,7 @@
   {
    "id": "I-008",
    "abteilung": "Auslese",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.schuesse",
    "frage": "Schuss-Budget: wie viele Messungen braucht die Born-Auslese auf echter Hardware -- und welche Auslese ist am schusssparsamsten?",
    "prioritaet": 1,

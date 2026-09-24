@@ -93,4 +93,15 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 ### 24.09.2026 18:13 — C-mnist (automatisch)
 - **C-1**: H0: Rundung kostet nachweislich > 2 pp -- Magie wird gebraucht (siehe C-3)
 - **C-2**: HU: schlaegt nur Hadamard
-- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+- **Lehre (Claude):** C-1: H0 ist hier der *erwartete* Befund — Magie wird gebraucht; Auswertung im LABORBUCH 19:15 (Magie-Konzentration M50 = 2).
+
+### 24.09.2026 18:38 — I-008 (automatisch)
+- **A-1**: HU: KI ueberdeckt die 1-pp-Grenze
+- **A-2**: H0: born signifikant besser
+- **Lehre (Claude):** A-2 war falsch gedacht. „Gemittelte Merkmale sind
+  robuster“ stimmt nicht, wenn die Schaltung für die Born-Auslese *trainiert*
+  wurde — die Paritätsköpfe saßen nachträglich auf einer fremd optimierten
+  Schaltung (und mit ungesuchter Rate). Außerdem hat jede Parität dieselbe
+  Schussvarianz ~1/S wie eine Wahrscheinlichkeit; Mitteln hilft nur, wenn die
+  Information in wenigen Paritäten *steckt*. Fairer Nachtest: Schaltung
+  gemeinsam mit dem Paritätskopf trainieren.

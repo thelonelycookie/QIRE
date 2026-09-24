@@ -236,3 +236,33 @@ schon offen. Beide mit Priorität 1 für Maltes PC (`institut.cmd alle`).
 **Arbeitstitel für die Größe, falls Fashion es bestätigt:** *Magie-
 Konzentration* M50/M90 einer Aufgabe — „wie viele magische Gatter braucht
 eine Lernaufgabe für die Hälfte / 90 % ihres Quantennutzens?“
+
+## 24.09.2026, 18:40 — Skalierung: 3 Rechenstränge + 3 Forscher-Agenten parallel
+
+Auf Maltes Wunsch vergrößert. Parallel: C-fashion (2 Kerne), C-bewusst
+(2 Kerne), I-008 (1 Kern); drei Agenten bauen I-002 (SRE-Vorhersage),
+I-001 (Magie-Pruning) und C-hardware (Qiskit, Clifford+T). Regel für die
+Agenten: nur neue Dateien, keine gemeinsamen Dateien anfassen, kein Commit —
+der Direktor integriert. Ideenschmiede Runde 2: I-008 (Q3) und I-010 (Q2)
+weitergeleitet, I-006/007/009/011 mit Begründung verworfen (I-009
+nachgerechnet: 10× teurer; I-011: Quantenlauf auf dem Hyperwürfel *ist*
+die QIRE-Lage).
+
+### I-008 Schuss-Budget (Q3), Ziffern 8 Seeds + MNIST 3 Seeds beschreibend, 8 min
+
+Rohdaten `ergebnisse/I-008__20260924_183851.json`. Genauigkeit bei S Messungen je Bild:
+
+| Auslese | S=10 | 100 | 1.000 | 10.000 | exakt |
+|---|---|---|---|---|---|
+| born (64) | 0,444 | 0,877 | 0,959 | 0,967 | 0,967 |
+| paritaet (22) | 0,328 | 0,704 | 0,884 | 0,906 | 0,907 |
+| z (6) | 0,215 | 0,456 | 0,625 | 0,645 | 0,650 |
+| MNIST born (256) | 0,327 | 0,769 | 0,924 | 0,935 | 0,938 |
+
+A-1 **HU** (−0,81 pp bei S=1.000, KI [−1,14; −0,48]). A-2 **H0** (born
+schlägt paritaet bei S=100 um 17 pp, p = 0,008) — Hypothese falsch, siehe
+FEHLERBUCH. **Hardware-Einordnung:** Die Schaltung braucht auf echter
+Hardware rund **1.000 Schüsse je Bild** (MNIST: 1.000 → −1,4 pp,
+10.000 → −0,3 pp). Das ist die Zahl, die in jede ehrliche Aussage über
+„Quantenhardware als KI-Beschleuniger“ gehört — und eine gute Frage fürs
+MPI-Gespräch.
