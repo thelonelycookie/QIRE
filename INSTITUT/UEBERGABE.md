@@ -1,6 +1,6 @@
 # Übergabe an den nächsten Chat — QIRE-Institut
 
-*Stand 24.09.2026, abends. Wer das hier liest, braucht vorerst nichts anderes.
+*Stand 25.09.2026, ca. 00:15 (zweiter Chat 24./25.09.). Wer das hier liest, braucht vorerst nichts anderes.
 Einzelheiten stehen in den verlinkten Dateien; lies sie nur, wenn du sie brauchst.*
 
 ---
@@ -46,6 +46,14 @@ Startzustand wie ihre Kontrollen (geerbter Kopf!) · Kontrollen vorher
 anschauen, ob sie tun, was ihr Name sagt (Hadamard bei gerader Lagenzahl =
 Identität!) · Grenzen relativ zum Effekt setzen · BLAS-Threads in
 Parallelprozessen auf 1.
+Neu gelernt in der Nacht 24./25.09.: **Lernrate je Arm gilt auch für
+Referenzarme** — eine an wenigen freien Parametern (nur Kopf) getunte Rate
+ist mit allen Winkeln frei instabil (C-referenz Fashion) · eine eingeführte
+Referenz selbst auf Einzelseed-Ausreißer prüfen, bevor sie Nenner wird ·
+Positivkontrolle muss mit dem *Lernverfahren* feuern, nicht nur mit der
+Architektur (I-003: Gradient findet die Clifford-Lehrerlösung nicht) ·
+Abbruchgrenzen an einer ausgerechneten Schranke ausrichten, nicht an der
+Hoffnung (I-020) · Module liefern Urteile als **Strings**.
 
 ## 4. Die Hauptlinie: Magie-Budget (Q3) — was belegt ist
 
@@ -58,7 +66,11 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 |---|---|---|
 | Schaltung schlägt Identität | **H1**, Ziffern ×2 + MNIST | MNIST +3,8 pp, p = 0,002 |
 | Nur Clifford bringt nichts (gerundet ≈ zufällige Clifford) | **H0** für C-2, 2 Datensätze | — |
-| **Magie-Konzentration**: Nutzenanteil G(k) | MNIST vorregistriert | G(1)=0,49, G(2)=0,53, G(8)=0,89 von 32 Winkeln; **M50 = 2** |
+| **Magie-Konzentration**: Nutzenanteil G(k) | MNIST + **Fashion**, je 2 unabhängige Seed-Sätze (C-mnist, C-fashion, **C-referenz**) | MNIST G(4) = 0,68/0,70, Fashion G(4) = 1,01/0,99 von 32 Winkeln; **M50 = 2–4 (MNIST), M90 = 4 (Fashion)** |
+| Nachtrain-Verdacht (Rundungsarme 2. Phase) | C-referenz: **widerlegt** auf MNIST | d = −0,03 pp, KI ±0,24; Störfaktor war die Lernrate |
+| Aufgabe oder Architektur? | I-003 **HU** (Positivkontrolle scheitert am Gradienten) | explorativ: Memorieren M50 = 8 vs. Generalisieren M50 = 1 |
+| Gesamtbudget Laden + Schaltung | I-020 G-1 **H0** (25 %-Ziel) | dünn besetzt exakt: **4.372 T statt 8.776, ohne Verlust**; mit k=4 ist Laden 96 % |
+| Magie-Kaskade | I-015 K-1 **H1** (28 % der Schaltungs-T), mit Laden 114 % | **Hybrid** (Clifford-Stufe klassisch): 14,5 % der Hardware-T, post hoc → I-015-hybrid vorregistriert |
 | Magie lässt sich nicht wegtrainieren | C-bewusst **H0** | Strafterm zum Gitter kostet 1,4 pp |
 | Wahl der magischen Winkel nach Wirkung > Zufall | I-001 P-2 **H1** | +0,29 G, p = 0,027 |
 | Vorhandene ≠ genutzte Magie | I-002 **H0** | gelernte SRE ≈ zufällige (6,26 vs 6,28) |
@@ -72,26 +84,23 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 und zwar in sehr wenigen Gattern (Magie-Konzentration). Auf echter Hardware
 frisst aber das Laden der Daten die Einsparung — das ist die nächste Front.*
 Arbeitstitel für den Namen: **Magie-Konzentration M50/M90 einer Aufgabe**
-(erst benennen, wenn Fashion und I-003 sie tragen).
+(Fashion trägt sie jetzt, C-referenz auch; I-003 blieb HU → I-003-v2 und C-skala abwarten).
 
-## 5. Was gerade offen ist (in `agenda.json` Status „offen“, alle Module fertig und vorgetestet)
+## 5. Was gerade offen ist (Warteschlange im Cloud-Container, Nacht 24./25.09.)
 
-Diese Läufe liefen am 24.09. im Cloud-Container, **sind aber evtl. nicht
-fertig geworden**. Prüfen: gibt es `ergebnisse/<ID>__*.json`? Wenn nicht →
-neu rechnen (`python direktor.py lauf <ID>` oder alles mit `alle`).
+Prüfen: gibt es `ergebnisse/<ID>__*.json`? Wenn nicht → `python direktor.py lauf <ID>`.
 
-| ID | Frage | Laufzeit (2 Kerne) |
+| ID | Frage | Laufzeit (4 Kerne) |
 |---|---|---|
-| **C-fashion** | Replikation der Magie-Konzentration auf Fashion-MNIST | ~2–3 h (4 Kerne ~1,5 h) |
-| **I-003** | Magie-Konzentration: Eigenschaft der Aufgabe oder der Architektur? (Zufallsetiketten + magiefreie Struktur-Aufgabe als Positivkontrolle) | ~60–75 min |
-| **I-020** | Gemeinsames Magie-Budget Laden + Schaltung, Zelle auf billiger Kodierung trainiert (MPS, dünn besetzt), Pareto T gegen Genauigkeit | ~1,5 h |
-| **I-015** | Magie-Kaskade: erst Clifford (0 T), nur unsichere Bilder mit Magie | ~25 min |
 | **I-004** | Clifford-Gerüst + k Winkel von Anfang an vs. nachträglich runden | ~25–50 min |
+| **I-015-hybrid** | Hybrid-Kaskade: Clifford-Stufe klassisch, nur unsichere Bilder auf Hardware (10 frische Seeds) | ~15 min |
+| **I-024** | Magie gegen Datenmenge (n_train 500/2.000/10.000, faire Referenz *nachtrainiert*) | ~50–75 min |
+| **I-033** | Magie-Konzentration im **Laden** (Top-m / grob-zu-fein der Gray-Code-Winkel) | ~60 min |
+| **C-skala** | Wächst M50 langsamer als n·L? (n = 6/8/10 + fest10, eigene Rate für *nachtrainiert*) | ~85–105 min |
 
-Danach (nicht gebaut): **C-skala** (wächst M50 langsamer als die Winkelzahl?),
-**I-001 auf MNIST** (Auflösung auf Ziffern zu klein), **I-005** (nur diskrete
-Clifford-Wahl), **I-010** (Magie-Quantisierung der Butterfly-Schichten im
-Chatbot T-002, Prio 2), **B-paritaet**, V-fashion (Prio 3).
+Danach (Ideen, nicht gebaut): **I-003-v2** (Positivkontrolle, die das
+Verfahren erreicht), **I-005** (diskrete Clifford-Suche, aufgewertet),
+**I-001 auf MNIST**, **I-010** (Prio 2), B-paritaet, V-fashion (Prio 3).
 
 ## 6. Wie man arbeitet
 
