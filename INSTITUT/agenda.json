@@ -220,6 +220,15 @@
    "frage": "Magie-Quantisierung grosser Rotationsschichten: Clifford-Winkel mit 2 Bit speichern, nur die wenigen magischen Winkel als Gleitkomma (z. B. ButterflyFFN/QKV im Chatbot T-002)",
    "prioritaet": 2,
    "notiz": "Aus der Ideenschmiede. Abbruch: Wenn in den Butterfly-Schichten des Chatbots G(k) fuer k = 10 % der Winkel unter 0,5 bleibt. Test: Projekt-A-Modell butterfly_qkv nach kurzem Training runden (Validierungs-Perplexitaet), ~1-2 h CPU."
+  },
+  {
+   "id": "I-020",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Gemeinsames Magie-Budget fuer Kodierung + Schaltung: Zelle direkt auf billiger Quantenkodierung trainieren (MPS chi=2, duenn besetzte Praeparation) und Gesamt-T gegen Genauigkeit optimieren",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt. Test: MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit."
   }
  ]
 }

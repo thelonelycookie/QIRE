@@ -315,3 +315,33 @@ Strafterm zieht *alle* Winkel in den Clifford-Bereich, der nachweislich
 nichts bringt (C-2). Das Institut hat damit drei unabhängige Belege für
 denselben Satz: **Der Nutzen der Schaltung sitzt in der Magie, und zwar in
 wenigen Winkeln.** (C-2 auf zwei Datensätzen, C-3/G(k), jetzt C-bewusst.)
+
+## 24.09.2026, 19:30 — C-kodierung (Q3): das Laden frisst die Einsparung
+
+Forscher-Agent, Modul `abteilungen/kodierung.py`, Rohdaten `ergebnisse/C-kodierung__20260924_192627.json`,
+MNIST 16×16, 1 Seed (Seed 10 exakt reproduziert), 20 Bilder, ε=10⁻³ je Rotation.
+
+| Kodierung | T-Gatter | CNOT | Treue | Gen. direkt | Gen. Kopf neu |
+|---|---|---|---|---|---|
+| exakt (Möttönen, nur Ry) | 7.636 | 250 | 1,000 | 93,2 % | 93,3 % |
+| MPS χ=4 | 6.329 (Untergrenze ~3.250) | 107 | 0,950 | 92,6 % | 93,2 % |
+| MPS χ=2 | 1.176 | 38 | 0,736 | 70,8 % | 87,6 % |
+| MPS χ=1 (Produkt) | 225 | 0 | 0,321 | 31,8 % | 64,4 % |
+| Winkel auf π/2 (Clifford) | 0 | 250 | 0,102 | 13,3 % | 50,7 % |
+
+K-1 **bestätigt**: Laden 7.636 T gegen 989 T für die ganze Schaltung (k=32)
+und 62 T für den Halbnutzen-Punkt. K-2 **nein**: keine Kodierung unter 10 %
+der T-Kosten ohne großen Verlust; χ=2 kostet 15 % und verliert 5,7 pp.
+
+**Einordnung, ehrlich:** Das ist der aus der Quanten-KI bekannte
+Datenlade-Flaschenhals (Aaronson, „Read the fine print“, Nature Physics 2015),
+jetzt in T-Gattern für QIREs eigene Schaltung beziffert. Auf echter
+fehlertoleranter Hardware dominiert die Kodierung die Kosten; die
+Magie-Konzentration der *Schaltung* spart dort nur ~13 % der Gesamtkosten.
+Im Simulator (Multiplikationen) gilt die Aussage weiter.
+
+**Nicht aufgeben, vertiefen:** Die Kodierung ist selbst der größte
+Magieverbraucher — also muss das Magie-Budget über **Kodierung + Schaltung
+gemeinsam** gerechnet und optimiert werden (neue Karte I-020). Noch nicht
+gemessen: dünn besetzte Präparation (71 % der Pixel sind null) und eine
+Zelle, die direkt auf der billigen Kodierung trainiert wird.

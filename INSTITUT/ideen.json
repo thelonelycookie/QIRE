@@ -258,6 +258,25 @@
    "denkzug": "nur einen kleinen Teil quantisch macht und den Rest klassisch laesst",
    "abteilung": "Clifford",
    "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Trainingsschritte bis Ziel“, wenn man nur einen kleinen Teil quantisch macht und den Rest klassisch laesst?"
+  },
+  {
+   "id": "I-020",
+   "status": "weitergeleitet",
+   "erzeugt": "2026-09-24",
+   "herkunft": "Direktor, Folgefrage aus C-kodierung",
+   "titel": "Gemeinsames Magie-Budget fuer Kodierung + Schaltung: Zelle direkt auf billiger Quantenkodierung trainieren (MPS chi=2, duenn besetzte Praeparation) und Gesamt-T gegen Genauigkeit optimieren",
+   "frage": "Wie viel T kostet die GANZE Quanten-Inferenz (Laden + Schaltung) minimal fuer 90 % der Genauigkeit?",
+   "konzept": "Magische Zustaende / Injektion",
+   "engpass": "Multiplikationen/Energie je Inferenz",
+   "denkzug": "es mit einem Befund des Instituts kombiniert",
+   "abteilung": "Clifford",
+   "quantenstufe": "Q3",
+   "quantenkern": "T-Zahl der gesamten fehlertoleranten Schaltung inkl. Zustandspraeparation; Kodierung ist selbst Magieverbrauch.",
+   "papierpruefung": "C-kodierung: Laden 7.636 T, Schaltung 62-989 T. chi=2 kostet 1.176 T, verliert mit nur neu trainiertem Kopf 5,7 pp -- wird die Zelle MIT der Kodierung trainiert, kann sie den Treueverlust teilweise ausgleichen. 71 % der Pixel sind null: duenn besetzte Praeparation braucht nur ~Zahl der Nicht-Null-Amplituden Rotationen.",
+   "neuheit": "TEILWEISE: Datenlade-Flaschenhals bekannt (Aaronson 2015); approximative MPS-Zustandspraeparation bekannt. Gemeinsame T-Optimierung von Kodierung und gelernter Schaltung fuer einen Klassifikator nicht gesucht -- vor Bau pruefen.",
+   "abbruch": "Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt.",
+   "billigster_test": "MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit.",
+   "kontrolle": "exakte Kodierung + volle Schaltung; klassischer linearer Klassifikator als Referenzlinie."
   }
  ]
 }
