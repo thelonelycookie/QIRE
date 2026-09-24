@@ -268,6 +268,15 @@
    "prioritaet": 1,
    "frage": "Magie-Konzentration: Aufgabe oder Architektur? -- mit einer Positivkontrolle, die das LERNVERFAHREN erreicht, und fairer Referenz (nachtrainiert).",
    "notiz": "Folge aus I-003 (T-1 HU: Gradient findet die Clifford-Lehrer-Loesung nicht, voll 0,726 < Identitaet 0,784). Kandidaten fuer die Kontrolle: Lehrer = gerundete (k0) Schaltung eines trainierten Schuelers auf echten Ziffern (sicher erreichbar), oder diskrete Clifford-Suche (I-005). Explorativer Hinweis aus I-003: echt-Kurve ueber zufall-Kurve (+0,51 G, p = 0,002), Memorieren M50 = 8 vs. Generalisieren M50 = 1. Erst nach C-referenz bauen."
+  },
+  {
+   "id": "I-033",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magie-Konzentration im Laden: Moettoenen-Baum grob-zu-fein -- nur die oberen Baumebenen (bzw. Top-m Winkel je Bild) exakt, Rest auf das Clifford-Gitter; T je Bild gegen Genauigkeit",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei <= 50 % der Lade-T (duenn exakt) die Genauigkeit mehr als 1 pp unter exakt geladen liegt (Mittel ueber Seeds, TOST-Grenze 1 pp). Test: MNIST 16x16, trainierte volle Zelle (C-mnist-Rezept) je Seed, Laden mit (a) oberen e Ebenen exakt, e = 0..8, (b) Top-m Winkel je Bild nach |Abstand zum Gitter|, Rest gerundet; Kopf + Schaltung mit gleicher zweiter Phase auf genaeherten Zustaenden nachtrainieren, Referenz exakt geladen mit gleicher Phase; T aus kodierung.py: ~30-45 min."
   }
  ]
 }
