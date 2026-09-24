@@ -180,7 +180,7 @@
   {
    "id": "I-004",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.geruest",
    "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
    "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min. | Modul gebaut (Forscher-Agent), R-0..R-4 im Code, Holm ueber R-1/R-2.",
@@ -288,6 +288,15 @@
    "frage": "Hybrid-Magie-Kaskade: Clifford-Stufe klassisch (0 T, kein Laden, nur Additionen), nur unsichere Bilder auf den Quantenrechner -- spart sie >= 75 % Hardware-T von k=2 ohne Genauigkeitsverlust?",
    "notiz": "Direktor 24.09. nach I-015 (post hoc 5 Seeds: 14,5 % der Hardware-T bei gleicher Genauigkeit). Bestaetigung vorregistriert: 10 frische Seeds 100-109, tau auf Validierung nach Hybrid-Kosten, H-1 T <= 25 % und Nichtunterlegenheit 0,5 pp, H-2 Konfidenz vs. Zufall. ~15 min.",
    "folgen": {}
+  },
+  {
+   "id": "I-004-mnist",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "prioritaet": 1,
+   "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
+   "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz)."
   }
  ]
 }

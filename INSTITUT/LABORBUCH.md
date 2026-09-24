@@ -519,3 +519,21 @@ Schwelle τ auf Validierung (Rohdaten `ergebnisse/I-015__20260924_234941.json`, 
   k=2** bei gleicher Genauigkeit (92,28 % gegen 92,24 %). 0 → 8 direkt: 9,4 %.
   → Als **I-015-hybrid** mit 10 frischen Seeds vorregistriert (H-1: ≤ 25 %
   und Nichtunterlegenheit 0,5 pp).
+
+## 25.09.2026, 00:00 — I-004 Clifford-Gerüst von Anfang an (Ziffern): Auflösung reicht nicht
+
+Ziffern 8×8, Seeds 80–89 (Rohdaten `ergebnisse/I-004__20260924_235757.json`, 8 min).
+R-0 H1 (Gewinn +2,1 pp, p = 0,004); R-1 HU (zufälliges Gerüst + 4 Winkel:
+G = 0,71, KI 0,47–0,96); R-2 HU (+0,28 G für nachträgliches Runden, Holm-p =
+0,15); R-3 HU (Gerüst mit neu initialisierten Magiewinkeln vs. Nachtraining,
+−0,06 G, KI −0,23…+0,10).
+
+| G(k) | k=1 | k=2 | k=4 | Trainings |
+|---|---|---|---|---|
+| nachträglich runden | 0,41 | 0,71 | 0,77 | 2 |
+| Gerüst aus vollem Modell, Winkel neu | 0,26 | 0,65 | 0,83 | 2 |
+| **zufälliges Gerüst**, Winkel von Anfang an | 0,23 | 0,43 | 0,71 | **1** |
+
+Beschreibend: Wenig-magische Schaltungen brauchen das volle Modell nicht —
+zufälliges Clifford-Gerüst + 4 trainierte Winkel holt ~70 % des Gewinns mit
+halbem Trainingsaufwand. Belastbar erst auf MNIST (I-004-mnist, Idee).
