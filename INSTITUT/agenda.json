@@ -152,7 +152,7 @@
   {
    "id": "I-001",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.magie_pruning",
    "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford",
    "notiz": "Aus der Ideenschmiede. Abbruch: Wenn Verlust-Ranking G(2) nicht um >=0,1 ueber Abstands-Ranking hebt (gepaart, 10 Seeds). Test: Ziffern, Winkel aus C-clifford-v2-Rohdaten, zwei Rankings, k in {1,2,4}: ~10 min CPU. | Modul gebaut (Forscher-Agent), P-0..P-3 im Code. Rauchtest: abstand/verlust korrelieren 0,94.",
@@ -161,8 +161,8 @@
   {
    "id": "I-002",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "erledigt",
+   "modul": "abteilungen.sre",
    "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
    "notiz": "Aus der Ideenschmiede. Abbruch: Rangkorrelation SRE vs. gemessenem Rundungsverlust ueber Seeds und Datensaetze |rho| < 0,3. Test: SRE aus gespeicherten Winkeln der C-Laeufe berechnen, gegen G(k) korrelieren: <5 min, kein Training.",
    "prioritaet": 1

@@ -110,3 +110,7 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 - **B-1**: H0: kein nachweisbarer Vorteil des bewussten Trainings
 - **B-2**: HU: KI ueberdeckt die Grenze
 - **Lehre:** Konsistent mit C-2: Clifford-Schaltungen allein bringen nichts. Wer die Winkel waehrend des Trainings zum Clifford-Gitter zieht (Abstand 0,23 statt 0,40 rad), zieht sie zum nutzlosen Bereich -- das volle Modell verliert schon vor dem Runden 1,4 pp (0,947 gegen 0,961), und die Rundung wird nicht besser (B-1: -0,4 pp, p=1,0). Magie laesst sich nicht wegtrainieren, sie IST der Nutzen. Folgerung: nicht ALLE Winkel zum Gitter ziehen, sondern nur die unwichtigen -- das ist genau I-001 (Magie-Pruning) bzw. I-004 (Gerüst + k Winkel).
+
+### 24.09.2026 19:44 — I-001 (automatisch)
+- **P-1**: HU: KI ueberdeckt 0.1 (Differenz +0.073, p = 0.3750, KI oben +0.217)
+- **Lehre:** P-1 HU: Verlust-Rangfolge hebt G(2) um +0,07 gegenueber Abstand (p=0,375), bei ~1,7 pp Gesamtgewinn auf den Ziffern ist 0,1 G nur ~1 Testbild -- Aufloesung zu klein (vom Forscher vorab gewarnt). P-2 H1: Wirkung schlaegt Zufall (+0,29 G, p=0,027). Folge: auf MNIST (Gewinn 3,8 pp) wiederholen, wenn Rechenzeit da ist.

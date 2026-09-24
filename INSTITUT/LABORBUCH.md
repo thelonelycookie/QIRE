@@ -345,3 +345,29 @@ Magieverbraucher — also muss das Magie-Budget über **Kodierung + Schaltung
 gemeinsam** gerechnet und optimiert werden (neue Karte I-020). Noch nicht
 gemessen: dünn besetzte Präparation (71 % der Pixel sind null) und eine
 Zelle, die direkt auf der billigen Kodierung trainiert wird.
+
+## 24.09.2026, 19:45 — I-001 Magie-Pruning und I-002 Stabilisator-Entropie
+
+**I-001** (Forscher-Agent, Ziffern, Seeds 30–39, eigene Rate je Arm):
+G(k) für k = 0 / 1 / 2 / 4 —
+
+| Rangfolge | k=1 | k=2 | k=4 |
+|---|---|---|---|
+| Abstand zum Gitter (bisher) | −0,04 | 0,60 | 0,69 |
+| Verlustanstieg (neu) | 0,15 | **0,67** | 0,79 |
+| gierig | 0,20 | 0,54 | **0,88** |
+| Zufall | 0,15 | 0,38 | 0,80 |
+
+P-0 H1 (Schaltung > Identität, p = 0,002). P-1 **HU** (+0,07 G gegenüber
+Abstand, p = 0,375 — Auflösung auf den Ziffern zu klein). P-2 **H1**
+(Wirkung schlägt Zufall bei k=2: +0,29 G, p = 0,027). → *Welche* Winkel
+magisch bleiben, ist nicht egal; die Wahl nach Wirkung ist messbar besser als
+Zufall. Wiederholung auf MNIST vorgemerkt.
+
+**I-002** (Forscher-Agent, exakte Operator-SRE über alle 4²ⁿ Pauli-Strings,
+Vortest gegen Brute Force n=1–3, π/4-Winkel → log₂(4/3)): S-1 **H0**
+(ρ = 0,26, p = 0,26; innerhalb der Datensätze p = 0,58), S-2 HU.
+**Einsicht:** gelernte Schaltungen tragen *so viel* Magie wie zufällige
+(Ziffern 4,38 vs. 4,58; MNIST 6,26 vs. 6,28) — nutzen davon aber nur wenige
+Winkel. **Vorhandene Magie ≠ genutzte Magie.** Ein Maß am Zustand oder
+Operator allein sieht die Aufgabe nicht; G(k) tut es.
