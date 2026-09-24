@@ -9,6 +9,8 @@ __pycache__/
 **/results/korpus/de_text.txt
 **/results/korpus/bpe_train.txt
 **/results/modelle/
+**/06_Fuer_den_Cluster_Daten/
+**/05_Code_fuer_den_Cluster.zip
 
 # Werkzeug-Zustand
 .claude-flow/

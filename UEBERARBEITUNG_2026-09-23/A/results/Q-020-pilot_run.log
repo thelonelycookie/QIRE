@@ -2,3 +2,101 @@
   mnist -- Lernratensuche (volles Budget, 1 Tuning-Seed(s))
     mnist         / q1              -> lr 0.1  ACHTUNG Rand oben   0.01:0.9037  0.1:0.9387
     mnist         / q1_ohne         -> lr 0.1  ACHTUNG Rand oben   0.01:0.8978  0.1:0.9392
+    mnist         / q5              -> lr 0.1  ACHTUNG Rand oben   0.01:0.9145  0.1:0.9387
+    mnist         / q5_ohne         -> lr 0.1  ACHTUNG Rand oben   0.01:0.9062  0.1:0.9389
+    mnist         / kron            -> lr 0.1  ACHTUNG Rand oben   0.01:0.9075  0.1:0.9349
+    mnist         / quad_free       -> lr 0.01  ACHTUNG Rand unten   0.01:0.9259  0.1:0.9122
+    mnist         / mlp             -> lr 0.01  ACHTUNG Rand unten   0.01:0.9198  0.1:0.3843
+    mnist         / linear          -> lr 0.01  ACHTUNG Rand unten   0.01:0.8599  0.1:0.7451
+    mnist         / ohne_engstelle  -> lr 0.01  ACHTUNG Rand unten   0.01:0.9373  0.1:0.8856
+    mnist         / norm_deep       -> lr 0.01  ACHTUNG Rand unten   0.01:0.8512  0.1:0.5131
+    mnist seed 20291 fertig (1/3)
+    mnist seed 20292 fertig (2/3)
+    mnist seed 20293 fertig (3/3)
+    Zwischenstand gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020-pilot__20260924_093937.json
+  Messzeilen (30): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020-pilot__20260924_093937.csv
+
+  haufen128 -- Lernratensuche (volles Budget, 1 Tuning-Seed(s))
+    haufen128     / q1              -> lr 0.1  ACHTUNG Rand oben   0.03:0.3405  0.1:0.3689
+    haufen128     / q1_ohne         -> lr 0.03  ACHTUNG Rand unten   0.03:0.3347  0.1:0.3280
+    haufen128     / q5              -> lr 0.03  ACHTUNG Rand unten   0.03:0.6586  0.1:0.6242
+    haufen128     / q5_ohne         -> lr 0.1  ACHTUNG Rand oben   0.03:0.3251  0.1:0.3353
+    haufen128     / kron            -> lr 0.03  ACHTUNG Rand unten   0.03:0.3467  0.1:0.3287
+    haufen128     / quad_free       -> lr 0.03  ACHTUNG Rand unten   0.03:1.0000  0.1:1.0000
+    haufen128     / mlp             -> lr 0.1  ACHTUNG Rand oben   0.03:0.9974  0.1:0.9981
+    haufen128     / linear          -> lr 0.03  ACHTUNG Rand unten   0.03:0.8614  0.1:0.8034
+    haufen128     / ohne_engstelle  -> lr 0.1  ACHTUNG Rand oben   0.03:0.9822  0.1:0.9991
+    haufen128 seed 20291 fertig (1/3)
+    haufen128 seed 20292 fertig (2/3)
+    haufen128 seed 20293 fertig (3/3)
+    Zwischenstand gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020-pilot__20260924_095434.json
+  Messzeilen (57): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020-pilot__20260924_095434.csv
+
+RESEARCH ID Q-020  ***  PILOT -- KEIN BEFUND  ***
+
+--- mnist -------------------------------------------------------
+  Arm              balanced      sd  Mitte-Param.      lr   n
+  q1                 0.9330  0.0024            16     0.1   3
+  q1_ohne            0.9340  0.0044            16     0.1   3
+  q5                 0.9336  0.0018            80     0.1   3
+  q5_ohne            0.9323  0.0033            80     0.1   3
+  kron               0.9341  0.0019             8     0.1   3
+  quad_free          0.9134  0.0084         2,048    0.01   3
+  mlp                0.9159  0.0103        67,848    0.01   3
+  linear             0.8770  0.0057         2,056    0.01   3
+  ohne_engstelle     0.9360  0.0024             0    0.01   3
+  norm_deep          0.8436  0.0221        67,848    0.01   3
+
+--- haufen128 ---------------------------------------------------
+  Arm              balanced      sd  Mitte-Param.      lr   n
+  q1                 0.3916  0.0280            16     0.1   3
+  q1_ohne            0.3490  0.0202            16    0.03   3
+  q5                 0.6605  0.0280            80    0.03   3
+  q5_ohne            0.3386  0.0165            80     0.1   3
+  kron               0.3495  0.0199             8    0.03   3
+  quad_free          1.0000  0.0000         2,048    0.03   3
+  mlp                0.9924  0.0070        67,848     0.1   3
+  linear             0.8220  0.0232         2,056    0.03   3
+  ohne_engstelle     0.9986  0.0003        65,792     0.1   3
+
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), Grenze +-0.005
+  [PRIMAER] HU_AUFLOESUNG -- PRIMAER: Aufloesungspruefung durchgefallen (mlp trennt sich nicht von linear). Der Aufbau sieht nicht einmal diesen groben Unterschied; KEIN Nullbefund, der Lauf ist fuer diese Frage blind.
+  [P2] HU_AUFLOESUNG -- P2: Aufloesungspruefung durchgefallen (mlp trennt sich nicht von linear). Der Aufbau sieht nicht einmal diesen groben Unterschied; KEIN Nullbefund, der Lauf ist fuer diese Frage blind.
+  [P3] HU_AUFLOESUNG -- P3: Aufloesungspruefung durchgefallen (mlp trennt sich nicht von linear). Der Aufbau sieht nicht einmal diesen groben Unterschied; KEIN Nullbefund, der Lauf ist fuer diese Frage blind.
+
+KONTROLLEN
+  mnist: Boden bestanden (bester 0.9360, Schwelle 0.200) | Aufloesung NICHT BESTANDEN (mlp-linear +0.0389, p=0.2500) | Aequivalenzkontrolle kron~q1_ohne: nicht erreicht (+0.0001, TOST p=0.0500)
+  haufen128: Boden bestanden (bester 1.0000, Schwelle 0.267) | Aufloesung NICHT BESTANDEN (mlp-linear +0.1704, p=0.2500) | Aequivalenzkontrolle kron~q1_ohne: bestanden (+0.0005, TOST p=0.0021)
+
+BESCHREIBEND (ohne Holm, kein Urteil haengt daran)
+  mnist                     q1 - quad_free      +0.0196  p=0.2500  TOST p=0.9305  unentschieden (+-0.0375)     16 Winkel gegen 2.048 (Q-003-Vergleich)
+  mnist                     q1 - linear         +0.0560  p=0.2500  TOST p=0.9974  unentschieden (+-0.0667)     Schaltung gegen lineare Untergrenze
+  mnist                     q5 - q1             +0.0006  p=0.5000  TOST p=0.0170  gleichwertig (+-0.005)       Tiefe MIT Encoder (alte Q-003-Kontrolle)
+  mnist                     q5 - q5_ohne        +0.0013  p=0.5000  TOST p=0.0946  unentschieden (+-0.0068)     Verschraenkung MIT Encoder (alter Q-003-Nullbefund)
+  mnist                q5_ohne - q1_ohne        -0.0017  p=0.5000  TOST p=0.0465  gleichwertig (+-0.005)       Tiefe ohne CNOT -- Theorie: gleichwertig
+  mnist                     q1 - q1_ohne        -0.0009  p=0.7500  TOST p=0.0430  gleichwertig (+-0.005)       CNOT in 1 Lage = nur Auslese-Vertauschung
+  mnist                   kron - q1_ohne        +0.0001  p=1.0000  TOST p=0.0500  unentschieden (+-0.0050)     AEQUIVALENZ-POSITIVKONTROLLE
+  mnist                    mlp - linear         +0.0389  p=0.2500  TOST p=0.9744  unentschieden (+-0.0622)     AUFLOESUNGSPRUEFUNG
+  mnist                    mlp - norm_deep      +0.0724  p=0.2500  TOST p=0.9935  unentschieden (+-0.0950)     ReLU-MLP gegen die Q-003-Kontrolle (Strohmann?)
+  mnist         ohne_engstelle - mlp            +0.0201  p=0.2500  TOST p=0.9248  unentschieden (+-0.0394)     was die 8-Kanal-Engstelle kostet
+  haufen128            q5_ohne - q1_ohne        -0.0104  p=0.2500  TOST p=0.7755  unentschieden (+-0.0274)     Tiefe ohne CNOT -- Theorie: gleichwertig
+  haufen128                 q1 - q1_ohne        +0.0425  p=0.5000  TOST p=0.8449  unentschieden (+-0.1239)     CNOT in 1 Lage = nur Auslese-Vertauschung
+  haufen128                 q5 - quad_free      -0.3395  p=0.2500  TOST p=0.9988  unentschieden (+-0.3867)     Schaltung 80 gegen 2.048
+  haufen128                 q5 - mlp            -0.3319  p=0.2500  TOST p=0.9986  unentschieden (+-0.3831)     Schaltung 80 gegen ReLU-MLP
+  haufen128                 q1 - mlp            -0.6008  p=0.2500  TOST p=0.9997  unentschieden (+-0.6431)     Schaltung 16 gegen ReLU-MLP
+  haufen128               kron - q1_ohne        +0.0005  p=0.5000  TOST p=0.0021  gleichwertig (+-0.005)       AEQUIVALENZ-POSITIVKONTROLLE
+  haufen128                mlp - linear         +0.1704  p=0.2500  TOST p=0.9946  unentschieden (+-0.2212)     AUFLOESUNGSPRUEFUNG
+  haufen128     ohne_engstelle - mlp            +0.0062  p=0.5000  TOST p=0.6057  unentschieden (+-0.0179)     was die 8-Kanal-Engstelle kostet
+
+  ACHTUNG, Lernrate am Gitterrand trotz Verlaengerung: {'mnist|q1': 'oben', 'mnist|q1_ohne': 'oben', 'mnist|q5': 'oben', 'mnist|q5_ohne': 'oben', 'mnist|kron': 'oben', 'mnist|quad_free': 'unten', 'mnist|mlp': 'unten', 'mnist|linear': 'unten', 'mnist|ohne_engstelle': 'unten', 'mnist|norm_deep': 'unten', 'haufen128|q1': 'oben', 'haufen128|q1_ohne': 'unten', 'haufen128|q5': 'unten', 'haufen128|q5_ohne': 'oben', 'haufen128|kron': 'unten', 'haufen128|quad_free': 'unten', 'haufen128|mlp': 'oben', 'haufen128|linear': 'unten', 'haufen128|ohne_engstelle': 'oben'}
+
+BEWERTUNG: PILOT, KEIN BEFUND: HU_AUFLOESUNG | HU_AUFLOESUNG | HU_AUFLOESUNG
+================================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020-pilot__20260924_095434.json
+  Messzeilen (57): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020-pilot__20260924_095434.csv

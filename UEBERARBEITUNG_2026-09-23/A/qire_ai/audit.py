@@ -132,6 +132,13 @@ def inventory() -> Dict[str, dict]:
         return found
     for path in files:
         payload = load(path)
+        if "experiment_id" not in payload or "records" not in payload:
+            # z. B. Wiederaufnahme-Zustaende anderer Laeufe
+            # (Q-020-pilot_wiederaufnahme.json, 24.09.). Keine Rohdatendatei --
+            # bis dahin brach das ganze Audit hier mit KeyError ab.
+            print(f"  {path.name:<40} keine Rohdatendatei (ohne experiment_id) "
+                  f"-- uebersprungen")
+            continue
         exp = payload["experiment_id"]
         cfg = payload["config"]
         seeds = cfg.get("seeds", [])

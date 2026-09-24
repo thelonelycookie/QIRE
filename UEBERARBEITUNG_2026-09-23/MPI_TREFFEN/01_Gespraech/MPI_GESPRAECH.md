@@ -125,7 +125,7 @@ Das ist nach eigener Einschätzung der belastbarste Teil der Arbeit:
 1. **T-002 — Sprachmodell auf deutscher Wikipedia (397 Mio. Token).** Ein kleiner
    Transformer (5,3 Mio. Parameter), bei dem Teile durch die Quantenstruktur ersetzt werden.
    Vier Varianten × 8 Wiederholungen = 32 Trainingsläufe. Auf meiner CPU unmöglich, auf
-   einer GPU ~30–35 Stunden, auf mehreren GPUs parallel ein Nachmittag. Ergebnis: der Chatbot
+   einer GPU ~60–75 Stunden (vorsichtige Schätzung), auf 8 GPUs parallel rund 7–11 Stunden. Ergebnis: der Chatbot
    und die Antwort, ob die Struktur im Sprachmodell hält.
 2. **Q-020 — die Kernaussage fair nachmessen** (CPU, mehrere Stunden).
 3. **Q-011 — Orthogonalität in großer Tiefe** (CPU, 10–14 Stunden, halb fertig).
@@ -149,7 +149,7 @@ Verlust (32-fach weniger Parameter). Das braucht keine zusätzliche Rechenzeit.
 
 | Priorität | Was | Umfang | Wofür |
 |---|---|---|---|
-| 1 | **GPU-Rechenzeit** (eine oder mehrere GPUs, z. B. A100/H100/RTX-Klasse) | ~30–35 GPU-Stunden, gern verteilt auf mehrere GPUs | T-002 Sprachmodell (8 Seeds × 4 Varianten + Lernratensuche) |
+| 1 | **GPU-Rechenzeit** (eine oder mehrere GPUs, z. B. A100/H100/RTX-Klasse) | ~60–75 GPU-Stunden (Obergrenze der Schätzung), gern verteilt auf mehrere GPUs | T-002 Sprachmodell (8 Seeds × 4 Varianten + Lernratensuche) |
 | 2 | **CPU-Rechenknoten** | ~30–40 CPU-Stunden auf 6–8 Kernen | Q-020, Q-011, Q-019 — damit mein PC frei bleibt und Läufe nicht mit der Sitzung sterben |
 | 3 | **Eine fachliche Ansprechperson** (Physik, gern Theorie oder Quanteninformation) | ein paar Gespräche bis Januar | Rückmeldung zu Deutung und Methodik: „Ist das quanten?“, „Ist der Test fair?“ |
 | 4 | optional: **Zugang zu einem kleinen echten Datensatz** aus dem Institut (Spektren, Zeitreihen, Messsignale) | wenige MB | eine echte Anwendung statt MNIST — Signale sind genau das, wofür die FFT-artige Struktur gebaut ist |
@@ -186,8 +186,8 @@ abbruchfest (setzen nach Absturz fort) und schreiben Rohdaten nach jedem Abschni
 | Lauf | Rechner | Einzelteile | Zeit | Bemerkung |
 |---|---|---|---|---|
 | T-002 Hauptlauf | GPU | 32 Trainingsläufe (4 Varianten × 8 Seeds), 13.000 Schritte, Batch 64 × 128 Token | Butterfly-Lauf ≈ 72 min (0,334 s/Schritt auf RTX 4090); dichte Läufe viel schneller | Läufe sind **unabhängig** → beliebig parallel |
-| T-002 Lernratensuche | GPU | 4 Varianten × ≥4 Lernraten, volles Budget | ~10 GPU-h | nötig nach Protokoll |
-| **T-002 gesamt** | GPU | ~48 Läufe | **~30–35 GPU-h** auf einer Karte | 8 GPUs → ~4–5 h |
+| T-002 Lernratensuche | GPU | 4 Varianten × ≥4 Lernraten, je 13.000 Schritte (volles Budget) | ~16–30 GPU-h | nötig nach Protokoll |
+| **T-002 gesamt** | GPU | 48–60 Läufe | **~60–75 GPU-h** auf einer Karte (Schätzung, eher Obergrenze) | 8 GPUs → ~7–11 h, 16 GPUs → ~4–7 h |
 | Q-020 | CPU | [wird gerade geschätzt] | mehrere Stunden | faire Neuprüfung der Kernaussage |
 | Q-011 Rest | CPU | Tiefe 16 + Fashion-MNIST | 10–14 h | Unitarität in der Tiefe |
 | Q-019 | CPU | 5 Varianten × 2 Bedingungen × 15 Seeds | 4,6–5,5 h | Zeitreihen |

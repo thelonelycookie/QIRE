@@ -223,7 +223,9 @@ class Buendler(nn.Module):
         lagen = self._gruppenmatrizen()
         spalten = []
         for s in range(0, self.d, 1024):                     # stueckweise: Speicher
-            e = torch.eye(self.d, dtype=self.dtype, device=self.theta.device)[s:s + 1024]
+            r = torch.arange(s, min(s + 1024, self.d), device=self.theta.device)
+            e = torch.zeros(len(r), self.d, dtype=self.dtype, device=self.theta.device)
+            e[torch.arange(len(r)), r] = 1
             spalten.append(self._zustand_kron(e, lagen))
         ut = torch.cat(spalten, 0)                           # Zeile j = U e_j  ->  U^T
         return torch.cat([ut.real, ut.imag], dim=1).contiguous()

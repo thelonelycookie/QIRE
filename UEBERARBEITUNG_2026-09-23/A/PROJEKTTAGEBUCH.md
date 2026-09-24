@@ -4428,6 +4428,198 @@ Speichern ohne Wiederaufnahme rettet die Daten, aber nicht die Rechenzeit.
 `sprachmodell.py` kann beides, `unitarity_depth.py` nur das eine — und das ist
 kein Zufall, sondern schlicht das ältere Skript.
 
+## 23. September — Gesamtreview: was hält, was nicht
+
+*Entwurf aus der Überarbeitung vom 23./24. September, mit KI-Unterstützung
+geschrieben wie alle Einträge (siehe Kopf dieses Tagebuchs). Ich prüfe ihn und
+übernehme ihn erst dann in die Hauptfassung.*
+
+Seit dem 30. August habe ich nichts gerechnet. Bevor ich weitermache, habe ich
+alles einmal gegen alles gelesen: Code, Rohdaten, `q_audit`, `q_summary`, dieses
+Tagebuch, die Übergaben und die Kurzfassung. Die vollständige Liste steht in
+`BERICHT/00_REVIEW_BEFUNDE.md` im Überarbeitungsordner. Hier das, was meine
+Aussagen ändert.
+
+### 1. Die Kontrolle meiner Kernaussage war zu schwach
+
+Seit dem 5. August führe ich als Kernaussage: 16–80 Schaltungsparameter
+schlagen ein klassisches Netz mit 67.848 um +0,0932. Geprüft hatte ich diese
+Kontrolle immer nur *gegen die Schaltung* — nie gegen etwas Einfacheres.
+
+Genau das wurde jetzt nachgeholt, allerdings nur als **Stichprobe**: 3 Seeds
+(2301–2303), gleicher Lader, gleiche Trainingsschleife, Lernrate je Arm auf
+denselben Seeds gewählt. **Das ist keine Messung im Sinne meines Protokolls** —
+zu wenige Seeds, nicht vorregistriert, Suche und Messung auf denselben Seeds.
+Ich führe die Zahlen nur als Anlass, nicht als Befund:
+
+| MNIST, Stichprobe | balancierte Genauigkeit |
+|---|---|
+| `classical_norm_deep` (die Kontrolle aus Q-003) | 0,8544 |
+| rein linear 784→256→8→10 | 0,8873 |
+| ReLU-Netz 784→256→256→8→10, ohne Normierung | 0,9246 |
+| ohne 8-Kanal-Engstelle | 0,9371 |
+
+Auf Fashion-MNIST dasselbe Bild (Kontrolle 0,7541, linear 0,8037, ReLU 0,8214).
+
+Meine „starke klassische Referenz“ ist also **schlechter als ein lineares
+Modell**. Normierung auf Einheitslänge plus Tanh-Engstelle lähmen sie. Der
+Abstand +0,0932 misst deshalb vor allem, wie schwach die Kontrolle ist. Die
+Zahl ist nicht falsch — sie ist gegen einen Strohmann gemessen, und das habe
+ich zwei Monate lang nicht gesehen.
+
+Davon ist auch meine Zerlegung vom 6. August betroffen („neun Zehntel des
+Vorteils sind die Born-Regel“): Die 87 % und 92 % sind Anteile an einem Abstand
+zu genau dieser Kontrolle. Ich nehme sie als Zahl zurück. Die Beobachtung, dass
+dieselbe Operation als Gate nichts bringt und als Auslese trägt, bleibt.
+
+Was trotzdem trägt: **16 Winkel** (0,9337) liegen vor dem klassischen
+Quadratmodell mit **2.048** Parametern (0,9213) — nicht vorregistriert, auf
+Fashion-MNIST nicht signifikant. Und das ReLU-Netz der Stichprobe (0,9246) hat
+in der Mittelschicht ebenfalls rund 68.000 Parameter. **Diese Gegenüberstellung
+darf ich aber nicht als Ergebnis schreiben:** 0,9337 stammt aus Q-003, 0,9246 aus
+der Stichprobe — zwei Läufe, zwei Seed-Sätze. Genau diese Sorte Vermischung hat
+am 6. August das „+0,0044“ erzeugt. Beides muss in *einem* Lauf gemessen werden.
+Das ist Q-020 (a).
+
+Daraus eine neue Regel:
+
+**Eine Kontrolle muss selbst gegen eine triviale Referenz (linear) geprüft
+werden.** Sonst misst der Abstand die Schwäche der Kontrolle, nicht die Stärke
+des Mechanismus.
+
+### 2. Verschränkung und Tiefe — „belegt“ war falsch
+
+Beide Gleichwertigkeiten (−0,0015 und +0,0002, TOST) stammen aus
+Q-003-replication. Drei Gründe, warum ich sie nicht mehr als belegt führe:
+
+- **Trainierbarer Encoder.** Am 10. August habe ich an Q-014/Q-018 gelernt:
+  *Ein Nullbefund an einem Bauteil ist wertlos, solange ein anderes Bauteil
+  dessen Aufgabe übernehmen kann.* Ich habe die Lehre auf Q-014 angewandt, aber
+  nicht auf Verschränkung und Tiefe — obwohl dort derselbe Encoder 784→256 in
+  jedem Arm steckte.
+- **Die Tiefe war die Positivkontrolle — und ist durchgefallen.** Am 5. August
+  habe ich geschrieben, sie sei durchgefallen, „nicht weil der Aufbau blind
+  wäre, sondern weil es den Unterschied nicht gibt“. Das konnte ich nicht
+  wissen. `q_summary` sagt ausdrücklich, dass aus diesem Lauf keine
+  Gleichwertigkeitsaussage steht. Die Dokumente haben es trotzdem als
+  „positiven Gleichwertigkeitsnachweis“ geführt.
+- **Es widerspricht meiner eigenen Theorie.** Ohne CNOT ist jede Tiefe ein
+  Produkt aus Ein-Qubit-Drehungen, also ein Kronecker-Produkt U₁⊗…⊗U₈ — dort
+  *kann* Tiefe nichts bringen, die Gruppe ist abgeschlossen. Mit Verschränkung
+  braucht Universalität dagegen Tiefe; das habe ich am 6. August selbst
+  gerechnet („Teilung kostet Tiefe, nicht Parameter“). „Tiefe trägt nichts bei“
+  ist allgemein formuliert also mit meiner eigenen Rechnung unvereinbar.
+
+Neuer Status: **mit trainierbarem Encoder und durchgefallener Positivkontrolle
+gemessen, Nachtest Q-020 (b)** — Verschränkung × Tiefe im Q-018-Aufbau ohne
+Encoder, wo die Winkel nachweislich tragen (+0,4077).
+
+### 3. B-014: korrigiert im Tagebuch, nicht im Code
+
+Am 27. August habe ich die Pseudoreplikation in B-014 gefunden und hier
+korrigiert. `intrinsic_dimension.py` rechnete aber weiter über 240
+Einzelmessungen (Zeilen 192–202). Wer die Auswertung neu gestartet hätte, hätte
+wieder p=3·10⁻¹⁸⁷ bekommen. Dazu:
+
+- Das automatische Urteil sagt „d erklärt mehr als die Klassenzahl“, die
+  korrigierten Zellmittel sagen trainiert d ρ=0,61, Klassen ρ=0,67. Es gelten die
+  Zellmittel.
+- Die Überschrift „Rang wird von der Aufgabe gesetzt, **nicht von der
+  Architektur**“ ist überdehnt: Die Architektur habe ich in B-014 gar nicht
+  variiert (eine MLP, Breite 4096).
+- `qire_ai.audit` prüft nur 15 B-Zahlen — ausgerechnet B-014 nicht.
+
+Die zweite neue Regel:
+
+**Korrekturen müssen im Code landen, nicht nur im Tagebuch.** Eine Korrektur
+ist erst erledigt, wenn der Code das Richtige ausgibt und ein Prüfwerkzeug die
+Zahl nachrechnet.
+
+### 4. T-002: vier Fehler vor jedem GPU-Lauf
+
+1. Die Lernratensuche läuft 1.000 Schritte, der Messlauf 13.000 bzw. 20.000 —
+   Regel 1(c), und schlimmer als das halbe Budget vom 27. August. Das Modul
+   fehlte in meiner Liste der elf.
+2. Die Wiederaufnahme liest nur die neueste T-002-Datei. Weil `runpod_start.sh`
+   vorher die Probe fährt, ist danach die Probe die neueste Datei, und der
+   Hauptlauf fängt still bei null an. Meine Notiz vom 30. August („getestet“)
+   war zu optimistisch.
+3. Die Schrittzahl ist nicht festgelegt (13.000 gegen 20.000).
+4. Gespeichert wird der Rückfallwert der Lernrate, nicht die benutzte.
+
+Dazu ein Einwand gegen meine eigene Architektur: `ButterflyFFN` gibt
+|Amplitude|² aus — nichtnegativ, mit fester Summe. Der FFN-Block kann damit
+nichts vom Residualstrom abziehen. `butterfly_qkv` lag in der Probe fast
+gleichauf mit dense. Ob ich einen zusätzlichen, zentrierten Arm außerhalb der
+Familie aufnehme, entscheide ich **vor** dem Lauf und schreibe es hier hinein.
+
+### 5. Q-019 und die Dokumente
+
+- Die `untied`-Entscheidung ist am 27. August nachts gefallen; die Übergabe
+  führte sie noch als offen. Laufzeit 4,6–5,5 h.
+- Die Primärhypothese von Q-019 ist fast per Konstruktion wahr: Eine feste
+  Permutation kann eine dichte Schicht mitlernen, eine Butterfly nicht. Das
+  zeigt Ordnungsabhängigkeit, keinen Vorteil. Echte Chancen sehe ich bei wenig
+  Trainingsdaten und bei Walsh-Hadamard statt Fourier — die geteilte Butterfly
+  ohne CNOT enthält die Walsh-Hadamard-Transformation exakt.
+- Die Kurzfassung vom 6. August hatte veraltete Zahlen: B-014 vor der
+  Korrektur, das vermischte „+0,0044“ in der Zusatztabelle, „1,99×“ statt der
+  T-001-Werte (1,59× Referenz, 2,31× schnell), und die Hardware-Tabelle ohne
+  Stichprobengröße. Der IBM-Lauf hatte 20 Testbeispiele je Schaltung
+  (Übereinstimmung 17/20 bzw. 15/20) und rechnete ein **anderes** Modell
+  (Winkelkodierung, 4/6 Qubits) als meine Kernaussage. Neu:
+  `KURZFASSUNG_ENTWURF_v2.md`.
+- Die Literatur: Eine praktisch gleiche Schaltung ist als Adapter für große
+  Sprachmodelle veröffentlicht (Quantum-PEFT, laut
+  `LITERATUR_UND_ALLEINSTELLUNG.md`, bisher nur Abstracts). Die Schaltung ist
+  also nicht mein Beitrag — die Abgrenzung und die Zerlegung sind es.
+
+### 6. Infrastruktur
+
+- Kein Git. Für ein Projekt, das von Vorregistrierung lebt, ist ein Commit
+  *vor* den Rohdaten der stärkste Beleg.
+- `ibm_quantum_token.txt` liegt im Klartext im Archivordner. Nach der
+  PC-Infektion gilt der Token als kompromittiert.
+- Die Counts der IBM-Läufe habe ich nie gespeichert, nur die Zusammenfassung.
+
+### Was hält
+
+- Q-015 auf MNIST: +0,0674 gegen die volle globale Drehung bei 408-fach weniger
+  Freiheitsgraden (Fashion bleibt zurückgezogen).
+- Q-018: +0,4077, 15/15, Auflösungsprüfung bestanden.
+- T-001: Übergangspunkt 16.384, Cache-Kante der dichten Schicht.
+- Die Theorie: Konzentrationsprinzip (die Messwerte aber nur im Tagebuch, nicht
+  in Rohdaten), Rayleigh-Quotient, Universalität bei dim SU(d) Parametern.
+- Aus Projekt B: B-011, B-012, B-014 in der Zellmittel-Fassung.
+- 16 Winkel vor dem 2.048-Parameter-Quadratmodell — als Anlass, nicht als Befund.
+
+### Was ich entscheiden muss
+
+1. Q-020 freigeben — (a) faire Referenz, (b) Verschränkung × Tiefe ohne
+   Encoder; Vorregistrierung vor dem Lauf hier eintragen. *(Laut
+   `ENTWURF_Q020.md` existiert ein Pilot mit 3 Seeds; er ist kein Befund.)*
+2. T-002: `ButterflyFFN` so lassen oder zusätzlicher zentrierter Arm.
+3. Q-019 so laufen lassen oder auf Datenknappheit / Walsh-Hadamard umbauen.
+4. Q-011 mit Wiederaufnahme zu Ende rechnen.
+5. Git einrichten.
+6. IBM-Token neu erzeugen und die Klartextdatei entfernen.
+7. Aufteilung A/B für die Anmeldung; die doppelte Kennung B-003.
+8. Die Frist der schriftlichen Arbeit beim Landeswettbewerb prüfen: Anmeldung
+   30. November, Arbeit Mitte Januar 2027 (eine Landesseite nennt den 17.01.).
+   Die GPU-Ergebnisse brauche ich also erst im Januar.
+
+### Was ich daraus mitnehme
+
+Ich habe diesen Sommer gelernt, Mechanismen gegen Kontrollen zu prüfen. Die
+Kontrollen selbst habe ich nie geprüft. Eine Kontrolle ist auch eine Behauptung
+— nämlich die, dass sie das Beste ist, was die klassische Seite kann — und sie
+gehört genauso gegen etwas Einfacheres gehalten wie der Mechanismus.
+
+Und: Zwei meiner eigenen Werkzeuge haben das Richtige gesagt, und ich habe es
+nicht übernommen. `q_summary` meldet die durchgefallene Positivkontrolle
+ausdrücklich, der Code von B-014 hat die alte Zahl weiter ausgegeben. Ein
+Werkzeug hilft nur, wenn ich seine Ausgabe auch in die Dokumente trage.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der
