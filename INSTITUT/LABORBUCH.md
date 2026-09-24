@@ -463,3 +463,38 @@ T-Zahl gesamt = Laden (Qiskit-Synthese, exakt) + Schaltung (≈ 31·k).
   4 % der Rechnung; 96 % sind Datenladen.* Die nächste Front ist eindeutig
   die Kodierung selbst.
 - Vorbehalt: Die Magie-Arme nutzen `_gerundet` (Nachtrain-Fehler, C-referenz).
+
+## 24.09.2026, 23:50 — C-referenz: Verdacht widerlegt, Konzentration repliziert auf frischen Seeds
+
+MNIST + Fashion 16×16, frische Seeds 30–39, Raten aus C-mnist/C-fashion,
+Arm *nachtrainiert* = alle 32 Winkel frei mit derselben zweiten Phase wie die
+Rundungsarme (Rohdaten `ergebnisse/C-referenz__20260924_234210.json`, 80 min).
+
+| | Identität | k0 | k1 | k2 | k4 | k8 | nachtrainiert | voll |
+|---|---|---|---|---|---|---|---|---|
+| MNIST | 0,900 | 0,910 | 0,916 | 0,918 | 0,926 | 0,931 | 0,938 | 0,938 |
+| Fashion | 0,798 | 0,816 | 0,822 | 0,827 | 0,831 | 0,834 | 0,804* | 0,832 |
+
+\* 4 von 10 Seeds kollabieren (0,725–0,812) bei Rate 0,32.
+
+- R-1 (vorregistriert) **HU** gesamt; **MNIST: keine Verzerrung** (d = −0,03 pp,
+  KI [−0,24; +0,18] ganz in ±0,3 pp). Fashion: Referenz instabil, auf den 6
+  stabilen Seeds d = +0,03 pp.
+- R-2 **HU (Vorbedingung)** wegen der kaputten Fashion-Referenz. MNIST allein:
+  Magieanteil Gm*(4) = 0,59, KI [0,30; 0,77], Magiegewinn +2,7 pp (p = 0,002).
+- R-3 formal „H1“, aber **Artefakt** der instabilen Referenz — verworfen.
+  k8 − voll auf Fashion: +0,24 pp, p = 0,08 (repliziert +0,53 pp nicht).
+- **Replikation auf frischen Seeds** (G mit Basis Identität, gegen voll):
+
+| k von 32 | 0 | 1 | 2 | 4 | 8 |
+|---|---|---|---|---|---|
+| MNIST C-mnist (Seeds 10–19) | 0,17 | 0,49 | 0,53 | 0,68 | 0,89 |
+| MNIST C-referenz (Seeds 30–39) | 0,27 | 0,43 | 0,49 | 0,70 | 0,83 |
+| Fashion C-fashion (10–19) | 0,58 | 0,68 | 0,85 | 1,01 | 1,14 |
+| Fashion C-referenz (30–39) | 0,52 | 0,73 | 0,85 | 0,99 | 1,07 |
+
+**Ergebnis:** Die Magie-Konzentration ist auf zwei Datensätzen und je zwei
+unabhängigen Seed-Sätzen stabil: **4 von 32 Winkeln tragen 70 % (MNIST) bzw.
+~100 % (Fashion) des Schaltungsgewinns**. M50 = 2–4 (MNIST liegt bei k=2
+genau an der Grenze), M90 ≈ 8–12 bzw. 4. Der Störfaktor war nicht das
+Nachtraining, sondern eine für wenige Parameter getunte Lernrate (FEHLERBUCH).

@@ -1,0 +1,503 @@
+{
+ "abteilung": "Clifford",
+ "hypothesen": {
+  "R-1": "Nachtraining verzerrt die Referenz: d = acc(nachtrainiert) - acc(voll) je Datensatz. H1: |mittel(d)| >= 0,3 pp und exakter Wilcoxon zweiseitig p < alpha_Holm (Holm ueber die zwei Datensaetze). H0: 90-%-KI von d ganz in +-0,3 pp (TOST). Sonst HU.",
+  "R-2": "Magie-Konzentration haelt gegen die faire Referenz: Magieanteil Gm*(k) = (acc_k - acc_k0) / (acc_nachtrainiert - acc_k0) (Verhaeltnis der Mittel). Vorbedingung: nachtrainiert schlaegt k0 (Wilcoxon p < 0,05). H1: untere Grenze des 95-%-Bootstrap-KI (Seeds) von Gm*(4) >= 0,5 auf BEIDEN Datensaetzen (4 von 32 Winkeln tragen mindestens die Haelfte des Magie-Nutzens). H0: obere Grenze < 0,5 auf mindestens einem. Sonst HU.",
+  "R-3": "Rundung als Regularisierer (Nachpruefung des explorativen Fashion-Befunds k8 > voll): d = acc(k8) - acc(nachtrainiert) auf fashion_mnist. H1: mittel > 0 und einseitiger exakter Wilcoxon p < 0,05. H0: TOST +-0,3 pp oder mittel < 0 mit p < 0,05. Sonst HU. MNIST beschreibend.",
+  "R-4": "beschreibend: G*(k) (Basis Identitaet), Gm*(k), M50*/M90* je Datensatz, neben den alten voll-basierten Werten."
+ },
+ "raten": {
+  "mnist": {
+   "voll": 0.08,
+   "ohne_schaltung": 0.08,
+   "rundung": 0.08
+  },
+  "fashion_mnist": {
+   "voll": 0.08,
+   "ohne_schaltung": 0.08,
+   "rundung": 0.32
+  }
+ },
+ "schritte": 1500,
+ "zeilen": [
+  {
+   "seed": 30,
+   "datensatz": "mnist",
+   "voll": 0.9308000206947327,
+   "ohne_schaltung": 0.8934000134468079,
+   "clifford_k0": 0.9074000120162964,
+   "clifford_k1": 0.9156000018119812,
+   "clifford_k2": 0.909600019454956,
+   "clifford_k4": 0.9261999726295471,
+   "clifford_k8": 0.9265999794006348,
+   "nachtrainiert": 0.9336000084877014
+  },
+  {
+   "seed": 31,
+   "datensatz": "mnist",
+   "voll": 0.9394000172615051,
+   "ohne_schaltung": 0.8931999802589417,
+   "clifford_k0": 0.9146000146865845,
+   "clifford_k1": 0.9197999835014343,
+   "clifford_k2": 0.9254000186920166,
+   "clifford_k4": 0.9282000064849854,
+   "clifford_k8": 0.9300000071525574,
+   "nachtrainiert": 0.9409999847412109
+  },
+  {
+   "seed": 32,
+   "datensatz": "mnist",
+   "voll": 0.9391999840736389,
+   "ohne_schaltung": 0.8998000025749207,
+   "clifford_k0": 0.9089999794960022,
+   "clifford_k1": 0.9204000234603882,
+   "clifford_k2": 0.9261999726295471,
+   "clifford_k4": 0.9318000078201294,
+   "clifford_k8": 0.9340000152587891,
+   "nachtrainiert": 0.9404000043869019
+  },
+  {
+   "seed": 33,
+   "datensatz": "mnist",
+   "voll": 0.9344000220298767,
+   "ohne_schaltung": 0.8980000019073486,
+   "clifford_k0": 0.8970000147819519,
+   "clifford_k1": 0.9110000133514404,
+   "clifford_k2": 0.9172000288963318,
+   "clifford_k4": 0.9190000295639038,
+   "clifford_k8": 0.9211999773979187,
+   "nachtrainiert": 0.9344000220298767
+  },
+  {
+   "seed": 34,
+   "datensatz": "mnist",
+   "voll": 0.9412000179290771,
+   "ohne_schaltung": 0.9038000106811523,
+   "clifford_k0": 0.9179999828338623,
+   "clifford_k1": 0.9243999719619751,
+   "clifford_k2": 0.9246000051498413,
+   "clifford_k4": 0.9401999711990356,
+   "clifford_k8": 0.9341999888420105,
+   "nachtrainiert": 0.9423999786376953
+  },
+  {
+   "seed": 35,
+   "datensatz": "mnist",
+   "voll": 0.9330000281333923,
+   "ohne_schaltung": 0.900600016117096,
+   "clifford_k0": 0.9085999727249146,
+   "clifford_k1": 0.9075999855995178,
+   "clifford_k2": 0.9110000133514404,
+   "clifford_k4": 0.920199990272522,
+   "clifford_k8": 0.928600013256073,
+   "nachtrainiert": 0.9358000159263611
+  },
+  {
+   "seed": 36,
+   "datensatz": "mnist",
+   "voll": 0.9327999949455261,
+   "ohne_schaltung": 0.8988000154495239,
+   "clifford_k0": 0.9125999808311462,
+   "clifford_k1": 0.9074000120162964,
+   "clifford_k2": 0.9143999814987183,
+   "clifford_k4": 0.920199990272522,
+   "clifford_k8": 0.926800012588501,
+   "nachtrainiert": 0.932200014591217
+  },
+  {
+   "seed": 37,
+   "datensatz": "mnist",
+   "voll": 0.9459999799728394,
+   "ohne_schaltung": 0.9028000235557556,
+   "clifford_k0": 0.9290000200271606,
+   "clifford_k1": 0.9279999732971191,
+   "clifford_k2": 0.9125999808311462,
+   "clifford_k4": 0.9089999794960022,
+   "clifford_k8": 0.9422000050544739,
+   "nachtrainiert": 0.9373999834060669
+  },
+  {
+   "seed": 38,
+   "datensatz": "mnist",
+   "voll": 0.9419999718666077,
+   "ohne_schaltung": 0.901199996471405,
+   "clifford_k0": 0.9101999998092651,
+   "clifford_k1": 0.9089999794960022,
+   "clifford_k2": 0.9222000241279602,
+   "clifford_k4": 0.9330000281333923,
+   "clifford_k8": 0.932200014591217,
+   "nachtrainiert": 0.9376000165939331
+  },
+  {
+   "seed": 39,
+   "datensatz": "mnist",
+   "voll": 0.9395999908447266,
+   "ohne_schaltung": 0.9085999727249146,
+   "clifford_k0": 0.8966000080108643,
+   "clifford_k1": 0.9186000227928162,
+   "clifford_k2": 0.9211999773979187,
+   "clifford_k4": 0.9366000294685364,
+   "clifford_k8": 0.9380000233650208,
+   "nachtrainiert": 0.9405999779701233
+  },
+  {
+   "seed": 30,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8303999900817871,
+   "ohne_schaltung": 0.7964000105857849,
+   "clifford_k0": 0.8180000185966492,
+   "clifford_k1": 0.8209999799728394,
+   "clifford_k2": 0.826200008392334,
+   "clifford_k4": 0.8335999846458435,
+   "clifford_k8": 0.8375999927520752,
+   "nachtrainiert": 0.8256000280380249
+  },
+  {
+   "seed": 31,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8306000232696533,
+   "ohne_schaltung": 0.79339998960495,
+   "clifford_k0": 0.8158000111579895,
+   "clifford_k1": 0.8216000199317932,
+   "clifford_k2": 0.8288000226020813,
+   "clifford_k4": 0.8288000226020813,
+   "clifford_k8": 0.8371999859809875,
+   "nachtrainiert": 0.7531999945640564
+  },
+  {
+   "seed": 32,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8320000171661377,
+   "ohne_schaltung": 0.7937999963760376,
+   "clifford_k0": 0.8101999759674072,
+   "clifford_k1": 0.817799985408783,
+   "clifford_k2": 0.8271999955177307,
+   "clifford_k4": 0.8263999819755554,
+   "clifford_k8": 0.8327999711036682,
+   "nachtrainiert": 0.8381999731063843
+  },
+  {
+   "seed": 33,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8327999711036682,
+   "ohne_schaltung": 0.7972000241279602,
+   "clifford_k0": 0.8199999928474426,
+   "clifford_k1": 0.8253999948501587,
+   "clifford_k2": 0.8313999772071838,
+   "clifford_k4": 0.8379999995231628,
+   "clifford_k8": 0.8360000252723694,
+   "nachtrainiert": 0.8309999704360962
+  },
+  {
+   "seed": 34,
+   "datensatz": "fashion_mnist",
+   "voll": 0.829200029373169,
+   "ohne_schaltung": 0.796999990940094,
+   "clifford_k0": 0.8180000185966492,
+   "clifford_k1": 0.8172000050544739,
+   "clifford_k2": 0.8252000212669373,
+   "clifford_k4": 0.8270000219345093,
+   "clifford_k8": 0.8334000110626221,
+   "nachtrainiert": 0.7250000238418579
+  },
+  {
+   "seed": 35,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8338000178337097,
+   "ohne_schaltung": 0.8026000261306763,
+   "clifford_k0": 0.8163999915122986,
+   "clifford_k1": 0.8222000002861023,
+   "clifford_k2": 0.8241999745368958,
+   "clifford_k4": 0.8324000239372253,
+   "clifford_k8": 0.8367999792098999,
+   "nachtrainiert": 0.8309999704360962
+  },
+  {
+   "seed": 36,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8339999914169312,
+   "ohne_schaltung": 0.8001999855041504,
+   "clifford_k0": 0.8104000091552734,
+   "clifford_k1": 0.817799985408783,
+   "clifford_k2": 0.8162000179290771,
+   "clifford_k4": 0.8235999941825867,
+   "clifford_k8": 0.8321999907493591,
+   "nachtrainiert": 0.8425999879837036
+  },
+  {
+   "seed": 37,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8263999819755554,
+   "ohne_schaltung": 0.7968000173568726,
+   "clifford_k0": 0.8118000030517578,
+   "clifford_k1": 0.8209999799728394,
+   "clifford_k2": 0.824400007724762,
+   "clifford_k4": 0.8338000178337097,
+   "clifford_k8": 0.8312000036239624,
+   "nachtrainiert": 0.8227999806404114
+  },
+  {
+   "seed": 38,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8349999785423279,
+   "ohne_schaltung": 0.8011999726295471,
+   "clifford_k0": 0.8109999895095825,
+   "clifford_k1": 0.8234000205993652,
+   "clifford_k2": 0.8274000287055969,
+   "clifford_k4": 0.8330000042915344,
+   "clifford_k8": 0.8348000049591064,
+   "nachtrainiert": 0.8119999766349792
+  },
+  {
+   "seed": 39,
+   "datensatz": "fashion_mnist",
+   "voll": 0.8324000239372253,
+   "ohne_schaltung": 0.8015999794006348,
+   "clifford_k0": 0.8241999745368958,
+   "clifford_k1": 0.8375999927520752,
+   "clifford_k2": 0.8342000246047974,
+   "clifford_k4": 0.8356000185012817,
+   "clifford_k8": 0.8285999894142151,
+   "nachtrainiert": 0.7631999850273132
+  }
+ ],
+ "sekunden": 4785.382699251175,
+ "auswertung": {
+  "mnist": {
+   "voll": {
+    "mittel": 0.9378400027751923,
+    "std": 0.004862359664404129,
+    "min": 0.9308000206947327,
+    "max": 0.9459999799728394,
+    "n": 10
+   },
+   "ohne_schaltung": {
+    "mittel": 0.9000200033187866,
+    "std": 0.004634601729821693,
+    "min": 0.8931999802589417,
+    "max": 0.9085999727249146,
+    "n": 10
+   },
+   "clifford_k0": {
+    "mittel": 0.9102999985218048,
+    "std": 0.009488823756163216,
+    "min": 0.8966000080108643,
+    "max": 0.9290000200271606,
+    "n": 10
+   },
+   "clifford_k1": {
+    "mittel": 0.916179996728897,
+    "std": 0.007253162427493596,
+    "min": 0.9074000120162964,
+    "max": 0.9279999732971191,
+    "n": 10
+   },
+   "clifford_k2": {
+    "mittel": 0.9184400022029877,
+    "std": 0.006270067469237731,
+    "min": 0.909600019454956,
+    "max": 0.9261999726295471,
+    "n": 10
+   },
+   "clifford_k4": {
+    "mittel": 0.9264400005340576,
+    "std": 0.009456713154486894,
+    "min": 0.9089999794960022,
+    "max": 0.9401999711990356,
+    "n": 10
+   },
+   "clifford_k8": {
+    "mittel": 0.9313800036907196,
+    "std": 0.006087116705171661,
+    "min": 0.9211999773979187,
+    "max": 0.9422000050544739,
+    "n": 10
+   },
+   "nachtrainiert": {
+    "mittel": 0.9375400006771087,
+    "std": 0.003497350857585731,
+    "min": 0.932200014591217,
+    "max": 0.9423999786376953,
+    "n": 10
+   },
+   "R1_mittel": -0.0003000020980834961,
+   "R1_p": 0.65234375,
+   "R1_ki90": [
+    -0.0023712232253153046,
+    0.0017712190291483125
+   ],
+   "R2_vor_mittel": 0.027240002155303956,
+   "R2_vor_p": 0.001953125,
+   "R2_Gm4": 0.5925110402059992,
+   "R2_Gm4_ki95": [
+    0.3011646949292691,
+    0.7690938794141752
+   ],
+   "R3_mittel": -0.0061599969863891605,
+   "R3_p_rechts": 0.9970703125,
+   "R3_p_links": 0.0029296875,
+   "R3_ki90": [
+    -0.00897969049900462,
+    -0.003340303473773701
+   ],
+   "R4_G_fair": {
+    "0": 0.27398709826236245,
+    "1": 0.43070347942138376,
+    "2": 0.4909381711381009,
+    "4": 0.704157757873906,
+    "8": 0.8358209642831215
+   },
+   "R4_G_fair_M50": 4,
+   "R4_G_fair_M90": "> 8",
+   "R4_Gm_fair": {
+    "0": 0.0,
+    "1": 0.21585894793871663,
+    "2": 0.29882536847002067,
+    "4": 0.5925110402059992,
+    "8": 0.7738620962190439
+   },
+   "R4_Gm_fair_M50": 4,
+   "R4_Gm_fair_M90": "> 8",
+   "R4_G_alt": {
+    "0": 0.2718137321727816,
+    "1": 0.4272869815542376,
+    "2": 0.48704386961806845,
+    "4": 0.6985721204392084,
+    "8": 0.8291909260358671
+   },
+   "R4_G_alt_M50": 4,
+   "R4_G_alt_M90": "> 8",
+   "R4_Gm_alt": {
+    "0": 0.0,
+    "1": 0.2135075271954266,
+    "2": 0.2955701679015403,
+    "4": 0.5860566274338018,
+    "8": 0.7654321682365729
+   },
+   "R4_Gm_alt_M50": 4,
+   "R4_Gm_alt_M90": "> 8",
+   "n": 10
+  },
+  "fashion_mnist": {
+   "voll": {
+    "mittel": 0.8316600024700165,
+    "std": 0.002573451957680682,
+    "min": 0.8263999819755554,
+    "max": 0.8349999785423279,
+    "n": 10
+   },
+   "ohne_schaltung": {
+    "mittel": 0.7980199992656708,
+    "std": 0.0032255212066503677,
+    "min": 0.79339998960495,
+    "max": 0.8026000261306763,
+    "n": 10
+   },
+   "clifford_k0": {
+    "mittel": 0.8155799984931946,
+    "std": 0.00468230600307715,
+    "min": 0.8101999759674072,
+    "max": 0.8241999745368958,
+    "n": 10
+   },
+   "clifford_k1": {
+    "mittel": 0.8224999964237213,
+    "std": 0.005915141523393888,
+    "min": 0.8172000050544739,
+    "max": 0.8375999927520752,
+    "n": 10
+   },
+   "clifford_k2": {
+    "mittel": 0.8265200078487396,
+    "std": 0.004801110482546089,
+    "min": 0.8162000179290771,
+    "max": 0.8342000246047974,
+    "n": 10
+   },
+   "clifford_k4": {
+    "mittel": 0.831220006942749,
+    "std": 0.004558218636037026,
+    "min": 0.8235999941825867,
+    "max": 0.8379999995231628,
+    "n": 10
+   },
+   "clifford_k8": {
+    "mittel": 0.8340599954128265,
+    "std": 0.0029379516600346652,
+    "min": 0.8285999894142151,
+    "max": 0.8375999927520752,
+    "n": 10
+   },
+   "nachtrainiert": {
+    "mittel": 0.8044599890708923,
+    "std": 0.041480592861133536,
+    "min": 0.7250000238418579,
+    "max": 0.8425999879837036,
+    "n": 10
+   },
+   "R1_mittel": -0.027200013399124146,
+   "R1_p": 0.10546875,
+   "R1_ki90": [
+    -0.05080784092625129,
+    -0.003592185871997
+   ],
+   "R2_vor_mittel": -0.011120009422302245,
+   "R2_vor_p": 1.0,
+   "R2_Gm4": null,
+   "R2_Gm4_ki95": [
+    null,
+    null
+   ],
+   "R3_mittel": 0.029600006341934205,
+   "R3_p_rechts": 0.0185546875,
+   "R3_p_links": 0.9814453125,
+   "R3_ki90": [
+    0.005736288023490913,
+    0.05346372466037749
+   ],
+   "R4_G_fair": {
+    "0": 2.726712271079392,
+    "1": 3.801247812256178,
+    "2": 4.425474176987202,
+    "4": 5.15528885622763,
+    "8": 5.596281552796008
+   },
+   "R4_G_fair_M50": 0,
+   "R4_G_fair_M90": 0,
+   "R4_Gm_fair": {
+    "0": null,
+    "1": null,
+    "2": null,
+    "4": null,
+    "8": null
+   },
+   "R4_Gm_fair_M50": "> 8",
+   "R4_Gm_fair_M90": "> 8",
+   "R4_G_alt": {
+    "0": 0.5219975491933175,
+    "1": 0.7277049591626719,
+    "2": 0.8472058819360381,
+    "4": 0.9869204671416137,
+    "8": 1.0713434219441462
+   },
+   "R4_G_alt_M50": 0,
+   "R4_G_alt_M90": 4,
+   "R4_Gm_alt": {
+    "0": 0.0,
+    "1": 0.4303480235764483,
+    "2": 0.6803486722586781,
+    "4": 0.9726371008426566,
+    "8": 1.149253255550774
+   },
+   "R4_Gm_alt_M50": 2,
+   "R4_Gm_alt_M90": 4,
+   "n": 10
+  }
+ },
+ "urteil": {
+  "R-1": "HU: Verzerrung weder belegt noch ausgeschlossen -- mnist: d = -0.03 pp, KI [-0.24, +0.18] in +-0,3; fashion_mnist: d = -2.72 pp, KI [-5.08, -0.36], p = 0.1055",
+  "R-2": "HU (Vorbedingung): nachtrainiert schlaegt k0 nicht nachweisbar -- mnist: Gm*(4) = 0.59 KI [0.3, 0.77], Magiegewinn +2.72 pp (p = 0.0020); fashion_mnist: kein Magiegewinn",
+  "R-3": "H1: Runden regularisiert (Fashion) -- k8 - nachtrainiert = +2.96 pp (p_rechts = 0.0186, KI90 [+0.57, +5.35])",
+  "R-4": "mnist: M50/M90 fair (Basis Identitaet) 4/> 8, Magieanteil fair 4/> 8, alt 4/> 8; fashion_mnist: M50/M90 fair (Basis Identitaet) 0/0, Magieanteil fair > 8/> 8, alt 0/4"
+ }
+}

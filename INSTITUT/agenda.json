@@ -253,7 +253,7 @@
   {
    "id": "C-referenz",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.referenz",
    "frage": "Faire Referenz fuer die Magie-Konzentration: verzerrt die zweite Trainingsphase der Rundungsarme G(k)/M50? (Arm nachtrainiert = alle Winkel frei, gleiche zweite Phase; MNIST + Fashion, frische Seeds 30-39)",
    "prioritaet": 1,

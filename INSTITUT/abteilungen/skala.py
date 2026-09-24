@@ -25,7 +25,8 @@ ARME je Konfiguration (Konfiguration = Aufgabe + Breite n):
   ohne_schaltung  Identitaet: Ry(0) + CNOT-Ring = reine Permutation (Vortest)
   nachtrainiert   = Rundungsarm mit k = n*L: alle Winkel frei, Start beim
                   trainierten voll, frischer Kopf, zweite Trainingsphase mit
-                  derselben Rate/demselben Budget wie die Magie-Arme k > 0.
+                  demselben Budget wie die Rundungsarme, aber EIGENER Rate
+                  (getunt auf den Tuning-Seeds, Gitter beidseitig verlaengert).
   k<k>            Rundung aller Winkel auf k*pi/2, die k Winkel mit dem
                   groessten Abstand zum Gitter bleiben frei (Start beim
                   trainierten Wert), Kopf FRISCH (Lehre „geerbter Kopf“).
@@ -73,6 +74,12 @@ zusaetzlicher Test von voll schuetzt G nicht und wuerde nur einen Weg zu
 „HU (Vorbedingung)“ ohne Bezug zur Messgroesse oeffnen. voll gegen
 Identitaet wird im S-0-Text mitberichtet.
 
+Aenderung Direktor 24.09. nach C-referenz, vor jeder C-skala-Zahl: eigene
+Rate fuer nachtrainiert. Mit der fuer wenige freie Winkel getunten Rate wurde
+der Arm mit allen Winkeln frei instabil (Fashion, Rate 0,32: 4 von 10 Seeds
+brachen auf 0,73-0,81 ein, voll 0,83). Als Sicherung zaehlt S-2 je
+Konfiguration die Seeds mit nachtrainiert < voll - 1 pp („Instabilitaet“).
+
 VORREGISTRIERT (vor dem ersten Lauf, Regel 7):
   Gewinnanteil wie clifford.py v3, aber mit fairer Referenz:
   G_n(k) = Mittel(acc_k - acc_ohne) / Gewinn_n, Gewinn_n = Mittel ueber Seeds
@@ -117,15 +124,15 @@ VORREGISTRIERT (vor dem ersten Lauf, Regel 7):
 
 PROTOKOLL: Mess-Seeds 120-129 (frisch, 10 Seeds -> kleinster einseitiger
 p = 1/1024), Tuning-Seeds 920/921 (Validierung = erstes Viertel des
-Trainingsteils). Raten je Konfiguration eigen fuer voll, ohne_schaltung, k0
-und fuer die Magie-Arme k > 0 (getunt bei k = n*L/8, dem kleineren Haupt-
+Trainingsteils). Raten je Konfiguration eigen fuer voll, ohne_schaltung, k0,
+nachtrainiert und fuer die Magie-Arme k > 0 (getunt bei k = n*L/8, dem kleineren Haupt-
 Anteil; eine gemeinsame Rate fuer alle k > 0 wie in clifford.py v2 --
 Abweichung von Regel 1a aus Budgetgruenden, offen benannt). Gitter
 (0,02; 0,08; 0,32), in beide Richtungen verlaengert (1b), volles Budget (1c).
 BLAS-Threads 1 je Prozess; Aufgaben mit chunksize 1, laengste zuerst.
-LAUFZEIT (geschaetzt, 4 Prozesse): ~82 volle Trainings je Konfiguration
-(inkl. nachtrainiert); n = 10: ~100 s je Training -> echt10 + fest10
-~ 4,6 Kern-h, echt8 ~ 0,6, echt6 ~ 0,2 -> gesamt ~ 80-100 min.
+LAUFZEIT (geschaetzt, 4 Prozesse): ~88 volle Trainings je Konfiguration
+(inkl. nachtrainiert und dessen Ratensuche); n = 10: ~100 s je Training ->
+echt10 + fest10 ~ 4,9 Kern-h, echt8 ~ 0,6, echt6 ~ 0,2 -> gesamt ~ 85-105 min.
 """
 from __future__ import annotations
 
@@ -160,6 +167,7 @@ DELTA = 0.08                  # Aequivalenzgrenze in G (Herleitung im Kopf)
 PAAR_HAUPT = ("echt6", "echt10")
 PAAR_FEST = ("echt6", "fest10")
 NACH = "nachtrainiert"        # faire Referenz (Aenderung Direktor 24.09.)
+INSTABIL_GRENZE = 0.01        # S-2: Seeds mit nachtrainiert < voll - 1 pp („Instabilitaet“)
 REFERENZ = NACH               # Nenner von G fuer S-0/S-1/S-3; "voll" nur beschreibend
 
 HYPOTHESEN = {
@@ -424,9 +432,9 @@ def lauf(schnell=False, seeds=SEEDS, tuning_seeds=TUNING_SEEDS, schritte=SCHRITT
     def auf_rund(sch, lr):
         cfg, arm = sch
         n = _cfg_zerlege(cfg)[1]
-        k = 0 if arm == "k0" else _k_anteil(n, ANTEIL_TUNING)
+        k = {"k0": 0, "kmagie": _k_anteil(n, ANTEIL_TUNING), NACH: n * LAGEN}[arm]
         return [(cfg, s, "rund", lr, "tuning", k, w, budget) for s, w in zip(tuning_seeds, winkel_tuning[cfg])]
-    info2, _ = _gittersuche([(c, a) for c in cfgs for a in ("k0", "kmagie")], auf_rund)
+    info2, _ = _gittersuche([(c, a) for c in cfgs for a in ("k0", "kmagie", NACH)], auf_rund)
     info = {**info1, **info2}
     lr = {sch: v["lr"] for sch, v in info.items()}
     print(f"  Phase 2 (Raten Rundung) nach {time.time() - t0:.0f} s", flush=True)
@@ -450,7 +458,8 @@ def lauf(schnell=False, seeds=SEEDS, tuning_seeds=TUNING_SEEDS, schritte=SCHRITT
         n = _cfg_zerlege(c)[1]
         for s in seeds:
             for k in stufen(n) + [n * LAGEN]:
-                aufg.append((c, s, "rund", lr[(c, "k0" if k == 0 else "kmagie")], "mess", k,
+                arm = "k0" if k == 0 else (NACH if k == n * LAGEN else "kmagie")
+                aufg.append((c, s, "rund", lr[(c, arm)], "mess", k,
                              zeilen[c][s]["winkel_voll"], budget))
                 namen.append(NACH if k == n * LAGEN else f"k{k}")
     for (c, s, *_), name, e in zip(aufg, namen, _parallel(aufg)):
@@ -588,6 +597,7 @@ def auswertung(zeilen: dict) -> dict:
                 "vorbedingung": bool(gewinn > 0 and p0 < ALPHA),
                 "gewinn_voll": gewinn_voll, "S0_p_voll": wilcoxon_exakt(dv),
                 "d_nach": float(dn.mean()), "d_nach_p": wilcoxon_exakt(dn),
+                "instabil_seeds": int((dn < -INSTABIL_GRENZE).sum()),
                 "gewinn_ueber_k0": gm, "G": {str(k): v for k, v in G.items()},
                 "G_voll": {str(k): v for k, v in Gvoll.items()},
                 "G_mag": {str(k): v for k, v in Gmag.items()},
@@ -686,7 +696,8 @@ def urteil(a: dict) -> dict:
         teile.append(f"{c}: M50 {f(info.get('M50_stufe'))} (interp. {f(info.get('M50_interp'))}, "
                      f"relativ {f(info.get('m50_relativ'))}), M90 {f(info.get('M90_stufe'))}, "
                      f"G(1) {f(info['G'].get('1'))}; bezogen auf voll: M50 {f(info.get('M50_voll_stufe'))} "
-                     f"(interp. {f(info.get('M50_voll_interp'))}), d_nach {info['d_nach']:+.4f}")
+                     f"(interp. {f(info.get('M50_voll_interp'))}), d_nach {info['d_nach']:+.4f}, "
+                     f"instabil {info['instabil_seeds']}/{len(info['genauigkeit']['voll'] and [0]) and info['genauigkeit']['voll']['n']}")
     for aufgabe in ("echt", "fest"):
         fit = a.get(f"S2_fit_{aufgabe}")
         if fit:
