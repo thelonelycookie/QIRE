@@ -302,63 +302,82 @@
   },
   {
    "id": "I-021",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Renormierungsgruppe / MERA",
    "engpass": "benoetigte Datenmenge",
    "denkzug": "es mit einem Befund des Instituts kombiniert",
    "abteilung": "Verschraenkung",
-   "frage": "Wie senkt „Renormierungsgruppe / MERA“ (Grobkoernung Schicht fuer Schicht) den Engpass „benoetigte Datenmenge“, wenn man es mit einem Befund des Instituts kombiniert?"
+   "frage": "Wie senkt „Renormierungsgruppe / MERA“ (Grobkoernung Schicht fuer Schicht) den Engpass „benoetigte Datenmenge“, wenn man es mit einem Befund des Instituts kombiniert?",
+   "grund": "Duplikat von I-016: MERA-Encoder steht im Quanten-Ideenkatalog (Idee 3); der Befund-Zusatz aendert keinen billigen Test.",
+   "bearbeitet": "Claude 24.09. (Runde 4)"
   },
   {
    "id": "I-022",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Zero-Noise-Extrapolation",
    "engpass": "Bits je Gewicht",
    "denkzug": "es zur Messgroesse macht (vorhersagt statt ausprobiert)",
    "abteilung": "Theorie",
-   "frage": "Wie senkt „Zero-Noise-Extrapolation“ (Rauschen verstaerken und auf null extrapolieren) den Engpass „Bits je Gewicht“, wenn man es zur Messgroesse macht (vorhersagt statt ausprobiert)?"
+   "frage": "Wie senkt „Zero-Noise-Extrapolation“ (Rauschen verstaerken und auf null extrapolieren) den Engpass „Bits je Gewicht“, wenn man es zur Messgroesse macht (vorhersagt statt ausprobiert)?",
+   "grund": "Duplikat von Z-zne: ZNE ueber Bitbreiten auf Papier widerlegt (MSE 7x schlechter). 'Vorhersagen statt ausprobieren' rettet den Mechanismus nicht.",
+   "bearbeitet": "Claude 24.09. (Runde 4)"
   },
   {
    "id": "I-023",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Probabilistische Fehlerauslöschung",
    "engpass": "Aufmerksamkeit O(L^2)",
    "denkzug": "es mit einem Befund des Instituts kombiniert",
    "abteilung": "Theorie",
-   "frage": "Wie senkt „Probabilistische Fehlerauslöschung“ (Quasi-Wahrscheinlichkeiten heben Fehler im Mittel auf) den Engpass „Aufmerksamkeit O(L^2)“, wenn man es mit einem Befund des Instituts kombiniert?"
+   "frage": "Wie senkt „Probabilistische Fehlerauslöschung“ (Quasi-Wahrscheinlichkeiten heben Fehler im Mittel auf) den Engpass „Aufmerksamkeit O(L^2)“, wenn man es mit einem Befund des Instituts kombiniert?",
+   "grund": "Kein Mechanismus: PEC kostet Stichproben-Aufwand gamma^2 je Schicht (exponentiell), senkt also Kosten nie; Aufmerksamkeit O(L^2) hat mit Rauschmitteln nichts zu tun (Q1).",
+   "bearbeitet": "Claude 24.09. (Runde 4)"
   },
   {
    "id": "I-024",
-   "status": "roh",
+   "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "konzept": "Stabilisator-Codes",
    "engpass": "benoetigte Datenmenge",
    "denkzug": "kontinuierliche Parameter auf ein Gitter zwingt",
-   "abteilung": "Theorie",
-   "frage": "Wie senkt „Stabilisator-Codes“ (wenige strukturierte Pruefungen schuetzen viel Information) den Engpass „benoetigte Datenmenge“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?"
+   "abteilung": "Clifford",
+   "frage": "Wie senkt „Stabilisator-Codes“ (wenige strukturierte Pruefungen schuetzen viel Information) den Engpass „benoetigte Datenmenge“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?",
+   "bearbeitet": "Claude 24.09. (Runde 4)",
+   "quantenstufe": "Q3",
+   "titel": "Magie gegen Datenmenge: braucht die Zelle mit weniger Trainingsdaten weniger Magie? (Clifford-Gitter als Regularisierer, M50 als Funktion von n_train)",
+   "quantenkern": "Clifford-Schaltungen bilden eine endliche Gruppe: k=0 ist ein diskretes Modell ohne T-Gatter. Wenn M50 mit der Datenmenge waechst, ist der Magiebedarf (T-Zahl) eine Eigenschaft von Aufgabe UND Datenlage -- auf Hardware heisst das: wenig Daten -> fast T-frei.",
+   "papierpruefung": "Traegt: C-mnist k=0 0,907, k=2 0,921, voll 0,939 bei 10.000 Bildern. Diskrete Modelle ueberanpassen weniger; bei 500 Bildern koennte der Abstand voll - k=0 schrumpfen oder kippen. Gefahr: Kopf (linear, 2.570 Parameter) ueberanpasst ohnehin -- Kopf-Regularisierung je Arm gleich tunen. Ergaenzt I-003 (Aufgabe vs. Architektur) um die Achse Datenmenge.",
+   "neuheit": "TEILWEISE: 'Quantisierung regularisiert' ist bekannt (z. B. Courbariaux 2015); Magiebedarf/T-Zahl eines Quantenklassifikators als Funktion der Datenmenge nicht gefunden -- vor Bau pruefen.",
+   "abbruch": "Wenn M50 (und der Abstand voll - k=0) bei n_train = 500 / 2.000 / 10.000 innerhalb der Seed-Streuung gleich bleibt (TOST 0,5 pp auf dem Abstand).",
+   "billigster_test": "MNIST 16x16, n_train in {500, 2000, 10000}, 10 Seeds, Arme voll / k=0 / k=2 / k=8 (Rundung nach Abstand wie C-mnist), Kopf-Lernrate je Arm auf Tuning-Seeds: ~1 h CPU.",
+   "kontrolle": "Identitaet (keine Schaltung) je n_train; zufaellige Clifford-Schaltung; gleiche Kopf-Regularisierung in allen Armen."
   },
   {
    "id": "I-025",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Adiabatisches Theorem",
    "engpass": "Speicher der Gewichte",
    "denkzug": "den Grenzfall sucht, in dem es exakt wird",
    "abteilung": "Training",
-   "frage": "Wie senkt „Adiabatisches Theorem“ (langsame Aenderung haelt den Grundzustand) den Engpass „Speicher der Gewichte“, wenn man den Grenzfall sucht, in dem es exakt wird?"
+   "frage": "Wie senkt „Adiabatisches Theorem“ (langsame Aenderung haelt den Grundzustand) den Engpass „Speicher der Gewichte“, wenn man den Grenzfall sucht, in dem es exakt wird?",
+   "grund": "Duplikat von C-bewusst: 'langsam zum Gitter ziehen' ist genau das Clifford-bewusste Training, H0 (kostet 1,4 pp). Adiabatik waere nur Analogie (Q1).",
+   "bearbeitet": "Claude 24.09. (Runde 4)"
   },
   {
    "id": "I-026",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Stabilisator-Renyi-Entropie",
    "engpass": "Multiplikationen/Energie je Inferenz",
    "denkzug": "den Grenzfall sucht, in dem es exakt wird",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Stabilisator-Renyi-Entropie“ (billig messbares Mass fuer Magie) den Engpass „Multiplikationen/Energie je Inferenz“, wenn man den Grenzfall sucht, in dem es exakt wird?"
+   "frage": "Wie senkt „Stabilisator-Renyi-Entropie“ (billig messbares Mass fuer Magie) den Engpass „Multiplikationen/Energie je Inferenz“, wenn man den Grenzfall sucht, in dem es exakt wird?",
+   "grund": "Duplikat von I-002: SRE = 0 exakt im Clifford-Grenzfall ist der Ausgangspunkt von I-002; dort H0 (gelernte SRE = zufaellige). Kein neuer Test.",
+   "bearbeitet": "Claude 24.09. (Runde 4)"
   }
  ]
 }
