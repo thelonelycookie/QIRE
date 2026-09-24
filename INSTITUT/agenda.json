@@ -202,6 +202,24 @@
    "frage": "Q3-Bruecke: die gerundete Schaltung mit k Magiewinkeln mit Qiskit nach Clifford+T uebersetzen (T-Zahl zaehlen) und auf IBM-Hardware laufen lassen. Uebersetzt M50 direkt in T-Gatter.",
    "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7).",
    "prioritaet": 1
+  },
+  {
+   "id": "I-008",
+   "abteilung": "Auslese",
+   "status": "offen",
+   "modul": "abteilungen.schuesse",
+   "frage": "Schuss-Budget: wie viele Messungen braucht die Born-Auslese auf echter Hardware -- und welche Auslese ist am schusssparsamsten?",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn alle Ausleseformen bei S=1.000 innerhalb 1 pp der exakten Genauigkeit liegen -> Schuesse sind kein Engpass, Linie ruht. Test: Trainiertes Modell (Ziffern/MNIST), Multinomial-Stichproben mit S in {10,100,1.000,10.000} aus p ziehen, Kopf unveraendert: Minuten, kein Training. | Modul gebaut, Kriterien A-1..A-3 im Code. Abweichung Regel 1: feste Rate 0,08 (voll-Rate aus C-v2/C-mnist); Koepfe paritaet/z ungetunt -> A-2 eher gegen H1 verzerrt."
+  },
+  {
+   "id": "I-010",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magie-Quantisierung grosser Rotationsschichten: Clifford-Winkel mit 2 Bit speichern, nur die wenigen magischen Winkel als Gleitkomma (z. B. ButterflyFFN/QKV im Chatbot T-002)",
+   "prioritaet": 2,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn in den Butterfly-Schichten des Chatbots G(k) fuer k = 10 % der Winkel unter 0,5 bleibt. Test: Projekt-A-Modell butterfly_qkv nach kurzem Training runden (Validierungs-Perplexitaet), ~1-2 h CPU."
   }
  ]
 }

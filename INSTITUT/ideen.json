@@ -97,63 +97,167 @@
   },
   {
    "id": "I-006",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Trotter-Zerlegung",
    "engpass": "Multiplikationen/Energie je Inferenz",
    "denkzug": "kontinuierliche Parameter auf ein Gitter zwingt",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Multiplikationen/Energie je Inferenz“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?"
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Multiplikationen/Energie je Inferenz“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?",
+   "grund": "Die QIRE-Zelle IST schon eine Trotter-artige Produktschaltung; Gitterzwang auf die Schrittwinkel ist genau C-clifford. Kein neuer Hebel.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-007",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Trotter-Zerlegung",
    "engpass": "Latenz / Fruehausstieg",
    "denkzug": "die Voraussetzung der Methode mit uebertraegt und zuerst prueft",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Latenz / Fruehausstieg“, wenn man die Voraussetzung der Methode mit uebertraegt und zuerst prueft?"
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Latenz / Fruehausstieg“, wenn man die Voraussetzung der Methode mit uebertraegt und zuerst prueft?",
+   "grund": "Adaptive Trotter-Tiefe je Eingabe ist inhaltlich ein Early-Exit-Netz (bekannt, z. B. BranchyNet 2016), nur umbenannt.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-008",
-   "status": "roh",
+   "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "konzept": "Messbasierte Quantenrechnung",
    "engpass": "Latenz / Fruehausstieg",
    "denkzug": "es zur Messgroesse macht (vorhersagt statt ausprobiert)",
-   "abteilung": "Theorie",
-   "frage": "Wie senkt „Messbasierte Quantenrechnung“ (Rechnung = Verschraenkung vorab + Messungen) den Engpass „Latenz / Fruehausstieg“, wenn man es zur Messgroesse macht (vorhersagt statt ausprobiert)?"
+   "abteilung": "Auslese",
+   "frage": "Wie senkt „Messbasierte Quantenrechnung“ (Rechnung = Verschraenkung vorab + Messungen) den Engpass „Latenz / Fruehausstieg“, wenn man es zur Messgroesse macht (vorhersagt statt ausprobiert)?",
+   "titel": "Schuss-Budget: wie viele Messungen braucht die Born-Auslese auf echter Hardware -- und welche Auslese ist am schusssparsamsten?",
+   "quantenstufe": "Q3",
+   "quantenkern": "Auf echter Hardware gibt es p=|U x|^2 nicht exakt, nur S Messungen (Schuesse). Schusszahl x Schaltungslaeufe ist die eigentliche Rechenkostenmetrik eines Quantenrechners.",
+   "papierpruefung": "Traegt: Standardfehler je Wahrscheinlichkeit ~ sqrt(p/S); 256 Ausgaenge bei n=8 brauchen viele Schuesse, 8 <Z_q> weniger, verlieren aber 17 pp. Frage: Wo liegt das Optimum Genauigkeit gegen Schuesse, und kann ein Kopf auf niedrigen Paritaeten beides?",
+   "neuheit": "TEILWEISE: Schusseffizienz in QML allgemein untersucht (Shot-frugal Optimierung); fuer Auslesewahl eines Born-Klassifikators mit Magie-Budget nicht gefunden (nicht eigens gesucht -- vor Bau pruefen).",
+   "abbruch": "Wenn alle Ausleseformen bei S=1.000 innerhalb 1 pp der exakten Genauigkeit liegen -> Schuesse sind kein Engpass, Linie ruht.",
+   "billigster_test": "Trainiertes Modell (Ziffern/MNIST), Multinomial-Stichproben mit S in {10,100,1.000,10.000} aus p ziehen, Kopf unveraendert: Minuten, kein Training.",
+   "kontrolle": "exakte Born-Verteilung (S=unendlich) und Identitaetsschaltung mit gleichem S."
   },
   {
    "id": "I-009",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Pauli-Propagation (Heisenberg-Bild)",
    "engpass": "Latenz / Fruehausstieg",
    "denkzug": "es umkehrt (was dort teuer ist, hier billig macht)",
    "abteilung": "Auslese",
-   "frage": "Wie senkt „Pauli-Propagation (Heisenberg-Bild)“ (Observablen rueckwaerts statt Zustaende vorwaerts) den Engpass „Latenz / Fruehausstieg“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?"
+   "frage": "Wie senkt „Pauli-Propagation (Heisenberg-Bild)“ (Observablen rueckwaerts statt Zustaende vorwaerts) den Engpass „Latenz / Fruehausstieg“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?",
+   "grund": "Nachgerechnet: Heisenberg-Kompilierung macht aus Kopf+Schaltung Pauli-Merkmale des Eingangs; Clifford-Teile sind dabei gratis (Gottesman-Knill), aber jeder magische Winkel verdoppelt die Pauli-Terme. Bei 37 Paritaeten und k=2: 37*4*256 = 37.888 Mult. gegen 3.840 fuer die Schaltung -- 10x teurer. Schoene Einsicht (Magie = Verzweigungskosten), kein Effizienzgewinn.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-010",
-   "status": "roh",
+   "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "konzept": "Magie / Clifford-Hierarchie",
    "engpass": "Speicher der Gewichte",
    "denkzug": "es umkehrt (was dort teuer ist, hier billig macht)",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Magie / Clifford-Hierarchie“ (nur Nicht-Clifford-Anteile kosten; Clifford ist klassisch billig) den Engpass „Speicher der Gewichte“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?"
+   "frage": "Wie senkt „Magie / Clifford-Hierarchie“ (nur Nicht-Clifford-Anteile kosten; Clifford ist klassisch billig) den Engpass „Speicher der Gewichte“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?",
+   "titel": "Magie-Quantisierung grosser Rotationsschichten: Clifford-Winkel mit 2 Bit speichern, nur die wenigen magischen Winkel als Gleitkomma (z. B. ButterflyFFN/QKV im Chatbot T-002)",
+   "quantenstufe": "Q2",
+   "quantenkern": "Clifford-Hierarchie: Clifford-Winkel sind diskret (4 Werte = 2 Bit), nur Nicht-Clifford-Winkel tragen kontinuierliche Information.",
+   "papierpruefung": "Bei der QIRE-Zelle trivial (32 Winkel), relevant erst bei Schichten mit tausenden Winkeln. Speicher: 2 Bit statt 16/32 Bit je Clifford-Winkel -> bis 8-16x kleiner, falls M90 << Winkelzahl auch dort gilt.",
+   "neuheit": "TEILWEISE: ButterflyQuant (arXiv:2509.09679) lernt stetige Winkel; Rundung der Winkel auf pi/2 nicht gefunden.",
+   "abbruch": "Wenn in den Butterfly-Schichten des Chatbots G(k) fuer k = 10 % der Winkel unter 0,5 bleibt.",
+   "billigster_test": "Projekt-A-Modell butterfly_qkv nach kurzem Training runden (Validierungs-Perplexitaet), ~1-2 h CPU.",
+   "kontrolle": "dichtes Modell gleicher Speichergroesse; zufaellige Wahl der magischen Winkel."
   },
   {
    "id": "I-011",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Quantenlauf (Quantum Walk)",
    "engpass": "Latenz / Fruehausstieg",
    "denkzug": "kontinuierliche Parameter auf ein Gitter zwingt",
    "abteilung": "Theorie",
-   "frage": "Wie senkt „Quantenlauf (Quantum Walk)“ (Interferenz verbreitet schneller als Diffusion) den Engpass „Latenz / Fruehausstieg“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?"
+   "frage": "Wie senkt „Quantenlauf (Quantum Walk)“ (Interferenz verbreitet schneller als Diffusion) den Engpass „Latenz / Fruehausstieg“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?",
+   "grund": "Kontinuierlicher Quantenlauf auf dem Hyperwuerfel ist exp(-it*Sum X_q) = Kronecker-Produkt von Rx-Drehungen -- also genau die QIRE-Lage; perfekter Zustandstransfer bei t=pi/2 ist eine Clifford-Operation. Lauf auf dem 2D-Pixelgitter braeuchte eine dichte d x d-Unitaere (teurer). Einsicht fuers Laborbuch, kein neuer Test.",
+   "bearbeitet": "Claude 24.09."
+  },
+  {
+   "id": "I-012",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Klassische Schatten",
+   "engpass": "Trainingsschritte bis Ziel",
+   "denkzug": "es vom Inferenz- ins Trainingsproblem verschiebt (oder zurueck)",
+   "abteilung": "Auslese",
+   "frage": "Wie senkt „Klassische Schatten“ (viele Observablen aus wenigen Zufallsmessungen) den Engpass „Trainingsschritte bis Ziel“, wenn man es vom Inferenz- ins Trainingsproblem verschiebt (oder zurueck)?"
+  },
+  {
+   "id": "I-013",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Trotter-Zerlegung",
+   "engpass": "Einbettungstabelle des Chatbots",
+   "denkzug": "nur einen kleinen Teil quantisch macht und den Rest klassisch laesst",
+   "abteilung": "Clifford",
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Einbettungstabelle des Chatbots“, wenn man nur einen kleinen Teil quantisch macht und den Rest klassisch laesst?"
+  },
+  {
+   "id": "I-014",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Schmidt-Zerlegung / Operator-Verschraenkung",
+   "engpass": "Einbettungstabelle des Chatbots",
+   "denkzug": "es umkehrt (was dort teuer ist, hier billig macht)",
+   "abteilung": "Verschraenkung",
+   "frage": "Wie senkt „Schmidt-Zerlegung / Operator-Verschraenkung“ (Rang ueber einen Schnitt = Kompressionsgrenze) den Engpass „Einbettungstabelle des Chatbots“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?"
+  },
+  {
+   "id": "I-015",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Magie / Clifford-Hierarchie",
+   "engpass": "Latenz / Fruehausstieg",
+   "denkzug": "kontinuierliche Parameter auf ein Gitter zwingt",
+   "abteilung": "Clifford",
+   "frage": "Wie senkt „Magie / Clifford-Hierarchie“ (nur Nicht-Clifford-Anteile kosten; Clifford ist klassisch billig) den Engpass „Latenz / Fruehausstieg“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?"
+  },
+  {
+   "id": "I-016",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Renormierungsgruppe / MERA",
+   "engpass": "benoetigte Datenmenge",
+   "denkzug": "den Grenzfall sucht, in dem es exakt wird",
+   "abteilung": "Verschraenkung",
+   "frage": "Wie senkt „Renormierungsgruppe / MERA“ (Grobkoernung Schicht fuer Schicht) den Engpass „benoetigte Datenmenge“, wenn man den Grenzfall sucht, in dem es exakt wird?"
+  },
+  {
+   "id": "I-017",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Trotter-Zerlegung",
+   "engpass": "Speicher der Gewichte",
+   "denkzug": "es mit einem Befund des Instituts kombiniert",
+   "abteilung": "Clifford",
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Speicher der Gewichte“, wenn man es mit einem Befund des Instituts kombiniert?"
+  },
+  {
+   "id": "I-018",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Trotter-Zerlegung",
+   "engpass": "Einbettungstabelle des Chatbots",
+   "denkzug": "es umkehrt (was dort teuer ist, hier billig macht)",
+   "abteilung": "Clifford",
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Einbettungstabelle des Chatbots“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?"
+  },
+  {
+   "id": "I-019",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Trotter-Zerlegung",
+   "engpass": "Trainingsschritte bis Ziel",
+   "denkzug": "nur einen kleinen Teil quantisch macht und den Rest klassisch laesst",
+   "abteilung": "Clifford",
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Trainingsschritte bis Ziel“, wenn man nur einen kleinen Teil quantisch macht und den Rest klassisch laesst?"
   }
  ]
 }
