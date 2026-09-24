@@ -22,7 +22,8 @@
      "C-mnist"
     ]
    },
-   "notiz": "v1: Rundungsarme mit geerbtem Kopf -- unfair gegen Kontrollen (FEHLERBUCH 24.09.). Ersetzt durch C-clifford-v2."
+   "notiz": "v1: Rundungsarme mit geerbtem Kopf -- unfair gegen Kontrollen (FEHLERBUCH 24.09.). Ersetzt durch C-clifford-v2.",
+   "prioritaet": 1
   },
   {
    "id": "C-clifford-v2",
@@ -37,12 +38,13 @@
     "C-1:HU": [
      "C-bewusst"
     ]
-   }
+   },
+   "prioritaet": 1
   },
   {
    "id": "C-mnist",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.clifford",
    "argumente": {
     "datensatz": "mnist"
@@ -61,18 +63,20 @@
      "C-fashion"
     ]
    },
-   "notiz": "freigeschaltet durch C-clifford C-2:H0; laeuft mit Design v2 (Aenderung vor jeder MNIST-Zahl, LABORBUCH)."
+   "notiz": "freigeschaltet durch C-clifford C-2:H0; laeuft mit Design v2 (Aenderung vor jeder MNIST-Zahl, LABORBUCH).",
+   "prioritaet": 1
   },
   {
    "id": "C-fashion",
    "abteilung": "Clifford",
-   "status": "wartet",
+   "status": "offen",
    "modul": "abteilungen.clifford",
    "argumente": {
     "datensatz": "fashion_mnist"
    },
    "frage": "Replikation auf Fashion-MNIST 16x16 (schwerer, viermal hoehere Streuung laut Projekt A).",
-   "folgen": {}
+   "folgen": {},
+   "prioritaet": 1
   },
   {
    "id": "C-bewusst",
@@ -85,7 +89,8 @@
     "B-1:H1": [
      "C-skala"
     ]
-   }
+   },
+   "prioritaet": 1
   },
   {
    "id": "C-skala",
@@ -93,7 +98,8 @@
    "status": "wartet",
    "modul": null,
    "frage": "Magie-Skalierung: waechst M* langsamer als die Winkelzahl n*L (n=6,8,10)? Dann wird die Schicht mit wachsender Breite fast multiplikationsfrei.",
-   "notiz": "Modul noch nicht gebaut."
+   "notiz": "Modul noch nicht gebaut.",
+   "prioritaet": 1
   },
   {
    "id": "Z-zne",
@@ -101,7 +107,8 @@
    "status": "verworfen_papier",
    "modul": null,
    "frage": "Zero-Noise-Extrapolation ueber verschachtelte Bitbreiten (b, b-1) ersetzt ein Bit Genauigkeit.",
-   "notiz": "Auf Papier widerlegt, siehe LABORBUCH 24.09. (Extrapolation verschiebt ungerade Codes weg vom Sollwert, MSE 7x schlechter)."
+   "notiz": "Auf Papier widerlegt, siehe LABORBUCH 24.09. (Extrapolation verschiebt ungerade Codes weg vom Sollwert, MSE 7x schlechter).",
+   "prioritaet": 2
   },
   {
    "id": "V-kompass",
@@ -109,7 +116,7 @@
    "status": "erledigt",
    "modul": "abteilungen.kompass",
    "frage": "Qubit-Reihenfolge nach Mutual Information (wie Orbital-Ordnung in der DMRG-Quantenchemie) macht die Tensor-Train-Kompression trainierter Gewichte besser als zufaellige Reihenfolge bei gleicher Parameterzahl.",
-   "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3). | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- nach Maltes Grundsatz ruhend.",
+   "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3). | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
    "argumente": {
     "datensatz": "mnist"
    },
@@ -117,7 +124,8 @@
     "V-1:H1": [
      "V-fashion"
     ]
-   }
+   },
+   "prioritaet": 3
   },
   {
    "id": "B-paritaet",
@@ -125,19 +133,21 @@
    "status": "idee",
    "modul": null,
    "frage": "Paritaetsmerkmale <Z_S> niedriger Ordnung aus EINER Messbasis schlagen <Z_q> bei gleicher Kopfgroesse.",
-   "notiz": "IDEEN.md Nr. 5"
+   "notiz": "IDEEN.md Nr. 5",
+   "prioritaet": 1
   },
   {
    "id": "V-fashion",
    "abteilung": "Verschraenkung",
-   "status": "ruht",
+   "status": "wartet",
    "modul": "abteilungen.kompass",
    "argumente": {
     "datensatz": "fashion_mnist"
    },
    "frage": "Replikation des Verschraenkungs-Kompasses auf Fashion-MNIST.",
    "folgen": {},
-   "notiz": " | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- nach Maltes Grundsatz ruhend."
+   "notiz": " | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
+   "prioritaet": 3
   },
   {
    "id": "I-001",
@@ -145,7 +155,8 @@
    "status": "idee",
    "modul": null,
    "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn Verlust-Ranking G(2) nicht um >=0,1 ueber Abstands-Ranking hebt (gepaart, 10 Seeds). Test: Ziffern, Winkel aus C-clifford-v2-Rohdaten, zwei Rankings, k in {1,2,4}: ~10 min CPU."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn Verlust-Ranking G(2) nicht um >=0,1 ueber Abstands-Ranking hebt (gepaart, 10 Seeds). Test: Ziffern, Winkel aus C-clifford-v2-Rohdaten, zwei Rankings, k in {1,2,4}: ~10 min CPU.",
+   "prioritaet": 1
   },
   {
    "id": "I-002",
@@ -153,7 +164,8 @@
    "status": "idee",
    "modul": null,
    "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Rangkorrelation SRE vs. gemessenem Rundungsverlust ueber Seeds und Datensaetze |rho| < 0,3. Test: SRE aus gespeicherten Winkeln der C-Laeufe berechnen, gegen G(k) korrelieren: <5 min, kein Training."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Rangkorrelation SRE vs. gemessenem Rundungsverlust ueber Seeds und Datensaetze |rho| < 0,3. Test: SRE aus gespeicherten Winkeln der C-Laeufe berechnen, gegen G(k) korrelieren: <5 min, kein Training.",
+   "prioritaet": 1
   },
   {
    "id": "I-003",
@@ -161,7 +173,8 @@
    "status": "idee",
    "modul": null,
    "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle.",
+   "prioritaet": 1
   },
   {
    "id": "I-004",
@@ -169,7 +182,8 @@
    "status": "idee",
    "modul": null,
    "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min.",
+   "prioritaet": 1
   },
   {
    "id": "I-005",
@@ -177,7 +191,8 @@
    "status": "idee",
    "modul": null,
    "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min.",
+   "prioritaet": 1
   },
   {
    "id": "C-hardware",
@@ -185,7 +200,8 @@
    "status": "idee",
    "modul": null,
    "frage": "Q3-Bruecke: die gerundete Schaltung mit k Magiewinkeln mit Qiskit nach Clifford+T uebersetzen (T-Zahl zaehlen) und auf IBM-Hardware laufen lassen. Uebersetzt M50 direkt in T-Gatter.",
-   "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7)."
+   "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7).",
+   "prioritaet": 1
   }
  ]
 }

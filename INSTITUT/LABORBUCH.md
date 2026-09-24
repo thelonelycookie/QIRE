@@ -186,3 +186,53 @@ Minuten, rechnet auf gespeicherten Winkeln), dann I-001, dann I-003 mit
 Zufallsetiketten. I-005 hat nach C-2 (feste Clifford = Identität) die
 schlechteste Papierprognose — bleibt trotzdem stehen, weil ein klares Nein
 dort die C-2-Aussage verallgemeinern würde.
+
+## 24.09.2026, 19:15 — C-mnist: die Magie-Konzentration hält (vorregistriert)
+
+MNIST 16×16 (8 Qubits, 256 Amplituden, 4 Lagen = 32 Winkel), 6.000
+Trainings-/5.000 Testbilder je Seed, 10 Seeds, Design v3 (Kontrolle
+Hadamard korrigiert, G(k)/M50/M90 vor der ersten MNIST-Zahl im Code).
+Rohdaten `ergebnisse/C-mnist__20260924_181325.json`, 71 min.
+
+| Arm | Genauigkeit | Mult./Inferenz |
+|---|---|---|
+| voll (32 Winkel) | **0,9385 ± 0,0035** | 19.200 |
+| dicht_linear | 0,9118 ± 0,0038 | 2.560 |
+| ohne_schaltung (Identität) | 0,9006 ± 0,0037 | – |
+| hadamard_fest (jetzt echt) | 0,8831 ± 0,0039 | 2.816 |
+| zufall_clifford | 0,9054 ± 0,0100 | 2.816 |
+| voll_z (nur 8 ⟨Z⟩) | 0,7637 ± 0,0109 | – |
+| clifford_k0 | 0,9069 ± 0,0160 | 2.816 |
+| clifford_k1 | 0,9192 ± 0,0092 | 3.328 |
+| clifford_k2 | 0,9208 ± 0,0079 | 3.840 |
+| clifford_k4 | 0,9264 ± 0,0072 | 4.864 |
+| clifford_k8 | 0,9342 ± 0,0069 | 6.912 |
+| clifford_k12 | 0,9353 ± 0,0054 | 8.960 |
+
+**Urteile:** C-0 **H1** (+3,8 pp über der Identität, p = 0,002, 10/10).
+C-1 **H0** (Rundung kostet 3,2 pp, KI [−3,95; −2,36] — Magie wird gebraucht).
+C-2 **HU** (gerundet > echte Hadamard-Mischung, p = 0,010; ≈ zufällige
+Clifford). C-3: **G(1) = 0,49, G(2) = 0,53, G(4) = 0,68, G(8) = 0,89,
+G(12) = 0,92 → M50 = 2 (bereits k = 1 fast 0,5), M90 = 12 von 32.**
+
+**Was das heißt:**
+1. **Magie-Konzentration repliziert, jetzt vorregistriert:** Auf den Ziffern
+   (explorativ) trugen 2 von 24 Winkeln die Hälfte des Nutzens, auf MNIST
+   (vorregistriert) trägt **ein einziger von 32** fast die Hälfte. Die
+   Kurve ist steil am Anfang und flach danach — der Nutzen der
+   Quantenschaltung sitzt in sehr wenigen magischen Gattern.
+2. **Clifford allein trägt nichts** — auch auf MNIST ist die gerundete
+   Schaltung nicht besser als eine zufällige Clifford-Schaltung.
+   Quantenphysikalisch sauber: Clifford = klassisch simulierbar
+   (Gottesman–Knill) = kein Gewinn; der Gewinn kommt aus der Magie.
+3. **Auf MNIST schlägt die Schaltung den linearen Klassifikator** (+2,7 pp,
+   beschreibend, nicht vorregistriert) — auf den Ziffern war es nur +0,6 pp.
+   Mit k = 2 Magiewinkeln: 0,921 bei 3.840 Mult. gegen linear 0,912 bei 2.560.
+4. **Die Auslese bleibt der Engpass:** nur 8 ⟨Z⟩-Werte verlieren 17 pp.
+
+**Freigeschaltet (vorregistriert):** C-fashion (C-1: H0). C-bewusst ist
+schon offen. Beide mit Priorität 1 für Maltes PC (`institut.cmd alle`).
+
+**Arbeitstitel für die Größe, falls Fashion es bestätigt:** *Magie-
+Konzentration* M50/M90 einer Aufgabe — „wie viele magische Gatter braucht
+eine Lernaufgabe für die Hälfte / 90 % ihres Quantennutzens?“

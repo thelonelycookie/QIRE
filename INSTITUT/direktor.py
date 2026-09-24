@@ -48,16 +48,23 @@ def neuestes_ergebnis(pid):
     return json.loads(d[-1].read_text()) if d else None
 
 
+def naechster(agenda, ausser=()):
+    """Offener Punkt mit Modul, hoechste Prioritaet zuerst (1 = Q3 ... 3 = Q1).
+    Q1-Punkte (nur Analogie) werden nicht gestrichen, nur spaeter gerechnet."""
+    offen = [p for p in agenda["punkte"] if p["status"] == "offen" and p.get("modul") and p["id"] not in ausser]
+    return min(offen, key=lambda p: p.get("prioritaet", 1), default=None)
+
+
 def status():
     agenda = lade()
     z = ["# STAND des Instituts (automatisch, `python direktor.py status`)", "",
          f"Erzeugt {time.strftime('%d.%m.%Y %H:%M')}. Eine Seite -- mehr muss niemand lesen, "
          "um weiterzumachen.", "",
-         "| Punkt | Abteilung | Status | Frage | Letztes Urteil |", "|---|---|---|---|---|"]
+         "| Punkt | Abteilung | Prio | Status | Frage | Letztes Urteil |", "|---|---|---|---|---|---|"]
     for p in agenda["punkte"]:
         e = neuestes_ergebnis(p["id"])
         u = "; ".join(f"{k}: {v}" for k, v in (e or {}).get("urteil", {}).items()) or p.get("notiz", "–")
-        z.append(f"| {p['id']} | {p['abteilung']} | {p['status']} | {p['frage']} | {u} |")
+        z.append(f"| {p['id']} | {p['abteilung']} | {p.get('prioritaet', 1)} | {p['status']} | {p['frage']} | {u} |")
     try:
         from abteilungen.ideenschmiede import lade as lade_ideen
         karten = lade_ideen()["karten"]
@@ -66,8 +73,7 @@ def status():
             for s in ("roh", "geprueft", "neu", "weitergeleitet", "verworfen"))]
     except Exception:
         pass
-    z += ["", "Naechster offener Punkt: " + next((p["id"] for p in agenda["punkte"]
-                                               if p["status"] == "offen" and p.get("modul")), "keiner")]
+    z += ["", "Naechster offener Punkt: " + ((naechster(agenda) or {}).get("id") or "keiner")]
     (WURZEL / "STAND.md").write_text("\n".join(z) + "\n", encoding="utf-8")
     print("\n".join(z))
 
@@ -127,7 +133,7 @@ if __name__ == "__main__":
                 if hasattr(m, "vortest"):
                     print(p["id"], "Vortest:", "bestanden" if m.vortest() else "DURCHGEFALLEN")
     elif arg[0] == "naechstes":
-        p = next((p for p in lade()["punkte"] if p["status"] == "offen" and p.get("modul")), None)
+        p = naechster(lade())
         lauf(p["id"], "--schnell" in arg) if p else print("Agenda leer.")
     elif arg[0] == "ideen":
         from abteilungen import ideenschmiede
@@ -139,8 +145,7 @@ if __name__ == "__main__":
     elif arg[0] == "alle":
         erledigt = set()
         while True:
-            p = next((p for p in lade()["punkte"] if p["status"] == "offen" and p.get("modul")
-                      and p["id"] not in erledigt), None)
+            p = naechster(lade(), erledigt)
             if not p:
                 print("Agenda leer -- alles gerechnet, was freigeschaltet ist.")
                 break

@@ -35,9 +35,9 @@ eine Quantenstufe:
   ist eine Quantenressource (Magie, Verschränkung, Messung).
 - **Q2** — exakte Quantenmechanik (Zustandsvektor, Unitäre, Born-Regel) im
   Simulator, auf Hardware übertragbar.
-- **Q1** — nur mathematische Analogie. **Kommt nicht durchs Tor der
-  Ideenschmiede.** (Deshalb ruht die Linie V-kompass: Tensor-Train auf
-  klassischen Gewichten ist Q1.)
+- **Q1** — nur mathematische Analogie. Wird **nicht gestrichen**, bekommt
+  aber die niedrigste Priorität (Direktor rechnet Q3 vor Q2 vor Q1). Beispiel:
+  V-kompass (Tensor-Train auf klassischen Gewichten) ist Q1 → Priorität 3.
 
 Die Hauptlinie *Magie-Budget* ist Q3: Nicht-Clifford-Gatter (T-Gatter) sind
 die teuerste Ressource eines fehlertoleranten Quantencomputers. Eine Aufgabe,

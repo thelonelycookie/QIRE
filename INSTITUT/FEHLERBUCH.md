@@ -89,3 +89,8 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
   SVD — „Rang außen, Tensornetz innen“. Und: Kompression immer mit kurzem
   Nachtraining vergleichen, ohne Nachtraining fällt *jede* Methode bei
   ≤ 6 % der Parameter auf 45–73 %.
+
+### 24.09.2026 18:13 — C-mnist (automatisch)
+- **C-1**: H0: Rundung kostet nachweislich > 2 pp -- Magie wird gebraucht (siehe C-3)
+- **C-2**: HU: schlaegt nur Hadamard
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*

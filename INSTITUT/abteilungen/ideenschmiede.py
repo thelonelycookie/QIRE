@@ -86,8 +86,10 @@ PFLICHT = ["frage", "quantenkern", "quantenstufe", "papierpruefung", "neuheit", 
 #   Q2 = exakte Quantenmechanik (Zustandsvektor, Unitaere, Born-Regel), im
 #        Simulator gerechnet, auf Hardware uebertragbar
 #   Q1 = nur mathematische Analogie (z. B. Tensor-Train auf klassischen Gewichten)
-# Q1 kommt NICHT durchs Tor. Q3 wird beim Ziehen bevorzugt.
-MIN_QUANTENSTUFE = 2
+# Q1 wird NICHT aussortiert (Malte, 24.09.), bekommt aber die niedrigste
+# Prioritaet: Q3 -> Prioritaet 1, Q2 -> 2, Q1 -> 3. Der Direktor rechnet
+# offene Punkte in dieser Reihenfolge.
+PRIORITAET = {3: 1, 2: 2, 1: 3}
 
 
 def lade():
@@ -154,12 +156,7 @@ def leiten(kid):
     if fehlt:
         print("Tor zu -- es fehlt:", ", ".join(fehlt))
         return False
-    if int(str(k["quantenstufe"]).lstrip("Qq")) < MIN_QUANTENSTUFE:
-        k["status"] = "verworfen"
-        k["grund"] = f"kein echter Quantenkern ({k['quantenstufe']}) -- nur Analogie"
-        sichere(d)
-        print("Verworfen: nur klassische Analogie (Q1). Maltes Grundsatz: quantenphysikalisch arbeiten.")
-        return False
+    prio = PRIORITAET[int(str(k["quantenstufe"]).lstrip("Qq"))]
     if str(k["neuheit"]).upper().startswith("BEKANNT"):
         k["status"] = "verworfen"
         k["grund"] = "bekannt: " + k["neuheit"]
@@ -169,12 +166,12 @@ def leiten(kid):
     agenda = json.loads(AGENDA.read_text(encoding="utf-8"))
     if not any(p["id"] == kid for p in agenda["punkte"]):
         agenda["punkte"].append({"id": kid, "abteilung": k["abteilung"], "status": "idee", "modul": None,
-                                 "frage": k.get("titel", k["frage"]),
+                                 "frage": k.get("titel", k["frage"]), "prioritaet": prio,
                                  "notiz": f"Aus der Ideenschmiede. Abbruch: {k['abbruch']} Test: {k['billigster_test']}"})
         AGENDA.write_text(json.dumps(agenda, indent=1, ensure_ascii=False), encoding="utf-8")
     k["status"] = "weitergeleitet"
     sichere(d)
-    print(f"{kid} weitergeleitet an Abteilung {k['abteilung']}.")
+    print(f"{kid} weitergeleitet an Abteilung {k['abteilung']} (Prioritaet {prio}).")
     return True
 
 
