@@ -243,11 +243,12 @@
   {
    "id": "I-024",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.datenmenge",
    "frage": "Magie gegen Datenmenge: braucht die Zelle mit weniger Trainingsdaten weniger Magie? (Clifford-Gitter als Regularisierer, M50 als Funktion von n_train)",
    "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 (und der Abstand voll - k=0) bei n_train = 500 / 2.000 / 10.000 innerhalb der Seed-Streuung gleich bleibt (TOST 0,5 pp auf dem Abstand). Test: MNIST 16x16, n_train in {500, 2000, 10000}, 10 Seeds, Arme voll / k=0 / k=2 / k=8 (Rundung nach Abstand wie C-mnist), Kopf-Lernrate je Arm auf Tuning-Seeds: ~1 h CPU."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 (und der Abstand voll - k=0) bei n_train = 500 / 2.000 / 10.000 innerhalb der Seed-Streuung gleich bleibt (TOST 0,5 pp auf dem Abstand). Test: MNIST 16x16, n_train in {500, 2000, 10000}, 10 Seeds, Arme voll / k=0 / k=2 / k=8 (Rundung nach Abstand wie C-mnist), Kopf-Lernrate je Arm auf Tuning-Seeds: ~1 h CPU. | Modul gebaut (Forscher-Agent): n_train 500/2.000/10.000 geschachtelt, Arme voll/k0,1,2,4,8/Identitaet/Zufalls-Clifford, 1.500 Vollbatch-Schritte, fruehes Stoppen gleich fuer alle, Seeds 100-109. D-0 Positivkontrolle, D-1 Delta-Schrumpfen >= 0,5 pp (TOST +-0,5 fuer H0), D-2 G(2) +0,15, Holm D-1/D-2. Teststaerke: H1 ab ~1,5 pp Schrumpfen, H0 per TOST unwahrscheinlich (HU realistisch). ~40-60 min.",
+   "folgen": {}
   }
  ]
 }
