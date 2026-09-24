@@ -179,10 +179,10 @@
   {
    "id": "I-004",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.geruest",
    "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min.",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min. | Modul gebaut (Forscher-Agent), R-0..R-4 im Code, Holm ueber R-1/R-2.",
    "prioritaet": 1
   },
   {
@@ -233,11 +233,11 @@
   {
    "id": "I-015",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.kaskade",
    "frage": "Magie-Kaskade: erst die Clifford-Schaltung (0 T-Gatter) rechnen, nur bei unsicheren Bildern magische Winkel zuschalten -- mittlere T-Zahl je Bild statt fester T-Zahl",
    "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei gleicher Genauigkeit wie k=2 die mittlere Schaltungs-T-Zahl nicht unter 50 % von k=2 faellt -- oder wenn mit Ladekosten keine Ersparnis bleibt. Test: MNIST, Modelle k=0/2/8 je Seed trainieren, Schwelle auf Kopf-Konfidenz (Validierung) waehlen, Genauigkeit gegen mittlere T (hardware.py-Zahlen) und Schuesse (I-008) auftragen: ~1 h CPU."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei gleicher Genauigkeit wie k=2 die mittlere Schaltungs-T-Zahl nicht unter 50 % von k=2 faellt -- oder wenn mit Ladekosten keine Ersparnis bleibt. Test: MNIST, Modelle k=0/2/8 je Seed trainieren, Schwelle auf Kopf-Konfidenz (Validierung) waehlen, Genauigkeit gegen mittlere T (hardware.py-Zahlen) und Schuesse (I-008) auftragen: ~1 h CPU. | Modul gebaut (Forscher-Agent). Papier: mit Ladekosten lohnt die Kaskade erst bei < 0,8 % Weiterleitung."
   }
  ]
 }
