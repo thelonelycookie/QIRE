@@ -23,6 +23,9 @@ Winkel mit Gradient 0 nicht), ebenfalls im Vortest geprueft.
 ARME je Konfiguration (Konfiguration = Aufgabe + Breite n):
   voll            alle n*L Winkel frei trainiert (Start wie clifford._baue)
   ohne_schaltung  Identitaet: Ry(0) + CNOT-Ring = reine Permutation (Vortest)
+  nachtrainiert   = Rundungsarm mit k = n*L: alle Winkel frei, Start beim
+                  trainierten voll, frischer Kopf, zweite Trainingsphase mit
+                  derselben Rate/demselben Budget wie die Magie-Arme k > 0.
   k<k>            Rundung aller Winkel auf k*pi/2, die k Winkel mit dem
                   groessten Abstand zum Gitter bleiben frei (Start beim
                   trainierten Wert), Kopf FRISCH (Lehre „geerbter Kopf“).
@@ -57,18 +60,32 @@ zu schaffen (ein volles Training bei n = 10 kostet ~0,2 s je Schritt und
 Kern). Die Zahlen sind daher NICHT direkt mit C-mnist (M50 = 2) vergleichbar;
 echt8 ist die Bruecke.
 
+AENDERUNG DIREKTOR 24.09. VOR JEDER ZAHL: faire Referenz. Die Rundungsarme
+bekommen eine ZWEITE Trainingsphase (Start bei voll, frischer Kopf, volles
+Budget), voll nicht; auf Fashion schlug k8 dadurch voll um +0,53 pp (p = 0,01).
+G gegen voll waere also durch das Nachtraining aufgeblaeht. Referenz im Nenner
+von G und fuer M50/M90 in S-0/S-1/S-3 ist daher „nachtrainiert“ (gleiche
+zweite Phase, nur ohne Rundung); die Basis bleibt die Identitaet. Die alten
+voll-basierten G_voll/M50_voll und d_nach = acc(nachtrainiert) - acc(voll)
+stehen beschreibend unter S-2. S-0 prueft NUR nachtrainiert gegen Identitaet:
+die Vorbedingung muss genau die Groesse absichern, die im Nenner steht; ein
+zusaetzlicher Test von voll schuetzt G nicht und wuerde nur einen Weg zu
+„HU (Vorbedingung)“ ohne Bezug zur Messgroesse oeffnen. voll gegen
+Identitaet wird im S-0-Text mitberichtet.
+
 VORREGISTRIERT (vor dem ersten Lauf, Regel 7):
-  Gewinnanteil wie clifford.py v3: G_n(k) = Mittel(acc_k - acc_ohne) / Gewinn_n,
-  Gewinn_n = Mittel ueber Seeds von (acc_voll - acc_ohne) bei dieser Breite.
+  Gewinnanteil wie clifford.py v3, aber mit fairer Referenz:
+  G_n(k) = Mittel(acc_k - acc_ohne) / Gewinn_n, Gewinn_n = Mittel ueber Seeds
+  von (acc_nachtrainiert - acc_ohne) bei dieser Breite.
   Fuer den gepaarten Test je Seed ein Pseudowert (Delta-Methode, _je_seed_G):
   G_n,s(k) = (N_s - G_n(k) * (D_s - Gewinn_n)) / Gewinn_n, N_s = acc_k - acc_ohne,
-  D_s = acc_voll - acc_ohne. Mittel = G_n(k); die Streuung enthaelt auch den
+  D_s = acc_nachtrainiert - acc_ohne. Mittel = G_n(k); die Streuung enthaelt auch den
   Schaetzfehler des Nenners (mit festem Nenner war der Test zu liberal).
   (Die Basis ist die Identitaet, NICHT die gerundete Schaltung k = 0: deren
   Genauigkeit streut je Seed stark -- in C-mnist sd 1,5 pp bei 3,2 pp Gewinn
   gegenueber k = 0 -- und wuerde den gepaarten Test verrauschen. Die auf k = 0
   bezogene Kurve G_mag wird unter S-2 beschreibend mitberichtet.)
-  S-0 (je Konfiguration) Positivkontrolle: voll schlaegt Identitaet (Gewinn
+  S-0 (je Konfiguration) Positivkontrolle: nachtrainiert schlaegt Identitaet (Gewinn
       > 0, exakter Wilcoxon zweiseitig p < 0,05). Sonst ist G/M50 dort
       bedeutungslos -> S-1/S-3 mit dieser Breite „HU (Vorbedingung)“.
   S-1 (Haupt, Arm echt): d_s = Mittel ueber f in {1/8, 1/4} von
@@ -93,7 +110,8 @@ VORREGISTRIERT (vor dem ersten Lauf, Regel 7):
       Holm ueber die Familie {S-1, S-3} (nur Mitglieder mit erfuellter
       Vorbedingung), jeweils auf den einseitigen p der beobachteten Richtung.
   S-2 beschreibend: M50, M90 absolut je Konfiguration (kleinste gemessene
-      Stufe und linear zwischen Stufen interpoliert), m50 = M50/(n*L), Fit
+      Stufe und linear zwischen Stufen interpoliert), m50 = M50/(n*L), dasselbe
+      bezogen auf voll (G_voll, M50_voll), d_nach = nachtrainiert - voll, Fit
       M50 ~ a * n^b (log-log, echt: 3 Punkte, fest: 2 Punkte), G und G_mag je
       Stufe, d je Anteil (0, 1/8, 1/4, 1/2) und fuer k = 1, 2 absolut.
 
@@ -105,9 +123,9 @@ Anteil; eine gemeinsame Rate fuer alle k > 0 wie in clifford.py v2 --
 Abweichung von Regel 1a aus Budgetgruenden, offen benannt). Gitter
 (0,02; 0,08; 0,32), in beide Richtungen verlaengert (1b), volles Budget (1c).
 BLAS-Threads 1 je Prozess; Aufgaben mit chunksize 1, laengste zuerst.
-LAUFZEIT (geschaetzt, 4 Prozesse): ~72 volle Trainings je Konfiguration;
-n = 10: ~100 s je Training -> echt10 + fest10 ~ 4 Kern-h, echt8 ~ 0,5,
-echt6 ~ 0,2 -> gesamt ~ 70-90 min.
+LAUFZEIT (geschaetzt, 4 Prozesse): ~82 volle Trainings je Konfiguration
+(inkl. nachtrainiert); n = 10: ~100 s je Training -> echt10 + fest10
+~ 4,6 Kern-h, echt8 ~ 0,6, echt6 ~ 0,2 -> gesamt ~ 80-100 min.
 """
 from __future__ import annotations
 
@@ -141,16 +159,19 @@ ALPHA = 0.05
 DELTA = 0.08                  # Aequivalenzgrenze in G (Herleitung im Kopf)
 PAAR_HAUPT = ("echt6", "echt10")
 PAAR_FEST = ("echt6", "fest10")
+NACH = "nachtrainiert"        # faire Referenz (Aenderung Direktor 24.09.)
+REFERENZ = NACH               # Nenner von G fuer S-0/S-1/S-3; "voll" nur beschreibend
 
 HYPOTHESEN = {
-    "S-0": "Positivkontrolle je Konfiguration: voll schlaegt die Identitaet (Gewinn > 0, "
+    "S-0": "Positivkontrolle je Konfiguration: nachtrainiert (faire Referenz, gleiche zweite "
+           "Trainingsphase wie die Rundungsarme) schlaegt die Identitaet (Gewinn > 0, "
            "exakter Wilcoxon p < 0,05); sonst ist M50 bei dieser Breite bedeutungslos.",
-    "S-1": "Haupt (echt): Gewinnanteil G bei gleichem Anteil k/(n*L) in {1/8, 1/4} ist fuer "
+    "S-1": "Haupt (echt): Gewinnanteil G (Referenz nachtrainiert, Basis Identitaet) bei gleichem Anteil k/(n*L) in {1/8, 1/4} ist fuer "
            "n = 10 hoeher als fuer n = 6 (gepaart ueber Seeds, exakter Wilcoxon einseitig, Holm "
            "ueber S-1/S-3) -> H1: Magiebedarf waechst langsamer als n*L. Nachweislich niedriger "
            "-> H0 (niedriger); TOST +-0,08 -> H0 (gleich); sonst HU.",
-    "S-2": "beschreibend: M50, M90 absolut und relativ je n, Fit M50 ~ a*n^b, G- und "
-           "G_mag-Kurven, Differenzen je Anteil und fuer k = 1, 2.",
+    "S-2": "beschreibend: M50, M90 absolut und relativ je n, Fit M50 ~ a*n^b, G-, G_voll- und "
+           "G_mag-Kurven, d_nach = nachtrainiert - voll, Differenzen je Anteil und fuer k = 1, 2.",
     "S-3": "Wie S-1, aber Aufgabe festgehalten (8x8-Information, hochskaliert auf 10 Qubits = "
            "|x> (x) |+>^4): trennt Breite von Bildaufloesung.",
 }
@@ -422,16 +443,24 @@ def lauf(schnell=False, seeds=SEEDS, tuning_seeds=TUNING_SEEDS, schritte=SCHRITT
     print(f"  Phase 3a (voll/Identitaet) nach {time.time() - t0:.0f} s", flush=True)
 
     # Phase 3b: Rundungsarme je Stufe
-    aufg = [(c, s, "rund", lr[(c, "k0" if k == 0 else "kmagie")], "mess", k, zeilen[c][s]["winkel_voll"], budget)
-            for c in cfgs for s in seeds for k in stufen(_cfg_zerlege(c)[1])]
-    for (c, s, _, _, _, k, *_), e in zip(aufg, _parallel(aufg)):
-        zeilen[c][s][f"k{k}"] = e["acc"]
+    # + Arm nachtrainiert (Aenderung Direktor 24.09.): k = n*L, alle Winkel frei,
+    # Start beim trainierten voll, frischer Kopf, dieselbe Rate wie die Magie-Arme.
+    aufg, namen = [], []
+    for c in cfgs:
+        n = _cfg_zerlege(c)[1]
+        for s in seeds:
+            for k in stufen(n) + [n * LAGEN]:
+                aufg.append((c, s, "rund", lr[(c, "k0" if k == 0 else "kmagie")], "mess", k,
+                             zeilen[c][s]["winkel_voll"], budget))
+                namen.append(NACH if k == n * LAGEN else f"k{k}")
+    for (c, s, *_), name, e in zip(aufg, namen, _parallel(aufg)):
+        zeilen[c][s][name] = e["acc"]
     zeilen = {c: [zeilen[c][s] for s in seeds] for c in cfgs}
     for c in cfgs:
         n = _cfg_zerlege(c)[1]
         kh = [_k_anteil(n, f) for f in ANTEILE_HAUPT]
         for z in zeilen[c]:
-            print(f"  {c} Seed {z['seed']}: voll {z['voll']:.4f}  ohne {z['ohne_schaltung']:.4f}  "
+            print(f"  {c} Seed {z['seed']}: voll {z['voll']:.4f}  nach {z[NACH]:.4f}  ohne {z['ohne_schaltung']:.4f}  "
                   + "  ".join(f"k{k} {z[f'k{k}']:.4f}" for k in [0, 1, 2] + kh), flush=True)
 
     ergebnis = {"abteilung": "clifford", "modul": "skala", "agenda": "C-skala", "version": 1,
@@ -516,9 +545,9 @@ def _potenzfit(punkte):
     return {"a": float(math.exp(loga)), "b": float(b), "b_relativ": float(b - 1), "punkte": len(p)}
 
 
-def _je_seed_G(zeilen, gewinn):
+def _je_seed_G(zeilen, gewinn, ref=REFERENZ):
     """{seed: {k: G_s(k)}} als Pseudowerte (Delta-Methode): G_s(k) = (N_s(k) -
-    G(k) * (D_s - D)) / D mit N_s(k) = acc_k - acc_ohne, D_s = acc_voll - acc_ohne,
+    G(k) * (D_s - D)) / D mit N_s(k) = acc_k - acc_ohne, D_s = acc_ref - acc_ohne,
     D = Mittel(D_s), G(k) = Mittel(N)/D. Das Mittel der Pseudowerte ist genau G(k),
     ihre Streuung enthaelt aber auch die Unsicherheit des Nenners D. Mit festem
     Nenner (wie in magie_pruning.py) war der gepaarte Test ueber zwei Breiten zu
@@ -531,7 +560,7 @@ def _je_seed_G(zeilen, gewinn):
     G = {k: float(np.mean([z[f"k{k}"] - z["ohne_schaltung"] for z in zeilen])) / gewinn for k in ks}
     out = {}
     for z in zeilen:
-        dd = (z["voll"] - z["ohne_schaltung"]) - gewinn
+        dd = (z[ref] - z["ohne_schaltung"]) - gewinn
         out[z["seed"]] = {k: (z[f"k{k}"] - z["ohne_schaltung"] - G[k] * dd) / gewinn for k in ks}
     return out
 
@@ -544,20 +573,28 @@ def auswertung(zeilen: dict) -> dict:
         n = _cfg_zerlege(c)[1]
         a = lambda k: np.array([z[k] for z in zz], dtype=float)
         ks = stufen(n)
-        d0 = a("voll") - a("ohne_schaltung")
+        d0 = a(REFERENZ) - a("ohne_schaltung")
         gewinn = float(d0.mean())
         p0 = wilcoxon_exakt(d0)
-        gm = float((a("voll") - a("k0")).mean())
+        dv = a("voll") - a("ohne_schaltung")
+        gewinn_voll = float(dv.mean())
+        dn = a(NACH) - a("voll")
+        gm = float((a(REFERENZ) - a("k0")).mean())
         G = {k: (float((a(f"k{k}") - a("ohne_schaltung")).mean()) / gewinn if gewinn > 0 else None) for k in ks}
+        Gvoll = {k: (float((a(f"k{k}") - a("ohne_schaltung")).mean()) / gewinn_voll if gewinn_voll > 0 else None)
+                 for k in ks}
         Gmag = {k: (float((a(f"k{k}") - a("k0")).mean()) / gm if gm > 0 else None) for k in ks}
-        info = {"n": n, "winkel": n * LAGEN, "gewinn": gewinn, "S0_p": p0,
+        info = {"n": n, "winkel": n * LAGEN, "referenz": REFERENZ, "gewinn": gewinn, "S0_p": p0,
                 "vorbedingung": bool(gewinn > 0 and p0 < ALPHA),
+                "gewinn_voll": gewinn_voll, "S0_p_voll": wilcoxon_exakt(dv),
+                "d_nach": float(dn.mean()), "d_nach_p": wilcoxon_exakt(dn),
                 "gewinn_ueber_k0": gm, "G": {str(k): v for k, v in G.items()},
+                "G_voll": {str(k): v for k, v in Gvoll.items()},
                 "G_mag": {str(k): v for k, v in Gmag.items()},
-                "genauigkeit": {arm: zusammenfassung(a(arm)) for arm in ["voll", "ohne_schaltung"]
+                "genauigkeit": {arm: zusammenfassung(a(arm)) for arm in ["voll", NACH, "ohne_schaltung"]
                                 + [f"k{k}" for k in ks]},
                 "abstand_zum_gitter": float(a("abstand_zum_gitter").mean()) if "abstand_zum_gitter" in zz[0] else None}
-        for name, kurve in (("", G), ("_mag", Gmag)):
+        for name, kurve in (("", G), ("_voll", Gvoll), ("_mag", Gmag)):
             if all(v is not None for v in kurve.values()):
                 for sw in (50, 90):
                     st, ip = _m_schwelle(kurve, sw / 100)
@@ -634,9 +671,11 @@ def urteil(a: dict) -> dict:
     'H0 (niedriger):', 'H0 (gleich):', 'HU:', 'HU (Vorbedingung):'."""
     u = {}
     for c, info in a["konfig"].items():
-        u[f"S-0 {c}"] = (f"H1: voll schlaegt Identitaet (Gewinn {info['gewinn']:+.4f}, p = {info['S0_p']:.4f})"
+        zus = (f"; beschreibend voll-Identitaet {info['gewinn_voll']:+.4f} (p = {info['S0_p_voll']:.4f}), "
+               f"d_nach = {info['d_nach']:+.4f} (p = {info['d_nach_p']:.4f})")
+        u[f"S-0 {c}"] = (f"H1: nachtrainiert schlaegt Identitaet (Gewinn {info['gewinn']:+.4f}, p = {info['S0_p']:.4f})"
                          if info["vorbedingung"] else
-                         f"H0: Gewinn ueber Identitaet nicht nachweisbar ({info['gewinn']:+.4f}, p = {info['S0_p']:.4f})")
+                         f"H0: Gewinn ueber Identitaet nicht nachweisbar ({info['gewinn']:+.4f}, p = {info['S0_p']:.4f})") + zus
     if "S1" in a:
         u["S-1"] = _urteil_vergleich(a["S1"], "Breite+Aufloesung (echt6 -> echt10)")
     if "S3" in a:
@@ -646,7 +685,8 @@ def urteil(a: dict) -> dict:
         f = lambda v: "-" if v is None else (f"{v:.2f}" if isinstance(v, float) else str(v))
         teile.append(f"{c}: M50 {f(info.get('M50_stufe'))} (interp. {f(info.get('M50_interp'))}, "
                      f"relativ {f(info.get('m50_relativ'))}), M90 {f(info.get('M90_stufe'))}, "
-                     f"G(1) {f(info['G'].get('1'))}")
+                     f"G(1) {f(info['G'].get('1'))}; bezogen auf voll: M50 {f(info.get('M50_voll_stufe'))} "
+                     f"(interp. {f(info.get('M50_voll_interp'))}), d_nach {info['d_nach']:+.4f}")
     for aufgabe in ("echt", "fest"):
         fit = a.get(f"S2_fit_{aufgabe}")
         if fit:
@@ -701,6 +741,23 @@ def _vortest_struktur() -> bool:
             fehler(f"gerundete Winkel nicht auf dem Gitter, k = {k}")
         if torch.equal(b.kopf.weight, voll_s.kopf.weight):
             fehler(f"Kopf geerbt statt frisch, k = {k}")
+    # 2b) Arm nachtrainiert: k = n*L -> alle Winkel frei, Winkel == voll vor dem
+    #     Nachtraining, Kopf frisch, Kosten als volles Training eingestuft.
+    for n in (6, 10):
+        torch.manual_seed(11)
+        v = SkalaZelle(n=n)
+        m = _gerundet_skala(v, n * LAGEN, 7)
+        if not (bool(m.frei.bool().all()) and torch.equal(m.winkel().detach(), v.theta.detach())
+                and torch.equal(m.theta.detach(), v.theta.detach())):
+            fehler(f"nachtrainiert: Winkel != voll oder nicht alle frei, n = {n}")
+        if torch.equal(m.kopf.weight, v.kopf.weight):
+            fehler(f"nachtrainiert: Kopf geerbt statt frisch, n = {n}")
+        with torch.no_grad():
+            x = torch.rand(5, 2 ** n)
+            if not torch.allclose(m.merkmale(x), v.merkmale(x), atol=1e-6):
+                fehler(f"nachtrainiert: Schaltung vor dem Nachtraining != voll, n = {n}")
+        if _kosten(("echt10", 0, "rund", 0.1, "mess", 40, None, None)) != 4.0 ** 10:
+            fehler("nachtrainiert nicht als volles Training eingestuft")
     # 3) Identitaet ist eine reine Permutation (auch bei n = 10)
     for n in (6, 10):
         ohne = _baue_skala("ohne_schaltung", 0, n)
@@ -761,7 +818,8 @@ def _synth(rng, g_kurven, gewinne=None, sd=0.002, sd_seed=0.0, n_seeds=10):
         zz = []
         for s in range(n_seeds):
             ohne = 0.88 + rng.normal(0, sd)
-            z = {"seed": s, "ohne_schaltung": ohne, "voll": ohne + gw + rng.normal(0, sd),
+            z = {"seed": s, "ohne_schaltung": ohne, NACH: ohne + gw + rng.normal(0, sd),
+                 "voll": ohne + gw - 0.005 + rng.normal(0, sd),
                  "abstand_zum_gitter": 0.35}
             extra = rng.normal(0, sd_seed)
             for k in stufen(n):
@@ -824,6 +882,23 @@ def vortest(ziehungen=5) -> bool:
     if not urteil(a)["S-1"].startswith("HU:"):
         ok = False
         print("  VORTEST FEHLER: Holm-Korrektur greift nicht", urteil(a)["S-1"])
+    # Referenz: G wird auf nachtrainiert bezogen, G_voll nur beschreibend, d_nach berichtet
+    a = auswertung(_synth(rng, alle4(konst, konst, konst, konst), sd=1e-5))
+    for c, info in a["konfig"].items():
+        if abs(info["d_nach"] - 0.005) > 1e-3 or abs(info["G"]["20" if c.endswith("10") else "12" if c == "echt6" else "16"] - 1) > 1e-3:
+            ok = False
+            print("  VORTEST FEHLER: Referenz nachtrainiert / d_nach falsch", c, info["d_nach"])
+        if not info["G_voll"]["2"] > info["G"]["2"]:
+            ok = False
+            print("  VORTEST FEHLER: G_voll nicht auf voll bezogen", c)
+    # Vorbedingung haengt an nachtrainiert, nicht an voll
+    zz = _synth(rng, alle4(konst, konst, konst, konst))
+    for z in zz["echt10"]:
+        z["voll"] = z["ohne_schaltung"] - 0.01
+    u = urteil(auswertung(zz))
+    if not (u["S-0 echt10"].startswith("H1:") and u["S-1"].startswith("H1:")):
+        ok = False
+        print("  VORTEST FEHLER: S-0 nicht auf nachtrainiert bezogen", u["S-0 echt10"][:80])
     # S-2: Fit erkennt b = 0 (M50 konstant) und b = 1 (M50 ~ n)
     for kurven, b_soll in ((alle4(konst, konst, konst, konst), 0.0), (alle4(prop6, prop8, prop10, prop10), 1.0)):
         a = auswertung(_synth(rng, kurven, sd=1e-5))
