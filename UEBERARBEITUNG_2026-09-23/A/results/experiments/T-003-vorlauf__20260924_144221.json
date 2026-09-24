@@ -1,0 +1,2803 @@
+{
+  "experiment_id": "T-003-vorlauf",
+  "description": "T-003-vorlauf: Rechen-Buendler (kron2/kron3/gefaltet/vorkompiliert/reell) gegen ButterflyFast und dicht. 7 Reihen, fest abwechselnd, Faktor je Reihe gepaart.",
+  "created": "2026-09-24T14:42:21",
+  "config": {
+    "geraet": "cpu",
+    "geraet_info": "cpu, 1 Threads",
+    "threads": 1,
+    "batch": 64,
+    "modus": "training",
+    "lagen": 5,
+    "reihen": 7,
+    "wiederholungen": 3,
+    "warmup": 2,
+    "arme": [
+      "referenz",
+      "kron2",
+      "kron3",
+      "kron2_gefaltet",
+      "kron2_ohne",
+      "reell_kron2",
+      "vorkompiliert",
+      "dicht"
+    ],
+    "qubits": [
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "max_n_dicht": 14,
+    "max_n_referenz": 14,
+    "max_n_vorkompiliert": 13,
+    "winkel": "trainierbar",
+    "tf32": false,
+    "fremdlast": [],
+    "verwertbar": true,
+    "vorregistrierung": "ENTWURF_T003_BUENDLER.md",
+    "torch": "2.12.0+cpu"
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "1"
+  },
+  "n_records": 343,
+  "records": [
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.037764199998491677
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.0050551999993331265
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.006033400000887923
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.006510399998660432
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.002417399999103509
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.0031573999985994305
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.00030789999800617807
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.028635299997404218
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0050486000000091735
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.008060700001806254
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.009049500000401167
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.003995600000052946
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0031846999991103075
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.00030589999732910655
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.02934820000155014
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.0050918000015371945
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.006781000000046333
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.006617999999434687
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.002998799998749746
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.0031373000019812025
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.00030220000189729035
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.030541799998900387
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.00494780000008177
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.006010799999785377
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.00651550000111456
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.002411900000879541
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.003139500000543194
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.000307099999190541
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.02851110000119661
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0049523999987286516
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.006044699999620207
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.006467100000008941
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0024087999991024844
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0031849000006332062
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.00030759999935980886
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.02871420000155922
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.004972599999746308
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.005978499997581821
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.0064937999995891005
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.0023905999987618998
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.003140900000289548
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.000307400001474889
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.02974270000049728
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.00497209999957704
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.006045999998605112
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.006535900000017136
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.0024325999984284863
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.00316469999961555
+    },
+    {
+      "qubits": 8,
+      "dim": 256,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.00030340000012074597
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.05900820000169915
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.008829100002913037
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.010470999997778563
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.01301660000171978
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.005535200001759222
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.004991899997548899
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.0008902999979909509
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.04809670000031474
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.008128099998430116
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.009282799997890834
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.009630300002754666
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0031928999997035135
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.004609399999026209
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0008593000020482577
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.046745899999223184
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.008286399999633431
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.00929790000009234
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.009690700000646757
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.0031662000001233537
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.004572599998937221
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.0008725999978196342
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.049789100001362385
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.008152500002324814
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.009213000001182081
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.009804400000575697
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.0031638000000384636
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.004657499997847481
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.0008543999974790495
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.04830909999873256
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.008293099999718834
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.00922780000109924
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.009688800000731135
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.00313319999986561
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.004576600000291364
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0008622999994258862
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.04636949999985518
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.008137899996654596
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.009209399999235757
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.009633800000301562
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.003259299999626819
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.004657000001316192
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.0008706000007805414
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.04681859999982407
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.008126799999445211
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.00914550000015879
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.009948300001269672
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.003173500001139473
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.00459709999995539
+    },
+    {
+      "qubits": 9,
+      "dim": 512,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.0008686000001034699
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.08014030000049388
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.014937500000087311
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.015345300002081785
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.015914399999019224
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.00478320000183885
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.00702129999990575
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.0034104000005754642
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0792198000017379
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.014859099999739556
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.017838299998402363
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.015920900001219707
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.004518800000369083
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.007195499998488231
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0036327999987406656
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.07942610000100103
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.015008900001703296
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.015295299999706913
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.016017699999792967
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.00450020000062068
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.00704579999728594
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.0034073000024363864
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.08062010000139708
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.014801600002101623
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.015343899998697452
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.015873399999691173
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.004536200001894031
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.007027700001344783
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.0033650999976089224
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.07890799999950104
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.01482419999956619
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.015569199997116812
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.016908099998545367
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.006534000000101514
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.007586200001242105
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0033589999984542374
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.07892539999738801
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.014922000002115965
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.015286400001059519
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.01601700000173878
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.004663900002924493
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.007021000001259381
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.003446700000495184
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.08056389999910607
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.014817400002357317
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.015311800001654774
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.01598829999784357
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.004528700002992991
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.007042600002023391
+    },
+    {
+      "qubits": 10,
+      "dim": 1024,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.0033598999980313238
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.14664790000097128
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.032647200001520105
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.02839460000177496
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.03357489999689278
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.008353299999726005
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.01351789999898756
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.014762999999220483
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.14677920000031008
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.034314300002733944
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.028193699999974342
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0334590999991633
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.008183500001905486
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.013664299996889895
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.01482390000091982
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.17577820000224165
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.03428399999756948
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.03355100000044331
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.0345500000003085
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.009079399998881854
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.013478299999405863
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.014792900001339149
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.14805889999843203
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.032513900001504226
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.02829560000100173
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.03455809999650228
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.008157100000971695
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.01338210000176332
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.014769899997190805
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.1451348999980837
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0328049000017927
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.02822800000285497
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.03339190000042436
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.0083569999987958
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.013882200000807643
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.01494289999754983
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.14741119999962393
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.033090299999457784
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.028236999998625834
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.03342049999992014
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.008304999999381835
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.01344529999914812
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.015609900001436472
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.14701739999873098
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.03269749999890337
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.02850609999950393
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.033261700002185535
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.00820680000106222
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.013494800001353724
+    },
+    {
+      "qubits": 11,
+      "dim": 2048,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.01578479999807314
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.27922100000068895
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.0737200000003213
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.055518900000606664
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.0708933000023535
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.0159127000006265
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.026550300000963034
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.06752939999933005
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.2807719000011275
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.07133750000139116
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.05673969999770634
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.0707579000008991
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.015631599999323953
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.026806699999724515
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.06196759999875212
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.2814892000023974
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.07285240000055637
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.05594819999896572
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.07088509999812231
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.015863599997828715
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.026206299997284077
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.06114489999890793
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.28121939999982715
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.07107769999856828
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.05535320000126376
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.07068280000021332
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.01580689999900642
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.02630180000051041
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.06143069999961881
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.2805756999987352
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.07124409999960335
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.05559309999807738
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.07305079999787267
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.01563420000093174
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.026503800003411015
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.06207460000223364
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.2812984000011056
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.07218709999870043
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.05529029999888735
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.07093159999931231
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.01600229999894509
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.02652230000239797
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.0611300000018673
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.2830945999994583
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.07087690000116709
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.055596399997739354
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.07079389999853447
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.01580140000078245
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.026325200000428595
+    },
+    {
+      "qubits": 12,
+      "dim": 4096,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.06339740000112215
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.6220066999994742
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.18569709999792394
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.12743159999808995
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.1865576999989571
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.03826489999846672
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.06296519999887096
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.2528391999985615
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.6172469000011915
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.18900249999933294
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.12291340000228956
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.18606249999720603
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.03809689999980037
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.06273460000011255
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.2533979999971052
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.6146362999970734
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.184818699999596
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.12900770000123885
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.18660900000031688
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.038071599999966566
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.06320680000135326
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.25268050000158837
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.6175626000003831
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.1847340999993321
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.12766410000040196
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.18765150000035646
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.03817020000133198
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.06312360000083572
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.25989560000016354
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.6335862000014458
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.1849566999990202
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.12824459999683313
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.1862729999993462
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.03808660000140662
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.06312729999990552
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.25294399999984307
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.6178914000010991
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.18532720000075642
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.12755509999988135
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.18665730000066105
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.03804090000267024
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.06887550000101328
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.25515509999968344
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.6233488999969268
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.19161239999812096
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.12703370000235736
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.18566640000062762
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.03792809999868041
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.06297930000073393
+    },
+    {
+      "qubits": 13,
+      "dim": 8192,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.2565317000007781
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 1.646271000001434
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.49769369999921764
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.30741289999787114
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.4859242999991693
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.10008670000024722
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 0.16332239999974263
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 0,
+      "sekunden": 2.752513200000976
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 1.6661280999978771
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.49628470000243396
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.3089962000012747
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.49017079999975977
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.09996010000031674
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 0.16114200000083656
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 1,
+      "sekunden": 2.7596921999975166
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 1.663850499997352
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.5017516999978398
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.31178039999940665
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.4849285999989661
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.10025469999891357
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 0.16205030000128318
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 2,
+      "sekunden": 2.7546138999969116
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 1.6548538999995799
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.5020034999979543
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.30840530000205035
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.48854190000201925
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.10100539999984903
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 0.1605080999979691
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 3,
+      "sekunden": 2.755380899998272
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 1.6802247000014177
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.49973229999886826
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.3195331000024453
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.4931174000012106
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.10080480000033276
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 0.16538260000015725
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 4,
+      "sekunden": 2.756620899999689
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 1.664090700000088
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.5006953000010981
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.30931430000055116
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.4906391000004078
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.10440860000016983
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 0.16273200000068755
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 5,
+      "sekunden": 2.757577399999718
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "referenz",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 1.6653258000005735
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.4975245999994513
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron3",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.30731829999785987
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_gefaltet",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.4864400000005844
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "kron2_ohne",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.10011630000008154
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "reell_kron2",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 0.1604025000015099
+    },
+    {
+      "qubits": 14,
+      "dim": 16384,
+      "arm": "dicht",
+      "baubar": true,
+      "reihe": 6,
+      "sekunden": 2.7553966999985278
+    }
+  ],
+  "analysis": {}
+}

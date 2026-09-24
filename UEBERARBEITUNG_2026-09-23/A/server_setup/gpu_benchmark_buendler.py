@@ -198,6 +198,12 @@ def run(a) -> Recorder:
             print(f"    Reihe {reihe + 1}/{REIHEN}: "
                   + " ".join(f"{k}={v * 1000:.2f}ms" for k, v in werte.items()), flush=True)
         del modelle
+        if geraet == "cpu":                                  # Fremdlast waehrend des Laufs?
+            neu = fremde_last()
+            if neu and not neu[0].startswith("psutil fehlt"):
+                print("  FREMDLAST WAEHREND DES LAUFS:", *neu, sep="\n    ")
+                rec.config["verwertbar"] = False
+                rec.config.setdefault("fremdlast_waehrend", {})[str(n)] = neu
         rec.save()                                           # Regel 5: nach jedem Abschnitt
     return rec
 
@@ -247,6 +253,24 @@ def analyse(records, config) -> Dict[str, object]:
         print(zeile)
     for arm in arme:
         out["uebergang"].setdefault(arm, None)
+    print("\nUebergang gegen dicht je Arm: "
+          + ", ".join(f"{k}={v}" for k, v in out["uebergang"].items()))
+    siege = {d: int((faktoren(records, d, "dicht", PRIMAER_ARM) > 1).sum()) for d in dims}
+    out["reihen_kron2_schneller_als_dicht"] = siege
+    print("Reihen, in denen kron2 dicht schlaegt: "
+          + ", ".join(f"{d}: {s}/{REIHEN}" for d, s in siege.items()))
+    u2 = out["uebergang"].get("kron2_ohne")
+    out["H2"] = ("bestaetigt" if u2 is not None and u2 <= 1024 else "nicht bestaetigt") \
+        + f" (Uebergang kron2_ohne = {u2})"
+    print("H2 (kron2_ohne schlaegt dicht ab d <= 1024): " + out["H2"])
+    m = faktoren(records, 4096, "dicht", "referenz")
+    if len(m) and config.get("batch") == 64 and config.get("modus") == "vorwaerts":
+        # nur dort vergleichbar mit T-001 (Vorwaerts, Batch 64)
+        med = float(np.median(m))
+        out["massstab"] = {"referenz_gegen_dicht_4096": med, "t001": 0.331,
+                           "reproduziert": 0.331 / 1.5 <= med <= 0.331 * 1.5}
+        print(f"Massstab: referenz gegen dicht bei 4096 = {med:.3f} (T-001: 0,331) -> "
+              f"{'reproduziert' if out['massstab']['reproduziert'] else 'NICHT reproduziert'}")
     out["verdict"] = urteil(records, config, out)
     print("\nBEWERTUNG: " + out["verdict"])
     print("=" * 100)

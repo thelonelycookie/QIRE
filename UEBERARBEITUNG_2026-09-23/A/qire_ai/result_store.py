@@ -74,6 +74,14 @@ class Recorder:
         RESULTS_DIR.mkdir(parents=True, exist_ok=True)
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         base = RESULTS_DIR / f"{self.experiment_id}__{stamp}"
+        # Zwei Sicherungen in derselben Sekunde haetten sich frueher still
+        # ueberschrieben (gefunden im T-002-Rauchtest, 24. September). Jetzt
+        # bekommt die zweite ein Suffix; "_02" sortiert nach dem Original, also
+        # findet `latest()` weiterhin die neueste Datei.
+        zaehler = 2
+        while base.with_suffix(".json").exists():
+            base = RESULTS_DIR / f"{self.experiment_id}__{stamp}_{zaehler:02d}"
+            zaehler += 1
 
         payload = {
             "experiment_id": self.experiment_id,

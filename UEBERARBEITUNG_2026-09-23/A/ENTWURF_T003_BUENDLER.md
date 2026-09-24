@@ -237,3 +237,7 @@ ziehen“) ist mit `kron2_gefaltet` erstmals **ausgeführt und verifiziert** —
 in PyTorch kostet sie Stack-Kopien, in einem eigenen Kernel (Triton-GEMM mit
 Indexberechnung im Epilog) wäre sie kostenlos. Die Wahl der Gruppengröße ist
 ein Parameter des Codegenerators (Radix), kein neuer Baustein.
+
+---
+
+**Nachtrag 24.09., nach den Läufen (Vorregistrierung oben unverändert):** Ergebnisse, Dateien und Einordnung in `../BERICHT/buendler.md` §3. Kurz: H1 T1 (Übergang kron2 bei 4.096, 1,45×, 7/7), Auflösung 2,94×, H2 bestätigt (1.024), H3 bestätigt (8.192). In den Nebenläufen (Batch 256, Training) liegt kron2 bei 8.192.
