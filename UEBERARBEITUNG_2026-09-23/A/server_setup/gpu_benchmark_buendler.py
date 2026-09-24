@@ -290,14 +290,20 @@ def vortest() -> bool:
     dims = [2 ** n for n in range(8, 15)]
 
     def daten(uebergang_kron2: Optional[int], kron2_zu_ref: float, seed: int):
+        # Erster Vortest (24.09.) fiel durch -- am GENERATOR, nicht an urteil():
+        # kron2 lag bei 16384 langsamer als referenz (loeste die Aufloesungspruefung
+        # aus), und im Fall "nirgends" war referenz dort schneller als dicht.
         rng = np.random.default_rng(seed)
         recs = []
         for d in dims:
             dicht = 1e-9 * d * d
-            ref = dicht / (0.3 if d < 16384 else 2.0)
+            ref_vorteil = 2.0 if uebergang_kron2 is not None or kron2_zu_ref < 1 else 0.5
+            ref = dicht / (0.3 if d < 16384 else ref_vorteil)
             k2 = ref / kron2_zu_ref
             if uebergang_kron2 is not None:                 # Faktor dicht/kron2 kreuzt 1 genau dort
                 k2 = dicht / (1.3 if d >= uebergang_kron2 else 0.7)
+                if d == 16384:
+                    k2 = min(k2, ref / 1.2)                 # Aufloesungspruefung besteht
             for reihe in range(REIHEN):
                 for arm, t in (("referenz", ref), ("kron2", k2), ("dicht", dicht)):
                     recs.append({"dim": d, "arm": arm, "reihe": reihe, "baubar": True,

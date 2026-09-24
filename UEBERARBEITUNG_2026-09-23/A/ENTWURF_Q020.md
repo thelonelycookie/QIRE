@@ -187,9 +187,10 @@ Anmerkung.
 ## 7. Wiederaufnahme und Rohdaten
 
 - Nach **jeder** Zelle (auch jeder Tuning-Zelle) atomar nach
-  `results/experiments/<ID>_wiederaufnahme.json` (ein Unterstrich — `latest()`
-  sucht `<ID>__*` und findet sie nie; das ist der T-002-Fehler, hier
-  ausgeschlossen). Angenommen wird die Datei nur bei passendem
+  `results/experiments/q020_zwischenstand/<ID>_wiederaufnahme.json` — eigene
+  Datei je Lauf-ID, nie `latest()` (das ist der T-002-Fehler, hier
+  ausgeschlossen). Eigener Unterordner, weil die Datei im Hauptordner am
+  24.09. `q_audit` zum Absturz gebracht hat. Angenommen wird die Datei nur bei passendem
   Konfigurations-Fingerabdruck.
 - Nach **jedem Abschnitt** eine vollständige Rohdatendatei
   `<ID>__<Zeit>.json/.csv` (Regel 5). Reihenfolge: MNIST → 128 Haufen →
@@ -228,7 +229,14 @@ Summe × (3 Tuning-Seeds × *p* Gitterpunkte + 15 Mess-Seeds), zusammen 548 s ×
 | 7 (alle Arme 3-mal verlängert) | 5,5 h |
 
 Davon (b) allein 2,6 h (bei *p* = 5), fast ganz durch `q5` und `q5_ohne`.
-**Erwartung: 4,5–5,5 h, ein Lauf, am Stück oder mit Wiederaufnahme.**
+
+**Gegenprobe aus dem Pilot** (Messzellen mit getunter lr, ohne fremde Last):
+MNIST 66 s je Seed über alle Arme (Zeitmessung: 118), 128 Haufen 180 s
+(Zeitmessung: 312). Die Einzelzellmessung war also um den Faktor ~1,7 zu
+pessimistisch (Anlauf, fremde Last, lr 0,03). Mit den Pilotzeiten:
+312 s × 30 ≈ **2,6 h** (*p* = 5).
+**Erwartung für den vollen Lauf: 3–5 h** auf diesem Rechner, ein Lauf, am
+Stück oder mit Wiederaufnahme.
 
 **Nebenbefund der Zeitmessung (1 Seed, ungetunte lr — KEIN Befund, nur für den
 Entwurf):** In (b) bei 128 Haufen erreichten `quad_free` 1,000, `mlp` 0,990,
@@ -242,7 +250,57 @@ unterlegen** ist — das gehört so berichtet, nicht weggelassen.
 
 ## 9. Pilot — KEIN BEFUND
 
-*(wird eingetragen)*
+`python -m quantum_sim.kernaussage pilot`, 24.09., Rohdaten
+`results/experiments/Q-020-pilot__20260924_095434.json` (57 Zeilen), Log
+`results/Q-020-pilot_run.log`. **Reduziert:** nur MNIST und 128 Haufen (kein
+Fashion), 3 eigene Seeds (20291–20293), **ein** Tuning-Seed (20299), nur **zwei**
+Gitterpunkte, **keine** Verlängerung. Alle 19 Lernraten sitzen deshalb am
+Gitterrand, und mit n = 3 ist das kleinste Wilcoxon-p 0,25 — **die
+Auflösungsprüfung kann im Pilot gar nicht bestehen**, alle drei Urteile lauten
+HU_AUFLOESUNG. Genau so soll es sein. Zweck: Durchlauf, Speichern,
+Wiederaufnahme, Größenordnungen.
+
+| MNIST (offizieller Test) | bal. | sd | lr (Rand) | 128 Haufen | bal. | sd | lr (Rand) |
+|---|---|---|---|---|---|---|---|
+| q1 (16/8) | 0,9330 | 0,0024 | 0,1 ↑ | q1 | 0,3916 | 0,0280 | 0,1 ↑ |
+| q1_ohne | 0,9340 | 0,0044 | 0,1 ↑ | q1_ohne | 0,3490 | 0,0202 | 0,03 ↓ |
+| q5 (80) | 0,9336 | 0,0018 | 0,1 ↑ | q5 | 0,6605 | 0,0280 | 0,03 ↓ |
+| q5_ohne | 0,9323 | 0,0033 | 0,1 ↑ | q5_ohne | 0,3386 | 0,0165 | 0,1 ↑ |
+| kron (8) | 0,9341 | 0,0019 | 0,1 ↑ | kron | 0,3495 | 0,0199 | 0,03 ↓ |
+| quad_free (2.048) | 0,9134 | 0,0084 | 0,01 ↓ | quad_free | 1,0000 | 0,0000 | 0,03 ↓ |
+| mlp (67.848) | 0,9159 | 0,0103 | 0,01 ↓ | mlp | 0,9924 | 0,0070 | 0,1 ↑ |
+| linear | 0,8770 | 0,0057 | 0,01 ↓ | linear | 0,8220 | 0,0232 | 0,03 ↓ |
+| ohne_engstelle | 0,9360 | 0,0024 | 0,01 ↓ | ohne_engstelle | 0,9986 | 0,0003 | 0,1 ↑ |
+| norm_deep | 0,8436 | 0,0221 | 0,01 ↓ | | | | |
+
+Gepaarte Differenzen (n = 3, nur Größenordnung):
+
+| Paar | Mittel | sd |
+|---|---|---|
+| MNIST q1 − mlp | +0,0171 | 0,0081 |
+| MNIST kron − q1_ohne | +0,0001 | 0,0029 |
+| MNIST mlp − linear | +0,0389 | 0,0138 |
+| 128 Haufen q5 − q5_ohne | +0,3219 | 0,0443 |
+| 128 Haufen q5 − q1 | +0,2690 | 0,0212 |
+| 128 Haufen kron − q1_ohne | +0,0005 | 0,0005 |
+
+Was der Pilot für den **Entwurf** sagt (nicht für die Frage):
+
+- **Alles läuft durch**, Rohdaten nach jedem Abschnitt, Wiederaufnahme liest
+  57 Zeilen und 38 Tuning-Zellen korrekt zurück.
+- **Die Startgitter sind richtig gewählt.** Schaltungen wollen auf MNIST ≥ 0,1,
+  das MLP ≤ 0,01 (bei 0,1 bricht es auf 0,38 ein). Das volle Gitter
+  (0,003–0,1, verlängerbar bis 2,7 bzw. 1,1·10⁻⁴) deckt beides.
+- **Der MLP-Rückstand ist noch nicht belastbar**: +0,017 zugunsten der
+  Schaltung, aber das MLP sitzt am **unteren** Gitterrand. Genau dafür gibt es
+  die Verlängerung nach unten.
+- **TOST ±0,005 ist erreichbar:** sd(q1 − mlp) ≈ 0,008 < 0,011 (grob, n = 3).
+- **Die Äquivalenzkontrolle hält:** kron gegen q1_ohne +0,0001 (MNIST) und
+  +0,0005 (Haufen, TOST schon bei n = 3 bestanden).
+- **(b) trennt sehr deutlich:** mit CNOT und 5 Lagen 0,66, alle
+  Kronecker-artigen Arme (q1_ohne, q5_ohne, kron) bei 0,34–0,35 —
+  im Einklang mit der Vorhersage „ohne CNOT hilft Tiefe nicht“. Die
+  klassischen Arme sitzen in (b) an der Decke (quad_free 1,000).
 
 ## 10. Vor dem Lauf zu entscheiden (Malte)
 

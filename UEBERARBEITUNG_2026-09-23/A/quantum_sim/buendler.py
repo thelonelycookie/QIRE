@@ -314,7 +314,8 @@ def verifiziere(qubits: Sequence[int] = tuple(range(4, 15)),
                 max_n_vorkompiliert: int = 10) -> bool:
     print("=" * 100)
     print("T-003 VERIFIKATION -- Buendler gegen ButterflyFast, ButterflyQuantumLayer, float64")
-    print(f"Schranke {tol:g} gegen ButterflyFast. Ohne bestandene Pruefung keine Zeitmessung.")
+    print(f"Schranke {tol:g} gegen die float64-Rechnung; die Abstaende zu den float32-Referenzen\n"
+          "werden daneben berichtet. Ohne bestandene Pruefung keine Zeitmessung.")
     print("=" * 100)
     alle_ok, schlimmst, n_konf = True, {}, 0
     for n in qubits:
@@ -337,20 +338,27 @@ def verifiziere(qubits: Sequence[int] = tuple(range(4, 15)),
                     d_alt = float((o_b - o_alt).abs().max())
                     d_64b = float((o_b.double() - o_64).abs().max())
                     d_64r = float((o_ref.double() - o_64).abs().max())
-                    ok = d_ref <= tol and d_alt <= tol
+                    d_64a = float((o_alt.double() - o_64).abs().max())
+                    # Kriterium (Stand 24.09., nach dem ersten Durchlauf geaendert, siehe
+                    # BERICHT/buendler.md): Schiedsrichter ist die float64-Rechnung. Die beiden
+                    # float32-Referenzen weichen ab n=13 selbst um >1e-6 voneinander ab.
+                    ok = d_64b <= tol
                     alle_ok &= ok
                     n_konf += 1
-                    w = schlimmst.setdefault(s, [0.0, 0.0, 0.0, 0])
+                    w = schlimmst.setdefault(s, [0.0, 0.0, 0.0, 0, 0.0, 0.0])
                     w[0], w[1] = max(w[0], d_ref), max(w[1], d_64b)
                     w[2], w[3] = max(w[2], d_64r), w[3] + (0 if ok else 1)
-                    if not ok:
-                        print(f"  FEHLER n={n} L={L} ent={ent} {s}: gegen fast {d_ref:.2e}, "
+                    w[4], w[5] = max(w[4], d_alt), max(w[5], d_64a)
+                    if not ok or d_ref > tol:
+                        print(f"  {'FEHLER' if not ok else 'Hinweis'} n={n} L={L} ent={ent} "
+                              f"{s}: gegen fast {d_ref:.2e}, "
                               f"gegen Layer {d_alt:.2e}, float64 B/F {d_64b:.2e}/{d_64r:.2e}")
-    head = (f'  {"Strategie":<16}{"max |B-fast|":>14}{"max |B-f64|":>14}'
-            f'{"max |fast-f64|":>16}{"Fehler":>8}')
+    head = (f'  {"Strategie":<16}{"|B-fast|":>11}{"|B-Layer|":>11}{"|B-f64|":>11}'
+            f'{"|fast-f64|":>12}{"|Layer-f64|":>13}{"Fehler":>8}')
     print(head); print("  " + "-" * (len(head) - 2))
-    for s, (a, b64, r64, f) in schlimmst.items():
-        print(f"  {s:<16}{a:>14.2e}{b64:>14.2e}{r64:>16.2e}{f:>8}")
+    for s, (a, b64, r64, f, al, a64) in schlimmst.items():
+        print(f"  {s:<16}{a:>11.2e}{al:>11.2e}{b64:>11.2e}{r64:>12.2e}{a64:>13.2e}{f:>8}")
+    print(f"  (Spaltenwerte = Maximum ueber alle Konfigurationen; Kriterium |B-f64| <= {tol:g})")
     print(f"\n  {n_konf} Konfigurationen (n={min(qubits)}..{max(qubits)}, "
           f"L={min(lagen)}..{max(lagen)}, mit/ohne CNOT; vorkompiliert bis n={max_n_vorkompiliert}).")
     print("  reell_kron2 wird gegen ButterflyFast mit Rz-Winkel 0 geprueft (eigener Arm).")

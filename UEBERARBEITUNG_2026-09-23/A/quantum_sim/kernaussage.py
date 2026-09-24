@@ -362,7 +362,9 @@ class Zustand:
     """
 
     def __init__(self, lauf_id: str, konfiguration: Dict[str, object]):
-        self.pfad = RESULTS_DIR / f"{lauf_id}_wiederaufnahme.json"
+        # Eigener Unterordner: im Hauptordner hat die Datei am 24.09. `q_audit`
+        # zum Absturz gebracht (sie ist kein Recorder-Format).
+        self.pfad = RESULTS_DIR / "q020_zwischenstand" / f"{lauf_id}_wiederaufnahme.json"
         self.fingerabdruck = hashlib.sha256(
             json.dumps(konfiguration, sort_keys=True).encode()).hexdigest()[:16]
         self.tuning: Dict[str, float] = {}
@@ -379,7 +381,7 @@ class Zustand:
                   f"{len(self.records)} Messzeilen aus {self.pfad.name}")
 
     def speichern(self) -> None:
-        RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+        self.pfad.parent.mkdir(parents=True, exist_ok=True)
         tmp = self.pfad.with_suffix(".tmp")
         tmp.write_text(json.dumps({"fingerabdruck": self.fingerabdruck,
                                    "tuning": self.tuning, "lr": self.lr,
