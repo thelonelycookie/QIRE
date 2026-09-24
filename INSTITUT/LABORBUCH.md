@@ -498,3 +498,24 @@ unabhängigen Seed-Sätzen stabil: **4 von 32 Winkeln tragen 70 % (MNIST) bzw.
 ~100 % (Fashion) des Schaltungsgewinns**. M50 = 2–4 (MNIST liegt bei k=2
 genau an der Grenze), M90 ≈ 8–12 bzw. 4. Der Störfaktor war nicht das
 Nachtraining, sondern eine für wenige Parameter getunte Lernrate (FEHLERBUCH).
+
+## 24.09.2026, 23:55 — I-015 Magie-Kaskade (Q3): spart Schaltungs-T, das Laden frisst es — außer die Clifford-Stufe läuft klassisch
+
+MNIST 16×16, Seeds 90–94 (5, beschreibend für K-2), Kaskade 0 → 2 → 8,
+Schwelle τ auf Validierung (Rohdaten `ergebnisse/I-015__20260924_234941.json`, 7 min).
+
+- K-1 **H1**: Kaskade erreicht die Testgenauigkeit von fest k=2 (+0,05 pp,
+  KI [−0,45; +0,55]) mit **17 T = 28 %** der Schaltungs-T von k=2.
+- K-2 B+: Konfidenz schlägt Zufallsweiterleitung in 5/5 Seeds (+1,2 pp;
+  p = 0,0625 = kleinstmöglich bei 5 Seeds).
+- K-3: **mit Ladekosten 114 %** von k=2 — 10–20 % der Bilder werden neu
+  geladen (7.636 T je Lauf). Papierschranke der Karte bestätigt (lohnt erst
+  unter 0,8 % Weiterleitung).
+- **Nachträgliche Rechnung (Direktor, nicht vorregistriert):** Die Stufe k=0
+  ist eine Clifford-Schaltung auf einem *klassischen* Vektor — klassisch
+  exakt mit ≤ 8.192 Additionen, ohne Multiplikation und ohne Laden. Läuft sie
+  klassisch und gehen nur die unsicheren ~10 % der Bilder auf den
+  Quantenrechner, kostet die Kaskade **1.118 T = 14,5 % der Hardware-T von
+  k=2** bei gleicher Genauigkeit (92,28 % gegen 92,24 %). 0 → 8 direkt: 9,4 %.
+  → Als **I-015-hybrid** mit 10 frischen Seeds vorregistriert (H-1: ≤ 25 %
+  und Nichtunterlegenheit 0,5 pp).
