@@ -120,3 +120,8 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 - **Lehre:** Vorhandene Magie ist nicht genutzte Magie (Details LABORBUCH 19:45).
   Zweite Lehre, organisatorisch: Läufe von Agenten auch über den Direktor
   starten, sonst fehlt der automatische Eintrag.
+
+### 24.09.2026 21:42 — C-fashion (automatisch)
+- **C-1**: HU: KI ueberdeckt die 2-pp-Grenze -- kein Urteil
+- **C-2**: HU: schlaegt nur Hadamard
+- **Lehre:** C-1 HU nur knapp (KI [-2,05; -1,02] pp streift die 2-pp-Grenze), C-2 wie immer: k0 = zufaellige Clifford (+0,17 pp, p=0,77). Die Replikation traegt: 4 von 32 Winkeln holen 100 % des Magie-Nutzens (MNIST 62 %), M90 = 4 statt 12. DESIGNFEHLER entdeckt, weil k8 den vollen Arm SCHLUG (+0,53 pp, p=0,01): die Rundungsarme (_gerundet) bekommen eine zweite volle Trainingsphase (Start beim trainierten voll, frischer Kopf, Rate 0,32), der Arm voll nicht. G(k) gegen voll kann dadurch aufgeblaeht sein -- betrifft C-clifford/-v2/-mnist/-fashion, I-001, I-020, I-015, I-004. Lehre: Ein Arm, der aus einem anderen hervorgeht, braucht als Referenz denselben Nachlauf ohne den Eingriff (hier: alle Winkel frei, gleiche zweite Phase). Folge: C-referenz (faire Referenz, frische Seeds, MNIST+Fashion) vorregistriert; C-skala und I-024 vor jeder Zahl um den Arm nachtrainiert ergaenzt. Ein Befund, der ueber 100 % geht, ist ein Pruefauftrag, kein Erfolg.

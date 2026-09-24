@@ -371,3 +371,40 @@ Vortest gegen Brute Force n=1–3, π/4-Winkel → log₂(4/3)): S-1 **H0**
 (Ziffern 4,38 vs. 4,58; MNIST 6,26 vs. 6,28) — nutzen davon aber nur wenige
 Winkel. **Vorhandene Magie ≠ genutzte Magie.** Ein Maß am Zustand oder
 Operator allein sieht die Aufgabe nicht; G(k) tut es.
+
+## 24.09.2026, 21:45 — C-fashion: Konzentration repliziert, Designfehler gefunden
+
+Fashion-MNIST 16×16, 8 Qubits, 32 Winkel, Seeds 10–19, Design v3 wie C-mnist
+(Rohdaten `ergebnisse/C-fashion__20260924_214236.json`, 68 min, 4 Kerne).
+
+| Arm | Fashion | MNIST (C-mnist) |
+|---|---|---|
+| Identität (ohne Schaltung) | 0,796 | 0,901 |
+| zufällige Clifford | 0,816 | 0,905 |
+| k = 0 (gerundet) | 0,817 | 0,907 |
+| k = 2 | 0,827 | 0,921 |
+| k = 4 | 0,833 | 0,926 |
+| k = 8 | **0,838** | 0,934 |
+| voll | 0,833 | 0,939 |
+
+- C-0 **H1**: Schaltung schlägt Identität, +3,6 pp, p = 0,002 (MNIST +3,8).
+- C-1 HU (knapp: KI der Rundung [−2,05; −1,02] pp streift die 2-pp-Grenze).
+- C-2: k0 = zufällige Clifford (+0,17 pp, p = 0,77) — wie auf beiden
+  anderen Datensätzen. Anders als auf MNIST trägt auf Fashion aber schon
+  *irgendeine* Clifford-Schaltung 2,1 pp (p = 0,002) über die Identität:
+  G(0) = 0,58 statt 0,17. Das ist Clifford-Durchmischung, keine Magie.
+- **Magie-Anteil** (Basis k0, Nachrechnung Direktor): k=1 0,24 · k=2 0,64 ·
+  **k=4 1,01** · k=8 1,34. MNIST: 0,39 · 0,44 · 0,62 · 0,86. Die
+  Konzentration ist auf Fashion *stärker*: M50 = 2, M90 = 4 von 32 Winkeln
+  (vorregistriertes Maß mit Basis Identität: M50 = 0, M90 = 4).
+
+**Warnsignal:** k=8 und k=12 *schlagen* den vollen Arm (+0,53 pp, p = 0,010;
++0,46 pp, p = 0,025). Ursache gefunden: `_gerundet` startet beim fertig
+trainierten Modell und trainiert **noch einmal 1.500 Schritte** (Rate 0,32,
+frischer Kopf) — der volle Arm bekommt diese zweite Phase nicht. Ob k8 > voll
+Regularisierung durch Runden ist oder bloß mehr Training, ist so nicht
+trennbar, und alle G(k) gegen „voll“ können aufgebläht sein (FEHLERBUCH).
+**Konsequenz, vor jeder weiteren Zahl:** C-referenz (Arm *nachtrainiert* =
+alle Winkel frei, identische zweite Phase; MNIST + Fashion, frische Seeds
+30–39) vorregistriert; C-skala und I-024 bekommen denselben Arm als
+Referenz. Der Name „Magie-Konzentration“ wartet auf C-referenz.
