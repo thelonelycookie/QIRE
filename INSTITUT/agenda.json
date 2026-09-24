@@ -95,11 +95,12 @@
   {
    "id": "C-skala",
    "abteilung": "Clifford",
-   "status": "wartet",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.skala",
    "frage": "Magie-Skalierung: waechst M* langsamer als die Winkelzahl n*L (n=6,8,10)? Dann wird die Schicht mit wachsender Breite fast multiplikationsfrei.",
-   "notiz": "Modul noch nicht gebaut.",
-   "prioritaet": 1
+   "notiz": "Freigeschaltet vom Direktor 24.09. (Prio 1, Q3, traegt den Namen M50). Modul gebaut (Forscher-Agent): echt6/8/10 (MNIST 8x8/16x16/32x32) + fest10 (8x8 hochskaliert, trennt Breite von Aufloesung); S-0 Positivkontrollen, S-1/S-3 gepaart, Holm (zweiseitig), S-2 Fit M50~a*n^b. 2.500 Bilder, 500 Schritte, Seeds 120-129; ~70-90 min bei 4 Kernen.",
+   "prioritaet": 1,
+   "folgen": {}
   },
   {
    "id": "Z-zne",
