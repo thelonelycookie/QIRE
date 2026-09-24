@@ -697,7 +697,7 @@ def urteil(a: dict) -> dict:
                      f"relativ {f(info.get('m50_relativ'))}), M90 {f(info.get('M90_stufe'))}, "
                      f"G(1) {f(info['G'].get('1'))}; bezogen auf voll: M50 {f(info.get('M50_voll_stufe'))} "
                      f"(interp. {f(info.get('M50_voll_interp'))}), d_nach {info['d_nach']:+.4f}, "
-                     f"instabil {info['instabil_seeds']}/{len(info['genauigkeit']['voll'] and [0]) and info['genauigkeit']['voll']['n']}")
+                     f"instabil {info['instabil_seeds']}/{info['genauigkeit']['voll']['n']}")
     for aufgabe in ("echt", "fest"):
         fit = a.get(f"S2_fit_{aufgabe}")
         if fit:
@@ -902,6 +902,21 @@ def vortest(ziehungen=5) -> bool:
         if not info["G_voll"]["2"] > info["G"]["2"]:
             ok = False
             print("  VORTEST FEHLER: G_voll nicht auf voll bezogen", c)
+    # Instabilitaet: 3 Seeds mit nachtrainiert 2 pp unter voll werden gezaehlt
+    zz = _synth(rng, alle4(konst, konst, konst, konst))
+    for z in zz["echt8"][:3]:
+        z[NACH] = z["voll"] - 0.02
+    a = auswertung(zz)
+    if a["konfig"]["echt8"]["instabil_seeds"] != 3 or a["konfig"]["echt6"]["instabil_seeds"] != 0 \
+            or "instabil 3/10" not in urteil(a)["S-2"]:
+        ok = False
+        print("  VORTEST FEHLER: Instabilitaetszaehlung", a["konfig"]["echt8"]["instabil_seeds"])
+    # nachtrainiert hat eine eigene Rate (eigener Schluessel in der Ratensuche)
+    import inspect
+    quelle = inspect.getsource(lauf)
+    if '("k0", "kmagie", NACH)' not in quelle or "lr[(c, arm)]" not in quelle:
+        ok = False
+        print("  VORTEST FEHLER: nachtrainiert ohne eigene Rate")
     # Vorbedingung haengt an nachtrainiert, nicht an voll
     zz = _synth(rng, alle4(konst, konst, konst, konst))
     for z in zz["echt10"]:
