@@ -224,11 +224,20 @@
   {
    "id": "I-020",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.gesamtbudget",
    "frage": "Gemeinsames Magie-Budget fuer Kodierung + Schaltung: Zelle direkt auf billiger Quantenkodierung trainieren (MPS chi=2, duenn besetzte Praeparation) und Gesamt-T gegen Genauigkeit optimieren",
    "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt. Test: MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt. Test: MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit. | Modul gebaut (Forscher-Agent); duenne Praeparation 2.384-3.870 T statt ~7.800 T (exakt, obere Schranke). G-1/G-2 im Code."
+  },
+  {
+   "id": "I-015",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magie-Kaskade: erst die Clifford-Schaltung (0 T-Gatter) rechnen, nur bei unsicheren Bildern magische Winkel zuschalten -- mittlere T-Zahl je Bild statt fester T-Zahl",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei gleicher Genauigkeit wie k=2 die mittlere Schaltungs-T-Zahl nicht unter 50 % von k=2 faellt -- oder wenn mit Ladekosten keine Ersparnis bleibt. Test: MNIST, Modelle k=0/2/8 je Seed trainieren, Schwelle auf Kopf-Konfidenz (Validierung) waehlen, Genauigkeit gegen mittlere T (hardware.py-Zahlen) und Schuesse (I-008) auftragen: ~1 h CPU."
   }
  ]
 }

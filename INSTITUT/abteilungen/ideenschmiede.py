@@ -120,7 +120,10 @@ def neu(anzahl=8, seed=None):
     rng = random.Random(seed if seed is not None else time.time_ns())
     gew = _befund_gewichte()
     namen = list(KONZEPTE)
-    w = [1 + gew.get(KONZEPTE[n][1], 0) for n in namen]
+    # Gewinner-Abteilungen bevorzugen, aber schon oft gezogene Konzepte daempfen
+    # (sonst zog die Schmiede am 24.09. fuenfmal „Trotter“).
+    schon_konzept = {n: sum(k.get("konzept") == n for k in d["karten"]) for n in namen}
+    w = [(1 + gew.get(KONZEPTE[n][1], 0)) / (1 + schon_konzept[n]) ** 2 for n in namen]
     neu_k = []
     for _ in range(anzahl * 50):
         if len(neu_k) == anzahl:

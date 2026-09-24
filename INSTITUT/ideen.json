@@ -181,83 +181,105 @@
   },
   {
    "id": "I-012",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Klassische Schatten",
    "engpass": "Trainingsschritte bis Ziel",
    "denkzug": "es vom Inferenz- ins Trainingsproblem verschiebt (oder zurueck)",
    "abteilung": "Auslese",
-   "frage": "Wie senkt „Klassische Schatten“ (viele Observablen aus wenigen Zufallsmessungen) den Engpass „Trainingsschritte bis Ziel“, wenn man es vom Inferenz- ins Trainingsproblem verschiebt (oder zurueck)?"
+   "frage": "Wie senkt „Klassische Schatten“ (viele Observablen aus wenigen Zufallsmessungen) den Engpass „Trainingsschritte bis Ziel“, wenn man es vom Inferenz- ins Trainingsproblem verschiebt (oder zurueck)?",
+   "grund": "Schatten sparen Messungen auf Hardware; trainiert wird im Simulator mit exakten Gradienten -- kein Hebel auf Trainingsschritte. Fuer Hardware-Training spaeter wieder aufnehmen.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-013",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Trotter-Zerlegung",
    "engpass": "Einbettungstabelle des Chatbots",
    "denkzug": "nur einen kleinen Teil quantisch macht und den Rest klassisch laesst",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Einbettungstabelle des Chatbots“, wenn man nur einen kleinen Teil quantisch macht und den Rest klassisch laesst?"
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Einbettungstabelle des Chatbots“, wenn man nur einen kleinen Teil quantisch macht und den Rest klassisch laesst?",
+   "grund": "Einbettungstabelle ist ein Nachschlagen ohne Zeit-/Produktstruktur; Trotter hat dort keinen Angriffspunkt.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-014",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Schmidt-Zerlegung / Operator-Verschraenkung",
    "engpass": "Einbettungstabelle des Chatbots",
    "denkzug": "es umkehrt (was dort teuer ist, hier billig macht)",
    "abteilung": "Verschraenkung",
-   "frage": "Wie senkt „Schmidt-Zerlegung / Operator-Verschraenkung“ (Rang ueber einen Schnitt = Kompressionsgrenze) den Engpass „Einbettungstabelle des Chatbots“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?"
+   "frage": "Wie senkt „Schmidt-Zerlegung / Operator-Verschraenkung“ (Rang ueber einen Schnitt = Kompressionsgrenze) den Engpass „Einbettungstabelle des Chatbots“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?",
+   "grund": "bekannt: Tensorprodukt-/TT-Einbettung (word2ket, ICLR 2020; Hrinchuk u. a. 2020), steht als Uebernahme in IDEEN.md Nr. 6.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-015",
-   "status": "roh",
+   "status": "weitergeleitet",
    "erzeugt": "2026-09-24",
    "konzept": "Magie / Clifford-Hierarchie",
    "engpass": "Latenz / Fruehausstieg",
    "denkzug": "kontinuierliche Parameter auf ein Gitter zwingt",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Magie / Clifford-Hierarchie“ (nur Nicht-Clifford-Anteile kosten; Clifford ist klassisch billig) den Engpass „Latenz / Fruehausstieg“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?"
+   "frage": "Wie senkt „Magie / Clifford-Hierarchie“ (nur Nicht-Clifford-Anteile kosten; Clifford ist klassisch billig) den Engpass „Latenz / Fruehausstieg“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?",
+   "quantenstufe": "Q3",
+   "titel": "Magie-Kaskade: erst die Clifford-Schaltung (0 T-Gatter) rechnen, nur bei unsicheren Bildern magische Winkel zuschalten -- mittlere T-Zahl je Bild statt fester T-Zahl",
+   "quantenkern": "T-Gatter (Magie) nur dort ausgeben, wo die Aufgabe sie braucht: adaptive Nutzung der teuersten Ressource eines fehlertoleranten Quantenrechners.",
+   "papierpruefung": "Traegt: k=0 erreicht auf MNIST 0,907, k=2 0,921, voll 0,939. Wenn die Clifford-Version bei den meisten Bildern sicher UND richtig ist, sinkt die mittlere T-Zahl stark. Kaskaden/Early-Exit sind bekannt; neu ist, dass die Stufen durch Magie (T-Zahl) statt Schichttiefe definiert sind. Achtung Hardware: jede Stufe ist ein eigener Schaltungslauf inkl. Laden (C-kodierung!) -- Kosten ehrlich mitzaehlen.",
+   "neuheit": "TEILWEISE: Early-Exit/Kaskaden bekannt (BranchyNet 2016); Kaskade nach T-Zahl fuer Quantenklassifikatoren nicht gesucht -- vor Bau pruefen.",
+   "abbruch": "Wenn bei gleicher Genauigkeit wie k=2 die mittlere Schaltungs-T-Zahl nicht unter 50 % von k=2 faellt -- oder wenn mit Ladekosten keine Ersparnis bleibt.",
+   "billigster_test": "MNIST, Modelle k=0/2/8 je Seed trainieren, Schwelle auf Kopf-Konfidenz (Validierung) waehlen, Genauigkeit gegen mittlere T (hardware.py-Zahlen) und Schuesse (I-008) auftragen: ~1 h CPU.",
+   "kontrolle": "feste Stufe k=2 und k=8; zufaellige statt konfidenzbasierte Weiterleitung mit gleicher Quote."
   },
   {
    "id": "I-016",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Renormierungsgruppe / MERA",
    "engpass": "benoetigte Datenmenge",
    "denkzug": "den Grenzfall sucht, in dem es exakt wird",
    "abteilung": "Verschraenkung",
-   "frage": "Wie senkt „Renormierungsgruppe / MERA“ (Grobkoernung Schicht fuer Schicht) den Engpass „benoetigte Datenmenge“, wenn man den Grenzfall sucht, in dem es exakt wird?"
+   "frage": "Wie senkt „Renormierungsgruppe / MERA“ (Grobkoernung Schicht fuer Schicht) den Engpass „benoetigte Datenmenge“, wenn man den Grenzfall sucht, in dem es exakt wird?",
+   "grund": "MERA-Encoder steht schon im Quanten-Ideenkatalog (Idee 3); kein billiger Test, der ueber den Katalog hinausgeht.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-017",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Trotter-Zerlegung",
    "engpass": "Speicher der Gewichte",
    "denkzug": "es mit einem Befund des Instituts kombiniert",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Speicher der Gewichte“, wenn man es mit einem Befund des Instituts kombiniert?"
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Speicher der Gewichte“, wenn man es mit einem Befund des Instituts kombiniert?",
+   "grund": "Winkelteilung ueber Lagen (gemeinsamer Generator) spart Speicher, aber die Winkel sind ohnehin winzig (32 Zahlen); kein relevanter Engpass.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-018",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Trotter-Zerlegung",
    "engpass": "Einbettungstabelle des Chatbots",
    "denkzug": "es umkehrt (was dort teuer ist, hier billig macht)",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Einbettungstabelle des Chatbots“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?"
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Einbettungstabelle des Chatbots“, wenn man es umkehrt (was dort teuer ist, hier billig macht)?",
+   "grund": "wie I-013.",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-019",
-   "status": "roh",
+   "status": "verworfen",
    "erzeugt": "2026-09-24",
    "konzept": "Trotter-Zerlegung",
    "engpass": "Trainingsschritte bis Ziel",
    "denkzug": "nur einen kleinen Teil quantisch macht und den Rest klassisch laesst",
    "abteilung": "Clifford",
-   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Trainingsschritte bis Ziel“, wenn man nur einen kleinen Teil quantisch macht und den Rest klassisch laesst?"
+   "frage": "Wie senkt „Trotter-Zerlegung“ (exp(A+B) als Produkt kleiner Schritte) den Engpass „Trainingsschritte bis Ziel“, wenn man nur einen kleinen Teil quantisch macht und den Rest klassisch laesst?",
+   "grund": "Doppelung von I-006/I-007 (Trotter = die Zelle selbst).",
+   "bearbeitet": "Claude 24.09."
   },
   {
    "id": "I-020",
@@ -277,6 +299,66 @@
    "abbruch": "Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt.",
    "billigster_test": "MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit.",
    "kontrolle": "exakte Kodierung + volle Schaltung; klassischer linearer Klassifikator als Referenzlinie."
+  },
+  {
+   "id": "I-021",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Renormierungsgruppe / MERA",
+   "engpass": "benoetigte Datenmenge",
+   "denkzug": "es mit einem Befund des Instituts kombiniert",
+   "abteilung": "Verschraenkung",
+   "frage": "Wie senkt „Renormierungsgruppe / MERA“ (Grobkoernung Schicht fuer Schicht) den Engpass „benoetigte Datenmenge“, wenn man es mit einem Befund des Instituts kombiniert?"
+  },
+  {
+   "id": "I-022",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Zero-Noise-Extrapolation",
+   "engpass": "Bits je Gewicht",
+   "denkzug": "es zur Messgroesse macht (vorhersagt statt ausprobiert)",
+   "abteilung": "Theorie",
+   "frage": "Wie senkt „Zero-Noise-Extrapolation“ (Rauschen verstaerken und auf null extrapolieren) den Engpass „Bits je Gewicht“, wenn man es zur Messgroesse macht (vorhersagt statt ausprobiert)?"
+  },
+  {
+   "id": "I-023",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Probabilistische Fehlerauslöschung",
+   "engpass": "Aufmerksamkeit O(L^2)",
+   "denkzug": "es mit einem Befund des Instituts kombiniert",
+   "abteilung": "Theorie",
+   "frage": "Wie senkt „Probabilistische Fehlerauslöschung“ (Quasi-Wahrscheinlichkeiten heben Fehler im Mittel auf) den Engpass „Aufmerksamkeit O(L^2)“, wenn man es mit einem Befund des Instituts kombiniert?"
+  },
+  {
+   "id": "I-024",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Stabilisator-Codes",
+   "engpass": "benoetigte Datenmenge",
+   "denkzug": "kontinuierliche Parameter auf ein Gitter zwingt",
+   "abteilung": "Theorie",
+   "frage": "Wie senkt „Stabilisator-Codes“ (wenige strukturierte Pruefungen schuetzen viel Information) den Engpass „benoetigte Datenmenge“, wenn man kontinuierliche Parameter auf ein Gitter zwingt?"
+  },
+  {
+   "id": "I-025",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Adiabatisches Theorem",
+   "engpass": "Speicher der Gewichte",
+   "denkzug": "den Grenzfall sucht, in dem es exakt wird",
+   "abteilung": "Training",
+   "frage": "Wie senkt „Adiabatisches Theorem“ (langsame Aenderung haelt den Grundzustand) den Engpass „Speicher der Gewichte“, wenn man den Grenzfall sucht, in dem es exakt wird?"
+  },
+  {
+   "id": "I-026",
+   "status": "roh",
+   "erzeugt": "2026-09-24",
+   "konzept": "Stabilisator-Renyi-Entropie",
+   "engpass": "Multiplikationen/Energie je Inferenz",
+   "denkzug": "den Grenzfall sucht, in dem es exakt wird",
+   "abteilung": "Clifford",
+   "frage": "Wie senkt „Stabilisator-Renyi-Entropie“ (billig messbares Mass fuer Magie) den Engpass „Multiplikationen/Energie je Inferenz“, wenn man den Grenzfall sucht, in dem es exakt wird?"
   }
  ]
 }

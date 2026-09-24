@@ -114,3 +114,9 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 ### 24.09.2026 19:44 — I-001 (automatisch)
 - **P-1**: HU: KI ueberdeckt 0.1 (Differenz +0.073, p = 0.3750, KI oben +0.217)
 - **Lehre:** P-1 HU: Verlust-Rangfolge hebt G(2) um +0,07 gegenueber Abstand (p=0,375), bei ~1,7 pp Gesamtgewinn auf den Ziffern ist 0,1 G nur ~1 Testbild -- Aufloesung zu klein (vom Forscher vorab gewarnt). P-2 H1: Wirkung schlaegt Zufall (+0,29 G, p=0,027). Folge: auf MNIST (Gewinn 3,8 pp) wiederholen, wenn Rechenzeit da ist.
+
+### 24.09.2026 19:35 — I-002 (Forscher-Agent, nicht über den Direktor gestartet)
+- **S-1**: H0: Operator-SRE sagt den Rundungsverlust nicht vorher (ρ = 0,26, p = 0,26)
+- **Lehre:** Vorhandene Magie ist nicht genutzte Magie (Details LABORBUCH 19:45).
+  Zweite Lehre, organisatorisch: Läufe von Agenten auch über den Direktor
+  starten, sonst fehlt der automatische Eintrag.
