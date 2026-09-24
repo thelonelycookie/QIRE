@@ -199,7 +199,46 @@ Anmerkung.
 
 ## 8. Rechenzeit
 
-*(wird aus der Zeitmessung eingetragen)*
+Gemessen am 24.09. (`python -m quantum_sim.kernaussage zeit`): je Arm **eine**
+Zelle mit vollem Budget, lr 0,03, Seed 20999, 6 Threads. Ryzen 5 3600. Zur Zeit
+der Messung liefen gelegentlich kurze Selbsttests eines anderen Agenten mit
+(Gesamtlast 38–70 %); die Zeiten sind eher obere Schätzung.
+
+| Arm | MNIST (s) | 128 Haufen (s) |
+|---|---|---|
+| q1 | 17,5 (inkl. Anlauf) | 30,8 |
+| q1_ohne | 6,9 | 22,7 |
+| q5 | 39,4 | **134,7** |
+| q5_ohne | 34,8 | 92,2 |
+| kron | 8,3 | 21,2 |
+| quad_free | 2,5 | 3,8 |
+| mlp | 3,2 | 2,7 |
+| linear | 2,1 | 1,6 |
+| ohne_engstelle | 1,4 | 2,1 |
+| norm_deep | 2,0 | — |
+| **Summe je Seed** | **118** | **312** |
+
+Fashion-MNIST wie MNIST angesetzt. Hochrechnung je Abschnitt:
+Summe × (3 Tuning-Seeds × *p* Gitterpunkte + 15 Mess-Seeds), zusammen 548 s × (3*p* + 15):
+
+| mittlere Gitterpunkte je Arm *p* | Gesamtdauer |
+|---|---|
+| 4 (alle innen, keine Verlängerung) | 4,1 h |
+| **5 (Schätzung: ~1 Verlängerung im Mittel)** | **4,6 h** |
+| 7 (alle Arme 3-mal verlängert) | 5,5 h |
+
+Davon (b) allein 2,6 h (bei *p* = 5), fast ganz durch `q5` und `q5_ohne`.
+**Erwartung: 4,5–5,5 h, ein Lauf, am Stück oder mit Wiederaufnahme.**
+
+**Nebenbefund der Zeitmessung (1 Seed, ungetunte lr — KEIN Befund, nur für den
+Entwurf):** In (b) bei 128 Haufen erreichten `quad_free` 1,000, `mlp` 0,990,
+`ohne_engstelle` 0,998, `linear` 0,846 — die **klassischen Arme stoßen an die
+Decke**, die Schaltungen nicht (`q5` 0,703, `q1` 0,419, `q1_ohne` 0,381,
+`q5_ohne` 0,378, `kron` 0,379). Für P2/P3 unschädlich: beide Paare liegen
+weit unter 0,95, und die Auflösungsprüfung (mlp gegen linear) hat Abstand.
+Beschreibende Vergleiche Schaltung gegen klassisch in (b) sind aber
+Untergrenzen. Und: (b) ist eine Aufgabe, auf der die Schaltung **klar
+unterlegen** ist — das gehört so berichtet, nicht weggelassen.
 
 ## 9. Pilot — KEIN BEFUND
 

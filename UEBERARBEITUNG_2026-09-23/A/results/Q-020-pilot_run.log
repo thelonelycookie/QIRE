@@ -1,0 +1,4 @@
+﻿
+  mnist -- Lernratensuche (volles Budget, 1 Tuning-Seed(s))
+    mnist         / q1              -> lr 0.1  ACHTUNG Rand oben   0.01:0.9037  0.1:0.9387
+    mnist         / q1_ohne         -> lr 0.1  ACHTUNG Rand oben   0.01:0.8978  0.1:0.9392

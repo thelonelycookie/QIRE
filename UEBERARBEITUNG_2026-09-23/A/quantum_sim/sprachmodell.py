@@ -1852,7 +1852,10 @@ def erzeuge(arm: str = "dense", anstoss: str = "Die Quantenmechanik ist",
     pfad = MODELLE / f"{arm}.pt"
     if not pfad.exists():
         raise FileNotFoundError(f"{pfad} fehlt -- erst trainieren.")
-    stand = torch.load(pfad, map_location="cpu", weights_only=False)
+    # weights_only=True: die Datei enthaelt nur Tensoren und Grunddaten; so
+    # fuehrt das Laden einer fremden .pt-Datei (z. B. vom Cluster) keinen
+    # beliebigen Python-Code aus.
+    stand = torch.load(pfad, map_location="cpu", weights_only=True)
     tok = Tokenizer.from_file(str(KORPUS / "bpe_4096.json"))
     modell = SprachModell(arm)
     modell.load_state_dict(stand["state_dict"])

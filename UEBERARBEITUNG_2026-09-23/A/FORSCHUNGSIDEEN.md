@@ -1,5 +1,11 @@
 # Forschungsideen — zweite Blicke und neue Richtungen
 
+**Historisch, Stand 5. August 2026. Aktuell sind `BEFUNDE_UND_RICHTUNGEN.md`
+(nachgeführt 23. September) und `ENTWURF_Q020.md`; zwei Ideen hier bauen auf
+„Verschränkung/Tiefe tragen nichts bei“ auf, was seit dem 23. September nicht
+mehr als belegt gilt. Hinweis ergänzt am 23. September, der Text darunter ist
+unverändert.**
+
 Stand 5. August 2026, nachts. Zwei Teile: **A** nimmt Befunde, die als erledigt
 oder verworfen gelten, und fragt, ob sie unter einem anderen Blickwinkel doch
 etwas hergeben. **B** und **C** sind neue Richtungen für die QuantenKI und für
