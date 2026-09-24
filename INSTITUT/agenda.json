@@ -170,10 +170,10 @@
   {
    "id": "I-003",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.magie_aufgabe",
    "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle.",
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle. | Modul gebaut (Forscher-Agent): echt / Zufallsetiketten (Trainingsgenauigkeit) / Struktur-Aufgabe ohne Magiebedarf als Positivkontrolle (T-1). T-2 mit Wilcoxon + TOST.",
    "prioritaet": 1
   },
   {
