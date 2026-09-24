@@ -17,11 +17,25 @@ HEILMEIER:
       (5.000 Bilder, unabhaengig von n_train). Gepaart wird ueber den
       Seed-Index: gleicher Start der Winkel, gleiche zufaellige Clifford-
       Kontrolle, gleiche Testbilder -- nur die Datenmenge aendert sich.
-  Woran merken wir es?  Abstand Delta(n) = acc(voll) - acc(k=0) und
+  Woran merken wir es?  Abstand Delta(n) = acc(nachtrainiert) - acc(k=0) und
       Gewinnanteil G(2) bzw. M50 als Funktion von n.
 
+AENDERUNG DIREKTOR 24.09. VOR JEDER ZAHL: FAIRE REFERENZ. Die Rundungsarme
+  bekommen eine ZWEITE Trainingsphase (Start beim trainierten voll, frischer
+  Kopf, nochmals volles Budget), voll nicht. Auf Fashion schlug k8 dadurch
+  voll um +0,53 pp (p = 0,01) -- Delta und G(k) gegen voll waeren durch das
+  Nachtraining verzerrt, gerade bei der Regularisierer-Frage (k0 gegen voll).
+  Neuer Arm `nachtrainiert` = _gerundet(voll, 32, seed): alle 32 Winkel frei
+  (Start beim trainierten Wert), frischer Kopf, exakt dieselbe zweite Phase
+  (gleiches Budget, gleiches fruehes Stoppen, eigene Rate je n auf denselben
+  Tuning-Seeds wie jede Rundungsstufe). Er ERSETZT voll als Referenz in D-0,
+  D-1, D-2 (Delta, Gewinn, Nenner von G(k)/M50; Basis Identitaet bleibt).
+  Die voll-basierten Groessen stehen beschreibend in D-3, dazu
+  d_nach(n) = acc(nachtrainiert) - acc(voll).
+
 ARME (je Seed und je n_train, MNIST 16x16, 8 Qubits, L = 4, 32 Winkel):
-  voll            -- alle 32 Winkel frei (Magie 32).
+  voll            -- alle 32 Winkel frei (Magie 32), eine Trainingsphase.
+  nachtrainiert   -- REFERENZ: voll + zweite Phase wie die Rundungsarme (k = 32).
   clifford_k{k}   -- k in MAGIE_STUFEN = 0, 1, 2, 4, 8: Winkel des voll-Modells
                      (desselben Seeds und DERSELBEN Datenmenge) auf k*pi/2
                      gerundet, die k mit dem groessten Abstand zum Gitter
@@ -59,10 +73,11 @@ BUDGET UND KOPF-REGULARISIERUNG (Designentscheidung vor dem Lauf):
     der Vortest prueft Gleichheit mit dem vollen Weg.
 
 VORREGISTRIERT (vor dem ersten Lauf dieses Moduls, Regel 7):
-  Gewinn(n) = mittel_s(acc_voll - acc_ohne); Delta_s(n) = acc_voll,s - acc_k0,s;
+  (ref = nachtrainiert, s. o.)
+  Gewinn(n) = mittel_s(acc_ref - acc_ohne); Delta_s(n) = acc_ref,s - acc_k0,s;
   G_n(k) = mittel_s(acc_k - acc_ohne) / Gewinn(n) (wie clifford.py v3);
   M50/M90(n) = kleinste Stufe mit G_n(k) >= 0,5 / 0,9.
-  D-0 Positivkontrolle: bei n = 10.000 schlaegt voll die Identitaet
+  D-0 Positivkontrolle: bei n = 10.000 schlaegt nachtrainiert die Identitaet
       (Gewinn > 0, exakter Wilcoxon zweiseitig p < 0,05). Sonst D-1/D-2
       „HU (Vorbedingung)“.
   D-1 (Haupt) d_s = Delta_s(10.000) - Delta_s(500)  (> 0: Abstand schrumpft).
@@ -94,10 +109,12 @@ VORREGISTRIERT (vor dem ersten Lauf dieses Moduls, Regel 7):
       Schwelle 0,15 wie I-003: kleiner als der Schritt G(2) -> G(4) auf MNIST.
   HOLM: Familie = {D-1, D-2} (nur die einseitigen H1-Tests; nur die, deren
       Vorbedingung erfuellt ist). D-0 ist Vorbedingung, D-3 beschreibend.
-  D-3 beschreibend: je n Gewinn, Delta, G(k)-Kurve, M50/M90, Regularisierer-
-      Sicht acc(k0) - acc(voll) (> 0 hiesse: Gitter schlaegt volles Modell),
+  D-3 beschreibend: je n Gewinn, Delta, G(k)-Kurve, M50/M90 (Referenz
+      nachtrainiert) UND dieselben Groessen gegen voll; d_nach(n) =
+      acc(nachtrainiert) - acc(voll); Regularisierer-Sicht acc(k0) - acc(ref)
+      und acc(k0) - acc(voll) (> 0 hiesse: Gitter schlaegt volles Modell),
       acc(k0) - acc(zufall_clifford), Generalisierungsluecke (Training - Test)
-      von voll und k0, Stopp-Schritt des fruehen Stoppens (Median).
+      von voll, nachtrainiert und k0, Stopp-Schritt des fruehen Stoppens (Median).
 
 AUFLOESUNG / TESTSTAERKE (offen benannt): In C-mnist (6.000 Bilder) streut
   Delta je Seed mit SD 1,4 pp (k0 allein 1,6 pp). Mit 10 Seeds ist das
@@ -118,8 +135,9 @@ PROTOKOLL: MNIST 16x16, Mess-Seeds 100-109 (frisch), Tuning-Seeds 912/913.
 
 LAUFZEIT (gemessen auf belastetem 4-Kern-Rechner, 1 Thread): ein Schritt
   voll ~16 / 24 / 60 ms bei 400 / 1.600 / 8.000 Trainingsbildern -> ~150 s
-  je (Arm mit freien Winkeln, Seed) ueber alle drei n; 5 solche Arme x 10
-  Seeds + Lernratensuche ~ 14.000 CPU-s -> mit INSTITUT_PROZESSE=4 ~40-60 min.
+  je (Arm mit freien Winkeln, Seed) ueber alle drei n; 6 solche Arme (voll,
+  nachtrainiert, k1/k2/k4/k8) x 10 Seeds + Lernratensuche ~ 17.000 CPU-s ->
+  mit INSTITUT_PROZESSE=4 ~50-75 min.
 """
 from __future__ import annotations
 
@@ -146,7 +164,8 @@ TAKT = 25
 MAGIE_STUFEN = [0, 1, 2, 4, 8]
 K_ENTSCHEID = 2
 ARME_FEST = ["voll", "ohne_schaltung", "zufall_clifford"]
-ARME_RUND = [f"clifford_k{k}" for k in MAGIE_STUFEN]
+REF = "nachtrainiert"                   # faire Referenz (Aenderung Direktor 24.09.)
+ARME_RUND = [f"clifford_k{k}" for k in MAGIE_STUFEN] + [REF]
 ARME = ARME_FEST + ARME_RUND
 MESS_SEEDS = tuple(range(100, 110))
 TUNING_SEEDS = (912, 913)
@@ -157,15 +176,18 @@ MARGE_D2 = 0.15                         # Anteil G (wie I-003)
 T_JE_WINKEL = 31                        # C-hardware: T ~ 31*k bei eps = 1e-3
 
 HYPOTHESEN = {
-    "D-0": "Positivkontrolle: bei n_train = 10.000 schlaegt voll die Identitaet "
+    "D-0": "Positivkontrolle: bei n_train = 10.000 schlaegt nachtrainiert (voll + dieselbe "
+           "zweite Phase wie die Rundungsarme) die Identitaet "
            "(Gewinn > 0, exakter Wilcoxon p < 0,05). Sonst kein Urteil in D-1/D-2.",
-    "D-1": "Der Magie-Abstand Delta(n) = acc(voll) - acc(k=0) ist bei n_train = 500 "
+    "D-1": "Der Magie-Abstand Delta(n) = acc(nachtrainiert) - acc(k=0) ist bei n_train = 500 "
            "um >= 0,5 pp kleiner als bei 10.000 (gepaart ueber den Seed-Index, "
            "exakter Wilcoxon einseitig, Holm ueber D-1/D-2). H0 (Abbruch der Karte): "
            "Delta(500) und Delta(2.000) liegen per TOST innerhalb +-0,5 pp von Delta(10.000).",
     "D-2": "Mit wenig Daten erhalten 2 Magiewinkel einen groesseren Anteil des "
-           "Gewinns: G_500(2) - G_10000(2) >= 0,15 (einseitig, Holm); TOST +-0,15 fuer H0.",
-    "D-3": "beschreibend: je n Gewinn, Delta, G(k), M50/M90, acc(k0) - acc(voll) "
+           "Gewinns (Nenner: nachtrainiert - Identitaet): G_500(2) - G_10000(2) >= 0,15 "
+           "(einseitig, Holm); TOST +-0,15 fuer H0.",
+    "D-3": "beschreibend: je n Gewinn, Delta, G(k), M50/M90 gegen nachtrainiert UND gegen voll, "
+           "d_nach = acc(nachtrainiert) - acc(voll), acc(k0) - acc(ref/voll) "
            "(Regularisierer-Sicht), k0 gegen zufaellige Clifford, Generalisierungsluecke.",
 }
 
@@ -235,6 +257,8 @@ def _voll_aus_winkeln(winkel):
 
 
 def _baue_arm(arm, seed, winkel=None):
+    if arm == REF:        # alle L*n Winkel frei, Start beim trainierten voll, Kopf frisch
+        return _gerundet(_voll_aus_winkeln(winkel), LAGEN * N, seed)
     if arm.startswith("clifford_k"):
         return _gerundet(_voll_aus_winkeln(winkel), int(arm[len("clifford_k"):]), seed)
     m, _ = _baue(arm, seed, N)
@@ -310,7 +334,7 @@ def lauf(schnell=False, seeds=MESS_SEEDS, tuning_seeds=TUNING_SEEDS, schritte=SC
     basis = parallel(_arbeit, [("voll", n, lr[("voll", n)], s, "tuning", schritte, None)
                                for s in tuning_seeds for n in N_WERTE])
     winkel_tuning = {(z["seed"], z["n"]): z["winkel"] for z in basis}
-    # 3) Raten der Rundungsarme, je (k, n) eigen
+    # 3) Raten der Rundungsarme und der Referenz nachtrainiert, je (Arm, n) eigen
     lr_rund = _lr_suche([(arm, n) for arm in ARME_RUND for n in N_WERTE], tuning_seeds, schritte,
                         winkel_von=winkel_tuning)
     lr_info.update(lr_rund)
@@ -333,7 +357,7 @@ def lauf(schnell=False, seeds=MESS_SEEDS, tuning_seeds=TUNING_SEEDS, schritte=SC
     zeilen = [zeilen[s] for s in seeds]
     for z in zeilen:
         print(f"  Seed {z['seed']}: " + "  ".join(
-            f"n={n}: voll {z['acc'][str(n)]['voll']:.4f} k0 {z['acc'][str(n)]['clifford_k0']:.4f} "
+            f"n={n}: voll {z['acc'][str(n)]['voll']:.4f} nach {z['acc'][str(n)][REF]:.4f} k0 {z['acc'][str(n)]['clifford_k0']:.4f} "
             f"ohne {z['acc'][str(n)]['ohne_schaltung']:.4f}" for n in N_WERTE), flush=True)
     perm = {s: _ist_vorzeichen_permutation(_baue_arm("zufall_clifford", s)) for s in seeds}
     ergebnis = {
@@ -343,7 +367,8 @@ def lauf(schnell=False, seeds=MESS_SEEDS, tuning_seeds=TUNING_SEEDS, schritte=SC
         "lr": {f"{a}@{n}": v for (a, n), v in lr_info.items()}, "schritte": schritte,
         "seeds": list(seeds), "tuning_seeds": list(tuning_seeds), "zeilen": zeilen,
         "zufall_ist_permutation": {str(s): v for s, v in perm.items()},
-        "multiplikationen": {"voll": multiplikationen(N),
+        "referenz": REF,
+        "multiplikationen": {"voll": multiplikationen(N), REF: multiplikationen(N),
                              **{f"clifford_k{k}": multiplikationen(N, magie=k) for k in MAGIE_STUFEN}},
         "t_gatter_schaetzung": {"voll": T_JE_WINKEL * LAGEN * N,
                                 **{f"clifford_k{k}": T_JE_WINKEL * k for k in MAGIE_STUFEN}},
@@ -411,10 +436,10 @@ def auswertung(zeilen) -> dict:
     delta, g2 = {}, {}
     for n in n_werte:
         e = {arm: zusammenfassung(A(arm, n)) for arm in ARME}
-        gew = A("voll", n) - A("ohne_schaltung", n)
+        gew = A(REF, n) - A("ohne_schaltung", n)
         e["gewinn"], e["gewinn_p"] = float(gew.mean()), wilcoxon_exakt(gew)
         e["gewinn_ok"] = bool(e["gewinn"] > 0 and e["gewinn_p"] < ALPHA)
-        delta[n] = A("voll", n) - A("clifford_k0", n)
+        delta[n] = A(REF, n) - A("clifford_k0", n)
         e["delta"] = _gepaart(delta[n])
         gw = e["gewinn"]
         e["G"] = {str(k): (float((A(f"clifford_k{k}", n) - A("ohne_schaltung", n)).mean()) / gw
@@ -423,11 +448,22 @@ def auswertung(zeilen) -> dict:
             e[f"M{stufe}"] = next((k for k in MAGIE_STUFEN
                                    if e["G"][str(k)] is not None and e["G"][str(k)] >= stufe / 100), None)
         g2[n] = (A(f"clifford_k{K_ENTSCHEID}", n) - A("ohne_schaltung", n)) / gw if gw > 0 else None
-        e["k0_minus_voll"] = _gepaart(-delta[n])
+        e["k0_minus_ref"] = _gepaart(-delta[n])
+        # beschreibend (D-3): dieselben Groessen gegen voll (ohne zweite Phase)
+        e["d_nach"] = _gepaart(A(REF, n) - A("voll", n))
+        e["k0_minus_voll"] = _gepaart(A("clifford_k0", n) - A("voll", n))
+        gv = float((A("voll", n) - A("ohne_schaltung", n)).mean())
+        e["voll_basis"] = {"gewinn": gv, "gewinn_p": wilcoxon_exakt(A("voll", n) - A("ohne_schaltung", n)),
+                           "delta": _gepaart(A("voll", n) - A("clifford_k0", n)),
+                           "G": {str(k): (float((A(f"clifford_k{k}", n) - A("ohne_schaltung", n)).mean()) / gv
+                                          if gv > 0 else None) for k in MAGIE_STUFEN}}
+        for stufe in (50, 90):
+            e["voll_basis"][f"M{stufe}"] = next((k for k in MAGIE_STUFEN if e["voll_basis"]["G"][str(k)] is not None
+                                                 and e["voll_basis"]["G"][str(k)] >= stufe / 100), None)
         e["k0_minus_zufall"] = _gepaart(A("clifford_k0", n) - A("zufall_clifford", n))
         if all("acc_train" in z for z in zeilen):
             T = lambda arm: np.array([z["acc_train"][str(n)][arm] for z in zeilen], dtype=float)
-            e["luecke"] = {arm: float((T(arm) - A(arm, n)).mean()) for arm in ("voll", "clifford_k0", "ohne_schaltung")}
+            e["luecke"] = {arm: float((T(arm) - A(arm, n)).mean()) for arm in ("voll", REF, "clifford_k0", "ohne_schaltung")}
         if all("stopp" in z for z in zeilen):
             e["stopp_median"] = {arm: float(np.median([z["stopp"][str(n)][arm] for z in zeilen])) for arm in ARME}
         aus["je_n"][str(n)] = e
@@ -464,7 +500,7 @@ def urteil(a: dict) -> dict:
     lo, hi = a["n_werte"][0], a["n_werte"][-1]
     pp = lambda v: f"{100 * v:+.2f} pp"
     d0 = a["D0"]
-    u = {"D-0": (f"H1: voll schlaegt Identitaet bei n={hi} (Gewinn {pp(d0['gewinn'])}, p = {d0['p']:.4f})"
+    u = {"D-0": (f"H1: nachtrainiert schlaegt Identitaet bei n={hi} (Gewinn {pp(d0['gewinn'])}, p = {d0['p']:.4f})"
                  if d0["ok"] else
                  f"H0: Gewinn ueber Identitaet bei n={hi} nicht nachweisbar ({pp(d0['gewinn'])}, p = {d0['p']:.4f})")}
     # D-1
@@ -474,7 +510,7 @@ def urteil(a: dict) -> dict:
         u["D-1"] = (f"HU (Vorbedingung): D-0 oder Delta({hi}) = {pp(dhi['mittel'])} (p = {dhi['p']:.4f}) "
                     f"nicht nachweisbar > 0")
     elif a["holm"]["D-1"] < ALPHA and d1["mittel"] >= MARGE_D1:
-        u["D-1"] = (f"H1: Abstand voll - k0 schrumpft mit weniger Daten um {pp(d1['mittel'])} "
+        u["D-1"] = (f"H1: Abstand nachtrainiert - k0 schrumpft mit weniger Daten um {pp(d1['mittel'])} "
                     f"(Delta({lo}) = {pp(a['je_n'][str(lo)]['delta']['mittel'])}, Delta({hi}) = {pp(dhi['mittel'])}, "
                     f"Holm-p = {a['holm']['D-1']:.4f})")
     elif d1["p_kleiner"] < ALPHA and d1["mittel"] <= -MARGE_D1:
@@ -509,7 +545,9 @@ def urteil(a: dict) -> dict:
         g = e["G"][str(K_ENTSCHEID)]
         teile.append(f"n={n}: Gewinn {pp(e['gewinn'])}, Delta {pp(e['delta']['mittel'])}, "
                      f"G(2) {'-' if g is None else f'{g:.2f}'}, M50 {e['M50']}, M90 {e['M90']}, "
-                     f"k0-voll {pp(e['k0_minus_voll']['mittel'])} (p = {e['k0_minus_voll']['p']:.3f})")
+                     f"k0-ref {pp(e['k0_minus_ref']['mittel'])} (p = {e['k0_minus_ref']['p']:.3f}), "
+                     f"d_nach {pp(e['d_nach']['mittel'])} (p = {e['d_nach']['p']:.3f}), "
+                     f"gegen voll: Delta {pp(e['voll_basis']['delta']['mittel'])}, M50 {e['voll_basis']['M50']}")
     u["D-3"] = "; ".join(teile)
     return u
 
@@ -556,6 +594,11 @@ def _vortest_struktur() -> bool:
         if torch.equal(m.kopf.weight, voll.kopf.weight):
             ok = False
             print("  VORTEST FEHLER: Kopf geerbt statt frisch, k =", k)
+    m = _baue_arm(REF, 5, th.tolist())
+    if not (torch.equal(m.winkel().detach().flatten(), th) and bool(m.frei.bool().all())
+            and not torch.equal(m.kopf.weight, voll.kopf.weight)):
+        ok = False
+        print("  VORTEST FEHLER: nachtrainiert startet nicht bei voll (alle Winkel frei, Kopf frisch)")
     if not torch.equal(runde_clifford(th).reshape(LAGEN, N), _baue_arm("clifford_k0", 5, th.tolist()).winkel().detach()):
         ok = False
         print("  VORTEST FEHLER: k0 ist nicht die volle Rundung")
@@ -599,8 +642,9 @@ def _vortest_struktur() -> bool:
     return ok
 
 
-def _synth(rng, delta, gewinn, g2, sd=0.002, sd_delta=0.0, sd_k=None, n_seeds=10):
-    """Synthetische Zeilen: je n Gewinn (voll - ohne), Delta (voll - k0), G(2)."""
+def _synth(rng, delta, gewinn, g2, sd=0.002, sd_delta=0.0, sd_k=None, n_seeds=10, voll_versatz=0.003):
+    """Synthetische Zeilen: je n Gewinn (ref - ohne), Delta (ref - k0), G(2);
+    voll liegt voll_versatz unter der Referenz nachtrainiert."""
     sd_k = sd if sd_k is None else sd_k
     out = []
     for s in range(n_seeds):
@@ -609,7 +653,7 @@ def _synth(rng, delta, gewinn, g2, sd=0.002, sd_delta=0.0, sd_k=None, n_seeds=10
             ohne = 0.85 + 0.03 * math.log10(n / 500) + rng.normal(0, sd)
             voll = ohne + gewinn[n] + rng.normal(0, sd)
             G = {1: g2[n] - 0.05, 2: g2[n], 4: g2[n] + 0.4 * (1 - g2[n]), 8: 0.95}
-            acc = {"voll": voll, "ohne_schaltung": ohne, "zufall_clifford": ohne + rng.normal(0, sd),
+            acc = {REF: voll, "voll": voll - voll_versatz + rng.normal(0, sd), "ohne_schaltung": ohne, "zufall_clifford": ohne + rng.normal(0, sd),
                    "clifford_k0": voll - delta[n] + rng.normal(0, sd) + rng.normal(0, sd_delta)}
             for k in MAGIE_STUFEN[1:]:
                 acc[f"clifford_k{k}"] = ohne + gewinn[n] * G[k] + rng.normal(0, sd_k)
@@ -654,6 +698,11 @@ def vortest(ziehungen=5) -> bool:
         # 8) kein Gewinn bei n = 500 -> D-2 HU (Vorbedingung), D-1 entscheidet weiter
         (dict(delta={500: 0.0, 2000: 0.02, 10000: 0.035}, gewinn={500: 0.0, 2000: 0.03, 10000: 0.04}, g2=gl(0.5)),
          {"D-1": "H1:", "D-2": "HU (Vorbedingung):"}, 1),
+        # 9) Referenz statt voll: voll ist schlecht (= Identitaet), nachtrainiert gut ->
+        #    Urteil wie Fall 1; wuerde voll benutzt, waeren D-0 H0 und D-1/D-2 HU (Vorbedingung)
+        (dict(delta={500: 0.005, 2000: 0.02, 10000: 0.035}, gewinn=gl(0.04), g2={500: 0.85, 2000: 0.65, 10000: 0.5},
+              voll_versatz=0.04),
+         {"D-0": "H1:", "D-1": "H1:", "D-2": "H1:"}, 0),
     ]
     for par, erwartet, toleranz in faelle:
         fehl = {h: 0 for h in erwartet}
