@@ -56,7 +56,7 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 ### 24.09.2026 16:28 — C-clifford-v2 (automatisch)
 - **C-1**: HU: KI ueberdeckt die 2-pp-Grenze -- kein Urteil
 - **C-2**: H0: gelernte Rundung nicht besser als feste Clifford-Mischung
-- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+- **Lehre:** siehe manuellen Eintrag „C-clifford-v2: zwei Fehler im eigenen Design“ unten.
 
 ### 24.09.2026 — C-clifford-v2: zwei Fehler im eigenen Design
 - **Entartete Kontrolle.** `hadamard_fest` lieferte in *jedem* Seed exakt
@@ -72,3 +72,20 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
   entscheiden. **Lehre:** Grenzen relativ zum Effekt setzen, den man erhalten
   will. v3: Gewinnanteil G(k) und M50/M90 zusätzlich vorregistriert
   (vor der ersten MNIST-Zahl).
+
+### 24.09.2026 17:02 — V-kompass (automatisch)
+- **V-1**: HU: besser, aber < 10 %
+- **V-2**: HU: kein Unterschied nachweisbar
+- **Lehre (Claude, 24.09.):** Die DMRG-Ordnung findet die Struktur, die schon
+  da ist: Sie trennt Ausgangs- von Eingangsbits — das ist die natürliche
+  Ordnung, deren Mittelschnitt genau der Matrixrang ist. Innerhalb der Blöcke
+  sind die gelernten Filter der ersten Schicht *nicht* niedrig verschränkt,
+  deshalb kostet jede weitere TT-Zerlegung nur Parameter: **gewöhnliche
+  Niedrigrang-SVD schlägt alle Tensor-Train-Ordnungen deutlich** (Fehler
+  0,78 gegen 0,92 bei 2.048 Parametern). Dasselbe Bild wie B-014: die
+  Aufgabe setzt den Rang, nicht die Architektur.
+- **Folgefrage (Idee, nicht vorregistriert):** nur die Pixelseite als
+  Quanten-Tensor-Train (QTT, wie in der Bildkompression), die Rangseite als
+  SVD — „Rang außen, Tensornetz innen“. Und: Kompression immer mit kurzem
+  Nachtraining vergleichen, ohne Nachtraining fällt *jede* Methode bei
+  ≤ 6 % der Parameter auf 45–73 %.

@@ -101,6 +101,10 @@ def parallel(fn, aufgaben, prozesse=None):
     if prozesse <= 1:
         _init_arbeiter()
         return [fn(a) for a in aufgaben]
+    # Kindprozesse erben die Umgebung beim Start: BLAS/OpenMP auf 1 Thread, sonst
+    # startet jede NumPy-SVD so viele Threads wie Kerne (Ueberbuchung, 24.09.).
+    for var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[var] = "1"
     with mp.get_context("spawn").Pool(prozesse, initializer=_init_arbeiter) as pool:
         return pool.map(fn, aufgaben)
 

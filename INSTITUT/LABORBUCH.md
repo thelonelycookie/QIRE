@@ -144,3 +144,24 @@ die einen Namen verdient: **die Magie-Konzentration einer Aufgabe.**
 **Verfolgt:** `C-bewusst` ist durch C-1: HU vorregistriert freigeschaltet
 und als Modul gebaut (Vortest bestanden — erst nach Korrektur eines Fehlers
 im eigenen synthetischen Grenzfall).
+
+## 24.09.2026, 17:10 — V-kompass (MNIST 16×16, 8 Seeds, 34 min)
+
+Relativer Fehler / Genauigkeit des Netzes mit komprimiertem ΔW der ersten
+Schicht (dicht: 0,9562):
+
+| Budget | MI-Fiedler | Zufall (Ø 8) | natürlich | verzahnt | Morton | **SVD** |
+|---|---|---|---|---|---|---|
+| 512 | 0,978 / 0,49 | 0,988 | 0,983 / 0,54 | 0,988 / 0,50 | 0,984 / 0,47 | **0,930** / 0,45 |
+| 2.048 | 0,916 / 0,50 | 0,961 | 0,916 / 0,47 | 0,961 / 0,38 | 0,918 / 0,47 | **0,777** / 0,53 |
+| 4.096 | 0,831 / 0,62 | 0,927 | 0,831 / 0,55 | 0,926 / 0,38 | 0,832 / 0,54 | **0,644** / 0,73 |
+
+Urteile: V-1 **HU** (MI/Zufall = 0,954, p = 0,008, aber < 10 %). V-2 **HU**
+(MI = natürlich, Δ = 0,0004, p = 0,84). Die MI-Ordnung legt in allen Seeds
+die 8 Ausgangsbits und die 8 Eingangsbits je in eine Hälfte — sie
+*entdeckt* die natürliche Ordnung, mehr nicht.
+
+**Einordnung:** Negativ für die Tensornetz-Kompression gelernter Filter,
+positiv für die Methode des Instituts: Das Rote Team (SVD) hat den Befund
+gefunden, den keine der „quanteninspirierten“ Varianten zeigt. Linie
+V-kompass ruht; Folgeidee „Rang außen, Tensornetz innen“ in FEHLERBUCH.

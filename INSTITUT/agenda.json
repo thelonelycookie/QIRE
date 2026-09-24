@@ -106,7 +106,7 @@
   {
    "id": "V-kompass",
    "abteilung": "Verschraenkung",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.kompass",
    "frage": "Qubit-Reihenfolge nach Mutual Information (wie Orbital-Ordnung in der DMRG-Quantenchemie) macht die Tensor-Train-Kompression trainierter Gewichte besser als zufaellige Reihenfolge bei gleicher Parameterzahl.",
    "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3).",
