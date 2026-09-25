@@ -703,3 +703,33 @@ Referenz „heute“: k=2 fest, dicht geladen = 7.698 T je Bild.
 zu stören: **~44-mal weniger T-Gatter** je Bild als der naive Weg, bei
 gleicher Genauigkeit. Einschränkung: MNIST, ein Datensatz, T-Zahl mit
 ε = 10⁻³ je Rotation; Fashion-Replikation und echte Hardware stehen aus.
+
+## 25.09.2026, 07:15 — C-skala-v2: Mit stabiler Referenz löst sich der Skalierungs-Hinweis auf
+
+Gleiche Konfigurationen wie C-skala (echt6/echt10/fest10), aber Ratenwahl mit
+Stabilitätsabstand (min über 3 Tuning-Seeds 930–932, Gitter Faktor 2, oberer
+Nachbar darf nicht kollabieren), frische Mess-Seeds 220–229 (Rohdaten
+`ergebnisse/C-skala-v2__20260925_071112.json`, 110 min).
+
+| Konfiguration | Gewinn (nachtrainiert − Id.) | instabil | Kollaps | G(1) | M50 |
+|---|---|---|---|---|---|
+| echt6 (24 Winkel) | +3,2 pp (p=0,002) | 0/10 | keiner | 0,49 | 2 |
+| echt10 (40 Winkel) | +5,1 pp (p=0,002) | 0/10 | keiner | 0,61 | 0 |
+| fest10 (40 Winkel) | +4,9 pp (p=0,002) | 1/10 | keiner | 0,31 | 5 |
+
+- S-0 dreimal **H1** — diesmal mit sauberer, stabiler Referenz (d_nach ≈ 0
+  in allen drei Konfigurationen).
+- **S-1 HU**: Der Hinweis aus C-skala v1 (+0,14 G für n=10 gegenüber n=6)
+  **verschwindet** — mit stabiler Rate d = **−0,08 G** (n.s., KI
+  [−0,16; 0,00], p_rechts = 0,93). Kein Beleg mehr für sublineares Wachstum.
+- **S-3 HU**: Die saubere Trennung Breite/Auflösung (fest10 gegen echt6)
+  bleibt unentschieden (+0,13 G, KI [−0,04; 0,29], n.s.) — diesmal aber mit
+  **sauberer** Methode (fast keine Instabilität), nicht wegen eines
+  Auflösungsproblems.
+
+**Wichtige methodische Lehre (FEHLERBUCH):** Der v1-Befund (S-1 „H1“) war
+ein **Artefakt der instabilen Lernrate**, kein echtes, nur ungenau
+gemessenes Signal. Nach der Korrektur löst er sich auf, statt sich zu
+bestätigen. **Die Magie-Skalierungsfrage bleibt offen** — weder bestätigt
+noch widerlegt, mit jetzt solider Methode für einen künftigen, größer
+angelegten Versuch (mehr Seeds, mehr Breiten).

@@ -338,7 +338,7 @@
   {
    "id": "C-skala-v2",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.skala_v2",
    "prioritaet": 1,
    "frage": "C-skala mit stabiler Referenz: waechst M50 langsamer als n*L, auch wenn Breite und Bildaufloesung getrennt werden (fest10)?",
