@@ -642,3 +642,27 @@ Q3-Rechnung — Modell (4 von 32 Winkeln) und Daten (32–48 von ~110).
 Kombiniert mit der Hybrid-Kaskade (nur 8–14 % der Bilder auf Hardware) ist
 eine Größenordnung von ~2 % der heutigen Hardware-T denkbar — **nicht
 gemessen**, nur geschätzt → Karte I-034.
+
+## 25.09.2026, 04:50 — C-skala: Hinweis auf sublineares Magie-Wachstum, saubere Kontrolle fällt der Lernrate zum Opfer
+
+MNIST, n = 6/8/10 Qubits (8×8, 16×16, 32×32) + fest10 (8×8 hochskaliert ⊗
+|+⟩⁴), L = 4, 2.500 Trainingsbilder, 500 Schritte, Seeds 120–129, faire
+Referenz *nachtrainiert* mit eigener Rate (Rohdaten
+`ergebnisse/C-skala__20260925_044543.json`, 97 min).
+
+| Konfiguration | Winkel | S-0 (nachtrainiert > Identität) | instabil | M50 | M90 | G(1) |
+|---|---|---|---|---|---|---|
+| echt6 | 24 | H1 (+3,8 pp) | 0/10 | 2 | 12 | 0,45 |
+| echt8 | 32 | H0 (−1,3 pp) | **2/10** | – | – | – |
+| echt10 | 40 | H1 (+5,3 pp) | 0/10 | **1** | 10 | 0,63 |
+| fest10 | 40 | H0 (−8,8 pp) | **5/10** | – | – | – |
+
+- **S-1 H1**: bei gleichem Winkelanteil (1/8, 1/4) ist der Gewinnanteil für
+  n = 10 höher als für n = 6 (+0,14 G, KI +0,05 … +0,23, p = 0,0098, Holm).
+  Magiebedarf wächst langsamer als n·L — **aber** mit der Bildauflösung
+  konfundiert.
+- **S-3 HU (Vorbedingung)**: die saubere Trennung (fest10) fällt aus, weil
+  *nachtrainiert* auf 5/10 Seeds kollabiert.
+- Ursache: Die Ratensuche (2 Tuning-Seeds) wählt 0,32 direkt an der
+  Stabilitätskante (1,28 kollabiert). → Lehre Stabilitätsabstand
+  (FEHLERBUCH), Folge C-skala-v2 (Idee).

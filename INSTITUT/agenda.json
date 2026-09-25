@@ -95,7 +95,7 @@
   {
    "id": "C-skala",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.skala",
    "frage": "Magie-Skalierung: waechst M* langsamer als die Winkelzahl n*L (n=6,8,10)? Dann wird die Schicht mit wachsender Breite fast multiplikationsfrei.",
    "notiz": "Freigeschaltet vom Direktor 24.09. (Prio 1, Q3, traegt den Namen M50). Modul gebaut (Forscher-Agent): echt6/8/10 (MNIST 8x8/16x16/32x32) + fest10 (8x8 hochskaliert, trennt Breite von Aufloesung); S-0 Positivkontrollen, S-1/S-3 gepaart, Holm (zweiseitig), S-2 Fit M50~a*n^b. 2.500 Bilder, 500 Schritte, Seeds 120-129; ~70-90 min bei 4 Kernen.",
@@ -334,6 +334,15 @@
    "prioritaet": 1,
    "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination <= 5 % der heutigen Hardware-T (7.698 T) die Genauigkeit von k=2 innerhalb 0,5 pp haelt (Nichtunterlegenheit, 10 Seeds). Test: MNIST 16x16, 10 frische Seeds: Stufenmodelle k=2/8 auf Top-m-geladenen Zustaenden (m = 32, 48) nachtrainieren (Rezept I-033), Kaskade 0(klassisch, exakt) -> k2(Top-m) -> k8(Top-m), tau auf Validierung nach Hybrid-Kosten; ~60-75 min. | Modul gebaut (Forscher-Agent): Kaskade 0(klassisch) -> k2 -> k8 auf Top-m-Laden (m=48 Haupt, m=32, Holm), bildweise exakte Lade-T, Rate 0,08, Seeds 210-219. PK k2 exakt > Identitaet; G-1 <= 5 % von 7.698 T + Nichtunterlegenheit 0,5 pp; G-2 Verlust durch genaehertes Laden in der Kaskade; G-3 Pareto. Ausweichregel tau=1 (alle bis k8), wenn Validierungsziel verfehlt (konservativ). ~35-45 min.",
    "folgen": {}
+  },
+  {
+   "id": "C-skala-v2",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "prioritaet": 1,
+   "frage": "C-skala mit stabiler Referenz: waechst M50 langsamer als n*L, auch wenn Breite und Bildaufloesung getrennt werden (fest10)?",
+   "notiz": "Folge aus C-skala (S-1 H1 echt6->echt10 +0,14 G, aber S-3 HU wegen Instabilitaet von nachtrainiert bei Rate 0,32 an der Stabilitaetskante: echt8 2/10, fest10 5/10). Neu: Ratenwahl mit Stabilitaetsabstand (Kriterium schlechtester Tuning-Seed oder oberer Nachbar stabil), >= 3 Tuning-Seeds, frische Mess-Seeds."
   }
  ]
 }
