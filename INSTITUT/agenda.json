@@ -338,11 +338,12 @@
   {
    "id": "C-skala-v2",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.skala_v2",
    "prioritaet": 1,
    "frage": "C-skala mit stabiler Referenz: waechst M50 langsamer als n*L, auch wenn Breite und Bildaufloesung getrennt werden (fest10)?",
-   "notiz": "Folge aus C-skala (S-1 H1 echt6->echt10 +0,14 G, aber S-3 HU wegen Instabilitaet von nachtrainiert bei Rate 0,32 an der Stabilitaetskante: echt8 2/10, fest10 5/10). Neu: Ratenwahl mit Stabilitaetsabstand (Kriterium schlechtester Tuning-Seed oder oberer Nachbar stabil), >= 3 Tuning-Seeds, frische Mess-Seeds."
+   "notiz": "Folge aus C-skala (S-1 H1 echt6->echt10 +0,14 G, aber S-3 HU wegen Instabilitaet von nachtrainiert bei Rate 0,32 an der Stabilitaetskante: echt8 2/10, fest10 5/10). Neu: Ratenwahl mit Stabilitaetsabstand (Kriterium schlechtester Tuning-Seed oder oberer Nachbar stabil), >= 3 Tuning-Seeds, frische Mess-Seeds. | Modul gebaut (Forscher-Agent): S-0..S-3 aus skala.py unveraendert, Ratenwahl min ueber 3 Tuning-Seeds (930-932), Gitter Faktor 2, Stabilitaetsabstand (oberer Nachbar 2r darf auf keinem Tuning-Seed > 5 pp einbrechen), Magie-Arme in zwei Ratengruppen; echt6/echt10/fest10, Mess-Seeds 220-229. ~115-130 min.",
+   "folgen": {}
   }
  ]
 }
