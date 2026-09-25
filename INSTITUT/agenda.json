@@ -301,7 +301,7 @@
   {
    "id": "I-015-hybrid-fashion",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.kaskade_hybrid",
    "prioritaet": 1,
    "argumente": {

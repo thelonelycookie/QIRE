@@ -592,3 +592,24 @@ Magie-Konzentration ist also eine Eigenschaft des **gelernten** Modells, die
 mit der Datenmenge wächst — nicht der Architektur allein (passt zum
 explorativen I-003-Hinweis). Die Regularisierungsidee war falsch gestellt
 (Runden danach ≠ Training im Clifford-Raum) → I-004-mnist mit n = 500.
+
+## 25.09.2026, 02:00 — I-015-hybrid-fashion: Hybrid-Kaskade repliziert auf Fashion ✔
+
+Fashion-MNIST 16×16, 10 frische Seeds 110–119, sonst identisch vorregistriert
+(Rohdaten `ergebnisse/I-015-hybrid-fashion__20260925_015647.json`, 12 min).
+
+- **H-1 H1**: 1.837 T = **23,9 % der Hardware-T von k=2**, Genauigkeit
+  81,98 % gegen 81,67 % (**+0,31 pp**, KI [+0,04; +0,57] — sogar besser als
+  k2 allein, weil unsichere Bilder bis k=8 durchgereicht werden). 14,2 % der
+  Bilder gehen auf den Quantenrechner.
+- **H-2 H1**: Konfidenz schlägt Zufall (+0,82 pp, p = 0,004).
+- H-3: 0 → 8 direkt: 12,1 % bei 81,79 %.
+- Robustheit: nur 1/10 Seeds mit τ* = 0; ohne ihn 26,5 % (knapp über der
+  25-%-Marke) — die Ersparnis ist auf Fashion kleiner als auf MNIST (11,7 %),
+  weil die Clifford-Stufe dort öfter unsicher ist.
+
+**Zwischenfazit Hybrid-Magie-Kaskade (zwei Datensätze, 20 frische Seeds):**
+Ein klassisches, multiplikationsfreies Clifford-Netz entscheidet 86–92 % der
+Bilder selbst; nur der Rest geht auf die Quantenschaltung mit wenigen
+Magiewinkeln. Hardware-Aufwand **12–24 %** von „alles auf den
+Quantenrechner, k=2“, bei gleicher oder besserer Genauigkeit.
