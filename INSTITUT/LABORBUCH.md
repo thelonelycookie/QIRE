@@ -613,3 +613,32 @@ Ein klassisches, multiplikationsfreies Clifford-Netz entscheidet 86–92 % der
 Bilder selbst; nur der Rest geht auf die Quantenschaltung mit wenigen
 Magiewinkeln. Hardware-Aufwand **12–24 %** von „alles auf den
 Quantenrechner, k=2“, bei gleicher oder besserer Genauigkeit.
+
+## 25.09.2026, 03:10 — I-033 (Q3, vorregistriert): **Magie-Konzentration gilt auch für das Laden** ✔
+
+MNIST 16×16, Seeds 140–149, gerundet werden die Gatterwinkel φ der
+Gray-Code-Zerlegung der dünn besetzten Präparation (Basis I-020: im Mittel
+~110 von 255 φ ≠ 0, 3.260 T); faire Referenz = exakt geladen mit gleicher
+zweiter Phase (Rohdaten `ergebnisse/I-033__20260925_030825.json`, 72 min).
+
+| Laden | alle π/2 | Top-4 | Top-16 | Top-32 | **Top-48** | Ebene 6 | exakt |
+|---|---|---|---|---|---|---|---|
+| Lade-T je Bild | 0 | 123 | 495 | 988 | **1.479** | 1.211 | 3.260 |
+| Anteil | 0 % | 4 % | 15 % | 30 % | **45 %** | 37 % | 100 % |
+| Genauigkeit | 0,535 | 0,677 | 0,881 | 0,928 | **0,938** | 0,883 | 0,944 |
+
+- L-0 H1 (+3,6 pp über Identität, p = 0,002).
+- **L-1 H1**: Top-48 hält die Referenz per TOST innerhalb 1 pp (−0,57 pp,
+  Holm-p = 0,002) bei **45 % der Lade-T** — in allen 10 Seeds −0,1 … −0,9 pp.
+- **L-2 H1**: *welche* Winkel exakt bleiben, entscheidet: Top-16 schlägt 16
+  zufällige um **+31 pp** (p = 0,002).
+- L-3: grob-zu-fein (obere Baumebenen) ist schwächer als Top-m. Lade-M50 =
+  16 Winkel (15 % der T), Lade-M90 = 32 Winkel (30 %).
+
+**Einordnung:** Dieselbe Struktur wie in der Schaltung: Wenige Winkel tragen
+den Nutzen, wenn man sie nach Wirkung (hier: Abstand zum Clifford-Gitter)
+wählt. Damit gibt es die Magie-Konzentration jetzt auf **beiden** Seiten der
+Q3-Rechnung — Modell (4 von 32 Winkeln) und Daten (32–48 von ~110).
+Kombiniert mit der Hybrid-Kaskade (nur 8–14 % der Bilder auf Hardware) ist
+eine Größenordnung von ~2 % der heutigen Hardware-T denkbar — **nicht
+gemessen**, nur geschätzt → Karte I-034.

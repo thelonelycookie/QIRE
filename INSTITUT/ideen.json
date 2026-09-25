@@ -469,6 +469,25 @@
    "abbruch": "Wenn bei <= 50 % der Lade-T (duenn exakt) die Genauigkeit mehr als 1 pp unter exakt geladen liegt (Mittel ueber Seeds, TOST-Grenze 1 pp).",
    "billigster_test": "MNIST 16x16, trainierte volle Zelle (C-mnist-Rezept) je Seed, Laden mit (a) oberen e Ebenen exakt, e = 0..8, (b) Top-m Winkel je Bild nach |Abstand zum Gitter|, Rest gerundet; Kopf + Schaltung mit gleicher zweiter Phase auf genaeherten Zustaenden nachtrainieren, Referenz exakt geladen mit gleicher Phase; T aus kodierung.py: ~30-45 min.",
    "kontrolle": "exakt geladen mit gleichem Nachlauf (faire Referenz); zufaellige m Winkel exakt statt Top-m; alle Winkel gerundet (pi/2 und pi/4)."
+  },
+  {
+   "id": "I-034",
+   "status": "weitergeleitet",
+   "erzeugt": "2026-09-25",
+   "konzept": "Magie / Clifford-Hierarchie",
+   "engpass": "Gesamt-T je Bild auf Hardware",
+   "denkzug": "es mit einem Befund des Instituts kombiniert (I-015-hybrid + I-033 + C-mnist)",
+   "abteilung": "Clifford",
+   "bearbeitet": "Claude 25.09. (Runde 6)",
+   "frage": "Wie viel Hardware-T je Bild bleibt, wenn man alle drei Befunde zusammensetzt: klassische Clifford-Stufe, Top-m-Laden und k Magiewinkel nur fuer die weitergeleiteten Bilder?",
+   "titel": "Gesamt-Magie-Budget kombiniert: Hybrid-Kaskade (Stufe 0 klassisch) + Top-m-Laden + k Magiewinkel -- Hardware-T je Bild gegen Genauigkeit, Ziel <= 5 % von heute (k=2, dicht geladen, 7.698 T)",
+   "quantenstufe": "Q3",
+   "quantenkern": "T-Gatter sind die teuerste Ressource eines fehlertoleranten Quantenrechners. Die drei Befunde sparen an drei Stellen: welche Bilder (Kaskade), wie viel Laden (Top-m), wie viel Schaltung (k). Ob sie sich multiplizieren oder gegenseitig stoeren (genaehertes Laden macht die Kaskaden-Stufe unsicherer), ist offen.",
+   "papierpruefung": "Traegt als Schaetzung: Quantenanteil 8-14 % (I-015-hybrid) x (1.479 + 247) T ~ 140-240 T je Bild = 2-3 % von 7.698. Gefahr: Top-m-Laden kostet 0,6 pp, die Kaskade verlaesst sich auf Konfidenz der Quantenstufe -- Wechselwirkung muss gemessen werden. Faire Referenz: k=2 dicht (heute) und bestes Einzelverfahren.",
+   "neuheit": "NEU (im Institut): Kombination der drei eigenen Befunde; einzelne Bausteine teils bekannt (Kaskaden, approximative Praeparation).",
+   "abbruch": "Wenn keine Kombination <= 5 % der heutigen Hardware-T (7.698 T) die Genauigkeit von k=2 innerhalb 0,5 pp haelt (Nichtunterlegenheit, 10 Seeds).",
+   "billigster_test": "MNIST 16x16, 10 frische Seeds: Stufenmodelle k=2/8 auf Top-m-geladenen Zustaenden (m = 32, 48) nachtrainieren (Rezept I-033), Kaskade 0(klassisch, exakt) -> k2(Top-m) -> k8(Top-m), tau auf Validierung nach Hybrid-Kosten; ~60-75 min.",
+   "kontrolle": "k=2 dicht auf Hardware (heute); Hybrid-Kaskade mit exaktem Laden (I-015-hybrid); feste Stufe k=2 mit Top-m-Laden ohne Kaskade."
   }
  ]
 }
