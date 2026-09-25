@@ -268,9 +268,10 @@ def _pfad(ordner, seed):
 
 def _vorbereitung(a):
     """Je Seed: Daten (kaskade-Teilung), duenne Winkel (Platte), Phase 1 (voll, exakt), Identitaet."""
-    seed, n_train, n_test, schritte, lr, ordner = a
+    seed, n_train, n_test, schritte, lr, ordner = a[:6]
+    ds = a[6] if len(a) > 6 else "mnist"            # Direktor 25.09.: Datensatz waehlbar (I-034-fashion)
     t0 = time.time()
-    xtr, ytr, xte, yte = bilder("mnist", seed, n_train=n_train, n_test=n_test, seite=16)
+    xtr, ytr, xte, yte = bilder(ds, seed, n_train=n_train, n_test=n_test, seite=16)
     nv = len(ytr) // 4                                  # wie kaskade._teile
     p_all, p_te = normiere(xtr.numpy()), normiere(xte.numpy())
     p_tr, p_va = p_all[nv:], p_all[:nv]
@@ -591,7 +592,7 @@ def urteil(a: dict) -> dict:
 
 
 # ------------------------------------------------------------------ 5. Lauf
-def lauf(schnell=False, seeds=None, schritte=None, n_train=None, n_test=None, **kw) -> dict:
+def lauf(schnell=False, seeds=None, schritte=None, n_train=None, n_test=None, datensatz="mnist", **kw) -> dict:
     t0 = time.time()
     seeds = tuple(seeds) if seeds is not None else (ENTWURF_SEEDS if schnell else SEEDS)
     schritte = schritte or (150 if schnell else SCHRITTE)
@@ -601,7 +602,7 @@ def lauf(schnell=False, seeds=None, schritte=None, n_train=None, n_test=None, **
     lr, lr_quelle = _raten()
     ordner = tempfile.mkdtemp(prefix="gesamt_kombi_")
     try:
-        vor = {v["seed"]: v for v in parallel(_vorbereitung, [(s, n_train, n_test, schritte, lr, ordner) for s in seeds])}
+        vor = {v["seed"]: v for v in parallel(_vorbereitung, [(s, n_train, n_test, schritte, lr, ordner, datensatz) for s in seeds])}
         print(f"  Vorbereitung fertig ({time.time() - t0:.0f} s)", flush=True)
         st = parallel(_stufe_lauf, [(s, nm, schritte, lr, ordner) for s in seeds for nm in STUFENMODELLE])
         print(f"  Stufenmodelle fertig ({time.time() - t0:.0f} s)", flush=True)
@@ -620,7 +621,7 @@ def lauf(schnell=False, seeds=None, schritte=None, n_train=None, n_test=None, **
               f"k2 top48 {z['fest']['k2_top48']['test']:.4f} | kombi_m48 tau*={k['tau']} acc {k['acc']:.4f} "
               f"T {k['T_hw']:.0f} ({100 * k['anteil']:.2f} %) Quant {100 * k['quote_quantum']:.1f} %", flush=True)
     ergebnis = {"abteilung": "clifford/hardware", "karte": "I-034", "quantenstufe": "Q3 (lokal simuliert)",
-                "hypothesen": HYPOTHESEN, "seeds": list(seeds), "entwurf": bool(schnell), "schritte": schritte,
+                "hypothesen": HYPOTHESEN, "datensatz": datensatz, "seeds": list(seeds), "entwurf": bool(schnell), "schritte": schritte,
                 "n_train_gesamt": n_train, "n_val": n_train // 4, "n_test": n_test, "lr": lr, "lr_quelle": lr_quelle,
                 "stufenmodelle": {k: list(v) for k, v in STUFENMODELLE.items()},
                 "varianten": {k: [v[0], v[1]] for k, v in VARIANTEN.items()}, "taus": K.TAUS,

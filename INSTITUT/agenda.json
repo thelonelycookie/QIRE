@@ -344,6 +344,31 @@
    "frage": "C-skala mit stabiler Referenz: waechst M50 langsamer als n*L, auch wenn Breite und Bildaufloesung getrennt werden (fest10)?",
    "notiz": "Folge aus C-skala (S-1 H1 echt6->echt10 +0,14 G, aber S-3 HU wegen Instabilitaet von nachtrainiert bei Rate 0,32 an der Stabilitaetskante: echt8 2/10, fest10 5/10). Neu: Ratenwahl mit Stabilitaetsabstand (Kriterium schlechtester Tuning-Seed oder oberer Nachbar stabil), >= 3 Tuning-Seeds, frische Mess-Seeds. | Modul gebaut (Forscher-Agent): S-0..S-3 aus skala.py unveraendert, Ratenwahl min ueber 3 Tuning-Seeds (930-932), Gitter Faktor 2, Stabilitaetsabstand (oberer Nachbar 2r darf auf keinem Tuning-Seed > 5 pp einbrechen), Magie-Arme in zwei Ratengruppen; echt6/echt10/fest10, Mess-Seeds 220-229. ~115-130 min.",
    "folgen": {}
+  },
+  {
+   "id": "I-034-fashion",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.gesamt_kombi",
+   "prioritaet": 1,
+   "argumente": {
+    "datensatz": "fashion_mnist",
+    "seeds": [
+     230,
+     231,
+     232,
+     233,
+     234,
+     235,
+     236,
+     237,
+     238,
+     239
+    ]
+   },
+   "frage": "Replikation des kombinierten Magie-Budgets (Hybrid-Kaskade + Top-m-Laden) auf Fashion-MNIST: dieselben vorregistrierten PK/G-1/G-2/G-3 wie I-034.",
+   "notiz": "Direktor 25.09. nach I-034 H1 (MNIST 2,25 %). Rate 0,08 (= getunte voll-Rate C-fashion, stabil); Referenz 7.698 T (dichtes Laden ist bildunabhaengig). Fashion ist weniger duenn besetzt -> Top-m-Laden relativ verlustreicher; genau das prueft die Replikation. ~40 min.",
+   "folgen": {}
   }
  ]
 }
