@@ -30,6 +30,7 @@ from abteilungen import kaskade as K
 from labor.gemeinsam import wilcoxon_exakt
 
 SEEDS = range(100, 110)
+LADEN_DUENN_MNIST = 3_382   # I-020: duenn besetzte exakte Praeparation (MNIST-Mittel)
 ANTEIL_H1 = 0.25          # <= 25 % der Hardware-T von k=2
 ANTEIL_H0 = 0.50          # > 50 % -> keine lohnende Ersparnis
 GRENZE_ACC = 0.005        # Nichtunterlegenheit 0,5 pp (einseitiges 95-%-KI)
@@ -47,6 +48,8 @@ HYPOTHESEN = {
     "H-3": "beschreibend: zweistufig 0(klassisch)->2 und 0(klassisch)->8, Weiterleitungsquoten, "
            "Kosten mit Stufe 0 auf Hardware (wie I-015 K-3).",
     "H-4": "beschreibend: klassische Additionen der Stufe 0 je Bild.",
+    "H-5": "beschreibend (nur MNIST): dieselbe Kaskade mit duenn besetzter Praeparation (3.382 T, I-020) "
+           "gegen k=2 auf Hardware mit dichter Praeparation (7.698 T).",
 }
 
 
@@ -69,13 +72,17 @@ def _aus_roh(z, teil, stufen_k):
     return konf, korrekt
 
 
-def seed_hybrid(z) -> dict:
+def seed_hybrid(z, datensatz="mnist") -> dict:
     ziel = z["fest"]["k2"]["val"] - K.TOL_ACC
     h = {"seed": z["seed"], "acc_k2": z["fest"]["k2"]["test"], "acc_k0": z["fest"]["k0"]["test"],
          "acc_k8": z["fest"]["k8"]["test"], "T_k2_hw": K.T_LADEN + K.T_JE_K[2]}
-    for name, st in (("dreistufig", [0, 2, 8]), ("zwei_0_2", [0, 2]), ("zwei_0_8", [0, 8])):
-        kv = K.kurve(*_aus_roh(z, "val", st), t_hybrid(st), K.TAUS)
-        kt = K.kurve(*_aus_roh(z, "test", st), t_hybrid(st), K.TAUS)
+    varianten = [("dreistufig", [0, 2, 8], K.T_LADEN), ("zwei_0_2", [0, 2], K.T_LADEN),
+                 ("zwei_0_8", [0, 8], K.T_LADEN)]
+    if datensatz == "mnist":
+        varianten.append(("dreistufig_duenn", [0, 2, 8], LADEN_DUENN_MNIST))
+    for name, st, laden in varianten:
+        kv = K.kurve(*_aus_roh(z, "val", st), t_hybrid(st, laden), K.TAUS)
+        kt = K.kurve(*_aus_roh(z, "test", st), t_hybrid(st, laden), K.TAUS)
         tau, aus = K.waehle_tau(kv, ziel, "T")      # "T" = Hybrid-Kosten (laden steckt in t_hybrid)
         p = K._bei(kt, tau)
         h[name] = {"tau": tau, "ausweich": aus, "acc": p["acc"], "T_hw": p["T"],
@@ -94,7 +101,9 @@ def _ki_einseitig(d):
 
 def auswertung(hz) -> dict:
     a = {"n": len(hz)}
-    for name in ("dreistufig", "zwei_0_2", "zwei_0_8"):
+    for name in ("dreistufig", "zwei_0_2", "zwei_0_8", "dreistufig_duenn"):
+        if name not in hz[0]:
+            continue
         acc = np.array([h[name]["acc"] for h in hz])
         k2 = np.array([h["acc_k2"] for h in hz])
         d = acc - k2
@@ -133,16 +142,20 @@ def urteil(a) -> dict:
     u["H-3"] = "beschreibend: " + "; ".join(
         f"{n}: T {a[n]['anteil'] * 100:.1f} %, acc {a[n]['acc'] * 100:.2f} % (k2 {a[n]['acc_k2'] * 100:.2f} %), "
         f"Quantenanteil {a[n]['quote_quantum'] * 100:.1f} %" for n in ("zwei_0_2", "zwei_0_8"))
+    if "dreistufig_duenn" in a:
+        r5 = a["dreistufig_duenn"]
+        u["H-5"] = (f"beschreibend: mit duenner Praeparation {r5['T_hw']:.0f} T = {r5['anteil'] * 100:.1f} % von k2 dicht, "
+                    f"acc {r5['acc'] * 100:.2f} % (k2 {r5['acc_k2'] * 100:.2f} %)")
     u["H-4"] = f"beschreibend: Stufe 0 klassisch <= {a['additionen_stufe0']} Additionen je Bild, 0 Multiplikationen"
     return u
 
 
-def lauf(schnell=False, seeds=SEEDS):
+def lauf(schnell=False, seeds=SEEDS, datensatz="mnist"):
     t0 = time.time()
-    e = K.lauf(schnell=schnell, seeds=seeds)
-    hz = [seed_hybrid(z) for z in e["zeilen"]]
+    e = K.lauf(schnell=schnell, seeds=seeds, datensatz=datensatz)
+    hz = [seed_hybrid(z, datensatz) for z in e["zeilen"]]
     a = auswertung(hz) if len(hz) > 1 else {"n": len(hz), "roh": hz}
-    return {"abteilung": "Clifford", "hypothesen": HYPOTHESEN, "seeds": list(seeds) if not schnell else [90],
+    return {"abteilung": "Clifford", "hypothesen": HYPOTHESEN, "datensatz": datensatz, "seeds": list(seeds) if not schnell else [90],
             "kaskade": {k: v for k, v in e.items() if k != "zeilen"}, "hybrid_zeilen": hz,
             "zeilen_kurz": [{k: v for k, v in z.items() if k != "roh"} for z in e["zeilen"]],
             "sekunden": time.time() - t0, "auswertung": a,

@@ -297,6 +297,31 @@
    "prioritaet": 1,
    "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
    "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz)."
+  },
+  {
+   "id": "I-015-hybrid-fashion",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.kaskade_hybrid",
+   "prioritaet": 1,
+   "argumente": {
+    "datensatz": "fashion_mnist",
+    "seeds": [
+     110,
+     111,
+     112,
+     113,
+     114,
+     115,
+     116,
+     117,
+     118,
+     119
+    ]
+   },
+   "frage": "Replikation der Hybrid-Magie-Kaskade auf Fashion-MNIST (schwerer, groesserer Magie-Anteil): dieselben vorregistrierten H-1/H-2 wie I-015-hybrid.",
+   "notiz": "Direktor 25.09. nach I-015-hybrid H1 (MNIST 11,7 %). Rate 0,08 = getunte voll-Rate aus C-fashion (stabil). Ladekosten konservativ dicht (7.636 T); H-5 (duenn) nur MNIST. ~15 min.",
+   "folgen": {}
   }
  ]
 }
