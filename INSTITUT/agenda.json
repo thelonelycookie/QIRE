@@ -373,11 +373,12 @@
   {
    "id": "I-035",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
-   "frage": "Magiebedarf als Funktion der Aufgaben-Schwierigkeit: abgestufte Label-Rausch-Skala + billiger Praediktor (Generalisierungsluecke) statt teurem Rundungs-Sweep",
+   "status": "offen",
+   "modul": "abteilungen.magie_schwierigkeit",
+   "frage": "Sagt die Aufgaben-Schwierigkeit (abgestufte Label-Rausch-Skala) den Magiebedarf M50 voraus, und gibt es einen billigen Kennwert (Generalisierungsluecke) dafuer statt des teuren Rundungs-Sweeps?",
    "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 ueber 5 abgestufte Rausch-Stufen (0/10/25/50/75/100 % Label-Rauschen) keine monotone Tendenz zeigt (Spearman-Korrelation KI ueberdeckt 0) ODER kein Kandidaten-Kennwert (Generalisierungsluecke, Born-Entropie) mit M50 ueber die Stufen korreliert (|Spearman| < 0.5, KI ueberdeckt 0). Test: MNIST 16x16, 5-6 Rausch-Stufen (Anteil der Trainings-Etiketten zufaellig permutiert), je Stufe 8-10 Seeds, volles Modell + Rundungs-Sweep (k wie C-mnist) fuer M50, dazu Generalisierungsluecke und Born-Entropie des vollen Modells (kein Zusatztraining); Spearman ueber die Stufen (gepaart je Seed oder ueber Stufenmittel), TOST fuer 'kein Zusammenhang': ~70-90 min."
+   "notiz": "Direktor 25.09. (Vorgabe 7, echte Neuheit, Literatur geprueft: 2403.00919/2409.13008 stellen andere Fragen). Modul gebaut (Forscher-Agent, nachgebessert auf 10 Rausch-Stufen fuer Teststaerke): 10 Stufen 0-100% x 6 Seeds (250-255), K_STUFEN=(0,2,8), eigene Rate je (Stufe,Arm). P-0 Vorbedingung, P-1 M50~Rauschen (Spearman, Bootstrap, TOST +-0.3, Holm), P-2 Generalisierungsluecke~M50, P-3 Born-Entropie beschreibend, P-4 Kontrolle (Kopf ohne Schaltung). ~65-95 min. Teststaerke bei nur 10 Punkten weiterhin begrenzt -- HU realistischer Ausgang bei mittlerem Effekt (im Modul-Docstring benannt).",
+   "folgen": {}
   }
  ]
 }
