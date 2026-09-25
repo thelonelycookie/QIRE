@@ -109,6 +109,114 @@ def parallel(fn, aufgaben, prozesse=None):
         return pool.map(fn, aufgaben)
 
 
+# ---------------------------------------------------------------- Ratenwahl mit Stabilitaetsabstand
+# Direktor 25.09., nach der DRITTEN Instabilitaet einer Nacht (C-referenz, I-003-
+# Struktur, I-035): eine Rate, die nur nach dem Mittel ueber 2 Tuning-Seeds gewaehlt
+# wird, kippt oft direkt an der Stabilitaetskante (der naechste Gitterpunkt kollabiert
+# schon). Diese Logik stand zuerst in abteilungen/skala_v2.py (dort erstmals gebaut,
+# als Antwort auf genau dieses Problem in C-skala) -- hierher gehoben, damit sie
+# KANONISCH wird: neue Module sollen sie standardmaessig verwenden, nicht die
+# "einfache" 2-Seed-argmax-Suche neu erfinden (die hat jetzt dreimal denselben Fehler
+# reproduziert). Wer aus Zeitgruenden doch die einfache Suche nimmt, sollte das im
+# Docstring begruenden UND zusaetzlich eine Ausreisser-Pruefung vor der Urteilsbildung
+# einbauen (nicht nur deskriptiv nach dem Urteil, wie es I-035 zuerst tat).
+def waehle_rate(werte: dict, kollaps: float = 0.05, notfall: bool = False) -> dict:
+    """werte {lr: [acc je Tuning-Seed]} (gleiche Seed-Reihenfolge je lr). Kriterium:
+    schlechtester Tuning-Seed (min), nicht das Mittel -- eine Rate ist nur waehlbar,
+    wenn ihr oberer Gitternachbar auf KEINEM Tuning-Seed kollabiert (Genauigkeit
+    < beste Rate desselben Seeds - `kollaps`), sonst eine Stufe tiefer, wiederholt.
+    Rueckgabe {'lr', 'erweitern' (None | 'unten' | 'oben'), 'argmax' (min-Kriterium),
+    'argmax_mittel', 'abgestuft' (Stufen unter argmax), 'kollabiert' {lr: [Seed-Index]},
+    'am_rand'}. Mit notfall=True (Gitter erschoepft, keine weitere Runde) wird nie
+    erweitert: ein Maximum am oberen Rand gilt als 'oberer Nachbar ungeprueft' ->
+    eine Stufe tiefer."""
+    g = sorted(werte)
+    n_s = {len(v) for v in werte.values()}
+    if len(n_s) != 1:
+        raise ValueError("ungleich viele Tuning-Seeds je Rate")
+    n_s = n_s.pop()
+    krit = {lr: float(min(werte[lr])) for lr in g}
+    mittel = {lr: float(np.mean(werte[lr])) for lr in g}
+    beste = [max(werte[lr][s] for lr in g) for s in range(n_s)]
+    koll = {lr: [s for s in range(n_s) if werte[lr][s] < beste[s] - kollaps] for lr in g}
+    i = max(range(len(g)), key=lambda j: (krit[g[j]], -j))       # Gleichstand -> kleinere Rate
+    aus = {"argmax": g[i], "argmax_mittel": max(g, key=lambda lr: (mittel[lr], -lr)),
+           "kriterium": {str(lr): krit[lr] for lr in g}, "mittel": {str(lr): mittel[lr] for lr in g},
+           "kollabiert": {str(lr): koll[lr] for lr in g}, "erweitern": None, "lr": None,
+           "abgestuft": 0, "am_rand": False}
+    if not notfall:
+        if i == 0:
+            aus["erweitern"] = "unten"
+            return aus
+        if i == len(g) - 1:
+            aus["erweitern"] = "oben"
+            return aus
+    j = i
+    if j == len(g) - 1:          # nur im Notfall: oberer Nachbar nie gemessen
+        j -= 1
+        aus["am_rand"] = True
+    while j >= 0 and koll[g[j + 1]]:
+        j -= 1
+    if j < 0:
+        if not notfall:
+            aus["erweitern"] = "unten"
+            return aus
+        j, aus["am_rand"] = 0, True
+    if notfall and i == 0:
+        aus["am_rand"] = True
+    aus["lr"], aus["abgestuft"] = g[j], i - j
+    return aus
+
+
+def gittersuche_stabil(schluessel, aufgaben_fuer, auswerten, gitter=(0.02, 0.04, 0.08, 0.16, 0.32),
+                       faktor: int = 2, kollaps: float = 0.05, runden: int = 6):
+    """Eigene Lernrate je Schluessel MIT Stabilitaetsabstand (waehle_rate), Gitter in
+    beide Richtungen automatisch verlaengert (Faktor `faktor`). `aufgaben_fuer(schl, lr)`
+    -> Liste von Aufgaben, Seed an Stelle 1 jeder Aufgabe; `auswerten(aufgaben)` ->
+    Liste von dicts mit Schluessel 'acc' (z. B. diese `parallel`-Funktion mit einem
+    passenden Arbeiter). Alle offenen Schluessel einer Runde laufen gemeinsam parallel.
+    Rueckgabe: (info, roh) -- info[schl] = {'lr', 'argmax', 'argmax_mittel', 'abgestuft',
+    'am_rand', 'runden', 'gitter': {...}}, roh[(schl, lr)][seed] = Ergebnis."""
+    gitter = {s: sorted(gitter) for s in schluessel}
+    roh, info, offen = {}, {}, set(schluessel)
+
+    def werte(s):
+        return {lr: [roh[(s, lr)][sd]["acc"] for sd in sorted(roh[(s, lr)])] for lr in gitter[s]}
+
+    def eintrag(s, w, runde):
+        return {"lr": w["lr"], "argmax": w["argmax"], "argmax_mittel": w["argmax_mittel"],
+                "abgestuft": w["abgestuft"], "am_rand": w["am_rand"], "runden": runde,
+                "gitter": {str(lr): {"min": w["kriterium"][str(lr)], "mittel": w["mittel"][str(lr)],
+                                     "je_seed": [roh[(s, lr)][sd]["acc"] for sd in sorted(roh[(s, lr)])],
+                                     "kollabiert_seeds": [sorted(roh[(s, lr)])[i] for i in w["kollabiert"][str(lr)]]}
+                           for lr in gitter[s]}}
+
+    for runde in range(1, runden + 1):
+        paare = [(s, lr) for s in sorted(offen) for lr in gitter[s] if (s, lr) not in roh]
+        aufg, zu = [], []
+        for s, lr in paare:
+            for a in aufgaben_fuer(s, lr):
+                aufg.append(a)
+                zu.append((s, lr))
+        for a, (s, lr), e in zip(aufg, zu, auswerten(aufg)):
+            roh.setdefault((s, lr), {})[a[1]] = e
+        for s in sorted(offen):
+            w = waehle_rate(werte(s), kollaps=kollaps)
+            if w["erweitern"] == "unten":
+                gitter[s] = [gitter[s][0] / faktor] + gitter[s]
+            elif w["erweitern"] == "oben":
+                gitter[s] = gitter[s] + [gitter[s][-1] * faktor]
+            else:
+                info[s] = eintrag(s, w, runde)
+                offen.discard(s)
+        if not offen:
+            break
+    for s in sorted(offen):      # Notfall: Gitter erschoepft, nur mit gemessenen Punkten
+        gitter[s] = [lr for lr in gitter[s] if (s, lr) in roh]
+        info[s] = eintrag(s, waehle_rate(werte(s), kollaps=kollaps, notfall=True), runden)
+    return info, roh
+
+
 # ---------------------------------------------------------------- grosse Bilddaten
 _QUELLEN = {
     "mnist": "https://storage.googleapis.com/cvdf-datasets/mnist/",

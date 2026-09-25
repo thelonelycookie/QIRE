@@ -142,7 +142,14 @@ scipy scikit-learn qiskit`; MNIST/Fashion lädt `labor/gemeinsam.py` selbst.
 `clifford.py`. Pflicht: `HYPOTHESEN`, `lauf(schnell=False, …)` → dict mit
 `urteil`/`auswertung`, `vortest()`. Eintrag in `agenda.json` mit `modul`,
 `status: offen`, `prioritaet`, `folgen` (vorregistrierte Folgefragen). Erst
-committen, dann rechnen.
+committen, dann rechnen. **Lernrate mit vielen freien Winkeln:**
+`labor.gemeinsam.gittersuche_stabil`/`waehle_rate` benutzen (Stabilitätsabstand:
+Kriterium = schlechtester Tuning-Seed, eine Rate nur wählbar, wenn ihr oberer
+Gitternachbar auf keinem Tuning-Seed kollabiert) — nicht die einfache
+2-Seed-Mittelwert-Suche neu erfinden, die hat in einer Nacht dreimal denselben
+Fehler produziert (C-referenz, I-003, I-035: FEHLERBUCH). Wer aus
+Zeitgründen doch die einfache Suche nimmt, muss das begründen UND eine
+Ausreißer-Prüfung *vor* der Urteilsbildung einbauen, nicht nur danach zählen.
 
 **Agenten orchestrieren (hat gut funktioniert):** Jeder Agent baut **eine
 neue Datei**, fasst keine gemeinsamen Dateien an (agenda.json, direktor.py,

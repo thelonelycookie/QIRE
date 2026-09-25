@@ -151,94 +151,19 @@ RATENREGEL = ("min ueber >= 3 Tuning-Seeds; waehlbar nur, wenn der obere Gittern
 
 
 # ------------------------------------------------------------------ Ratenwahl
-def waehle_rate(werte: dict, kollaps=KOLLAPS, notfall=False) -> dict:
-    """werte {lr: [acc je Tuning-Seed]} (gleiche Seed-Reihenfolge je lr).
-    Rueckgabe {'lr', 'erweitern' (None | 'unten' | 'oben'), 'argmax' (min-Kriterium),
-    'argmax_mittel', 'abgestuft' (Stufen unter argmax), 'kollabiert' {lr: [Seed-Index]}}.
-    Mit notfall=True (Suche ohne weitere Runden) wird nie erweitert: ein Maximum am
-    oberen Rand gilt als 'oberer Nachbar ungeprueft' -> eine Stufe tiefer."""
-    g = sorted(werte)
-    n_s = {len(v) for v in werte.values()}
-    if len(n_s) != 1:
-        raise ValueError("ungleich viele Tuning-Seeds je Rate")
-    n_s = n_s.pop()
-    krit = {lr: float(min(werte[lr])) for lr in g}
-    mittel = {lr: float(np.mean(werte[lr])) for lr in g}
-    beste = [max(werte[lr][s] for lr in g) for s in range(n_s)]
-    koll = {lr: [s for s in range(n_s) if werte[lr][s] < beste[s] - kollaps] for lr in g}
-    i = max(range(len(g)), key=lambda j: (krit[g[j]], -j))       # Gleichstand -> kleinere Rate
-    aus = {"argmax": g[i], "argmax_mittel": max(g, key=lambda lr: (mittel[lr], -lr)),
-           "kriterium": {str(lr): krit[lr] for lr in g}, "mittel": {str(lr): mittel[lr] for lr in g},
-           "kollabiert": {str(lr): koll[lr] for lr in g}, "erweitern": None, "lr": None,
-           "abgestuft": 0, "am_rand": False}
-    if not notfall:
-        if i == 0:
-            aus["erweitern"] = "unten"
-            return aus
-        if i == len(g) - 1:
-            aus["erweitern"] = "oben"
-            return aus
-    j = i
-    if j == len(g) - 1:          # nur im Notfall: oberer Nachbar nie gemessen
-        j -= 1
-        aus["am_rand"] = True
-    while j >= 0 and koll[g[j + 1]]:
-        j -= 1
-    if j < 0:
-        if not notfall:
-            aus["erweitern"] = "unten"
-            return aus
-        j, aus["am_rand"] = 0, True
-    if notfall and i == 0:
-        aus["am_rand"] = True
-    aus["lr"], aus["abgestuft"] = g[j], i - j
-    return aus
+# Direktor 25.09.: nach C-skala-v2 in labor.gemeinsam.py gehoben (kanonisch fuer
+# alle Module, siehe dort). waehle_rate/gittersuche_stabil bleiben hier unter dem
+# alten Namen erreichbar (Rueckwaertskompatibilitaet, falls andere Dateien sie
+# unter abteilungen.skala_v2 importieren).
+from labor.gemeinsam import gittersuche_stabil as _gittersuche_stabil_kanonisch
+from labor.gemeinsam import waehle_rate
 
 
 def _gittersuche_stabil(schluessel, aufgaben_fuer, gitter=LR_GITTER, auswerten=None, runden=6):
-    """Eigene Rate je Schluessel mit Stabilitaetsabstand (waehle_rate). aufgaben_fuer(schl, lr)
-    -> Liste von Aufgaben, Seed an Stelle 1; auswerten(aufgaben) -> [{'acc', ...}] (Standard:
-    skala._parallel). Alle offenen Schluessel einer Runde laufen parallel.
-    Rueckgabe: info {schl: {...}}, roh {(schl, lr): {seed: Ergebnis}}."""
-    auswerten = auswerten or v1._parallel
-    gitter = {s: sorted(gitter) for s in schluessel}
-    roh, info, offen = {}, {}, set(schluessel)
-
-    def werte(s):
-        return {lr: [roh[(s, lr)][sd]["acc"] for sd in sorted(roh[(s, lr)])] for lr in gitter[s]}
-
-    def eintrag(s, w, runde):
-        return {"lr": w["lr"], "argmax": w["argmax"], "argmax_mittel": w["argmax_mittel"],
-                "abgestuft": w["abgestuft"], "am_rand": w["am_rand"], "runden": runde,
-                "gitter": {str(lr): {"min": w["kriterium"][str(lr)], "mittel": w["mittel"][str(lr)],
-                                     "je_seed": [roh[(s, lr)][sd]["acc"] for sd in sorted(roh[(s, lr)])],
-                                     "kollabiert_seeds": [sorted(roh[(s, lr)])[i] for i in w["kollabiert"][str(lr)]]}
-                           for lr in gitter[s]}}
-
-    for runde in range(1, runden + 1):
-        paare = [(s, lr) for s in sorted(offen) for lr in gitter[s] if (s, lr) not in roh]
-        aufg, zu = [], []
-        for s, lr in paare:
-            for a in aufgaben_fuer(s, lr):
-                aufg.append(a)
-                zu.append((s, lr))
-        for a, (s, lr), e in zip(aufg, zu, auswerten(aufg)):
-            roh.setdefault((s, lr), {})[a[1]] = e
-        for s in sorted(offen):
-            w = waehle_rate(werte(s))
-            if w["erweitern"] == "unten":
-                gitter[s] = [gitter[s][0] / FAKTOR] + gitter[s]
-            elif w["erweitern"] == "oben":
-                gitter[s] = gitter[s] + [gitter[s][-1] * FAKTOR]
-            else:
-                info[s] = eintrag(s, w, runde)
-                offen.discard(s)
-        if not offen:
-            break
-    for s in sorted(offen):      # Notfall: Gitter erschoepft, nur mit gemessenen Punkten
-        gitter[s] = [lr for lr in gitter[s] if (s, lr) in roh]
-        info[s] = eintrag(s, waehle_rate(werte(s), notfall=True), runden)
-    return info, roh
+    """Duenner Wrapper um labor.gemeinsam.gittersuche_stabil mit den Vorgaben
+    dieses Moduls (FAKTOR, KOLLAPS, Standard-Auswerter v1._parallel)."""
+    return _gittersuche_stabil_kanonisch(schluessel, aufgaben_fuer, auswerten or v1._parallel,
+                                         gitter=gitter, faktor=FAKTOR, kollaps=KOLLAPS, runden=runden)
 
 
 # ------------------------------------------------------------------ Arme
