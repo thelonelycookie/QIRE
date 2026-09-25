@@ -189,11 +189,12 @@
   {
    "id": "I-005",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.clifford_suche",
    "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min. | Aufgewertet nach I-003: Gradientenabstieg findet eine bekannte Clifford-Loesung nicht (voll unter Identitaet) -- diskrete Suche ist ein eigener, noetiger Lerner.",
-   "prioritaet": 1
+   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min. | Aufgewertet nach I-003: Gradientenabstieg findet eine bekannte Clifford-Loesung nicht (voll unter Identitaet) -- diskrete Suche ist ein eigener, noetiger Lerner. | Modul gebaut (Forscher-Agent): simulated annealing ueber 2^(nL) Clifford-Wahlen (c ~ c+2 aequivalent), Ridge-LOO-Kriterium, gemeinsamer L-BFGS-Kopf fuer alle Arme. Q-0 Positivkontrolle Strukturaufgabe (G_L >= 0,8), Q-1 Suche vs Median 100 Zufall, Q-2 Suche vs k0, Q-4 Suche vs Zufallssuche gleicher Bewertungszahl (Holm Q-1/2/4). Mess-Seeds MNIST 190-199, Struktur 200-209 (Direktor: urspruengliche Seeds im Rauchtest beruehrt -> ersetzt). ~35-50 min.",
+   "prioritaet": 1,
+   "folgen": {}
   },
   {
    "id": "C-hardware",
