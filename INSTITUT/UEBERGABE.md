@@ -1,6 +1,6 @@
 # Übergabe an den nächsten Chat — QIRE-Institut
 
-*Stand 25.09.2026, ca. 00:15 (zweiter Chat 24./25.09.). Wer das hier liest, braucht vorerst nichts anderes.
+*Stand 25.09.2026, ca. 10:40 (zweiter Chat 24./25.09., durchgehend). Wer das hier liest, braucht vorerst nichts anderes.
 Einzelheiten stehen in den verlinkten Dateien; lies sie nur, wenn du sie brauchst.*
 
 ---
@@ -67,6 +67,20 @@ Positivkontrolle muss mit dem *Lernverfahren* feuern, nicht nur mit der
 Architektur (I-003: Gradient findet die Clifford-Lehrerlösung nicht) ·
 Abbruchgrenzen an einer ausgerechneten Schranke ausrichten, nicht an der
 Hoffnung (I-020) · Module liefern Urteile als **Strings**.
+Neu gelernt spät in der Nacht/am Morgen 25.09.: **Ein kombinierter Befund aus
+mehreren datensatzspezifisch kalibrierten Bausteinen generalisiert nicht
+automatisch** — I-034 (2,25 % T-Gatter, MNIST) repliziert auf Fashion NICHT
+(I-034-fashion H0, 10–12 %, messbar schlechter); jeder Baustein (hier: die
+Top-m-Ladegröße) braucht eine eigene Kalibrierung je Aufgabe · **Die einfache
+2-Tuning-Seed-Ratensuche kippt zuverlässig** (dreimal in einer Nacht: C-referenz,
+I-003, I-035) — dafür gibt es jetzt `labor.gemeinsam.gittersuche_stabil`/
+`waehle_rate` (Stabilitätsabstand), kanonisch für neue Module · ein Ausreißer
+kann bei populationsbasierten Kennzahlen (M50 aus Stufenmitteln) eine ganze
+Messstufe unbrauchbar machen, nicht nur einen Datenpunkt verschieben — vor der
+Urteilsbildung auf das modul­eigene Instabilitätskriterium prüfen, nicht nur
+danach zählen · **echte Literatursuche vor dem Skalieren** (Vorgabe 7): das
+kombinierte Laden-Sparen (I-020/I-033) ist im Kern bereits publiziert
+(West et al. 2023, MNIST/Fashion, IBM-Hardware) — als Replikation kennzeichnen.
 
 ## 4. Die Hauptlinie: Magie-Budget (Q3) — was belegt ist
 
@@ -85,9 +99,11 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 | Gesamtbudget Laden + Schaltung | I-020 G-1 **H0** (25 %-Ziel) | dünn besetzt exakt: **4.372 T statt 8.776, ohne Verlust**; mit k=4 ist Laden 96 % |
 | Magie-Kaskade | I-015 K-1 **H1** (28 % der Schaltungs-T), mit Laden 114 % | **Hybrid** (Clifford-Stufe klassisch): I-015-hybrid **H1** 11,7 % (MNIST), 23,9 % (Fashion) |
 | Magie-Konzentration im Laden | I-033 **H1** | Top-48 Ladewinkel = 45 % Lade-T, −0,57 pp; Top-16 schlägt Zufall um 31 pp |
-| **Alles kombiniert** | I-034 **H1** | **174 T = 2,25 % von 7.698 T, +0,31 pp** (m=32: 1,47 %, −0,04 pp) |
+| **Alles kombiniert (MNIST)** | I-034 **H1** | **174 T = 2,25 % von 7.698 T, +0,31 pp** (m=32: 1,47 %, −0,04 pp) |
+| **Alles kombiniert (Fashion)** | I-034-fashion **H0** — repliziert NICHT | 10–12 % statt ≤5 %, messbar schlechter (−0,34/−0,64 pp); Top-m-Laden ist auf Fashion verlustreicher, kombinierter Befund ist datensatzabhängig |
 | Magie gegen Datenmenge | I-024 **H0 (Gegenrichtung)** | Konzentration schärft sich mit mehr Daten (G(2) 0,34 → 0,61) |
-| Magie-Skalierung | C-skala S-1 **H1**, S-3 HU (Instabilität) | M50: 2 (24 Winkel) → 1 (40 Winkel), mit Auflösung konfundiert → C-skala-v2 |
+| Magie-Skalierung | C-skala S-1 „H1" **war Ratenartefakt** → C-skala-v2 **beide HU** | Mit stabiler Referenz löst sich der Hinweis auf sublineares Wachstum auf; Frage bleibt offen |
+| Magiebedarf aus Aufgaben-Schwierigkeit | I-035 P-2 **H0**, P-1 HU | Generalisierungslücke sagt M50 NICHT voraus (2. gescheiterter billiger Kennwert nach SRE/I-002); Punktschätzer deutet (n. s.) auf *weniger* Magie bei mehr Rauschen — Gegensatz zur I-003-Vermutung |
 | Magie lässt sich nicht wegtrainieren | C-bewusst **H0** | Strafterm zum Gitter kostet 1,4 pp |
 | Wahl der magischen Winkel nach Wirkung > Zufall | I-001 P-2 **H1** | +0,29 G, p = 0,027 |
 | Vorhandene ≠ genutzte Magie | I-002 **H0** | gelernte SRE ≈ zufällige (6,26 vs 6,28) |
@@ -97,30 +113,56 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 | Verschränkungs-Kompass (Q1) | HU/HU | SVD schlägt alle Tensor-Train-Ordnungen |
 | Zero-Noise-Extrapolation über Bitbreiten | auf Papier widerlegt | MSE 7× schlechter |
 
-**Kernsatz (Stand 25.09. früh):** *Der Nutzen der Quantenschaltung sitzt in
-wenigen Magiewinkeln (Magie-Konzentration, MNIST + Fashion repliziert), und
-dasselbe gilt für das Laden der Daten (I-033). Zusammen mit einer klassischen
-Clifford-Vorstufe (Hybrid-Kaskade, I-015-hybrid, MNIST + Fashion) braucht die
-Klassifikation nur noch **2,25 % der T-Gatter** des naiven Wegs ohne
-Genauigkeitsverlust (I-034, vorregistriert, 10 Seeds).*
+**Kernsatz (Stand 25.09. Vormittag):** *Der Nutzen der Quantenschaltung sitzt
+in wenigen Magiewinkeln (Magie-Konzentration, MNIST + Fashion repliziert,
+zwei unabhängige Seed-Sätze). Auf MNIST braucht die Kombination aus
+klassischer Clifford-Vorstufe (Hybrid-Kaskade) + sparsamem Laden + wenigen
+Magiewinkeln nur **2,25 % der T-Gatter** des naiven Wegs ohne Genauigkeits-
+verlust (I-034) — **auf Fashion repliziert genau diese Kombination NICHT**
+(I-034-fashion H0): die Bausteine sind einzeln robust (Magie-Konzentration,
+Hybrid-Kaskade je für sich auf beiden Datensätzen bestätigt), aber ihre
+gemeinsame Kalibrierung (Top-m-Größe, Kaskadenstufen) ist datensatzabhängig.
+Das approximative Laden allein (I-020/I-033) ist zudem im Kern schon
+publiziert (West et al. 2023) — als Replikation zu behandeln, nicht als
+Hauptbefund. Zwei Versuche, den Magiebedarf einer Aufgabe billig vorherzusagen
+(SRE in I-002, Generalisierungslücke in I-035), sind beide gescheitert (H0).
+Die Skalierungsfrage (M50 vs. Winkelzahl) ist nach C-skala-v2 wieder offen.*
 Arbeitstitel für den Namen: **Magie-Konzentration M50/M90 einer Aufgabe**
-(Fashion trägt sie jetzt, C-referenz auch; I-003 blieb HU → I-003-v2 und C-skala abwarten).
+(auf zwei Datensätzen, zwei unabhängigen Seed-Sätzen belegt — der Rest der
+Nachtarbeit hat eher relativiert als bestätigt, das gehört ehrlich dazu).
 
-## 5. Was gerade offen ist (Warteschlange im Cloud-Container, Nacht 24./25.09.)
+## 5. Was gerade offen ist (Stand 25.09. Vormittag)
 
-Prüfen: gibt es `ergebnisse/<ID>__*.json`? Wenn nicht → `python direktor.py lauf <ID>`.
+Alles aus der Nacht 24./25.09. ist gerechnet (C-referenz, I-003, I-020, I-015,
+I-015-hybrid[-fashion], I-024, I-033, I-034[-fashion], C-skala[-v2], I-035 —
+alle `status: erledigt` in `agenda.json`, alle in `LABORBUCH.md`/`FEHLERBUCH.md`).
+Prüfen wie immer: gibt es `ergebnisse/<ID>__*.json`? Wenn nicht →
+`python direktor.py lauf <ID>`.
 
-| ID | Frage | Laufzeit (4 Kerne) |
+**Zwei Module vorregistriert, gebaut, Vortest bestanden — noch NICHT gerechnet**
+(waren an Malte übergeben, `institut.cmd lauf <ID>`; Stand dieses Chats
+unbekannt, da noch kein Push von dort — als Erstes prüfen):
+
+| ID | Frage | Laufzeit (4–5 Kerne) |
 |---|---|---|
-| **I-004** | Clifford-Gerüst + k Winkel von Anfang an vs. nachträglich runden | ~25–50 min |
-| **I-015-hybrid** | Hybrid-Kaskade: Clifford-Stufe klassisch, nur unsichere Bilder auf Hardware (10 frische Seeds) | ~15 min |
-| **I-024** | Magie gegen Datenmenge (n_train 500/2.000/10.000, faire Referenz *nachtrainiert*) | ~50–75 min |
-| **I-033** | Magie-Konzentration im **Laden** (Top-m / grob-zu-fein der Gray-Code-Winkel) | ~60 min |
-| **C-skala** | Wächst M50 langsamer als n·L? (n = 6/8/10 + fest10, eigene Rate für *nachtrainiert*) | ~85–105 min |
+| **I-004-mnist** | Clifford-Gerüst + k Winkel von Anfang an (inkl. n_train=500) auf MNIST — I-004 auf Ziffern war HU wegen zu kleiner Auflösung | ~75–85 min |
+| **I-005** | Diskrete Clifford-Suche (simulated annealing über 2^(nL) Winkelwahlen): findet sie die Lehrer-Lösung aus I-003 (Positivkontrolle fürs Verfahren) und schlägt sie zufällige Clifford-Schaltungen auf MNIST? | ~35–50 min |
 
-Danach (Ideen, nicht gebaut): **I-003-v2** (Positivkontrolle, die das
-Verfahren erreicht), **I-005** (diskrete Clifford-Suche, aufgewertet),
-**I-001 auf MNIST**, **I-010** (Prio 2), B-paritaet, V-fashion (Prio 3).
+**Neue offene Ideen** (Vorgabe 7, „echte Neuheit" — vor dem Bauen: Literatur
+prüfen, siehe `ideen.json` Feld `neuheit`):
+- **I-003-v2**: Positivkontrolle, die das Lernverfahren tatsächlich erreicht
+  (I-005 liefert das evtl. mit, dann I-003 selbst wiederholen).
+- **I-034-fashion-v2** (Idee, nicht angelegt): Top-m/Kaskadenstufen je
+  Datensatz neu kalibrieren statt MNIST-Werte übernehmen — `zwei_0_8_m48`
+  lag mit 6,5 % schon nahe am Ziel.
+- Nach I-035: ein dritter Kandidat für einen billigen Magiebedarfs-Prädiktor
+  (SRE und Generalisierungslücke sind beide widerlegt) — z. B. Verschränkungs-
+  /Korrelationsstruktur der Daten (Brücke zu V-kompass), noch nicht formuliert.
+- **I-001 auf MNIST**, **I-010** (Prio 2), B-paritaet, V-fashion (Prio 3).
+
+**Werkzeug, kein Befund:** `labor/stapel.py` (GPU-Encoder/Decoder-Batching,
+Korrektheit exakt geprüft, CPU-Gewinn gering) — der eigentliche Test braucht
+eine CUDA-GPU; offene Frage an Malte, ob sein PC eine hat.
 
 ## 6. Wie man arbeitet
 
