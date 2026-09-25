@@ -328,11 +328,12 @@
   {
    "id": "I-034",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.gesamt_kombi",
    "frage": "Gesamt-Magie-Budget kombiniert: Hybrid-Kaskade (Stufe 0 klassisch) + Top-m-Laden + k Magiewinkel -- Hardware-T je Bild gegen Genauigkeit, Ziel <= 5 % von heute (k=2, dicht geladen, 7.698 T)",
    "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination <= 5 % der heutigen Hardware-T (7.698 T) die Genauigkeit von k=2 innerhalb 0,5 pp haelt (Nichtunterlegenheit, 10 Seeds). Test: MNIST 16x16, 10 frische Seeds: Stufenmodelle k=2/8 auf Top-m-geladenen Zustaenden (m = 32, 48) nachtrainieren (Rezept I-033), Kaskade 0(klassisch, exakt) -> k2(Top-m) -> k8(Top-m), tau auf Validierung nach Hybrid-Kosten; ~60-75 min."
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination <= 5 % der heutigen Hardware-T (7.698 T) die Genauigkeit von k=2 innerhalb 0,5 pp haelt (Nichtunterlegenheit, 10 Seeds). Test: MNIST 16x16, 10 frische Seeds: Stufenmodelle k=2/8 auf Top-m-geladenen Zustaenden (m = 32, 48) nachtrainieren (Rezept I-033), Kaskade 0(klassisch, exakt) -> k2(Top-m) -> k8(Top-m), tau auf Validierung nach Hybrid-Kosten; ~60-75 min. | Modul gebaut (Forscher-Agent): Kaskade 0(klassisch) -> k2 -> k8 auf Top-m-Laden (m=48 Haupt, m=32, Holm), bildweise exakte Lade-T, Rate 0,08, Seeds 210-219. PK k2 exakt > Identitaet; G-1 <= 5 % von 7.698 T + Nichtunterlegenheit 0,5 pp; G-2 Verlust durch genaehertes Laden in der Kaskade; G-3 Pareto. Ausweichregel tau=1 (alle bis k8), wenn Validierungsziel verfehlt (konservativ). ~35-45 min.",
+   "folgen": {}
   }
  ]
 }
