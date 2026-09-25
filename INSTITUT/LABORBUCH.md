@@ -371,3 +371,274 @@ Vortest gegen Brute Force n=1–3, π/4-Winkel → log₂(4/3)): S-1 **H0**
 (Ziffern 4,38 vs. 4,58; MNIST 6,26 vs. 6,28) — nutzen davon aber nur wenige
 Winkel. **Vorhandene Magie ≠ genutzte Magie.** Ein Maß am Zustand oder
 Operator allein sieht die Aufgabe nicht; G(k) tut es.
+
+## 24.09.2026, 21:45 — C-fashion: Konzentration repliziert, Designfehler gefunden
+
+Fashion-MNIST 16×16, 8 Qubits, 32 Winkel, Seeds 10–19, Design v3 wie C-mnist
+(Rohdaten `ergebnisse/C-fashion__20260924_214236.json`, 68 min, 4 Kerne).
+
+| Arm | Fashion | MNIST (C-mnist) |
+|---|---|---|
+| Identität (ohne Schaltung) | 0,796 | 0,901 |
+| zufällige Clifford | 0,816 | 0,905 |
+| k = 0 (gerundet) | 0,817 | 0,907 |
+| k = 2 | 0,827 | 0,921 |
+| k = 4 | 0,833 | 0,926 |
+| k = 8 | **0,838** | 0,934 |
+| voll | 0,833 | 0,939 |
+
+- C-0 **H1**: Schaltung schlägt Identität, +3,6 pp, p = 0,002 (MNIST +3,8).
+- C-1 HU (knapp: KI der Rundung [−2,05; −1,02] pp streift die 2-pp-Grenze).
+- C-2: k0 = zufällige Clifford (+0,17 pp, p = 0,77) — wie auf beiden
+  anderen Datensätzen. Anders als auf MNIST trägt auf Fashion aber schon
+  *irgendeine* Clifford-Schaltung 2,1 pp (p = 0,002) über die Identität:
+  G(0) = 0,58 statt 0,17. Das ist Clifford-Durchmischung, keine Magie.
+- **Magie-Anteil** (Basis k0, Nachrechnung Direktor): k=1 0,24 · k=2 0,64 ·
+  **k=4 1,01** · k=8 1,34. MNIST: 0,39 · 0,44 · 0,62 · 0,86. Die
+  Konzentration ist auf Fashion *stärker*: M50 = 2, M90 = 4 von 32 Winkeln
+  (vorregistriertes Maß mit Basis Identität: M50 = 0, M90 = 4).
+
+**Warnsignal:** k=8 und k=12 *schlagen* den vollen Arm (+0,53 pp, p = 0,010;
++0,46 pp, p = 0,025). Ursache gefunden: `_gerundet` startet beim fertig
+trainierten Modell und trainiert **noch einmal 1.500 Schritte** (Rate 0,32,
+frischer Kopf) — der volle Arm bekommt diese zweite Phase nicht. Ob k8 > voll
+Regularisierung durch Runden ist oder bloß mehr Training, ist so nicht
+trennbar, und alle G(k) gegen „voll“ können aufgebläht sein (FEHLERBUCH).
+**Konsequenz, vor jeder weiteren Zahl:** C-referenz (Arm *nachtrainiert* =
+alle Winkel frei, identische zweite Phase; MNIST + Fashion, frische Seeds
+30–39) vorregistriert; C-skala und I-024 bekommen denselben Arm als
+Referenz. Der Name „Magie-Konzentration“ wartet auf C-referenz.
+
+## 24.09.2026, 22:10 — I-003: Aufgabe oder Architektur? Positivkontrolle scheitert am Lernverfahren
+
+Ziffern 8×8 (6 Qubits, 24 Winkel), Seeds 60–69, Forscher-Agent-Modul
+`magie_aufgabe.py` (Rohdaten `ergebnisse/I-003__*.json`, 22 min).
+
+| Aufgabe (Messgröße) | Identität | k0 | k1 | k2 | k4 | k8 | k12 | voll |
+|---|---|---|---|---|---|---|---|---|
+| echt (Test) | 0,945 | 0,941 | 0,953 | 0,957 | 0,962 | 0,958 | 0,963 | 0,959 |
+| zufall (Training, Memorieren) | 0,240 | 0,252 | 0,250 | 0,254 | 0,251 | 0,278 | 0,285 | 0,272 |
+| struktur (Test, Clifford-Lehrer) | 0,784 | 0,735 | 0,737 | 0,751 | 0,766 | 0,773 | **0,786** | **0,726** |
+
+- T-1 **HU (Vorbedingung)**: Auf der Strukturaufgabe — per Konstruktion mit
+  Magie 0 exakt lösbar, Kopf auf den Lehrer-Merkmalen 0,934 — landet die
+  voll trainierte Zelle *unter* der Identität (−5,7 pp, p = 0,010).
+  Gradientenabstieg aus Zufallswinkeln findet die diskrete Clifford-Lösung
+  nicht. T-2 damit nicht auswertbar (vorregistriert).
+- Zweiter Beleg für den Nachtrain-Fehler (C-fashion): k12 schlägt voll auf
+  der Strukturaufgabe um **+6 pp**, allein durch die zweite Trainingsphase.
+- Explorativ (T-3, beschreibend): echt M50 = 1, M90 = 4; zufall (Memorieren)
+  M50 = 8. Die G-Kurve von echt liegt über zufall (+0,51 G, p = 0,002).
+  Hinweis, dass Generalisieren weniger Magie braucht als Auswendiglernen —
+  **nicht belastbar**, bis Referenz (C-referenz) und Positivkontrolle
+  (I-003-v2) stehen.
+
+Lehre: *exakt lösbar* ≠ *lernbar*. Eine Positivkontrolle muss mit dem
+Verfahren feuern können, nicht nur mit der Architektur. I-005 (diskrete
+Clifford-Suche) bekommt dadurch Gewicht; I-003-v2 als Idee eingetragen.
+
+## 24.09.2026, 23:05 — I-020 Gesamtbudget (Q3): Laden halbiert, nicht geviertelt
+
+MNIST 16×16, 3 Seeds, beschreibend (vorregistriert, kein Signifikanztest);
+Rohdaten `ergebnisse/I-020__20260924_230045.json`, 56 min (Modul Forscher-Agent).
+T-Zahl gesamt = Laden (Qiskit-Synthese, exakt) + Schaltung (≈ 31·k).
+
+| Kodierung | k | T gesamt | Genauigkeit | Anteil Laden |
+|---|---|---|---|---|
+| dicht exakt (Referenz) | 32 | 8.776 | 0,940 | — |
+| **dünn besetzt exakt** | 32 | **4.372** | **0,940** | 77 % |
+| dünn besetzt exakt | 4 | 3.506 | 0,933 | 96 % |
+| dünn besetzt exakt | 0 | 3.382 | 0,911 | 100 % |
+| MPS χ=2 | 32 | 2.178 | 0,881 | 55 % |
+| MPS χ=2 | 4 | 1.312 | 0,857 | 91 % |
+| dünn, π/4-gerundet | 32 | 1.001 | 0,731 | 1 % |
+
+- G-1 **H0** (Abbruchkriterium der Karte): keine Kombination ≤ 2.194 T (25 %)
+  hält 2 pp an der Referenz. Aber: **dünn besetzte Präparation halbiert die
+  T-Zahl ohne Verlust**, mit k=4 auf 40 % bei −0,7 pp.
+- Kodierungs-Verluste (MPS, π/4) sind nicht durch Schaltungs-Magie
+  aufzuholen: Die Zelle auf billiger Kodierung neu zu trainieren rettet 6–20
+  pp nicht.
+- Kernsatz wird schärfer: *Mit Magie-Konzentration (k=4) ist die Schaltung
+  4 % der Rechnung; 96 % sind Datenladen.* Die nächste Front ist eindeutig
+  die Kodierung selbst.
+- Vorbehalt: Die Magie-Arme nutzen `_gerundet` (Nachtrain-Fehler, C-referenz).
+
+## 24.09.2026, 23:50 — C-referenz: Verdacht widerlegt, Konzentration repliziert auf frischen Seeds
+
+MNIST + Fashion 16×16, frische Seeds 30–39, Raten aus C-mnist/C-fashion,
+Arm *nachtrainiert* = alle 32 Winkel frei mit derselben zweiten Phase wie die
+Rundungsarme (Rohdaten `ergebnisse/C-referenz__20260924_234210.json`, 80 min).
+
+| | Identität | k0 | k1 | k2 | k4 | k8 | nachtrainiert | voll |
+|---|---|---|---|---|---|---|---|---|
+| MNIST | 0,900 | 0,910 | 0,916 | 0,918 | 0,926 | 0,931 | 0,938 | 0,938 |
+| Fashion | 0,798 | 0,816 | 0,822 | 0,827 | 0,831 | 0,834 | 0,804* | 0,832 |
+
+\* 4 von 10 Seeds kollabieren (0,725–0,812) bei Rate 0,32.
+
+- R-1 (vorregistriert) **HU** gesamt; **MNIST: keine Verzerrung** (d = −0,03 pp,
+  KI [−0,24; +0,18] ganz in ±0,3 pp). Fashion: Referenz instabil, auf den 6
+  stabilen Seeds d = +0,03 pp.
+- R-2 **HU (Vorbedingung)** wegen der kaputten Fashion-Referenz. MNIST allein:
+  Magieanteil Gm*(4) = 0,59, KI [0,30; 0,77], Magiegewinn +2,7 pp (p = 0,002).
+- R-3 formal „H1“, aber **Artefakt** der instabilen Referenz — verworfen.
+  k8 − voll auf Fashion: +0,24 pp, p = 0,08 (repliziert +0,53 pp nicht).
+- **Replikation auf frischen Seeds** (G mit Basis Identität, gegen voll):
+
+| k von 32 | 0 | 1 | 2 | 4 | 8 |
+|---|---|---|---|---|---|
+| MNIST C-mnist (Seeds 10–19) | 0,17 | 0,49 | 0,53 | 0,68 | 0,89 |
+| MNIST C-referenz (Seeds 30–39) | 0,27 | 0,43 | 0,49 | 0,70 | 0,83 |
+| Fashion C-fashion (10–19) | 0,58 | 0,68 | 0,85 | 1,01 | 1,14 |
+| Fashion C-referenz (30–39) | 0,52 | 0,73 | 0,85 | 0,99 | 1,07 |
+
+**Ergebnis:** Die Magie-Konzentration ist auf zwei Datensätzen und je zwei
+unabhängigen Seed-Sätzen stabil: **4 von 32 Winkeln tragen 70 % (MNIST) bzw.
+~100 % (Fashion) des Schaltungsgewinns**. M50 = 2–4 (MNIST liegt bei k=2
+genau an der Grenze), M90 ≈ 8–12 bzw. 4. Der Störfaktor war nicht das
+Nachtraining, sondern eine für wenige Parameter getunte Lernrate (FEHLERBUCH).
+
+## 24.09.2026, 23:55 — I-015 Magie-Kaskade (Q3): spart Schaltungs-T, das Laden frisst es — außer die Clifford-Stufe läuft klassisch
+
+MNIST 16×16, Seeds 90–94 (5, beschreibend für K-2), Kaskade 0 → 2 → 8,
+Schwelle τ auf Validierung (Rohdaten `ergebnisse/I-015__20260924_234941.json`, 7 min).
+
+- K-1 **H1**: Kaskade erreicht die Testgenauigkeit von fest k=2 (+0,05 pp,
+  KI [−0,45; +0,55]) mit **17 T = 28 %** der Schaltungs-T von k=2.
+- K-2 B+: Konfidenz schlägt Zufallsweiterleitung in 5/5 Seeds (+1,2 pp;
+  p = 0,0625 = kleinstmöglich bei 5 Seeds).
+- K-3: **mit Ladekosten 114 %** von k=2 — 10–20 % der Bilder werden neu
+  geladen (7.636 T je Lauf). Papierschranke der Karte bestätigt (lohnt erst
+  unter 0,8 % Weiterleitung).
+- **Nachträgliche Rechnung (Direktor, nicht vorregistriert):** Die Stufe k=0
+  ist eine Clifford-Schaltung auf einem *klassischen* Vektor — klassisch
+  exakt mit ≤ 8.192 Additionen, ohne Multiplikation und ohne Laden. Läuft sie
+  klassisch und gehen nur die unsicheren ~10 % der Bilder auf den
+  Quantenrechner, kostet die Kaskade **1.118 T = 14,5 % der Hardware-T von
+  k=2** bei gleicher Genauigkeit (92,28 % gegen 92,24 %). 0 → 8 direkt: 9,4 %.
+  → Als **I-015-hybrid** mit 10 frischen Seeds vorregistriert (H-1: ≤ 25 %
+  und Nichtunterlegenheit 0,5 pp).
+
+## 25.09.2026, 00:00 — I-004 Clifford-Gerüst von Anfang an (Ziffern): Auflösung reicht nicht
+
+Ziffern 8×8, Seeds 80–89 (Rohdaten `ergebnisse/I-004__20260924_235757.json`, 8 min).
+R-0 H1 (Gewinn +2,1 pp, p = 0,004); R-1 HU (zufälliges Gerüst + 4 Winkel:
+G = 0,71, KI 0,47–0,96); R-2 HU (+0,28 G für nachträgliches Runden, Holm-p =
+0,15); R-3 HU (Gerüst mit neu initialisierten Magiewinkeln vs. Nachtraining,
+−0,06 G, KI −0,23…+0,10).
+
+| G(k) | k=1 | k=2 | k=4 | Trainings |
+|---|---|---|---|---|
+| nachträglich runden | 0,41 | 0,71 | 0,77 | 2 |
+| Gerüst aus vollem Modell, Winkel neu | 0,26 | 0,65 | 0,83 | 2 |
+| **zufälliges Gerüst**, Winkel von Anfang an | 0,23 | 0,43 | 0,71 | **1** |
+
+Beschreibend: Wenig-magische Schaltungen brauchen das volle Modell nicht —
+zufälliges Clifford-Gerüst + 4 trainierte Winkel holt ~70 % des Gewinns mit
+halbem Trainingsaufwand. Belastbar erst auf MNIST (I-004-mnist, Idee).
+
+## 25.09.2026, 00:10 — I-015-hybrid (Q3, vorregistriert): **Hybrid-Magie-Kaskade spart 88 % der Hardware-T** ✔
+
+MNIST 16×16, 10 frische Seeds 100–109, Kaskade 0 → 2 → 8, Stufe 0 (Clifford,
+0 T) **klassisch** (≤ 8.192 Additionen, 0 Multiplikationen, kein Laden), jede
+Quantenstufe = Laden 7.636 T + Schaltung; τ auf Validierung nach den
+Hybrid-Kosten (Rohdaten `ergebnisse/I-015-hybrid__20260925_000945.json`, 12 min).
+
+- **H-1 H1**: mittlere Hardware-T je Bild **902 = 11,7 % von k=2 auf
+  Hardware** (7.698 T); Genauigkeit 91,74 % gegen 91,68 % (+0,06 pp,
+  einseitiges KI [−0,20; +0,31], Grenze −0,5 pp). Nur **7,9 %** der Bilder
+  erreichen den Quantenrechner.
+- **H-2 H1**: Konfidenz schlägt Zufallsweiterleitung gleicher Quote
+  (+1,06 pp, p = 0,031).
+- H-3: zweistufig 0 → 2: 9,5 %; 0 → 8: 8,0 % (beide ≈ k2-Genauigkeit).
+- **Robustheit (Direktor):** Auf 4/10 Seeds wählt die Validierung τ* = 0
+  (die klassische Clifford-Stufe allein genügt dort; Test −0,2 … −0,7 pp).
+  Ohne diese Seeds: 1.503 T = **19,5 %** — immer noch unter 25 %.
+- Replikation des Post-hoc-Werts (I-015, Seeds 90–94: 14,5 %) auf frischen Seeds.
+
+**Einordnung:** Das ist der erste Befund des Instituts, der eine echte
+Hardware-Ersparnis *mit* Ladekosten zeigt. Er verbindet die beiden
+Hauptbefunde: Magie-Konzentration (wenige Winkel reichen) und
+Clifford = klassisch billig (die magiefreie Stufe braucht keinen
+Quantenrechner). Ehrlich: Es ist ein **Hybrid**-Befund — die Ersparnis
+entsteht, weil ein klassisches multiplikationsfreies Netz die meisten Bilder
+selbst entscheidet und nur schwierige an die Quantenschaltung abgibt.
+
+## 25.09.2026, 01:50 — I-024 Magie gegen Datenmenge: Gegenrichtung — Konzentration schärft sich mit Daten
+
+MNIST 16×16, n_train ∈ {500, 2.000, 10.000} (geschachtelt), Seeds 100–109,
+faire Referenz *nachtrainiert*, Rate je Arm und n eigen (Rohdaten
+`ergebnisse/I-024__20260925_014438.json`, 95 min).
+
+| n_train | Identität | k0 | k1 | k2 | k4 | k8 | nachtrainiert | voll | G(2) | G(8) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 500 | 0,835 | 0,831 | 0,842 | 0,847 | 0,855 | 0,867 | 0,873 | 0,872 | 0,34 | 0,86 |
+| 2.000 | 0,883 | 0,882 | 0,892 | 0,898 | 0,898 | 0,910 | 0,919 | 0,917 | 0,43 | 0,75 |
+| 10.000 | 0,908 | 0,914 | 0,921 | 0,929 | 0,932 | 0,941 | 0,943 | 0,942 | **0,61** | 0,96 |
+
+- D-0 **H1** (+3,5 pp bei 10.000, p = 0,002).
+- D-1 **H0 (Gegenrichtung)**: Der Magie-Abstand (nachtrainiert − k0) ist bei
+  wenig Daten *größer* (4,18 gegen 2,91 pp, p = 0,019).
+- D-2 **H0 (Gegenrichtung)**: 2 Magiewinkel tragen bei 500 Bildern *weniger*
+  (G(2) −0,28, p = 0,042). Beide Gegenrichtungs-Tests einseitig ohne Holm:
+  deutlicher Hinweis, kein Beweis.
+- d_nach ≈ 0 bei allen n → dritter Beleg gegen den Nachtrain-Verdacht.
+
+**Einordnung:** Der Gewinn der Schaltung ist von der Datenmenge fast
+unabhängig (~3,5 pp), aber seine *Verteilung* nicht: Mit mehr Daten
+konzentriert das Training die genutzte Magie auf weniger Winkel. Die
+Magie-Konzentration ist also eine Eigenschaft des **gelernten** Modells, die
+mit der Datenmenge wächst — nicht der Architektur allein (passt zum
+explorativen I-003-Hinweis). Die Regularisierungsidee war falsch gestellt
+(Runden danach ≠ Training im Clifford-Raum) → I-004-mnist mit n = 500.
+
+## 25.09.2026, 02:00 — I-015-hybrid-fashion: Hybrid-Kaskade repliziert auf Fashion ✔
+
+Fashion-MNIST 16×16, 10 frische Seeds 110–119, sonst identisch vorregistriert
+(Rohdaten `ergebnisse/I-015-hybrid-fashion__20260925_015647.json`, 12 min).
+
+- **H-1 H1**: 1.837 T = **23,9 % der Hardware-T von k=2**, Genauigkeit
+  81,98 % gegen 81,67 % (**+0,31 pp**, KI [+0,04; +0,57] — sogar besser als
+  k2 allein, weil unsichere Bilder bis k=8 durchgereicht werden). 14,2 % der
+  Bilder gehen auf den Quantenrechner.
+- **H-2 H1**: Konfidenz schlägt Zufall (+0,82 pp, p = 0,004).
+- H-3: 0 → 8 direkt: 12,1 % bei 81,79 %.
+- Robustheit: nur 1/10 Seeds mit τ* = 0; ohne ihn 26,5 % (knapp über der
+  25-%-Marke) — die Ersparnis ist auf Fashion kleiner als auf MNIST (11,7 %),
+  weil die Clifford-Stufe dort öfter unsicher ist.
+
+**Zwischenfazit Hybrid-Magie-Kaskade (zwei Datensätze, 20 frische Seeds):**
+Ein klassisches, multiplikationsfreies Clifford-Netz entscheidet 86–92 % der
+Bilder selbst; nur der Rest geht auf die Quantenschaltung mit wenigen
+Magiewinkeln. Hardware-Aufwand **12–24 %** von „alles auf den
+Quantenrechner, k=2“, bei gleicher oder besserer Genauigkeit.
+
+## 25.09.2026, 03:10 — I-033 (Q3, vorregistriert): **Magie-Konzentration gilt auch für das Laden** ✔
+
+MNIST 16×16, Seeds 140–149, gerundet werden die Gatterwinkel φ der
+Gray-Code-Zerlegung der dünn besetzten Präparation (Basis I-020: im Mittel
+~110 von 255 φ ≠ 0, 3.260 T); faire Referenz = exakt geladen mit gleicher
+zweiter Phase (Rohdaten `ergebnisse/I-033__20260925_030825.json`, 72 min).
+
+| Laden | alle π/2 | Top-4 | Top-16 | Top-32 | **Top-48** | Ebene 6 | exakt |
+|---|---|---|---|---|---|---|---|
+| Lade-T je Bild | 0 | 123 | 495 | 988 | **1.479** | 1.211 | 3.260 |
+| Anteil | 0 % | 4 % | 15 % | 30 % | **45 %** | 37 % | 100 % |
+| Genauigkeit | 0,535 | 0,677 | 0,881 | 0,928 | **0,938** | 0,883 | 0,944 |
+
+- L-0 H1 (+3,6 pp über Identität, p = 0,002).
+- **L-1 H1**: Top-48 hält die Referenz per TOST innerhalb 1 pp (−0,57 pp,
+  Holm-p = 0,002) bei **45 % der Lade-T** — in allen 10 Seeds −0,1 … −0,9 pp.
+- **L-2 H1**: *welche* Winkel exakt bleiben, entscheidet: Top-16 schlägt 16
+  zufällige um **+31 pp** (p = 0,002).
+- L-3: grob-zu-fein (obere Baumebenen) ist schwächer als Top-m. Lade-M50 =
+  16 Winkel (15 % der T), Lade-M90 = 32 Winkel (30 %).
+
+**Einordnung:** Dieselbe Struktur wie in der Schaltung: Wenige Winkel tragen
+den Nutzen, wenn man sie nach Wirkung (hier: Abstand zum Clifford-Gitter)
+wählt. Damit gibt es die Magie-Konzentration jetzt auf **beiden** Seiten der
+Q3-Rechnung — Modell (4 von 32 Winkeln) und Daten (32–48 von ~110).
+Kombiniert mit der Hybrid-Kaskade (nur 8–14 % der Bilder auf Hardware) ist
+eine Größenordnung von ~2 % der heutigen Hardware-T denkbar — **nicht
+gemessen**, nur geschätzt → Karte I-034.

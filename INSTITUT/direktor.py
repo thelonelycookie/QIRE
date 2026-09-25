@@ -63,7 +63,7 @@ def status():
          "| Punkt | Abteilung | Prio | Status | Frage | Letztes Urteil |", "|---|---|---|---|---|---|"]
     for p in agenda["punkte"]:
         e = neuestes_ergebnis(p["id"])
-        u = "; ".join(f"{k}: {v}" for k, v in (e or {}).get("urteil", {}).items()) or p.get("notiz", "–")
+        u = "; ".join(f"{k}: {_text(v)}" for k, v in (e or {}).get("urteil", {}).items()) or p.get("notiz", "–")
         z.append(f"| {p['id']} | {p['abteilung']} | {p.get('prioritaet', 1)} | {p['status']} | {p['frage']} | {u} |")
     try:
         from abteilungen.ideenschmiede import lade as lade_ideen
@@ -78,8 +78,13 @@ def status():
     print("\n".join(z))
 
 
+def _text(v):
+    """Urteil als Text -- manche Module liefern {"urteil": "...", ...} (I-020, 24.09. abgestuerzt)."""
+    return v.get("urteil", str(v)) if isinstance(v, dict) else str(v)
+
+
 def fehlerbuch(pid, urteil):
-    schlecht = {k: v for k, v in urteil.items() if v.startswith(("H0", "HU"))}
+    schlecht = {k: _text(v) for k, v in urteil.items() if _text(v).startswith(("H0", "HU"))}
     if not schlecht:
         return
     with open(WURZEL / "FEHLERBUCH.md", "a", encoding="utf-8") as f:
@@ -112,7 +117,7 @@ def lauf(pid, schnell=False):
     # Vorregistrierte Folgefragen freischalten: {"C-1:H0": ["C-bewusst"], ...}
     for bedingung, folgen in p.get("folgen", {}).items():
         frage, marke = bedingung.split(":")
-        if e.get("urteil", {}).get(frage, "").startswith(marke):
+        if _text(e.get("urteil", {}).get(frage, "")).startswith(marke):
             for f in folgen:
                 q = next(x for x in agenda["punkte"] if x["id"] == f)
                 if q["status"] == "wartet":
