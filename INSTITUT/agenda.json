@@ -373,7 +373,7 @@
   {
    "id": "I-035",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.magie_schwierigkeit",
    "frage": "Sagt die Aufgaben-Schwierigkeit (abgestufte Label-Rausch-Skala) den Magiebedarf M50 voraus, und gibt es einen billigen Kennwert (Generalisierungsluecke) dafuer statt des teuren Rundungs-Sweeps?",
    "prioritaet": 1,

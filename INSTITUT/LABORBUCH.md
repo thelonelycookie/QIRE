@@ -778,3 +778,42 @@ Befund** — Batched-Statevector-Simulation ist etablierte HPC-Technik
 - **Der eigentliche Test steht aus**: Der Sinn der Übung ist GPU-Durchsatz.
   Das braucht eine CUDA-fähige Maschine — offene Frage an Malte, ob sein PC
   eine NVIDIA-GPU hat, dann lässt sich das dort wirklich messen.
+
+## 25.09.2026, 10:25 — I-035: Magiebedarf vs. Aufgaben-Schwierigkeit — HU, aber mit einer echten Überraschung
+
+MNIST 16×16, 10 Rausch-Stufen (0–100 % vertauschte Trainingsetiketten),
+6 frische Seeds je Stufe (250–255), K_STUFEN=(0,2,8) (Rohdaten
+`ergebnisse/I-035__20260925_102309.json`, 56 min). **Flaggschiff-Experiment
+für „echte Neuheit" (Vorgabe 7): nichts Vergleichbares in der Literatur
+gefunden** (verwandt, aber andere Frage: arXiv 2403.00919, 2409.13008).
+
+**Rohlauf hatte einen Fehler, robuste Nachrechnung nötig:** Seed 253 kollabierte
+bei Rauschanteil 0 % (Rate 0,32 an der Stabilitätskante — drittes Mal in dieser
+Nacht). Das kippte P-0 zu einem falschen H0 und ließ die populationsbasierte
+M50-Rechnung die wichtigste Stufe (0 % Rauschen) als undefiniert fallen.
+Nachgerechnet mit derselben `auswertung()`-Funktion, nur die beiden vom Modul
+selbst erkannten Ausreißer (Seed 253 bei 0 %, Seed 252 bei 85 %) entfernt:
+
+| | Rohlauf (verzerrt) | Robust (10/10 Stufen) |
+|---|---|---|
+| P-0 (voll vs. Identität, 0 % Rauschen) | H0: −2,2 pp (Artefakt) | **+3,9 pp**, p=0,0625 (n=5, kann α=0,05 nicht erreichen) |
+| P-1 (M50 ~ Rauschanteil) | rho=−0,31, HU | **rho=−0,44**, KI [−0,70;−0,30] durchgehend negativ, Permutations-p=0,196 → **HU** |
+| P-2 (Generalisierungslücke ~ M50) | rho=−0,36, HU | rho=−0,14 → **H0**: kein Zusammenhang |
+
+- **P-2 ist ein sauberes, informatives Negativergebnis**: Die
+  Generalisierungslücke ist **kein** billiger Ersatz für den teuren
+  Rundungs-Sweep (nach SRE in I-002 der zweite gescheiterte Kandidat).
+- **P-1 bleibt HU**, aber mit einem durchgehend negativen Konfidenzintervall
+  — eher ein Hinweis auf *weniger* statt *mehr* Magiebedarf bei mehr Rauschen.
+  Das läuft der explorativen I-003-Beobachtung (Memorieren M50=8, echt M50=1)
+  entgegen. **Beide Ergebnisse sind einzeln nicht belastbar** (I-003 nur zwei
+  Extrempunkte, I-035 mit breitem, das Nullband nicht ausschließendem KI) —
+  aber der Widerspruch selbst ist interessant: die Beziehung zwischen
+  Aufgaben-Schwierigkeit und Magiebedarf ist offenbar **nicht** die einfache
+  Monotonie, die I-003 nahelegte.
+
+**Wichtigere Lehre (FEHLERBUCH):** Das ist die DRITTE Instabilität dieser Art
+in einer Nacht (C-referenz, I-003-Struktur, jetzt I-035) — immer dieselbe
+Ursache: Ratensuche ohne Stabilitätsabstand aus Zeitgründen. Ab sofort
+gehört eine automatische Ausreißer-Erkennung vor die Urteilsbildung, nicht
+nur als deskriptiver Zähler danach.
