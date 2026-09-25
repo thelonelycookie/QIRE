@@ -564,3 +564,31 @@ Clifford = klassisch billig (die magiefreie Stufe braucht keinen
 Quantenrechner). Ehrlich: Es ist ein **Hybrid**-Befund — die Ersparnis
 entsteht, weil ein klassisches multiplikationsfreies Netz die meisten Bilder
 selbst entscheidet und nur schwierige an die Quantenschaltung abgibt.
+
+## 25.09.2026, 01:50 — I-024 Magie gegen Datenmenge: Gegenrichtung — Konzentration schärft sich mit Daten
+
+MNIST 16×16, n_train ∈ {500, 2.000, 10.000} (geschachtelt), Seeds 100–109,
+faire Referenz *nachtrainiert*, Rate je Arm und n eigen (Rohdaten
+`ergebnisse/I-024__20260925_014438.json`, 95 min).
+
+| n_train | Identität | k0 | k1 | k2 | k4 | k8 | nachtrainiert | voll | G(2) | G(8) |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 500 | 0,835 | 0,831 | 0,842 | 0,847 | 0,855 | 0,867 | 0,873 | 0,872 | 0,34 | 0,86 |
+| 2.000 | 0,883 | 0,882 | 0,892 | 0,898 | 0,898 | 0,910 | 0,919 | 0,917 | 0,43 | 0,75 |
+| 10.000 | 0,908 | 0,914 | 0,921 | 0,929 | 0,932 | 0,941 | 0,943 | 0,942 | **0,61** | 0,96 |
+
+- D-0 **H1** (+3,5 pp bei 10.000, p = 0,002).
+- D-1 **H0 (Gegenrichtung)**: Der Magie-Abstand (nachtrainiert − k0) ist bei
+  wenig Daten *größer* (4,18 gegen 2,91 pp, p = 0,019).
+- D-2 **H0 (Gegenrichtung)**: 2 Magiewinkel tragen bei 500 Bildern *weniger*
+  (G(2) −0,28, p = 0,042). Beide Gegenrichtungs-Tests einseitig ohne Holm:
+  deutlicher Hinweis, kein Beweis.
+- d_nach ≈ 0 bei allen n → dritter Beleg gegen den Nachtrain-Verdacht.
+
+**Einordnung:** Der Gewinn der Schaltung ist von der Datenmenge fast
+unabhängig (~3,5 pp), aber seine *Verteilung* nicht: Mit mehr Daten
+konzentriert das Training die genutzte Magie auf weniger Winkel. Die
+Magie-Konzentration ist also eine Eigenschaft des **gelernten** Modells, die
+mit der Datenmenge wächst — nicht der Architektur allein (passt zum
+explorativen I-003-Hinweis). Die Regularisierungsidee war falsch gestellt
+(Runden danach ≠ Training im Clifford-Raum) → I-004-mnist mit n = 500.

@@ -243,7 +243,7 @@
   {
    "id": "I-024",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.datenmenge",
    "frage": "Magie gegen Datenmenge: braucht die Zelle mit weniger Trainingsdaten weniger Magie? (Clifford-Gitter als Regularisierer, M50 als Funktion von n_train)",
    "prioritaet": 1,
@@ -296,7 +296,7 @@
    "modul": null,
    "prioritaet": 1,
    "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
-   "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz)."
+   "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz). | Nach I-024: zusaetzlich n_train = 500 -- Training IM Clifford-Geruest ist der eigentliche Regularisierungstest (nachtraegliches Runden war es nicht)."
   },
   {
    "id": "I-015-hybrid-fashion",
