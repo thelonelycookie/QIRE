@@ -758,3 +758,23 @@ vorregistrieren.** Der MNIST-Befund (I-034, 2,25 %) gilt für MNIST, nicht
 allgemein — die Kombination ist datensatzabhängig und muss je Aufgabe neu
 kalibriert werden (Top-m-Größe, welche Stufen). Genau das relativiert auch
 den "44-fach"-Satz im Kernsatz: er gilt nachgewiesen für MNIST, nicht per se.
+
+## 25.09.2026, 08:10 — Werkzeug (kein Befund): GPU-Encoder/Decoder-Stapelung, Korrektheit geprüft
+
+Auf Maltes Wunsch (Vorgabe 7): `labor/stapel.py`. Idee: viele kleine,
+unabhängige Rechenaufträge (z. B. N Seeds derselben QireZelle) zu EINEM
+großen Tensor-Batch zusammenfassen (Encoder), auf der GPU in einem Rutsch
+rechnen, wieder auseinandernehmen (Decoder) — statt N kleiner CPU-Prozesse.
+
+**Offen gesagt: Das ist Werkzeug/Infrastruktur, kein neuer physikalischer
+Befund** — Batched-Statevector-Simulation ist etablierte HPC-Technik
+(cuQuantum, PennyLane-Lightning-GPU, arXiv:2509.04955 u. a.).
+
+- **Korrektheit**: batched (`torch.func.vmap`) gegen Python-Schleife exakt
+  gleich (Unterschied 0,00, bitgleich, Datentyp float32).
+- **Laufzeit auf CPU** (keine GPU in diesem Container, `torch.cuda.is_available()
+  == False`): nur 1,0–1,4× schneller, kein durchschlagender Gewinn — CPU
+  profitiert kaum vom Batching, weil sie ohnehin nicht massiv parallel ist.
+- **Der eigentliche Test steht aus**: Der Sinn der Übung ist GPU-Durchsatz.
+  Das braucht eine CUDA-fähige Maschine — offene Frage an Malte, ob sein PC
+  eine NVIDIA-GPU hat, dann lässt sich das dort wirklich messen.
