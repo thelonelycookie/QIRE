@@ -292,11 +292,12 @@
   {
    "id": "I-004-mnist",
    "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
+   "status": "offen",
+   "modul": "abteilungen.geruest_mnist",
    "prioritaet": 1,
    "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
-   "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz). | Nach I-024: zusaetzlich n_train = 500 -- Training IM Clifford-Geruest ist der eigentliche Regularisierungstest (nachtraegliches Runden war es nicht)."
+   "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz). | Nach I-024: zusaetzlich n_train = 500 -- Training IM Clifford-Geruest ist der eigentliche Regularisierungstest (nachtraegliches Runden war es nicht). | Modul gebaut (Forscher-Agent): n 500/10.000, Arme voll/Identitaet/nachtrainiert/nachtraeglich_k2,k4/geruest_zufall_k2,k4/geruest_fest_k2, Rate je (Arm, n), Seeds 160-169. R-0 Vorbedingung, R-P Positivkontrolle Verfahren, R-1 Zufallsgeruest k4 >= 0,5 G, R-2 nachtraeglich vs Geruest k2, R-3 Regularisierung G_500 - G_10000 >= 0,15 (Holm R-1..R-3). ~75-85 min.",
+   "folgen": {}
   },
   {
    "id": "I-015-hybrid-fashion",
