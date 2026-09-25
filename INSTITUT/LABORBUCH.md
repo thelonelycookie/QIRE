@@ -537,3 +537,30 @@ G = 0,71, KI 0,47–0,96); R-2 HU (+0,28 G für nachträgliches Runden, Holm-p =
 Beschreibend: Wenig-magische Schaltungen brauchen das volle Modell nicht —
 zufälliges Clifford-Gerüst + 4 trainierte Winkel holt ~70 % des Gewinns mit
 halbem Trainingsaufwand. Belastbar erst auf MNIST (I-004-mnist, Idee).
+
+## 25.09.2026, 00:10 — I-015-hybrid (Q3, vorregistriert): **Hybrid-Magie-Kaskade spart 88 % der Hardware-T** ✔
+
+MNIST 16×16, 10 frische Seeds 100–109, Kaskade 0 → 2 → 8, Stufe 0 (Clifford,
+0 T) **klassisch** (≤ 8.192 Additionen, 0 Multiplikationen, kein Laden), jede
+Quantenstufe = Laden 7.636 T + Schaltung; τ auf Validierung nach den
+Hybrid-Kosten (Rohdaten `ergebnisse/I-015-hybrid__20260925_000945.json`, 12 min).
+
+- **H-1 H1**: mittlere Hardware-T je Bild **902 = 11,7 % von k=2 auf
+  Hardware** (7.698 T); Genauigkeit 91,74 % gegen 91,68 % (+0,06 pp,
+  einseitiges KI [−0,20; +0,31], Grenze −0,5 pp). Nur **7,9 %** der Bilder
+  erreichen den Quantenrechner.
+- **H-2 H1**: Konfidenz schlägt Zufallsweiterleitung gleicher Quote
+  (+1,06 pp, p = 0,031).
+- H-3: zweistufig 0 → 2: 9,5 %; 0 → 8: 8,0 % (beide ≈ k2-Genauigkeit).
+- **Robustheit (Direktor):** Auf 4/10 Seeds wählt die Validierung τ* = 0
+  (die klassische Clifford-Stufe allein genügt dort; Test −0,2 … −0,7 pp).
+  Ohne diese Seeds: 1.503 T = **19,5 %** — immer noch unter 25 %.
+- Replikation des Post-hoc-Werts (I-015, Seeds 90–94: 14,5 %) auf frischen Seeds.
+
+**Einordnung:** Das ist der erste Befund des Instituts, der eine echte
+Hardware-Ersparnis *mit* Ladekosten zeigt. Er verbindet die beiden
+Hauptbefunde: Magie-Konzentration (wenige Winkel reichen) und
+Clifford = klassisch billig (die magiefreie Stufe braucht keinen
+Quantenrechner). Ehrlich: Es ist ein **Hybrid**-Befund — die Ersparnis
+entsteht, weil ein klassisches multiplikationsfreies Netz die meisten Bilder
+selbst entscheidet und nur schwierige an die Quantenschaltung abgibt.

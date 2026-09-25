@@ -282,7 +282,7 @@
   {
    "id": "I-015-hybrid",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.kaskade_hybrid",
    "prioritaet": 1,
    "frage": "Hybrid-Magie-Kaskade: Clifford-Stufe klassisch (0 T, kein Laden, nur Additionen), nur unsichere Bilder auf den Quantenrechner -- spart sie >= 75 % Hardware-T von k=2 ohne Genauigkeitsverlust?",
