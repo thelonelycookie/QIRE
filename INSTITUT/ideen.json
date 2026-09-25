@@ -488,6 +488,25 @@
    "abbruch": "Wenn keine Kombination <= 5 % der heutigen Hardware-T (7.698 T) die Genauigkeit von k=2 innerhalb 0,5 pp haelt (Nichtunterlegenheit, 10 Seeds).",
    "billigster_test": "MNIST 16x16, 10 frische Seeds: Stufenmodelle k=2/8 auf Top-m-geladenen Zustaenden (m = 32, 48) nachtrainieren (Rezept I-033), Kaskade 0(klassisch, exakt) -> k2(Top-m) -> k8(Top-m), tau auf Validierung nach Hybrid-Kosten; ~60-75 min.",
    "kontrolle": "k=2 dicht auf Hardware (heute); Hybrid-Kaskade mit exaktem Laden (I-015-hybrid); feste Stufe k=2 mit Top-m-Laden ohne Kaskade."
+  },
+  {
+   "id": "I-035",
+   "status": "weitergeleitet",
+   "erzeugt": "2026-09-25",
+   "konzept": "Magie / Clifford-Hierarchie + Aufgaben-Schwierigkeit",
+   "engpass": "Magiebedarf (M50) nur durch teuren Trainings-Rundungs-Sweep messbar",
+   "denkzug": "echte, noch nicht gestellte Frage nach Maltes Vorgabe 7 (Vorrang fuer Neuheit)",
+   "abteilung": "Clifford",
+   "bearbeitet": "Claude 25.09. (direkt formuliert, nicht aus dem Zufallsgenerator, nach Literaturpruefung)",
+   "frage": "Sagt die AUFGABEN-Schwierigkeit (Label-Rauschen/Klassenueberlappung) den Magiebedarf (M50) einer Aufgabe voraus -- abgestuft, nicht nur an den zwei Extremen echt/zufall wie in I-003 -- und gibt es einen billigen Kennwert (ohne Rundungs-Sweep), der M50 vorhersagt?",
+   "titel": "Magiebedarf als Funktion der Aufgaben-Schwierigkeit: abgestufte Label-Rausch-Skala + billiger Praediktor (Generalisierungsluecke) statt teurem Rundungs-Sweep",
+   "quantenkern": "M50 (Anteil Nicht-Clifford-Winkel fuer 50 % des Nutzens) ist bisher nur durch teures Training+Runden+Neutraining je k messbar. Wenn ein am vollen Modell ablesbarer Kennwert (z. B. die Generalisierungsluecke Trainings- minus Testgenauigkeit, oder die Entropie der Born-Verteilung) mit M50 korreliert, waere der Magiebedarf einer Aufgabe VORHERSAGBAR, ohne den Rundungs-Sweep durchzufuehren -- das verbindet Ressourcentheorie (Magie) mit klassischer Lerntheorie (Generalisierung) auf eine Weise, die ich in der Literatur nicht gefunden habe.",
+   "quantenstufe": "Q3",
+   "papierpruefung": "Traegt: I-003 (explorativ, 2 Punkte) zeigte M50 = 8 (Zufallsetiketten, reines Memorieren) gegen M50 = 1 (echte Etiketten) auf den Ziffern -- ein grosser, aber nur zweipunktiger Unterschied. I-002 zeigte, dass die Stabilizer-Renyi-Entropie der GELERNTEN Schicht M50 NICHT vorhersagt (H0, rho=0.26) -- also ist nicht jeder naheliegende Kennwert brauchbar; die Generalisierungsluecke ist ein anderer, noch nicht getesteter Kandidat. Gefahr: bei nur 2-3 Rausch-Stufen ist eine Korrelation kaum von Zufall zu unterscheiden -- mindestens 4-5 abgestufte Stufen und eine echte Korrelationsstatistik (Spearman ueber Stufen, nicht nur Extremvergleich) vorsehen.",
+   "neuheit": "TEILWEISE/OFFEN nach Literaturpruefung 25.09.: Arbeiten zu 'non-stabilizerness aus Messdaten mit neuronalen Netzen schaetzen' (Retrieving non-stabilizerness with Neural Networks, 2403.00919; Nonstabilizerness Estimation using GNN, 2511.23224) schaetzen die Magie EINES GEGEBENEN Zustands/Schaltung aus Messungen -- eine andere Frage als 'wie viel Magie braucht eine KLASSIFIKATIONSAUFGABE als Funktion ihrer Schwierigkeit, vor dem vollen Rundungs-Sweep'. 'Quantum resources of quantum and classical variational methods' (2409.13008) verbindet Nicht-Stabilisierbarkeit mit Aufgabenleistung bei Quanten-Reservoir-Computing (QELM) -- verwandt, aber andere Aufgabenklasse (Reservoir, nicht ueberwachte Bildklassifikation) und nicht dieselbe Frage (Schwierigkeit als Stellgroesse). Vor der schriftlichen Arbeit: dieses Paper genauer lesen und explizit abgrenzen.",
+   "abbruch": "Wenn M50 ueber 5 abgestufte Rausch-Stufen (0/10/25/50/75/100 % Label-Rauschen) keine monotone Tendenz zeigt (Spearman-Korrelation KI ueberdeckt 0) ODER kein Kandidaten-Kennwert (Generalisierungsluecke, Born-Entropie) mit M50 ueber die Stufen korreliert (|Spearman| < 0.5, KI ueberdeckt 0).",
+   "billigster_test": "MNIST 16x16, 5-6 Rausch-Stufen (Anteil der Trainings-Etiketten zufaellig permutiert), je Stufe 8-10 Seeds, volles Modell + Rundungs-Sweep (k wie C-mnist) fuer M50, dazu Generalisierungsluecke und Born-Entropie des vollen Modells (kein Zusatztraining); Spearman ueber die Stufen (gepaart je Seed oder ueber Stufenmittel), TOST fuer 'kein Zusammenhang': ~70-90 min.",
+   "kontrolle": "zufaellige Zuordnung Stufe<->Ergebnis als Nullverteilung fuer die Korrelation; Generalisierungsluecke auf der reinen Kopf-Schicht (ohne Schaltung) als Kontrollpraediktor (sollte schlechter/gar nicht korrelieren, wenn die Schaltung die Quelle des Effekts ist)."
   }
  ]
 }

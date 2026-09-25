@@ -32,6 +32,19 @@ Einzelheiten stehen in den verlinkten Dateien; lies sie nur, wenn du sie brauchs
 6. **Selbstständig arbeiten**, nur bei Richtung/Geld/vielstündigen Läufen fragen.
    **Agenten dürfen orchestriert werden** (Malte hat es erlaubt und die
    Skalierung ausdrücklich gewünscht).
+7. **Vorrang für echte Neuheit** (25.09., nach einer Nacht voller sauber
+   gemessener, aber teils schon publizierter Genres): „Nur überprüfen, ob
+   Profis richtig rechnen, kann ich mir auch sparen.“ Vor dem Skalieren
+   einer Linie über einen ersten Testlauf hinaus: **echte Literatursuche**
+   (WebSearch, nicht nur Trainingswissen) auf die Kernaussage. Fragen
+   bevorzugen, zu denen nichts Vergleichbares gefunden wird — nicht Fragen,
+   bei denen nur eine andere Verpackung eines bekannten Tricks herauskommt.
+   Bekannte Genres (z. B. approximative Kodierung, GPU-Batching von
+   Schaltungen) offen als Replikation/Werkzeug kennzeichnen, nie als
+   Hauptbefund. Vorrang: **neue Dinge finden** vor **neue Zusammenhänge
+   erschließen** vor **Bekanntes nachrechnen**. Quantenphysik ist jung genug,
+   dass „einfach mal ausprobieren, was noch niemand gefragt hat“ eine
+   legitime Strategie ist.
 
 ## 3. Protokollregeln (aus Projekt A, gelten weiter)
 

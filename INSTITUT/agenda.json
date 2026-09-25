@@ -369,6 +369,15 @@
    "frage": "Replikation des kombinierten Magie-Budgets (Hybrid-Kaskade + Top-m-Laden) auf Fashion-MNIST: dieselben vorregistrierten PK/G-1/G-2/G-3 wie I-034.",
    "notiz": "Direktor 25.09. nach I-034 H1 (MNIST 2,25 %). Rate 0,08 (= getunte voll-Rate C-fashion, stabil); Referenz 7.698 T (dichtes Laden ist bildunabhaengig). Fashion ist weniger duenn besetzt -> Top-m-Laden relativ verlustreicher; genau das prueft die Replikation. ~40 min.",
    "folgen": {}
+  },
+  {
+   "id": "I-035",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "modul": null,
+   "frage": "Magiebedarf als Funktion der Aufgaben-Schwierigkeit: abgestufte Label-Rausch-Skala + billiger Praediktor (Generalisierungsluecke) statt teurem Rundungs-Sweep",
+   "prioritaet": 1,
+   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 ueber 5 abgestufte Rausch-Stufen (0/10/25/50/75/100 % Label-Rauschen) keine monotone Tendenz zeigt (Spearman-Korrelation KI ueberdeckt 0) ODER kein Kandidaten-Kennwert (Generalisierungsluecke, Born-Entropie) mit M50 ueber die Stufen korreliert (|Spearman| < 0.5, KI ueberdeckt 0). Test: MNIST 16x16, 5-6 Rausch-Stufen (Anteil der Trainings-Etiketten zufaellig permutiert), je Stufe 8-10 Seeds, volles Modell + Rundungs-Sweep (k wie C-mnist) fuer M50, dazu Generalisierungsluecke und Born-Entropie des vollen Modells (kein Zusatztraining); Spearman ueber die Stufen (gepaart je Seed oder ueber Stufenmittel), TOST fuer 'kein Zusammenhang': ~70-90 min."
   }
  ]
 }
