@@ -348,7 +348,7 @@
   {
    "id": "I-034-fashion",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.gesamt_kombi",
    "prioritaet": 1,
    "argumente": {

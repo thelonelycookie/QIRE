@@ -733,3 +733,28 @@ gemessenes Signal. Nach der Korrektur löst er sich auf, statt sich zu
 bestätigen. **Die Magie-Skalierungsfrage bleibt offen** — weder bestätigt
 noch widerlegt, mit jetzt solider Methode für einen künftigen, größer
 angelegten Versuch (mehr Seeds, mehr Breiten).
+
+## 25.09.2026, 07:55 — I-034-fashion: Kombination repliziert NICHT — wichtiges Gegenbeispiel
+
+Fashion-MNIST, 10 frische Seeds 230–239, sonst identisch zu I-034 (Rohdaten
+`ergebnisse/I-034-fashion__20260925_075400.json`, 43 min).
+
+- PK H1 (k2 exakt schlägt Identität, +2,4 pp).
+- **G-1 H0** (Abbruchkriterium erfüllt): kombi_m48 kostet **12,4 %** statt
+  ≤5 % und ist **nachweislich schlechter** (−0,34 pp, KI [−0,65; −0,03]);
+  kombi_m32 kostet 10,3 %, −0,64 pp. Beide über der 10-%-Schranke.
+- G-2 **H1**: Genähertes Laden kostet in der Kaskade auf Fashion diesmal
+  *doch* nachweisbar Genauigkeit (−0,34 pp, p = 0,008) — anders als auf
+  MNIST, wo die Wechselwirkung den Verlust genau ausglich.
+- Ursache (Einordnung, nicht Teil der Vorregistrierung): Top-48-Laden ist auf
+  Fashion verlustreicher (I-033 war nur MNIST) und mehr Bilder brauchen
+  überhaupt die Quantenstufe (31–36 % statt 8 %, weil Fashion mehr Magie
+  braucht, siehe C-fashion). Ein einzelner Blick lohnt sich: `zwei_0_8_m48`
+  (0→8 ohne k2-Zwischenstufe) erreicht 504 T = **6,5 %** bei 81,61 % (Referenz
+  81,88 %) — nahe dran, in der Vorregistrierung aber nicht die Hauptkonfiguration.
+
+**Einordnung: Das ist kein Rückschlag, sondern der Beleg, dass wir ehrlich
+vorregistrieren.** Der MNIST-Befund (I-034, 2,25 %) gilt für MNIST, nicht
+allgemein — die Kombination ist datensatzabhängig und muss je Aufgabe neu
+kalibriert werden (Top-m-Größe, welche Stufen). Genau das relativiert auch
+den "44-fach"-Satz im Kernsatz: er gilt nachgewiesen für MNIST, nicht per se.
