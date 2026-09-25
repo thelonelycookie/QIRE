@@ -328,7 +328,7 @@
   {
    "id": "I-034",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.gesamt_kombi",
    "frage": "Gesamt-Magie-Budget kombiniert: Hybrid-Kaskade (Stufe 0 klassisch) + Top-m-Laden + k Magiewinkel -- Hardware-T je Bild gegen Genauigkeit, Ziel <= 5 % von heute (k=2, dicht geladen, 7.698 T)",
    "prioritaet": 1,

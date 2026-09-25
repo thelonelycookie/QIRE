@@ -70,7 +70,11 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 | Nachtrain-Verdacht (Rundungsarme 2. Phase) | C-referenz: **widerlegt** auf MNIST | d = −0,03 pp, KI ±0,24; Störfaktor war die Lernrate |
 | Aufgabe oder Architektur? | I-003 **HU** (Positivkontrolle scheitert am Gradienten) | explorativ: Memorieren M50 = 8 vs. Generalisieren M50 = 1 |
 | Gesamtbudget Laden + Schaltung | I-020 G-1 **H0** (25 %-Ziel) | dünn besetzt exakt: **4.372 T statt 8.776, ohne Verlust**; mit k=4 ist Laden 96 % |
-| Magie-Kaskade | I-015 K-1 **H1** (28 % der Schaltungs-T), mit Laden 114 % | **Hybrid** (Clifford-Stufe klassisch): 14,5 % der Hardware-T, post hoc → I-015-hybrid vorregistriert |
+| Magie-Kaskade | I-015 K-1 **H1** (28 % der Schaltungs-T), mit Laden 114 % | **Hybrid** (Clifford-Stufe klassisch): I-015-hybrid **H1** 11,7 % (MNIST), 23,9 % (Fashion) |
+| Magie-Konzentration im Laden | I-033 **H1** | Top-48 Ladewinkel = 45 % Lade-T, −0,57 pp; Top-16 schlägt Zufall um 31 pp |
+| **Alles kombiniert** | I-034 **H1** | **174 T = 2,25 % von 7.698 T, +0,31 pp** (m=32: 1,47 %, −0,04 pp) |
+| Magie gegen Datenmenge | I-024 **H0 (Gegenrichtung)** | Konzentration schärft sich mit mehr Daten (G(2) 0,34 → 0,61) |
+| Magie-Skalierung | C-skala S-1 **H1**, S-3 HU (Instabilität) | M50: 2 (24 Winkel) → 1 (40 Winkel), mit Auflösung konfundiert → C-skala-v2 |
 | Magie lässt sich nicht wegtrainieren | C-bewusst **H0** | Strafterm zum Gitter kostet 1,4 pp |
 | Wahl der magischen Winkel nach Wirkung > Zufall | I-001 P-2 **H1** | +0,29 G, p = 0,027 |
 | Vorhandene ≠ genutzte Magie | I-002 **H0** | gelernte SRE ≈ zufällige (6,26 vs 6,28) |
@@ -80,9 +84,12 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 | Verschränkungs-Kompass (Q1) | HU/HU | SVD schlägt alle Tensor-Train-Ordnungen |
 | Zero-Noise-Extrapolation über Bitbreiten | auf Papier widerlegt | MSE 7× schlechter |
 
-**Kernsatz bis jetzt:** *Der Nutzen der Quantenschaltung sitzt in der Magie,
-und zwar in sehr wenigen Gattern (Magie-Konzentration). Auf echter Hardware
-frisst aber das Laden der Daten die Einsparung — das ist die nächste Front.*
+**Kernsatz (Stand 25.09. früh):** *Der Nutzen der Quantenschaltung sitzt in
+wenigen Magiewinkeln (Magie-Konzentration, MNIST + Fashion repliziert), und
+dasselbe gilt für das Laden der Daten (I-033). Zusammen mit einer klassischen
+Clifford-Vorstufe (Hybrid-Kaskade, I-015-hybrid, MNIST + Fashion) braucht die
+Klassifikation nur noch **2,25 % der T-Gatter** des naiven Wegs ohne
+Genauigkeitsverlust (I-034, vorregistriert, 10 Seeds).*
 Arbeitstitel für den Namen: **Magie-Konzentration M50/M90 einer Aufgabe**
 (Fashion trägt sie jetzt, C-referenz auch; I-003 blieb HU → I-003-v2 und C-skala abwarten).
 

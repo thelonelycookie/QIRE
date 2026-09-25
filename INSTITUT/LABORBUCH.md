@@ -666,3 +666,40 @@ Referenz *nachtrainiert* mit eigener Rate (Rohdaten
 - Ursache: Die Ratensuche (2 Tuning-Seeds) wählt 0,32 direkt an der
   Stabilitätskante (1,28 kollabiert). → Lehre Stabilitätsabstand
   (FEHLERBUCH), Folge C-skala-v2 (Idee).
+
+## 25.09.2026, 05:25 — I-034 (Q3, vorregistriert): **Gesamt-Magie-Budget kombiniert: 2,25 % der Hardware-T, ohne Verlust** ✔✔
+
+MNIST 16×16, 10 frische Seeds 210–219. Kaskade: Stufe 0 = Clifford-Schaltung
+**klassisch** (0 T, kein Laden) → k=2 → k=8 auf dem Quantenrechner mit
+**Top-48-geladenen** Zuständen (Lade-T bildweise exakt gezählt), τ auf
+Validierung nach Hardware-Kosten (Rohdaten `ergebnisse/I-034__20260925_052057.json`, 35 min).
+Referenz „heute“: k=2 fest, dicht geladen = 7.698 T je Bild.
+
+| Verfahren | Hardware-T je Bild | Anteil | Genauigkeit |
+|---|---|---|---|
+| k=2 dicht (heute) | 7.698 | 100 % | 91,63 % |
+| k=8 dicht | 7.883 | 102 % | 92,88 % |
+| Hybrid-Kaskade, dicht geladen (I-015-hybrid) | ~900 | ~12 % | ≈ k2 |
+| k=8, Top-48-Laden, ohne Kaskade | 1.727 | 22 % | 92,19 % |
+| **Kombi m=48** | **174** | **2,25 %** | **91,94 %** |
+| Kombi m=32 | 113 | 1,47 % | 91,59 % |
+| k0 klassisch allein | 0 | 0 % | 90,83 % |
+
+- PK H1 (k2 exakt schlägt Identität, +2,2 pp, p = 0,002).
+- **G-1 H1**: m=48: 2,25 % der Hardware-T, **+0,31 pp** (einseitiges KI
+  [+0,12; +0,51]); m=32: 1,47 %, −0,04 pp (KI [−0,20; +0,12]). Beide
+  nichtunterlegen (Holm-p < 0,001). Teuerster Seed 370 T (4,8 %); ohne den
+  einen τ* = 0-Seed im Mittel 2,5 %.
+- **G-2 H0 (TOST)**: genähertes Laden kostet *in der Kaskade* nichts
+  (−0,03 pp gegen die Kaskade mit exaktem Laden, TOST p = 0,005) — obwohl es
+  die feste Stufe k=2 −0,93 pp kostet. **Wechselwirkung +0,90 pp (p = 0,002)**:
+  Die Kaskade schickt nur unsichere Bilder weiter und reicht sie bis k=8
+  durch; dort gleicht die zusätzliche Magie den Ladefehler aus.
+- Nur 7,8 % der Bilder erreichen den Quantenrechner.
+
+**Das ist der Kernbefund des Instituts bisher:** Drei Magie-Einsparungen —
+*welche Bilder* (klassische Clifford-Stufe), *wie viel Laden* (Top-m),
+*wie viel Schaltung* (wenige Magiewinkel) — multiplizieren sich, statt sich
+zu stören: **~44-mal weniger T-Gatter** je Bild als der naive Weg, bei
+gleicher Genauigkeit. Einschränkung: MNIST, ein Datensatz, T-Zahl mit
+ε = 10⁻³ je Rotation; Fashion-Replikation und echte Hardware stehen aus.
