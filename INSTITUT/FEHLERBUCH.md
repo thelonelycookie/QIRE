@@ -194,3 +194,15 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
   neuen Modul mehr als Erwartung einsetzen. Prozess-Lehre: Der Lauf lag drei
   Tage ausgewertet, aber uncommittet und ohne Laborbuch-Eintrag herum. Nach
   jedem Lauf gilt deshalb: Laborbuch + Commit **im selben Zug**.
+
+### 28.09.2026 — I-005 (kein Fehlschlag, aber eine Lehre ueber fruehere Befunde)
+- Alle vier Tests H1. Diskrete Clifford-Suche 0,9352 gegen volles
+  Gradiententraining 0,9344 (beschreibend).
+- **Lehre:** Fast die ganze Magie-Linie hat die Magie gemessen, die der
+  **Gradient** braucht. Dass die Aufgabe sie braucht, war nie gezeigt. I-003
+  hatte es schon angedeutet (der Gradient findet die Lehrerloesung nicht).
+  Jede Kennzahl, die an einem Lernverfahren haengt (G(k), M50/M90), muss
+  kuenftig mit **zwei** Lernverfahren gemessen werden, bevor sie als
+  Eigenschaft der Aufgabe beschrieben wird. Der Kernsatz in `UEBERGABE.md` §4
+  („Nutzen sitzt in wenigen Magiewinkeln“) gilt nur noch mit dem Zusatz „beim
+  Gradiententraining“.

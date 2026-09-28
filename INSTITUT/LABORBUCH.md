@@ -851,3 +851,59 @@ weil der Lauf nie ausgewertet und committet worden war.
   Verlust“ und „nach Abstand“ (Spearman +0,97/+0,98).
 - Offen, und der natürliche nächste Schritt: R-1 auf **Fashion** (I-034-fashion
   hat gezeigt, dass MNIST-Befunde dort nicht automatisch halten).
+
+## 28.09.2026, 12:09 — I-005: **Diskrete Suche findet reine Clifford-Schaltungen auf dem Niveau des vollen Trainings** ✔✔
+
+MNIST 16×16, 10 Mess-Seeds (190–199), Strukturaufgabe mit Seeds 200–209.
+Simulated Annealing über 2^(nL) Clifford-Wahlen, 6.000 Schritte. Auswahl nur
+nach Ridge-LOO auf Nicht-Testdaten, ein gemeinsamer L-BFGS-Kopf für alle Arme.
+Rohdaten `ergebnisse/I-005__20260928_120905.json`, 49 min. Vorregistriert und
+committet vor dem Lauf.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| Q-0 Positivkontrolle (Lehrer-Lösung finden) | **H1** | G_L = 0,96, Lehrer-äquivalent in 8/10 Seeds (Zufallssuche gleichen Aufwands: 2/10) |
+| Q-1 Suche gegen Median von 100 Zufalls-Cliffords | **H1** | +2,56 pp, KI [+2,25; +2,87], 10/10, Holm-p = 0,006 |
+| Q-2 Suche gegen k0 (gerundetes Gradientenmodell) | **H1** | +3,38 pp, KI [+2,56; +4,19], 10/10, Holm-p = 0,006 |
+| Q-4 Suche gegen Zufallssuche gleicher Bewertungszahl | **H1** | +1,09 pp, KI [+0,63; +1,55], 9/10, Holm-p = 0,006 |
+
+**Beschreibend (Q-3), Test:**
+
+| Arm | Genauigkeit |
+|---|---|
+| Suche (**0 Magiewinkel**) | **0,9352** |
+| voll trainiert (alle Winkel frei) | 0,9344 |
+| beste von 100 Zufalls-Cliffords | 0,9230 |
+| k0 (gerundet) | 0,9014 |
+| Identität | 0,8969 |
+
+- G_voll der Suche ist **1,02**, der von k0 nur 0,12.
+- Siegerfluch: Kriterium minus Test liegt bei +0,46 pp. Die Auswahl
+  überschätzt sich leicht.
+- Aufwand: 5.242 Bewertungen, also 544 s Suche gegen 133 s Gradiententraining
+  je Seed.
+
+**Was das heißt:**
+1. **Die Positivkontrolle, an der I-003 gescheitert ist, feuert jetzt.** Das
+   Lernverfahren war das Problem, nicht die Aufgabe. Eine diskrete Suche findet
+   die Clifford-Lösung, der Gradient nicht.
+2. **Das stellt die Magie-Linie auf den Kopf:** Auf MNIST braucht die Zelle
+   **gar keine Magie**, wenn man sie nicht per Gradient, sondern diskret
+   trainiert. Suche und volles Training liegen gleich auf (0,9352 gegen
+   0,9344). Das ist nur beschreibend, ohne TOST, und gehört als nächste
+   vorregistrierte Frage auf die Agenda. Die „Magie-Konzentration“ aus
+   C-mnist/C-referenz misst also vermutlich vor allem, **wie viel Magie der
+   Gradient braucht**, nicht wie viel die Aufgabe braucht.
+3. **Ehrlich dazu gehört:** Reine Clifford-Schaltungen sind nach
+   Gottesman-Knill klassisch effizient simulierbar. Eine gute Clifford-Zelle
+   ist damit ein Befund über **Hardware-Kosten** (0 T-Gatter, kein
+   Magic-State-Distilling), nicht über einen Quantenvorteil. Für
+   Q3-Hardware ist sie ideal, für „Quantenvorteil“ ist sie das Gegenteil.
+4. Kaskade: Die Suche ist bei 61,6 % der Bilder sehr sicher (Konfidenz > 0,9),
+   k0 nur bei 48,2 %. Eine Clifford-Stufe 0 aus der Suche würde die
+   Hybrid-Kaskade (I-015-hybrid) noch billiger machen.
+
+**Folgefragen:** Repliziert das auf Fashion (I-005-fashion)? Suche gegen voll
+per TOST, vorregistriert. Braucht Fashion (G(4) ≈ 1,0 aus C-fashion) dann
+ebenfalls keine Magie? Und: Suche plus k Magiewinkel, also ein diskretes
+Gerüst mit Politur, statt eines zufälligen Gerüsts wie in I-004.
