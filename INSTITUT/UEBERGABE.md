@@ -113,6 +113,15 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 | Verschränkungs-Kompass (Q1) | HU/HU | SVD schlägt alle Tensor-Train-Ordnungen |
 | Zero-Noise-Extrapolation über Bitbreiten | auf Papier widerlegt | MSE 7× schlechter |
 
+**NACHTRAG 28.09. — I-005 (alle H1) relativiert den Kernsatz unten:** Eine
+diskrete Clifford-Suche (**0 Magiewinkel, 0 T-Gatter**) erreicht auf MNIST
+0,9352, das volle Gradiententraining 0,9344 (beschreibend). Die
+Magie-Konzentration misst also vermutlich, wie viel Magie der **Gradient**
+braucht, nicht die Aufgabe. Nächste Fragen: I-005-fashion und Suche gegen
+voll per TOST (LABORBUCH 28.09.). Außerdem ist I-004-mnist ausgewertet (R-1 H1:
+ein Training im zufälligen Gerüst genügt). Neuheitsrecherche:
+`recherche/2026-09-28_neuheit_magie.md`.
+
 **Kernsatz (Stand 25.09. Vormittag):** *Der Nutzen der Quantenschaltung sitzt
 in wenigen Magiewinkeln (Magie-Konzentration, MNIST + Fashion repliziert,
 zwei unabhängige Seed-Sätze). Auf MNIST braucht die Kombination aus
