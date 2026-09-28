@@ -624,6 +624,41 @@ def check_q020() -> List[Tuple[str, bool, str]]:
     return out
 
 
+def check_q019w() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '28. September -- Q-019W gerechnet'. Eine Datei
+    (die neueste Q-019W-Datei, 795 Zeilen, alle Abschnitte)."""
+    rec = load("Q-019W")["records"]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(basis: str, n: int, arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["basis"] == basis and int(r["n_train"]) == n
+                       and r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["balanced_accuracy"] for r in rows])
+
+    def cmp(label: str, claimed: float, actual: float, tol: float = TOL):
+        out.append((label, abs(claimed - actual) <= tol,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {actual:+.4f}"))
+
+    wb, wd, wg = m("walsh", 200, "butterfly"), m("walsh", 200, "dense"), m("walsh", 200, "givens_zufall")
+    zb, zd = m("zufall", 200, "butterfly"), m("zufall", 200, "dense")
+    cmp("PRIMAER butterfly, walsh N=200", 0.8472, float(wb.mean()))
+    cmp("PRIMAER dense, walsh N=200", 0.5390, float(wd.mean()))
+    cmp("PRIMAER butterfly - dense", 0.3082, float((wb - wd).mean()))
+    cmp("P2 Wechselwirkung walsh - zufall", 0.6933, float(((wb - wd) - (zb - zd)).mean()))
+    cmp("P3 butterfly - givens_zufall", 0.6781, float((wb - wg).mean()))
+    cmp("N=6000 dense (walsh)", 0.9504, float(m("walsh", 6000, "dense").mean()))
+    cmp("N=6000 butterfly (walsh)", 0.9077, float(m("walsh", 6000, "butterfly").mean()))
+    cmp("Aufloesung dense - narrow, N=6000", 0.1010,
+        float((m("walsh", 6000, "dense") - m("walsh", 6000, "narrow")).mean()))
+    cmp("butterfly - wht_fest, walsh N=200", 0.0006,
+        float((wb - m("walsh", 200, "wht_fest")).mean()))
+    cmp("untied - butterfly, walsh N=200", -0.3523,
+        float((m("walsh", 200, "untied") - wb).mean()))
+    out.append(("15 Seeds, 795 Zeilen", len(wb) == 15 and len(rec) == 795,
+                f"Rohdaten {len(wb)} Seeds, {len(rec)} Zeilen"))
+    return out
+
+
 CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-003-replication": check_q003,
     "Q-011 (dritter Anlauf, gerettet)": check_q011,
@@ -632,6 +667,7 @@ CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-015": check_q015,
     "Q-018": check_q018,
     "Q-020": check_q020,
+    "Q-019W": check_q019w,
     "Randlagen (Regel 1b, Tagebuch 27.08.)": check_randlagen,
     "T-000": check_t000,
     "T-001": check_t001,

@@ -66,6 +66,8 @@ QUESTIONS: Dict[str, str] = {
     "Q-018": "Traegt das Training der Winkel etwas bei, ohne Encoder der aushilft?",
     "Q-019": ("Traegt die Butterfly-Struktur auf periodischen Signalen einen "
               "inhaltlichen Vorteil (Wechselwirkung periodisch x permutiert)?"),
+    "Q-019W": ("Walsh statt Fourier: schlaegt die geteilte Butterfly (40) bei wenig "
+               "Daten (N = 200) die dichte Schicht, und kommt das aus der Bitstruktur?"),
     "Q-020": ("Kernaussage fair neu: schlagen 16 Winkel ein ReLU-MLP gleicher "
               "Engstelle, und tragen Verschraenkung und Tiefe ohne Encoder bei?"),
     "T-000": "Kalibrierung: welche Modellbreite ist auf dieser Hardware trainierbar?",
@@ -167,6 +169,11 @@ def _resolution(analysis: Dict) -> Tuple[Optional[bool], str]:
     # Q-020 (kernaussage.py): je Abschnitt `kontrollen[<abschnitt>]["aufloesung"]`.
     # Bestanden nur, wenn ALLE gespeicherten Abschnitte bestanden haben.
     kontrollen = analysis.get("kontrollen")
+    # Q-019W (walsh.py): `kontrollen["aufloesung"]` direkt, ein Abschnitt.
+    if isinstance(kontrollen, dict) and isinstance(kontrollen.get("aufloesung"), dict):
+        t = kontrollen["aufloesung"]
+        return bool(t.get("bestanden")), (f"dense-narrow {float(t.get('delta', 0)):+.4f}, "
+                                          f"p={float(t.get('p', 1)):.4f}")
     if isinstance(kontrollen, dict):
         teile = {ab: k["aufloesung"] for ab, k in kontrollen.items()
                  if isinstance(k, dict) and isinstance(k.get("aufloesung"), dict)}

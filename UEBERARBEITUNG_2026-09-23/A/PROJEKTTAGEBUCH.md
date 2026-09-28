@@ -4912,6 +4912,63 @@ Basis × N mit vollem Budget gesucht, das Gitter in beide Richtungen verlängert
 **Erwartung:** PRIMÄR STRUKTUR_BESSER, P2 PASSUNG_TRAEGT, P3 STRUKTUR_TRAEGT,
 N\* zwischen 1.000 und 6.000.
 
+## 28. September — Q-019W gerechnet: die zweite KI-Art hat einen echten Vorteil, und er ist klassisch
+
+Lauf von 13:0x bis 17:00. Rohdaten `results/experiments/Q-019W__20260928_170030_02.json`
+(795 Zeilen). `q_audit` hat 11/11 Zahlen geprüft, alle OK.
+
+**Familie bei N = 200, Holm über 3:** alle drei in 15/15 Seeds, p = 0,0001,
+Holm-p = 0,0002.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| PRIMÄR | **STRUKTUR_BESSER** | butterfly 0,8472 gegen dense 0,5390, **+0,308** |
+| P2 | **PASSUNG_TRAEGT** | Wechselwirkung walsh − zufall **+0,693** |
+| P3 | **STRUKTUR_TRAEGT** | butterfly − givens_zufall **+0,678** |
+
+Kontrollen alle bestanden: Auflösung dense − narrow +0,101 (p = 0,0007),
+Boden, keine Sättigung.
+
+**Lernkurve, walsh:**
+
+| Arm | N = 50 | 200 | 1.000 | 6.000 |
+|---|---|---|---|---|
+| butterfly (40) | 0,660 | 0,847 | 0,896 | 0,908 |
+| wht_fest (0) | 0,655 | 0,847 | 0,895 | 0,907 |
+| dense (65.536) | 0,276 | 0,539 | 0,824 | **0,950** |
+| untied (5.120) | 0,274 | 0,495 | 0,763 | 0,877 |
+| givens_zufall (40) | 0,151 | 0,169 | 0,187 | 0,208 |
+
+**Was das heißt, ehrlich:**
+1. **Dateneffizienz ist belegt.** Bei 50 bis 1.000 Beispielen liegt die
+   Butterfly weit vor der dichten Schicht (+0,38 bei N = 50). Ab etwa
+   **N\* ≈ 3.100** (zwischen 1.000 und 6.000) holt die dichte Schicht auf, bei
+   6.000 liegt sie um 0,043 vorn. Das ist der erste Befund des Projekts, der
+   über „gleichwertig, aber billiger“ hinausgeht: **bei wenig Daten klar
+   besser**.
+2. **Der Mechanismus ist die feste Walsh-Hadamard-Transformation.** Die
+   gelernte Butterfly ist ab N = 200 per TOST gleichwertig zu `wht_fest` mit
+   **0 Parametern**. Das Lernen der 40 Winkel findet die WHT und bringt darüber
+   hinaus nichts.
+3. **Die Teilung der Winkel ist der Grund für die Dateneffizienz.** Die
+   ungeteilte Variante (5.120) ist bei wenig Daten so schlecht wie `dense`
+   (N = 200: −0,35 gegen die Butterfly).
+4. **Die Bitstruktur ist nötig:** Dieselben 40 geteilten Winkel mit zufälliger
+   Verdrahtung lernen gar nichts (0,17–0,21). In der Zufallsbasis und bei
+   permutierter Zeitachse fällt auch die Butterfly aufs Rateniveau.
+5. **Vorher angesagt und eingetreten:** P2 und P3 messen beide die Passung. Sie
+   sind stark, aber erwartbar. Neu und nicht vorhersehbar waren N\*, die
+   Gleichheit zu `wht_fest` und der Befund zur Teilung.
+6. **Fourier-Anschluss:** Wie in Q-019 verliert die Butterfly auf
+   Sinussignalen (0,677 gegen 0,921 bei N = 6.000). Die richtige Basis ist
+   Walsh, nicht Fourier.
+
+**Für die Arbeit:** Die zweite KI-Art ist ein Signalklassifikator, der mit 40
+Parametern (bzw. 0, als feste WHT) bei wenig Daten eine 65.536-Parameter-
+Schicht deutlich schlägt, solange die Signale Rechteck-/Schaltcharakter haben.
+Das ist klassisch erklärbar (Kronecker-Struktur = WHT), aber es ist genau die
+Struktur, die die Quantenschaltung ohne CNOT hat.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der
