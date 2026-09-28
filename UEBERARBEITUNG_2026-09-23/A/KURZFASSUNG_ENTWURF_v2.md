@@ -105,7 +105,23 @@ Butterfly-Struktur. Trainierbar ist auf meiner Hardware nur Breite 256 —
 Qualität und Effizienz sind deshalb an verschiedenen Breiten gemessen und
 werden getrennt berichtet.
 
-**Zweite Anwendung: ein Sprachmodell.** In einem kleinen Transformer (d_model
+**Zweite KI-Art: Signalklassifikation mit wenig Daten (Q-019W).** Ohne
+Verschränkungsgatter ist die Schaltung ein Kronecker-Produkt von Drehungen und
+enthält damit exakt die Walsh-Hadamard-Transformation. Auf Rechteck- und
+Schaltsignalen, 8 Klassen, vorregistriert mit 15 Seeds, gilt:
+- **Bei 200 Trainingsbeispielen** schlägt die Schicht mit 40 Winkeln eine
+  dichte Schicht mit 65.536 Parametern deutlich: 0,847 gegen 0,539.
+- **Erst ab rund 3.000 Beispielen** holt die dichte Schicht auf.
+- **Dieselben 40 Winkel mit zufälliger Verdrahtung** lernen nichts (0,17).
+  Auch in einer zufälligen Basis verschwindet der Vorteil.
+- **Die gelernte Schicht entspricht der festen Walsh-Hadamard-Transformation**
+  (gleichwertig, TOST). Die Ersparnis kommt aus der Teilung der Winkel: Die
+  ungeteilte Variante ist bei wenig Daten so schwach wie die dichte Schicht.
+
+Das ist Ressourceneffizienz beim **Datenbedarf**, klassisch erklärt, aus der
+Struktur der Quantenschaltung abgeleitet.
+
+**Weitere Anwendung: ein Sprachmodell.** In einem kleinen Transformer (d_model
 256, 5,3 Mio. Parameter, deutsche Wikipedia) ersetze ich die FFN- bzw.
 Q/K/V-Schichten durch die Butterfly-Struktur (Strukturteil im FFN-Arm 324 statt
 2,1 Mio. Parameter). **[OFFEN: T-002 — Validierungsverlust dense gegen

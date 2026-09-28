@@ -21,10 +21,16 @@ bleibt für den Verlauf bis dahin gültig.
   - Die Kurzfassung ist gefüllt. Details im Tagebuch, 28.09.
 - **T-002:** Der Zusatzarm `butterfly_ffn_zentriert` läuft standardmäßig mit.
   Der Bedarf liegt bei 74–93 GPU-h (die alte Angabe „30–35 h“ war falsch).
-- **Q-019 → Q-019W** (Walsh + Lernkurve): `quantum_sim/walsh.py` ist gebaut,
-  der Vortest bestanden. Als Nächstes `saettigung`, `macht` und `zeit`, danach
-  die Vorregistrierung ins Tagebuch und der Lauf (~8–12 h CPU, Freigabe Malte).
-  Entwurf: `ENTWURF_Q019_WALSH.md`.
+- **Q-019W gerechnet, alle H1:**
+  - Butterfly (40) schlägt dense (65.536) bei N = 200 um +0,31.
+  - N\* ≈ 3.100.
+  - Butterfly ≈ feste WHT (0 Parameter).
+  - Die Teilung der Winkel ist der Grund.
+  - Die P3-Kontrolle `lowrank` war ein Strohmann und wurde vor dem Lauf durch
+    `givens_zufall` ersetzt.
+  - Details im Tagebuch, 28.09. Die Kurzfassung ist ergänzt (zweite KI-Art).
+- **Institut:** I-005-v2 (Clifford-Suche gegen volles Training, MNIST +
+  Fashion, TOST, 20 Seeds) läuft seit dem 28.09. abends.
 - **Neuer Chatbot-Weg T-004**, Entwurf `ENTWURF_T004_CHATBOT_ADAPTER.md`:
   QIRE-Kronecker-Drehung mit 11 Winkeln je Matrix als Adapter auf
   LLäMmlein-1B (Breite 2048 = 2¹¹), im Vergleich mit LoRA/BOFT, auf Kaggle.
