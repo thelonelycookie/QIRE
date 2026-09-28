@@ -4685,6 +4685,61 @@ kein anderer schwerer Lauf.
 Ändert sich etwas an dieser Vorregistrierung, steht es hier, bevor eine
 Q-020-Zahl existiert.
 
+## 28. September — T-002: der zentrierte Zusatzarm läuft mit
+
+Entscheidung heute, vor jedem T-002-Messlauf: `butterfly_ffn_zentriert` läuft
+**standardmäßig mit**. Er steht außerhalb der Holm-Familie und wird nur
+beschreibend ausgewertet. PRIMÄR und P2 bleiben unverändert. Im Code (in
+`sprachmodell.py`, `cluster/t002_steuerung.sh`) heißt der Schalter jetzt
+`--ohne-zusatzarm` statt `--mit-zusatzarm`. Selbsttest bestanden.
+
+**Warum:** `ButterflyFFN` gibt |a|²·256·scale aus. Das ist nichtnegativ, hat
+eine feste Summe und nur einen skalaren Gewinn. Ohne den Arm wäre ein T0 nicht
+zu deuten: Liegt es an der Struktur oder nur an der Ausgabeform? Laut Recherche
+(`../BERICHT/RECHERCHE_2026-09-28/03_t002_architektur_gpu.md`) benutzt keine
+der strukturierten Transformer-Arbeiten eine nichtnegative Ausgabe.
+
+**Den Gewinn lasse ich bewusst bei 1** und nicht bei 0, wie die Recherche es
+nahelegt (LayerScale-Praxis). Mit 1 unterscheidet sich der Arm beim Start
+*nur* durch das Abziehen des Mittelwerts. Der Vergleich misst also genau die
+Ausgabeform und nicht zusätzlich eine andere Initialisierung.
+
+**Kosten, neu gerechnet** (`rechenbedarf`, 13.000 Schritte, 0,334 s/Schritt
+auf der RTX 4090, mit Lernratensuche im vollen Budget):
+
+| Arme | GPU-h auf einer Karte |
+|---|---|
+| 4 Arme | 59–74 |
+| 5 Arme (mit Zusatzarm) | 74–93 |
+
+Die Angabe „30–35 GPU-h“ in `HANDOFF_AKTUELL.md` §7 ist damit überholt.
+
+## 28. September — Q-019 wird umgebaut: Walsh statt Fourier, über die Datenmenge
+
+Entscheidung heute: Q-019 wird **nicht** so gerechnet. Entwurf und
+Vorregistrierungstext stehen in `ENTWURF_Q019_WALSH.md`, das neue Modul heißt
+`quantum_sim/walsh.py`. `zeitreihen.py` bleibt als Vorlauf stehen.
+
+**Die Kernidee:** Ohne CNOT ist die geteilte Butterfly ein Kronecker-Produkt
+von Drehungen und enthält die Walsh-Hadamard-Transformation exakt. Die
+Fourier-Transformation enthält sie nicht. Und 40 gegen 65.536 Parameter sollte
+vor allem bei **wenig Daten** zählen.
+
+**Familie** (bei N = 200, Holm über 3):
+- PRIMÄR: butterfly gegen dense in der Walsh-Basis
+- P2: Wechselwirkung mit einer zufälligen Orthobasis (Passung statt bloßer
+  Parameterarmut)
+- P3: butterfly gegen einen Low-Rank-Arm (Struktur statt „irgendwie wenige
+  Parameter“)
+
+Die Klassen liegen auf **Sequency**-Bändern, damit die ⟨Z⟩-Auslese sie nicht
+direkt ablesen kann.
+
+**Noch nicht vorregistriert.** Der Entwurf wird erst gültig, wenn
+`saettigung`, `macht` und `zeit` gelaufen sind und Malte ihn freigibt. Dann
+kommt der endgültige Text hierher, und zwar vor dem Lauf. Gerechnet wird erst
+nach Q-020.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der

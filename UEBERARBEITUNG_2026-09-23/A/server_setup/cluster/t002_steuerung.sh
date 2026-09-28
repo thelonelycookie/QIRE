@@ -45,9 +45,10 @@ fi
 PLAENE="$QIRE_T002_ZELLEN/plaene"
 LOGS="$QIRE_T002_ZELLEN/logs"
 mkdir -p "$PLAENE" "$LOGS"
+# Seit 28.09. laeuft der Zusatzarm standardmaessig mit (Entscheidung Malte).
 ZUSATZ=""
-if [ "${MIT_ZUSATZARM:-0}" = "1" ]; then
-  ZUSATZ="--mit-zusatzarm"
+if [ "${MIT_ZUSATZARM:-1}" = "0" ]; then
+  ZUSATZ="--ohne-zusatzarm"
 fi
 
 melde() { echo; echo "=== $(date -u '+%F %T UTC')  $* ==="; }
