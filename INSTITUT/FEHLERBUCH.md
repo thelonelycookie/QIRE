@@ -185,4 +185,12 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 ### 25.09.2026 23:00 — I-004-mnist (automatisch)
 - **R-2**: H0: nachtraeglich nachweislich nicht um >= 0.15 G besser (-0.112 G, KI oben +0.019) -- ein Training reicht
 - **R-3**: H0 (Gegenrichtung): auch im Geruest traegt Magie bei wenig Daten WENIGER (-0.222 G, p = 0.0029; 90-%-KI -0.300 .. -0.145)
-- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+- *Identischer Wiederholungslauf des 17:22-Laufs (gleiche Seeds) — keine neue Stichprobe.*
+- **Lehre (28.09., fuer beide Eintraege):** R-2 ist ein *gutes* H0: Das teure
+  nachtraegliche Runden lohnt sich nicht, ein Training im zufaelligen
+  Clifford-Geruest reicht (R-1 H1, G = 0,69). R-3 widerlegt zum zweiten Mal
+  (nach I-024) die Erwartung „Magie hilft bei wenig Daten mehr“. Die Richtung
+  ist stabil: weniger Daten, weniger genutzte Magie. Diese Hypothese in keinem
+  neuen Modul mehr als Erwartung einsetzen. Prozess-Lehre: Der Lauf lag drei
+  Tage ausgewertet, aber uncommittet und ohne Laborbuch-Eintrag herum. Nach
+  jedem Lauf gilt deshalb: Laborbuch + Commit **im selben Zug**.

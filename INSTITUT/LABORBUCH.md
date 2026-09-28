@@ -817,3 +817,37 @@ in einer Nacht (C-referenz, I-003-Struktur, jetzt I-035) — immer dieselbe
 Ursache: Ratensuche ohne Stabilitätsabstand aus Zeitgründen. Ab sofort
 gehört eine automatische Ausreißer-Erkennung vor die Urteilsbildung, nicht
 nur als deskriptiver Zähler danach.
+
+## 25.09.2026, 17:22 (nachgetragen 28.09.) — I-004-mnist: **ein Training genügt** ✔
+
+MNIST, n = 500 und n = 10.000. Rohdaten `ergebnisse/I-004-mnist__20260925_172251.json`.
+Der Lauf wurde um 23:00 ein zweites Mal gestartet und lieferte **identische**
+Urteile und Zahlen (`…_230020.json`). Das ist keine zweite Stichprobe, zeigt
+aber, dass die Pipeline deterministisch reproduziert. Nachgetragen am 28.09.,
+weil der Lauf nie ausgewertet und committet worden war.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| R-0 (Nachtraining schlägt Identität, n = 10.000) | H1 | +3,98 pp, p = 0,002 |
+| R-P (Gradient erreicht im bekannten Gerüst die Nachtrain-Lösung) | H1 | fest2 − nach2 = −0,12 G, KI −0,19 … −0,06 |
+| **R-1 (zufälliges Clifford-Gerüst + 4 Magiewinkel, EIN Training)** | **H1** | **G = 0,69**, Holm-p = 0,0059 |
+| R-2 (nachträgliches Runden schlägt das Gerüst um ≥ 0,15 G) | H0 | −0,11 G, KI oben +0,02 |
+| R-3 (Gerüst regularisiert bei wenig Daten) | H0, Gegenrichtung | −0,22 G, p = 0,003 |
+
+- **R-1 + R-2 zusammen sind praktisch wichtig.** Man braucht weder ein volles
+  Training noch ein nachträgliches Runden. Ein **zufälliges** Clifford-Gerüst,
+  in dem von Anfang an nur 4 Winkel magisch und trainierbar sind, holt mit
+  **einem** Training 69 % des Nutzens. Das nachträgliche Runden (zwei
+  Trainings) ist nachweislich nicht um 0,15 G besser. Für Hardware heißt das:
+  Die Schaltung braucht höchstens 4 Nicht-Clifford-Winkel, und das steht
+  schon *vor* dem Training fest.
+- **R-3 repliziert I-024 in der Gegenrichtung:** Auch im Gerüst trägt die Magie
+  bei wenig Daten **weniger** bei (G sinkt von n = 10.000 auf 500). Die Idee
+  „Clifford-Gerüst als Regularisierer für Datenknappheit“ ist damit zweimal
+  widerlegt.
+- Beschreibend: Bei n = 10.000 liegt das volle Training 1,24 pp über gz4
+  (p = 0,002). Der Rest des Nutzens sitzt also in mehr als 4 Winkeln. Der
+  I-001-Vorblick zeigt eine hohe Übereinstimmung der Rangfolgen „nach
+  Verlust“ und „nach Abstand“ (Spearman +0,97/+0,98).
+- Offen, und der natürliche nächste Schritt: R-1 auf **Fashion** (I-034-fashion
+  hat gezeigt, dass MNIST-Befunde dort nicht automatisch halten).

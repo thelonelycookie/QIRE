@@ -66,6 +66,8 @@ QUESTIONS: Dict[str, str] = {
     "Q-018": "Traegt das Training der Winkel etwas bei, ohne Encoder der aushilft?",
     "Q-019": ("Traegt die Butterfly-Struktur auf periodischen Signalen einen "
               "inhaltlichen Vorteil (Wechselwirkung periodisch x permutiert)?"),
+    "Q-020": ("Kernaussage fair neu: schlagen 16 Winkel ein ReLU-MLP gleicher "
+              "Engstelle, und tragen Verschraenkung und Tiefe ohne Encoder bei?"),
     "T-000": "Kalibrierung: welche Modellbreite ist auf dieser Hardware trainierbar?",
     "T-001": "Verschiebt der Umbau R1/R5/R6 den Uebergangspunkt?",
     "T-002": "Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
@@ -162,6 +164,18 @@ def _resolution(analysis: Dict) -> Tuple[Optional[bool], str]:
         block = analysis.get(key)
         if isinstance(block, dict) and "passed" in block:
             return bool(block["passed"]), str(block.get("text", ""))
+    # Q-020 (kernaussage.py): je Abschnitt `kontrollen[<abschnitt>]["aufloesung"]`.
+    # Bestanden nur, wenn ALLE gespeicherten Abschnitte bestanden haben.
+    kontrollen = analysis.get("kontrollen")
+    if isinstance(kontrollen, dict):
+        teile = {ab: k["aufloesung"] for ab, k in kontrollen.items()
+                 if isinstance(k, dict) and isinstance(k.get("aufloesung"), dict)}
+        if teile:
+            ok = all(bool(t.get("bestanden")) for t in teile.values())
+            text = "; ".join(f"{ab}: {t.get('a')}-{t.get('b')} "
+                             f"{float(t.get('delta', 0)):+.4f}, p={float(t.get('p', 1)):.4f}"
+                             for ab, t in teile.items())
+            return ok, text
     return None, ""
 
 

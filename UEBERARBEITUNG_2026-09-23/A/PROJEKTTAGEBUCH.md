@@ -4740,6 +4740,63 @@ direkt ablesen kann.
 kommt der endgültige Text hierher, und zwar vor dem Lauf. Gerechnet wird erst
 nach Q-020.
 
+## 28. September — Q-020 gerechnet: alle drei Hypothesen halten
+
+Lauf 08:47–11:12, Ryzen 5 3600, mit Wiederaufnahme ohne Unterbrechung.
+Rohdaten `results/experiments/Q-020__20260928_111219_02.json` (435 Zeilen,
+alle drei Abschnitte). Der MNIST-Zwischenstand liegt zusätzlich in
+`…_092518.json`. Alle Zahlen hier prüft `q_audit` (14/14 OK). Vortest vor dem
+Start bestanden.
+
+**Familie (Holm über 3), jeweils 15/15 Seeds, p = 0,0001, Holm-p = 0,0002:**
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| PRIMÄR (a) MNIST, offizieller Testsatz | **SCHALTUNG_BESSER** | q1 0,9347 gegen mlp 0,9234, **+0,0113** |
+| P2 (b) 128 Haufen | **VERSCHRAENKUNG_TRAEGT** | q5 0,6867 gegen q5_ohne 0,3453, **+0,3414** |
+| P3 (b) 128 Haufen | **TIEFE_TRAEGT** | q5 0,6867 gegen q1 0,3548, **+0,3319** |
+
+**Kontrollen alle bestanden:**
+- Auflösung: mlp − linear +0,0416 (MNIST) bzw. +0,0960 (Haufen)
+- Boden: bestanden
+- Äquivalenz-Positivkontrolle: kron ≈ q1_ohne, +0,0001 bzw. +0,0003, TOST
+  p < 10⁻⁴
+
+Alle MNIST-Lernraten liegen im Inneren des Gitters. q1 ist nach oben auf 0,3
+verlängert worden, bei 0,9 wird es wieder schlechter.
+
+**Was das heißt, ehrlich gelesen:**
+
+1. **Die Kernaussage steht jetzt gegen eine faire Kontrolle.** 16 Winkel (8
+   wirksam) schlagen ein gewöhnliches ReLU-MLP mit 67.848 Parametern und
+   derselben 8-Kanal-Engstelle, auf dem offiziellen Testsatz, in jedem Seed.
+   Das sind rund 8.500-mal weniger wirksame Parameter in der Mittelschicht.
+   Gegen `quad_free` (2.048) sind es +0,0109.
+2. **Der Mechanismus ist klassisch, und das ist gemessen, nicht vermutet:**
+   `kron`, die klassische Kronecker-Drehung mit 8 Parametern, erreicht 0,9350.
+   Das ist dieselbe Zahl wie q1 (0,9347) und q1_ohne (0,9349), bei TOST-
+   Gleichwertigkeit. Die ehrliche Formulierung lautet: *eine aus der
+   Quantenschaltung abgeleitete Architektur, deren Wirkung eine klassische
+   8-Parameter-Kronecker-Drehung mit quadratischer Auslese ist*.
+3. **Die Wiederholung auf Fashion-MNIST** geht in dieselbe Richtung, aber
+   kleiner: q1 − mlp **+0,0047**, p = 0,029, beschreibend und ohne Holm.
+4. **Verschränkung und Tiefe tragen, sobald kein Encoder aushilft.** Mit Encoder
+   (MNIST, beschreibend) sind q5 ≈ q1 und q5 ≈ q5_ohne (TOST gleichwertig):
+   Genau dort übernimmt der Encoder die Arbeit. Damit ist der Q-003-Nullbefund
+   als Encoder-Artefakt erklärt, wie das Review vermutet hatte. Und wie die
+   Theorie vorhersagt, bringt Tiefe ohne CNOT nichts (q5_ohne ≈ q1_ohne, TOST).
+5. **Ungünstig für die Schaltung, und es gehört so berichtet:** In (b) liegt
+   selbst die beste Schaltung (q5, 0,687) weit hinter den klassischen Armen
+   (mlp und quad_free 1,000, linear 0,904). Verschränkung trägt also, aber
+   klassisch geht es dort viel besser. Auf Fashion ist mit Encoder q5 sogar
+   *schlechter* als q1 (−0,0068, p = 0,002).
+6. **Der Strohmann ist bestätigt:** mlp − norm_deep +0,0803 (MNIST). Die alte
+   Kontrolle aus Q-003 war fast so weit hinter dem MLP wie das MLP hinter
+   nichts.
+
+**Für die Kurzfassung:** `[OFFEN: Q-020]` lässt sich jetzt füllen, mit Satz 1,
+Satz 2 und dem Fashion-Vorbehalt (Satz 3).
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der
