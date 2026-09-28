@@ -197,6 +197,16 @@
    "folgen": {}
   },
   {
+   "id": "I-005-v2",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.clifford_suche_v2",
+   "prioritaet": 1,
+   "frage": "Ist eine reine Clifford-Schaltung aus der diskreten Suche (0 Magiewinkel) auf MNIST UND Fashion-MNIST 16x16 gleichwertig zum vollen Training (Rate je Datensatz mit Stabilitaetsabstand)? TOST +-0,5 pp, Holm ueber V-1..V-3.",
+   "notiz": "Folge aus I-005 (alle H1; suche 0,9352 ~ voll 0,9344 nur beschreibend, voll mit fester Rate 0,08 = Verstoss Regel 1). Modul von Forscher-Agent, Vortest bestanden, Rauchtest 28.09. (160 s). N_SEEDS = 20 (Direktor 28.09.: bei 10 Macht fuer GLEICHWERTIG nur ~10-20 %). Mess-Seeds MNIST 300-309+330-339, Fashion 310-319+340-349, Struktur 360-369, Tuning 950-955. V-1/V-2 suche vs voll GLEICHWERTIG/VOLL_BESSER/SUCHE_BESSER/HU (GLEICHWERTIG braucht Q-0 H1, voll-id >= 1 pp, kein Kollaps), V-3 Fashion suche vs Median 100 Zufall. ~3,3 h.",
+   "folgen": {}
+  },
+  {
    "id": "C-hardware",
    "abteilung": "Clifford",
    "status": "erledigt",

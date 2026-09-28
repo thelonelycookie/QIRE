@@ -4969,6 +4969,12 @@ Schicht deutlich schlägt, solange die Signale Rechteck-/Schaltcharakter haben.
 Das ist klassisch erklärbar (Kronecker-Struktur = WHT), aber es ist genau die
 Struktur, die die Quantenschaltung ohne CNOT hat.
 
+**Vorbehalt (`q_summary`, Randlage):** `wht_fest` sitzt in einer Zelle am
+oberen Gitterrand (lr 0,03). Der Arm hat 0 Mittelschicht-Parameter, die Rate
+wirkt nur auf den Kopf. Ist er dort untertuniert, wäre `wht_fest` eher noch
+besser. Die Aussage „butterfly ≈ wht_fest“ ist beschreibend und trägt dieses
+Fragezeichen.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der
