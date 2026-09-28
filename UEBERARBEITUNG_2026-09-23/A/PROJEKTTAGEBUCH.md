@@ -4969,6 +4969,41 @@ Schicht deutlich schlägt, solange die Signale Rechteck-/Schaltcharakter haben.
 Das ist klassisch erklärbar (Kronecker-Struktur = WHT), aber es ist genau die
 Struktur, die die Quantenschaltung ohne CNOT hat.
 
+## 28. September, nachts — T-004 (Chatbot-Adapter) gebaut, noch nicht vorregistriert
+
+`quantum_sim/chatbot_adapter.py` baut auf LLäMmlein-120M auf (research-only
+RAIL-M). Der Datensatz ist alpaca-gpt4-deutsch, 54 MB, Apache-2.0,
+aufgeteilt in 5.000 Training / 500 Abstimmung / 1.000 Validierung / 50
+Vorzeigefragen. Vortest bestanden, darunter Theorie, 19 Ausgänge und 5
+Mutationen.
+
+**Arme und trainierbare Parameter:**
+
+| Arm | Parameter |
+|---|---|
+| `qire_kron` | 192 (8 je Matrix × 24) |
+| `qire_5` (mit CNOT-Ring) | 960 |
+| `lora_r1` | 30.720 |
+| `basis` | 0 |
+
+**Korrekturen am Entwurf**, alle vor jeder Zahl:
+- Ohne CNOT sind 5 geteilte Lagen dasselbe wie 1 Lage. P3 misst also nur
+  den CNOT-Ring.
+- `qire_5` braucht eine feste Rückpermutation, damit es bei R = I startet.
+- `v_proj` ist 256×768, weil das Modell nur 4 KV-Köpfe hat.
+- Das Verhältnis ist 160-fach, nicht 372-fach.
+- Die Schritte kosten 1,8–2,8 s, nicht ~1 s, gemessen bei 3 Threads unter
+  Last.
+
+**TOST-Grenze für P2 (Direktor 28.09.):** 20 % des Gewinns von `lora_r1`
+gegenüber `basis`, relativ zum Effekt. Ob die Grenze erreichbar ist, ist
+ohne Vorlauf unbekannt. Ein Ausbleiben von GLEICHWERTIG ist deshalb kein
+Befund.
+
+**Offen, vor dem Lauf:** Die Zeitmessung bei 6 Threads auf freiem Rechner
+legt SCHRITTE fest (vorläufig 200). Danach kommt der Vorregistrierungstext
+hierher, dann der Commit, dann der Lauf.
+
 **Vorbehalt (`q_summary`, Randlage):** `wht_fest` sitzt in einer Zelle am
 oberen Gitterrand (lr 0,03). Der Arm hat 0 Mittelschicht-Parameter, die Rate
 wirkt nur auf den Kopf. Ist er dort untertuniert, wäre `wht_fest` eher noch
