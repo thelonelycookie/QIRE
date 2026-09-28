@@ -4795,7 +4795,44 @@ verlängert worden, bei 0,9 wird es wieder schlechter.
    nichts.
 
 **Für die Kurzfassung:** `[OFFEN: Q-020]` lässt sich jetzt füllen, mit Satz 1,
-Satz 2 und dem Fashion-Vorbehalt (Satz 3).
+Satz 2 und dem Fashion-Vorbehalt (Satz 3). Erledigt am 28.09.
+
+## 28. September — Q-019W: `walsh.py` gebaut, mein Entwurf hatte einen Denkfehler
+
+Stand: vor jeder Q-019W-Zahl. Gelaufen sind nur Vortest und Rauchtest, mit
+Ergebnissen im Scratchpad und nichts unter `results/`.
+
+Der Vortest ist beim ersten Bau **durchgefallen**, und zwar zu Recht. Im
+Entwurf hatte ich behauptet, das Sequency-Band sei als XOR von Hadamard-Bits
+über die ⟨Z⟩-Auslese nicht linear ablesbar. Das ist falsch. Das Band ist eine
+**Bijektion** von drei Hadamard-Bits, und ein Softmax-Kopf über 8 Klassen
+trennt jede solche Bijektion (jede Ecke des Würfels {±1}³ ist als Gewicht
+trennbar). Mein XOR-Argument gilt nur für einen Kopf, der einzelne Bits
+ausgibt. Die Prüfung war nicht blind: Die Positivkontrolle (Bänder direkt auf
+den oberen Bits) kam auf 1,0000.
+
+**Korrekturen, alle vor jeder Zahl:**
+1. Die Prüfung im Vortest ist nur noch ein Hinweis. Ob die echte Aufgabe zu
+   leicht ist, entscheidet allein `saettigung()` vor dem Lauf, dazu der Zweig
+   HU_SAETTIGUNG im Urteil.
+2. `wht_fest` ist H⊗⁸ in **natürlicher** Ordnung. Im Entwurf stand
+   „Sequency-Ordnung“, was dem Arm die Bänder direkt auf die Bits gelegt hätte.
+3. `permutiert` und `fourier` gibt es nur für `butterfly` und `dense` bei
+   N = 6.000.
+4. N\* wird linear in **log N** interpoliert, weil das Gitter logarithmisch ist.
+
+Vortest danach bestanden:
+- Theorie: Butterfly = H⊗⁸, Abweichung 4·10⁻¹⁶
+- 23 Szenarien, Gitterverlängerung 5/5
+- Mutationsprüfung 3/3
+
+**Lehre:** Diesmal hat der Vortest einen Fehler in der **Begründung** gefunden,
+nicht im Code. Eine Behauptung im Entwurf, die der Vortest prüfen kann, gehört
+auch in den Vortest.
+
+**Nächster Schritt:** `saettigung`, `macht` und `zeit` laufen, sobald die CPU
+frei ist (nach I-005). Danach wird der Entwurf endgültig, und der
+Vorregistrierungstext kommt hierher, vor dem Lauf.
 
 ## Zwischenstand
 

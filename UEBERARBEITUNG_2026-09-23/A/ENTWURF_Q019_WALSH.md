@@ -46,15 +46,17 @@ Signale der Länge d = 256 = 2⁸, x = Σₖ aₖ·wₖ + Rauschen. Die wₖ sin
 **Sequency-Band** des stärksten Anteils: 8 Bänder à 32, also 8 Klassen. Die
 Sequency ist die Zahl der Nulldurchgänge, das Walsh-Gegenstück zur Frequenz.
 
-**Warum Sequency und nicht natürliche Hadamard-Ordnung:** Die Auslese ⟨Z_q⟩
-liest Bit q des *Hadamard*-Index. Lägen die Bänder auf den oberen drei Bits des
-Hadamard-Index, könnte ein linearer Kopf die Klasse direkt ablesen. `wht_fest`
-wäre dann gesättigt und die Aufgabe trivial. Der Sequency-Index geht aus dem
-Hadamard-Index über Gray-Code und Bitumkehr hervor. Das Band ist deshalb eine
-**XOR-Verknüpfung** von Hadamard-Bits, die ein linearer Kopf auf ⟨Z⟩ nicht
-direkt sieht. `saettigung()` prüft das vor dem Lauf. Ist ein Arm dennoch
-> 0,95, wird die Schwierigkeit erhöht und ins Tagebuch eingetragen, bevor Zahlen
-entstehen.
+**Warum Sequency:** Die Sequency ist das physikalisch sinnvolle Gegenstück zur
+Frequenz. **Korrektur vom 28.09., vor jeder Zahl:** Hier stand zuerst, das
+Sequency-Band sei als XOR von Hadamard-Bits über ⟨Z⟩ nicht linear ablesbar. Das
+ist falsch, gefunden beim Bau von `walsh.py`. Das Band ist eine Bijektion von
+drei Hadamard-Bits, und ein Softmax-Kopf über 8 Klassen trennt jede solche
+Bijektion. Im Idealfall ohne Rauschen liest `wht_fest` plus Kopf das Band also
+perfekt ab. Ob die **echte** Aufgabe (mehrere Anteile, Rauschen) zu leicht ist,
+entscheidet allein `saettigung()` vor dem Lauf. Ist ein Familienarm bei
+N = 200 über 0,95, wird die Schwierigkeit erhöht (ANTEILE, RAUSCHEN) und ins
+Tagebuch eingetragen, bevor Zahlen entstehen. Ein gesättigtes `wht_fest` ist
+kein Fehler, denn es steht außerhalb der Familie.
 
 **Basen (Datenbedingung):**
 
@@ -154,7 +156,14 @@ Das wäre ein klarer Negativbefund.
 - eigenes Rauschen je Arm plus gemeinsamer Seed-Anteil (Lehre Q-019)
 - Gitterverlängerung in beide Richtungen
 - Theorieprüfung: `butterfly` mit Ry(π/2) überall = H⊗⁸ bis auf Vorzeichen
-  (Abweichung < 10⁻⁶), und `wht_fest` hat die richtige Sequency-Ordnung
+  (Abweichung < 10⁻⁶). `wht_fest` = H⊗⁸ in **natürlicher** Ordnung, also genau
+  das, was die Butterfly darstellen kann. Die Sequency ihrer Zeilen folgt aus
+  Gray-Code und Bitumkehr (korrigiert am 28.09., vorher stand hier
+  „Sequency-Ordnung“, was dem Arm die Bänder direkt auf die Bits gelegt hätte)
+- `permutiert` und `fourier`: nur `butterfly` und `dense`, nur bei N = 6.000
+  (so im `PLAN` von `walsh.py`)
+- N\*: kleinstes N, ab dem `dense` ≥ `butterfly` bei allen größeren N,
+  linear in log N interpoliert
 - Mutationsprüfung: drei absichtliche Fehler, alle müssen den Vortest
   durchfallen lassen
 
