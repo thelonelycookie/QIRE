@@ -88,6 +88,34 @@ dieselbe Einhängestelle.
 Breite 896, keine Zweierpotenz, daher auf 1024 = 2¹⁰ auffüllen und das in der
 Arbeit offen nennen. Oder LLäMmlein-120M: 768 → 1024.
 
+## 5b. Stand 28.09. abends: **kein Kaggle, also CPU mit LLäMmlein-120M**
+
+- Installiert sind `transformers` 5.17, `peft` 0.21 und `datasets` 5.0 in der
+  Projekt-venv (torch 2.12 unverändert). Geladen ist LLäMmlein-120M: nur
+  `model.safetensors` (499 MB) plus Tokenizer, 124,8 Mio. Parameter.
+  Die Erzeugung auf der CPU läuft flüssig (30 Tokens in 1,2 s).
+- **Lizenz: LLäMmlein RESEARCH-ONLY RAIL-M.** Forschung (Jugend forscht) ist
+  erlaubt. Ein öffentlich gehosteter Chatbot wäre „Distribution“ und damit an
+  die Lizenzbedingungen gebunden. Das vor jeder Veröffentlichung prüfen.
+- **Tatsächliche Breiten:** 120M hat 768 (= 3 × 256), 12 Lagen, 4 KV-Köpfe.
+  1B hat 2048 = 2¹¹, ist mit 8,8 GB aber auf dieser CPU zum Trainieren zu
+  langsam.
+- **Gemessen:** 5–6 s je Trainingsschritt (vorwärts + rückwärts) bei 8 × 256
+  Tokens, 6 Threads. Das ist eher eine obere Schätzung, weil die Messung einen
+  zusätzlichen Vorwärtslauf enthielt.
+- **Folge für den Aufbau:**
+  - `qire_*` wirkt auf 768 als **Blockdiagonale aus 3 × 8-Qubit-Drehungen**.
+    Die Winkel werden über die 3 Blöcke geteilt (8 bzw. 40 Parameter je
+    Matrix) oder je Block getrennt (24 bzw. 120). Wie im Q-020-Aufbau (a) ist
+    das ehrlich als Block-Variante zu benennen.
+  - Das Budget wird kleiner: 4 × 128 Tokens je Schritt (Schätzung ~1 s),
+    300–500 Schritte, also ~5–8 min je Zelle.
+  - Arme: `basis`, `qire_kron`, `qire_5`, `lora_r1`. `boft` nur, wenn die Zeit
+    reicht.
+  - Mit 8 Seeds und Lernratensuche sind das etwa 4–6 h, ein Nachtlauf.
+- **Alternative:** Legt Malte selbst ein Kaggle-Konto an (Konten erstellt
+  Claude nicht), wird wieder 1B mit 2¹¹ möglich.
+
 ## 6. Offen, vor der Freigabe (Malte)
 
 1. Installation von `transformers`, `peft`, `datasets` in die venv und Download
