@@ -293,7 +293,7 @@
   {
    "id": "I-004-mnist",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.geruest_mnist",
    "prioritaet": 1,
    "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
