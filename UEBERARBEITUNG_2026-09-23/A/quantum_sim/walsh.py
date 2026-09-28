@@ -29,8 +29,12 @@ Batch 128 (bei N < 128 voller Batch), fuer ALLE N gleich. Kein Early Stopping.
 DIE ARME (Mittelschicht; normieren -> Mitte -> <Z_q> (8) -> linear 8 -> 8)
   butterfly  geteilte Butterfly ohne CNOT, 5 Lagen            40   Kandidat
   dense      freie 256x256-Matrix                          65.536   Referenz
-  lowrank    I + U V^T, Rang 1                                512   Kontrolle
-             (40 sind mit Rang 1 nicht erreichbar, 512 ist das Minimum)
+  givens_zufall  wie butterfly (40 geteilte Winkel, orthogonal), aber die
+             Paare je Schritt ZUFAELLIG verdrahtet              40   P3-Kontrolle
+  lowrank    I + U V^T, Rang 1                                512   beschreibend
+             (bis 28.09. P3-Kontrolle; `saettigung` zeigte 0,20 bei N = 200,
+             UNTER dem Boden -- ein Strohmann wie norm_deep in Q-003; ersetzt
+             vor jeder Zahl, Tagebuch 28.09.)
   wht_fest   feste H^8, natuerliche Hadamard-Ordnung            0   Anker
   untied     ungeteilte Butterfly                           5.120   beschreibend
   narrow     Engstelle 256 -> 64 -> 256                    32.768   Aufloesung, N = 6.000
@@ -45,8 +49,8 @@ VORREGISTRIERUNG (vor jeder Q-019W-Zahl; Aenderungen erst ins Tagebuch)
              STRUKTUR_BESSER / GLEICHWERTIG / DICHT_BESSER / UNENTSCHIEDEN
     P2       (butterfly - dense)_walsh - (butterfly - dense)_zufall, seedweise
              PASSUNG_TRAEGT / GLEICHWERTIG / PASSUNG_SCHADET / UNENTSCHIEDEN
-    P3       walsh: butterfly - lowrank
-             STRUKTUR_TRAEGT / GLEICHWERTIG / LOWRANK_BESSER / UNENTSCHIEDEN
+    P3       walsh: butterfly - givens_zufall
+             STRUKTUR_TRAEGT / GLEICHWERTIG / ZUFALLSVERDRAHTUNG_BESSER / UNENTSCHIEDEN
   Rangfolge der Zweige: HU_UNVOLLSTAENDIG -> HU_AUFLOESUNG -> HU_BODEN ->
   HU_SAETTIGUNG -> TOST -> Holm -> Richtung -> UNENTSCHIEDEN.
   Kontrollen (urteilstragend, fuer alle drei Tests gemeinsam):
@@ -54,7 +58,7 @@ VORREGISTRIERUNG (vor jeder Q-019W-Zahl; Aenderungen erst ins Tagebuch)
                 zweiseitig p < 0,05; TRENNUNG, nicht Richtung)
     Boden       in jeder vorhandenen Familienzelle (walsh/zufall, N = 200)
                 bester Arm >= 0,125 + 0,10
-    Saettigung  kein Familienarm (butterfly, dense, lowrank) in einer
+    Saettigung  kein Familienarm (butterfly, dense, givens_zufall) in einer
                 Familienzelle ueber 0,95 im Mittel
   Erreichbarkeit (Regel 2): kleinstes p bei 15 Seeds 6,1e-5, nach Holm x3
   1,8e-4. TOST +-0,005 nur bei gepaarter sd < 0,011 -- bei N = 200
@@ -126,8 +130,8 @@ N_WERTE = (50, 200, 1000, 6000)
 N_FAMILIE, N_AUFLOESUNG = 200, 6000
 N_TEST = 2000
 SCHRITTE, BATCH = 470, 128
-ARME_KURVE = ("butterfly", "dense", "lowrank", "wht_fest", "untied")
-FAMILIENARME = ("butterfly", "dense", "lowrank")
+ARME_KURVE = ("butterfly", "dense", "givens_zufall", "lowrank", "wht_fest", "untied")
+FAMILIENARME = ("butterfly", "dense", "givens_zufall")   # lowrank seit 28.09. beschreibend
 FAMILIE = ("PRIMAER", "P2", "P3")
 BAND = DIM // KLASSEN                                  # 32 Sequency-Werte je Band
 
@@ -296,9 +300,45 @@ class NiedrigRang(nn.Module):
         return x + (x @ self.v) @ self.u.T
 
 
+class ZufallsGivens(nn.Module):
+    """P3-KONTROLLE (ersetzt `lowrank` am 28.09., vor jeder Zahl -- Tagebuch):
+    exakt wie `butterfly` -- 5 Lagen x 8 Schritte, je Schritt EIN geteilter
+    Winkel fuer 128 disjunkte Indexpaare, also 40 Parameter, orthogonal --,
+    nur sind die Paare je Schritt ZUFAELLIG verdrahtet statt nach Bit q.
+    Technisch: h -> P^T R_q P h mit einer festen Zufallspermutation P je
+    (Lage, Schritt). Gleiche Zahl, gleiche Teilung, gleiche Orthogonalitaet;
+    der einzige Unterschied ist die Kronecker-/Bitstruktur. Feste Verdrahtung
+    (Seed 19199) fuer alle Laeufe."""
+
+    def __init__(self, n: int = QUBITS, lagen: int = LAGEN, seed: int = 19199):
+        super().__init__()
+        self.n, self.L = n, lagen
+        self.theta = nn.Parameter(torch.rand(lagen, n) * 2 * math.pi)
+        g = torch.Generator().manual_seed(seed)
+        perm = torch.stack([torch.randperm(2 ** n, generator=g) for _ in range(lagen * n)])
+        self.register_buffer("perm", perm)
+        self.register_buffer("inv", torch.argsort(perm, dim=1))
+
+    def wirksame_parameter(self) -> int:
+        return self.theta.numel()
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        n, h = self.n, x
+        for lage in range(self.L):
+            for q in range(n):
+                i = lage * n + q
+                c, s = torch.cos(self.theta[lage, q]), torch.sin(self.theta[lage, q])
+                v = h[:, self.perm[i]].reshape(-1, 2 ** q, 2, 2 ** (n - 1 - q))
+                a, b = v[:, :, 0, :], v[:, :, 1, :]
+                h = torch.stack([c * a - s * b, s * a + c * b], dim=2).reshape(-1, 2 ** n)
+                h = h[:, self.inv[i]]
+        return h
+
+
 MITTE = {"butterfly": OrthoButterfly, "untied": UngeteilteButterfly,
          "dense": DichteDrehung, "narrow": SchmaleSchicht,
-         "wht_fest": FesteWHT, "lowrank": NiedrigRang}
+         "wht_fest": FesteWHT, "lowrank": NiedrigRang,
+         "givens_zufall": ZufallsGivens}
 
 
 class WalshModell(nn.Module):
@@ -409,7 +449,7 @@ def run(lauf_id: str = LAUF_ID, threads: int = 6) -> Recorder:
         experiment_id=lauf_id,
         description=("Q-019W: geteilte Butterfly gegen dicht, Low-Rank und feste WHT auf "
                      "Walsh-Signalen ueber die Datenmenge; Familie bei N=200 "
-                     "(PRIMAER b-d, P2 Passung walsh-zufall, P3 b-lowrank)."),
+                     "(PRIMAER b-d, P2 Passung walsh-zufall, P3 b-givens_zufall)."),
         config={**konfig, "margin": MARGIN, "test_metric": METRIK, "familie": list(FAMILIE),
                 "n_familie": N_FAMILIE, "boden": BODEN, "saettigung": SAETTIGUNG,
                 "aufloesungspruefung": "dense trennt sich von narrow, walsh, N=6000",
@@ -488,7 +528,7 @@ def _familie(records, feld: str) -> Dict[str, Optional[Dict[str, object]]]:
     return {"PRIMAER": _vergleich(w["butterfly"], w["dense"]),
             "P2": _vergleich(_differenz(w["butterfly"], w["dense"]),
                              _differenz(z["butterfly"], z["dense"])),
-            "P3": _vergleich(w["butterfly"], w["lowrank"])}
+            "P3": _vergleich(w["butterfly"], w["givens_zufall"])}
 
 
 def _kontrollen(records, feld: str, richtung: bool = False) -> Dict[str, object]:
@@ -522,14 +562,14 @@ _TEXTE = {
            "zufaelligen Orthobasis -- er kommt aus der Passung, nicht nur aus der Parameterarmut",
            "der Vorsprung ist in der ZUFAELLIGEN Basis groesser -- Gegenrichtung der "
            "Hypothese, eigenes Ergebnis"),
-    "P3": ("STRUKTUR_TRAEGT", "LOWRANK_BESSER",
-           "die Butterfly schlaegt den Low-Rank-Arm (512) -- diese Struktur, nicht "
-           "irgendeine Parameterarmut",
-           "der Low-Rank-Arm ist besser -- Parameterarmut genuegt, die Struktur traegt nicht"),
+    "P3": ("STRUKTUR_TRAEGT", "ZUFALLSVERDRAHTUNG_BESSER",
+           "die Butterfly schlaegt dieselben 40 geteilten Givens-Winkel mit zufaelliger "
+           "Verdrahtung -- die Kronecker-/Bitstruktur traegt, nicht die Teilung allein",
+           "die zufaellig verdrahteten 40 Winkel sind besser -- die Bitstruktur traegt nicht"),
 }
 _VERGLEICH = {"PRIMAER": "walsh: butterfly - dense",
               "P2": "(butterfly - dense) walsh - (butterfly - dense) zufall",
-              "P3": "walsh: butterfly - lowrank"}
+              "P3": "walsh: butterfly - givens_zufall"}
 
 
 def _urteil(tag: str, v: Optional[Dict[str, object]], p_holm: float, k: Dict[str, object],
@@ -794,10 +834,12 @@ def test_gitterverlaengerung() -> bool:
 # ---------------------------------------------------------------------------
 W, Z, G = ("walsh", 200), ("zufall", 200), ("walsh", 6000)
 NIVEAU_K = {W: 0.60, Z: 0.55, G: 0.85}
-VERSATZ_K = {W: {"butterfly": 0.05, "dense": 0.0, "lowrank": -0.03, "wht_fest": 0.08, "untied": 0.02},
-             Z: {"butterfly": -0.02, "dense": 0.0, "lowrank": -0.03, "wht_fest": -0.10, "untied": -0.01},
-             G: {"butterfly": -0.05, "dense": 0.0, "lowrank": -0.08, "wht_fest": 0.0,
-                 "untied": -0.02, "narrow": -0.08}}
+VERSATZ_K = {W: {"butterfly": 0.05, "dense": 0.0, "givens_zufall": -0.03, "lowrank": -0.20,
+                 "wht_fest": 0.08, "untied": 0.02},
+             Z: {"butterfly": -0.02, "dense": 0.0, "givens_zufall": -0.03, "lowrank": -0.20,
+                 "wht_fest": -0.10, "untied": -0.01},
+             G: {"butterfly": -0.05, "dense": 0.0, "givens_zufall": -0.08, "lowrank": -0.30,
+                 "wht_fest": 0.0, "untied": -0.02, "narrow": -0.08}}
 
 
 def _kunst(seed: int, streuung: float = 0.008, seeds: int = 15, versatz=None, niveau=None,
@@ -870,14 +912,15 @@ FAELLE = [
     ("V-X   zufall fehlt ganz", "P2", dict(weg=[Z]), "HU_UNVOLLSTAENDIG", "Daten fehlen", 5, 1.0),
     ("X-P   zufall fehlt -> PRIMAER trotzdem gerechnet", "PRIMAER", dict(weg=[Z]),
      "STRUKTUR_BESSER", "Dateneffizienz belegt", 5, 1.0),
-    ("T-T   Butterfly vor lowrank (+0,08)", "P3", {}, "STRUKTUR_TRAEGT", "diese Struktur", 5, 1.0),
-    ("T-G   lowrank = butterfly, kleines Rauschen", "P3",
-     dict(streuung=0.0015, versatz={W: {"lowrank": 0.05}}), "GLEICHWERTIG",
+    ("T-T   Butterfly vor givens_zufall (+0,08)", "P3", {}, "STRUKTUR_TRAEGT",
+     "nicht die Teilung allein", 5, 1.0),
+    ("T-G   givens_zufall = butterfly, kleines Rauschen", "P3",
+     dict(streuung=0.0015, versatz={W: {"givens_zufall": 0.05}}), "GLEICHWERTIG",
      "Positiver Gleichwertigkeitsnachweis", 5, 1.0),
-    ("T-L   lowrank +0,05 vor butterfly", "P3", dict(versatz={W: {"lowrank": 0.10}}),
-     "LOWRANK_BESSER", "Parameterarmut genuegt", 5, 1.0),
+    ("T-L   givens_zufall +0,05 vor butterfly", "P3", dict(versatz={W: {"givens_zufall": 0.10}}),
+     "ZUFALLSVERDRAHTUNG_BESSER", "Bitstruktur traegt nicht", 5, 1.0),
     ("T-U   Nulleffekt, grosses Rauschen", "P3",
-     dict(streuung=0.025, versatz={W: {"lowrank": 0.05}}), "UNENTSCHIEDEN",
+     dict(streuung=0.025, versatz={W: {"givens_zufall": 0.05}}), "UNENTSCHIEDEN",
      "weder Unterschied", 40, 0.80),
 ]
 
@@ -980,7 +1023,7 @@ def macht(threads: int = 6, seeds: Sequence[int] = tuple(range(19171, 19176)),
     w = {a: _reihe(rec.records, "walsh", N_FAMILIE, a, METRIK) for a in FAMILIENARME}
     z = {a: _reihe(rec.records, "zufall", N_FAMILIE, a, METRIK) for a in ("butterfly", "dense")}
     d = {"PRIMAER": _differenz(w["butterfly"], w["dense"]),
-         "P3": _differenz(w["butterfly"], w["lowrank"])}
+         "P3": _differenz(w["butterfly"], w["givens_zufall"])}
     dz = _differenz(z["butterfly"], z["dense"])
     d["P2"] = {k: d["PRIMAER"][k] - dz[k] for k in dz}
     tost_grenze = MARGIN * math.sqrt(len(EVAL_SEEDS)) / 1.7613

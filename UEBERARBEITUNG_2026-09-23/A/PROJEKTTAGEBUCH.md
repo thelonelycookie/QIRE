@@ -4834,6 +4834,84 @@ auch in den Vortest.
 frei ist (nach I-005). Danach wird der Entwurf endgültig, und der
 Vorregistrierungstext kommt hierher, vor dem Lauf.
 
+### Nachtrag, 28.09. nachmittags — Vorprüfungen: die P3-Kontrolle war ein Strohmann
+
+`saettigung` (2 Seeds, lr 0,01 fest, **kein Befund**), bei N = 200:
+
+| Arm | walsh | zufall |
+|---|---|---|
+| butterfly | 0,86 | 0,14 |
+| dense | 0,53 | 0,52 |
+| **lowrank** | **0,20** | 0,21 |
+| wht_fest | 0,86 | 0,13 |
+| untied | 0,49 | 0,50 |
+
+- Keine Sättigung, der beste Familienarm liegt bei 0,86.
+- **`lowrank` liegt unter dem Boden.** P3 (butterfly − lowrank ≈ +0,64) wäre
+  damit fast per Konstruktion wahr gewesen. Das ist genau die Regel vom 23.09.:
+  eine Kontrolle muss selbst gegen etwas Einfaches bestehen.
+- **Ersetzt, vor jeder Zahl, durch `givens_zufall`:** dieselben 40 geteilten,
+  orthogonalen Winkel wie die Butterfly (5 × 8 Schritte, je Schritt 128
+  disjunkte Paare mit einem Winkel). Nur die Paare sind je Schritt zufällig
+  verdrahtet statt nach Bit q, bei fester Verdrahtung mit Seed 19199.
+  Geprüft: orthogonal (4,8·10⁻⁷), 40 Parameter, gleiche Winkel ergeben eine
+  andere Abbildung (0,62). P3 fragt jetzt: Trägt die **Bitstruktur**, oder
+  reicht die Teilung? `lowrank` bleibt als beschreibender Arm.
+
+`macht` (5 Seeds, lr fest, kein Befund): gepaarte sd 0,012 / 0,028 / 0,025.
+**TOST ±0,005 ist für keinen der drei Tests erreichbar.** GLEICHWERTIG kann
+also nicht feuern, und ein Ausbleiben ist kein Befund. Nachweisbar sind
+Effekte ab etwa 0,011 / 0,025 / 0,022. `zeit`: 3,4 h für den ganzen Lauf.
+
+Vortest und Vorprüfungen laufen mit der neuen Kontrolle noch einmal.
+Beschreibend fällt schon jetzt auf: Bei N = 200 liegen `butterfly` und
+`wht_fest` gleichauf (0,86). Die gelernten Winkel finden also die feste WHT,
+und das Lernen bringt darüber hinaus nichts. `untied` (5.120 Parameter)
+liegt bei N = 200 dagegen auf dem Niveau von `dense`. Für die Dateneffizienz
+entscheidet offenbar die **Teilung** der Winkel.
+
+## 28. September — Vorregistrierung Q-019W (vor dem Lauf)
+
+Freigegeben im Rahmen von Maltes Auftrag vom 28.09. („die Entscheidungen
+durchführen … mach selber weiter“). Der Lauf braucht etwa 5,1 h, die CPU ist
+sonst frei.
+
+Maßgeblich ist der Modulkopf von `quantum_sim/walsh.py`, Stand dieses Commits.
+Kurzfassung:
+
+**Aufgabe:** Walsh-Signale (d = 256, 3 Anteile, Rauschen 0,45). Die Klasse ist
+das Sequency-Band des stärksten Anteils, 8 Klassen. Kontrollbasis ist eine
+feste Haar-zufällige Orthobasis.
+
+**Lernkurve:** N ∈ {50, 200, 1.000, 6.000}, 470 Schritte fest, Test 2.000.
+15 Seeds (19101–19115), Tuning-Seeds 19151–19153. Die Lernrate wird je Arm ×
+Basis × N mit vollem Budget gesucht, das Gitter in beide Richtungen verlängert.
+
+**Familie bei N = 200, Holm über 3, Wilcoxon zweiseitig + TOST ±0,005:**
+- PRIMÄR: walsh, butterfly (40) gegen dense (65.536)
+- P2: Wechselwirkung (butterfly − dense) walsh gegen zufall
+- P3: walsh, butterfly gegen `givens_zufall` (dieselben 40 geteilten Winkel,
+  zufällige Verdrahtung)
+
+**Kontrollen:**
+- Auflösung: dense trennt sich von narrow, walsh, N = 6.000
+- Boden: bester Arm ≥ 0,225
+- Sättigung: kein Familienarm > 0,95
+
+**Vorher angesagt:**
+- TOST ist für keinen Test erreichbar (sd 0,012 / 0,028 / 0,018 > 0,011).
+  GLEICHWERTIG kann nicht feuern.
+- P3 und P2 messen beide die Passung zur Bitstruktur: `givens_zufall` verhält
+  sich in der Vorprüfung wie die Butterfly in der Zufallsbasis. Hält P3, heißt
+  das „die Bitstruktur trägt“, nicht „die Butterfly lernt etwas Besonderes“.
+- Die eigentlich offenen, beschreibenden Fragen sind:
+  - der Übergangspunkt N\* (Vorprüfung: dense bei 6.000 vorn, 0,934 gegen 0,910)
+  - butterfly gegen wht_fest (in der Vorprüfung gleichauf)
+  - untied gegen butterfly (Teilung als Grund der Dateneffizienz)
+
+**Erwartung:** PRIMÄR STRUKTUR_BESSER, P2 PASSUNG_TRAEGT, P3 STRUKTUR_TRAEGT,
+N\* zwischen 1.000 und 6.000.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der

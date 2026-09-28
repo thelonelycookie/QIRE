@@ -80,7 +80,8 @@ quadratische Auslese ⟨Z_q⟩ (8 Werte)** → linear 8 → 8 Klassen.
 |---|---|---|---|
 | `butterfly` | geteilte Butterfly ohne CNOT, 5 Lagen (`OrthoButterfly` aus Q-019) | 40 | Kandidat |
 | `dense` | freie 256×256-Drehung | 65.536 | Referenz |
-| `lowrank` | I + U·Vᵀ, Rang 1 | 512 | **Kontrolle**: parameterarm, aber ohne Struktur (40 sind mit Rang 1 nicht erreichbar, 512 ist das Minimum; die Abweichung wird benannt) |
+| `givens_zufall` | wie `butterfly` (5 × 8 geteilte Winkel, orthogonal), aber je Schritt **zufällig verdrahtete** Paare statt Paare nach Bit q | 40 | **P3-Kontrolle** (seit 28.09.): gleiche Zahl, gleiche Teilung, einziger Unterschied ist die Bitstruktur |
+| `lowrank` | I + U·Vᵀ, Rang 1 | 512 | beschreibend. War bis 28.09. P3-Kontrolle; `saettigung` zeigte 0,20 bei N = 200, also **unter dem Boden**: ein Strohmann, ersetzt vor jeder Zahl |
 | `wht_fest` | feste WHT H⊗⁸, untrainiert | 0 | die Struktur ohne Lernen: Obergrenze bzw. Anker |
 | `untied` | ungeteilte Butterfly (`UngeteilteButterfly`) | 5.120 | beschreibend: Preis der Gewichtsteilung |
 | `narrow` | Engstelle 256→64→256 | 32.768 | Auflösungsprüfung, nur N = 6.000 |
@@ -109,7 +110,7 @@ Gitter 0,001–0,03, in beide Richtungen verlängert, bis zu 3-mal (Regel 1 a–
 |---|---|---|---|
 | **PRIMÄR** | `walsh`, N = 200 | `butterfly` − `dense` | STRUKTUR_BESSER / GLEICHWERTIG / DICHT_BESSER / UNENTSCHIEDEN |
 | **P2** | N = 200 | Wechselwirkung (`butterfly` − `dense`)_walsh − (`butterfly` − `dense`)_zufall | PASSUNG_TRAEGT / GLEICHWERTIG / PASSUNG_SCHADET / UNENTSCHIEDEN |
-| **P3** | `walsh`, N = 200 | `butterfly` − `lowrank` | STRUKTUR_TRAEGT / GLEICHWERTIG / LOWRANK_BESSER / UNENTSCHIEDEN |
+| **P3** | `walsh`, N = 200 | `butterfly` − `givens_zufall` | STRUKTUR_TRAEGT / GLEICHWERTIG / ZUFALLSVERDRAHTUNG_BESSER / UNENTSCHIEDEN |
 
 - Wilcoxon zweiseitig + TOST ±0,005, **Holm über genau diese drei.**
 - Rangfolge der Zweige wie in `kernaussage.py`: HU_UNVOLLSTAENDIG → HU_AUFLOESUNG
