@@ -207,6 +207,20 @@
    "folgen": {}
   },
   {
+   "id": "I-005-v3",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.clifford_suche_v3",
+   "prioritaet": 1,
+   "frage": "Wie viele Nicht-Clifford-Winkel AUF der gesuchten Clifford-Schaltung schliessen die Fashion-Luecke zu voll (I-005-v2 V-2: 1,31 pp)? Suche + k in {1,2,4,8} nachtrainierte Winkel (Auswahl nach Verlustanstieg vs. zufaellig), G_S(k), M50_S/M90_S. Holm ueber M-1..M-3.",
+   "notiz": "Folge aus I-005-v2 (MNIST GLEICHWERTIG, Fashion VOLL_BESSER, G_voll 0,65). Modul von Forscher-Agent, Vortest bestanden (auch vom Direktor wiederholt), Rauchtest 28.09. (447 s). N_SEEDS = 20. Mess-Seeds Fashion 420-439, Tuning 960-962, Entwurf 963-966. M-1 k8_verlust vs voll TOST +-0,5 pp (GLEICHWERTIG/VOLL_BESSER/K8_BESSER/HU; braucht voll - suche >= 1 pp), M-2 k2 verlust vs zufall, M-3 voll vs suche. Kollaps in jedem Zweig. ~3 h 10 min - 3 h 40 min.",
+   "folgen": {
+    "M-1 GLEICHWERTIG": "M50_S/M90_S als Magiebedarf ueber der besten Clifford-Schaltung; auf MNIST pruefen, ob M50_S = 0 ist; T-Gatter-Budget mit Hybrid-Kaskade neu rechnen",
+    "M-1 VOLL_BESSER": "k = 12/16 oder gierige Auswahl; pruefen, ob k32_alle voll erreicht -- sonst sitzt die Suche in einem anderen Becken als der Gradient",
+    "M-2 H0": "Einzelwinkel-Naeherung der Verlust-Rangfolge reicht auf dem Suche-Geruest nicht -> gierige Auswahl"
+   }
+  },
+  {
    "id": "C-hardware",
    "abteilung": "Clifford",
    "status": "erledigt",
