@@ -903,7 +903,56 @@ committet vor dem Lauf.
    k0 nur bei 48,2 %. Eine Clifford-Stufe 0 aus der Suche würde die
    Hybrid-Kaskade (I-015-hybrid) noch billiger machen.
 
-**Folgefragen:** Repliziert das auf Fashion (I-005-fashion)? Suche gegen voll
+**Folgefragen (Stand 12:09, beantwortet in I-005-v2, siehe unten):** Repliziert das auf Fashion (I-005-fashion)? Suche gegen voll
 per TOST, vorregistriert. Braucht Fashion (G(4) ≈ 1,0 aus C-fashion) dann
 ebenfalls keine Magie? Und: Suche plus k Magiewinkel, also ein diskretes
 Gerüst mit Politur, statt eines zufälligen Gerüsts wie in I-004.
+
+## 28.09.2026, 20:34 — I-005-v2: **MNIST braucht keine Magie, Fashion schon** ✔
+
+MNIST und Fashion-MNIST 16×16, **je 20 Seeds** (300–309 + 330–339 bzw.
+310–319 + 340–349). Strukturaufgabe 360–369. Die Lernrate von `voll` wurde je
+Datensatz mit Stabilitätsabstand gesucht (Ergebnis 0,08 bzw. 0,16), die
+Kopf-L2 je Datensatz auf eigenen Tuning-Seeds (beide 0,003).
+Rohdaten `ergebnisse/I-005-v2__20260928_203403.json`, etwa 3,3 h. Vortest und
+Rauchtest bestanden, committet vor dem Lauf.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| Q-0 Positivkontrolle | H1 | G_L = 0,94, Lehrer-äquivalent 6/10 (Zufallssuche 1/10) |
+| **V-1 MNIST: Suche gegen voll** | **GLEICHWERTIG** | d = −0,14 pp, KI [−0,39; +0,11], Holm-p_TOST = 0,032, Sensitivität voll − id +3,91 pp |
+| **V-2 Fashion: Suche gegen voll** | **VOLL_BESSER** | d = **−1,31 pp**, KI [−1,40; −1,21], 0/20 Seeds positiv, Holm-p < 10⁻⁴ |
+| V-3 Fashion: Suche gegen Median Zufall | H1 | +0,73 pp, 20/20 |
+
+**Beschreibend:**
+
+| | Suche | voll | k0 | Median Zufall | Identität | G_voll(Suche) |
+|---|---|---|---|---|---|---|
+| MNIST | 0,9391 | 0,9405 | 0,9094 | 0,9135 | 0,9013 | 0,96 |
+| Fashion | 0,8238 | 0,8368 | 0,8161 | 0,8165 | 0,7995 | 0,65 |
+
+**Was das heißt:**
+1. **Auf MNIST ist „keine Magie nötig“ jetzt vorregistriert belegt**, gegen
+   einen fair getunten Gegenarm: 0 T-Gatter bei gleicher Genauigkeit
+   (±0,5 pp). Das erste GLEICHWERTIG der Magie-Linie.
+2. **Auf Fashion trägt die Magie wirklich etwas bei:** Die beste Clifford-
+   Schaltung holt nur 65 % des Schaltungsgewinns. Das passt zu C-fashion
+   (dort brauchte es mehr Magiewinkel). Der Magiebedarf ist also eine
+   **Eigenschaft der Aufgabe**, nicht nur des Gradienten. Das korrigiert die
+   Deutung von I-005 (12:09): Dort war die Vermutung „misst nur den Gradienten“
+   aus MNIST allein zu weit gegriffen.
+3. **Zwei `voll`-Seeds sind auf Fashion kollabiert** (314, 315, eigener Kopf
+   mehr als 5 pp unter dem Median). Der Kollaps macht `voll` schlechter,
+   VOLL_BESSER ist also konservativ. Das Urteil hält auch ohne die beiden
+   Seeds (0/20 positiv). Der Zweig VOLL_BESSER prüft den Kollaps nicht; das ist
+   hier unschädlich, gehört aber in den nächsten Modulbau.
+4. Ehrlich dazu: Clifford-Schaltungen sind klassisch effizient simulierbar.
+   „Gleichwertig auf MNIST“ ist ein Befund über **Hardware-Kosten**
+   (0 T-Gatter), kein Quantenvorteil. Der Quantenanteil liegt genau in den
+   1,3 pp, die Fashion zusätzlich braucht.
+
+**Nächste Frage (natürliche Folge):** Wie viele Magiewinkel **auf der
+gesuchten Clifford-Schaltung** schließen die Fashion-Lücke? Das hieße
+Suche + k polierte Nicht-Clifford-Winkel, k ∈ {1, 2, 4, 8}. Damit würde
+„M50/M90 einer Aufgabe“ zum ersten Mal unabhängig vom Gradienten-Startpunkt
+gemessen.

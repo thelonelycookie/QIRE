@@ -199,7 +199,7 @@
   {
    "id": "I-005-v2",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.clifford_suche_v2",
    "prioritaet": 1,
    "frage": "Ist eine reine Clifford-Schaltung aus der diskreten Suche (0 Magiewinkel) auf MNIST UND Fashion-MNIST 16x16 gleichwertig zum vollen Training (Rate je Datensatz mit Stabilitaetsabstand)? TOST +-0,5 pp, Holm ueber V-1..V-3.",

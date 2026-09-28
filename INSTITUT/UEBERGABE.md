@@ -113,6 +113,12 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 | Verschränkungs-Kompass (Q1) | HU/HU | SVD schlägt alle Tensor-Train-Ordnungen |
 | Zero-Noise-Extrapolation über Bitbreiten | auf Papier widerlegt | MSE 7× schlechter |
 
+**NACHTRAG 28.09. ABENDS — I-005-v2 (20 Seeds, vorregistriert):** MNIST
+Suche = voll (**GLEICHWERTIG**, ±0,5 pp, 0 T-Gatter). Fashion **VOLL_BESSER**
+um 1,31 pp (20/20): Dort trägt die Magie wirklich. Der Magiebedarf ist also
+aufgabenabhängig, und der Absatz direkt hierunter ist teilweise überholt.
+Nächste Frage: Suche + k Magiewinkel auf Fashion (LABORBUCH 28.09. 20:34).
+
 **NACHTRAG 28.09. — I-005 (alle H1) relativiert den Kernsatz unten:** Eine
 diskrete Clifford-Suche (**0 Magiewinkel, 0 T-Gatter**) erreicht auf MNIST
 0,9352, das volle Gradiententraining 0,9344 (beschreibend). Die

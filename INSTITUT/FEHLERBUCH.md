@@ -206,3 +206,9 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
   Eigenschaft der Aufgabe beschrieben wird. Der Kernsatz in `UEBERGABE.md` §4
   („Nutzen sitzt in wenigen Magiewinkeln“) gilt nur noch mit dem Zusatz „beim
   Gradiententraining“.
+- **Korrektur am selben Abend (I-005-v2):** Auf Fashion trägt die Magie
+  vorregistriert +1,31 pp (VOLL_BESSER, 20/20). Die Lehre oben war aus
+  **einem** Datensatz verallgemeinert, also genau der Fehler aus I-034-fashion.
+  Richtig ist: Auf MNIST braucht die Aufgabe keine Magie, auf Fashion schon.
+  Lehre dazu: Eine Deutung, die einen früheren Befund „auf den Kopf stellt“,
+  vor dem Aufschreiben auf dem zweiten Datensatz prüfen, nicht danach.
