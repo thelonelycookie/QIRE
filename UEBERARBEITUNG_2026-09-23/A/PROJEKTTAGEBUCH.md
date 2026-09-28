@@ -4620,6 +4620,71 @@ nicht übernommen. `q_summary` meldet die durchgefallene Positivkontrolle
 ausdrücklich, der Code von B-014 hat die alte Zahl weiter ausgegeben. Ein
 Werkzeug hilft nur, wenn ich seine Ausgabe auch in die Dokumente trage.
 
+## 28. September — Vorregistrierung Q-020: die Kernaussage fair neu
+
+Geschrieben **vor** dem Lauf. Der Text ist am 24. September entworfen worden
+(`../BERICHT/experiment.md`); heute gebe ich ihn frei. Bis jetzt gibt es nur
+einen Pilot (`Q-020-pilot`, 24.09.: 3 Seeds, reduzierte Suche, eigene Seeds
+20291–20293). Der ist **kein Befund** und fließt in kein Urteil ein.
+
+**Anlass.** Die Kontrolle aus Q-003 (`classical_norm_deep`, 67.848 Parameter)
+ist schwächer als ein lineares Modell. Stichprobe vom 23.09.: 0,854 gegen 0,887.
+Der Abstand +0,093 misst also vor allem ihre Schwäche. Außerdem stammen die
+Nullbefunde zu Verschränkung und Tiefe aus einem Aufbau mit trainierbarem
+Encoder. Genau diese Konstellation hat Q-018 als Artefakt entlarvt.
+
+**Aufbau.** Es gibt zwei Aufbauten:
+- (a) wie Q-003, mit Encoder, auf dem **offiziellen MNIST-Testsatz** (10.000
+  statt 1.200 Bilder). Allein der Testmengenfehler bei 1.200 Bildern (≈0,007)
+  lag über der Grenze 0,005.
+- (b) wie Q-018 ohne Encoder, 6 Klassen, 128 Haufen.
+
+Die Arme: Schaltung mit 1 und mit 5 Lagen, jeweils mit und ohne CNOT; eine
+klassische Kronecker-Drehung (8 Parameter); quad_free (2.048); ein ReLU-MLP mit
+derselben 8-Kanal-Engstelle (67.848); linear; ohne Engstelle; norm_deep. Code:
+`quantum_sim/kernaussage.py`, bei Widerspruch gilt der Code.
+
+**Vorher nachgerechnet.** Die 1-Lagen-Schaltung hat 16 Winkel, aber nur 8
+davon wirken. `q1_ohne` rechnet exakt dieselbe Funktion wie die klassische
+Kronecker-Drehung, `q1` dieselbe mit vertauschter Auslese (Abweichung
+<4·10⁻⁷). Die Gegenprobe mit 5 Lagen zeigt, dass die Prüfung nicht blind ist.
+
+**Familie, Holm über 3** (Entscheidung heute: P3 bleibt drin):
+- PRIMÄR: q1 gegen mlp auf MNIST
+  (GLEICHWERTIG / SCHALTUNG_BESSER / MLP_BESSER / UNENTSCHIEDEN)
+- P2: Verschränkung in (b), q5 gegen q5_ohne
+- P3: Tiefe in (b), q5 gegen q1
+
+Gemessen wird die balancierte Genauigkeit, mit 15 Seeds (20201–20215) und TOST
+±0,005. TOST wird vor der Signifikanz geprüft.
+- **Auflösungsprüfung:** mlp muss sich von linear trennen.
+- **Bodenprüfung:** der beste Arm liegt mindestens 0,10 über dem Rateniveau.
+- **Äquivalenz-Positivkontrolle:** kron ≈ q1_ohne, nur zur Deutung.
+
+Die Lernrate wird je Arm mit vollem Budget gesucht, das Gitter wird in beide
+Richtungen verlängert. Gespeichert wird nach jeder Zelle, die Wiederaufnahme
+hat eine eigene Datei je Lauf. Fashion-MNIST dient als Wiederholung und wird
+nur beschreibend ausgewertet.
+
+**Erreichbarkeit.** GLEICHWERTIG kann nur feuern, wenn die Streuung der
+gepaarten Differenz unter 0,011 liegt. Liegt sie darüber, wäre „nicht
+eingetreten“ kein Befund.
+
+**Erwartung vorher:**
+- PRIMÄR: SCHALTUNG_BESSER oder UNENTSCHIEDEN.
+- P2 und P3: „trägt bei“, weil ohne CNOT jede Tiefe wieder eine
+  Kronecker-Drehung ist.
+
+**Vortest** bestanden: 21 Szenarien, Zweigtext geprüft, drei absichtlich
+eingebaute Fehler alle gefunden. Vor dem Start läuft er noch einmal
+automatisch mit.
+
+**Rechenzeit:** geschätzt 3–5 h, auf dem Ryzen 5 3600. Während des Laufs läuft
+kein anderer schwerer Lauf.
+
+Ändert sich etwas an dieser Vorregistrierung, steht es hier, bevor eine
+Q-020-Zahl existiert.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der
