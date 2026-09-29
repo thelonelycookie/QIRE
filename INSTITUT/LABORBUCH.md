@@ -956,3 +956,57 @@ gesuchten Clifford-Schaltung** schließen die Fashion-Lücke? Das hieße
 Suche + k polierte Nicht-Clifford-Winkel, k ∈ {1, 2, 4, 8}. Damit würde
 „M50/M90 einer Aufgabe“ zum ersten Mal unabhängig vom Gradienten-Startpunkt
 gemessen.
+
+## 29.09.2026, 16:20 — I-005-v3: 4 Magiewinkel schließen die halbe Fashion-Lücke, 8 nicht die ganze ✔
+
+Fashion-MNIST 16×16, 20 Seeds (420–439), Tuning 960–962. Rohdaten
+`ergebnisse/I-005-v3__20260929_162054.json`. Vorregistriert und committet am
+28.09. Der erste Lauf ging am 28.09. um 23:04 beim Herunterfahren des
+Rechners verloren; er hatte keine Messzahl gesichert. Am 29.09. um 13:30 neu
+gestartet, mit unverändertem Code.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| **M-1** k8 (Verlust-Auswahl) gegen voll | **VOLL_BESSER** | −0,43 pp, KI [−0,63; −0,24], 3/20 positiv, Holm-p = 0,002 |
+| **M-2** k2 nach Verlust gegen k2 zufällig | **H1** | +0,30 pp, KI [+0,10; +0,49], 15/20, Holm-p = 0,024 |
+| **M-3** voll gegen suche (Replikation I-005-v2 V-2) | **H1** | +1,38 pp, 20/20 |
+
+Kein Kollaps bei den Urteilsarmen. Nur `k32_alle` ist auf Seed 420
+kollabiert (beschreibender Arm).
+
+**Dosis-Wirkung (beschreibend):** G_S(k) ist der Anteil der Lücke
+suche → voll, der geschlossen wird.
+
+| k | 0 | 1 | 2 | 4 | 8 | 32 (alle ab Suche) |
+|---|---|---|---|---|---|---|
+| nach Verlust | 0 | 0,21 | 0,43 | **0,57** | 0,69 | 0,42 |
+| zufällig | 0 | 0,13 | 0,22 | 0,36 | 0,51 | – |
+
+→ **M50_S = 4 Magiewinkel (≈ 123 T-Gatter)**, M90_S > 8.
+
+**Was das heißt:**
+1. **Der Magiebedarf von Fashion ist jetzt unabhängig vom Gradienten-Start
+   gemessen:** Auf der besten Clifford-Schaltung schließen 4 gezielt
+   gewählte Nicht-Clifford-Winkel die halbe Lücke. Die volle Lücke schließen
+   auch 8 nicht (Restlücke 0,43 pp).
+2. **Die Auswahl nach Verlust trägt** (M-2), besonders bei kleinem k. Die
+   Magie-Konzentration gibt es also auch über der Clifford-Suche.
+3. **Die Überraschung: `k32_alle` (alle 32 Winkel ab der Suche-Schaltung
+   nachtrainiert) erreicht nur 0,42**, also *weniger* als k = 8 und 0,80 pp
+   hinter voll aus dem Zufallsstart. Die Suche liegt in einem anderen Becken
+   der Verlustlandschaft als das Gradiententraining, und der Gradient kommt
+   von dort nicht zur besseren Lösung. Das ist die in der Karte vorab
+   genannte Folgefrage („sonst sitzt die Suche in einem anderen Becken“), jetzt
+   beantwortet. Einschränkung: nur beschreibend, und ein Seed ist kollabiert.
+4. **Einordnung:** Die Rz-Drehungen sind auf heutiger Hardware virtuell
+   (Recherche 29.09. Hardware). Die T-Gatter-Zahl zählt erst bei
+   fehlertoleranten Rechnern. Auf NISQ ist „0 bzw. 4 Magiewinkel“ vor allem ein
+   Befund über klassische Simulierbarkeit.
+
+**Folgen:**
+- Gierige Auswahl oder k = 12/16, um die Restlücke zu schließen.
+- Die Klassische Kontrolle aus der Recherche 29.09.: quadrierte
+  Walsh-Hadamard-Merkmale ohne Suche. Erreichen sie die Suche, ist die
+  Clifford-Zelle auf MNIST ein Walsh-Klassifikator, was Q-019W und die
+  Institutslinie verbinden würde.
+- Die Becken-Frage: Suche + k32 mit kleinerer Rate oder mehr Schritten.
