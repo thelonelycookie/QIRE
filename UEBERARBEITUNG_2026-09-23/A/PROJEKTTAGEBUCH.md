@@ -5004,6 +5004,35 @@ Befund.
 legt SCHRITTE fest (vorläufig 200). Danach kommt der Vorregistrierungstext
 hierher, dann der Commit, dann der Lauf.
 
+## 29. September, morgens — Vorregistrierung T-004 (vor dem Lauf)
+
+**Zuerst, was nachts passiert ist:** I-005-v3 (Institut) ist beim
+Herunterfahren des Rechners am 28.09. um 23:04 abgebrochen, in der Messphase,
+nach der Lernratensuche. Ein Ergebnis gibt es nicht, und es wurde keine Zahl
+gesichert. Das Modul hat keine Wiederaufnahme, deshalb wird es nach T-004 neu
+gestartet.
+
+**T-004, festgelegt vor jeder Zahl** (maßgeblich ist der Modulkopf von
+`quantum_sim/chatbot_adapter.py`, Stand dieses Commits):
+
+- **Budget:** `zeit` bei 6 Threads auf freiem Rechner, pro Schritt: qire_kron
+  1,5 s, qire_5 1,5 s, lora_r1 0,9 s. Die Auswertung kostet etwa 0,13 s je
+  Beispiel. Daraus folgt **SCHRITTE = 300**, zusammen etwa 6,6 h.
+- **Familie, Holm über 3, 8 Seeds (40001–40008), Tuning-Seeds 40401/40402:**
+  - PRIMÄR: `qire_kron` (192 Parameter) gegen `basis`, einseitig
+  - P2: `qire_kron` gegen `lora_r1` (30.720), TOST mit einer Grenze von 20 %
+    des LoRA-Gewinns gegenüber basis
+  - P3: `qire_5` (960, mit CNOT-Ring) gegen `qire_kron`
+- **Auflösung:** `lora_r1` muss sich von `basis` trennen.
+- **Vorher angesagt:** Die Erreichbarkeit der TOST-Grenze ist unbekannt.
+  PRIMÄR ist faktisch ein Ein-Stichproben-Test, weil basis deterministisch
+  ist.
+- **Erwartung:** PRIMÄR hält (die Drehung senkt den Verlust ein wenig), P2
+  eher LORA_BESSER oder HU, P3 offen.
+
+Die Wiederaufnahme läuft nach jeder Zelle. Ein erneutes Herunterfahren kostet
+also höchstens eine Zelle.
+
 **Vorbehalt (`q_summary`, Randlage):** `wht_fest` sitzt in einer Zelle am
 oberen Gitterrand (lr 0,03). Der Arm hat 0 Mittelschicht-Parameter, die Rate
 wirkt nur auf den Kopf. Ist er dort untertuniert, wäre `wht_fest` eher noch
