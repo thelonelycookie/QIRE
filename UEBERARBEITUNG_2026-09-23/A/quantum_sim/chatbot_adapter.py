@@ -947,10 +947,15 @@ def chat(arm: str = "qire_kron", frage: Optional[str] = None, lauf_id: str = LAU
     frage = frage or "Erkläre in zwei Sätzen, was ein Quantencomputer ist."
     ids, _ = kodiere(tok, frage, None)
     m.eval()
+    # Nur fuer die Vorfuehrung (29.09.), keine Messung haengt daran: Wiederholungen
+    # von 3-Wort-Folgen sperren und am naechsten "###"-Block abschneiden -- das
+    # 120M-Modell wiederholt sich sonst und schreibt neue Instruktionen weiter.
     with torch.no_grad():
-        aus = m.generate(torch.tensor([ids]), max_new_tokens=150, do_sample=False,
-                         repetition_penalty=1.2, eos_token_id=tok.eos_token_id, pad_token_id=0)
-    antwort = tok.decode(aus[0, len(ids):], skip_special_tokens=True).strip()
+        aus = m.generate(torch.tensor([ids]), max_new_tokens=120, do_sample=False,
+                         repetition_penalty=1.2, no_repeat_ngram_size=3,
+                         eos_token_id=tok.eos_token_id, pad_token_id=0)
+    antwort = tok.decode(aus[0, len(ids):], skip_special_tokens=True)
+    antwort = antwort.split("###")[0].split("\n\n")[0].strip()
     print(f"FRAGE: {frage}\nANTWORT ({arm}): {antwort}")
     return antwort
 
