@@ -659,6 +659,37 @@ def check_q019w() -> List[Tuple[str, bool, str]]:
     return out
 
 
+def check_t004() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '29. September -- T-004 gerechnet' (neueste
+    T-004-Datei, 32 Zeilen). Messgroesse val_verlust in nats/Token."""
+    rec = load("T-004")["records"]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    def cmp(label: str, claimed: float, actual: float, tol: float = 0.0005):
+        out.append((label, abs(claimed - actual) <= tol,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {actual:+.4f}"))
+
+    b, k, q5, lo = m("basis"), m("qire_kron"), m("qire_5"), m("lora_r1")
+    cmp("basis", 2.5616, float(b.mean()))
+    cmp("qire_kron", 2.5172, float(k.mean()))
+    cmp("qire_5", 2.4437, float(q5.mean()))
+    cmp("lora_r1", 2.2893, float(lo.mean()))
+    cmp("PRIMAER qire_kron - basis", -0.0444, float((k - b).mean()))
+    cmp("P2 qire_kron - lora_r1", 0.2280, float((k - lo).mean()))
+    cmp("P3 qire_5 - qire_kron", -0.0735, float((q5 - k).mean()))
+    cmp("Aufloesung lora_r1 - basis", -0.2724, float((lo - b).mean()))
+    for arm, n in (("qire_kron", 192), ("qire_5", 960), ("lora_r1", 30720)):
+        t = int(next(r["trainierbar"] for r in rec if r["arm"] == arm))
+        out.append((f"trainierbar {arm}", t == n, f"Tagebuch {n} | Rohdaten {t}"))
+    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, k, q5, lo)),
+                f"{[len(x) for x in (b, k, q5, lo)]}"))
+    return out
+
+
 CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-003-replication": check_q003,
     "Q-011 (dritter Anlauf, gerettet)": check_q011,
@@ -668,6 +699,7 @@ CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-018": check_q018,
     "Q-020": check_q020,
     "Q-019W": check_q019w,
+    "T-004": check_t004,
     "Randlagen (Regel 1b, Tagebuch 27.08.)": check_randlagen,
     "T-000": check_t000,
     "T-001": check_t001,

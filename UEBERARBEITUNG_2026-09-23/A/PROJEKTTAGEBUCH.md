@@ -5033,6 +5033,57 @@ gestartet.
 Die Wiederaufnahme läuft nach jeder Zelle. Ein erneutes Herunterfahren kostet
 also höchstens eine Zelle.
 
+## 29. September — T-004 gerechnet: der Chatbot-Adapter wirkt, und der CNOT-Ring trägt
+
+Lauf 07:45–13:28, 6 Threads. Rohdaten
+`results/experiments/T-004__20260929_132842_02.json` (32 Zeilen). `q_audit`
+hat 12/12 Zahlen geprüft, alle OK. Vortest vor dem Start bestanden.
+
+| Arm | trainierbar | Val-Verlust (nats/Token, Antwort-Tokens) | gegen basis |
+|---|---|---|---|
+| basis | 0 | 2,5616 | – |
+| qire_kron | 192 | 2,5172 | −0,044 |
+| qire_5 (CNOT-Ring) | 960 | 2,4437 | −0,118 |
+| lora_r1 | 30.720 | 2,2893 | −0,272 |
+
+**Familie (Holm über 3), jeweils 8/8 Seeds:**
+- PRIMÄR **SENKT_VERLUST**: −0,0444, Holm-p = 0,012
+- P2 **LORA_BESSER**: +0,228, Holm-p = 0,016. Die TOST-Grenze lag bei ±0,054,
+  weit entfernt.
+- P3 **VERSCHRAENKUNG_TRAEGT**: −0,0735, Holm-p = 0,016
+
+Auflösung bestanden: LoRA − basis −0,272.
+
+Die Lernraten liegen **innen**. `q_summary` meldet für qire_kron und qire_5
+„unten“ (lr 0,001), das ist aber ein Fehlalarm: Das Gitter wurde nach unten
+bis 0,00033 verlängert, und dort war der Verlust schlechter (qire_kron
+2,5331 gegen 2,5286). `q_summary` kennt nur das Startgitter. Das Tool gehört
+nachgebessert.
+
+**Was das heißt:**
+1. **Der Chatbot mit QIRE-Adapter funktioniert messbar.** 192 Winkel senken
+   den Verlust in jedem Seed. Absolut ist der Gewinn klein: 16 % des
+   LoRA-Gewinns.
+2. **Pro Parameter ist die Drehung weit effizienter:**
+   - qire_kron: 2,3·10⁻⁴ nats je Parameter
+   - qire_5: 1,2·10⁻⁴
+   - LoRA: 8,9·10⁻⁶
+
+   Das ist 13- bis 26-mal mehr Wirkung je Parameter. Es ist aber keine
+   Gleichwertigkeit, und das gehört ehrlich so gesagt.
+3. **Der CNOT-Ring trägt im Sprachmodell:** Die Verschränkung fast
+   verdreifacht den Gewinn (43 % statt 16 % des LoRA-Gewinns), bei 5-mal so
+   vielen Parametern. Das passt zu Q-020 (b). Ohne CNOT wären 5 Lagen nach
+   der Theorie gleich 1 Lage.
+4. Die Seed-Streuung ist winzig (sd 0,0005–0,0024). Die Unterschiede sind klar,
+   gemessen auf 1.000 festen Validierungsbeispielen.
+
+**Nächste Schritte für den Chatbot:**
+- Chat-Demo mit dem gespeicherten qire_5-Adapter (`chat qire_5`)
+- Parameterkurve (mehr Lagen oder Winkel je Block)
+- QIRE + LoRA kombiniert (Recherche 06)
+- blinde Mini-Bewertung durch Menschen
+
 **Vorbehalt (`q_summary`, Randlage):** `wht_fest` sitzt in einer Zelle am
 oberen Gitterrand (lr 0,03). Der Arm hat 0 Mittelschicht-Parameter, die Rate
 wirkt nur auf den Kopf. Ist er dort untertuniert, wäre `wht_fest` eher noch

@@ -72,7 +72,10 @@ QUESTIONS: Dict[str, str] = {
               "Engstelle, und tragen Verschraenkung und Tiefe ohne Encoder bei?"),
     "T-000": "Kalibrierung: welche Modellbreite ist auf dieser Hardware trainierbar?",
     "T-001": "Verschiebt der Umbau R1/R5/R6 den Uebergangspunkt?",
-    "T-002": "Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
+    "T-004": ("Chatbot: senkt eine 192-Winkel-QIRE-Drehung als Adapter auf "
+              "LLaeMmlein-120M den Verlust, wie weit kommt sie an LoRA heran, und "
+              "traegt der CNOT-Ring?"),
+    "T-002":"Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
 }
 # T-001 steht hier, obwohl es kein Q-Lauf ist: Der Zweck dieses Werkzeugs ist,
 # dass kein fertiger Lauf im Bericht verschwindet, und T-001 hat alles, was der
@@ -206,7 +209,17 @@ def randlagen(payload: Dict) -> List[Dict[str, object]]:
     gitter = cfg.get("lr_grid") or cfg.get("lr_gitter")
     if not gitter:
         return []
-    lo, hi = min(gitter), max(gitter)
+    # T-004 speichert je Arm ein eigenes Gitter ({arm: [..]}); sonst eine Liste.
+    if isinstance(gitter, dict):
+        je_arm = {a: (min(map(float, g)), max(map(float, g)))
+                  for a, g in gitter.items() if g}
+        if not je_arm:
+            return []
+        lo = min(v[0] for v in je_arm.values())
+        hi = max(v[1] for v in je_arm.values())
+    else:
+        je_arm = {}
+        lo, hi = min(gitter), max(gitter)
     records = payload.get("records") or []
     out: List[Dict[str, object]] = []
     karten = {k: v for k, v in cfg.items()
@@ -226,6 +239,8 @@ def randlagen(payload: Dict) -> List[Dict[str, object]]:
         vermerke = cfg.get(f"lr_rand_{bed}") or {}
         for arm, lr in lr_map.items():
             lr = float(lr)
+            if arm in je_arm:
+                lo, hi = je_arm[arm]
             if arm in vermerke:
                 lage = str(vermerke[arm])
             elif lr <= lo * (1 + 1e-9):

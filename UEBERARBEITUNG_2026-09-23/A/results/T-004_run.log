@@ -1,0 +1,169 @@
+================================================================================================
+THEORIEPRUEFUNG T-004
+  qire_kron: Winkel 0 -> R = I                                   0.00e+00 < 1e-12  OK
+  qire_kron: R^T R = I (zufaellige Winkel)                       8.88e-16 < 1e-05  OK
+  qire_kron: R ist blockdiagonal (3 x 256)                       0.00e+00 < 1e-12  OK
+  qire_5: Winkel 0 -> R = I                                      0.00e+00 < 1e-12  OK
+  qire_5: R^T R = I (zufaellige Winkel)                          1.55e-15 < 1e-05  OK
+  qire_5: R ist blockdiagonal (3 x 256)                          0.00e+00 < 1e-12  OK
+  qire_kron == blockdiag(R1 x ... x R8) explizit                 0.00e+00 < 1e-10  OK
+  Drehbank R_k^T == QireDrehung (1 Lagen, CNOT False)            0.00e+00 < 1e-10  OK
+  Drehbank R_k^T == QireDrehung (5 Lagen, CNOT True)             0.00e+00 < 1e-10  OK
+  5 Lagen OHNE CNOT == 1 Lage mit Winkelsumme                    1.25e-16 < 1e-10  OK
+  Gegenprobe: 5 Lagen MIT CNOT ist KEIN Kronecker-Produkt        6.67e-01 > 0.1  OK
+  qire_kron: Startwert -> Logits == Basismodell                  0.00e+00 < 1e-05  OK
+  qire_kron: trainierbar 192 == 192                              0.00e+00 < 0.5  OK
+  qire_5: Startwert -> Logits == Basismodell                     0.00e+00 < 1e-05  OK
+  qire_5: trainierbar 960 == 960                                 0.00e+00 < 0.5  OK
+  lora_r1: Startwert -> Logits == Basismodell                    0.00e+00 < 1e-05  OK
+  lora_r1: trainierbar 30720 == 30720                            0.00e+00 < 0.5  OK
+  GedrehteLinear == x (W . R)^T (W' = W R, v_proj Lage 3, Index 7) 4.47e-07 < 0.0001  OK
+  Gegenprobe: Ausgabe != x W^T (die Drehung wirkt)               1.53e+00 > 0.001  OK
+  qire_5: Logits bank == kette (zufaellige Winkel)               4.01e-05 < 0.001  OK
+  Maske: Frage -100, Antwort + </s> Ziel                         0.00e+00 < 0.5  OK
+  Aufteilung 5000/1000/500/50, max. 128 Tokens                   0.00e+00 < 0.5  OK
+  qire_5: Gradient an allen 24 Winkelsaetzen != 0 (Anzahl ohne)  0.00e+00 < 0.5  OK
+  Basisgewichte ohne Gradient                                    0.00e+00 < 0.5  OK
+  BESTANDEN
+================================================================================================
+TEST GITTERVERLAENGERUNG -- Regel 1(b), beide Richtungen, Verlust (kleiner = besser)
+  Optimum im Startgitter       -> lr 0.003      Rand innen  OK
+  eine Verlaengerung oben      -> lr 0.09       Rand innen  OK
+  eine Verlaengerung unten     -> lr 0.0003333  Rand innen  OK
+  ausserhalb oben              -> lr 0.81       Rand oben   OK
+  ausserhalb unten             -> lr 3.704e-05  Rand unten  OK
+  BESTANDEN
+================================================================================================
+VORTEST T-004 -- jeder Ausgang einzeln, ueber mehrere Ziehungen, Marke UND Zweigtext
+  OK     P-S   qire_kron -0,10                                            5/5  {'SENKT_VERLUST': 5}
+  OK     P-N   qire_kron +0,05 (schlechter)                               5/5  {'KEIN_NACHWEIS': 5}
+  OK     P-U   Nulleffekt, grosses Rauschen                               36/40  {'KEIN_NACHWEIS': 36, 'SENKT_VERLUST': 4}
+  OK     P-A   Aufloesung faellt (lora = basis)                           37/40  {'SENKT_VERLUST': 3, 'HU_AUFLOESUNG': 37}
+  OK     P-Ar  lora SCHLECHTER als basis: Trennung zaehlt                 5/5  {'SENKT_VERLUST': 5}
+  OK     P-An  lora-Zelle fehlt                                           5/5  {'HU_AUFLOESUNG': 5}
+  OK     P-X   qire_kron fehlt                                            5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     V-L   LoRA +0,10 besser                                          5/5  {'LORA_BESSER': 5}
+  OK     V-Q   qire_kron besser als LoRA                                  5/5  {'QIRE_BESSER': 5}
+  OK     V-G   gleich, kleines Rauschen                                   5/5  {'GLEICHWERTIG': 5}
+  OK     V-Gs  +0,005 bei winzigem Rauschen: signifikant UND gleichwertig 5/5  {'GLEICHWERTIG': 5}
+  OK     V-U   gleich, grosses Rauschen                                   39/40  {'QIRE_BESSER': 1, 'UNENTSCHIEDEN': 39}
+  OK     V-X   lora fehlt                                                 5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     T-T   qire_5 -0,05 vor qire_kron                                 5/5  {'VERSCHRAENKUNG_TRAEGT': 5}
+  OK     T-G   qire_5 = qire_kron, kleines Rauschen                       5/5  {'GLEICHWERTIG': 5}
+  OK     T-S   qire_5 +0,05 hinter qire_kron                              5/5  {'VERSCHRAENKUNG_SCHADET': 5}
+  OK     T-U   gleich, grosses Rauschen                                   38/40  {'UNENTSCHIEDEN': 38, 'VERSCHRAENKUNG_TRAEGT': 2}
+  OK     T-X   qire_5 fehlt                                               5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     X-P   qire_5 fehlt -> PRIMAER trotzdem gerechnet                 5/5  {'SENKT_VERLUST': 5}
+GENERATOR
+  OK     val_verlust_alle - val_verlust NICHT konstant (sd je Arm > 0)
+  OK     gepaarte Differenz kippt mit dem Feld
+  OK     basis deterministisch (sd 0), trainierte Arme streuen
+  OK     eigenes Rauschen: sd(qire_kron - lora) 0.0118 ~ 0.0141
+MUTATIONSPRUEFUNG -- jeder absichtliche Fehler MUSS den Vortest durchfallen lassen
+      gefangen von P-S: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von P-N: 0/5 {'SENKT_VERLUST': 5}
+      gefangen von P-Ar: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von V-L: 0/5 {'QIRE_BESSER': 5}
+      gefangen von V-Q: 0/5 {'LORA_BESSER': 5}
+      gefangen von T-T: 0/5 {'VERSCHRAENKUNG_SCHADET': 5}
+      gefangen von T-S: 0/5 {'VERSCHRAENKUNG_TRAEGT': 5}
+      gefangen von X-P: 0/5 {'KEIN_NACHWEIS': 5}
+  OK     Mutation 'Metrikfeld val_verlust_alle statt val_verlust' faellt durch
+      gefangen von V-Gs: 0/5 {'LORA_BESSER': 5}
+  OK     Mutation 'Signifikanz VOR TOST' faellt durch
+      gefangen von P-Ar: 0/5 {'HU_AUFLOESUNG': 5}
+  OK     Mutation 'Aufloesung verlangt Richtung statt Trennung' faellt durch
+      gefangen von P-S: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von P-N: 0/5 {'SENKT_VERLUST': 5}
+      gefangen von P-Ar: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von X-P: 0/5 {'KEIN_NACHWEIS': 5}
+  OK     Mutation 'PRIMAER einseitig in FALSCHER Richtung' faellt durch
+      gefangen von V-L: 0/5 {'GLEICHWERTIG': 5}
+      gefangen von V-Q: 0/5 {'GLEICHWERTIG': 5}
+      gefangen von V-U: 0/40 {'GLEICHWERTIG': 40}
+      gefangen von T-T: 0/5 {'GLEICHWERTIG': 5}
+      gefangen von T-S: 0/5 {'GLEICHWERTIG': 5}
+      gefangen von T-U: 0/40 {'GLEICHWERTIG': 40}
+  OK     Mutation 'TOST-Grenze absolut 0,2 statt relativ' faellt durch
+BESCHREIBENDER TEIL (Durchlauf auf synthetischen Daten)
+
+RESEARCH ID T-004 | val_verlust (nats/Token, nur Antwort-Tokens), kleiner = besser
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), TOST-Grenze 20% x LoRA-Gewinn +0.1999 = +-0.0400
+  [PRIMAER] SENKT_VERLUST -- PRIMAER: die 192-Winkel-Drehung senkt den Verlust; qire_kron - basis: -0.0953 nats, 8/8 Seeds besser, p=0.0039, Holm=0.0117.
+  [P2] LORA_BESSER -- P2: LoRA r=1 senkt den Verlust staerker; die 160-fach kleinere Drehung kommt nicht gleich weit; qire_kron - lora_r1: +0.1046 nats, 0/8 Seeds besser, p=0.0078, Holm=0.0156, TOST p=1.0000 (Grenze +-0.0400).
+  [P3] VERSCHRAENKUNG_TRAEGT -- P3: 5 Lagen mit CNOT-Ring schlagen die reine Kronecker-Drehung -- der Ring traegt; qire_5 - qire_kron: -0.0518 nats, 8/8 Seeds besser, p=0.0078, Holm=0.0156, TOST p=0.9352 (Grenze +-0.0400).
+KONTROLLE  Aufloesung bestanden (lora_r1-basis -0.1999, p=0.0078)
+
+BESCHREIBEND (ohne Holm)
+  basis      8 Seeds  Mittel 3.0000  sd 0.0000  trainierbar 0  lr 0.01
+  qire_kron  8 Seeds  Mittel 2.9047  sd 0.0085  trainierbar 192  lr 0.01
+  qire_5     8 Seeds  Mittel 2.8530  sd 0.0148  trainierbar 960  lr 0.01
+  lora_r1    8 Seeds  Mittel 2.8001  sd 0.0132  trainierbar 30720  lr 0.01
+  qire_5 - basis -0.1470  p=0.0078
+
+BEWERTUNG: SENKT_VERLUST | LORA_BESSER | VERSCHRAENKUNG_TRAEGT
+================================================================================================
+================================================================================================
+VORTEST BESTANDEN
+  basis 2.5616 nats/Token (65928 Antwort-Tokens)
+  qire_kron  -> lr 0.001   0.000333333:2.5331  0.001:2.5286  0.003:2.5326  0.01:2.5418  0.03:2.5725
+    qire_kron seed 40001: 2.5172  (447 s)
+    qire_kron seed 40002: 2.5166  (437 s)
+    qire_kron seed 40003: 2.5173  (412 s)
+    qire_kron seed 40004: 2.5177  (390 s)
+    qire_kron seed 40005: 2.5171  (391 s)
+    qire_kron seed 40006: 2.5178  (391 s)
+    qire_kron seed 40007: 2.5163  (391 s)
+    qire_kron seed 40008: 2.5176  (390 s)
+  Zwischenstand gesichert (Regel 5), bester qire_kron-Seed 40007
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_094335.json
+  Messzeilen (16): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_094335.csv
+  lora_r1    -> lr 0.001   0.0001:2.3610  0.0003:2.3271  0.001:2.3155  0.003:2.3684
+    lora_r1 seed 40001: 2.2913  (348 s)
+    lora_r1 seed 40002: 2.2862  (349 s)
+    lora_r1 seed 40003: 2.2904  (347 s)
+    lora_r1 seed 40004: 2.2901  (347 s)
+    lora_r1 seed 40005: 2.2910  (347 s)
+    lora_r1 seed 40006: 2.2873  (346 s)
+    lora_r1 seed 40007: 2.2859  (347 s)
+    lora_r1 seed 40008: 2.2919  (346 s)
+  Zwischenstand gesichert (Regel 5), bester lora_r1-Seed 40007
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_111001.json
+  Messzeilen (24): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_111001.csv
+  qire_5     -> lr 0.001   0.000333333:2.4737  0.001:2.4663  0.003:2.4780  0.01:2.5366  0.03:2.7110
+    qire_5 seed 40001: 2.4443  (495 s)
+    qire_5 seed 40002: 2.4434  (494 s)
+    qire_5 seed 40003: 2.4433  (494 s)
+    qire_5 seed 40004: 2.4443  (494 s)
+    qire_5 seed 40005: 2.4429  (499 s)
+    qire_5 seed 40006: 2.4433  (495 s)
+    qire_5 seed 40007: 2.4432  (496 s)
+    qire_5 seed 40008: 2.4449  (496 s)
+  Zwischenstand gesichert (Regel 5), bester qire_5-Seed 40005
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_132842.json
+  Messzeilen (32): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_132842.csv
+
+RESEARCH ID T-004 | val_verlust (nats/Token, nur Antwort-Tokens), kleiner = besser
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), TOST-Grenze 20% x LoRA-Gewinn +0.2724 = +-0.0545
+  [PRIMAER] SENKT_VERLUST -- PRIMAER: die 192-Winkel-Drehung senkt den Verlust; qire_kron - basis: -0.0444 nats, 8/8 Seeds besser, p=0.0039, Holm=0.0117.
+  [P2] LORA_BESSER -- P2: LoRA r=1 senkt den Verlust staerker; die 160-fach kleinere Drehung kommt nicht gleich weit; qire_kron - lora_r1: +0.2280 nats, 0/8 Seeds besser, p=0.0078, Holm=0.0156, TOST p=1.0000 (Grenze +-0.0545).
+  [P3] VERSCHRAENKUNG_TRAEGT -- P3: 5 Lagen mit CNOT-Ring schlagen die reine Kronecker-Drehung -- der Ring traegt; qire_5 - qire_kron: -0.0735 nats, 8/8 Seeds besser, p=0.0078, Holm=0.0156, TOST p=1.0000 (Grenze +-0.0545).
+KONTROLLE  Aufloesung bestanden (lora_r1-basis -0.2724, p=0.0078)
+
+BESCHREIBEND (ohne Holm)
+  basis      8 Seeds  Mittel 2.5616  sd 0.0000  trainierbar 0  lr 0.0
+  qire_kron  8 Seeds  Mittel 2.5172  sd 0.0005  trainierbar 192  lr 0.001
+  qire_5     8 Seeds  Mittel 2.4437  sd 0.0007  trainierbar 960  lr 0.001
+  lora_r1    8 Seeds  Mittel 2.2893  sd 0.0024  trainierbar 30720  lr 0.001
+  qire_5 - basis -0.1180  p=0.0078
+
+BEWERTUNG: SENKT_VERLUST | LORA_BESSER | VERSCHRAENKUNG_TRAEGT
+================================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_132842_02.json
+  Messzeilen (32): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-004__20260929_132842_02.csv
