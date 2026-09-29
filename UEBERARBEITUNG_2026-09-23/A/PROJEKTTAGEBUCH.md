@@ -5084,6 +5084,55 @@ nachgebessert.
 - QIRE + LoRA kombiniert (Recherche 06)
 - blinde Mini-Bewertung durch Menschen
 
+## 29. September, abends — Vorregistrierung T-005 (vor dem Lauf)
+
+`quantum_sim/chatbot_kurve.py`: Parameterkurve des Chatbot-Adapters.
+Maßgeblich ist der Modulkopf, Stand dieses Commits. Vortest bestanden,
+darunter:
+- Theorie für alle L
+- Bitgleichheit mit den T-004-Zellen
+- exakter Page-Test gegen scipy
+- 23 Szenarien und 7 Mutationen
+
+**Arme (trainierbare Parameter):**
+
+| Arm | Parameter | Bemerkung |
+|---|---|---|
+| qire_L1 | 192 | = qire_kron |
+| qire_L2 | 384 | |
+| qire_L5 | 960 | = qire_5 |
+| qire_L10 | 1.920 | |
+| lora_r1 | 30.720 | |
+| kombi | 31.680 | L5 + LoRA gemeinsam |
+| basis | 0 | |
+
+Seeds 50001–50008, Tuning 50401/50402, SCHRITTE 300.
+
+**Familie, Holm über 3:**
+- K1 Trend über L: exakter Page-Test, einseitig. Dazu das Zusatzurteil
+  „streng monoton“ über Nachbarvergleiche.
+- K2 qire_L10 gegen lora_r1: TOST mit ±20 % des LoRA-Gewinns, wie P2 in
+  T-004.
+- K3 kombi gegen lora_r1, einseitig: Ergänzt QIRE LoRA?
+
+Auflösung: lora_r1 trennt sich von basis.
+
+**Zwei Kürzungen, vor jeder Zahl (Budget ≤ 9 h):**
+- L3 gestrichen, die Kurve 1-2-5-10 ist ungefähr log-gleichmäßig.
+- Für qire_L1, qire_L5 und lora_r1 werden die T-004-Lernraten übernommen
+  (alle 1e-3, innen, bei unten verlängertem Gitter). Die Zellen sind
+  bitgleich, das Budget und die Abstimmmenge sind gleich, und die neuen
+  Mess-Seeds sind disjunkt. Regel 1 ist für diese Arme durch T-004 erfüllt.
+  Neu gesucht wird für L2, L10 und kombi.
+
+**Vorher angesagt:**
+- K2 wird fast sicher LORA_BESSER und ist wenig informativ.
+- Bei einer Seed-Streuung um 0,0005 werden auch winzige Stufen signifikant.
+  Deshalb werden die Effektgrößen je Stufe mitberichtet.
+
+Laufzeit 8,2–9,0 h. Die Wiederaufnahme läuft nach jeder Zelle, ein
+Herunterfahren kostet höchstens eine Zelle.
+
 **Vorbehalt (`q_summary`, Randlage):** `wht_fest` sitzt in einer Zelle am
 oberen Gitterrand (lr 0,03). Der Arm hat 0 Mittelschicht-Parameter, die Rate
 wirkt nur auf den Kopf. Ist er dort untertuniert, wäre `wht_fest` eher noch
