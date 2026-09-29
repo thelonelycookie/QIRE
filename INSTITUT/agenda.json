@@ -221,6 +221,24 @@
    }
   },
   {
+   "id": "I-036",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.walsh_kontrolle",
+   "prioritaet": 1,
+   "frage": "Ist die gesuchte Clifford-Zelle im Kern ein klassischer Walsh-Klassifikator? Suche (0 Magiewinkel) vs. FESTE quadrierte Walsh-Hadamard-Merkmale (walsh_fest = H^8, im Suchraum) auf MNIST und Fashion, walsh_fest vs. Identitaet (MNIST), Suche vs. FESTER lokaler 2x2-Block-Walsh (block2x2, MNIST); gleicher L-BFGS-Kopf, TOST +-0,5 pp, Holm ueber W-1..W-4.",
+   "notiz": "Folge aus I-005-v3 / Recherche 29.09. Modul von Forscher-Agent, Vortest bestanden (29.09., auch nach Aufnahme von W-4; vom Direktor wiederholt), Rauchtest 29.09. (101 s). Theorie im Modulkopf: Clifford-Zelle = quadrierter Block-Walsh (Blockdim. k) von vorzeichenmaskierten Pixeln (Bruhat-Form, 70/70 alte Suchergebnisse; 0/70 Walsh-aequivalent; MNIST k 4-7, Fashion 5-8). W-4 nach dem Rauchtest aufgenommen (Direktor 29.09.): Wahl von block2x2 nur aus Rauchtest-Seeds 942-947. Vorhersage: W-1 SUCHE_BESSER, W-3 H0 (Gegenrichtung). N_SEEDS = 20. Mess-Seeds MNIST 640-659, Fashion 660-679, Struktur 680-689, Entwurf 942-947. Kopf-L2 0,003 aus I-005-v2. ~1,5-1,75 h bei 5 Prozessen.",
+   "folgen": {
+    "W-1 SUCHE_BESSER": "Die Suche ist mehr als der globale Walsh-Klassifikator; Einordnung ueber W-4 und die beschreibende Dosis-Kurve fester Block-Walsh",
+    "W-1 GLEICHWERTIG": "Die Suche ist auf MNIST ersetzbar durch feste Walsh-Merkmale: I-005-Befund als klassische Transformation einordnen (Q-019W verbinden), Hybrid-Kaskade mit walsh_fest als Stufe 0",
+    "W-1 WALSH_BESSER": "Suchdefizit oder Siegerfluch: walsh_val vs. suche_val auswerten, Suche mit walsh_fest als Start",
+    "W-2 SUCHE_BESSER": "Fashion-Rueckstand zu voll (1,31 pp) gegen feste Block-Walsh-Merkmale setzen: Magie vs. Maske/Blockstruktur",
+    "W-4 GLEICHWERTIG": "Die Clifford-Suche ist auf MNIST ein fester lokaler 2x2-Block-Walsh-Klassifikator: 0-T-Befund aus I-005-v2 klassisch einordnen; auf Fashion vorregistriert wiederholen; Hybrid-Kaskade mit block2x2 als Stufe 0",
+    "W-4 SUCHE_BESSER": "Maske/Blockwahl der Suche traegt ueber den festen Block hinaus: gesuchte Blockform mit fester Maske vs. Suche",
+    "W-4 BLOCK_BESSER": "Suchdefizit: Suche mit block2x2 als Start, Siegerfluch pruefen"
+   }
+  },
+  {
    "id": "C-hardware",
    "abteilung": "Clifford",
    "status": "erledigt",
