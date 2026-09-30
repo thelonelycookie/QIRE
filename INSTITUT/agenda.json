@@ -209,7 +209,7 @@
   {
    "id": "I-005-v3",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.clifford_suche_v3",
    "prioritaet": 1,
    "frage": "Wie viele Nicht-Clifford-Winkel AUF der gesuchten Clifford-Schaltung schliessen die Fashion-Luecke zu voll (I-005-v2 V-2: 1,31 pp)? Suche + k in {1,2,4,8} nachtrainierte Winkel (Auswahl nach Verlustanstieg vs. zufaellig), G_S(k), M50_S/M90_S. Holm ueber M-1..M-3.",
@@ -223,7 +223,7 @@
   {
    "id": "I-036",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "läuft (Container)",
    "modul": "abteilungen.walsh_kontrolle",
    "prioritaet": 1,
    "frage": "Ist die gesuchte Clifford-Zelle im Kern ein klassischer Walsh-Klassifikator? Suche (0 Magiewinkel) vs. FESTE quadrierte Walsh-Hadamard-Merkmale (walsh_fest = H^8, im Suchraum) auf MNIST und Fashion, walsh_fest vs. Identitaet (MNIST), Suche vs. FESTER lokaler 2x2-Block-Walsh (block2x2, MNIST); gleicher L-BFGS-Kopf, TOST +-0,5 pp, Holm ueber W-1..W-4.",
