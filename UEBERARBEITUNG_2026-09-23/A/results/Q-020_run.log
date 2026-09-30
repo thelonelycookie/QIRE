@@ -1,0 +1,234 @@
+================================================================================================
+THEORIEPRUEFUNG Q-020
+==============================================================================
+VERIFIKATION -- berechnet die Butterfly-Schicht dieselbe Funktion
+wie der Zustandsvektor-Simulator `QuantumLayer`?
+==============================================================================
+  n=8 L=1 entangle= True  max|Differenz| = 2.38e-07  OK 
+  n=8 L=1 entangle=False  max|Differenz| = 2.98e-07  OK 
+  n=8 L=5 entangle= True  max|Differenz| = 1.79e-07  OK 
+  n=8 L=5 entangle=False  max|Differenz| = 2.38e-07  OK 
+
+  groesste Abweichung insgesamt: 2.98e-07
+  ALLE PRUEFUNGEN BESTANDEN -- identische Funktion.
+  1 Lage ohne CNOT == Kronecker                        max|Diff| 2.68e-07  OK
+  1 Lage ohne CNOT: Rz-Winkel wirkungslos              max|Diff| 3.28e-07  OK
+  1 Lage mit CNOT == Kronecker + vertauschte Auslese   max|Diff| 2.38e-07  OK
+  1 Lage mit CNOT: Rz-Winkel wirkungslos               max|Diff| 2.98e-07  OK
+  Gegenprobe: 5 Lagen mit CNOT, Rz WIRKT               max|Diff| 3.27e-01  OK
+  BESTANDEN
+================================================================================================
+TEST GITTERVERLAENGERUNG -- Regel 1(b), beide Richtungen
+  Optimum im Startgitter       -> lr 0.01       Rand innen  OK
+  eine Verlaengerung oben      -> lr 0.3        Rand innen  OK
+  eine Verlaengerung unten     -> lr 0.001      Rand innen  OK
+  ausserhalb oben              -> lr 2.7        Rand oben   OK
+  ausserhalb unten             -> lr 0.0001111  Rand unten  OK
+  BESTANDEN
+================================================================================================
+VORTEST Q-020 -- jeder Ausgang einzeln, ueber mehrere Rauschziehungen, Zweigtext geprueft
+  OK     P-G   q1 = mlp, kleines Rauschen                                   5/5  {'GLEICHWERTIG': 5}
+  OK     P-Gs  +0,002 bei winzigem Rauschen: signifikant UND gleichwertig   5/5  {'GLEICHWERTIG': 5}
+  OK     P-S   Schaltung +0,03                                              5/5  {'SCHALTUNG_BESSER': 5}
+  OK     P-M   MLP +0,03                                                    5/5  {'MLP_BESSER': 5}
+  OK     P-U   Nulleffekt, grosses Rauschen                                 39/40  {'UNENTSCHIEDEN': 39, 'MLP_BESSER': 1}
+  OK     P-A   Aufloesung faellt (mlp = linear)                             38/40  {'HU_AUFLOESUNG': 38, 'SCHALTUNG_BESSER': 2}
+  OK     P-Ar  linear BESSER als mlp: Trennung zaehlt, nicht Richtung       5/5  {'SCHALTUNG_BESSER': 5}
+  OK     P-B   Boden unterschritten                                         5/5  {'HU_BODEN': 5}
+  OK     P-D   beide an der Decke                                           5/5  {'HU_DECKE': 5}
+  OK     V-T   Verschraenkung +0,2                                          5/5  {'VERSCHRAENKUNG_TRAEGT': 5}
+  OK     V-G   Verschraenkung gleichwertig                                  5/5  {'GLEICHWERTIG': 5}
+  OK     V-S   ohne CNOT besser                                             5/5  {'VERSCHRAENKUNG_SCHADET': 5}
+  OK     V-U   Nulleffekt, grosses Rauschen                                 40/40  {'UNENTSCHIEDEN': 40}
+  OK     V-A   Aufloesung (b) faellt                                        39/40  {'HU_AUFLOESUNG': 39, 'VERSCHRAENKUNG_TRAEGT': 1}
+  OK     V-D   Decke in (b)                                                 5/5  {'HU_DECKE': 5}
+  OK     T-T   Tiefe +0,2                                                   5/5  {'TIEFE_TRAEGT': 5}
+  OK     T-G   Tiefe gleichwertig                                           5/5  {'GLEICHWERTIG': 5}
+  OK     T-S   1 Lage besser                                                5/5  {'TIEFE_SCHADET': 5}
+  OK     T-U   Nulleffekt, grosses Rauschen                                 38/40  {'UNENTSCHIEDEN': 38, 'TIEFE_SCHADET': 1, 'TIEFE_TRAEGT': 1}
+  OK     X-U   (b) fehlt ganz -> P2 unvollstaendig                          5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     X-P   (b) fehlt -> PRIMAER trotzdem gerechnet                      5/5  {'SCHALTUNG_BESSER': 5}
+  OK     K-V   kron weicht ab -> Aequivalenzkontrolle VERLETZT              {'VERLETZT': 5}
+  OK     K-B   kron = q1_ohne, kleines Rauschen -> bestanden                {'bestanden': 5}
+  Holm-Familiengroesse: 3
+================================================================================================
+VORTEST BESTANDEN
+
+  mnist -- Lernratensuche (volles Budget, 3 Tuning-Seed(s))
+    mnist         / q1              -> lr 0.3   0.003:0.8810  0.01:0.9018  0.03:0.9230  0.1:0.9346  0.3:0.9367  0.9:0.9187
+    mnist         / q1_ohne         -> lr 0.3   0.003:0.8797  0.01:0.9039  0.03:0.9240  0.1:0.9374  0.3:0.9396  0.9:0.9290
+    mnist         / q5              -> lr 0.1   0.003:0.8791  0.01:0.9056  0.03:0.9289  0.1:0.9375  0.3:0.9345
+    mnist         / q5_ohne         -> lr 0.3   0.003:0.8789  0.01:0.9019  0.03:0.9243  0.1:0.9366  0.3:0.9375  0.9:0.9148
+    mnist         / kron            -> lr 0.3   0.003:0.8797  0.01:0.9027  0.03:0.9237  0.1:0.9361  0.3:0.9375  0.9:0.9267
+    mnist         / quad_free       -> lr 0.03   0.003:0.8841  0.01:0.9166  0.03:0.9199  0.1:0.9129
+    mnist         / mlp             -> lr 0.003   0.001:0.9118  0.003:0.9287  0.01:0.9136  0.03:0.8828  0.1:0.4822
+    mnist         / linear          -> lr 0.003   0.001:0.8799  0.003:0.8812  0.01:0.8638  0.03:0.8389  0.1:0.7432
+    mnist         / ohne_engstelle  -> lr 0.01   0.003:0.9246  0.01:0.9379  0.03:0.9115  0.1:0.8794
+    mnist         / norm_deep       -> lr 0.01   0.003:0.8261  0.01:0.8451  0.03:0.7837  0.1:0.4664
+    mnist seed 20201 fertig (1/15)
+    mnist seed 20202 fertig (2/15)
+    mnist seed 20203 fertig (3/15)
+    mnist seed 20204 fertig (4/15)
+    mnist seed 20205 fertig (5/15)
+    mnist seed 20206 fertig (6/15)
+    mnist seed 20207 fertig (7/15)
+    mnist seed 20208 fertig (8/15)
+    mnist seed 20209 fertig (9/15)
+    mnist seed 20210 fertig (10/15)
+    mnist seed 20211 fertig (11/15)
+    mnist seed 20212 fertig (12/15)
+    mnist seed 20213 fertig (13/15)
+    mnist seed 20214 fertig (14/15)
+    mnist seed 20215 fertig (15/15)
+    Zwischenstand gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_092518.json
+  Messzeilen (150): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_092518.csv
+
+  haufen128 -- Lernratensuche (volles Budget, 3 Tuning-Seed(s))
+    haufen128     / q1              -> lr 0.3   0.01:0.3755  0.03:0.3818  0.1:0.3758  0.3:0.3871  0.9:0.3111
+    haufen128     / q1_ohne         -> lr 0.03   0.01:0.3220  0.03:0.3264  0.1:0.3212  0.3:0.3223
+    haufen128     / q5              -> lr 0.03   0.01:0.6456  0.03:0.6915  0.1:0.6458  0.3:0.3515
+    haufen128     / q5_ohne         -> lr 0.03   0.01:0.3218  0.03:0.3256  0.1:0.3112  0.3:0.2860
+    haufen128     / kron            -> lr 0.03   0.01:0.3180  0.03:0.3260  0.1:0.3207  0.3:0.3224
+    haufen128     / quad_free       -> lr 0.01   0.00333333:1.0000  0.01:1.0000  0.03:1.0000  0.1:0.9990  0.3:0.9974
+    haufen128     / mlp             -> lr 0.00333333   0.00111111:1.0000  0.00333333:1.0000  0.01:0.9978  0.03:0.9968  0.1:0.9920  0.3:0.9962
+    haufen128     / linear          -> lr 0.00111111   0.00037037:0.9006  0.00111111:0.9134  0.00333333:0.9036  0.01:0.8917  0.03:0.8562  0.1:0.7793  0.3:0.7785
+    haufen128     / ohne_engstelle  -> lr 0.3   0.01:0.9953  0.03:0.9976  0.1:0.9972  0.3:0.9988  0.9:0.9942
+    haufen128 seed 20201 fertig (1/15)
+    haufen128 seed 20202 fertig (2/15)
+    haufen128 seed 20203 fertig (3/15)
+    haufen128 seed 20204 fertig (4/15)
+    haufen128 seed 20205 fertig (5/15)
+    haufen128 seed 20206 fertig (6/15)
+    haufen128 seed 20207 fertig (7/15)
+    haufen128 seed 20208 fertig (8/15)
+    haufen128 seed 20209 fertig (9/15)
+    haufen128 seed 20210 fertig (10/15)
+    haufen128 seed 20211 fertig (11/15)
+    haufen128 seed 20212 fertig (12/15)
+    haufen128 seed 20213 fertig (13/15)
+    haufen128 seed 20214 fertig (14/15)
+    haufen128 seed 20215 fertig (15/15)
+    Zwischenstand gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_104305.json
+  Messzeilen (285): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_104305.csv
+
+  fashion_mnist -- Lernratensuche (volles Budget, 3 Tuning-Seed(s))
+    fashion_mnist / q1              -> lr 0.03   0.003:0.7947  0.01:0.8188  0.03:0.8239  0.1:0.8114
+    fashion_mnist / q1_ohne         -> lr 0.03   0.003:0.7961  0.01:0.8209  0.03:0.8220  0.1:0.8160
+    fashion_mnist / q5              -> lr 0.01   0.003:0.8000  0.01:0.8236  0.03:0.8217  0.1:0.8202
+    fashion_mnist / q5_ohne         -> lr 0.03   0.003:0.8050  0.01:0.8209  0.03:0.8211  0.1:0.8202
+    fashion_mnist / kron            -> lr 0.03   0.003:0.8002  0.01:0.8201  0.03:0.8230  0.1:0.8193
+    fashion_mnist / quad_free       -> lr 0.01   0.003:0.7943  0.01:0.8178  0.03:0.8131  0.1:0.8111
+    fashion_mnist / mlp             -> lr 0.003   0.001:0.7969  0.003:0.8206  0.01:0.8059  0.03:0.7662  0.1:0.4835
+    fashion_mnist / linear          -> lr 0.01   0.003:0.7889  0.01:0.7952  0.03:0.7520  0.1:0.6575
+    fashion_mnist / ohne_engstelle  -> lr 0.003   0.001:0.8116  0.003:0.8210  0.01:0.8189  0.03:0.8044  0.1:0.6798
+    fashion_mnist / norm_deep       -> lr 0.001   0.000333333:0.6990  0.001:0.7438  0.003:0.7414  0.01:0.7380  0.03:0.6146  0.1:0.4289
+    fashion_mnist seed 20201 fertig (1/15)
+    fashion_mnist seed 20202 fertig (2/15)
+    fashion_mnist seed 20203 fertig (3/15)
+    fashion_mnist seed 20204 fertig (4/15)
+    fashion_mnist seed 20205 fertig (5/15)
+    fashion_mnist seed 20206 fertig (6/15)
+    fashion_mnist seed 20207 fertig (7/15)
+    fashion_mnist seed 20208 fertig (8/15)
+    fashion_mnist seed 20209 fertig (9/15)
+    fashion_mnist seed 20210 fertig (10/15)
+    fashion_mnist seed 20211 fertig (11/15)
+    fashion_mnist seed 20212 fertig (12/15)
+    fashion_mnist seed 20213 fertig (13/15)
+    fashion_mnist seed 20214 fertig (14/15)
+    fashion_mnist seed 20215 fertig (15/15)
+    Zwischenstand gesichert:
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_111219.json
+  Messzeilen (435): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_111219.csv
+
+RESEARCH ID Q-020
+
+--- mnist -------------------------------------------------------
+  Arm              balanced      sd  Mitte-Param.      lr   n
+  q1                 0.9347  0.0037            16     0.3  15
+  q1_ohne            0.9349  0.0036            16     0.3  15
+  q5                 0.9355  0.0027            80     0.1  15
+  q5_ohne            0.9356  0.0037            80     0.3  15
+  kron               0.9350  0.0036             8     0.3  15
+  quad_free          0.9239  0.0049         2,048    0.03  15
+  mlp                0.9234  0.0039        67,848   0.003  15
+  linear             0.8819  0.0047         2,056   0.003  15
+  ohne_engstelle     0.9391  0.0027             0    0.01  15
+  norm_deep          0.8431  0.0109        67,848    0.01  15
+
+--- haufen128 ---------------------------------------------------
+  Arm              balanced      sd  Mitte-Param.      lr   n
+  q1                 0.3548  0.0385            16     0.3  15
+  q1_ohne            0.3449  0.0332            16    0.03  15
+  q5                 0.6867  0.0204            80    0.03  15
+  q5_ohne            0.3453  0.0282            80    0.03  15
+  kron               0.3452  0.0322             8    0.03  15
+  quad_free          1.0000  0.0000         2,048    0.01  15
+  mlp                1.0000  0.0000        67,8480.00333333  15
+  linear             0.9040  0.0233         2,0560.00111111  15
+  ohne_engstelle     0.9959  0.0033        65,792     0.3  15
+
+--- fashion_mnist -----------------------------------------------
+  Arm              balanced      sd  Mitte-Param.      lr   n
+  q1                 0.8222  0.0065            16    0.03  15
+  q1_ohne            0.8228  0.0065            16    0.03  15
+  q5                 0.8153  0.0067            80    0.01  15
+  q5_ohne            0.8214  0.0072            80    0.03  15
+  kron               0.8217  0.0087             8    0.03  15
+  quad_free          0.8179  0.0071         2,048    0.01  15
+  mlp                0.8175  0.0100        67,848   0.003  15
+  linear             0.7798  0.0098         2,056    0.01  15
+  ohne_engstelle     0.8161  0.0089             0   0.003  15
+  norm_deep          0.7522  0.0126        67,848   0.001  15
+
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), Grenze +-0.005
+  [PRIMAER] SCHALTUNG_BESSER -- PRIMAER: die Schaltung mit 16 Winkeln (8 wirksam) schlaegt das ReLU-MLP mit 67.848 Parametern bei gleicher 8-Kanal-Engstelle; q1 0.9347 gegen mlp 0.9234, +0.0113, 15/15 Seeds, p=0.0001, Holm=0.0002.
+  [P2] VERSCHRAENKUNG_TRAEGT -- P2: ohne Encoder traegt der CNOT-Ring bei; der Nullbefund aus Q-003 war ein Encoder-Artefakt; q5 0.6867 gegen q5_ohne 0.3453, +0.3414, 15/15 Seeds, p=0.0001, Holm=0.0002.
+  [P3] TIEFE_TRAEGT -- P3: ohne Encoder tragen 5 Lagen (mit CNOT) gegenueber 1 Lage bei; der Nullbefund aus Q-003 war ein Encoder-Artefakt; q5 0.6867 gegen q1 0.3548, +0.3319, 15/15 Seeds, p=0.0001, Holm=0.0002.
+  Wiederholung fashion_mnist (beschreibend, ohne Holm): q1 gegen mlp +0.0047, p=0.0287, TOST p=0.4352 -> Unterschied (a besser)
+
+KONTROLLEN
+  mnist: Boden bestanden (bester 0.9391, Schwelle 0.200) | Aufloesung bestanden (mlp-linear +0.0416, p=0.0001) | Aequivalenzkontrolle kron~q1_ohne: bestanden (+0.0001, TOST p=0.0000)
+  haufen128: Boden bestanden (bester 1.0000, Schwelle 0.267) | Aufloesung bestanden (mlp-linear +0.0960, p=0.0001) | Aequivalenzkontrolle kron~q1_ohne: bestanden (+0.0003, TOST p=0.0000)
+
+BESCHREIBEND (ohne Holm, kein Urteil haengt daran)
+  mnist                     q1 - quad_free      +0.0109  p=0.0001  TOST p=0.9996  Unterschied (a besser)       16 Winkel gegen 2.048 (Q-003-Vergleich)
+  mnist                     q1 - linear         +0.0529  p=0.0001  TOST p=1.0000  Unterschied (a besser)       Schaltung gegen lineare Untergrenze
+  mnist                     q5 - q1             +0.0007  p=0.5245  TOST p=0.0000  gleichwertig (+-0.005)       Tiefe MIT Encoder (alte Q-003-Kontrolle)
+  mnist                     q5 - q5_ohne        -0.0001  p=0.8469  TOST p=0.0000  gleichwertig (+-0.005)       Verschraenkung MIT Encoder (alter Q-003-Nullbefund)
+  mnist                q5_ohne - q1_ohne        +0.0006  p=0.5245  TOST p=0.0001  gleichwertig (+-0.005)       Tiefe ohne CNOT -- Theorie: gleichwertig
+  mnist                     q1 - q1_ohne        -0.0002  p=0.8040  TOST p=0.0000  gleichwertig (+-0.005)       CNOT in 1 Lage = nur Auslese-Vertauschung
+  mnist                   kron - q1_ohne        +0.0001  p=0.8904  TOST p=0.0000  gleichwertig (+-0.005)       AEQUIVALENZ-POSITIVKONTROLLE
+  mnist                    mlp - linear         +0.0416  p=0.0001  TOST p=1.0000  Unterschied (a besser)       AUFLOESUNGSPRUEFUNG
+  mnist                    mlp - norm_deep      +0.0803  p=0.0001  TOST p=1.0000  Unterschied (a besser)       ReLU-MLP gegen die Q-003-Kontrolle (Strohmann?)
+  mnist         ohne_engstelle - mlp            +0.0156  p=0.0001  TOST p=1.0000  Unterschied (a besser)       was die 8-Kanal-Engstelle kostet
+  haufen128            q5_ohne - q1_ohne        +0.0004  p=0.5614  TOST p=0.0237  gleichwertig (+-0.005)       Tiefe ohne CNOT -- Theorie: gleichwertig
+  haufen128                 q1 - q1_ohne        +0.0100  p=0.5995  TOST p=0.6348  unentschieden (+-0.0348)     CNOT in 1 Lage = nur Auslese-Vertauschung
+  haufen128                 q5 - quad_free      -0.3133  p=0.0001  TOST p=1.0000  Unterschied (b besser)       Schaltung 80 gegen 2.048
+  haufen128                 q5 - mlp            -0.3133  p=0.0001  TOST p=1.0000  Unterschied (b besser)       Schaltung 80 gegen ReLU-MLP
+  haufen128                 q1 - mlp            -0.6452  p=0.0001  TOST p=1.0000  Unterschied (b besser)       Schaltung 16 gegen ReLU-MLP
+  haufen128               kron - q1_ohne        +0.0003  p=0.8469  TOST p=0.0000  gleichwertig (+-0.005)       AEQUIVALENZ-POSITIVKONTROLLE
+  haufen128                mlp - linear         +0.0960  p=0.0001  TOST p=1.0000  Unterschied (a besser)       AUFLOESUNGSPRUEFUNG
+  haufen128     ohne_engstelle - mlp            -0.0041  p=0.0001  TOST p=0.1580  Unterschied (b besser)       was die 8-Kanal-Engstelle kostet
+  fashion_mnist             q1 - quad_free      +0.0042  p=0.0215  TOST p=0.3331  Unterschied (a besser)       16 Winkel gegen 2.048 (Q-003-Vergleich)
+  fashion_mnist             q1 - linear         +0.0423  p=0.0001  TOST p=1.0000  Unterschied (a besser)       Schaltung gegen lineare Untergrenze
+  fashion_mnist             q5 - q1             -0.0068  p=0.0020  TOST p=0.8318  Unterschied (b besser)       Tiefe MIT Encoder (alte Q-003-Kontrolle)
+  fashion_mnist             q5 - q5_ohne        -0.0060  p=0.0125  TOST p=0.6728  Unterschied (b besser)       Verschraenkung MIT Encoder (alter Q-003-Nullbefund)
+  fashion_mnist        q5_ohne - q1_ohne        -0.0015  p=0.4264  TOST p=0.0218  gleichwertig (+-0.005)       Tiefe ohne CNOT -- Theorie: gleichwertig
+  fashion_mnist             q1 - q1_ohne        -0.0007  p=0.7197  TOST p=0.0057  gleichwertig (+-0.005)       CNOT in 1 Lage = nur Auslese-Vertauschung
+  fashion_mnist           kron - q1_ohne        -0.0011  p=0.4212  TOST p=0.0295  gleichwertig (+-0.005)       AEQUIVALENZ-POSITIVKONTROLLE
+  fashion_mnist            mlp - linear         +0.0377  p=0.0001  TOST p=1.0000  Unterschied (a besser)       AUFLOESUNGSPRUEFUNG
+  fashion_mnist            mlp - norm_deep      +0.0653  p=0.0001  TOST p=1.0000  Unterschied (a besser)       ReLU-MLP gegen die Q-003-Kontrolle (Strohmann?)
+  fashion_mnist ohne_engstelle - mlp            -0.0014  p=0.8904  TOST p=0.1371  unentschieden (+-0.0070)     was die 8-Kanal-Engstelle kostet
+
+BEWERTUNG: SCHALTUNG_BESSER | VERSCHRAENKUNG_TRAEGT | TIEFE_TRAEGT
+================================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_111219_02.json
+  Messzeilen (435): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-020__20260928_111219_02.csv

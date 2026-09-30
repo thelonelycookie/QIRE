@@ -66,9 +66,16 @@ QUESTIONS: Dict[str, str] = {
     "Q-018": "Traegt das Training der Winkel etwas bei, ohne Encoder der aushilft?",
     "Q-019": ("Traegt die Butterfly-Struktur auf periodischen Signalen einen "
               "inhaltlichen Vorteil (Wechselwirkung periodisch x permutiert)?"),
+    "Q-019W": ("Walsh statt Fourier: schlaegt die geteilte Butterfly (40) bei wenig "
+               "Daten (N = 200) die dichte Schicht, und kommt das aus der Bitstruktur?"),
+    "Q-020": ("Kernaussage fair neu: schlagen 16 Winkel ein ReLU-MLP gleicher "
+              "Engstelle, und tragen Verschraenkung und Tiefe ohne Encoder bei?"),
     "T-000": "Kalibrierung: welche Modellbreite ist auf dieser Hardware trainierbar?",
     "T-001": "Verschiebt der Umbau R1/R5/R6 den Uebergangspunkt?",
-    "T-002": "Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
+    "T-004": ("Chatbot: senkt eine 192-Winkel-QIRE-Drehung als Adapter auf "
+              "LLaeMmlein-120M den Verlust, wie weit kommt sie an LoRA heran, und "
+              "traegt der CNOT-Ring?"),
+    "T-002":"Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
 }
 # T-001 steht hier, obwohl es kein Q-Lauf ist: Der Zweck dieses Werkzeugs ist,
 # dass kein fertiger Lauf im Bericht verschwindet, und T-001 hat alles, was der
@@ -162,6 +169,23 @@ def _resolution(analysis: Dict) -> Tuple[Optional[bool], str]:
         block = analysis.get(key)
         if isinstance(block, dict) and "passed" in block:
             return bool(block["passed"]), str(block.get("text", ""))
+    # Q-020 (kernaussage.py): je Abschnitt `kontrollen[<abschnitt>]["aufloesung"]`.
+    # Bestanden nur, wenn ALLE gespeicherten Abschnitte bestanden haben.
+    kontrollen = analysis.get("kontrollen")
+    # Q-019W (walsh.py): `kontrollen["aufloesung"]` direkt, ein Abschnitt.
+    if isinstance(kontrollen, dict) and isinstance(kontrollen.get("aufloesung"), dict):
+        t = kontrollen["aufloesung"]
+        return bool(t.get("bestanden")), (f"dense-narrow {float(t.get('delta', 0)):+.4f}, "
+                                          f"p={float(t.get('p', 1)):.4f}")
+    if isinstance(kontrollen, dict):
+        teile = {ab: k["aufloesung"] for ab, k in kontrollen.items()
+                 if isinstance(k, dict) and isinstance(k.get("aufloesung"), dict)}
+        if teile:
+            ok = all(bool(t.get("bestanden")) for t in teile.values())
+            text = "; ".join(f"{ab}: {t.get('a')}-{t.get('b')} "
+                             f"{float(t.get('delta', 0)):+.4f}, p={float(t.get('p', 1)):.4f}"
+                             for ab, t in teile.items())
+            return ok, text
     return None, ""
 
 
@@ -185,7 +209,17 @@ def randlagen(payload: Dict) -> List[Dict[str, object]]:
     gitter = cfg.get("lr_grid") or cfg.get("lr_gitter")
     if not gitter:
         return []
-    lo, hi = min(gitter), max(gitter)
+    # T-004 speichert je Arm ein eigenes Gitter ({arm: [..]}); sonst eine Liste.
+    if isinstance(gitter, dict):
+        je_arm = {a: (min(map(float, g)), max(map(float, g)))
+                  for a, g in gitter.items() if g}
+        if not je_arm:
+            return []
+        lo = min(v[0] for v in je_arm.values())
+        hi = max(v[1] for v in je_arm.values())
+    else:
+        je_arm = {}
+        lo, hi = min(gitter), max(gitter)
     records = payload.get("records") or []
     out: List[Dict[str, object]] = []
     karten = {k: v for k, v in cfg.items()
@@ -205,6 +239,8 @@ def randlagen(payload: Dict) -> List[Dict[str, object]]:
         vermerke = cfg.get(f"lr_rand_{bed}") or {}
         for arm, lr in lr_map.items():
             lr = float(lr)
+            if arm in je_arm:
+                lo, hi = je_arm[arm]
             if arm in vermerke:
                 lage = str(vermerke[arm])
             elif lr <= lo * (1 + 1e-9):

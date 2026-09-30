@@ -817,3 +817,196 @@ in einer Nacht (C-referenz, I-003-Struktur, jetzt I-035) — immer dieselbe
 Ursache: Ratensuche ohne Stabilitätsabstand aus Zeitgründen. Ab sofort
 gehört eine automatische Ausreißer-Erkennung vor die Urteilsbildung, nicht
 nur als deskriptiver Zähler danach.
+
+## 25.09.2026, 17:22 (nachgetragen 28.09.) — I-004-mnist: **ein Training genügt** ✔
+
+MNIST, n = 500 und n = 10.000. Rohdaten `ergebnisse/I-004-mnist__20260925_172251.json`.
+Der Lauf wurde um 23:00 ein zweites Mal gestartet und lieferte **identische**
+Urteile und Zahlen (`…_230020.json`). Das ist keine zweite Stichprobe, zeigt
+aber, dass die Pipeline deterministisch reproduziert. Nachgetragen am 28.09.,
+weil der Lauf nie ausgewertet und committet worden war.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| R-0 (Nachtraining schlägt Identität, n = 10.000) | H1 | +3,98 pp, p = 0,002 |
+| R-P (Gradient erreicht im bekannten Gerüst die Nachtrain-Lösung) | H1 | fest2 − nach2 = −0,12 G, KI −0,19 … −0,06 |
+| **R-1 (zufälliges Clifford-Gerüst + 4 Magiewinkel, EIN Training)** | **H1** | **G = 0,69**, Holm-p = 0,0059 |
+| R-2 (nachträgliches Runden schlägt das Gerüst um ≥ 0,15 G) | H0 | −0,11 G, KI oben +0,02 |
+| R-3 (Gerüst regularisiert bei wenig Daten) | H0, Gegenrichtung | −0,22 G, p = 0,003 |
+
+- **R-1 + R-2 zusammen sind praktisch wichtig.** Man braucht weder ein volles
+  Training noch ein nachträgliches Runden. Ein **zufälliges** Clifford-Gerüst,
+  in dem von Anfang an nur 4 Winkel magisch und trainierbar sind, holt mit
+  **einem** Training 69 % des Nutzens. Das nachträgliche Runden (zwei
+  Trainings) ist nachweislich nicht um 0,15 G besser. Für Hardware heißt das:
+  Die Schaltung braucht höchstens 4 Nicht-Clifford-Winkel, und das steht
+  schon *vor* dem Training fest.
+- **R-3 repliziert I-024 in der Gegenrichtung:** Auch im Gerüst trägt die Magie
+  bei wenig Daten **weniger** bei (G sinkt von n = 10.000 auf 500). Die Idee
+  „Clifford-Gerüst als Regularisierer für Datenknappheit“ ist damit zweimal
+  widerlegt.
+- Beschreibend: Bei n = 10.000 liegt das volle Training 1,24 pp über gz4
+  (p = 0,002). Der Rest des Nutzens sitzt also in mehr als 4 Winkeln. Der
+  I-001-Vorblick zeigt eine hohe Übereinstimmung der Rangfolgen „nach
+  Verlust“ und „nach Abstand“ (Spearman +0,97/+0,98).
+- Offen, und der natürliche nächste Schritt: R-1 auf **Fashion** (I-034-fashion
+  hat gezeigt, dass MNIST-Befunde dort nicht automatisch halten).
+
+## 28.09.2026, 12:09 — I-005: **Diskrete Suche findet reine Clifford-Schaltungen auf dem Niveau des vollen Trainings** ✔✔
+
+MNIST 16×16, 10 Mess-Seeds (190–199), Strukturaufgabe mit Seeds 200–209.
+Simulated Annealing über 2^(nL) Clifford-Wahlen, 6.000 Schritte. Auswahl nur
+nach Ridge-LOO auf Nicht-Testdaten, ein gemeinsamer L-BFGS-Kopf für alle Arme.
+Rohdaten `ergebnisse/I-005__20260928_120905.json`, 49 min. Vorregistriert und
+committet vor dem Lauf.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| Q-0 Positivkontrolle (Lehrer-Lösung finden) | **H1** | G_L = 0,96, Lehrer-äquivalent in 8/10 Seeds (Zufallssuche gleichen Aufwands: 2/10) |
+| Q-1 Suche gegen Median von 100 Zufalls-Cliffords | **H1** | +2,56 pp, KI [+2,25; +2,87], 10/10, Holm-p = 0,006 |
+| Q-2 Suche gegen k0 (gerundetes Gradientenmodell) | **H1** | +3,38 pp, KI [+2,56; +4,19], 10/10, Holm-p = 0,006 |
+| Q-4 Suche gegen Zufallssuche gleicher Bewertungszahl | **H1** | +1,09 pp, KI [+0,63; +1,55], 9/10, Holm-p = 0,006 |
+
+**Beschreibend (Q-3), Test:**
+
+| Arm | Genauigkeit |
+|---|---|
+| Suche (**0 Magiewinkel**) | **0,9352** |
+| voll trainiert (alle Winkel frei) | 0,9344 |
+| beste von 100 Zufalls-Cliffords | 0,9230 |
+| k0 (gerundet) | 0,9014 |
+| Identität | 0,8969 |
+
+- G_voll der Suche ist **1,02**, der von k0 nur 0,12.
+- Siegerfluch: Kriterium minus Test liegt bei +0,46 pp. Die Auswahl
+  überschätzt sich leicht.
+- Aufwand: 5.242 Bewertungen, also 544 s Suche gegen 133 s Gradiententraining
+  je Seed.
+
+**Was das heißt:**
+1. **Die Positivkontrolle, an der I-003 gescheitert ist, feuert jetzt.** Das
+   Lernverfahren war das Problem, nicht die Aufgabe. Eine diskrete Suche findet
+   die Clifford-Lösung, der Gradient nicht.
+2. **Das stellt die Magie-Linie auf den Kopf:** Auf MNIST braucht die Zelle
+   **gar keine Magie**, wenn man sie nicht per Gradient, sondern diskret
+   trainiert. Suche und volles Training liegen gleich auf (0,9352 gegen
+   0,9344). Das ist nur beschreibend, ohne TOST, und gehört als nächste
+   vorregistrierte Frage auf die Agenda. Die „Magie-Konzentration“ aus
+   C-mnist/C-referenz misst also vermutlich vor allem, **wie viel Magie der
+   Gradient braucht**, nicht wie viel die Aufgabe braucht.
+3. **Ehrlich dazu gehört:** Reine Clifford-Schaltungen sind nach
+   Gottesman-Knill klassisch effizient simulierbar. Eine gute Clifford-Zelle
+   ist damit ein Befund über **Hardware-Kosten** (0 T-Gatter, kein
+   Magic-State-Distilling), nicht über einen Quantenvorteil. Für
+   Q3-Hardware ist sie ideal, für „Quantenvorteil“ ist sie das Gegenteil.
+4. Kaskade: Die Suche ist bei 61,6 % der Bilder sehr sicher (Konfidenz > 0,9),
+   k0 nur bei 48,2 %. Eine Clifford-Stufe 0 aus der Suche würde die
+   Hybrid-Kaskade (I-015-hybrid) noch billiger machen.
+
+**Folgefragen (Stand 12:09, beantwortet in I-005-v2, siehe unten):** Repliziert das auf Fashion (I-005-fashion)? Suche gegen voll
+per TOST, vorregistriert. Braucht Fashion (G(4) ≈ 1,0 aus C-fashion) dann
+ebenfalls keine Magie? Und: Suche plus k Magiewinkel, also ein diskretes
+Gerüst mit Politur, statt eines zufälligen Gerüsts wie in I-004.
+
+## 28.09.2026, 20:34 — I-005-v2: **MNIST braucht keine Magie, Fashion schon** ✔
+
+MNIST und Fashion-MNIST 16×16, **je 20 Seeds** (300–309 + 330–339 bzw.
+310–319 + 340–349). Strukturaufgabe 360–369. Die Lernrate von `voll` wurde je
+Datensatz mit Stabilitätsabstand gesucht (Ergebnis 0,08 bzw. 0,16), die
+Kopf-L2 je Datensatz auf eigenen Tuning-Seeds (beide 0,003).
+Rohdaten `ergebnisse/I-005-v2__20260928_203403.json`, etwa 3,3 h. Vortest und
+Rauchtest bestanden, committet vor dem Lauf.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| Q-0 Positivkontrolle | H1 | G_L = 0,94, Lehrer-äquivalent 6/10 (Zufallssuche 1/10) |
+| **V-1 MNIST: Suche gegen voll** | **GLEICHWERTIG** | d = −0,14 pp, KI [−0,39; +0,11], Holm-p_TOST = 0,032, Sensitivität voll − id +3,91 pp |
+| **V-2 Fashion: Suche gegen voll** | **VOLL_BESSER** | d = **−1,31 pp**, KI [−1,40; −1,21], 0/20 Seeds positiv, Holm-p < 10⁻⁴ |
+| V-3 Fashion: Suche gegen Median Zufall | H1 | +0,73 pp, 20/20 |
+
+**Beschreibend:**
+
+| | Suche | voll | k0 | Median Zufall | Identität | G_voll(Suche) |
+|---|---|---|---|---|---|---|
+| MNIST | 0,9391 | 0,9405 | 0,9094 | 0,9135 | 0,9013 | 0,96 |
+| Fashion | 0,8238 | 0,8368 | 0,8161 | 0,8165 | 0,7995 | 0,65 |
+
+**Was das heißt:**
+1. **Auf MNIST ist „keine Magie nötig“ jetzt vorregistriert belegt**, gegen
+   einen fair getunten Gegenarm: 0 T-Gatter bei gleicher Genauigkeit
+   (±0,5 pp). Das erste GLEICHWERTIG der Magie-Linie.
+2. **Auf Fashion trägt die Magie wirklich etwas bei:** Die beste Clifford-
+   Schaltung holt nur 65 % des Schaltungsgewinns. Das passt zu C-fashion
+   (dort brauchte es mehr Magiewinkel). Der Magiebedarf ist also eine
+   **Eigenschaft der Aufgabe**, nicht nur des Gradienten. Das korrigiert die
+   Deutung von I-005 (12:09): Dort war die Vermutung „misst nur den Gradienten“
+   aus MNIST allein zu weit gegriffen.
+3. **Zwei `voll`-Seeds sind auf Fashion kollabiert** (314, 315, eigener Kopf
+   mehr als 5 pp unter dem Median). Der Kollaps macht `voll` schlechter,
+   VOLL_BESSER ist also konservativ. Das Urteil hält auch ohne die beiden
+   Seeds (0/20 positiv). Der Zweig VOLL_BESSER prüft den Kollaps nicht; das ist
+   hier unschädlich, gehört aber in den nächsten Modulbau.
+4. Ehrlich dazu: Clifford-Schaltungen sind klassisch effizient simulierbar.
+   „Gleichwertig auf MNIST“ ist ein Befund über **Hardware-Kosten**
+   (0 T-Gatter), kein Quantenvorteil. Der Quantenanteil liegt genau in den
+   1,3 pp, die Fashion zusätzlich braucht.
+
+**Nächste Frage (natürliche Folge):** Wie viele Magiewinkel **auf der
+gesuchten Clifford-Schaltung** schließen die Fashion-Lücke? Das hieße
+Suche + k polierte Nicht-Clifford-Winkel, k ∈ {1, 2, 4, 8}. Damit würde
+„M50/M90 einer Aufgabe“ zum ersten Mal unabhängig vom Gradienten-Startpunkt
+gemessen.
+
+## 29.09.2026, 16:20 — I-005-v3: 4 Magiewinkel schließen die halbe Fashion-Lücke, 8 nicht die ganze ✔
+
+Fashion-MNIST 16×16, 20 Seeds (420–439), Tuning 960–962. Rohdaten
+`ergebnisse/I-005-v3__20260929_162054.json`. Vorregistriert und committet am
+28.09. Der erste Lauf ging am 28.09. um 23:04 beim Herunterfahren des
+Rechners verloren; er hatte keine Messzahl gesichert. Am 29.09. um 13:30 neu
+gestartet, mit unverändertem Code.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| **M-1** k8 (Verlust-Auswahl) gegen voll | **VOLL_BESSER** | −0,43 pp, KI [−0,63; −0,24], 3/20 positiv, Holm-p = 0,002 |
+| **M-2** k2 nach Verlust gegen k2 zufällig | **H1** | +0,30 pp, KI [+0,10; +0,49], 15/20, Holm-p = 0,024 |
+| **M-3** voll gegen suche (Replikation I-005-v2 V-2) | **H1** | +1,38 pp, 20/20 |
+
+Kein Kollaps bei den Urteilsarmen. Nur `k32_alle` ist auf Seed 420
+kollabiert (beschreibender Arm).
+
+**Dosis-Wirkung (beschreibend):** G_S(k) ist der Anteil der Lücke
+suche → voll, der geschlossen wird.
+
+| k | 0 | 1 | 2 | 4 | 8 | 32 (alle ab Suche) |
+|---|---|---|---|---|---|---|
+| nach Verlust | 0 | 0,21 | 0,43 | **0,57** | 0,69 | 0,42 |
+| zufällig | 0 | 0,13 | 0,22 | 0,36 | 0,51 | – |
+
+→ **M50_S = 4 Magiewinkel (≈ 123 T-Gatter)**, M90_S > 8.
+
+**Was das heißt:**
+1. **Der Magiebedarf von Fashion ist jetzt unabhängig vom Gradienten-Start
+   gemessen:** Auf der besten Clifford-Schaltung schließen 4 gezielt
+   gewählte Nicht-Clifford-Winkel die halbe Lücke. Die volle Lücke schließen
+   auch 8 nicht (Restlücke 0,43 pp).
+2. **Die Auswahl nach Verlust trägt** (M-2), besonders bei kleinem k. Die
+   Magie-Konzentration gibt es also auch über der Clifford-Suche.
+3. **Die Überraschung: `k32_alle` (alle 32 Winkel ab der Suche-Schaltung
+   nachtrainiert) erreicht nur 0,42**, also *weniger* als k = 8 und 0,80 pp
+   hinter voll aus dem Zufallsstart. Die Suche liegt in einem anderen Becken
+   der Verlustlandschaft als das Gradiententraining, und der Gradient kommt
+   von dort nicht zur besseren Lösung. Das ist die in der Karte vorab
+   genannte Folgefrage („sonst sitzt die Suche in einem anderen Becken“), jetzt
+   beantwortet. Einschränkung: nur beschreibend, und ein Seed ist kollabiert.
+4. **Einordnung:** Die Rz-Drehungen sind auf heutiger Hardware virtuell
+   (Recherche 29.09. Hardware). Die T-Gatter-Zahl zählt erst bei
+   fehlertoleranten Rechnern. Auf NISQ ist „0 bzw. 4 Magiewinkel“ vor allem ein
+   Befund über klassische Simulierbarkeit.
+
+**Folgen:**
+- Gierige Auswahl oder k = 12/16, um die Restlücke zu schließen.
+- Die Klassische Kontrolle aus der Recherche 29.09.: quadrierte
+  Walsh-Hadamard-Merkmale ohne Suche. Erreichen sie die Suche, ist die
+  Clifford-Zelle auf MNIST ein Walsh-Klassifikator, was Q-019W und die
+  Institutslinie verbinden würde.
+- Die Becken-Frage: Suche + k32 mit kleinerer Rate oder mehr Schritten.

@@ -189,12 +189,54 @@
   {
    "id": "I-005",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.clifford_suche",
    "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
    "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min. | Aufgewertet nach I-003: Gradientenabstieg findet eine bekannte Clifford-Loesung nicht (voll unter Identitaet) -- diskrete Suche ist ein eigener, noetiger Lerner. | Modul gebaut (Forscher-Agent): simulated annealing ueber 2^(nL) Clifford-Wahlen (c ~ c+2 aequivalent), Ridge-LOO-Kriterium, gemeinsamer L-BFGS-Kopf fuer alle Arme. Q-0 Positivkontrolle Strukturaufgabe (G_L >= 0,8), Q-1 Suche vs Median 100 Zufall, Q-2 Suche vs k0, Q-4 Suche vs Zufallssuche gleicher Bewertungszahl (Holm Q-1/2/4). Mess-Seeds MNIST 190-199, Struktur 200-209 (Direktor: urspruengliche Seeds im Rauchtest beruehrt -> ersetzt). ~35-50 min.",
    "prioritaet": 1,
    "folgen": {}
+  },
+  {
+   "id": "I-005-v2",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.clifford_suche_v2",
+   "prioritaet": 1,
+   "frage": "Ist eine reine Clifford-Schaltung aus der diskreten Suche (0 Magiewinkel) auf MNIST UND Fashion-MNIST 16x16 gleichwertig zum vollen Training (Rate je Datensatz mit Stabilitaetsabstand)? TOST +-0,5 pp, Holm ueber V-1..V-3.",
+   "notiz": "Folge aus I-005 (alle H1; suche 0,9352 ~ voll 0,9344 nur beschreibend, voll mit fester Rate 0,08 = Verstoss Regel 1). Modul von Forscher-Agent, Vortest bestanden, Rauchtest 28.09. (160 s). N_SEEDS = 20 (Direktor 28.09.: bei 10 Macht fuer GLEICHWERTIG nur ~10-20 %). Mess-Seeds MNIST 300-309+330-339, Fashion 310-319+340-349, Struktur 360-369, Tuning 950-955. V-1/V-2 suche vs voll GLEICHWERTIG/VOLL_BESSER/SUCHE_BESSER/HU (GLEICHWERTIG braucht Q-0 H1, voll-id >= 1 pp, kein Kollaps), V-3 Fashion suche vs Median 100 Zufall. ~3,3 h.",
+   "folgen": {}
+  },
+  {
+   "id": "I-005-v3",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.clifford_suche_v3",
+   "prioritaet": 1,
+   "frage": "Wie viele Nicht-Clifford-Winkel AUF der gesuchten Clifford-Schaltung schliessen die Fashion-Luecke zu voll (I-005-v2 V-2: 1,31 pp)? Suche + k in {1,2,4,8} nachtrainierte Winkel (Auswahl nach Verlustanstieg vs. zufaellig), G_S(k), M50_S/M90_S. Holm ueber M-1..M-3.",
+   "notiz": "Folge aus I-005-v2 (MNIST GLEICHWERTIG, Fashion VOLL_BESSER, G_voll 0,65). Modul von Forscher-Agent, Vortest bestanden (auch vom Direktor wiederholt), Rauchtest 28.09. (447 s). N_SEEDS = 20. Mess-Seeds Fashion 420-439, Tuning 960-962, Entwurf 963-966. M-1 k8_verlust vs voll TOST +-0,5 pp (GLEICHWERTIG/VOLL_BESSER/K8_BESSER/HU; braucht voll - suche >= 1 pp), M-2 k2 verlust vs zufall, M-3 voll vs suche. Kollaps in jedem Zweig. ~3 h 10 min - 3 h 40 min.",
+   "folgen": {
+    "M-1 GLEICHWERTIG": "M50_S/M90_S als Magiebedarf ueber der besten Clifford-Schaltung; auf MNIST pruefen, ob M50_S = 0 ist; T-Gatter-Budget mit Hybrid-Kaskade neu rechnen",
+    "M-1 VOLL_BESSER": "k = 12/16 oder gierige Auswahl; pruefen, ob k32_alle voll erreicht -- sonst sitzt die Suche in einem anderen Becken als der Gradient",
+    "M-2 H0": "Einzelwinkel-Naeherung der Verlust-Rangfolge reicht auf dem Suche-Geruest nicht -> gierige Auswahl"
+   }
+  },
+  {
+   "id": "I-036",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "modul": "abteilungen.walsh_kontrolle",
+   "prioritaet": 1,
+   "frage": "Ist die gesuchte Clifford-Zelle im Kern ein klassischer Walsh-Klassifikator? Suche (0 Magiewinkel) vs. FESTE quadrierte Walsh-Hadamard-Merkmale (walsh_fest = H^8, im Suchraum) auf MNIST und Fashion, walsh_fest vs. Identitaet (MNIST), Suche vs. FESTER lokaler 2x2-Block-Walsh (block2x2, MNIST); gleicher L-BFGS-Kopf, TOST +-0,5 pp, Holm ueber W-1..W-4.",
+   "notiz": "Folge aus I-005-v3 / Recherche 29.09. Modul von Forscher-Agent, Vortest bestanden (29.09., auch nach Aufnahme von W-4; vom Direktor wiederholt), Rauchtest 29.09. (101 s). Theorie im Modulkopf: Clifford-Zelle = quadrierter Block-Walsh (Blockdim. k) von vorzeichenmaskierten Pixeln (Bruhat-Form, 70/70 alte Suchergebnisse; 0/70 Walsh-aequivalent; MNIST k 4-7, Fashion 5-8). W-4 nach dem Rauchtest aufgenommen (Direktor 29.09.): Wahl von block2x2 nur aus Rauchtest-Seeds 942-947. Vorhersage: W-1 SUCHE_BESSER, W-3 H0 (Gegenrichtung). N_SEEDS = 20. Mess-Seeds MNIST 640-659, Fashion 660-679, Struktur 680-689, Entwurf 942-947. Kopf-L2 0,003 aus I-005-v2. ~1,5-1,75 h bei 5 Prozessen.",
+   "folgen": {
+    "W-1 SUCHE_BESSER": "Die Suche ist mehr als der globale Walsh-Klassifikator; Einordnung ueber W-4 und die beschreibende Dosis-Kurve fester Block-Walsh",
+    "W-1 GLEICHWERTIG": "Die Suche ist auf MNIST ersetzbar durch feste Walsh-Merkmale: I-005-Befund als klassische Transformation einordnen (Q-019W verbinden), Hybrid-Kaskade mit walsh_fest als Stufe 0",
+    "W-1 WALSH_BESSER": "Suchdefizit oder Siegerfluch: walsh_val vs. suche_val auswerten, Suche mit walsh_fest als Start",
+    "W-2 SUCHE_BESSER": "Fashion-Rueckstand zu voll (1,31 pp) gegen feste Block-Walsh-Merkmale setzen: Magie vs. Maske/Blockstruktur",
+    "W-4 GLEICHWERTIG": "Die Clifford-Suche ist auf MNIST ein fester lokaler 2x2-Block-Walsh-Klassifikator: 0-T-Befund aus I-005-v2 klassisch einordnen; auf Fashion vorregistriert wiederholen; Hybrid-Kaskade mit block2x2 als Stufe 0",
+    "W-4 SUCHE_BESSER": "Maske/Blockwahl der Suche traegt ueber den festen Block hinaus: gesuchte Blockform mit fester Maske vs. Suche",
+    "W-4 BLOCK_BESSER": "Suchdefizit: Suche mit block2x2 als Start, Siegerfluch pruefen"
+   }
   },
   {
    "id": "C-hardware",
@@ -293,7 +335,7 @@
   {
    "id": "I-004-mnist",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.geruest_mnist",
    "prioritaet": 1,
    "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",

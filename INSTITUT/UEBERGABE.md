@@ -113,6 +113,30 @@ braucht **0 T-Gatter**. Nicht-Clifford-Winkel = **Magie**.
 | Verschränkungs-Kompass (Q1) | HU/HU | SVD schlägt alle Tensor-Train-Ordnungen |
 | Zero-Noise-Extrapolation über Bitbreiten | auf Papier widerlegt | MSE 7× schlechter |
 
+**NACHTRAG 29.09. — I-005-v3 (Fashion, 20 Seeds):**
+- 4 Magiewinkel auf der gesuchten Clifford-Schaltung schließen die halbe
+  Lücke zu voll (M50_S = 4, ≈ 123 T). 8 Winkel schließen sie nicht ganz
+  (VOLL_BESSER, −0,43 pp).
+- Die Auswahl nach Verlust schlägt die Zufallsauswahl (H1).
+- Alle 32 Winkel ab der Suche nachtrainiert erreichen nur G = 0,42. Die Suche
+  liegt also in einem anderen Becken als der Gradient.
+- Details im LABORBUCH, 29.09. 16:20.
+
+**NACHTRAG 28.09. ABENDS — I-005-v2 (20 Seeds, vorregistriert):** MNIST
+Suche = voll (**GLEICHWERTIG**, ±0,5 pp, 0 T-Gatter). Fashion **VOLL_BESSER**
+um 1,31 pp (20/20): Dort trägt die Magie wirklich. Der Magiebedarf ist also
+aufgabenabhängig, und der Absatz direkt hierunter ist teilweise überholt.
+Nächste Frage: Suche + k Magiewinkel auf Fashion (LABORBUCH 28.09. 20:34).
+
+**NACHTRAG 28.09. — I-005 (alle H1) relativiert den Kernsatz unten:** Eine
+diskrete Clifford-Suche (**0 Magiewinkel, 0 T-Gatter**) erreicht auf MNIST
+0,9352, das volle Gradiententraining 0,9344 (beschreibend). Die
+Magie-Konzentration misst also vermutlich, wie viel Magie der **Gradient**
+braucht, nicht die Aufgabe. Nächste Fragen: I-005-fashion und Suche gegen
+voll per TOST (LABORBUCH 28.09.). Außerdem ist I-004-mnist ausgewertet (R-1 H1:
+ein Training im zufälligen Gerüst genügt). Neuheitsrecherche:
+`recherche/2026-09-28_neuheit_magie.md`.
+
 **Kernsatz (Stand 25.09. Vormittag):** *Der Nutzen der Quantenschaltung sitzt
 in wenigen Magiewinkeln (Magie-Konzentration, MNIST + Fashion repliziert,
 zwei unabhängige Seed-Sätze). Auf MNIST braucht die Kombination aus

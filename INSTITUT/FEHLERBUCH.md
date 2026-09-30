@@ -176,3 +176,39 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 - **P-1**: HU: kein eindeutiges Urteil -- rho = -0.31, Bootstrap-90-%-KI [-0.69; -0.10], Permutations-p = 0.4737 (n = 8 Stufen); Holm ueber {P-1,P-2}: nicht signifikant (p = 0.4737)
 - **P-2**: HU: kein eindeutiges Urteil -- rho = -0.36, Bootstrap-90-%-KI [-0.57; +0.02], Permutations-p = 0.3930 (n = 8 Stufen); Holm ueber {P-1,P-2}: nicht signifikant (p = 0.3930)
 - **Lehre:** Der Rohlauf hatte einen kollabierten Seed (253, Rate 0,32 an der Stabilitaetskante -- exakt das dritte Mal in dieser Nacht nach C-referenz und I-003-struktur). Das verzerrte P-0 zu einem falschen H0 UND liess die population-basierte M50-Rechnung die Stufe 0 % Rauschen (den wichtigsten Ankerpunkt) als undefiniert (gewinn<=0) fallen -- P-1/P-2 liefen nur mit 8 von 10 Stufen. Robuste Nachrechnung (Modul-eigenes Instabilitaets-Kriterium, dieselbe auswertung()-Funktion, nur 2 kollabierte Seeds ausgeschlossen: 253 bei 0 %, 252 bei 85 %) mit allen 10 Stufen: P-0 jetzt richtungsrichtig (+3,9 pp, p=0,0625 -- n=5 kann 0,05 nicht erreichen, aber konsistent mit C-mnist/C-referenz), P-1 rho=-0,44 (KI [-0,70;-0,30], durchgehend negativ, aber Permutations-p=0,196 -- HU bleibt), P-2 sauberes H0 (rho=-0,14, TOST): Generalisierungsluecke sagt M50 NICHT voraus. Lehre (generalisiert, dritte Wiederholung): Die 'einfache Ratensuche ohne Stabilitaetsabstand aus Zeitgruenden' ist ein wiederkehrendes Muster mit vorhersagbarem Fehler -- ab sofort soll JEDES Modul mit dieser Vereinfachung eine automatische, im urteil() eingebaute Ausreisser-Erkennung (Modul-eigenes Instabilitaets-Kriterium) VOR der Urteilsbildung anwenden, nicht nur deskriptiv mitzaehlen. Inhaltlich bemerkenswert (nicht signifikant, aber gegenlaeufig zur I-003-Vermutung): der Punktschaetzer zeigt eher WENIGER Magiebedarf bei MEHR Label-Rauschen, nicht mehr -- passt nicht zur exploративen I-003-Beobachtung (Memorieren M50=8). Beide Datenpunkte (I-003 zwei Extreme, I-035 zehn Stufen) sind einzeln nicht belastbar; der Widerspruch selbst ist die eigentliche Erkenntnis: die Beziehung ist nicht so einfach monoton wie I-003 nahelegte.
+
+### 25.09.2026 17:22 — I-004-mnist (automatisch)
+- **R-2**: H0: nachtraeglich nachweislich nicht um >= 0.15 G besser (-0.112 G, KI oben +0.019) -- ein Training reicht
+- **R-3**: H0 (Gegenrichtung): auch im Geruest traegt Magie bei wenig Daten WENIGER (-0.222 G, p = 0.0029; 90-%-KI -0.300 .. -0.145)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 25.09.2026 23:00 — I-004-mnist (automatisch)
+- **R-2**: H0: nachtraeglich nachweislich nicht um >= 0.15 G besser (-0.112 G, KI oben +0.019) -- ein Training reicht
+- **R-3**: H0 (Gegenrichtung): auch im Geruest traegt Magie bei wenig Daten WENIGER (-0.222 G, p = 0.0029; 90-%-KI -0.300 .. -0.145)
+- *Identischer Wiederholungslauf des 17:22-Laufs (gleiche Seeds) — keine neue Stichprobe.*
+- **Lehre (28.09., fuer beide Eintraege):** R-2 ist ein *gutes* H0: Das teure
+  nachtraegliche Runden lohnt sich nicht, ein Training im zufaelligen
+  Clifford-Geruest reicht (R-1 H1, G = 0,69). R-3 widerlegt zum zweiten Mal
+  (nach I-024) die Erwartung „Magie hilft bei wenig Daten mehr“. Die Richtung
+  ist stabil: weniger Daten, weniger genutzte Magie. Diese Hypothese in keinem
+  neuen Modul mehr als Erwartung einsetzen. Prozess-Lehre: Der Lauf lag drei
+  Tage ausgewertet, aber uncommittet und ohne Laborbuch-Eintrag herum. Nach
+  jedem Lauf gilt deshalb: Laborbuch + Commit **im selben Zug**.
+
+### 28.09.2026 — I-005 (kein Fehlschlag, aber eine Lehre ueber fruehere Befunde)
+- Alle vier Tests H1. Diskrete Clifford-Suche 0,9352 gegen volles
+  Gradiententraining 0,9344 (beschreibend).
+- **Lehre:** Fast die ganze Magie-Linie hat die Magie gemessen, die der
+  **Gradient** braucht. Dass die Aufgabe sie braucht, war nie gezeigt. I-003
+  hatte es schon angedeutet (der Gradient findet die Lehrerloesung nicht).
+  Jede Kennzahl, die an einem Lernverfahren haengt (G(k), M50/M90), muss
+  kuenftig mit **zwei** Lernverfahren gemessen werden, bevor sie als
+  Eigenschaft der Aufgabe beschrieben wird. Der Kernsatz in `UEBERGABE.md` §4
+  („Nutzen sitzt in wenigen Magiewinkeln“) gilt nur noch mit dem Zusatz „beim
+  Gradiententraining“.
+- **Korrektur am selben Abend (I-005-v2):** Auf Fashion trägt die Magie
+  vorregistriert +1,31 pp (VOLL_BESSER, 20/20). Die Lehre oben war aus
+  **einem** Datensatz verallgemeinert, also genau der Fehler aus I-034-fashion.
+  Richtig ist: Auf MNIST braucht die Aufgabe keine Magie, auf Fashion schon.
+  Lehre dazu: Eine Deutung, die einen früheren Befund „auf den Kopf stellt“,
+  vor dem Aufschreiben auf dem zweiten Datensatz prüfen, nicht danach.
