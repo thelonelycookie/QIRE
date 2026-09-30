@@ -1,0 +1,279 @@
+================================================================================================
+THEORIEPRUEFUNG T-005
+  L1: Winkel 0 -> R = I (mit Rueckpermutation)                       0.00e+00 < 1e-12  OK
+  L1: Gegenprobe OHNE Rueckpermutation: Winkel 0 -> R = P^L != I     1.00e+00 > 0.5  OK
+  L1: R^T R = I (zufaellige Winkel)                                  8.88e-16 < 1e-05  OK
+  L1: R blockdiagonal (3 x 256)                                      0.00e+00 < 1e-12  OK
+  L1: == Kronecker (= qire_kron)                                     0.00e+00 < 1e-10  OK
+  L1: Drehbank R_k^T == QireDrehung                                  0.00e+00 < 1e-10  OK
+  L2: Winkel 0 -> R = I (mit Rueckpermutation)                       0.00e+00 < 1e-12  OK
+  L2: Gegenprobe OHNE Rueckpermutation: Winkel 0 -> R = P^L != I     1.00e+00 > 0.5  OK
+  L2: R^T R = I (zufaellige Winkel)                                  1.55e-15 < 1e-05  OK
+  L2: R blockdiagonal (3 x 256)                                      0.00e+00 < 1e-12  OK
+  L2: Gegenprobe: KEIN Kronecker-Produkt                             6.20e-01 > 0.1  OK
+  L2: Drehbank R_k^T == QireDrehung                                  0.00e+00 < 1e-10  OK
+  L5: Winkel 0 -> R = I (mit Rueckpermutation)                       0.00e+00 < 1e-12  OK
+  L5: Gegenprobe OHNE Rueckpermutation: Winkel 0 -> R = P^L != I     1.00e+00 > 0.5  OK
+  L5: R^T R = I (zufaellige Winkel)                                  1.22e-15 < 1e-05  OK
+  L5: R blockdiagonal (3 x 256)                                      0.00e+00 < 1e-12  OK
+  L5: Gegenprobe: KEIN Kronecker-Produkt                             6.70e-01 > 0.1  OK
+  L5: Drehbank R_k^T == QireDrehung                                  0.00e+00 < 1e-10  OK
+  L10: Winkel 0 -> R = I (mit Rueckpermutation)                      0.00e+00 < 1e-12  OK
+  L10: Gegenprobe OHNE Rueckpermutation: Winkel 0 -> R = P^L != I    1.00e+00 > 0.5  OK
+  L10: R^T R = I (zufaellige Winkel)                                 1.55e-15 < 1e-05  OK
+  L10: R blockdiagonal (3 x 256)                                     0.00e+00 < 1e-12  OK
+  L10: Gegenprobe: KEIN Kronecker-Produkt                            4.55e-01 > 0.1  OK
+  L10: Drehbank R_k^T == QireDrehung                                 0.00e+00 < 1e-10  OK
+  Ordnung des CNOT-Rings = 63 (Info; P^L = I nur fuer L Vielfaches)  6.30e+01 > 0.5  OK
+  lora_r1: Startwert -> Logits == Basismodell                        0.00e+00 < 1e-05  OK
+  lora_r1: trainierbar 30720 == 30720                                0.00e+00 < 0.5  OK
+  qire_L10: Startwert -> Logits == Basismodell                       0.00e+00 < 1e-05  OK
+  qire_L10: trainierbar 1920 == 1920                                 0.00e+00 < 0.5  OK
+  kombi: Startwert -> Logits == Basismodell                          0.00e+00 < 1e-05  OK
+  kombi: trainierbar 31680 == 31680                                  0.00e+00 < 0.5  OK
+  qire_L1: Startwert -> Logits == Basismodell                        0.00e+00 < 1e-05  OK
+  qire_L1: trainierbar 192 == 192                                    0.00e+00 < 0.5  OK
+  qire_L5: Startwert -> Logits == Basismodell                        0.00e+00 < 1e-05  OK
+  qire_L5: trainierbar 960 == 960                                    0.00e+00 < 0.5  OK
+  qire_L2: Startwert -> Logits == Basismodell                        0.00e+00 < 1e-05  OK
+  qire_L2: trainierbar 384 == 384                                    0.00e+00 < 0.5  OK
+  kombi: v_proj Lage 3 == x (W R)^T + s x A^T B^T (Index 7)          4.47e-07 < 0.0001  OK
+  kombi Gegenprobe: Drehung wirkt (Abstand zu x W^T + LoRA)          1.32e+00 > 0.001  OK
+  kombi Gegenprobe: LoRA wirkt (Abstand zu x (W R)^T)                7.03e-01 > 0.001  OK
+  kombi: Gradient an allen 24 Winkelsaetzen != 0 (Anzahl ohne)       0.00e+00 < 0.5  OK
+  kombi: Gradient an LoRA-B (alle 24) != 0 (Anzahl ohne)             0.00e+00 < 0.5  OK
+  kombi: Basisgewichte ohne Gradient                                 0.00e+00 < 0.5  OK
+  Referenz: zelle qire_L1 == T-004 qire_kron (val und train, 3 Schritte) 0.00e+00 < 1e-06  OK
+  Referenz: zelle qire_L5 == T-004 qire_5 (val und train, 3 Schritte) 0.00e+00 < 1e-06  OK
+  Referenz: zelle lora_r1 == T-004 lora_r1 (val und train, 3 Schritte) 0.00e+00 < 1e-06  OK
+  LR-Uebernahme == T-004-Rohdaten (lr, innen, Schritte, Aufteilung), Rest getunt 0.00e+00 < 0.5  OK
+  Seeds frisch: disjunkt zu T-004 und Mess/Tuning disjunkt (Ueberschneidungen) 0.00e+00 < 0.5  OK
+  Parameter L1 == qire_kron, L5 == qire_5, lora == T-004 (Abweichungen) 0.00e+00 < 0.5  OK
+  BESTANDEN
+================================================================================================
+PRUEFUNG PAGE-TEST (exakt, keine Asymptotik)
+  k=4, n=8: Summe == k!^n                                            0.00e+00 < 0.5  OK
+  k=4, n=8: E[L] == n k (k+1)^2 / 4                                  0.00e+00 < 1e-06  OK
+  k=4, n=8: Var[L] == n k^2 (k+1)(k^2-1) / 144                       0.00e+00 < 1e-06  OK
+  k=4, n=8: Summe == k!^n                                            0.00e+00 < 0.5  OK
+  k=4, n=8: E[L] == n k (k+1)^2 / 4                                  0.00e+00 < 1e-06  OK
+  k=4, n=8: Var[L] == n k^2 (k+1)(k^2-1) / 144                       0.00e+00 < 1e-06  OK
+  k=5, n=3: Summe == k!^n                                            0.00e+00 < 0.5  OK
+  k=5, n=3: E[L] == n k (k+1)^2 / 4                                  0.00e+00 < 1e-06  OK
+  k=5, n=3: Var[L] == n k^2 (k+1)(k^2-1) / 144                       0.00e+00 < 1e-06  OK
+  Vollaufzaehlung n=2, k=4 (576 Umordnungen) == exakt                0.00e+00 < 1e-12  OK
+  scipy page_trend_test(exact) == eigene Faltung (Trend 0.0)         4.16e-17 < 1e-09  OK
+  scipy page_trend_test(exact) == eigene Faltung (Trend 0.3)         4.34e-19 < 1e-09  OK
+  scipy page_trend_test(exact) == eigene Faltung (Trend 0.6)         2.17e-19 < 1e-09  OK
+  perfekt fallend -> p == (1/k!)^n (relativ)                         0.00e+00 < 1e-09  OK
+  perfekt steigend -> p == 1                                         0.00e+00 < 1e-12  OK
+  Erreichbarkeit: Page-min x 3 < 0,05                                2.73e-11 < 0.05  OK
+  Erreichbarkeit: IUT-min (Wilcoxon einseitig, 8) < 0,05/3           3.91e-03 < 0.0166667  OK
+  BESTANDEN
+================================================================================================
+TEST GITTERVERLAENGERUNG -- Regel 1(b), beide Richtungen, Startgitter (0.0003, 0.001, 0.003)
+  Optimum im Startgitter       -> lr 0.001      Rand innen  OK
+  Verlaengerung oben           -> lr 0.009      Rand innen  OK
+  Verlaengerung unten          -> lr 0.0001     Rand innen  OK
+  ausserhalb oben              -> lr 0.081      Rand oben   OK
+  ausserhalb unten             -> lr 1.111e-05  Rand unten  OK
+  BESTANDEN
+================================================================================================
+VORTEST T-005 -- jeder Ausgang einzeln, ueber mehrere Ziehungen, Marke UND Zweigtext
+  OK     M-S   streng monoton, kleines Rauschen                           5/5  {'STRENG_MONOTON': 5}
+  OK     M-P   Plateau: L10 = L5                                          20/20  {'WAECHST_MIT_PLATEAU': 20}
+  OK     M-R   L10 schlechter als L5 (Umkehr am Ende)                     5/5  {'WAECHST_MIT_PLATEAU': 5}
+  OK     M-N   alle L gleich, Rauschen 0,01                               37/40  {'KEIN_TREND': 37, 'WAECHST_MIT_PLATEAU': 3}
+  OK     M-F   Gewinn FAELLT mit L                                        5/5  {'KEIN_TREND': 5}
+  OK     M-A   Aufloesung faellt (lora = basis)                           38/40  {'HU_AUFLOESUNG': 38, 'STRENG_MONOTON': 2}
+  OK     M-An  lora-Zelle fehlt                                           5/5  {'HU_AUFLOESUNG': 5}
+  OK     M-X   qire_L2 fehlt                                              5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     M-Xs  ein Seed fehlt in qire_L5                                  5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     Z-L   LoRA 0,12 besser als qire_L10                              5/5  {'LORA_BESSER': 5}
+  OK     Z-Q   qire_L10 besser als LoRA                                   5/5  {'QIRE_BESSER': 5}
+  OK     Z-G   gleich, kleines Rauschen                                   5/5  {'GLEICHWERTIG': 5}
+  OK     Z-Gs  +0,005 bei winzigem Rauschen: signifikant UND gleichwertig 5/5  {'GLEICHWERTIG': 5}
+  OK     Z-U   gleich, grosses Rauschen                                   37/40  {'UNENTSCHIEDEN': 37, 'QIRE_BESSER': 1, 'GLEICHWERTIG': 1, 'LORA_BESSER': 1}
+  OK     Z-X   qire_L10 fehlt                                             5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     Z-A   Aufloesung faellt                                          40/40  {'HU_AUFLOESUNG': 40}
+  OK     E-J   kombi 0,03 vor lora                                        5/5  {'ERGAENZT': 5}
+  OK     E-N   kombi 0,05 HINTER lora                                     5/5  {'KEIN_NACHWEIS': 5}
+  OK     E-U   kombi = lora, grosses Rauschen                             38/40  {'KEIN_NACHWEIS': 38, 'ERGAENZT': 2}
+  OK     E-Ar  lora SCHLECHTER als basis: Trennung zaehlt                 5/5  {'ERGAENZT': 5}
+  OK     E-X   kombi fehlt                                                5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     X-K   qire_L2 fehlt -> K3 trotzdem gerechnet                     5/5  {'ERGAENZT': 5}
+  OK     X-Z   kombi fehlt -> K1 trotzdem gerechnet                       5/5  {'STRENG_MONOTON': 5}
+GENERATOR
+  OK     val_verlust_alle - val_verlust NICHT konstant (sd je Arm > 0)
+  OK     gepaarte Differenz L10 - L1 kippt mit dem Feld
+  OK     basis deterministisch (sd 0), trainierte Arme streuen
+  OK     eigenes Rauschen: sd(qire_L10 - lora) 0.0155 ~ 0.0141
+  OK     Standardfall ist streng monoton geordnet (Versaetze fallen mit L)
+MUTATIONSPRUEFUNG -- jeder absichtliche Fehler MUSS den Vortest durchfallen lassen
+      gefangen von M-S: 0/5 {'KEIN_TREND': 5}
+      gefangen von M-P: 0/20 {'KEIN_TREND': 20}
+      gefangen von M-R: 0/5 {'KEIN_TREND': 5}
+      gefangen von M-F: 0/5 {'STRENG_MONOTON': 5}
+      gefangen von Z-L: 0/5 {'QIRE_BESSER': 5}
+      gefangen von Z-Q: 0/5 {'LORA_BESSER': 5}
+      gefangen von E-J: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von E-N: 0/5 {'ERGAENZT': 5}
+      gefangen von E-Ar: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von X-K: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von X-Z: 0/5 {'KEIN_TREND': 5}
+  OK     Mutation 'Metrikfeld val_verlust_alle statt val_verlust' faellt durch
+      gefangen von Z-Gs: 0/5 {'LORA_BESSER': 5}
+  OK     Mutation 'Signifikanz VOR TOST (K2)' faellt durch
+      gefangen von E-Ar: 0/5 {'HU_AUFLOESUNG': 5}
+  OK     Mutation 'Aufloesung verlangt Richtung statt Trennung' faellt durch
+      gefangen von E-J: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von E-N: 0/5 {'ERGAENZT': 5}
+      gefangen von E-Ar: 0/5 {'KEIN_NACHWEIS': 5}
+      gefangen von X-K: 0/5 {'KEIN_NACHWEIS': 5}
+  OK     Mutation 'K3 einseitig in FALSCHER Richtung' faellt durch
+      gefangen von Z-L: 0/5 {'GLEICHWERTIG': 5}
+      gefangen von Z-Q: 0/5 {'GLEICHWERTIG': 5}
+      gefangen von Z-U: 0/40 {'GLEICHWERTIG': 40}
+  OK     Mutation 'TOST-Grenze absolut 0,2 statt relativ' faellt durch
+      gefangen von M-S: 0/5 {'KEIN_TREND': 5}
+      gefangen von M-P: 0/20 {'KEIN_TREND': 20}
+      gefangen von M-R: 0/5 {'KEIN_TREND': 5}
+      gefangen von M-F: 0/5 {'STRENG_MONOTON': 4, 'WAECHST_MIT_PLATEAU': 1}
+      gefangen von X-Z: 0/5 {'KEIN_TREND': 5}
+  OK     Mutation 'K1 Arme in falscher Reihenfolge (L absteigend)' faellt durch
+      gefangen von M-P: 0/20 {'STRENG_MONOTON': 20}
+      gefangen von M-R: 0/5 {'STRENG_MONOTON': 5}
+  OK     Mutation 'K1 IUT mit min statt max (eine Stufe reicht)' faellt durch
+BESCHREIBENDER TEIL (Durchlauf auf synthetischen Daten)
+
+RESEARCH ID T-005 | val_verlust (nats/Token, nur Antwort-Tokens), kleiner = besser
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), TOST-Grenze 20% x LoRA-Gewinn +0.2698 = +-0.0540
+  [K1] STRENG_MONOTON -- K1: jede weitere Lagenstufe senkt den Verlust (Trend und jede Stufe belegt); Page L=240, rho-Mittel +1.000, p=9.08e-12, Holm=0.0000; schwaechste Stufe L1->L2 p=0.0039 (Schwelle 0.0167).
+  [K2] LORA_BESSER -- K2: LoRA r=1 senkt den Verlust staerker; die 16-fach kleinere Drehung kommt nicht gleich weit; qire_L10 - lora_r1: +0.1174 nats, 0/8 Seeds besser, p=0.0078, Holm=0.0078, TOST p=1.0000 (Grenze +-0.0540).
+  [K3] ERGAENZT -- K3: QIRE ergaenzt LoRA, kombi senkt den Verlust unter lora_r1; kombi - lora_r1: -0.0346 nats, 8/8 Seeds besser, p=0.0039, Holm=0.0078.
+KONTROLLE  Aufloesung bestanden (lora_r1-basis -0.2698, p=0.0078)
+
+BESCHREIBEND (ohne Holm)
+  basis     8 Seeds  Mittel 3.0000  sd 0.0000  Gewinn +0.0000 (0% von LoRA)  trainierbar 0  lr -
+  qire_L1   8 Seeds  Mittel 2.9598  sd 0.0117  Gewinn +0.0402 (15% von LoRA)  2.09e-04/Param  trainierbar 192  lr -
+  qire_L2   8 Seeds  Mittel 2.9281  sd 0.0101  Gewinn +0.0719 (27% von LoRA)  1.87e-04/Param  trainierbar 384  lr -
+  qire_L5   8 Seeds  Mittel 2.8743  sd 0.0051  Gewinn +0.1257 (47% von LoRA)  1.31e-04/Param  trainierbar 960  lr -
+  qire_L10  8 Seeds  Mittel 2.8476  sd 0.0073  Gewinn +0.1524 (56% von LoRA)  7.94e-05/Param  trainierbar 1920  lr -
+  lora_r1   8 Seeds  Mittel 2.7302  sd 0.0066  Gewinn +0.2698 (100% von LoRA)  8.78e-06/Param  trainierbar 30720  lr -
+  kombi     8 Seeds  Mittel 2.6956  sd 0.0094  Gewinn +0.3044 (113% von LoRA)  9.61e-06/Param  trainierbar 31680  lr -
+  Stufe L1->L2   -0.0317  8/8 Seeds  p=0.0039
+  Stufe L2->L5   -0.0538  8/8 Seeds  p=0.0039
+  Stufe L5->L10  -0.0268  8/8 Seeds  p=0.0039
+  kombi - qire_L5 -0.1787  p=0.0078
+
+BEWERTUNG: STRENG_MONOTON | LORA_BESSER | ERGAENZT
+================================================================================================
+================================================================================================
+VORTEST BESTANDEN
+  basis 2.5616 nats/Token (65928 Antwort-Tokens)
+  lora_r1    -> lr 0.001  (aus T-004 uebernommen)
+    lora_r1 seed 50001: 2.2897  (399 s)
+    lora_r1 seed 50002: 2.2927  (394 s)
+    lora_r1 seed 50003: 2.2866  (392 s)
+    lora_r1 seed 50004: 2.2841  (358 s)
+    lora_r1 seed 50005: 2.2860  (346 s)
+    lora_r1 seed 50006: 2.2884  (346 s)
+    lora_r1 seed 50007: 2.2844  (347 s)
+    lora_r1 seed 50008: 2.2883  (346 s)
+  Zwischenstand gesichert (Regel 5), bester lora_r1-Seed 50004
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_175958.json
+  Messzeilen (16): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_175958.csv
+  qire_L10   -> lr 0.001   0.0003:2.4455  0.001:2.4350  0.003:2.4529
+    qire_L10 seed 50001: 2.4122  (629 s)
+    qire_L10 seed 50002: 2.4118  (629 s)
+    qire_L10 seed 50003: 2.4097  (629 s)
+    qire_L10 seed 50004: 2.4117  (630 s)
+    qire_L10 seed 50005: 2.4103  (629 s)
+    qire_L10 seed 50006: 2.4112  (630 s)
+    qire_L10 seed 50007: 2.4109  (631 s)
+    qire_L10 seed 50008: 2.4145  (627 s)
+  Zwischenstand gesichert (Regel 5), bester qire_L10-Seed 50003
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_202004.json
+  Messzeilen (24): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_202004.csv
+  kombi      -> lr 0.001   0.0003:2.3231  0.001:2.3192  0.003:2.3772
+    kombi seed 50001: 2.2927  (641 s)
+    kombi seed 50002: 2.2953  (647 s)
+    kombi seed 50003: 2.2921  (636 s)
+    kombi seed 50004: 2.2865  (614 s)
+    kombi seed 50005: 2.2888  (644 s)
+    kombi seed 50006: 2.2893  (671 s)
+    kombi seed 50007: 2.2915  (634 s)
+    kombi seed 50008: 2.2920  (687 s)
+  Zwischenstand gesichert (Regel 5), bester kombi-Seed 50004
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_223132.json
+  Messzeilen (32): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_223132.csv
+  qire_L1    -> lr 0.001  (aus T-004 uebernommen)
+    qire_L1 seed 50001: 2.5170  (480 s)
+    qire_L1 seed 50002: 2.5178  (537 s)
+    qire_L1 seed 50003: 2.5174  (468 s)
+    qire_L1 seed 50004: 2.5179  (519 s)
+    qire_L1 seed 50005: 2.5171  (468 s)
+    qire_L1 seed 50006: 2.5171  (441 s)
+    qire_L1 seed 50007: 2.5172  (436 s)
+    qire_L1 seed 50008: 2.5179  (464 s)
+  Zwischenstand gesichert (Regel 5), bester qire_L1-Seed 50001
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_233506.json
+  Messzeilen (40): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260929_233506.csv
+  qire_L5    -> lr 0.001  (aus T-004 uebernommen)
+    qire_L5 seed 50001: 2.4432  (597 s)
+    qire_L5 seed 50002: 2.4454  (555 s)
+    qire_L5 seed 50003: 2.4447  (549 s)
+    qire_L5 seed 50004: 2.4436  (556 s)
+    qire_L5 seed 50005: 2.4438  (23092 s)
+    qire_L5 seed 50006: 2.4436  (596 s)
+    qire_L5 seed 50007: 2.4449  (587 s)
+    qire_L5 seed 50008: 2.4446  (571 s)
+  Zwischenstand gesichert (Regel 5), bester qire_L5-Seed 50001
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260930_070650.json
+  Messzeilen (48): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260930_070650.csv
+  qire_L2    -> lr 0.001   0.0003:2.5172  0.001:2.5096  0.003:2.5159
+    qire_L2 seed 50001: 2.4955  (439 s)
+    qire_L2 seed 50002: 2.4972  (440 s)
+    qire_L2 seed 50003: 2.4966  (439 s)
+    qire_L2 seed 50004: 2.4967  (442 s)
+    qire_L2 seed 50005: 2.4962  (441 s)
+    qire_L2 seed 50006: 2.4964  (443 s)
+    qire_L2 seed 50007: 2.4959  (440 s)
+    qire_L2 seed 50008: 2.4967  (443 s)
+  Zwischenstand gesichert (Regel 5), bester qire_L2-Seed 50001
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260930_084358.json
+  Messzeilen (56): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260930_084358.csv
+
+RESEARCH ID T-005 | val_verlust (nats/Token, nur Antwort-Tokens), kleiner = besser
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), TOST-Grenze 20% x LoRA-Gewinn +0.2741 = +-0.0548
+  [K1] STRENG_MONOTON -- K1: jede weitere Lagenstufe senkt den Verlust (Trend und jede Stufe belegt); Page L=240, rho-Mittel +1.000, p=9.08e-12, Holm=0.0000; schwaechste Stufe L1->L2 p=0.0039 (Schwelle 0.0167).
+  [K2] LORA_BESSER -- K2: LoRA r=1 senkt den Verlust staerker; die 16-fach kleinere Drehung kommt nicht gleich weit; qire_L10 - lora_r1: +0.1240 nats, 0/8 Seeds besser, p=0.0078, Holm=0.0156, TOST p=1.0000 (Grenze +-0.0548).
+  [K3] KEIN_NACHWEIS -- K3: keine belegte Ergaenzung (einseitig); kombi - lora_r1: +0.0035 nats, 0/8 Seeds besser, p=1.0000, Holm=1.0000. Beschreibend liegt kombi sogar HOEHER als lora_r1.
+KONTROLLE  Aufloesung bestanden (lora_r1-basis -0.2741, p=0.0078)
+
+BESCHREIBEND (ohne Holm)
+  basis     8 Seeds  Mittel 2.5616  sd 0.0000  Gewinn +0.0000 (0% von LoRA)  trainierbar 0  lr -
+  qire_L1   8 Seeds  Mittel 2.5174  sd 0.0004  Gewinn +0.0442 (16% von LoRA)  2.30e-04/Param  trainierbar 192  lr 0.001
+  qire_L2   8 Seeds  Mittel 2.4964  sd 0.0005  Gewinn +0.0652 (24% von LoRA)  1.70e-04/Param  trainierbar 384  lr 0.001
+  qire_L5   8 Seeds  Mittel 2.4442  sd 0.0008  Gewinn +0.1174 (43% von LoRA)  1.22e-04/Param  trainierbar 960  lr 0.001
+  qire_L10  8 Seeds  Mittel 2.4115  sd 0.0015  Gewinn +0.1501 (55% von LoRA)  7.82e-05/Param  trainierbar 1920  lr 0.001
+  lora_r1   8 Seeds  Mittel 2.2875  sd 0.0029  Gewinn +0.2741 (100% von LoRA)  8.92e-06/Param  trainierbar 30720  lr 0.001
+  kombi     8 Seeds  Mittel 2.2910  sd 0.0027  Gewinn +0.2706 (99% von LoRA)  8.54e-06/Param  trainierbar 31680  lr 0.001
+  Stufe L1->L2   -0.0210  8/8 Seeds  p=0.0039
+  Stufe L2->L5   -0.0522  8/8 Seeds  p=0.0039
+  Stufe L5->L10  -0.0327  8/8 Seeds  p=0.0039
+  kombi - qire_L5 -0.1532  p=0.0078
+
+BEWERTUNG: STRENG_MONOTON | LORA_BESSER | KEIN_NACHWEIS
+================================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260930_084358_02.json
+  Messzeilen (56): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\T-005__20260930_084358_02.csv

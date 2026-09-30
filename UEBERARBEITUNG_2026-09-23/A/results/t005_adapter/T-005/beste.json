@@ -1,0 +1,38 @@
+{
+  "lora_r1": {
+    "seed": 50004,
+    "val_verlust": 2.2841110692384707,
+    "lr": 0.001,
+    "datei": "lora_r1_50004.pt"
+  },
+  "qire_L10": {
+    "seed": 50003,
+    "val_verlust": 2.409676586882956,
+    "lr": 0.001,
+    "datei": "qire_L10_50003.pt"
+  },
+  "kombi": {
+    "seed": 50004,
+    "val_verlust": 2.286498731815212,
+    "lr": 0.001,
+    "datei": "kombi_50004.pt"
+  },
+  "qire_L1": {
+    "seed": 50001,
+    "val_verlust": 2.5169940222207963,
+    "lr": 0.001,
+    "datei": "qire_L1_50001.pt"
+  },
+  "qire_L5": {
+    "seed": 50001,
+    "val_verlust": 2.4431587388656943,
+    "lr": 0.001,
+    "datei": "qire_L5_50001.pt"
+  },
+  "qire_L2": {
+    "seed": 50001,
+    "val_verlust": 2.495495876168296,
+    "lr": 0.001,
+    "datei": "qire_L2_50001.pt"
+  }
+}
