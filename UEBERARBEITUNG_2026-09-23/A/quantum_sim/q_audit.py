@@ -690,6 +690,44 @@ def check_t004() -> List[Tuple[str, bool, str]]:
     return out
 
 
+def check_t005() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '30. September -- T-005 gerechnet' (neueste
+    T-005-Datei, 56 Zeilen). Messgroesse val_verlust in nats/Token."""
+    rec = load("T-005")["records"]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    def cmp(label: str, claimed: float, actual: float, tol: float = 0.0005):
+        out.append((label, abs(claimed - actual) <= tol,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {actual:+.4f}"))
+
+    b, l1, l2, l5, l10, lo, ko = (m(a) for a in (
+        "basis", "qire_L1", "qire_L2", "qire_L5", "qire_L10", "lora_r1", "kombi"))
+    for name, claimed, x in (("basis", 2.5616, b), ("qire_L1", 2.5174, l1),
+                             ("qire_L2", 2.4964, l2), ("qire_L5", 2.4442, l5),
+                             ("qire_L10", 2.4115, l10), ("lora_r1", 2.2875, lo),
+                             ("kombi", 2.2910, ko)):
+        cmp(name, claimed, float(x.mean()))
+    cmp("Stufe L1->L2", -0.0210, float((l2 - l1).mean()))
+    cmp("Stufe L2->L5", -0.0522, float((l5 - l2).mean()))
+    cmp("Stufe L5->L10", -0.0327, float((l10 - l5).mean()))
+    out.append(("K1 jede Stufe 8/8 Seeds", all(int((b_ < a_).sum()) == 8 for a_, b_ in
+                ((l1, l2), (l2, l5), (l5, l10))), "8/8 je Stufe"))
+    cmp("K2 qire_L10 - lora_r1", 0.1240, float((l10 - lo).mean()))
+    cmp("K3 kombi - lora_r1", 0.0035, float((ko - lo).mean()))
+    cmp("Aufloesung lora_r1 - basis", -0.2741, float((lo - b).mean()))
+    for arm, n in (("qire_L1", 192), ("qire_L2", 384), ("qire_L5", 960),
+                   ("qire_L10", 1920), ("lora_r1", 30720), ("kombi", 31680)):
+        t = int(next(r["trainierbar"] for r in rec if r["arm"] == arm))
+        out.append((f"trainierbar {arm}", t == n, f"Tagebuch {n} | Rohdaten {t}"))
+    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, l1, l2, l5, l10, lo, ko)),
+                f"{[len(x) for x in (b, l1, l2, l5, l10, lo, ko)]}"))
+    return out
+
+
 CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-003-replication": check_q003,
     "Q-011 (dritter Anlauf, gerettet)": check_q011,
@@ -700,6 +738,7 @@ CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-020": check_q020,
     "Q-019W": check_q019w,
     "T-004": check_t004,
+    "T-005": check_t005,
     "Randlagen (Regel 1b, Tagebuch 27.08.)": check_randlagen,
     "T-000": check_t000,
     "T-001": check_t001,

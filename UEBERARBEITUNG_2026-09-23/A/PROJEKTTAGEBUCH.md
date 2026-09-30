@@ -5139,6 +5139,67 @@ wirkt nur auf den Kopf. Ist er dort untertuniert, wäre `wht_fest` eher noch
 besser. Die Aussage „butterfly ≈ wht_fest“ ist beschreibend und trägt dieses
 Fragezeichen.
 
+## 30. September — T-005 gerechnet: mehr Lagen helfen streng monoton, LoRA bleibt vorn, QIRE ergänzt LoRA nicht
+
+Lauf über mehrere Sitzungen mit Wiederaufnahme (29.09. abends bis 30.09.
+morgens, 6 Threads). Rohdaten `results/experiments/T-005__20260930_084358_02.json`
+(56 Zeilen = 7 Arme × 8 Seeds, Seeds 50001–50008). `q_audit` prüft die Zahlen
+dieses Eintrags, alle OK. Vortest vor dem Start bestanden.
+
+| Arm | trainierbar | Val-Verlust (nats/Token) | Gewinn gegen basis | Anteil am LoRA-Gewinn |
+|---|---|---|---|---|
+| basis | 0 | 2,5616 | – | – |
+| qire_L1 | 192 | 2,5174 | 0,044 | 16 % |
+| qire_L2 | 384 | 2,4964 | 0,065 | 24 % |
+| qire_L5 | 960 | 2,4442 | 0,117 | 43 % |
+| qire_L10 | 1.920 | 2,4115 | 0,150 | 55 % |
+| lora_r1 | 30.720 | 2,2875 | 0,274 | 100 % |
+| kombi (L5 + LoRA) | 31.680 | 2,2910 | 0,271 | 99 % |
+
+**Familie (Holm über 3), jeweils 8 Seeds:**
+- K1 **STRENG_MONOTON**: Page L = 240, Holm-p ≈ 3·10⁻¹¹. Jede Stufe senkt den
+  Verlust in 8/8 Seeds (p = 0,0039 je Stufe, Schwelle 0,0167):
+  L1→L2 −0,021, L2→L5 −0,052, L5→L10 −0,033.
+- K2 **LORA_BESSER**: qire_L10 − lora_r1 = +0,124, 0/8 Seeds besser,
+  Holm-p = 0,016. Die TOST-Grenze lag bei ±0,055 (20 % des LoRA-Gewinns),
+  weit entfernt. Vorher angesagt, so eingetreten.
+- K3 **KEIN_NACHWEIS**: kombi − lora_r1 = +0,0035, 0/8 Seeds besser,
+  Holm-p = 1,0. QIRE ergänzt LoRA nach diesem Test nicht.
+
+Auflösung bestanden: lora_r1 − basis = −0,274, p = 0,0078.
+
+**Was das heißt:**
+1. **Die Kurve ist monoton und ohne Sättigung bis L = 10.** Der Gewinn je
+   Lagenstufe wird pro Parameter kleiner (2,3·10⁻⁴ bei L1, 7,8·10⁻⁵ bei L10),
+   steigt in der Summe aber weiter. Wo die Kurve abflacht, zeigt dieser Lauf
+   nicht; L > 10 wurde nicht gemessen.
+2. **Mit 1.920 Parametern erreicht QIRE 55 % des LoRA-Gewinns**, LoRA hat
+   16-mal so viele. Pro Parameter bleibt die Drehung weit effizienter
+   (7,8·10⁻⁵ gegen 8,9·10⁻⁶), aber es ist keine Gleichwertigkeit, und der
+   absolute Abstand ist bei allen Lagenzahlen signifikant.
+3. **K3 ist ein Nichtbeleg, kein Beleg der Gleichheit.** Beschreibend liegt
+   kombi sogar minimal über lora_r1. Die einseitige Frage („ergänzt QIRE?")
+   ist damit beantwortet: nein, nicht messbar. Der Nebenbefund
+   kombi − qire_L5 = −0,153 (p = 0,0078, ohne Holm) sagt nur, dass LoRA das
+   Meiste trägt.
+4. Die Seed-Streuung ist klein (sd 0,0004–0,0029), gemessen auf denselben
+   Validierungsbeispielen wie in T-004.
+
+**Grenzen, ehrlich dazu:**
+- Lernraten: für qire_L1, qire_L5 und lora_r1 aus T-004 übernommen, für
+  qire_L2, qire_L10 und kombi neu gesucht (Gitter 0,0003 / 0,001 / 0,003);
+  alle Raten liegen **innen** (lr 0,001). Die vor dem Lauf angesagte Kürzung
+  (L3 gestrichen) ist eingehalten.
+- `q_summary` meldet für `basis` „lr 0, unten“. Das ist ein Fehlalarm: Der
+  Arm hat 0 trainierbare Parameter, es gibt keine Rate.
+- Die Summe der Messzeiten in den Rohdaten beträgt 13,5 h, die
+  Vorregistrierung nannte 8,2–9,0 h. Ich habe die Ursache nicht geprüft.
+- Ein Verlust ist keine Chatqualität. Die blinde Mini-Bewertung durch
+  Menschen steht weiter aus.
+
+**Nächste Schritte:** L > 10 oder Winkel je Block, um die Sättigung zu
+finden; Chat-Demo mit dem L10-Adapter; blinde Mini-Bewertung (Recherche 06).
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der

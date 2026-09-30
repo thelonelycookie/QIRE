@@ -75,7 +75,9 @@ QUESTIONS: Dict[str, str] = {
     "T-004": ("Chatbot: senkt eine 192-Winkel-QIRE-Drehung als Adapter auf "
               "LLaeMmlein-120M den Verlust, wie weit kommt sie an LoRA heran, und "
               "traegt der CNOT-Ring?"),
-    "T-002":"Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
+    "T-005": ("Chatbot: wie faellt der Verlust mit der Lagenzahl des QIRE-Adapters, "
+              "kommt L=10 an LoRA heran, und ergaenzt QIRE ein LoRA?"),
+    "T-002": "Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
 }
 # T-001 steht hier, obwohl es kein Q-Lauf ist: Der Zweck dieses Werkzeugs ist,
 # dass kein fertiger Lauf im Bericht verschwindet, und T-001 hat alles, was der
