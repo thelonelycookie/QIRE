@@ -425,10 +425,10 @@
   {
    "id": "I-036-v2",
    "abteilung": "Clifford",
-   "status": "läuft (Container)",
+   "status": "erledigt",
    "prioritaet": 1,
    "frage": "Traegt die gesuchte Vorzeichenmaske den Vorsprung der Clifford-Suche? Je Seed aus der gefundenen Bruhat-Form (V_s, m_s): suche vs. ohne_maske = W(V_s,1) (M-1 MNIST, M-3 Fashion; TOST +-0,5 pp, je eigene Familie); suche vs. block2x2_maske (M-2/M-4) nur beschreibend; Positivkontrolle P-0: suche - block2x2 reproduziert I-036 W-4.",
-   "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'. | Modul von Forscher-Agent 05.10., Vortest (18 s, vom Direktor wiederholt) und Rauchtest (67 s) bestanden. M-2 vor jeder Zahl aus der Familie genommen (in ~60 % der Seeds block2x2_maske = block2x2 exakt -> nur W-4-Wiederholung). Seeds MNIST 700-719, Fashion 720-739, Struktur 740-749. Wiederaufnahme je Seed (ergebnisse/_zwischen_I-036-v2.json). ~1,1-1,3 h bei 4 Prozessen. Vorhersage: P-0 besteht, M-1 SUCHE_BESSER (+1-2 pp).",
+   "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'. | Modul von Forscher-Agent 05.10., Vortest (18 s, vom Direktor wiederholt) und Rauchtest (67 s) bestanden. M-2 vor jeder Zahl aus der Familie genommen (in ~60 % der Seeds block2x2_maske = block2x2 exakt -> nur W-4-Wiederholung). Seeds MNIST 700-719, Fashion 720-739, Struktur 740-749. Wiederaufnahme je Seed (ergebnisse/_zwischen_I-036-v2.json). ~1,1-1,3 h bei 4 Prozessen. Vorhersage: P-0 besteht, M-1 SUCHE_BESSER (+1-2 pp). | Gerechnet 05.10. (66 min, Container): P-0 bestanden, P-0F durchgefallen (vorhergesagt), M-1/M-3 SUCHE_BESSER, Wechselwirkung +2,1/+2,7 pp. Laborbuch 05.10. 18:24.",
    "neuheit": "05.10.: Literatursuche (3 Anfragen) ohne Vergleichbares, Details recherche/2026-10-05_neuheit_I-036-v2.md; Neuheit plausibel",
    "modul": "abteilungen.maske_block",
    "folgen": {
@@ -440,6 +440,14 @@
     "M-2 beschreibend Blockwahl": "eigene Karte: Suche nur ueber V bei fester (kanonischer) Maske",
     "P-0 DURCHGEFALLEN": "I-036 W-4 repliziert nicht: Siegerfluch/Seed-Satz pruefen"
    }
+  },
+  {
+   "id": "I-036-v3",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "prioritaet": 1,
+   "frage": "Folge M-1 SUCHE_BESSER: Welche Eigenschaft der gesuchten quadratischen Maske traegt? (a) Rang der quadratischen Form vs. Gewinn, (b) Masken-Transfer: m_s eines Seeds auf V_s eines anderen, (c) Zufallsmaske gleichen Rangs auf V_s.",
+   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig."
   }
  ]
 }

@@ -1068,3 +1068,57 @@ Suche − block2x2 nur bei +0,34 pp (14/20, außerhalb der Familie).
 fester Maske vs. volle Suche → trägt die Maske oder die Blockwahl? In der
 Agenda als **I-036-v2** (Status *idee*), vor dem Bauen Literatursuche
 (Vorgabe 7).
+
+## 05.10.2026, 18:24 — I-036-v2: Maske und Blöcke tragen nur **gemeinsam** — starke Wechselwirkung ✔
+
+`ergebnisse/I-036-v2__20261005_182417.json`, vorregistriert und committet vor
+dem Lauf (`2c669c9`), 66 min im Container (4 Prozesse, Wiederaufnahme je
+Seed, Zwischenstände committet). Modul `abteilungen/maske_block.py`
+(Forscher-Agent, Vortest vom Direktor wiederholt). Je Seed wird die gefundene
+Suchschaltung in Bruhat-Form (V_s, m_s) zerlegt und in vier Varianten mit
+demselben Kopf gemessen. 20/20 Seeds je Datensatz gültig.
+
+| Testgenauigkeit (Mittel 20) | MNIST | Fashion |
+|---|---|---|
+| suche (V_s + Maske m_s) | **0,9396** | **0,8247** |
+| block2x2 (fest, ohne Maske) | 0,9285 | 0,8226 |
+| block2x2_maske (fester Block + m_s) | 0,9266 | 0,8192 |
+| ohne_maske (V_s, Maske weg) | 0,9204 | 0,8012 |
+| Identität | 0,9014 | 0,8004 |
+
+**Urteile (vorregistriert):**
+- Q-0 **H1** (Lehrer-Lösung in 8/10), **P-0 bestanden**: suche − block2x2 =
+  +1,11 pp MNIST, 20/20 — I-036 W-4 repliziert auf frischen Seeds.
+- P-0F (Fashion) **durchgefallen**, wie vorhergesagt: +0,21 pp (< 0,5 pp).
+  → Keine Gleichwertigkeitsaussage aus dem Fashion-Teil (Regel 6); M-3 ist
+  eine Richtungsaussage.
+- **M-1 SUCHE_BESSER** (MNIST): suche − ohne_maske = +1,93 pp,
+  KI [+1,28; +2,57], 17/20, p < 10⁻⁴.
+- **M-3 SUCHE_BESSER** (Fashion): +2,36 pp, KI [+2,10; +2,62], 20/20.
+- M-2/M-4 beschreibend: Die Maske der Suche ist auf 2×2-Blöcken nur in 4/20
+  Seeds wirksam; dort *schadet* sie dem festen Block (−0,96 / −1,73 pp, 0/4).
+
+**Der eigentliche Befund (beschreibend, 2×2-Zerlegung):**
+Wechselwirkung **+2,12 pp** (MNIST, 17/20) und **+2,70 pp** (Fashion, 20/20).
+Die gesuchten Blöcke *ohne* ihre Maske sind schlechter als der einfache
+2×2-Block (MNIST −0,82 pp, Fashion −2,14 pp, 0/20), und die Maske *ohne* ihre
+Blöcke hilft auch nicht. Erst das Paar (V_s, m_s) liegt vorn.
+
+**Was das heißt:**
+1. Die Suche findet weder „gute Blöcke“ noch „eine gute Maske“ getrennt,
+   sondern **aufeinander abgestimmte Paare** aus Walsh-Unterraum und
+   quadratischer Vorzeichenmaske. Für eine Clifford-Schaltung ist das
+   natürlich: Die Bruhat-Form ist *eine* Gruppenoperation, deren Teile nur
+   zusammen eine sinnvolle Basis bilden. Die quadratische Phase (S-/CZ-Anteil)
+   ist also nicht schmückendes Beiwerk, sondern trägt die Hälfte des Nutzens.
+2. Damit ist die naheliegende klassische Abkürzung („nimm feste Block-Walsh-
+   Merkmale“) zweimal widerlegt (I-036 W-4, I-036-v2 M-1/M-3). Der 0-T-Befund
+   ist eine Leistung der **Suche im Clifford-Raum**, nicht einer festen
+   Transformation.
+3. Einschränkung: Alles ist exakt klassisch simulierbar (Gottesman-Knill);
+   die Aussage ist eine über die *Struktur* des Clifford-Raums als
+   Modellklasse, nicht über Quantenvorteil.
+
+**Folge (vorregistriert für M-1 SUCHE_BESSER):** Welche Maskeneigenschaft
+trägt — Rang der quadratischen Form, Transfer einer Maske zwischen Seeds?
+In der Agenda als **I-036-v3** (Idee).
