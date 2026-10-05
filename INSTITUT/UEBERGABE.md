@@ -1,7 +1,52 @@
 # Übergabe an den nächsten Chat — QIRE-Institut
 
-*Stand 25.09.2026, ca. 10:40 (zweiter Chat 24./25.09., durchgehend). Wer das hier liest, braucht vorerst nichts anderes.
+*Stand 05.10.2026 (Abschnitt 0 neu; §4/§5 sind Stand 25.09. und durch §0 überholt). Wer das hier liest, braucht vorerst nichts anderes.
 Einzelheiten stehen in den verlinkten Dateien; lies sie nur, wenn du sie brauchst.*
+
+---
+
+## 0. Stand 05.10.2026 — zuerst lesen
+
+**Seit dem 25.09. gerechnet (alle im `LABORBUCH.md`, Rohdaten in `ergebnisse/`):**
+
+| ID | Kernzahl | Bedeutung |
+|---|---|---|
+| I-004-mnist | R-1 H1: zufälliges Clifford-Gerüst + 4 Magiewinkel, **ein** Training, G = 0,69 | weder volles Training noch nachträgliches Runden nötig |
+| I-005 | diskrete Clifford-Suche (0 Magie) = Niveau volles Training (MNIST, 10 Seeds) | Positivkontrolle für das Verfahren bestanden (G_L 0,96) |
+| I-005-v2 | MNIST **GLEICHWERTIG** (TOST, d −0,14 pp); Fashion **VOLL_BESSER** (−1,31 pp) | **MNIST braucht keine Magie, Fashion schon** |
+| I-005-v3 | Fashion: M50_S = **4 Magiewinkel** (≈ 123 T) auf der Suche-Schaltung; k32 ab Suche nur 0,42 | Suche sitzt in anderem Becken als der Gradient |
+| I-036 | Suche − globaler Walsh +5,6 pp (MNIST) / +3,0 pp (Fashion); Suche − fester 2×2-Block-Walsh **+0,93 pp** (MNIST, 19/20) | Clifford-Zelle ist **kein** Walsh-Klassifikator — aber ein fester 2×2-Block holt ohne Suche schon 72 % des Abstands |
+
+**Kernsatz neu (05.10.):** *Auf MNIST erreicht eine reine Clifford-Schaltung
+(0 T-Gatter), per diskreter Suche gefunden, nachweislich das Niveau des vollen
+Trainings. Auf Fashion fehlen ihr 1,31 pp, von denen 4 gezielt gewählte
+Magiewinkel die Hälfte schließen. Der Clifford-Nutzen ist zum größten Teil
+lokale Hadamard-Mischung (fester 2×2-Block-Walsh), die Suche liefert den
+letzten Prozentpunkt; globale Walsh-Merkmale schaden.* Einordnung (Recherche
+29.09.): Rz ist auf NISQ-Hardware virtuell — „0 bzw. 4 Magiewinkel“ ist dort
+vor allem eine Aussage über klassische Simulierbarkeit, auf fehlertoleranter
+Hardware über T-Kosten.
+
+**Projekt A parallel** (`../UEBERARBEITUNG_2026-09-23/A/`, Einstieg
+`HANDOFF_AKTUELL.md` §000): Q-020, Q-019W, T-004, **T-005** gerechnet
+(Chatbot-Adapter: Verlust fällt streng monoton mit der Lagenzahl, L10 = 55 %
+des LoRA-Gewinns mit 1/16 der Parameter, QIRE+LoRA ergänzt nicht).
+
+**Offen im Institut:** I-036-v2 (Idee: Maske oder Blockwahl? — vor dem Bauen
+Literatursuche), I-003-v2, I-010, B-paritaet, V-fashion (Prio 3).
+
+**Arbeitsorte:** Malte rechnet auf `claude/busy-faraday-e57hna`, Cloud-Sitzungen
+auf eigenen Branches (z. B. `claude/remote-control-pc-start-gj69o1`) und mergen
+von dort. Ein Container-Lauf setzt in `agenda.json` vorher den Status
+„läuft (Container)“. **Lange Läufe im Container ohne Wiederaufnahme sind
+riskant** (I-036 ging einmal mit einem Container-Neustart verloren, FEHLERBUCH 05.10.).
+
+**Entscheidungen für Malte:**
+- Merge der Cloud-Branches nach `main` bzw. welcher Branch maßgeblich ist.
+- Ob lange Läufe künftig im Container (kostenlos, aber abbruchgefährdet) oder
+  nur auf dem PC laufen sollen.
+- T-002/RunPod (Geld), Aufteilung A/B für die Anmeldung, IBM-Token,
+  Frist der schriftlichen Arbeit (siehe `../UEBERARBEITUNG_2026-09-23/A/HANDOFF_AKTUELL.md` §8).
 
 ---
 
@@ -155,7 +200,7 @@ Arbeitstitel für den Namen: **Magie-Konzentration M50/M90 einer Aufgabe**
 (auf zwei Datensätzen, zwei unabhängigen Seed-Sätzen belegt — der Rest der
 Nachtarbeit hat eher relativiert als bestätigt, das gehört ehrlich dazu).
 
-## 5. Was gerade offen ist (Stand 25.09. Vormittag)
+## 5. Was gerade offen ist (Stand 25.09. Vormittag — überholt, siehe §0)
 
 Alles aus der Nacht 24./25.09. ist gerechnet (C-referenz, I-003, I-020, I-015,
 I-015-hybrid[-fashion], I-024, I-033, I-034[-fashion], C-skala[-v2], I-035 —
