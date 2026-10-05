@@ -212,3 +212,15 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
   Richtig ist: Auf MNIST braucht die Aufgabe keine Magie, auf Fashion schon.
   Lehre dazu: Eine Deutung, die einen früheren Befund „auf den Kopf stellt“,
   vor dem Aufschreiben auf dem zweiten Datensatz prüfen, nicht danach.
+
+## 05.10.2026 — I-036 im Container abgebrochen (kein Ergebnis, kein Befund)
+
+Der erste Container-Lauf von I-036 (gestartet 30.09. ~07:00) ist ohne
+Ergebnisdatei verschwunden: Der Cloud-Container wurde neu gestartet, der
+Prozess war weg. `walsh_kontrolle.py` hat keine Wiederaufnahme, also sind
+keine Zahlen entstanden — die Vorregistrierung bleibt unberührt. Neustart
+05.10. mit unveränderter Fassung.
+**Lehre (dieselbe Klasse wie Q-011):** Ein mehrstündiger Lauf ohne
+Zwischenstand ist im Cloud-Container genauso gefährdet wie auf dem PC mit
+Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
+(Muster `sprachmodell.py`, `weiter=True`), bevor sie im Container laufen.
