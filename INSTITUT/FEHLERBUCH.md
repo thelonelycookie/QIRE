@@ -227,4 +227,4 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 
 ### 05.10.2026 16:42 — I-036 (automatisch)
 - **W-3**: H0 (Gegenrichtung): globale Walsh-Merkmale sind schlechter als die Pixelquadrate -- MNIST: d = -2.03 pp, 90-%-KI [-2.22; -1.83], TOST(+-0.5 pp) p = 1.0000, Holm-p_TOST = 1.0000, Wilcoxon p = 0.0000, Holm-p = 0.0000, 0/20 Seeds positiv; Sensitivitaet suche - id +3.57 pp (p = 0.0000)
-- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+- **Lehre (Claude, 05.10.):** Vorhergesagt (Karte: „W-3 H0 Gegenrichtung“), also kein Fehlschlag des Verfahrens. Die globale Walsh-Transformation (k = 8, mischt alle Pixel) zerstört die Lokalität, die der lineare Kopf braucht; die feste Dosis-Kurve ist nicht monoton in k (block2x2 0,928 > block8x8 0,926 > block4x4 0,911 > walsh 0,881 auf MNIST). Folge: „Clifford = Walsh“ ist als globale Aussage widerlegt; die Frage verschiebt sich auf *lokale* Blockstruktur + Maske (I-036-v2).
