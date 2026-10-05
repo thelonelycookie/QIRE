@@ -444,11 +444,23 @@
   {
    "id": "I-036-v3",
    "abteilung": "Clifford",
-   "status": "idee",
+   "status": "läuft (Container)",
    "prioritaet": 1,
-   "frage": "Folge M-1 SUCHE_BESSER: Welche Eigenschaft der gesuchten quadratischen Maske traegt? (a) Rang der quadratischen Form vs. Gewinn, (b) Masken-Transfer: m_s eines Seeds auf V_s eines anderen, (c) Zufallsmaske gleichen Rangs auf V_s.",
-   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig.",
-   "neuheit": "05.10.: 2 Anfragen, nichts Vergleichbares; naechster Nachbar 2604.25480 (optische gelernte Phasenmaske + Hadamard, kontinuierlich) -- zitieren. recherche/2026-10-05_neuheit_I-036-v3.md"
+   "frage": "Welche Eigenschaft der gesuchten quadratischen Maske traegt? Je Seed aus (V_s, B_s): suche vs. zufall_gleicher_rang (Median 20 Formen B_r = P^T B_s P, P in GL(k,2)) = R-1; zufall_gleicher_rang vs. ohne_maske = R-2 (Holm x2, MNIST); Fashion R-3/R-4 als Replikation; TOST +-0,5 pp; fremde_maske (V_s Teilraum V_t) und Rang-Gewinn-Spearman ueber Seeds beschreibend. Positivkontrolle P-0/P-0F: suche - ohne_maske >= 0,5 pp einseitig.",
+   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig. | Modul von Forscher-Agent 05.10., Vortest (8 s, vom Direktor wiederholt; 6 eingebaute Fehler erkannt) und Rauchtest (143 s) bestanden. Invariante = Rang der alternierenden Form (volle GL(V)-Invariante des merkmalswirksamen Teils). Rang-0-Seeds vorab ausgeschlossen. Seeds MNIST 760-779, Fashion 780-799, Struktur 800-809. Wiederaufnahme je Seed. ~1,2-1,4 h bei 4 Prozessen. GLEICHWERTIG erreichbar nur bei sd < 1,07 pp. Vorhersage: R-1 SUCHE_BESSER (+0,7), R-2 ZUFALL_BESSER (+1,2) -> RANG_UND_FORM.",
+   "neuheit": "05.10.: 2 Anfragen, nichts Vergleichbares; naechster Nachbar 2604.25480 (optische gelernte Phasenmaske + Hadamard, kontinuierlich) -- zitieren. recherche/2026-10-05_neuheit_I-036-v3.md",
+   "modul": "abteilungen.maske_eigenschaft",
+   "folgen": {
+    "R-1 SUCHE_BESSER": "Form-Suche bei festem V_s und Rang (nur CZ/S-Lage)",
+    "R-1 GLEICHWERTIG": "Zweistufensuche (V, Rang) mit Zufallsform",
+    "R-1 ZUFALL_BESSER": "Siegerfluch: Hold-out-Kriterium",
+    "R-1 HU": "40 Seeds / 10.000 Testbilder",
+    "R-2 ZUFALL_BESSER": "Dosis-Kurve ueber den Rang 0..k",
+    "R-2 GLEICHWERTIG": "Lage der Form zu den Bildachsen",
+    "R-2 OHNE_BESSER": "Paarbindung Maske-V_s",
+    "R-2 HU": "wie R-1",
+    "P-0 DURCHGEFALLEN": "Seed-Satz/Siegerfluch pruefen"
+   }
   }
  ]
 }
