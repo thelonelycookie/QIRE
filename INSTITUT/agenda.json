@@ -444,10 +444,10 @@
   {
    "id": "I-036-v3",
    "abteilung": "Clifford",
-   "status": "läuft (Container)",
+   "status": "erledigt",
    "prioritaet": 1,
    "frage": "Welche Eigenschaft der gesuchten quadratischen Maske traegt? Je Seed aus (V_s, B_s): suche vs. zufall_gleicher_rang (Median 20 Formen B_r = P^T B_s P, P in GL(k,2)) = R-1; zufall_gleicher_rang vs. ohne_maske = R-2 (Holm x2, MNIST); Fashion R-3/R-4 als Replikation; TOST +-0,5 pp; fremde_maske (V_s Teilraum V_t) und Rang-Gewinn-Spearman ueber Seeds beschreibend. Positivkontrolle P-0/P-0F: suche - ohne_maske >= 0,5 pp einseitig.",
-   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig. | Modul von Forscher-Agent 05.10., Vortest (8 s, vom Direktor wiederholt; 6 eingebaute Fehler erkannt) und Rauchtest (143 s) bestanden. Invariante = Rang der alternierenden Form (volle GL(V)-Invariante des merkmalswirksamen Teils). Rang-0-Seeds vorab ausgeschlossen. Seeds MNIST 760-779, Fashion 780-799, Struktur 800-809. Wiederaufnahme je Seed. ~1,2-1,4 h bei 4 Prozessen. GLEICHWERTIG erreichbar nur bei sd < 1,07 pp. Vorhersage: R-1 SUCHE_BESSER (+0,7), R-2 ZUFALL_BESSER (+1,2) -> RANG_UND_FORM.",
+   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig. | Modul von Forscher-Agent 05.10., Vortest (8 s, vom Direktor wiederholt; 6 eingebaute Fehler erkannt) und Rauchtest (143 s) bestanden. Invariante = Rang der alternierenden Form (volle GL(V)-Invariante des merkmalswirksamen Teils). Rang-0-Seeds vorab ausgeschlossen. Seeds MNIST 760-779, Fashion 780-799, Struktur 800-809. Wiederaufnahme je Seed. ~1,2-1,4 h bei 4 Prozessen. GLEICHWERTIG erreichbar nur bei sd < 1,07 pp. Vorhersage: R-1 SUCHE_BESSER (+0,7), R-2 ZUFALL_BESSER (+1,2) -> RANG_UND_FORM. | Gerechnet 05.10. (73 min, Container): P-0/P-0F bestanden, R-1/R-3 SUCHE_BESSER, R-2/R-4 ZUFALL_BESSER -> RANG_UND_FORM (Rang 52 % MNIST, 78 % Fashion), fremde Maske fast so gut wie eigene. Laborbuch 05.10. 20:05.",
    "neuheit": "05.10.: 2 Anfragen, nichts Vergleichbares; naechster Nachbar 2604.25480 (optische gelernte Phasenmaske + Hadamard, kontinuierlich) -- zitieren. recherche/2026-10-05_neuheit_I-036-v3.md",
    "modul": "abteilungen.maske_eigenschaft",
    "folgen": {
@@ -461,6 +461,14 @@
     "R-2 HU": "wie R-1",
     "P-0 DURCHGEFALLEN": "Seed-Satz/Siegerfluch pruefen"
    }
+  },
+  {
+   "id": "I-037",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "prioritaet": 1,
+   "frage": "Dosis-Kurve ueber den Rang (Folge R-2 ZUFALL_BESSER) + Aufgabenform: Genauigkeit von W(V, B) fuer Rang 0,2,4,6 (zufaellige Formen) bei festen V aus der Suche; und eine EINMAL gesuchte Form auf neue Seeds/Bloecke uebertragen vs. Suche je Seed (Methode statt Suche).",
+   "notiz": "Aus I-036-v3 (05.10.): Rang traegt 52/78 %, Spearman Rang~Gewinn +0,79; fremde Maske nur 0,29 pp hinter eigener. Vor dem Bauen: Literatursuche (Vorgabe 7) zu Graphzustand-Rang/Verschraenkung als Merkmalsqualitaet."
   }
  ]
 }

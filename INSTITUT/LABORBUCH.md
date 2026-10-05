@@ -1122,3 +1122,67 @@ Blöcke hilft auch nicht. Erst das Paar (V_s, m_s) liegt vorn.
 **Folge (vorregistriert für M-1 SUCHE_BESSER):** Welche Maskeneigenschaft
 trägt — Rang der quadratischen Form, Transfer einer Maske zwischen Seeds?
 In der Agenda als **I-036-v3** (Idee).
+
+## 05.10.2026, 20:05 — I-036-v3: Der **Rang** der Maske trägt gut die Hälfte, die **konkrete Form** den Rest — und gute Formen sind übertragbar ✔
+
+`ergebnisse/I-036-v3__20261005_200505.json`, vorregistriert und committet vor
+dem Lauf (`db0a336`), 73 min im Container (4 Prozesse, Wiederaufnahme,
+Zwischenstände committet). Modul `abteilungen/maske_eigenschaft.py`
+(Forscher-Agent, Vortest vom Direktor wiederholt). Je Seed: gefundene
+Bruhat-Form (V_s, B_s); `zufall_gleicher_rang` = Median über 20 Formen
+B_r = PᵀB_sP mit P gleichverteilt in GL(k,2) (gleicher Rang der
+alternierenden Form, der vollen Invariante des merkmalswirksamen Teils).
+20/20 Seeds je Datensatz analysierbar, kein Rang-0-Seed.
+
+| Testgenauigkeit (Mittel 20) | MNIST | Fashion |
+|---|---|---|
+| suche (V_s, B_s) | **0,9359** | **0,8233** |
+| zufall_gleicher_rang (V_s, B_r) | 0,9238 | 0,8184 |
+| ohne_maske (V_s, 0) | 0,9105 | 0,8009 |
+| Identität | 0,9017 | 0,7993 |
+
+**Urteile (vorregistriert):**
+- Q-0 **H1** (Lehrer-Lösung 7/10). **P-0 und P-0F bestanden**: suche −
+  ohne_maske = +2,54 pp (MNIST, 20/20), +2,24 pp (Fashion, 20/20) — I-036-v2
+  M-1/M-3 auf frischen Seeds repliziert.
+- **R-1 SUCHE_BESSER** (MNIST): suche − zufall_gleicher_rang = +1,22 pp,
+  KI [+1,01; +1,42], 20/20, Holm-p < 10⁻⁴.
+- **R-2 ZUFALL_BESSER** (MNIST): zufall_gleicher_rang − ohne_maske = +1,32 pp,
+  KI [+0,67; +1,98], 14/20, Holm-p = 0,008.
+- **R-3 SUCHE_BESSER** (Fashion): +0,49 pp, KI [+0,37; +0,62], 19/20.
+- **R-4 ZUFALL_BESSER** (Fashion): +1,75 pp, KI [+1,53; +1,96], 20/20.
+- Zusammen (R-Z, beschreibend): **RANG_UND_FORM** auf beiden Datensätzen;
+  Anteil des Rangs am Maskengewinn **52 %** (MNIST), **78 %** (Fashion).
+  Genau die vor dem Lauf angesagte Vorhersage (RANG_UND_FORM, ~60 %).
+
+**Beschreibend:**
+- Rang ↔ Maskengewinn über Seeds: Spearman +0,79 (MNIST), +0,49 (Fashion);
+  Rang ↔ Zufallsmasken-Gewinn +0,90 (MNIST). Höherer Rang = mehr Nutzen.
+  Ränge MNIST {2: 4, 4: 6, 6: 10}, Fashion {2: 1, 4: 5, 6: 14}.
+- **Fremde Maske** (Form eines anderen Seeds, wo V_s ⊆ V_t; 16/20 MNIST):
+  fremde − ohne +2,19 pp, fremde − zufall +0,84 pp (16/16), suche − fremde nur
+  +0,29 pp. → **Gute Formen sind zwischen Seeds übertragbar**: Die Form ist
+  eher eine Eigenschaft der *Aufgabe* als des einzelnen Suchlaufs.
+- Siegerfluch der Formwahl (Vorsprung im LOO-Kriterium minus im Test):
+  +0,55 pp (MNIST), +0,99 pp (Fashion). Die Suche überschätzt ihren Vorsprung
+  im eigenen Kriterium; die Urteile oben sind aber auf dem Testsatz gemessen.
+  Auf Fashion ist der verbleibende Formvorteil (+0,49 pp) klein — knapp an der
+  TOST-Grenze, aber 19/20 positiv.
+
+**Was das heißt:**
+1. Der CZ/S-Anteil der Clifford-Schaltung (die quadratische Phase) wirkt auf
+   zwei Ebenen: Schon **wie viel** Verschränkungsphase (Rang der Form) zählt —
+   eine zufällige Form gleichen Rangs holt gut die Hälfte (MNIST) bis drei
+   Viertel (Fashion) des Gewinns. **Welche** Form, entscheidet den Rest.
+2. Der Rang einer quadratischen Form über GF(2) ist eine echte
+   Quanteneigenschaft der Schaltung (er bestimmt z. B. die Verschränkung des
+   zugehörigen Graphzustands). „Mehr Verschränkungsphase → bessere Merkmale“
+   ist damit über Seeds gemessen, nicht nur behauptet — innerhalb einer
+   klassisch simulierbaren Modellklasse.
+3. Übertragbarkeit legt eine billigere Methode nahe: eine gute Form einmal
+   suchen und für neue Seeds bzw. Blöcke wiederverwenden.
+
+**Folgen (vorregistriert):** R-1 SUCHE_BESSER → Form-Suche bei festem V_s und
+Rang (nur CZ/S-Lage); R-2 ZUFALL_BESSER → Dosis-Kurve über den Rang 0…k.
+Neu aus dem Beschreibenden: Übertragung einer festen „Aufgabenform“ auf neue
+Seeds als eigene Karte (Methode statt Suche je Seed).
