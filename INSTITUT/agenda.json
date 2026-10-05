@@ -447,7 +447,8 @@
    "status": "idee",
    "prioritaet": 1,
    "frage": "Folge M-1 SUCHE_BESSER: Welche Eigenschaft der gesuchten quadratischen Maske traegt? (a) Rang der quadratischen Form vs. Gewinn, (b) Masken-Transfer: m_s eines Seeds auf V_s eines anderen, (c) Zufallsmaske gleichen Rangs auf V_s.",
-   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig."
+   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig.",
+   "neuheit": "05.10.: 2 Anfragen, nichts Vergleichbares; naechster Nachbar 2604.25480 (optische gelernte Phasenmaske + Hadamard, kontinuierlich) -- zitieren. recherche/2026-10-05_neuheit_I-036-v3.md"
   }
  ]
 }
