@@ -51,10 +51,11 @@ THEORIE (vor dem Festlegen gerechnet; der Vortest (B1)-(B8) prueft jeden Satz):
       (maske_wirksam_2x2 = 0, dann block2x2_maske = block2x2 EXAKT) in 12/20 MNIST- und 16/20 Fashion-Seeds,
       sonst auf jedem 2x2-Block quadratisch (= 1). Unabhaengig von der Basiskonvention (alt-Basen: dieselbe
       Wirksamkeit in 40/40). Folge: M-2 ist zu ~60 % (MNIST) mechanisch derselbe Vergleich wie I-036 W-4
-      (suche - block2x2). M-2 bleibt wie von der Karte verlangt, ist aber so zu lesen: „traegt die Blockwahl, wenn
-      man die Maske der Suche auf 2x2-Bloecke uebertraegt“ -- und diese Uebertragung ist meist wirkungslos. Deshalb
-      beschreibend zusaetzlich suche - block2x2_maske und block2x2_maske - block2x2 NUR auf den Seeds mit
-      wirksamer 2x2-Maske (M-B, „nur_wirksam“).
+      (suche - block2x2). ENTSCHEIDUNG DES DIREKTORS (05.10., vor jeder Messzahl): M-2 und M-4 sind deshalb
+      BESCHREIBEND, ohne Familienurteil -- in ~60 % der Seeds gilt block2x2_maske = block2x2 exakt, M-2 wuerde dort
+      nur I-036 W-4 wiederholen, und diese Replikation deckt P-0 bereits ab. Berichtet werden immer der Anteil der
+      Seeds mit wirksamer 2x2-Maske und suche - block2x2_maske / block2x2_maske - block2x2 auf der Teilmenge
+      „nur_wirksam“.
   ZERLEGUNG (beschreibend):            Maske m_s           ohne Maske
                          Bloecke V_s   suche               ohne_maske
                          Bloecke V_b   block2x2_maske      block2x2
@@ -84,13 +85,14 @@ SEEDS (05.10. geprueft gegen ergebnisse/*.json (jede ganze Zahl 700-759 mit Pfad
   Mess-Seeds  MNIST 700-719, Fashion 720-739 (je 20)       Strukturaufgabe (Q-0) 740-749
   Rauchtest   MNIST 750/751, Fashion 752/753, Struktur 754/755 (nie Mess-Seeds)
   Seed-Zahl 20 aus der Streuung von suche - block2x2 in I-036: sd MNIST 0,68 pp, Fashion 0,43 pp (fuer M-1/M-2
-  unbekannt, dies ist die beste Naeherung). TOST ±0,5 pp, Holm x2 je Familie: kleinstes p_TOST < 0,025
-  (t_0,975;19 = 2,09), zweites < 0,05 (t = 1,73); se = sd/4,47:
-    MNIST  GLEICHWERTIG erreichbar bei |d| < 0,5 - 2,09·0,152 = 0,18 pp (bzw. 0,24 pp als zweites);
-    Fashion |d| < 0,5 - 2,09·0,096 = 0,30 pp (bzw. 0,33 pp). Wilcoxon: kleinstes p 2/2^20, Holm kostet nichts.
+  unbekannt, dies ist die beste Naeherung). TOST ±0,5 pp, je Familie EIN Glied (Holm x1 = kein Holm):
+  p_TOST < 0,05 (t_0,95;19 = 1,73); se = sd/4,47:
+    MNIST  GLEICHWERTIG erreichbar bei |d| < 0,5 - 1,73·0,152 = 0,24 pp;
+    Fashion |d| < 0,5 - 1,73·0,096 = 0,33 pp. Wilcoxon: kleinstes p 2/2^20.
 
-FAMILIEN (Entscheidung, begruendet): MNIST {M-1, M-2} ist die Hauptfamilie (dort ist der zu zerlegende Effekt
-  nachgewiesen). Fashion {M-3, M-4} ist die REPLIKATION in EIGENER Holm-Familie, nicht nur beschreibend: der
+FAMILIEN (Direktor 05.10., vor jeder Zahl): MNIST {M-1} ist die Hauptfamilie (dort ist der zu zerlegende Effekt
+  nachgewiesen). M-2/M-4 beschreibend (T6). Fashion {M-3} ist die REPLIKATION in EIGENER Familie, nicht nur
+  beschreibend: der
   Vorsprung vor block2x2 ist dort zwar klein (+0,34 pp), aber die Teilvergleiche koennen gross sein (ohne_maske
   liegt nicht zwischen suche und block2x2: feste Bloecke ohne Maske mit k = 5-8 liegen auf Fashion 1-3 pp unter
   der Suche), also ist eine Richtungsaussage moeglich und als Replikation wertvoll. Eigene Familie, weil es eine
@@ -98,12 +100,12 @@ FAMILIEN (Entscheidung, begruendet): MNIST {M-1, M-2} ist die Hauptfamilie (dort
   werden soll. Gleichwertigkeit auf Fashion braucht die eigene Positivkontrolle P-0F (siehe unten), die nach I-036
   voraussichtlich FEHLSCHLAEGT -- dann gibt es auf Fashion nur *_BESSER oder HU (so vorhergesagt).
 
-VORREGISTRIERT (Holm getrennt fuer Wilcoxon und TOST, je Familie; delta = 0,5 pp; nur gueltige Seeds):
-  P-0  Positivkontrolle MNIST (NICHT in der Familie, Voraussetzung fuer GLEICHWERTIG in M-1/M-2): suche - block2x2
+VORREGISTRIERT (Familien {M-1} und {M-3}, je ein Glied, Holm x1; delta = 0,5 pp; nur gueltige Seeds):
+  P-0  Positivkontrolle MNIST (NICHT in der Familie, Voraussetzung fuer GLEICHWERTIG in M-1): suche - block2x2
        reproduziert den I-036-Effekt: einseitiger exakter Wilcoxon (suche > block2x2) p < 0,05 UND Mittel >= 0,5 pp
        (= delta: ist der Gesamteffekt kleiner als die Gleichwertigkeitsgrenze, folgt „Teil gleichwertig“ schon aus
        der Kleinheit des Ganzen -- Grenzen relativ zum Effekt). -> BESTANDEN / DURCHGEFALLEN.
-  P-0F dasselbe auf Fashion (Voraussetzung fuer GLEICHWERTIG in M-3/M-4).
+  P-0F dasselbe auf Fashion (Voraussetzung fuer GLEICHWERTIG in M-3).
   Q-0  Positivkontrolle der Suche wie I-005/I-036 (Strukturaufgabe, Seeds 740-749), ebenfalls Voraussetzung fuer
        GLEICHWERTIG (das Suchverfahren muss eine bekannte Clifford-Loesung finden koennen).
   M-1  MNIST d_s = acc(suche) - acc(ohne_maske): TRAEGT DIE MASKE?
@@ -113,10 +115,11 @@ VORREGISTRIERT (Holm getrennt fuer Wilcoxon und TOST, je Familie; delta = 0,5 pp
              Holm-p < 0,05, d < 0 -> OHNE_BESSER (dieselben Bloecke ohne Maske sind besser: Suchdefizit/Siegerfluch;
                                      W(V_s, 1) liegt nicht notwendig im Suchraum der Zelle)
        sonst HU.   Weniger als 10 gueltige Seeds -> HU (Vorbedingung).
-  M-2  MNIST d_s = acc(suche) - acc(block2x2_maske): TRAEGT DIE BLOCKWAHL (bei gleicher Maske)?
-       Verzweigung wie M-1, Marken SUCHE_BESSER / GLEICHWERTIG / BLOCK_MASKE_BESSER / HU.
-  M-3, M-4  wie M-1, M-2 auf Fashion (Familie {M-3, M-4}, Gleichwertigkeit braucht P-0F).
-  Fehlt ein Datensatz, zaehlen seine Glieder mit p = 1.
+  M-3  wie M-1 auf Fashion (Familie {M-3}, Gleichwertigkeit braucht P-0F).
+  M-2  BESCHREIBEND (kein Urteil, T6): MNIST suche - block2x2_maske (gepaart, TOST-p, Wilcoxon-p ohne Schwelle),
+       Anteil Seeds mit wirksamer 2x2-Maske, dasselbe auf „nur_wirksam“, block2x2_maske - block2x2.
+  M-4  dasselbe auf Fashion.
+  Fehlt ein Datensatz, zaehlt sein Glied mit p = 1.
   M-B  beschreibend: 2x2-Tabelle der Mittel, Wechselwirkung I und Haupteffekte (gepaart), Verteilung von k,
        Anteil der Seeds in Bruhat-Form, maske_wirksam_2x2, Konventions-Empfindlichkeit (alt1/alt2), LOO-Kriterium
        der Arme, Sensitivitaet suche - identitaet, Rekonstruktionsabweichung, Aufwand.
@@ -126,11 +129,11 @@ VORHERSAGE (vor dem Lauf, hier festgehalten):
   M-1 SUCHE_BESSER, d ≈ +1 bis +2 pp: ohne Maske sind die Suchbloecke (k = 4-7) feste mittelgrosse Block-Walsh-
       Transformationen, und solche lagen in I-036 alle UNTER block2x2 (block8x8 0,9256, block4x4/zeilen16 0,911);
       die Maske ist das, was grosse Bloecke brauchbar macht (I-036 T3: 69/70 Suchergebnisse mit echter Maske).
-  M-2 SUCHE_BESSER, d ≈ +0,9 pp oder mehr: nach T6 ist block2x2_maske in ~60 % der Seeds exakt block2x2, im Rest
+  M-2 (beschreibend) d ≈ +0,9 pp oder mehr: nach T6 ist block2x2_maske in ~60 % der Seeds exakt block2x2, im Rest
       wirkt die uebertragene Maske wie ein festes quadratisches 2x2-Vorzeichenmuster (Erwartung: ≈ block2x2 oder
-      schlechter).
+      schlechter, auch auf „nur_wirksam“).
   => Wechselwirkung deutlich positiv: Maske und Blockwahl tragen NUR GEMEINSAM (die Maske ist an ihre Bloecke
-     gebunden). M-3 SUCHE_BESSER (Fashion, k naeher an 8, Bloecke ohne Maske schwach), M-4 HU oder SUCHE_BESSER.
+     gebunden). M-3 SUCHE_BESSER (Fashion, k naeher an 8, Bloecke ohne Maske schwach).
 
 FOLGEFRAGEN je Ausgang (fuer agenda.json „folgen“, vom Direktor einzutragen):
   M-1 SUCHE_BESSER  -> Welche Maskeneigenschaft traegt (Rang der quadratischen Form je Block, Transfer der Maske
@@ -138,11 +141,10 @@ FOLGEFRAGEN je Ausgang (fuer agenda.json „folgen“, vom Direktor einzutragen)
   M-1 GLEICHWERTIG  -> Reicht eine Suche NUR ueber Unterraeume V (ohne Maske, klassisch billig) fuer das Niveau
                        der Clifford-Suche?
   M-1 OHNE_BESSER   -> Suchdefizit: W(V_s, 1) als Start/Politur der Suche; liegt es im Suchraum der Zelle?
-  M-2 SUCHE_BESSER  -> Welche Bloecke gewinnen (Verteilung von V_s ueber Seeds: lokal/Zeilen/Spalten)? Feste
-                       Blockwahl aus der Haeufigkeit der Suchergebnisse ohne Suche.
-  M-2 GLEICHWERTIG  -> Maskensuche allein auf festem 2x2-Block vs. volle Suche.
-  M-2 BLOCK_MASKE_BESSER -> block2x2 (mit Maske) als Startpunkt der Suche (Suchdefizit-Kontrolle der Karte).
-  HU (M-1/M-2)      -> Wiederholung mit 40 Seeds bzw. groesserer Testmenge, falls die Streuung die Ursache ist.
+  M-1 HU            -> Wiederholung mit 40 Seeds bzw. groesserer Testmenge, falls die Streuung die Ursache ist.
+  M-3 (je Ausgang)  -> wie M-1, auf Fashion.
+  M-2 beschreibend deutet Blockwahl an (suche - block2x2_maske deutlich > 0, auch auf „nur_wirksam“) -> eigene
+                       Karte: Suche NUR ueber Unterraeume V bei fester (kanonischer) Maske.
   P-0 DURCHGEFALLEN -> I-036 W-4 repliziert nicht: Siegerfluch/Seed-Satz pruefen, bevor zerlegt wird.
 
 LAUFZEIT (I-036 gemessen, 4 Prozesse: Suche 378 s MNIST / 339 s Fashion je Seed, ganzer Seed 465 / 492 s mit
@@ -200,26 +202,28 @@ MIN_GUELTIG = 10
 N = 8
 QUBITS_BLOCK2X2 = wk.BLOECKE["block2x2"]           # (3, 7)
 ALT_SEED = 110_000                                   # zufaellige Basen fuer die Konventions-Empfindlichkeit
-FAMILIEN = {"MNIST": {"M-1": ("mnist", "suche_minus_ohne_maske"), "M-2": ("mnist", "suche_minus_block2x2_maske")},
-            "Fashion": {"M-3": ("fashion_mnist", "suche_minus_ohne_maske"),
-                        "M-4": ("fashion_mnist", "suche_minus_block2x2_maske")}}
+FAMILIEN = {"MNIST": {"M-1": ("mnist", "suche_minus_ohne_maske")},          # Direktor 05.10.: je ein Glied
+            "Fashion": {"M-3": ("fashion_mnist", "suche_minus_ohne_maske")}}
+BESCHREIBEND_BLOCK = {"M-2": "mnist", "M-4": "fashion_mnist"}                 # T6: ohne Familienurteil
 ARME = ("suche", "ohne_maske", "block2x2_maske", "block2x2")
 
 HYPOTHESEN = {
     "P-0": "Positivkontrolle MNIST (nicht in der Familie): suche - block2x2 reproduziert I-036 W-4: einseitiger exakter "
            "Wilcoxon p < 0,05 und Mittel >= 0,5 pp -> BESTANDEN, sonst DURCHGEFALLEN. Voraussetzung fuer GLEICHWERTIG "
-           "in M-1/M-2.",
-    "P-0F": "wie P-0 auf Fashion; Voraussetzung fuer GLEICHWERTIG in M-3/M-4 (Vorhersage: DURCHGEFALLEN, I-036 +0,34 pp).",
+           "in M-1.",
+    "P-0F": "wie P-0 auf Fashion; Voraussetzung fuer GLEICHWERTIG in M-3 (Vorhersage: DURCHGEFALLEN, I-036 +0,34 pp).",
     "Q-0": "Positivkontrolle der Suche wie I-005/I-036 Q-0 (Strukturaufgabe, frische Seeds 740-749). Nicht in der "
            "Familie; Voraussetzung fuer GLEICHWERTIG.",
     "M-1": "MNIST: suche (V_s, m_s) vs. ohne_maske (V_s, m = +1), gleicher Kopf, gepaart je Seed, nur Seeds in "
            "Bruhat-Form. Holm-p_TOST(+-0,5 pp) < 0,05 -> GLEICHWERTIG (wenn Q-0 H1 und P-0 BESTANDEN; sonst HU mit Grund); "
-           "sonst Holm-p(Wilcoxon) < 0,05 -> SUCHE_BESSER (Maske traegt) / OHNE_BESSER; sonst HU. Holm ueber {M-1, M-2}, "
-           "getrennt fuer TOST und Wilcoxon. < 10 gueltige Seeds -> HU (Vorbedingung).",
-    "M-2": "MNIST: suche (V_s, m_s) vs. block2x2_maske (V_b = 2x2-Bloecke, m_s kanonisch normiert). Verzweigung wie M-1; "
-           "Marken SUCHE_BESSER (Blockwahl traegt) / GLEICHWERTIG / BLOCK_MASKE_BESSER / HU.",
-    "M-3": "Fashion (Replikation, eigene Holm-Familie {M-3, M-4}, Gleichwertigkeit braucht P-0F): wie M-1.",
-    "M-4": "Fashion: wie M-2.",
+           "sonst Holm-p(Wilcoxon) < 0,05 -> SUCHE_BESSER (Maske traegt) / OHNE_BESSER; sonst HU. Familie {M-1} (ein Glied, "
+           "Holm x1). < 10 gueltige Seeds -> HU (Vorbedingung).",
+    "M-2": "BESCHREIBEND (Direktor 05.10., vor jeder Zahl; kein Familienurteil): MNIST suche (V_s, m_s) vs. "
+           "block2x2_maske (V_b = 2x2-Bloecke, m_s kanonisch normiert), mit Anteil Seeds mit wirksamer 2x2-Maske und "
+           "Ergebnis auf 'nur_wirksam'. Grund: in ~60 % der Seeds gilt block2x2_maske = block2x2 exakt, M-2 wiederholte "
+           "dort nur I-036 W-4, und das deckt P-0 ab.",
+    "M-3": "Fashion (Replikation, eigene Familie {M-3}, Gleichwertigkeit braucht P-0F): wie M-1.",
+    "M-4": "BESCHREIBEND: wie M-2 auf Fashion.",
     "M-B": "beschreibend: 2x2-Zerlegung (Wechselwirkung, Haupteffekte), Verteilung von k, Anteil Bruhat-Form, "
            "maske_wirksam_2x2, Konventions-Empfindlichkeit von block2x2_maske, LOO-Kriterium, Aufwand.",
 }
@@ -616,14 +620,6 @@ SPEZ = {
         "schlechter": "OHNE_BESSER: dieselben Bloecke V_s ohne Maske sind besser als die Suche (Suchdefizit oder "
                       "Siegerfluch; W(V_s, 1) liegt nicht notwendig im Suchraum)",
         "val": "val_ohne_maske_besser", "val_name": "ohne_maske"},
-    "suche_minus_block2x2_maske": {
-        "gleich": "GLEICHWERTIG: die gesuchte Blockwahl traegt nicht -- die Maske der Suche auf festen 2x2-Bloecken "
-                  "leistet dasselbe",
-        "besser": "SUCHE_BESSER: die gesuchte Blockwahl traegt -- dieselbe (kanonisch normierte) Maske auf festen "
-                  "2x2-Bloecken verliert",
-        "schlechter": "BLOCK_MASKE_BESSER: die Maske der Suche auf festen 2x2-Bloecken schlaegt die Suche (Suchdefizit "
-                      "oder Siegerfluch)",
-        "val": "val_block2x2_maske_besser", "val_name": "block2x2_maske"},
 }
 
 
@@ -659,6 +655,27 @@ def _urteil_m(h, ds, k, a, q0_h1) -> str:
     return "HU: " + t
 
 
+def _beschreibung_block(ds, a) -> str:
+    """M-2/M-4: beschreibend (T6), Zahlen ohne Schwelle und ohne Familienurteil."""
+    r = a["datensaetze"].get(ds)
+    if r is None:
+        return f"beschreibend: keine {NAME[ds]}-Seeds"
+    if "beschreibend" not in r:
+        return f"beschreibend: {NAME[ds]} zu wenige gueltige Seeds -- " + _gueltig_text(r)
+    d, b = r["suche_minus_block2x2_maske"], r["beschreibend"]
+    nw = b["nur_wirksam"]
+    g = lambda x: (f"{x['mittel'] * 100:+.2f} pp, 90-%-KI [{x['ki_unten'] * 100:+.2f}; {x['ki_oben'] * 100:+.2f}], "
+                   f"Wilcoxon p = {x['p']:.4f}, {x['positiv']}/{x['n']} positiv")
+    t = (f"beschreibend (kein Familienurteil, T6): {NAME[ds]}: suche - block2x2_maske {g(d)}, TOST p = {d['p_tost']:.4f}; "
+         f"wirksame 2x2-Maske in {nw['n']}/{r['n']} Seeds (sonst block2x2_maske = block2x2 exakt); ")
+    if nw["n"] >= 2:
+        t += (f"nur_wirksam: suche - block2x2_maske {g(nw['suche_minus_block2x2_maske'])}, block2x2_maske - block2x2 "
+              f"{g(nw['block2x2_maske_minus_block2x2'])}")
+    else:
+        t += "nur_wirksam: zu wenige Seeds"
+    return t + "; " + _gueltig_text(r)
+
+
 def _urteil_p0(ds, a) -> str:
     r = a["datensaetze"].get(ds)
     if r is None:
@@ -683,6 +700,8 @@ def urteil(a: dict) -> dict:
     for glieder in FAMILIEN.values():
         for h, (ds, k) in glieder.items():
             u[h] = _urteil_m(h, ds, k, a, q0_h1)
+    for h, ds in BESCHREIBEND_BLOCK.items():
+        u[h] = _beschreibung_block(ds, a)
     tb = []
     for ds, r in a["datensaetze"].items():
         if "beschreibend" not in r:
@@ -856,7 +875,8 @@ def _vortest_bausteine() -> bool:
     dd = rng.normal(0.001, 0.004, 11)
     if abs(wilcoxon_schnell(dd) - wilcoxon_exakt(dd)) > 1e-12:
         fehler("wilcoxon_schnell != wilcoxon_exakt")
-    if (set(FAMILIEN["MNIST"]) != {"M-1", "M-2"} or set(FAMILIEN["Fashion"]) != {"M-3", "M-4"}
+    if (set(FAMILIEN["MNIST"]) != {"M-1"} or set(FAMILIEN["Fashion"]) != {"M-3"}
+            or set(BESCHREIBEND_BLOCK) != {"M-2", "M-4"}
             or {ds for g in FAMILIEN.values() for ds, _ in g.values()} != set(DATENSAETZE)):
         fehler("Familien falsch")
     for n in (10, 20):
@@ -967,50 +987,49 @@ def _vortest_urteile(ziehungen=5) -> bool:
     gut = lambda: v1._synth_struktur(rng, 0.925)
     schlecht = lambda: v1._synth_struktur(rng, 0.79)
     # (Name, Struktur, MNIST-Parameter, Fashion-Parameter, {Hypothese: (Marke, [Textteile])}, Toleranz)
+    B = "beschreibend (kein Familienurteil"
     faelle = [
-        ("Maske traegt, Bloecke nicht", gut, {"d_om": 0.012}, {"d_om": 0.012},
+        ("Maske traegt", gut, {"d_om": 0.012}, {"d_om": 0.012},
          {"P-0": ("BESTANDEN", ["MNIST", "I-036"]), "P-0F": ("BESTANDEN", ["Fashion"]), "Q-0": ("H1", []),
-          "M-1": ("SUCHE_BESSER", ["Vorzeichenmaske traegt", "MNIST", "20/20 Seeds gueltig"]),
-          "M-2": ("GLEICHWERTIG", ["Blockwahl traegt nicht", "MNIST", "Holm-p_TOST"]),
-          "M-3": ("SUCHE_BESSER", ["Vorzeichenmaske", "Fashion"]), "M-4": ("GLEICHWERTIG", ["Fashion"])}, 0),
-        ("Bloecke tragen, Maske nicht", gut, {"d_bm": 0.012}, {"d_bm": 0.012},
-         {"M-1": ("GLEICHWERTIG", ["Vorzeichenmaske traegt nicht", "MNIST"]),
-          "M-2": ("SUCHE_BESSER", ["Blockwahl traegt", "MNIST"]), "M-3": ("GLEICHWERTIG", ["Fashion"]),
-          "M-4": ("SUCHE_BESSER", ["Fashion"])}, 0),
-        ("beide tragen", gut, {"d_om": 0.015, "d_bm": 0.01}, {"d_om": 0.015, "d_bm": 0.01},
-         {"M-1": ("SUCHE_BESSER", []), "M-2": ("SUCHE_BESSER", []), "M-3": ("SUCHE_BESSER", []),
-          "M-4": ("SUCHE_BESSER", [])}, 0),
+          "M-1": ("SUCHE_BESSER", ["Vorzeichenmaske traegt", "MNIST", "20/20 Seeds gueltig", "Holm-p_TOST"]),
+          "M-3": ("SUCHE_BESSER", ["Vorzeichenmaske", "Fashion"]),
+          "M-2": (B, ["MNIST", "wirksame 2x2-Maske in 10/20", "nur_wirksam: suche - block2x2_maske", "TOST p"]),
+          "M-4": (B, ["Fashion", "nur_wirksam"])}, 0),
+        ("Maske traegt nicht", gut, {"d_bm": 0.012}, {"d_bm": 0.012},
+         {"M-1": ("GLEICHWERTIG", ["Vorzeichenmaske traegt nicht", "MNIST"]), "M-3": ("GLEICHWERTIG", ["Fashion"]),
+          "M-2": (B, ["+1.2"]), "M-4": (B, ["+1.2"])}, 0),
         ("ohne Maske besser", gut, {"d_om": -0.01}, {"d_om": -0.01},
-         {"M-1": ("OHNE_BESSER", ["Suchdefizit", "MNIST"]), "M-3": ("OHNE_BESSER", ["Fashion"])}, 0),
-        ("Maske auf 2x2 besser", gut, {"d_bm": -0.01}, {"d_bm": -0.01},
-         {"M-2": ("BLOCK_MASKE_BESSER", ["2x2-Bloecken", "MNIST"]), "M-4": ("BLOCK_MASKE_BESSER", ["Fashion"])}, 0),
+         {"M-1": ("OHNE_BESSER", ["Suchdefizit", "MNIST"]), "M-3": ("OHNE_BESSER", ["Fashion"]),
+          "M-2": (B, [])}, 0),
         ("Streuung", gut, {"sd": 0.03}, {"sd": 0.03},
-         {"M-1": ("HU:", ["MNIST"]), "M-2": ("HU:", ["MNIST"]), "M-3": ("HU:", ["Fashion"]),
-          "M-4": ("HU:", ["Fashion"])}, 1),
+         {"M-1": ("HU:", ["MNIST"]), "M-3": ("HU:", ["Fashion"]), "M-2": (B, [])}, 1),
         ("Positivkontrolle fehlt (d = 0)", gut, {"d_b2": 0.0}, {"d_b2": 0.0},
          {"P-0": ("DURCHGEFALLEN:", ["MNIST"]), "P-0F": ("DURCHGEFALLEN:", ["Fashion"]),
           "M-1": ("HU (Positivkontrolle)", ["reproduziert den I-036-Effekt nicht", "MNIST"]),
-          "M-2": ("HU (Positivkontrolle)", ["I-036"]), "M-3": ("HU (Positivkontrolle)", ["Fashion"])}, 0),
+          "M-3": ("HU (Positivkontrolle)", ["Fashion"]), "M-2": (B, [])}, 0),
         ("Positivkontrolle zu klein (+0,3 pp)", gut, {"d_b2": 0.003}, {"d_b2": 0.003},
-         {"P-0": ("DURCHGEFALLEN:", ["+0.3"]), "M-1": ("HU (Positivkontrolle)", ["I-036"])}, 0),
-        ("Positivkontrolle fehlt, Unterschied bleibt", gut, {"d_b2": 0.0, "d_om": 0.012}, {},
+         {"P-0": ("DURCHGEFALLEN:", ["+0.3"]), "M-1": ("HU (Positivkontrolle)", ["I-036"]),
+          "M-3": ("HU (Positivkontrolle)", ["Fashion"])}, 0),
+        ("Positivkontrolle fehlt, Unterschied bleibt", gut, {"d_b2": 0.0, "d_om": 0.012}, {"d_b2": 0.0, "d_om": -0.01},
          {"P-0": ("DURCHGEFALLEN:", []), "M-1": ("SUCHE_BESSER", ["Vorzeichenmaske traegt"]),
-          "M-2": ("HU (Positivkontrolle)", [])}, 0),
+          "M-3": ("OHNE_BESSER", ["Fashion"])}, 0),
         ("Q-0 faellt", schlecht, {}, {},
          {"Q-0": ("H0", []), "M-1": ("HU (Positivkontrolle Q-0)", ["MNIST"]),
-          "M-4": ("HU (Positivkontrolle Q-0)", ["Fashion"])}, 1),
+          "M-3": ("HU (Positivkontrolle Q-0)", ["Fashion"]), "M-2": (B, [])}, 1),
         ("ohne Strukturseeds", None, {}, {},
-         {"Q-0": ("HU (Vorbedingung)", []), "M-2": ("HU (Positivkontrolle Q-0)", [])}, 0),
+         {"Q-0": ("HU (Vorbedingung)", []), "M-1": ("HU (Positivkontrolle Q-0)", []),
+          "M-3": ("HU (Positivkontrolle Q-0)", [])}, 0),
         ("3 ausgeschlossen", gut, {"d_om": 0.012, "ungueltig": 3}, {},
          {"M-1": ("SUCHE_BESSER", ["17/20 Seeds gueltig", "3 ausgeschlossen [0, 1, 2]"]),
-          "M-2": ("GLEICHWERTIG", ["17/20"])}, 0),
-        ("zu wenige gueltig", gut, {"ungueltig": 12}, {},
-         {"M-1": ("HU (Vorbedingung)", ["nur 8 gueltige Seeds", "MNIST"]), "M-2": ("HU (Vorbedingung)", []),
-          "P-0": ("DURCHGEFALLEN (Vorbedingung)", []), "M-3": ("GLEICHWERTIG", ["Fashion"])}, 0),
-        ("klein, aber gleich", gut, {"d_om": 0.002, "d_bm": -0.002, "sd": 0.0003}, {},
-         {"M-1": ("GLEICHWERTIG", ["zusaetzlich nachweisbar"]), "M-2": ("GLEICHWERTIG", ["zusaetzlich nachweisbar"])}, 0),
+          "M-2": (B, ["17/20 Seeds gueltig", "wirksame 2x2-Maske in 9/17"])}, 0),
+        ("zu wenige gueltig", gut, {"ungueltig": 12}, {"ungueltig": 19},
+         {"M-1": ("HU (Vorbedingung)", ["nur 8 gueltige Seeds", "MNIST"]), "P-0": ("DURCHGEFALLEN (Vorbedingung)", []),
+          "M-2": (B, ["nur_wirksam: suche"]), "M-3": ("HU (Vorbedingung)", ["Fashion", "nur 1"]),
+          "M-4": ("beschreibend: Fashion zu wenige gueltige Seeds", [])}, 0),
+        ("klein, aber gleich", gut, {"d_om": 0.002, "sd": 0.0003}, {"d_om": -0.002, "sd": 0.0003},
+         {"M-1": ("GLEICHWERTIG", ["zusaetzlich nachweisbar"]), "M-3": ("GLEICHWERTIG", ["zusaetzlich nachweisbar"])}, 0),
         ("nur MNIST", gut, {"d_om": 0.012}, None,
-         {"M-1": ("SUCHE_BESSER", []), "M-3": ("HU: keine Fashion", []), "M-4": ("HU: keine Fashion", []),
+         {"M-1": ("SUCHE_BESSER", []), "M-3": ("HU: keine Fashion", []), "M-4": ("beschreibend: keine Fashion", []),
           "P-0F": ("DURCHGEFALLEN (Vorbedingung)", ["keine Fashion"])}, 0),
     ]
     for name, mach_s, pm, pf, erwartet, tol in faelle:
@@ -1040,20 +1059,23 @@ def _vortest_urteile(ziehungen=5) -> bool:
     for _ in range(ziehungen):
         # grosse Streuung, wahre Differenz 0 -> NIE GLEICHWERTIG
         u = urteil(auswertung({ds: _synth(rng, sd=0.03) for ds in DATENSAETZE}, gut()))
-        if any(u[h].startswith("GLEICHWERTIG") for h in ("M-1", "M-2", "M-3", "M-4")):
+        if any(u[h].startswith("GLEICHWERTIG") for h in ("M-1", "M-3")) or not all(
+                u[h].startswith("beschreibend") for h in ("M-2", "M-4", "M-B")):
             ok = False
             print("  VORTEST FEHLER: TOST feuert trotz riesiger Streuung")
         # Familien getrennt: Fashion-p veraendert die MNIST-Holm-Werte nicht
         zm = _synth(rng, d_om=0.004, sd=0.006)
         a1 = auswertung({"mnist": zm}, gut())
         a2 = auswertung({"mnist": zm, "fashion_mnist": _synth(rng, d_om=0.02)}, gut())
-        if any(abs(a1["holm"][h] - a2["holm"][h]) > 1e-15 for h in ("M-1", "M-2")):
+        if any(abs(a1["holm"][h] - a2["holm"][h]) > 1e-15 for h in ("M-1",)):
             ok = False
             print("  VORTEST FEHLER: Holm-Familien nicht getrennt")
         pm ={h: a1["datensaetze"]["mnist"][k]["p"] for h, (_, k) in FAMILIEN["MNIST"].items()}
-        if holm(pm) != {h: a1["holm"][h] for h in pm}:
+        d1 = a1["datensaetze"]["mnist"]["suche_minus_ohne_maske"]
+        if holm(pm) != {h: a1["holm"][h] for h in pm} or a1["holm"]["M-1"] != d1["p"] \
+                or a1["holm_tost"]["M-1"] != d1["p_tost"] or set(a1["holm"]) != {"M-1", "M-3"}:
             ok = False
-            print("  VORTEST FEHLER: Holm x2 MNIST falsch")
+            print("  VORTEST FEHLER: Holm x1 (M-1 = rohes p) falsch")
     return ok
 
 
