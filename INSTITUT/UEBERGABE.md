@@ -16,13 +16,15 @@ Einzelheiten stehen in den verlinkten Dateien; lies sie nur, wenn du sie brauchs
 | I-005-v2 | MNIST **GLEICHWERTIG** (TOST, d −0,14 pp); Fashion **VOLL_BESSER** (−1,31 pp) | **MNIST braucht keine Magie, Fashion schon** |
 | I-005-v3 | Fashion: M50_S = **4 Magiewinkel** (≈ 123 T) auf der Suche-Schaltung; k32 ab Suche nur 0,42 | Suche sitzt in anderem Becken als der Gradient |
 | I-036 | Suche − globaler Walsh +5,6 pp (MNIST) / +3,0 pp (Fashion); Suche − fester 2×2-Block-Walsh **+0,93 pp** (MNIST, 19/20) | Clifford-Zelle ist **kein** Walsh-Klassifikator — aber ein fester 2×2-Block holt ohne Suche schon 72 % des Abstands |
+| I-036-v2 | Suche − gleiche Blöcke ohne Maske **+1,9 pp** (MNIST) / **+2,4 pp** (Fashion); Wechselwirkung Maske×Blöcke +2,1/+2,7 pp | Maske und Blöcke tragen **nur gemeinsam** — der 0-T-Befund ist Leistung der Suche im Clifford-Raum, keine feste Transformation |
 
 **Kernsatz neu (05.10.):** *Auf MNIST erreicht eine reine Clifford-Schaltung
 (0 T-Gatter), per diskreter Suche gefunden, nachweislich das Niveau des vollen
 Trainings. Auf Fashion fehlen ihr 1,31 pp, von denen 4 gezielt gewählte
 Magiewinkel die Hälfte schließen. Der Clifford-Nutzen ist zum größten Teil
 lokale Hadamard-Mischung (fester 2×2-Block-Walsh), die Suche liefert den
-letzten Prozentpunkt; globale Walsh-Merkmale schaden.* Einordnung (Recherche
+letzten Prozentpunkt — und zwar nur als abgestimmtes Paar aus Walsh-Blöcken und
+quadratischer Vorzeichenmaske (I-036-v2); globale Walsh-Merkmale schaden.* Einordnung (Recherche
 29.09.): Rz ist auf NISQ-Hardware virtuell — „0 bzw. 4 Magiewinkel“ ist dort
 vor allem eine Aussage über klassische Simulierbarkeit, auf fehlertoleranter
 Hardware über T-Kosten.
@@ -32,8 +34,8 @@ Hardware über T-Kosten.
 (Chatbot-Adapter: Verlust fällt streng monoton mit der Lagenzahl, L10 = 55 %
 des LoRA-Gewinns mit 1/16 der Parameter, QIRE+LoRA ergänzt nicht).
 
-**Offen im Institut:** I-036-v2 (Idee: Maske oder Blockwahl? — vor dem Bauen
-Literatursuche), I-003-v2, I-010, B-paritaet, V-fashion (Prio 3).
+**Offen im Institut:** I-036-v3 (Idee: welche Maskeneigenschaft trägt? — vor dem
+Bauen Literatursuche), I-003-v2, I-010, B-paritaet, V-fashion (Prio 3).
 
 **Arbeitsorte:** Malte rechnet auf `claude/busy-faraday-e57hna`, Cloud-Sitzungen
 auf eigenen Branches (z. B. `claude/remote-control-pc-start-gj69o1`) und mergen
