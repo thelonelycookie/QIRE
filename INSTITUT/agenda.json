@@ -428,7 +428,8 @@
    "status": "idee",
    "prioritaet": 1,
    "frage": "Folge W-4 SUCHE_BESSER (vorregistriert in I-036): Traegt die Maske/Blockwahl der Suche ueber den festen 2x2-Block hinaus? Gesuchte Blockform mit FESTER (Identitaets-)Maske vs. volle Suche vs. block2x2 auf MNIST und Fashion; zusaetzlich block2x2 als Startpunkt der Suche (Suchdefizit-Kontrolle).",
-   "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'."
+   "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'.",
+   "neuheit": "05.10.: Literatursuche (3 Anfragen) ohne Vergleichbares, Details recherche/2026-10-05_neuheit_I-036-v2.md; Neuheit plausibel"
   }
  ]
 }
