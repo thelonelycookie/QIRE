@@ -1010,3 +1010,61 @@ suche → voll, der geschlossen wird.
   Clifford-Zelle auf MNIST ein Walsh-Klassifikator, was Q-019W und die
   Institutslinie verbinden würde.
 - Die Becken-Frage: Suche + k32 mit kleinerer Rate oder mehr Schritten.
+
+## 05.10.2026, 16:42 — I-036: Die Clifford-Suche ist kein Walsh-Klassifikator — weder global noch als fester 2×2-Block ✔
+
+`ergebnisse/I-036__20261005_164224.json`, vorregistriert und committet am
+29.09. (`f1a669a`), gerechnet im Cloud-Container (4 Prozesse, zweiter
+Anlauf; der erste ging mit einem Container-Neustart verloren, siehe
+FEHLERBUCH). 20 Mess-Seeds je Datensatz, gleicher L-BFGS-Kopf (L2 0,003),
+TOST ±0,5 pp, Holm über W-1…W-4.
+
+| Arm (Testgenauigkeit, Mittel 20 Seeds) | MNIST | Fashion |
+|---|---|---|
+| Suche (0 Magiewinkel) | **0,9371** | **0,8268** |
+| fester block2x2 (k=2) | 0,9278 | 0,8234 |
+| fester block8x8 (k=6) | 0,9256 | 0,8148 |
+| fester block4x4 (k=4) | 0,9107 | 0,8081 |
+| Zufalls-Clifford, bestes von 100 | 0,9280 | 0,8233 |
+| Zufalls-Clifford, Median | 0,9138 | 0,8180 |
+| Identität (Pixelquadrate) | 0,9015 | 0,8001 |
+| walsh_fest (global, k=8) | 0,8812 | 0,7968 |
+
+**Urteile (vorregistriert):**
+- Q-0 **H1**: Positivkontrolle — die Suche findet die Lehrer-Lösung
+  (lehrer-äquivalent in 6/10, Zufallssuche gleichen Aufwands 0/10).
+- W-1 **SUCHE_BESSER** (MNIST): Suche − walsh_fest = +5,59 pp,
+  KI [+5,30; +5,89], 20/20 Seeds, Holm-p < 10⁻⁴.
+- W-2 **SUCHE_BESSER** (Fashion): +3,00 pp, KI [+2,82; +3,18], 20/20.
+- W-3 **H0 (Gegenrichtung)**, wie vorhergesagt: walsh_fest − Identität =
+  −2,03 pp (MNIST), 0/20.
+- W-4 **SUCHE_BESSER** (MNIST): Suche − block2x2 = +0,93 pp,
+  KI [+0,67; +1,20], 19/20, Holm-p = 0,0001; TOST verfehlt (p = 0,99).
+  block2x2 war nur auf den Rauchtest-Seeds 942–947 gewählt (kein Siegerfluch
+  auf den Mess-Seeds).
+
+**Beschreibend:** Alle 20 + 20 Suchergebnisse haben Bruhat-Form, alle
+brauchen eine Vorzeichenmaske, keins ist Walsh-äquivalent. Blockdimension
+k der Suche: MNIST Mittel 5,7 (4–7), Fashion 6,45 (5–8). Auf Fashion liegt
+Suche − block2x2 nur bei +0,34 pp (14/20, außerhalb der Familie).
+
+**Was das heißt:**
+1. **„Die Clifford-Zelle ist ein verkappter Walsh-Klassifikator“ ist
+   widerlegt** — global klar (−5,6 pp), als fester lokaler 2×2-Block knapp
+   aber signifikant (−0,9 pp MNIST). Der 0-T-Befund aus I-005-v2 lässt sich
+   also *nicht* auf eine feste klassische Transformation zurückführen; die
+   gesuchte Maske/Blockwahl trägt.
+2. **Ehrliche Relativierung:** Ein fester 2×2-Block-Walsh *ohne jede Suche*
+   holt auf MNIST 72 % des Abstands Identität → Suche (0,9278 von 0,9371) und
+   liegt gleichauf mit dem besten von 100 Zufalls-Clifford-Schaltungen. Auf
+   Fashion ist der Rest-Vorsprung der Suche klein (+0,34 pp). Der größte Teil
+   des Clifford-Nutzens ist *lokale* Hadamard-Mischung; die Suche liefert den
+   letzten Prozentpunkt.
+3. Die feste Dosis-Kurve ist nicht monoton in k: lokal schlägt global. Das
+   passt zu Q-019W (Walsh trägt dort über Gewichtsteilung, nicht über
+   Globalität) und ist eine Brücke zur Hauptlinie A.
+
+**Folge (vorregistriert für W-4 SUCHE_BESSER):** Gesuchte Blockform mit
+fester Maske vs. volle Suche → trägt die Maske oder die Blockwahl? In der
+Agenda als **I-036-v2** (Status *idee*), vor dem Bauen Literatursuche
+(Vorgabe 7).

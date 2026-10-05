@@ -224,3 +224,7 @@ keine Zahlen entstanden — die Vorregistrierung bleibt unberührt. Neustart
 Zwischenstand ist im Cloud-Container genauso gefährdet wie auf dem PC mit
 Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 (Muster `sprachmodell.py`, `weiter=True`), bevor sie im Container laufen.
+
+### 05.10.2026 16:42 — I-036 (automatisch)
+- **W-3**: H0 (Gegenrichtung): globale Walsh-Merkmale sind schlechter als die Pixelquadrate -- MNIST: d = -2.03 pp, 90-%-KI [-2.22; -1.83], TOST(+-0.5 pp) p = 1.0000, Holm-p_TOST = 1.0000, Wilcoxon p = 0.0000, Holm-p = 0.0000, 0/20 Seeds positiv; Sensitivitaet suche - id +3.57 pp (p = 0.0000)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*

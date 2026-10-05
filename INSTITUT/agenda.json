@@ -223,11 +223,11 @@
   {
    "id": "I-036",
    "abteilung": "Clifford",
-   "status": "läuft (Container)",
+   "status": "erledigt",
    "modul": "abteilungen.walsh_kontrolle",
    "prioritaet": 1,
    "frage": "Ist die gesuchte Clifford-Zelle im Kern ein klassischer Walsh-Klassifikator? Suche (0 Magiewinkel) vs. FESTE quadrierte Walsh-Hadamard-Merkmale (walsh_fest = H^8, im Suchraum) auf MNIST und Fashion, walsh_fest vs. Identitaet (MNIST), Suche vs. FESTER lokaler 2x2-Block-Walsh (block2x2, MNIST); gleicher L-BFGS-Kopf, TOST +-0,5 pp, Holm ueber W-1..W-4.",
-   "notiz": "Folge aus I-005-v3 / Recherche 29.09. Modul von Forscher-Agent, Vortest bestanden (29.09., auch nach Aufnahme von W-4; vom Direktor wiederholt), Rauchtest 29.09. (101 s). Theorie im Modulkopf: Clifford-Zelle = quadrierter Block-Walsh (Blockdim. k) von vorzeichenmaskierten Pixeln (Bruhat-Form, 70/70 alte Suchergebnisse; 0/70 Walsh-aequivalent; MNIST k 4-7, Fashion 5-8). W-4 nach dem Rauchtest aufgenommen (Direktor 29.09.): Wahl von block2x2 nur aus Rauchtest-Seeds 942-947. Vorhersage: W-1 SUCHE_BESSER, W-3 H0 (Gegenrichtung). N_SEEDS = 20. Mess-Seeds MNIST 640-659, Fashion 660-679, Struktur 680-689, Entwurf 942-947. Kopf-L2 0,003 aus I-005-v2. ~1,5-1,75 h bei 5 Prozessen.",
+   "notiz": "Folge aus I-005-v3 / Recherche 29.09. Modul von Forscher-Agent, Vortest bestanden (29.09., auch nach Aufnahme von W-4; vom Direktor wiederholt), Rauchtest 29.09. (101 s). Theorie im Modulkopf: Clifford-Zelle = quadrierter Block-Walsh (Blockdim. k) von vorzeichenmaskierten Pixeln (Bruhat-Form, 70/70 alte Suchergebnisse; 0/70 Walsh-aequivalent; MNIST k 4-7, Fashion 5-8). W-4 nach dem Rauchtest aufgenommen (Direktor 29.09.): Wahl von block2x2 nur aus Rauchtest-Seeds 942-947. Vorhersage: W-1 SUCHE_BESSER, W-3 H0 (Gegenrichtung). N_SEEDS = 20. Mess-Seeds MNIST 640-659, Fashion 660-679, Struktur 680-689, Entwurf 942-947. Kopf-L2 0,003 aus I-005-v2. ~1,5-1,75 h bei 5 Prozessen. | Gerechnet 05.10. im Container (4 Prozesse, zweiter Anlauf): W-1/W-2/W-4 SUCHE_BESSER, W-3 H0 (Gegenrichtung), Q-0 H1. Laborbuch 05.10.",
    "folgen": {
     "W-1 SUCHE_BESSER": "Die Suche ist mehr als der globale Walsh-Klassifikator; Einordnung ueber W-4 und die beschreibende Dosis-Kurve fester Block-Walsh",
     "W-1 GLEICHWERTIG": "Die Suche ist auf MNIST ersetzbar durch feste Walsh-Merkmale: I-005-Befund als klassische Transformation einordnen (Q-019W verbinden), Hybrid-Kaskade mit walsh_fest als Stufe 0",
@@ -421,6 +421,14 @@
    "prioritaet": 1,
    "notiz": "Direktor 25.09. (Vorgabe 7, echte Neuheit, Literatur geprueft: 2403.00919/2409.13008 stellen andere Fragen). Modul gebaut (Forscher-Agent, nachgebessert auf 10 Rausch-Stufen fuer Teststaerke): 10 Stufen 0-100% x 6 Seeds (250-255), K_STUFEN=(0,2,8), eigene Rate je (Stufe,Arm). P-0 Vorbedingung, P-1 M50~Rauschen (Spearman, Bootstrap, TOST +-0.3, Holm), P-2 Generalisierungsluecke~M50, P-3 Born-Entropie beschreibend, P-4 Kontrolle (Kopf ohne Schaltung). ~65-95 min. Teststaerke bei nur 10 Punkten weiterhin begrenzt -- HU realistischer Ausgang bei mittlerem Effekt (im Modul-Docstring benannt).",
    "folgen": {}
+  },
+  {
+   "id": "I-036-v2",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "prioritaet": 1,
+   "frage": "Folge W-4 SUCHE_BESSER (vorregistriert in I-036): Traegt die Maske/Blockwahl der Suche ueber den festen 2x2-Block hinaus? Gesuchte Blockform mit FESTER (Identitaets-)Maske vs. volle Suche vs. block2x2 auf MNIST und Fashion; zusaetzlich block2x2 als Startpunkt der Suche (Suchdefizit-Kontrolle).",
+   "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'."
   }
  ]
 }
