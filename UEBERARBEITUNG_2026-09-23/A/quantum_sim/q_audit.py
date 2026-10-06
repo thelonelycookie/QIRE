@@ -728,6 +728,19 @@ def check_t005() -> List[Tuple[str, bool, str]]:
     return out
 
 
+def check_t006() -> List[Tuple[str, bool, str]]:
+    """T-006 (Adapter-Skalierung L=20/40): noch nicht gerechnet -> kein Befund.
+    Nach dem Lauf hier die Tagebuchzahlen gegen die Rohdaten pruefen (Muster check_t005);
+    Positivkontrolle qire_L10 = 2,4115 +- 0,003 ist Teil der Auswertung selbst."""
+    try:
+        rec = load("T-006")["records"]
+    except Exception:                                  # noqa: BLE001 -- keine Rohdaten
+        return [("T-006 noch nicht gerechnet", True, "keine Rohdaten, nichts zu pruefen")]
+    w = [r["val_verlust"] for r in rec if r["arm"] == "qire_L10"]
+    return [("Positivkontrolle qire_L10 = 2,4115 +- 0,003", abs(sum(w) / max(1, len(w)) - 2.4115) <= 0.003,
+             f"Rohdaten {sum(w) / max(1, len(w)):.4f}")]
+
+
 CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-003-replication": check_q003,
     "Q-011 (dritter Anlauf, gerettet)": check_q011,
@@ -739,6 +752,7 @@ CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-019W": check_q019w,
     "T-004": check_t004,
     "T-005": check_t005,
+    "T-006": check_t006,
     "Randlagen (Regel 1b, Tagebuch 27.08.)": check_randlagen,
     "T-000": check_t000,
     "T-001": check_t001,
