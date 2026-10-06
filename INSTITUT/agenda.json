@@ -533,6 +533,16 @@
       "frage": "Skalierung n=8 -> 10: bleibt der Vorsprung Haar² - Pixel-Softmax bei 32x32 (1.024 Merkmale) bestehen und waechst er (Differenz-in-Differenz), waechst der Born-Vorsprung gegen |z|, ist Fastfood² bei 32x32 gleichwertig zu Haar², und wie verhalten sich Operationen und Zeit FWHT-Fastfood gegen dichte Matmul (N=256..16.384)?",
       "notiz": "PLAN_2026-10-06_gesamt.md P5. MNIST+Fashion, 16x16 (Flaechenmittel) gegen 32x32 (bilinear aus 28x28, Resampling, kein neuer Inhalt). Arme je Aufloesung: Pixel-Softmax, Haar², Fastfood-2², Haar|z|, Identitaet². H1 Haar²-Pixel@32>0; H2 (Haar²-Pixel)_32-(..)_16>0; H3 (Haar²-|z|)_32-(..)_16>0; Holm x3 je Datensatz; H4 Fastfood²≡Haar²@32 TOST ±0,5 pp. Seeds 2060-2069, Tuning 2097 (L2). Zeitmessung beschreibend. Vorregistrierung LABORBUCH.md 06.10.2026 (I-041). Wiederaufnahme je (Datensatz, Seed) in ergebnisse/_zwischen_I-041.json. Freigabe E2 steht aus. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-041.",
       "folgen": {}
+    },
+    {
+      "id": "I-042",
+      "abteilung": "Struktur",
+      "status": "offen",
+      "modul": "abteilungen.struktur_gross",
+      "prioritaet": 1,
+      "frage": "Strukturschicht in gross: ersetzt Fastfood-2 (fest oder mit trainierten Diagonalen) + z² eine dichte erste Schicht in einem 2-Schicht-MLP auf Rohpixeln (CIFAR-10, Fashion 32x32) bei N=1024/4096/16384 (H1 Nichtunterlegenheit 1 pp mit >=100x weniger Parametern; H2 Born-Quadrat gegen |z|/ReLU; H3 Pareto E gegen Rang-K bei gleichem Budget; H4 Inferenzzeit B gegen A)?",
+      "notiz": "Vorregistrierung LABORBUCH.md 06.10.2026 (I-042). 8 Arme A-G + K (Budgetkontrolle), Seeds 2200-2204, Tuning 2299. Profil gekuerzt (5 Epochen, N=16384 nur A,B,C,D,E,K) fest, Schaetzung ca. 1,6 h bei 4 Prozessen. Wiederaufnahme je (Datensatz,N,Seed) in ergebnisse/_zwischen_I-042.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-042.",
+      "folgen": {}
     }
   ]
 }
