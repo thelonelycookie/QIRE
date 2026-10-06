@@ -523,6 +523,16 @@
       "frage": "Holevo-Wirkungsgrad v2 (Folge von I-040, PK-1 versagt): bei I-038-Kopf und relativer PK-1 (Identitaet exakt >= Pixel-Softmax - 2 pp): H1 Identitaet beste I/Schuss, H2 schussbewusst > bester exakter Kopf bei S<=100, H3 eta sagt S90 voraus, H4 Zielkonflikt (Haar^2 exakt > Identitaet exakt UND I(id) > I(Haar)).",
       "notiz": "Ursache PK-1-Versagen: I-040 wählte L2 des exakten Kopfs unter Schussrauschen (0,09) + max_iter 200; I-038 Kopf L2 3e-3, iter 500 gibt Identitaet 0,9005 (Tuning-Seed 2198: 0,904 gegen 0,874). Seeds 2150-2159, Tuning 2198. Holm ueber H1-H4. Vorregistrierung LABORBUCH 06.10.2026 (I-040-v2). Wiederaufnahme je (Seed, Arm) in ergebnisse/_zwischen_I-040-v2/. Laufzeit ~25 min bei INSTITUT_PROZESSE=4. Freigabe von Malte steht aus (nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-040-v2; Fashion optional (argumente {\"fashion\": true}), nur beschreibend.",
       "folgen": {}
+    },
+    {
+      "id": "I-041",
+      "abteilung": "Skalierung",
+      "status": "offen",
+      "modul": "abteilungen.skalierung_n10",
+      "prioritaet": 2,
+      "frage": "Skalierung n=8 -> 10: bleibt der Vorsprung Haar² - Pixel-Softmax bei 32x32 (1.024 Merkmale) bestehen und waechst er (Differenz-in-Differenz), waechst der Born-Vorsprung gegen |z|, ist Fastfood² bei 32x32 gleichwertig zu Haar², und wie verhalten sich Operationen und Zeit FWHT-Fastfood gegen dichte Matmul (N=256..16.384)?",
+      "notiz": "PLAN_2026-10-06_gesamt.md P5. MNIST+Fashion, 16x16 (Flaechenmittel) gegen 32x32 (bilinear aus 28x28, Resampling, kein neuer Inhalt). Arme je Aufloesung: Pixel-Softmax, Haar², Fastfood-2², Haar|z|, Identitaet². H1 Haar²-Pixel@32>0; H2 (Haar²-Pixel)_32-(..)_16>0; H3 (Haar²-|z|)_32-(..)_16>0; Holm x3 je Datensatz; H4 Fastfood²≡Haar²@32 TOST ±0,5 pp. Seeds 2060-2069, Tuning 2097 (L2). Zeitmessung beschreibend. Vorregistrierung LABORBUCH.md 06.10.2026 (I-041). Wiederaufnahme je (Datensatz, Seed) in ergebnisse/_zwischen_I-041.json. Freigabe E2 steht aus. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-041.",
+      "folgen": {}
     }
   ]
 }
