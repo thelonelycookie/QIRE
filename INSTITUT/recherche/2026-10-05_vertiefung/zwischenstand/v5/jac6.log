@@ -1,3 +1,6 @@
 /usr/local/lib/python3.11/dist-packages/torch/jit/_script.py:1491: FutureWarning: `torch.jit.script` is deprecated. Please switch to `torch.compile` or `torch.export`.
   warnings.warn(
 n=6 L=100: Parameter 600, Rang 600, kleinster gez. sv/s0=1.26e-01, naechster=0.00e+00  (15.7s)
+n=6 L=335: Parameter 2010, Rang 2010, kleinster gez. sv/s0=7.75e-04, naechster=0.00e+00  (104.1s)
+n=6 L=336: Parameter 2016, Rang 2016, kleinster gez. sv/s0=2.70e-06, naechster=0.00e+00  (98.7s)
+n=6 L=340: Parameter 2040, Rang 2016, kleinster gez. sv/s0=2.91e-03, naechster=9.91e-16  (98.4s)
