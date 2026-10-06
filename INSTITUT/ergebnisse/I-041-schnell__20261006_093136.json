@@ -1,0 +1,768 @@
+{
+ "abteilung": "Skalierung",
+ "modul": "skalierung_n10",
+ "karte": "I-041",
+ "version": 1,
+ "hypothesen": {
+  "H1": "Haar² − Pixel-Softmax bei 32x32 > 0 (einseitiger exakter Wilcoxon, Holm x3). HAAR_BESSER | H0 (Gegenrichtung) | HU.",
+  "H2": "(Haar² − Pixel)_32 − (Haar² − Pixel)_16 > 0 (einseitig, Holm x3). VORSPRUNG_WAECHST | H0 (Vorsprung schrumpft) | HU.",
+  "H3": "(Haar² − |z|)_32 − (Haar² − |z|)_16 > 0 (einseitig, Holm x3). BORN_VORSPRUNG_WAECHST | H0 (Born-Vorsprung schrumpft) | HU.",
+  "H4": "Fastfood² ≡ Haar² bei 32x32 (TOST ±0,5 pp, eigene Familie). GLEICHWERTIG | FASTFOOD_BESSER | HAAR_BESSER | HU.",
+  "NK": "Zufallslabel (Haar², 16 und 32) Mittel in (0.09, 0.115). BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+  "PK": "Haar² − Pixel bei 16x16: einseitig p < 0,05 und Mittel >= 0,5 pp (Replikation I-038 H-D). Sonst H4 HU.",
+  "B": "beschreibend: alle Arm-Mittel, weitere Differenzen, L2-Tuning, Zeitmessung und Zählmodell."
+ },
+ "folgefragen": {
+  "H2 VORSPRUNG_WAECHST": "Mischung+Quadrat lohnt mit n: eine Stufe weiter (n=12) oder echte Daten mit mehr Merkmalen.",
+  "H2 H0": "Vorsprung schrumpft: Kernaussage auf 16x16 begrenzen; Resampling-Effekt (kein neuer Inhalt) mitnennen.",
+  "H4 GLEICHWERTIG": "Fastfood² genügt bei 1.024 Merkmalen: Zeitmessung bestimmt, ab wann das auch schneller ist."
+ },
+ "seeds": [
+  2097
+ ],
+ "tuning_seed": 2097,
+ "tuning": {
+  "mnist": {
+   "pix_16": {
+    "l2": 0.09486832980505139,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.89,
+     "0.0003": 0.89,
+     "0.001": 0.89,
+     "0.003": 0.89,
+     "0.01": 0.89,
+     "0.03": 0.89,
+     "0.09486832980505139": 0.89,
+     "0.30000000000000004": 0.84
+    }
+   },
+   "haar_sq_16": {
+    "l2": 0.01,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.95,
+     "0.0003": 0.95,
+     "0.001": 0.95,
+     "0.003": 0.95,
+     "0.01": 0.95,
+     "0.03": 0.93
+    }
+   },
+   "fastfood2_16": {
+    "l2": 0.09486832980505139,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.9,
+     "0.0003": 0.9,
+     "0.001": 0.9,
+     "0.003": 0.9,
+     "0.01": 0.9,
+     "0.03": 0.92,
+     "0.09486832980505139": 0.93,
+     "0.30000000000000004": 0.89
+    }
+   },
+   "haar_abs_16": {
+    "l2": 0.003,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.94,
+     "0.0003": 0.94,
+     "0.001": 0.95,
+     "0.003": 0.95,
+     "0.01": 0.94,
+     "0.03": 0.94
+    }
+   },
+   "ident_sq_16": {
+    "l2": 0.003,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.88,
+     "0.0003": 0.88,
+     "0.001": 0.88,
+     "0.003": 0.9,
+     "0.01": 0.88,
+     "0.03": 0.88
+    }
+   },
+   "pix_32": {
+    "l2": 0.0001,
+    "am_rand": false,
+    "val": {
+     "3.1622776601683795e-05": 0.91,
+     "0.0001": 0.91,
+     "0.0003": 0.9,
+     "0.001": 0.9,
+     "0.003": 0.9,
+     "0.01": 0.9,
+     "0.03": 0.9
+    }
+   },
+   "haar_sq_32": {
+    "l2": 0.01,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.94,
+     "0.0003": 0.94,
+     "0.001": 0.94,
+     "0.003": 0.94,
+     "0.01": 0.94,
+     "0.03": 0.93
+    }
+   },
+   "fastfood2_32": {
+    "l2": 0.003,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.96,
+     "0.0003": 0.96,
+     "0.001": 0.96,
+     "0.003": 0.96,
+     "0.01": 0.95,
+     "0.03": 0.95
+    }
+   },
+   "haar_abs_32": {
+    "l2": 0.0003,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.92,
+     "0.0003": 0.92,
+     "0.001": 0.91,
+     "0.003": 0.91,
+     "0.01": 0.91,
+     "0.03": 0.91
+    }
+   },
+   "ident_sq_32": {
+    "l2": 0.001,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.91,
+     "0.0003": 0.92,
+     "0.001": 0.92,
+     "0.003": 0.91,
+     "0.01": 0.9,
+     "0.03": 0.9
+    }
+   }
+  },
+  "fashion_mnist": {
+   "pix_16": {
+    "l2": 0.01,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.7,
+     "0.0003": 0.72,
+     "0.001": 0.71,
+     "0.003": 0.73,
+     "0.01": 0.73,
+     "0.03": 0.71
+    }
+   },
+   "haar_sq_16": {
+    "l2": 0.09486832980505139,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.63,
+     "0.0003": 0.62,
+     "0.001": 0.65,
+     "0.003": 0.67,
+     "0.01": 0.7,
+     "0.03": 0.7,
+     "0.09486832980505139": 0.7,
+     "0.30000000000000004": 0.69
+    }
+   },
+   "fastfood2_16": {
+    "l2": 0.03,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.68,
+     "0.0003": 0.69,
+     "0.001": 0.69,
+     "0.003": 0.71,
+     "0.01": 0.71,
+     "0.03": 0.71,
+     "0.09486832980505139": 0.7
+    }
+   },
+   "haar_abs_16": {
+    "l2": 0.003,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.69,
+     "0.0003": 0.7,
+     "0.001": 0.71,
+     "0.003": 0.71,
+     "0.01": 0.7,
+     "0.03": 0.7
+    }
+   },
+   "ident_sq_16": {
+    "l2": 0.03,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.62,
+     "0.0003": 0.62,
+     "0.001": 0.63,
+     "0.003": 0.63,
+     "0.01": 0.64,
+     "0.03": 0.68,
+     "0.09486832980505139": 0.67
+    }
+   },
+   "pix_32": {
+    "l2": 0.03,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.75,
+     "0.0003": 0.75,
+     "0.001": 0.75,
+     "0.003": 0.75,
+     "0.01": 0.74,
+     "0.03": 0.75,
+     "0.09486832980505139": 0.71
+    }
+   },
+   "haar_sq_32": {
+    "l2": 0.03,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.7,
+     "0.0003": 0.7,
+     "0.001": 0.69,
+     "0.003": 0.7,
+     "0.01": 0.69,
+     "0.03": 0.71,
+     "0.09486832980505139": 0.7
+    }
+   },
+   "fastfood2_32": {
+    "l2": 0.03,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.71,
+     "0.0003": 0.72,
+     "0.001": 0.72,
+     "0.003": 0.72,
+     "0.01": 0.73,
+     "0.03": 0.74,
+     "0.09486832980505139": 0.72
+    }
+   },
+   "haar_abs_32": {
+    "l2": 0.09486832980505139,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.69,
+     "0.0003": 0.7,
+     "0.001": 0.7,
+     "0.003": 0.7,
+     "0.01": 0.7,
+     "0.03": 0.73,
+     "0.09486832980505139": 0.73,
+     "0.30000000000000004": 0.71
+    }
+   },
+   "ident_sq_32": {
+    "l2": 0.09486832980505139,
+    "am_rand": false,
+    "val": {
+     "0.0001": 0.65,
+     "0.0003": 0.66,
+     "0.001": 0.65,
+     "0.003": 0.66,
+     "0.01": 0.67,
+     "0.03": 0.69,
+     "0.09486832980505139": 0.69,
+     "0.30000000000000004": 0.67
+    }
+   }
+  }
+ },
+ "einstellungen": {
+  "l2_gitter": [
+   0.0001,
+   0.0003,
+   0.001,
+   0.003,
+   0.01,
+   0.03
+  ],
+  "tost": 0.005,
+  "klein": true,
+  "daten": "16: Flächenmittel; 32: bilinear (align_corners=False), geklemmt [0,1]"
+ },
+ "zwischendatei": "/home/user/QIRE/INSTITUT/ergebnisse/_zwischen_I-041-schnell.json",
+ "zeilen": {
+  "mnist": [
+   {
+    "seed": 2097,
+    "datensatz": "mnist",
+    "pix_16": 0.838,
+    "haar_sq_16": 0.878,
+    "fastfood2_16": 0.898,
+    "haar_abs_16": 0.872,
+    "ident_sq_16": 0.836,
+    "haar_zufallslabel_16": 0.082,
+    "pix_32": 0.836,
+    "haar_sq_32": 0.892,
+    "fastfood2_32": 0.906,
+    "haar_abs_32": 0.898,
+    "ident_sq_32": 0.828,
+    "haar_zufallslabel_32": 0.06,
+    "sekunden": 3.501121759414673
+   }
+  ],
+  "fashion_mnist": [
+   {
+    "seed": 2097,
+    "datensatz": "fashion_mnist",
+    "pix_16": 0.752,
+    "haar_sq_16": 0.732,
+    "fastfood2_16": 0.744,
+    "haar_abs_16": 0.76,
+    "ident_sq_16": 0.728,
+    "haar_zufallslabel_16": 0.124,
+    "pix_32": 0.76,
+    "haar_sq_32": 0.786,
+    "fastfood2_32": 0.776,
+    "haar_abs_32": 0.78,
+    "ident_sq_32": 0.724,
+    "haar_zufallslabel_32": 0.14,
+    "sekunden": 6.036738395690918
+   }
+  ]
+ },
+ "sekunden": 53.001240253448486,
+ "auswertung": {
+  "datensaetze": {
+   "mnist": {
+    "n": 1,
+    "arme": {
+     "pix_16": {
+      "mittel": 0.838,
+      "std": 0.0,
+      "min": 0.838,
+      "max": 0.838,
+      "n": 1
+     },
+     "haar_sq_16": {
+      "mittel": 0.878,
+      "std": 0.0,
+      "min": 0.878,
+      "max": 0.878,
+      "n": 1
+     },
+     "fastfood2_16": {
+      "mittel": 0.898,
+      "std": 0.0,
+      "min": 0.898,
+      "max": 0.898,
+      "n": 1
+     },
+     "haar_abs_16": {
+      "mittel": 0.872,
+      "std": 0.0,
+      "min": 0.872,
+      "max": 0.872,
+      "n": 1
+     },
+     "ident_sq_16": {
+      "mittel": 0.836,
+      "std": 0.0,
+      "min": 0.836,
+      "max": 0.836,
+      "n": 1
+     },
+     "pix_32": {
+      "mittel": 0.836,
+      "std": 0.0,
+      "min": 0.836,
+      "max": 0.836,
+      "n": 1
+     },
+     "haar_sq_32": {
+      "mittel": 0.892,
+      "std": 0.0,
+      "min": 0.892,
+      "max": 0.892,
+      "n": 1
+     },
+     "fastfood2_32": {
+      "mittel": 0.906,
+      "std": 0.0,
+      "min": 0.906,
+      "max": 0.906,
+      "n": 1
+     },
+     "haar_abs_32": {
+      "mittel": 0.898,
+      "std": 0.0,
+      "min": 0.898,
+      "max": 0.898,
+      "n": 1
+     },
+     "ident_sq_32": {
+      "mittel": 0.828,
+      "std": 0.0,
+      "min": 0.828,
+      "max": 0.828,
+      "n": 1
+     },
+     "haar_zufallslabel_16": {
+      "mittel": 0.082,
+      "std": 0.0,
+      "min": 0.082,
+      "max": 0.082,
+      "n": 1
+     },
+     "haar_zufallslabel_32": {
+      "mittel": 0.06,
+      "std": 0.0,
+      "min": 0.06,
+      "max": 0.06,
+      "n": 1
+     }
+    },
+    "vorsprung_pix": {
+     "16": {
+      "n": 1
+     },
+     "32": {
+      "n": 1
+     }
+    },
+    "vorsprung_born": {
+     "16": {
+      "n": 1
+     },
+     "32": {
+      "n": 1
+     }
+    },
+    "diff": {
+     "H1": {
+      "n": 1
+     },
+     "H2": {
+      "n": 1
+     },
+     "H3": {
+      "n": 1
+     },
+     "H4": {
+      "n": 1
+     },
+     "PK": {
+      "n": 1
+     }
+    },
+    "beschreibend": {
+     "fastfood2 - haar_sq @16": {
+      "n": 1
+     },
+     "haar_sq - ident_sq @16": {
+      "n": 1
+     },
+     "haar_sq - ident_sq @32": {
+      "n": 1
+     },
+     "haar_sq - haar_abs @16": {
+      "n": 1
+     },
+     "haar_sq - haar_abs @32": {
+      "n": 1
+     },
+     "pix 32 - pix 16": {
+      "n": 1
+     },
+     "haar_sq 32 - haar_sq 16": {
+      "n": 1
+     },
+     "fastfood2 32 - fastfood2 16": {
+      "n": 1
+     }
+    },
+    "kollaps": {
+     "pix_16": [],
+     "haar_sq_16": [],
+     "fastfood2_16": [],
+     "haar_abs_16": [],
+     "ident_sq_16": [],
+     "pix_32": [],
+     "haar_sq_32": [],
+     "fastfood2_32": [],
+     "haar_abs_32": [],
+     "ident_sq_32": []
+    },
+    "p_holm": {
+     "H1": 1.0,
+     "H2": 1.0,
+     "H3": 1.0
+    },
+    "negativ": {
+     "16": 0.082,
+     "32": 0.06
+    }
+   },
+   "fashion_mnist": {
+    "n": 1,
+    "arme": {
+     "pix_16": {
+      "mittel": 0.752,
+      "std": 0.0,
+      "min": 0.752,
+      "max": 0.752,
+      "n": 1
+     },
+     "haar_sq_16": {
+      "mittel": 0.732,
+      "std": 0.0,
+      "min": 0.732,
+      "max": 0.732,
+      "n": 1
+     },
+     "fastfood2_16": {
+      "mittel": 0.744,
+      "std": 0.0,
+      "min": 0.744,
+      "max": 0.744,
+      "n": 1
+     },
+     "haar_abs_16": {
+      "mittel": 0.76,
+      "std": 0.0,
+      "min": 0.76,
+      "max": 0.76,
+      "n": 1
+     },
+     "ident_sq_16": {
+      "mittel": 0.728,
+      "std": 0.0,
+      "min": 0.728,
+      "max": 0.728,
+      "n": 1
+     },
+     "pix_32": {
+      "mittel": 0.76,
+      "std": 0.0,
+      "min": 0.76,
+      "max": 0.76,
+      "n": 1
+     },
+     "haar_sq_32": {
+      "mittel": 0.786,
+      "std": 0.0,
+      "min": 0.786,
+      "max": 0.786,
+      "n": 1
+     },
+     "fastfood2_32": {
+      "mittel": 0.776,
+      "std": 0.0,
+      "min": 0.776,
+      "max": 0.776,
+      "n": 1
+     },
+     "haar_abs_32": {
+      "mittel": 0.78,
+      "std": 0.0,
+      "min": 0.78,
+      "max": 0.78,
+      "n": 1
+     },
+     "ident_sq_32": {
+      "mittel": 0.724,
+      "std": 0.0,
+      "min": 0.724,
+      "max": 0.724,
+      "n": 1
+     },
+     "haar_zufallslabel_16": {
+      "mittel": 0.124,
+      "std": 0.0,
+      "min": 0.124,
+      "max": 0.124,
+      "n": 1
+     },
+     "haar_zufallslabel_32": {
+      "mittel": 0.14,
+      "std": 0.0,
+      "min": 0.14,
+      "max": 0.14,
+      "n": 1
+     }
+    },
+    "vorsprung_pix": {
+     "16": {
+      "n": 1
+     },
+     "32": {
+      "n": 1
+     }
+    },
+    "vorsprung_born": {
+     "16": {
+      "n": 1
+     },
+     "32": {
+      "n": 1
+     }
+    },
+    "diff": {
+     "H1": {
+      "n": 1
+     },
+     "H2": {
+      "n": 1
+     },
+     "H3": {
+      "n": 1
+     },
+     "H4": {
+      "n": 1
+     },
+     "PK": {
+      "n": 1
+     }
+    },
+    "beschreibend": {
+     "fastfood2 - haar_sq @16": {
+      "n": 1
+     },
+     "haar_sq - ident_sq @16": {
+      "n": 1
+     },
+     "haar_sq - ident_sq @32": {
+      "n": 1
+     },
+     "haar_sq - haar_abs @16": {
+      "n": 1
+     },
+     "haar_sq - haar_abs @32": {
+      "n": 1
+     },
+     "pix 32 - pix 16": {
+      "n": 1
+     },
+     "haar_sq 32 - haar_sq 16": {
+      "n": 1
+     },
+     "fastfood2 32 - fastfood2 16": {
+      "n": 1
+     }
+    },
+    "kollaps": {
+     "pix_16": [],
+     "haar_sq_16": [],
+     "fastfood2_16": [],
+     "haar_abs_16": [],
+     "ident_sq_16": [],
+     "pix_32": [],
+     "haar_sq_32": [],
+     "fastfood2_32": [],
+     "haar_abs_32": [],
+     "ident_sq_32": []
+    },
+    "p_holm": {
+     "H1": 1.0,
+     "H2": 1.0,
+     "H3": 1.0
+    },
+    "negativ": {
+     "16": 0.124,
+     "32": 0.14
+    }
+   }
+  }
+ },
+ "zeitmessung": {
+  "roh": [
+   {
+    "N": 256,
+    "ops": {
+     "N": 256,
+     "dicht": 130816,
+     "fastfood": 4864,
+     "verhaeltnis": 26.894736842105264,
+     "parameter_dicht": 65536,
+     "bits_fastfood": 512
+    },
+    "batch1": {
+     "dicht_s": 4.561432128902254e-06,
+     "fastfood_s": 0.0001012731367184827,
+     "verhaeltnis": 0.04504088919040834
+    },
+    "batch64": {
+     "dicht_s": 8.665630468751573e-05,
+     "fastfood_s": 0.0007407933750016582,
+     "verhaeltnis": 0.11697769933123627
+    }
+   },
+   {
+    "N": 512,
+    "ops": {
+     "N": 512,
+     "dicht": 523776,
+     "fastfood": 10752,
+     "verhaeltnis": 48.714285714285715,
+     "parameter_dicht": 262144,
+     "bits_fastfood": 1024
+    },
+    "batch1": {
+     "dicht_s": 1.2449181152340838e-05,
+     "fastfood_s": 9.422778515677521e-05,
+     "verhaeltnis": 0.1321179430422568
+    },
+    "batch64": {
+     "dicht_s": 0.00023675851953175453,
+     "fastfood_s": 0.0010559401093743759,
+     "verhaeltnis": 0.2242158598104862
+    }
+   }
+  ],
+  "zusammenfassung": {
+   "batch1": {
+    "fastfood_schneller_ab_N": null,
+    "n_schneller": [],
+    "verhaeltnis": {
+     "256": 0.045,
+     "512": 0.132
+    }
+   },
+   "batch64": {
+    "fastfood_schneller_ab_N": null,
+    "n_schneller": [],
+    "verhaeltnis": {
+     "256": 0.117,
+     "512": 0.224
+    }
+   },
+   "operationen_verhaeltnis": {
+    "256": 26.89,
+    "512": 48.71
+   }
+  },
+  "zaehlmodell": "dicht 2N²−N; Fastfood-2 2N·log2N+3N je Vektor; Parameter N² gegen 2N Bits"
+ },
+ "urteil": {
+  "NK": "DURCHGEFALLEN (Zufallslabel-Mittel: MNIST 16 0.0820, MNIST 32 0.0600, Fashion 16 0.1240, Fashion 32 0.1400; Band (0.09, 0.115))",
+  "PK-MNIST": "DURCHGEFALLEN (Haar² − Pixel @16: +nan pp)",
+  "H1-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H2-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H3-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H4-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "B-MNIST": "beschreibend: Haar² − Pixel 16/32 n/a/n/a pp; Haar² − |z| 16/32 n/a/n/a pp; Rest in auswertung.beschreibend",
+  "PK-Fashion": "DURCHGEFALLEN (Haar² − Pixel @16: +nan pp)",
+  "H1-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H2-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H3-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H4-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "B-Fashion": "beschreibend: Haar² − Pixel 16/32 n/a/n/a pp; Haar² − |z| 16/32 n/a/n/a pp; Rest in auswertung.beschreibend",
+  "B-Zeit": "beschreibend: FWHT-Fastfood schneller ab N = None (Batch 1), None (Batch 64); Operationsverhältnis dicht/Fastfood bei N=1024: None"
+ }
+}
