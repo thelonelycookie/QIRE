@@ -242,3 +242,9 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 ### 06.10.2026 09:55 — I-040-v2 (automatisch)
 - **H3**: H0 ETA_NICHT_PROGNOSTISCH: rho 0.7, p 0.9333, Holm-p 0.9333, zensiert ['id']
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 10:09 — I-041 (automatisch)
+- **H3-MNIST**: HU (d -0,07 pp, 90-%-KI [-0,35; +0,21], n 10, p_Holm 0.652)
+- **H2-Fashion**: HU (d +0,44 pp, 90-%-KI [+0,07; +0,81], n 10, p_Holm 0.084)
+- **H3-Fashion**: H0 (Born-Vorsprung schrumpft, p_zweiseitig 0.0137; d -0,57 pp, 90-%-KI [-0,91; -0,24], n 10, p_Holm 0.993)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*

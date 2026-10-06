@@ -1310,3 +1310,14 @@ Rohdaten `ergebnisse/I-039-v2__20261006_100331.json`. PK-1, PK-2 und NK OK.
 - **H1/H2 GLEICHWERTIG:** Born b_ff 80,26 % gegen die klassische Variante mit gleicher Fastfood-Mischung und Gruppierung, aber |z| statt Quadrat (k3_abs): 80,65 %. Differenz −0,39 pp, TOST ±1 pp bestanden; ein Vorsprung ist nicht gezeigt.
 - Beschreibend: k2_relu (±1-Projektion + ReLU, 32 Bit) 79,8; k1_lin 79,4; k1_fisher 77,9; k3_relu 75,3; d 75,0.
 **Deutung:** Der Vorsprung von I-039 (+5,6 pp gegen d) kommt aus **Mischung + Gruppierung (Struktur)**, nicht aus dem Born-Quadrat. Mit gleichem Bitbudget und |z| erreicht ein klassisches Modell dasselbe. Das passt zu I-038 (Fashion: Born ≡ |z|; MNIST nur +0,35 pp).
+
+## 06.10.2026 – I-041 ERGEBNIS (Skalierung 16×16 → 32×32, Seeds 2060–2069)
+Rohdaten `ergebnisse/I-041__20261006_100927.json`. NK und PK bestanden.
+| | MNIST | Fashion |
+|---|---|---|
+| H1 Haar² − Pixel @32 | **+4,33 pp** | **+1,93 pp** |
+| H2 Vorsprung wächst (32 vs. 16) | **+1,64 pp, wächst** | +0,44 pp, HU |
+| H3 Born-Vorsprung gegen \|z\| wächst | HU (−0,07) | H0, schrumpft (−0,57) |
+| H4 Fastfood² ≡ Haar² @32 | GLEICHWERTIG | GLEICHWERTIG |
+Zeit (beschreibend): FWHT-Fastfood ist schneller als eine dichte Matrixmultiplikation ab N = 1.024 (Batch 1) bzw. 2.048 (Batch 64); Operationsverhältnis bei N = 1.024: 89×.
+**Deutung:** Der **Struktur**-Vorsprung (Mischung + Nichtlinearität gegen Pixel) wächst mit der Größe, auf MNIST signifikant. Der Born-Quadrat-Vorsprung gegen \|z\| wächst **nicht** (auf Fashion schrumpft er). Fastfood (O(N log N), 0 trainierte Mischparameter) ersetzt Haar vollständig und ist ab N ≈ 1–2k auch messbar schneller.
