@@ -497,7 +497,7 @@
   {
    "id": "I-039-v2",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.mnist100_fair",
    "prioritaet": 1,
    "frage": "Fairer Bit-Vergleich: bleibt der Vorsprung von b_ff (110 reelle Parameter + 882 Strukturbits formal) gegenueber klassischen Armen mit gleichem Strukturbit-Budget (<= ~900 Bit; k1 Pixelgruppen/Fisher, k2 +-1-Projektion+ReLU/|z|, k3 gleiche Struktur ohne Quadrat, d)? H1 b_ff - bester klassischer Arm > 0, H2 b_ff - bester k3-Arm > 0 (Holm), TOST +-1 pp berichtet.",

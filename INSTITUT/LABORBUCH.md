@@ -1304,3 +1304,9 @@ Rohdaten `ergebnisse/I-040-v2__20261006_095500.json`. PK-1 OK (Identität 0,904,
 - **H3 H0:** η = I/χ sagt den Schussbedarf nicht voraus (ρ 0,7, p 0,93; nur 5 Arme).
 - **H4 ZIELKONFLIKT bestätigt:** Haar-Mischung +3,5 pp Genauigkeit bei exakter Auslese, aber −0,20 Bit Information pro Schuss (10/10 Seeds).
 **Deutung:** Die dichte Mischung verbessert die Rechnung mit exakten Wahrscheinlichkeiten und verschlechtert die einzelne Messung. Auf echter Hardware entscheidet die Schusszahl, welche Auslese gewinnt. Training mit Schussrauschen hilft bei wenigen Schüssen.
+
+## 06.10.2026 – I-039-v2 ERGEBNIS (fairer Bit-Vergleich, Seeds 2100–2119)
+Rohdaten `ergebnisse/I-039-v2__20261006_100331.json`. PK-1, PK-2 und NK OK.
+- **H1/H2 GLEICHWERTIG:** Born b_ff 80,26 % gegen die klassische Variante mit gleicher Fastfood-Mischung und Gruppierung, aber |z| statt Quadrat (k3_abs): 80,65 %. Differenz −0,39 pp, TOST ±1 pp bestanden; ein Vorsprung ist nicht gezeigt.
+- Beschreibend: k2_relu (±1-Projektion + ReLU, 32 Bit) 79,8; k1_lin 79,4; k1_fisher 77,9; k3_relu 75,3; d 75,0.
+**Deutung:** Der Vorsprung von I-039 (+5,6 pp gegen d) kommt aus **Mischung + Gruppierung (Struktur)**, nicht aus dem Born-Quadrat. Mit gleichem Bitbudget und |z| erreicht ein klassisches Modell dasselbe. Das passt zu I-038 (Fashion: Born ≡ |z|; MNIST nur +0,35 pp).
