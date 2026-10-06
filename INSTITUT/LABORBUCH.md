@@ -1363,3 +1363,11 @@ Modul `abteilungen/struktur_tief.py`. Vortest (Bausteine, Parameterzählung, Wie
 - **Erwartung vorab (Rauchtest nur Pipeline, keine Befunde):** Nach I-042 ist H1 unsicher (feste/trainierte Mischung verlor 6 pp bei einer Schicht); Tiefe könnte helfen, weil ReLU/LayerNorm zwischen Hadamard-Stufen Nichtlinearität nachlegt. H3/H4 offen; im CNN trägt die Faltung die Merkmale, daher ist Gleichstand eher plausibel als auf Rohpixeln.
 - **Laufzeit (gemessen, 4 Prozesse parallel, 1 Thread je Prozess; 1 Epoche je Arm: A 49 s, A2 140 s, S1 6 s, S2 14 s, S3 16 s, Kd 51 s, Ks 44 s, Kcd 41 s, Kcs 48 s):** Mess-Läufe ≈ 8.200 + 440 (NK) Kernsekunden, Tuning ≈ 5.200, Auswahl ≈ 500, also ≈ 14.300 Kernsekunden / 4 ≈ **1,0–1,3 h** (Standard); Fallback ≈ 0,8 h.
 - **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044` (Wiederaufnahme je (Teil, Arm, Seed) in `ergebnisse/_zwischen_I-044.json`; Auswahl und Tuning ebenfalls dort).
+
+## 06.10.2026 – I-044 ERGEBNIS (Struktur auf CIFAR-10: Tiefe und CNN, Seeds 2300–2304)
+Rohdaten `ergebnisse/I-044__20261006_155444.json`. NK bestanden.
+- **H1 H0:** MLP mit 3 Strukturschichten (S3) 48,4 % gegen dicht (A) 54,0 %, also −5,6 pp.
+- **H2 H0:** Mehr Strukturschichten helfen nicht; S3 ist 1,5 pp schlechter als S1.
+- **H3 NICHT_UNTERLEGEN:** Im CNN ist der **strukturierte Kopf (Ks) 73,9 % gegen den dichten Kopf (Kd) 72,1 %**, also **+1,8 pp**. Kopfparameter ≈ 49 k gegen 4,2 Mio (≈ 85× weniger), dazu 3× schneller bei Batch 1.
+- **H4 HU:** strukturierte Kanalmischung 72,6 gegen dicht 73,3 (−0,7 pp), unentschieden.
+**Deutung:** Die Struktur ersetzt rohe Pixel-Schichten auf CIFAR nicht; sie ersetzt aber die **große dichte Schicht hinter gelernten Merkmalen** (CNN-Kopf) mit 85× weniger Parametern und leichtem Gewinn. Muster mit I-042: Struktur trägt dort, wo die Eingabe schon gute Merkmale hat. Für Sprachmodelle (FFN hinter Attention) ist das der relevante Fall.

@@ -547,7 +547,7 @@
   {
    "id": "I-044",
    "abteilung": "Struktur",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.struktur_tief",
    "prioritaet": 1,
    "frage": "Strukturschicht auf CIFAR-10: tiefer und im CNN. Schliesst man die -6 pp Luecke (I-042: dicht 55,3 vs. Struktur 49,1 bei N=16k) durch (a) mehrere Fastfood-Schichten hintereinander (Teil 1, MLP N=4096: A, A2, S1/S2/S3 mit trainierten Diagonalen; H1 S3 >= A-1pp, H2 S3-S1>0) oder (b) Struktur in einem kleinen CNN (Teil 2: Kd/Ks Kopfschicht, H3 Ks >= Kd-1pp bei >=10x weniger Kopfparametern; Kcd/Kcs Kanalmischung, H4 Kcs >= Kcd-1pp)?",
