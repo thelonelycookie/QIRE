@@ -469,6 +469,30 @@
    "prioritaet": 1,
    "frage": "Dosis-Kurve ueber den Rang (Folge R-2 ZUFALL_BESSER) + Aufgabenform: Genauigkeit von W(V, B) fuer Rang 0,2,4,6 (zufaellige Formen) bei festen V aus der Suche; und eine EINMAL gesuchte Form auf neue Seeds/Bloecke uebertragen vs. Suche je Seed (Methode statt Suche).",
    "notiz": "Aus I-036-v3 (05.10.): Rang traegt 52/78 %, Spearman Rang~Gewinn +0,79; fremde Maske nur 0,29 pp hinter eigener. Vor dem Bauen: Literatursuche (Vorgabe 7) zu Graphzustand-Rang/Verschraenkung als Merkmalsqualitaet."
+  },
+  {
+   "id": "I-038",
+   "abteilung": "Struktur",
+   "status": "vorregistriert",
+   "prioritaet": 1,
+   "frage": "Ist QIRE gleichwertig zu klassischer dichter Mischung plus Quadrat? Arme: Pixel-Softmax, Identitaet², Haar², Haar linear, Fastfood-2², QIRE Zufallswinkel/gelernt/ohne CNOT, Clifford-Suche (gepaart, Seeds 2000-2009), Cayley; klassische Nichtlinearitaeten (ReLU, tanh, |z|, z² ohne Normierung, MLP 256-9-10). H-A..H-G (Holm x7 je Datensatz), TOST ±0,5 pp, Zufallslabel-Negativkontrolle, Seeds 2000-2019, Tuning-Seed 2099, MNIST+Fashion.",
+   "notiz": "Plan PLAN_2026-10-06_gesamt.md §2 P1, Vorlage v3_kontrollen.md. Vorregistrierung: LABORBUCH.md 06.10.2026 (I-038). Modul abteilungen/struktur_aequivalenz.py, Wiederaufnahme je Seed (ergebnisse/_zwischen_I-038.json). Start: INSTITUT_PROZESSE=4 python direktor.py lauf I-038 (erst nach Freigabe; vorher Status auf 'offen'/'laeuft (Container)').",
+   "modul": "abteilungen.struktur_aequivalenz",
+   "folgen": {
+    "H-A GLEICHWERTIG": "Kernaussage 'quanten-inspiriert' belegt",
+    "H-A QIRE_BESSER": "welche Struktur traegt? Skalierung n=10",
+    "H-G KLASSISCH_BESSER": "Kernaussage auf 'Mischung' kuerzen"
+   }
+  },
+  {
+   "id": "I-039",
+   "abteilung": "Clifford",
+   "status": "vorregistriert",
+   "modul": "abteilungen.mnist100",
+   "prioritaet": 1,
+   "frage": "MNIST mit ~100 Parametern: erreicht eine Born-Zelle (Haar/Fastfood-Mischung, Gruppierung) >= 70 % bei <= 110 trainierten reellen Parametern, gleichwertig zur klassischen 5x5->3 tanh->10 (H2) und traegt die Mischung (H3)?",
+   "notiz": "PLAN_2026-10-06_gesamt.md P2. Arme a-f (a Gruppierung+10 Bias, b +10x10, c quadrierte Pixel ohne Mischung, d klassisch 118 P., e Fisher-Top-9, f Klassenregister ohne Kopf), Kontrollen PK-1 Voll-Kopf, PK-2 (d), NK Zufallslabel. Seeds 2020-2039, Tuning-Seeds 2090-2092 (gittersuche_stabil, nie Test). Zaehlung: reell + Strukturbits (formal/streng) getrennt, Bit/pp. Vorregistriert vor jeder Testzahl; Rauchtest auf Mess-Seed 2020 im Modulkopf offengelegt. Freigabe E2 steht aus (nicht gestartet). ~10-15 min bei INSTITUT_PROZESSE=4. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-039 (Status vorher auf offen setzen) oder python abteilungen/mnist100.py",
+   "folgen": {}
   }
  ]
 }

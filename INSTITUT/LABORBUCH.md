@@ -1186,3 +1186,9 @@ alternierenden Form, der vollen Invariante des merkmalswirksamen Teils).
 Rang (nur CZ/S-Lage); R-2 ZUFALL_BESSER → Dosis-Kurve über den Rang 0…k.
 Neu aus dem Beschreibenden: Übertragung einer festen „Aufgabenform“ auf neue
 Seeds als eigene Karte (Methode statt Suche je Seed).
+
+## 06.10.2026 — I-039 „MNIST mit ~100 Parametern“ vorregistriert (Modul `abteilungen/mnist100.py`)
+Vorregistrierung steht im Modulkopf (Arme a–f, Zählregel reell/Strukturbit/Bit-pro-pp, Hypothesen H1–H3, Holm, Kriterien
+und Urteilsstrings im Code). Seeds 2020–2039, Tuning-Seeds 2090–2092. Vortest (jeder Urteilszweig erzwungen) bestanden,
+Rauchtest 1 Seed (2095) gelaufen. **Offenlegung:** ein früher Rauchtest sah die Testzeile von Seed 2020 (150 Schritte);
+Kriterien blieben unverändert. Lauf nicht gestartet (wartet auf Freigabe E2).
