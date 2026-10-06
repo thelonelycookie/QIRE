@@ -37,28 +37,20 @@ B-014 erklärt warum). Es liegt in `../B/` und wird hier nur zitiert.
 
 ```bash
 "$VENV" -m quantum_sim.q_summary    # Belegstand der Q/T-Serie
-"$VENV" -m quantum_sim.q_audit      # Zahlen gegen die Rohdaten nachrechnen (106, Stand 30. Aug.)
+"$VENV" -m quantum_sim.q_audit      # Zahlen gegen die Rohdaten nachrechnen
 ```
 
 (`"$VENV"` = der Interpreter aus Abschnitt 3; unter Windows kürzer `.\py.cmd`.)
 
 Dann lesen, in dieser Reihenfolge:
 
-1. **`HANDOFF_AKTUELL.md`** — der Einstieg. Abschnitt 00 sagt, was seit dem
-   Review vom 23. September gilt.
-2. **`../BERICHT/00_REVIEW_BEFUNDE.md`** — der Gesamtreview, Grundlage aller
-   Änderungen vom 23. September.
-3. **`STAND_UND_OFFENES.md`** — Stichpunktfassung beider Teilprojekte.
-4. **`PROJEKTTAGEBUCH.md`** — maßgeblich, jede Zahl mit Herleitung. Neue
-   Einträge stehen **vor** dem Abschnitt „Zwischenstand“; der aktuellste ist
-   „23. September — Gesamtreview: was hält, was nicht“.
-5. **`KURZFASSUNG_ENTWURF_v2.md`** — die aktuelle Argumentationslinie mit
-   Platzhaltern für Q-020 und T-002.
-6. **`ENTWURF_Q020.md`** — der nächste Lauf (faire klassische Referenz;
-   Verschränkung × Tiefe ohne Encoder).
-7. **`ENTWURF_T_SERIE_KERNEL.md`** — Roadmap der T-Serie.
-8. **`ENTWURF_ZEITREIHEN.md`** — Q-019; das Modul ist gebaut und geprüft, aber
-   nicht gelaufen.
+1. **`../../INSTITUT/HANDOVER_*.md`** (das neueste) — aktueller Gesamtstand
+   beider Linien (Institut und Projekt A), laufende Läufe, offene Entscheidungen.
+2. **`../../INSTITUT/UEBERGABE.md` §0–3** — Maltes Vorgaben und Protokollregeln.
+3. **`../../INSTITUT/PLAN_*_gesamt.md`** (das neueste) — der gültige Plan.
+4. **`HANDOFF_AKTUELL.md`** — Einstieg Projekt A (Chatbot-Adapter, Q/T-Serie).
+5. **`PROJEKTTAGEBUCH.md`** — maßgeblich für Projekt A, jede Zahl mit Herleitung.
+6. Vorregistrierungen `ENTWURF_*.md` nur bei Bedarf (z. B. `ENTWURF_T006_SKALIERUNG.md`).
 
 `BEFUNDE_UND_RICHTUNGEN.md` ist der schnellste Überblick, wenn wenig Zeit ist:
 ~60 Stichworteinträge über Befunde, Theorie, Läufe und Fehlerquellen.
@@ -66,19 +58,14 @@ Historisch (nicht mehr als Stand lesen): `ROADMAP.md`, `HANDOFF_PROJEKT_A.md`,
 `FORSCHUNGSIDEEN.md`, `KURZFASSUNG_ENTWURF.md`, `RESULTS.md`,
 `SCIENTIFIC_LIMITS.md`.
 
-**Offener Stand (23. September):** Seit dem 30. August ist kein Lauf gerechnet
-worden. Der Review hat ergeben: Die Kontrolle der Kernaussage ist zu schwach
-(Nachtest Q-020 a), Verschränkung und Tiefe sind nicht belegt (Q-020 b), T-002
-hat vier Fehler vor jedem GPU-Lauf, B-014 ist nur im Tagebuch korrigiert. Q-011
-ist weiter abgebrochen (Tiefen 1–8 gerettet). Details in `HANDOFF_AKTUELL.md`
-Abschnitt 00.
+Den aktuellen Stand nie hier eintragen (er veraltet), sondern im neuesten
+`INSTITUT/HANDOVER_*.md`.
 
 ---
 
 ## 3. Umgebung
 
-Die virtuelle Umgebung liegt **außerhalb** dieses Ordners (1,3 GB; beim Umzug
-war die Platte zu 99 % voll — Stand 23. September sind wieder **141 GB frei**):
+Die virtuelle Umgebung liegt **außerhalb** dieses Ordners (1,3 GB):
 
 ```
 C:/Users/Malte/Downloads/qire_ai_console_v1_0_remote_research_platform/qire_ai_console_v1_0/.venv/Scripts/python.exe
@@ -94,15 +81,14 @@ gebaut wird, falls der alte Ordner verschwindet.
 schwerer Lauf gleichzeitig. Ein Lauf über Nacht überlebt das Sitzungsende
 nicht zuverlässig — genau daran ist Q-011 dreimal gescheitert.
 
-**RunPod hat derzeit kein Guthaben** (Stand 27. August; aktuellen Stand bei
-Malte erfragen). Skripte dafür liegen in `server_setup/`. **Vor jedem T-002-Lauf**
+**Geld (RunPod, Hardware-Zugänge) und große Downloads nur nach Rückfrage bei
+Malte.** Skripte dafür liegen in `server_setup/`. **Vor jedem T-002-Lauf**
 müssen die vier Fehler aus `HANDOFF_AKTUELL.md` Abschnitt 7 behoben sein
 (Lernratensuche mit zu kleinem Budget, Wiederaufnahme liest die Probe statt des
 Hauptlaufs, Schrittzahl nicht festgelegt, falsche Lernrate gespeichert).
 
-**Kein Git** (Stand 23. September). Empfohlen: `git init` + privates Repo, damit
-Vorregistrierungen einen Zeitstempel vor den Rohdaten haben — Entscheidung
-Malte.
+Git: Repo `thelonelycookie/QIRE` auf GitHub. Vorregistrierungen werden vor
+den Rohdaten committet (Zeitstempel).
 
 ---
 
@@ -180,6 +166,9 @@ Vier Dinge, die dabei schon schiefgingen und deshalb mitzuprüfen sind:
 
 ## 6. Wenn eine Zahl entsteht
 
+Gilt für **Q/T-Läufe von Projekt A**. Institutsläufe (I-…, C-…) gehen
+stattdessen ins `INSTITUT/LABORBUCH.md` und `INSTITUT/agenda.json`.
+
 Sie gehört **sofort** an drei Stellen:
 
 1. ins `PROJEKTTAGEBUCH.md`, mit Herleitung,
@@ -194,6 +183,9 @@ entstehen — sonst sind sie von nachträglichem Tuning nicht zu unterscheiden.
 
 ## 7. Arbeitsweise
 
+- **Opus plant, Sonnet-Agenten führen aus** (Recherche, Modulbau, Rechnungen);
+  Opus nur, wo Sonnet nicht reicht. **Vor jedem neuen vorregistrierten Lauf
+  auf Maltes Zustimmung warten.**
 - **Selbstständig arbeiten, nur bei wichtigen Entscheidungen fragen.** Eine
   wichtige Entscheidung ist: Richtung des Projekts, Geld, ein Lauf über viele
   Stunden, das Verwerfen eines Befunds. Nicht: welcher Dateiname, welche
