@@ -503,6 +503,16 @@
       "frage": "Holevo-Wirkungsgrad: wie viel der Holevo-Groesse chi_C nutzt eine Born-Auslese pro Schuss (Identitaet, Haar, Fastfood-2, Bent-4x4, Clifford-Suche), schlaegt ein schussbewusster Kopf den exakt trainierten bei S<=100 (H2), und sagt eta=I/chi den Schussbedarf fuer 90 % voraus (H3)?",
       "notiz": "PLAN_2026-10-06_gesamt.md P4, Vorlage recherche/2026-10-05_vertiefung/v4_holevo_schuesse.md. H1 I(Klasse;1 Schuss) Identitaet > Haar und > Suche (Wilcoxon, p=max); H2 schussbewusst > exakt bei S in {10,30,100}; H3 Spearman eta~S90 ueber 5 Arme (exakter Permutationstest). Holm ueber H1-H3. Koepfe auf S in {10,30,100,300,1000}, L2 auf Tuning-Seed 2098. Seeds 2050-2059, MNIST (Fashion optional beschreibend: argumente {\"fashion\": true}). Neuheitspruefung des Wirkungsgrad-Masses steht aus (E4). Vorregistrierung LABORBUCH.md 06.10.2026 (I-040). Wiederaufnahme je (Seed, Arm) in ergebnisse/_zwischen_I-040/. Laufzeit ~20-25 min bei INSTITUT_PROZESSE=4 (Suche 6 min je Seed dominiert). Freigabe E2 steht aus. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-040 (Status vorher auf offen setzen).",
       "folgen": {}
+    },
+    {
+      "id": "I-040-v2",
+      "abteilung": "Clifford",
+      "status": "offen",
+      "modul": "abteilungen.holevo_wirkungsgrad_v2",
+      "prioritaet": 2,
+      "frage": "Holevo-Wirkungsgrad v2 (Folge von I-040, PK-1 versagt): bei I-038-Kopf und relativer PK-1 (Identitaet exakt >= Pixel-Softmax - 2 pp): H1 Identitaet beste I/Schuss, H2 schussbewusst > bester exakter Kopf bei S<=100, H3 eta sagt S90 voraus, H4 Zielkonflikt (Haar^2 exakt > Identitaet exakt UND I(id) > I(Haar)).",
+      "notiz": "Ursache PK-1-Versagen: I-040 wählte L2 des exakten Kopfs unter Schussrauschen (0,09) + max_iter 200; I-038 Kopf L2 3e-3, iter 500 gibt Identitaet 0,9005 (Tuning-Seed 2198: 0,904 gegen 0,874). Seeds 2150-2159, Tuning 2198. Holm ueber H1-H4. Vorregistrierung LABORBUCH 06.10.2026 (I-040-v2). Wiederaufnahme je (Seed, Arm) in ergebnisse/_zwischen_I-040-v2/. Laufzeit ~25 min bei INSTITUT_PROZESSE=4. Freigabe von Malte steht aus (nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-040-v2; Fashion optional (argumente {\"fashion\": true}), nur beschreibend.",
+      "folgen": {}
     }
   ]
 }
