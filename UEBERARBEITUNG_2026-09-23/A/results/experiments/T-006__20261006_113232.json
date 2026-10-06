@@ -1,0 +1,471 @@
+{
+  "experiment_id": "T-006",
+  "description": "T-006: Adapter-Skalierung qire_L10/L20/L40 (CNOT-Ring) gegen lora_r1 auf LLaeMmlein-120M; K1 Page-Trend, K2 qire_L40-lora_r1 TOST, K3 Exponent b gegen 0,5 (Bootstrap); Positivkontrolle qire_L10 = 2,4115.",
+  "created": "2026-10-06T11:32:32",
+  "config": {
+    "basis_t004": {
+      "modell": "LSX-UniWue/LLaMmlein_120M",
+      "datensatz": "FreedomIntelligence/alpaca-gpt4-deutsch",
+      "ziele": [
+        "q_proj",
+        "v_proj"
+      ],
+      "arme": [
+        "basis",
+        "qire_kron",
+        "qire_5",
+        "lora_r1"
+      ],
+      "schaltung": {
+        "qire_kron": [
+          1,
+          false
+        ],
+        "qire_5": [
+          5,
+          true
+        ]
+      },
+      "lora": [
+        1,
+        2
+      ],
+      "n": [
+        5000,
+        1000,
+        500,
+        50
+      ],
+      "max_tokens": 128,
+      "max_frage": 96,
+      "batch": 4,
+      "seed_aufteilung": 20260928,
+      "schritte": 300,
+      "clip": 1.0,
+      "seeds": [
+        40001,
+        40002,
+        40003,
+        40004,
+        40005,
+        40006,
+        40007,
+        40008
+      ],
+      "tuning_seeds": [
+        40401,
+        40402
+      ],
+      "lr_gitter": {
+        "qire_kron": [
+          0.001,
+          0.003,
+          0.01,
+          0.03
+        ],
+        "qire_5": [
+          0.001,
+          0.003,
+          0.01,
+          0.03
+        ],
+        "lora_r1": [
+          0.0001,
+          0.0003,
+          0.001,
+          0.003
+        ]
+      },
+      "erweiterungen": 3,
+      "rel_grenze": 0.2,
+      "format": "### Instruktion:\n{frage}\n\n### Antwort:\n",
+      "anwendung": "bank"
+    },
+    "arme": [
+      "basis",
+      "qire_L10",
+      "qire_L20",
+      "qire_L40",
+      "lora_r1",
+      "qire_L10_600"
+    ],
+    "lagen": [
+      10,
+      20,
+      40
+    ],
+    "cnot": true,
+    "trainiert": [
+      "qire_L10",
+      "lora_r1",
+      "qire_L40",
+      "qire_L20",
+      "qire_L10_600"
+    ],
+    "schritte": 300,
+    "schritte_arm": {
+      "basis": 300,
+      "qire_L10": 300,
+      "qire_L20": 300,
+      "qire_L40": 300,
+      "lora_r1": 300,
+      "qire_L10_600": 600
+    },
+    "seeds": [
+      60001,
+      60002,
+      60003,
+      60004,
+      60005,
+      60006,
+      60007,
+      60008
+    ],
+    "tuning_seeds": [
+      60401,
+      60402
+    ],
+    "lr_gitter": {
+      "qire_L40": [
+        0.0003,
+        0.001,
+        0.003
+      ],
+      "qire_L20": [
+        0.0003,
+        0.001,
+        0.003
+      ]
+    },
+    "erweiterungen": 3,
+    "lr_uebernommen": {
+      "qire_L10": 0.001,
+      "lora_r1": 0.001
+    },
+    "lr_gekoppelt": {
+      "qire_L10_600": "qire_L10"
+    },
+    "lr_quelle": "T-005__20260930_084358_02.json",
+    "rel_grenze": 0.2,
+    "familie": [
+      "K1",
+      "K2",
+      "K3"
+    ],
+    "iut_schwelle": 0.016666666666666666,
+    "b_null": 0.5,
+    "boot": [
+      10000,
+      20261006
+    ],
+    "pos": [
+      2.4115,
+      0.003
+    ],
+    "parameter": {
+      "basis": 0,
+      "qire_L10": 1920,
+      "qire_L20": 3840,
+      "qire_L40": 7680,
+      "qire_L10_600": 1920,
+      "lora_r1": 30720
+    },
+    "metrik": "val_verlust",
+    "torch_threads": 6,
+    "aufloesungspruefung": "lora_r1 trennt sich von basis (zweiseitig)",
+    "fingerabdruck": "1b0fcfd5a7294942",
+    "lr": {
+      "qire_L10": {
+        "lr": 0.001,
+        "rand": "innen",
+        "quelle": "T-005__20260930_084358_02.json"
+      }
+    }
+  },
+  "environment": {
+    "python": "3.11.9",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "processor": "AMD64 Family 23 Model 113 Stepping 0, AuthenticAMD",
+    "torch": "2.12.0+cpu",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0",
+    "torch_num_threads": "6"
+  },
+  "n_records": 16,
+  "records": [
+    {
+      "arm": "basis",
+      "seed": 60001,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "basis",
+      "seed": 60002,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "basis",
+      "seed": 60003,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "basis",
+      "seed": 60004,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "basis",
+      "seed": 60005,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "basis",
+      "seed": 60006,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "basis",
+      "seed": 60007,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "basis",
+      "seed": 60008,
+      "lr": 0.0,
+      "menge": "validierung",
+      "schritte": 0,
+      "val_verlust": 2.5616469113026237,
+      "val_verlust_alle": 3.1077399720745866,
+      "tokens": 65928,
+      "train_verlust_ende": null,
+      "trainierbar": 0,
+      "lagen": 0,
+      "s_je_schritt": 0.0,
+      "s_auswertung": 95.32,
+      "sekunden": 95.59,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60001,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.4107474822498123,
+      "val_verlust_alle": 3.0479882102412015,
+      "tokens": 65928,
+      "train_verlust_ende": 2.4890049148603515,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.625,
+      "s_auswertung": 130.42,
+      "sekunden": 618.54,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60002,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.412661269717592,
+      "val_verlust_alle": 2.9939422754743035,
+      "tokens": 65928,
+      "train_verlust_ende": 2.4024687283061406,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.623,
+      "s_auswertung": 130.98,
+      "sekunden": 618.54,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60003,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.4130900313214556,
+      "val_verlust_alle": 3.027872136980235,
+      "tokens": 65928,
+      "train_verlust_ende": 2.411195187898905,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.634,
+      "s_auswertung": 131.76,
+      "sekunden": 622.38,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60004,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.4122309046540353,
+      "val_verlust_alle": 3.0703999080990965,
+      "tokens": 65928,
+      "train_verlust_ende": 2.462669786255873,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.633,
+      "s_auswertung": 131.51,
+      "sekunden": 622.01,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60005,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.4112245466882434,
+      "val_verlust_alle": 3.0791147526544522,
+      "tokens": 65928,
+      "train_verlust_ende": 2.46927571444717,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.631,
+      "s_auswertung": 130.41,
+      "sekunden": 620.14,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60006,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.407869591497128,
+      "val_verlust_alle": 3.0821686797710215,
+      "tokens": 65928,
+      "train_verlust_ende": 2.393525421102379,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.659,
+      "s_auswertung": 136.48,
+      "sekunden": 634.28,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60007,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.410657816265353,
+      "val_verlust_alle": 3.053042713275467,
+      "tokens": 65928,
+      "train_verlust_ende": 2.4074008496023227,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.664,
+      "s_auswertung": 132.7,
+      "sekunden": 632.43,
+      "threads": 6
+    },
+    {
+      "arm": "qire_L10",
+      "seed": 60008,
+      "lr": 0.001,
+      "menge": "validierung",
+      "schritte": 300,
+      "val_verlust": 2.410150055572284,
+      "val_verlust_alle": 3.017417931654532,
+      "tokens": 65928,
+      "train_verlust_ende": 2.37404594212547,
+      "trainierbar": 1920,
+      "lagen": 10,
+      "s_je_schritt": 1.671,
+      "s_auswertung": 138.33,
+      "sekunden": 639.88,
+      "threads": 6
+    }
+  ],
+  "analysis": {}
+}
