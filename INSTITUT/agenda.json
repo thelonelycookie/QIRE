@@ -543,6 +543,16 @@
    "frage": "Strukturschicht in gross: ersetzt Fastfood-2 (fest oder mit trainierten Diagonalen) + z² eine dichte erste Schicht in einem 2-Schicht-MLP auf Rohpixeln (CIFAR-10, Fashion 32x32) bei N=1024/4096/16384 (H1 Nichtunterlegenheit 1 pp mit >=100x weniger Parametern; H2 Born-Quadrat gegen |z|/ReLU; H3 Pareto E gegen Rang-K bei gleichem Budget; H4 Inferenzzeit B gegen A)?",
    "notiz": "Vorregistrierung LABORBUCH.md 06.10.2026 (I-042). 8 Arme A-G + K (Budgetkontrolle), Seeds 2200-2204, Tuning 2299. Profil gekuerzt (5 Epochen, N=16384 nur A,B,C,D,E,K) fest, Schaetzung ca. 1,6 h bei 4 Prozessen. Wiederaufnahme je (Datensatz,N,Seed) in ergebnisse/_zwischen_I-042.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-042.",
    "folgen": {}
+  },
+  {
+   "id": "I-044",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_tief",
+   "prioritaet": 1,
+   "frage": "Strukturschicht auf CIFAR-10: tiefer und im CNN. Schliesst man die -6 pp Luecke (I-042: dicht 55,3 vs. Struktur 49,1 bei N=16k) durch (a) mehrere Fastfood-Schichten hintereinander (Teil 1, MLP N=4096: A, A2, S1/S2/S3 mit trainierten Diagonalen; H1 S3 >= A-1pp, H2 S3-S1>0) oder (b) Struktur in einem kleinen CNN (Teil 2: Kd/Ks Kopfschicht, H3 Ks >= Kd-1pp bei >=10x weniger Kopfparametern; Kcd/Kcs Kanalmischung, H4 Kcs >= Kcd-1pp)?",
+   "notiz": "Vorregistrierung LABORBUCH.md 06.10.2026 (I-044). Seeds 2300-2304, Tuning 2399. Profil standard (4 Epochen) fest, Fallback (3 Epochen) per I044_PROFIL=fallback. Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-044.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044.",
+   "folgen": {}
   }
  ]
 }
