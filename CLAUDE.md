@@ -10,8 +10,9 @@
 4. Nur für den Chatbot-Adapter (Projekt A): `UEBERARBEITUNG_2026-09-23/A/CLAUDE.md`.
 
 ## Arbeitsweise
+- **Antworten sehr kurz, in Stichpunkten** (Token sparen). Große Ideen erst in 2–3 Sätzen spiegeln. QIRE-Fakten aus den Dateien lesen, nicht aus dem Gedächtnis.
 - **Opus plant, Sonnet-Agenten führen aus** (Agent-Tool, model „sonnet“): Recherche, Modulbau, Rechnungen. Opus nur, wo Sonnet nicht reicht.
-- **Vor jedem neuen vorregistrierten Lauf auf Maltes Zustimmung warten.** Modulbau, Vortest und Analyse brauchen keine Freigabe.
+- **Vor jedem neuen vorregistrierten Lauf auf Maltes Zustimmung warten** (Stand 06.10.: das Nutzungslimit ist knapp; die Regel kann sich wieder ändern). Modulbau, Vortest und Analyse brauchen keine Freigabe.
 - Ehrlich bleiben: Die Wirkung von QIRE ist klassisch (I-038). Formuliert wird „quanten-inspirierter Vorteil“, nicht „Quantenvorteil“.
 - Ergebnisse: Institutsläufe kommen in `INSTITUT/LABORBUCH.md` und `agenda.json`, Q/T-Läufe von Projekt A in Tagebuch, `q_audit` und `q_summary`.
 
@@ -21,4 +22,4 @@
 - Auf einen Prozess nie mit `pgrep -f <name>` warten, wenn der wartende Befehl selbst `<name>` enthält; sonst wartet er auf sich selbst.
 - Rauchtests nur auf Tuning-Seeds, nie auf Mess-Seeds.
 - Lange Läufe (Sprachmodell) auf Maltes PC: Ryzen 5 3600, 6 Kerne, 16 GB. PC wach halten, Energiesparen aus.
-- Commits: auf dem zugewiesenen Branch, `git pull --no-rebase` vor dem Push.
+- **Commits und Pushes nur unter Maltes Namen:** keine Co-Authored-By-, Session- oder KI-Zeilen, KI im Repo-Inhalt nicht erwähnen. Auf dem zugewiesenen Branch arbeiten, vor dem Push `git pull --no-rebase`.
