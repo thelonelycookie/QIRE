@@ -1296,3 +1296,11 @@ Modul `abteilungen/skalierung_n10.py`, Plan `PLAN_2026-10-06_gesamt.md` §2 P5. 
 - **Beschreibend (kein Urteil):** Zeitmessung numpy float32, 1 BLAS-Thread (frischer Prozess), FWHT-Fastfood (H D2 H D1) gegen dichte Matmul, N = 256 … 16.384, Batch 1 und 64, Minimum über 7 Wiederholungen; Zählmodell je Vektor: dicht 2N² − N, Fastfood 2N·log₂N + 3N; Parameter N² gegen 2N Bits. Berichtet wird das kleinste N, ab dem FWHT durchgehend schneller ist.
 - **Erwartung:** H1 ja (I-038: +2,8 / +1,4 pp bei 16×16). H2/H3 offen; Resampling kann den Vorsprung auch schmälern. H4 ja. Zeit: laut Plan kein Gewinn unter N ≈ 4k bei Batch 64; Batch 1 früher. Pilotwerte auf dem Tuning-Seed (kein Befund): Haar² 0,938 → 0,955, Pixel 0,910 → 0,910.
 - **Start:** `INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-041` (Wiederaufnahme je (Datensatz, Seed) in `ergebnisse/_zwischen_I-041.json`). **Laufzeit ≈ 6–10 min** bei 4 Prozessen (Tuning ≈ 2–3 min seriell, 20 Seed-Aufgaben je ≈ 15–30 s, Zeitmessung ≈ 1–2 min).
+
+## 06.10.2026 – I-040-v2 ERGEBNIS (Holevo-Wirkungsgrad, Seeds 2150–2159)
+Rohdaten `ergebnisse/I-040-v2__20261006_095500.json`. PK-1 OK (Identität 0,904, Pixel 0,910, Schwelle 0,890), PK-2 OK, NK OK.
+- **H1 IDENTITÄT_BESTE:** I(Klasse; 1 Schuss) Identität − Haar +0,201 Bit, − Suche +0,195 Bit (10/10 Seeds).
+- **H2 SCHUSSBEWUSST_BESSER:** Ein auf Schüssen trainierter Kopf schlägt den besten exakten Kopf bei S = 10/30/100 um +1,5 / +1,2 / +0,3 pp.
+- **H3 H0:** η = I/χ sagt den Schussbedarf nicht voraus (ρ 0,7, p 0,93; nur 5 Arme).
+- **H4 ZIELKONFLIKT bestätigt:** Haar-Mischung +3,5 pp Genauigkeit bei exakter Auslese, aber −0,20 Bit Information pro Schuss (10/10 Seeds).
+**Deutung:** Die dichte Mischung verbessert die Rechnung mit exakten Wahrscheinlichkeiten und verschlechtert die einzelne Messung. Auf echter Hardware entscheidet die Schusszahl, welche Auslese gewinnt. Training mit Schussrauschen hilft bei wenigen Schüssen.

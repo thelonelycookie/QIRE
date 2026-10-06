@@ -238,3 +238,7 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 - **H2**: HU PK_VERSAGT: Vorbedingung nicht erfuellt
 - **H3**: HU PK_VERSAGT: Vorbedingung nicht erfuellt
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 09:55 — I-040-v2 (automatisch)
+- **H3**: H0 ETA_NICHT_PROGNOSTISCH: rho 0.7, p 0.9333, Holm-p 0.9333, zensiert ['id']
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
