@@ -1270,3 +1270,14 @@ Modul `abteilungen/holevo_wirkungsgrad_v2.py` (Docstring enthält alle Kriterien
 - **Erwartung:** PK-1 besteht (≈ 0,90 gegen ≈ 0,91). H1 ja, H4 ja (Haar² ≈ +3,7 pp nach I-038, I ≈ −0,2 Bit nach I-040). H2 bei S = 10/30 wahrscheinlich, bei S = 100 knapp, gegen den stärkeren Gegner schwerer als in I-040. H3 offen bis eher nein.
 - **Grenzen:** wie I-040; η-Neuheit ungeprüft (E4); die 2-pp-Schwelle ist eine begründete Setzung.
 - **Start:** `INSTITUT_PROZESSE=4 python direktor.py lauf I-040-v2` (Wiederaufnahme je (Seed, Arm) in `ergebnisse/_zwischen_I-040-v2/`). Laufzeit ≈ 25 min bei 4 Prozessen.
+
+## 06.10.2026 — I-039-v2 „fairer Bit-Vergleich“ vorregistriert (Modul `abteilungen/mnist100_fair.py`)
+- **Frage:** Bleibt der Vorsprung von b_ff (80,46 %, 110 reelle Parameter + 882 Strukturbits formal) gegenüber klassischen Modellen mit **demselben Strukturbit-Budget** (≤ 900 Bit formal)? In I-039 hatte der klassische Arm (d, 74,84 %) 0 Bit.
+- **Arme (alle Kopf 10×10 + 10 Bias = 110 reell):** b_ff (exakt I-039, Code wiederverwendet); k1_lin (Pixel in 10 datengewählte Gruppen, 850 Bit), k1_quad (= Arm c, 850 Bit), k1_fisher (Fisher-Top-79 + Gruppen, 894 Bit); k2_relu/k2_abs (±1-Projektion, Seed 32 Bit, ReLU bzw. |z|, Gruppierung 850 Bit); k3_relu/k3_abs (gleiche Fastfood-Mischung und gleiche Gruppierung wie b_ff, aber ohne Quadrat); d (klassisch 118 reell, 0 Bit). Mutual Information wird nicht verwendet.
+- **Kontrollen:** PK-1 Voll-Kopf Haar ≥ 85 %, PK-2 d ≥ 70 %, NK Zufallslabel (b_ff) ≤ 15 %. Instabilität: > 1 Seed unter Median − 5 pp → HU.
+- **H1:** b_ff − bester klassischer Arm > 0 (einseitiger exakter Wilcoxon, Mittel > 0). **H2:** b_ff − bester k3-Arm > 0. Holm über {H1, H2}, α = 0,05. TOST ±1 pp für beide berichtet; Urteil „GLEICHWERTIG“, wenn TOST gilt und kein Vorsprung gezeigt ist. Der beste klassische Arm und der beste k3-Arm werden nach der Validierung der Tuning-Seeds festgelegt (Gleichstand: weniger reell, weniger Bit, Name), nie auf Test.
+- **Bitzählung:** reell, Bit formal und Bit streng getrennt (Zufallsmatrix formal nur Seed; streng Informationsgehalt: Fastfood ~2.196, Rademacher 65.536).
+- **Seeds:** Mess 2100–2119, Tuning 2190–2192 (Lernrate je Arm, Validierung 1.200 der 6.000, wie I-039).
+- **Erwartung vorab:** k3 (|z|) lag in I-038 nur ~0,35 pp unter dem Quadrat, H2 ist daher knapp bis gleichwertig zu erwarten; der Vorsprung kann gegen k1/k2 verschwinden. Das ist ausdrücklich ein möglicher Ausgang.
+- **Offenlegung:** Rauchtest einmal auf Tuning-Seed 2190 (150 Schritte, 1 Prozess); kein Mess-Seed berührt, Kriterien davor fixiert. Beim Rauchtest sahen wir auf diesem Tuning-Seed, dass einzelne klassische Arme nahe an b_ff liegen; die Hypothesen blieben unverändert.
+- **Status:** Modul gebaut, Vortest bestanden (erzwingt jeden Urteilszweig, Budget-, Zähl- und Gruppierungsgleichheit k3 = b_ff). Lauf (~8–12 min, `INSTITUT_PROZESSE=4`) wartet auf Freigabe.

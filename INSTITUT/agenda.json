@@ -495,6 +495,16 @@
       "folgen": {}
     },
     {
+      "id": "I-039-v2",
+      "abteilung": "Clifford",
+      "status": "offen",
+      "modul": "abteilungen.mnist100_fair",
+      "prioritaet": 1,
+      "frage": "Fairer Bit-Vergleich: bleibt der Vorsprung von b_ff (110 reelle Parameter + 882 Strukturbits formal) gegenueber klassischen Armen mit gleichem Strukturbit-Budget (<= ~900 Bit; k1 Pixelgruppen/Fisher, k2 +-1-Projektion+ReLU/|z|, k3 gleiche Struktur ohne Quadrat, d)? H1 b_ff - bester klassischer Arm > 0, H2 b_ff - bester k3-Arm > 0 (Holm), TOST +-1 pp berichtet.",
+      "notiz": "Folge von I-039 (LABORBUCH I-039 ERGEBNIS). Seeds 2100-2119, Tuning-Seeds 2190-2192 (Validierung, nie Test; Wahl des besten klassischen Arms/k3 vor jeder Testzahl). Kontrollen PK-1 Voll-Kopf, PK-2 (d), NK Zufallslabel. Bits formal und streng getrennt. Rauchtest nur auf Tuning-Seed 2190. Wiederaufnahme je Seed in ergebnisse/_zwischen_I-039-v2/. ~8-12 min bei INSTITUT_PROZESSE=4. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-039-v2 (oder python abteilungen/mnist100_fair.py). Freigabe steht aus.",
+      "folgen": {}
+    },
+    {
       "id": "I-040",
       "abteilung": "Clifford",
       "status": "erledigt",
