@@ -493,6 +493,16 @@
       "frage": "MNIST mit ~100 Parametern: erreicht eine Born-Zelle (Haar/Fastfood-Mischung, Gruppierung) >= 70 % bei <= 110 trainierten reellen Parametern, gleichwertig zur klassischen 5x5->3 tanh->10 (H2) und traegt die Mischung (H3)?",
       "notiz": "PLAN_2026-10-06_gesamt.md P2. Arme a-f (a Gruppierung+10 Bias, b +10x10, c quadrierte Pixel ohne Mischung, d klassisch 118 P., e Fisher-Top-9, f Klassenregister ohne Kopf), Kontrollen PK-1 Voll-Kopf, PK-2 (d), NK Zufallslabel. Seeds 2020-2039, Tuning-Seeds 2090-2092 (gittersuche_stabil, nie Test). Zaehlung: reell + Strukturbits (formal/streng) getrennt, Bit/pp. Vorregistriert vor jeder Testzahl; Rauchtest auf Mess-Seed 2020 im Modulkopf offengelegt. Freigabe E2 steht aus (nicht gestartet). ~10-15 min bei INSTITUT_PROZESSE=4. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-039 (Status vorher auf offen setzen) oder python abteilungen/mnist100.py",
       "folgen": {}
+    },
+    {
+      "id": "I-040",
+      "abteilung": "Clifford",
+      "status": "vorregistriert",
+      "modul": "abteilungen.holevo_wirkungsgrad",
+      "prioritaet": 2,
+      "frage": "Holevo-Wirkungsgrad: wie viel der Holevo-Groesse chi_C nutzt eine Born-Auslese pro Schuss (Identitaet, Haar, Fastfood-2, Bent-4x4, Clifford-Suche), schlaegt ein schussbewusster Kopf den exakt trainierten bei S<=100 (H2), und sagt eta=I/chi den Schussbedarf fuer 90 % voraus (H3)?",
+      "notiz": "PLAN_2026-10-06_gesamt.md P4, Vorlage recherche/2026-10-05_vertiefung/v4_holevo_schuesse.md. H1 I(Klasse;1 Schuss) Identitaet > Haar und > Suche (Wilcoxon, p=max); H2 schussbewusst > exakt bei S in {10,30,100}; H3 Spearman eta~S90 ueber 5 Arme (exakter Permutationstest). Holm ueber H1-H3. Koepfe auf S in {10,30,100,300,1000}, L2 auf Tuning-Seed 2098. Seeds 2050-2059, MNIST (Fashion optional beschreibend: argumente {\"fashion\": true}). Neuheitspruefung des Wirkungsgrad-Masses steht aus (E4). Vorregistrierung LABORBUCH.md 06.10.2026 (I-040). Wiederaufnahme je (Seed, Arm) in ergebnisse/_zwischen_I-040/. Laufzeit ~20-25 min bei INSTITUT_PROZESSE=4 (Suche 6 min je Seed dominiert). Freigabe E2 steht aus. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-040 (Status vorher auf offen setzen).",
+      "folgen": {}
     }
   ]
 }
