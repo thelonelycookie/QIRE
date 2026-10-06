@@ -1,7 +1,7 @@
 # Gesamtplan v2 — Neuausrichtung nach Etappe 1 und 2 (06.10.2026)
 
 *Verfasser: Direktor (Opus). Grundlage: `recherche/2026-10-05_breit/01–12` und `recherche/2026-10-05_vertiefung/v1–v6`. Ersetzt `PLAN_2026-10-05_effizienz.md`.*
-*Status: **ENTWURF, wartet auf Maltes Freigabe.** Kein Lauf startet vor der Zustimmung.*
+*Status: **freigegeben am 06.10.** (Malte: „nach eigenem Ermessen anfangen“). E1–E7 gemäß Empfehlung. Maltes Ziel: ein quanten-inspirierter Vorteil, also ein Quantenprinzip, das klassische Standardlösungen bei gleichem Budget schlägt.*
 
 ---
 
@@ -96,6 +96,7 @@ Für alle Läufe gilt:
   - H-D: Haar² − Pixel-Softmax > 0 (Superiorität; erwartet +2,9 / +1,6 pp).
   - H-E: Quadrat trägt, also Haar² − Haar linear > 0.
   - H-F: Suche ≤ Haar² auf Fashion (einseitig).
+  - **H-G (06.10., Maltes Ziel „quanten-inspirierter Vorteil“):** Haar² ≥ beste klassische Nichtlinearität nach derselben Mischung (ReLU, tanh, |z|, z² ohne Normierung) bzw. MLP mit gleich vielen Parametern. Der beste klassische Arm wird auf dem Tuning-Seed gewählt.
   - Cayley − QIRE wird nur berichtet, mit Parameterzählung.
 - **Positivkontrolle, die feuern kann:** H-D und H-E (in v3 jeweils > 2 pp).
 - **Negativkontrolle:** ein Zufallslabel-Arm (Gil-Fuster), erwartet ≈ 10 %.
