@@ -248,3 +248,7 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 - **H2-Fashion**: HU (d +0,44 pp, 90-%-KI [+0,07; +0,81], n 10, p_Holm 0.084)
 - **H3-Fashion**: H0 (Born-Vorsprung schrumpft, p_zweiseitig 0.0137; d -0,57 pp, 90-%-KI [-0,91; -0,24], n 10, p_Holm 0.993)
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 13:37 — I-042 (automatisch)
+- **H1-CIFAR**: H0 (beide unterlegen um mehr als 1 pp; H1B: d -6,26 pp, 90-%-KI [-6,74; -5,77], n 5, p_Holm 1; H1E: d -6,18 pp, 90-%-KI [-6,69; -5,68], n 5, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*

@@ -1336,3 +1336,14 @@ Modul `abteilungen/struktur_gross.py`. Vortest (Bausteine, Wiederaufnahme, jeder
 - **Kontrollen:** NK: A und B mit permutierten Trainingslabels (N = 1024, je Arm eigene Permutation), je Datensatz über Arme und Seeds gepoolt Mittel in (0,05; 0,15), sonst alles HU. Band breit, weil ein Netz auf permutierten Labels Cluster auf feste Labels abbildet: Testgenauigkeit = Fixpunkte/10, Einzelläufe 0,05–0,20 (auf Tuning-Seeds gemessen), Mittel ≈ 0,10; ein Testleck (> 0,15) wird weiter gefangen. Kollaps (Arm-Seed < Median − 5 pp in einem beteiligten Arm) → HU.
 - **Erwartung vorab (Pilot auf Tuning-Seed 2299, N = 1024, 5 Epochen, Validierung, kein Befund):** CIFAR A 54,5 %, B 39,5 %, E 41,4 %; Fashion A 89,3 %, B 87,7 %, E 88,1 %. H1 ist daher auf CIFAR unwahrscheinlich (feste Mischung verliert ~15 pp bei N = 1024; ob Breite das schließt, ist die Frage), auf Fashion knapp. H2 offen, nach I-041 eher gleichwertig. H3 offen. H4: Fastfood schneller bei N ≥ 4096 laut I-041.
 - **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-042` (Wiederaufnahme je (Datensatz, N, Seed) in `ergebnisse/_zwischen_I-042.json`; Tuning je (Datensatz, N) ebenfalls dort).
+
+## 06.10.2026 – I-042 ERGEBNIS (Strukturschicht in groß, N bis 16.384, Seeds 2200–2204)
+Rohdaten `ergebnisse/I-042__20261006_133726.json`. NK bestanden. Der Lauf brach einmal an einem Zeitlimit des Containers ab und wurde per Wiederaufnahme fortgesetzt; die Ergebnisse sind davon nicht betroffen.
+| | CIFAR-10 | Fashion 32×32 |
+|---|---|---|
+| H1 Struktur (B fest/E Diagonalen) ≥ dicht − 1 pp bei N=16k | **H0: −6,3 pp** (A 55,3 / B 49,1 / E 49,2) | **NICHT_UNTERLEGEN: +0,1 pp** (A 89,0 / B 89,1 / E 89,1), dichte Schicht 16,8 Mio Parameter |
+| H2 Born z² gegen \|z\| | BORN_BESSER +0,34 | KLASSISCH_BESSER −0,36 |
+| H2 Born z² gegen ReLU | KLASSISCH_BESSER −3,18 | BORN_BESSER +0,57 |
+| H3 E dominiert niedrigen Rang (gleiches Budget) | +29,7 pp | +21,6 pp |
+| H4 Struktur schneller (N ≥ 4096) | 7–54× | 4–19× |
+**Deutung:** Auf leichteren Aufgaben (Fashion) ersetzt eine feste Strukturschicht eine dichte 16,8-Mio-Parameter-Schicht ohne Verlust und ist 4–19× schneller. Auf CIFAR-10 kostet sie 6 pp. Im Vergleich der Nichtlinearitäten gibt es keinen Gewinner (z², \|z\| und ReLU wechseln je nach Aufgabe). Struktur mit trainierten Diagonalen schlägt niedrigen Rang bei gleichem Budget deutlich.
