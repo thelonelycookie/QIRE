@@ -482,9 +482,12 @@ def pruefe_theorie(threads: int = 3, mit_modell: bool = True) -> bool:
                 zeilen.append((f"{arm}: trainierbar {ca.trainierbar(m)} == {ERWARTETE_PARAMETER[arm]}",
                                abs(ca.trainierbar(m) - ERWARTETE_PARAMETER[arm]), "<", 0.5))
             # Bruecke: T-006-qire_L10 == T-005-qire_L10 (3 Schritte) und lora_r1
+            # Die Zellen trainieren (backward) -> Gradienten hier wieder einschalten,
+            # sonst schlaegt (s / n).backward() im umgebenden no_grad-Block fehl.
             for arm in ("qire_L10", "lora_r1"):
-                a = zelle(arm, 7, 1e-3, "validierung", threads, 3, True)
-                b = ck.zelle(arm, 7, 1e-3, "validierung", threads, 3, True)
+                with torch.enable_grad():
+                    a = zelle(arm, 7, 1e-3, "validierung", threads, 3, True)
+                    b = ck.zelle(arm, 7, 1e-3, "validierung", threads, 3, True)
                 zeilen.append((f"Bruecke: T-006-Zelle {arm} == T-005-Zelle (3 Schritte)",
                                max(abs(a[METRIK] - b[METRIK]), abs(a["train_verlust_ende"] - b["train_verlust_ende"])),
                                "<", 1e-9))
