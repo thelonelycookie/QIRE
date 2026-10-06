@@ -1,0 +1,15 @@
+suche 67.2288556098938
+magie 85.93758797645569
+mnist 980 186s 0.879 {'identitaet': 3.85, 'walsh_voll': 2.29, 'bent8': 3.84, 'bent4block': 4.1, 'zufall_clifford': 3.57, 'suche_clifford': 3.69, 'suche_k4': 3.82, 'generisch_k32': 3.86}
+suche 97.83641362190247
+magie 117.79305171966553
+mnist 981 233s 0.868 {'identitaet': 3.93, 'walsh_voll': 2.28, 'bent8': 3.91, 'bent4block': 4.13, 'zufall_clifford': 4.02, 'suche_clifford': 3.87, 'suche_k4': 3.88, 'generisch_k32': 3.61}
+suche 98.96624255180359
+magie 125.4490532875061
+mnist 982 194s 0.886 {'identitaet': 3.93, 'walsh_voll': 2.28, 'bent8': 3.92, 'bent4block': 4.09, 'zufall_clifford': 3.85, 'suche_clifford': 4.09, 'suche_k4': 3.97, 'generisch_k32': 3.66}
+suche 76.20030903816223
+magie 97.09648871421814
+mnist 983 197s 0.884 {'identitaet': 3.91, 'walsh_voll': 2.29, 'bent8': 3.86, 'bent4block': 4.08, 'zufall_clifford': 3.63, 'suche_clifford': 4.0, 'suche_k4': 3.99, 'generisch_k32': 3.54}
+suche 78.47288584709167
+magie 91.08078527450562
+mnist 984 258s 0.86 {'identitaet': 3.89, 'walsh_voll': 2.29, 'bent8': 3.9, 'bent4block': 4.1, 'zufall_clifford': 3.8, 'suche_clifford': 3.36, 'suche_k4': 3.7, 'generisch_k32': 3.64}

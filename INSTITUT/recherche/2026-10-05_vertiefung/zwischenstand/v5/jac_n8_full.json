@@ -1,0 +1,1 @@
+{"1": {"params": 8, "rank": 8, "smin_rel": 0.999999999999998, "next_rel": 0.0}, "2": {"params": 16, "rank": 16, "smin_rel": 0.9999999999999992, "next_rel": 0.0}, "5": {"params": 40, "rank": 40, "smin_rel": 0.8696458026641232, "next_rel": 0.0}, "10": {"params": 80, "rank": 80, "smin_rel": 0.7303614268857299, "next_rel": 0.0}}
