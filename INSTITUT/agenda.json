@@ -1,498 +1,498 @@
 {
- "hinweis": "Status: aktiv | offen | wartet (erst nach vorregistrierter Bedingung) | erledigt | verworfen_papier | idee. 'folgen' wurde VOR dem jeweiligen Lauf festgelegt (Frage:Marke -> Punkte).",
- "punkte": [
-  {
-   "id": "C-clifford",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford",
-   "frage": "Wie viele Nicht-Clifford-Winkel braucht die QIRE-Zelle auf 8x8-Ziffern (6 Qubits)?",
-   "folgen": {
-    "C-1:H1": [
-     "C-mnist"
-    ],
-    "C-1:H0": [
-     "C-mnist",
-     "C-bewusst"
-    ],
-    "C-0:H0": [
-     "C-mnist"
-    ],
-    "C-2:H0": [
-     "C-mnist"
-    ]
-   },
-   "notiz": "v1: Rundungsarme mit geerbtem Kopf -- unfair gegen Kontrollen (FEHLERBUCH 24.09.). Ersetzt durch C-clifford-v2.",
-   "prioritaet": 1
-  },
-  {
-   "id": "C-clifford-v2",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford",
-   "frage": "Wiederholung mit fairem Design (frischer Kopf, eigene Lernrate, Nichtunterlegenheits-KI) auf frischen Seeds 10-19.",
-   "folgen": {
-    "C-1:H0": [
-     "C-bewusst"
-    ],
-    "C-1:HU": [
-     "C-bewusst"
-    ]
-   },
-   "prioritaet": 1
-  },
-  {
-   "id": "C-mnist",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford",
-   "argumente": {
-    "datensatz": "mnist"
-   },
-   "frage": "Dasselbe auf MNIST 16x16 (8 Qubits, 256 Dim.). Traegt die Schaltung dort mehr bei als die Identitaet?",
-   "folgen": {
-    "C-1:H1": [
-     "C-fashion",
-     "C-skala"
-    ],
-    "C-1:H0": [
-     "C-fashion",
-     "C-bewusst"
-    ],
-    "C-0:H0": [
-     "C-fashion"
-    ]
-   },
-   "notiz": "freigeschaltet durch C-clifford C-2:H0; laeuft mit Design v2 (Aenderung vor jeder MNIST-Zahl, LABORBUCH).",
-   "prioritaet": 1
-  },
-  {
-   "id": "C-fashion",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford",
-   "argumente": {
-    "datensatz": "fashion_mnist"
-   },
-   "frage": "Replikation auf Fashion-MNIST 16x16 (schwerer, viermal hoehere Streuung laut Projekt A).",
-   "folgen": {},
-   "prioritaet": 1
-  },
-  {
-   "id": "C-bewusst",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford_bewusst",
-   "frage": "Clifford-bewusstes Training (Winkel werden waehrend des Trainings zum Gitter gezogen) senkt M*.",
-   "notiz": "Kriterien B-1..B-3 im Modul; freigeschaltet durch C-clifford-v2 C-1:HU.",
-   "folgen": {
-    "B-1:H1": [
-     "C-skala"
-    ]
-   },
-   "prioritaet": 1
-  },
-  {
-   "id": "C-skala",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.skala",
-   "frage": "Magie-Skalierung: waechst M* langsamer als die Winkelzahl n*L (n=6,8,10)? Dann wird die Schicht mit wachsender Breite fast multiplikationsfrei.",
-   "notiz": "Freigeschaltet vom Direktor 24.09. (Prio 1, Q3, traegt den Namen M50). Modul gebaut (Forscher-Agent): echt6/8/10 (MNIST 8x8/16x16/32x32) + fest10 (8x8 hochskaliert, trennt Breite von Aufloesung); S-0 Positivkontrollen, S-1/S-3 gepaart, Holm (zweiseitig), S-2 Fit M50~a*n^b. 2.500 Bilder, 500 Schritte, Seeds 120-129; ~70-90 min bei 4 Kernen.",
-   "prioritaet": 1,
-   "folgen": {}
-  },
-  {
-   "id": "Z-zne",
-   "abteilung": "Theorie",
-   "status": "verworfen_papier",
-   "modul": null,
-   "frage": "Zero-Noise-Extrapolation ueber verschachtelte Bitbreiten (b, b-1) ersetzt ein Bit Genauigkeit.",
-   "notiz": "Auf Papier widerlegt, siehe LABORBUCH 24.09. (Extrapolation verschiebt ungerade Codes weg vom Sollwert, MSE 7x schlechter).",
-   "prioritaet": 2
-  },
-  {
-   "id": "V-kompass",
-   "abteilung": "Verschraenkung",
-   "status": "erledigt",
-   "modul": "abteilungen.kompass",
-   "frage": "Qubit-Reihenfolge nach Mutual Information (wie Orbital-Ordnung in der DMRG-Quantenchemie) macht die Tensor-Train-Kompression trainierter Gewichte besser als zufaellige Reihenfolge bei gleicher Parameterzahl.",
-   "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3). | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
-   "argumente": {
-    "datensatz": "mnist"
-   },
-   "folgen": {
-    "V-1:H1": [
-     "V-fashion"
-    ]
-   },
-   "prioritaet": 3
-  },
-  {
-   "id": "B-paritaet",
-   "abteilung": "Auslese",
-   "status": "idee",
-   "modul": null,
-   "frage": "Paritaetsmerkmale <Z_S> niedriger Ordnung aus EINER Messbasis schlagen <Z_q> bei gleicher Kopfgroesse.",
-   "notiz": "IDEEN.md Nr. 5",
-   "prioritaet": 1
-  },
-  {
-   "id": "V-fashion",
-   "abteilung": "Verschraenkung",
-   "status": "wartet",
-   "modul": "abteilungen.kompass",
-   "argumente": {
-    "datensatz": "fashion_mnist"
-   },
-   "frage": "Replikation des Verschraenkungs-Kompasses auf Fashion-MNIST.",
-   "folgen": {},
-   "notiz": " | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
-   "prioritaet": 3
-  },
-  {
-   "id": "I-001",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.magie_pruning",
-   "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn Verlust-Ranking G(2) nicht um >=0,1 ueber Abstands-Ranking hebt (gepaart, 10 Seeds). Test: Ziffern, Winkel aus C-clifford-v2-Rohdaten, zwei Rankings, k in {1,2,4}: ~10 min CPU. | Modul gebaut (Forscher-Agent), P-0..P-3 im Code. Rauchtest: abstand/verlust korrelieren 0,94.",
-   "prioritaet": 1
-  },
-  {
-   "id": "I-002",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.sre",
-   "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Rangkorrelation SRE vs. gemessenem Rundungsverlust ueber Seeds und Datensaetze |rho| < 0,3. Test: SRE aus gespeicherten Winkeln der C-Laeufe berechnen, gegen G(k) korrelieren: <5 min, kein Training.",
-   "prioritaet": 1
-  },
-  {
-   "id": "I-003",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.magie_aufgabe",
-   "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle. | Modul gebaut (Forscher-Agent): echt / Zufallsetiketten (Trainingsgenauigkeit) / Struktur-Aufgabe ohne Magiebedarf als Positivkontrolle (T-1). T-2 mit Wilcoxon + TOST.",
-   "prioritaet": 1
-  },
-  {
-   "id": "I-004",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.geruest",
-   "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min. | Modul gebaut (Forscher-Agent), R-0..R-4 im Code, Holm ueber R-1/R-2.",
-   "prioritaet": 1
-  },
-  {
-   "id": "I-005",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford_suche",
-   "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
-   "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min. | Aufgewertet nach I-003: Gradientenabstieg findet eine bekannte Clifford-Loesung nicht (voll unter Identitaet) -- diskrete Suche ist ein eigener, noetiger Lerner. | Modul gebaut (Forscher-Agent): simulated annealing ueber 2^(nL) Clifford-Wahlen (c ~ c+2 aequivalent), Ridge-LOO-Kriterium, gemeinsamer L-BFGS-Kopf fuer alle Arme. Q-0 Positivkontrolle Strukturaufgabe (G_L >= 0,8), Q-1 Suche vs Median 100 Zufall, Q-2 Suche vs k0, Q-4 Suche vs Zufallssuche gleicher Bewertungszahl (Holm Q-1/2/4). Mess-Seeds MNIST 190-199, Struktur 200-209 (Direktor: urspruengliche Seeds im Rauchtest beruehrt -> ersetzt). ~35-50 min.",
-   "prioritaet": 1,
-   "folgen": {}
-  },
-  {
-   "id": "I-005-v2",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford_suche_v2",
-   "prioritaet": 1,
-   "frage": "Ist eine reine Clifford-Schaltung aus der diskreten Suche (0 Magiewinkel) auf MNIST UND Fashion-MNIST 16x16 gleichwertig zum vollen Training (Rate je Datensatz mit Stabilitaetsabstand)? TOST +-0,5 pp, Holm ueber V-1..V-3.",
-   "notiz": "Folge aus I-005 (alle H1; suche 0,9352 ~ voll 0,9344 nur beschreibend, voll mit fester Rate 0,08 = Verstoss Regel 1). Modul von Forscher-Agent, Vortest bestanden, Rauchtest 28.09. (160 s). N_SEEDS = 20 (Direktor 28.09.: bei 10 Macht fuer GLEICHWERTIG nur ~10-20 %). Mess-Seeds MNIST 300-309+330-339, Fashion 310-319+340-349, Struktur 360-369, Tuning 950-955. V-1/V-2 suche vs voll GLEICHWERTIG/VOLL_BESSER/SUCHE_BESSER/HU (GLEICHWERTIG braucht Q-0 H1, voll-id >= 1 pp, kein Kollaps), V-3 Fashion suche vs Median 100 Zufall. ~3,3 h.",
-   "folgen": {}
-  },
-  {
-   "id": "I-005-v3",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.clifford_suche_v3",
-   "prioritaet": 1,
-   "frage": "Wie viele Nicht-Clifford-Winkel AUF der gesuchten Clifford-Schaltung schliessen die Fashion-Luecke zu voll (I-005-v2 V-2: 1,31 pp)? Suche + k in {1,2,4,8} nachtrainierte Winkel (Auswahl nach Verlustanstieg vs. zufaellig), G_S(k), M50_S/M90_S. Holm ueber M-1..M-3.",
-   "notiz": "Folge aus I-005-v2 (MNIST GLEICHWERTIG, Fashion VOLL_BESSER, G_voll 0,65). Modul von Forscher-Agent, Vortest bestanden (auch vom Direktor wiederholt), Rauchtest 28.09. (447 s). N_SEEDS = 20. Mess-Seeds Fashion 420-439, Tuning 960-962, Entwurf 963-966. M-1 k8_verlust vs voll TOST +-0,5 pp (GLEICHWERTIG/VOLL_BESSER/K8_BESSER/HU; braucht voll - suche >= 1 pp), M-2 k2 verlust vs zufall, M-3 voll vs suche. Kollaps in jedem Zweig. ~3 h 10 min - 3 h 40 min.",
-   "folgen": {
-    "M-1 GLEICHWERTIG": "M50_S/M90_S als Magiebedarf ueber der besten Clifford-Schaltung; auf MNIST pruefen, ob M50_S = 0 ist; T-Gatter-Budget mit Hybrid-Kaskade neu rechnen",
-    "M-1 VOLL_BESSER": "k = 12/16 oder gierige Auswahl; pruefen, ob k32_alle voll erreicht -- sonst sitzt die Suche in einem anderen Becken als der Gradient",
-    "M-2 H0": "Einzelwinkel-Naeherung der Verlust-Rangfolge reicht auf dem Suche-Geruest nicht -> gierige Auswahl"
-   }
-  },
-  {
-   "id": "I-036",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.walsh_kontrolle",
-   "prioritaet": 1,
-   "frage": "Ist die gesuchte Clifford-Zelle im Kern ein klassischer Walsh-Klassifikator? Suche (0 Magiewinkel) vs. FESTE quadrierte Walsh-Hadamard-Merkmale (walsh_fest = H^8, im Suchraum) auf MNIST und Fashion, walsh_fest vs. Identitaet (MNIST), Suche vs. FESTER lokaler 2x2-Block-Walsh (block2x2, MNIST); gleicher L-BFGS-Kopf, TOST +-0,5 pp, Holm ueber W-1..W-4.",
-   "notiz": "Folge aus I-005-v3 / Recherche 29.09. Modul von Forscher-Agent, Vortest bestanden (29.09., auch nach Aufnahme von W-4; vom Direktor wiederholt), Rauchtest 29.09. (101 s). Theorie im Modulkopf: Clifford-Zelle = quadrierter Block-Walsh (Blockdim. k) von vorzeichenmaskierten Pixeln (Bruhat-Form, 70/70 alte Suchergebnisse; 0/70 Walsh-aequivalent; MNIST k 4-7, Fashion 5-8). W-4 nach dem Rauchtest aufgenommen (Direktor 29.09.): Wahl von block2x2 nur aus Rauchtest-Seeds 942-947. Vorhersage: W-1 SUCHE_BESSER, W-3 H0 (Gegenrichtung). N_SEEDS = 20. Mess-Seeds MNIST 640-659, Fashion 660-679, Struktur 680-689, Entwurf 942-947. Kopf-L2 0,003 aus I-005-v2. ~1,5-1,75 h bei 5 Prozessen. | Gerechnet 05.10. im Container (4 Prozesse, zweiter Anlauf): W-1/W-2/W-4 SUCHE_BESSER, W-3 H0 (Gegenrichtung), Q-0 H1. Laborbuch 05.10.",
-   "folgen": {
-    "W-1 SUCHE_BESSER": "Die Suche ist mehr als der globale Walsh-Klassifikator; Einordnung ueber W-4 und die beschreibende Dosis-Kurve fester Block-Walsh",
-    "W-1 GLEICHWERTIG": "Die Suche ist auf MNIST ersetzbar durch feste Walsh-Merkmale: I-005-Befund als klassische Transformation einordnen (Q-019W verbinden), Hybrid-Kaskade mit walsh_fest als Stufe 0",
-    "W-1 WALSH_BESSER": "Suchdefizit oder Siegerfluch: walsh_val vs. suche_val auswerten, Suche mit walsh_fest als Start",
-    "W-2 SUCHE_BESSER": "Fashion-Rueckstand zu voll (1,31 pp) gegen feste Block-Walsh-Merkmale setzen: Magie vs. Maske/Blockstruktur",
-    "W-4 GLEICHWERTIG": "Die Clifford-Suche ist auf MNIST ein fester lokaler 2x2-Block-Walsh-Klassifikator: 0-T-Befund aus I-005-v2 klassisch einordnen; auf Fashion vorregistriert wiederholen; Hybrid-Kaskade mit block2x2 als Stufe 0",
-    "W-4 SUCHE_BESSER": "Maske/Blockwahl der Suche traegt ueber den festen Block hinaus: gesuchte Blockform mit fester Maske vs. Suche",
-    "W-4 BLOCK_BESSER": "Suchdefizit: Suche mit block2x2 als Start, Siegerfluch pruefen"
-   }
-  },
-  {
-   "id": "C-hardware",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.hardware",
-   "frage": "Q3-Bruecke: die gerundete Schaltung mit k Magiewinkeln mit Qiskit nach Clifford+T uebersetzen (T-Zahl zaehlen) und auf IBM-Hardware laufen lassen. Uebersetzt M50 direkt in T-Gatter.",
-   "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7). | Gebaut und gerechnet 24.09. (T ~ 31*k bei eps=1e-3). Offen: Kosten der Amplitudenkodierung, Lauf auf IBM-Hardware.",
-   "prioritaet": 1
-  },
-  {
-   "id": "I-008",
-   "abteilung": "Auslese",
-   "status": "erledigt",
-   "modul": "abteilungen.schuesse",
-   "frage": "Schuss-Budget: wie viele Messungen braucht die Born-Auslese auf echter Hardware -- und welche Auslese ist am schusssparsamsten?",
-   "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn alle Ausleseformen bei S=1.000 innerhalb 1 pp der exakten Genauigkeit liegen -> Schuesse sind kein Engpass, Linie ruht. Test: Trainiertes Modell (Ziffern/MNIST), Multinomial-Stichproben mit S in {10,100,1.000,10.000} aus p ziehen, Kopf unveraendert: Minuten, kein Training. | Modul gebaut, Kriterien A-1..A-3 im Code. Abweichung Regel 1: feste Rate 0,08 (voll-Rate aus C-v2/C-mnist); Koepfe paritaet/z ungetunt -> A-2 eher gegen H1 verzerrt."
-  },
-  {
-   "id": "I-010",
-   "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
-   "frage": "Magie-Quantisierung grosser Rotationsschichten: Clifford-Winkel mit 2 Bit speichern, nur die wenigen magischen Winkel als Gleitkomma (z. B. ButterflyFFN/QKV im Chatbot T-002)",
-   "prioritaet": 2,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn in den Butterfly-Schichten des Chatbots G(k) fuer k = 10 % der Winkel unter 0,5 bleibt. Test: Projekt-A-Modell butterfly_qkv nach kurzem Training runden (Validierungs-Perplexitaet), ~1-2 h CPU."
-  },
-  {
-   "id": "I-020",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.gesamtbudget",
-   "frage": "Gemeinsames Magie-Budget fuer Kodierung + Schaltung: Zelle direkt auf billiger Quantenkodierung trainieren (MPS chi=2, duenn besetzte Praeparation) und Gesamt-T gegen Genauigkeit optimieren",
-   "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt. Test: MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit. | Modul gebaut (Forscher-Agent); duenne Praeparation 2.384-3.870 T statt ~7.800 T (exakt, obere Schranke). G-1/G-2 im Code."
-  },
-  {
-   "id": "I-015",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.kaskade",
-   "frage": "Magie-Kaskade: erst die Clifford-Schaltung (0 T-Gatter) rechnen, nur bei unsicheren Bildern magische Winkel zuschalten -- mittlere T-Zahl je Bild statt fester T-Zahl",
-   "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei gleicher Genauigkeit wie k=2 die mittlere Schaltungs-T-Zahl nicht unter 50 % von k=2 faellt -- oder wenn mit Ladekosten keine Ersparnis bleibt. Test: MNIST, Modelle k=0/2/8 je Seed trainieren, Schwelle auf Kopf-Konfidenz (Validierung) waehlen, Genauigkeit gegen mittlere T (hardware.py-Zahlen) und Schuesse (I-008) auftragen: ~1 h CPU. | Modul gebaut (Forscher-Agent). Papier: mit Ladekosten lohnt die Kaskade erst bei < 0,8 % Weiterleitung."
-  },
-  {
-   "id": "I-024",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.datenmenge",
-   "frage": "Magie gegen Datenmenge: braucht die Zelle mit weniger Trainingsdaten weniger Magie? (Clifford-Gitter als Regularisierer, M50 als Funktion von n_train)",
-   "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 (und der Abstand voll - k=0) bei n_train = 500 / 2.000 / 10.000 innerhalb der Seed-Streuung gleich bleibt (TOST 0,5 pp auf dem Abstand). Test: MNIST 16x16, n_train in {500, 2000, 10000}, 10 Seeds, Arme voll / k=0 / k=2 / k=8 (Rundung nach Abstand wie C-mnist), Kopf-Lernrate je Arm auf Tuning-Seeds: ~1 h CPU. | Modul gebaut (Forscher-Agent): n_train 500/2.000/10.000 geschachtelt, Arme voll/k0,1,2,4,8/Identitaet/Zufalls-Clifford, 1.500 Vollbatch-Schritte, fruehes Stoppen gleich fuer alle, Seeds 100-109. D-0 Positivkontrolle, D-1 Delta-Schrumpfen >= 0,5 pp (TOST +-0,5 fuer H0), D-2 G(2) +0,15, Holm D-1/D-2. Teststaerke: H1 ab ~1,5 pp Schrumpfen, H0 per TOST unwahrscheinlich (HU realistisch). ~40-60 min.",
-   "folgen": {}
-  },
-  {
-   "id": "C-referenz",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.referenz",
-   "frage": "Faire Referenz fuer die Magie-Konzentration: verzerrt die zweite Trainingsphase der Rundungsarme G(k)/M50? (Arm nachtrainiert = alle Winkel frei, gleiche zweite Phase; MNIST + Fashion, frische Seeds 30-39)",
-   "prioritaet": 1,
-   "notiz": "Direktor 24.09. nach C-fashion (k8 schlug voll um +0,53 pp): Rundungsarme bekommen ein zweites volles Training, voll nicht (FEHLERBUCH). R-1 Verzerrung (Holm, TOST 0,3 pp), R-2 Gm*(4) >= 0,5 auf beiden Datensaetzen, R-3 Runden als Regularisierer (Fashion), R-4 M50*/M90*. ~1 h bei 4 Kernen.",
-   "folgen": {}
-  },
-  {
-   "id": "I-003-v2",
-   "abteilung": "Clifford",
-   "status": "idee",
-   "modul": null,
-   "prioritaet": 1,
-   "frage": "Magie-Konzentration: Aufgabe oder Architektur? -- mit einer Positivkontrolle, die das LERNVERFAHREN erreicht, und fairer Referenz (nachtrainiert).",
-   "notiz": "Folge aus I-003 (T-1 HU: Gradient findet die Clifford-Lehrer-Loesung nicht, voll 0,726 < Identitaet 0,784). Kandidaten fuer die Kontrolle: Lehrer = gerundete (k0) Schaltung eines trainierten Schuelers auf echten Ziffern (sicher erreichbar), oder diskrete Clifford-Suche (I-005). Explorativer Hinweis aus I-003: echt-Kurve ueber zufall-Kurve (+0,51 G, p = 0,002), Memorieren M50 = 8 vs. Generalisieren M50 = 1. Erst nach C-referenz bauen."
-  },
-  {
-   "id": "I-033",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.lade_magie",
-   "frage": "Magie-Konzentration im Laden: Moettoenen-Baum grob-zu-fein -- nur die oberen Baumebenen (bzw. Top-m Winkel je Bild) exakt, Rest auf das Clifford-Gitter; T je Bild gegen Genauigkeit",
-   "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei <= 50 % der Lade-T (duenn exakt) die Genauigkeit mehr als 1 pp unter exakt geladen liegt (Mittel ueber Seeds, TOST-Grenze 1 pp). Test: MNIST 16x16, trainierte volle Zelle (C-mnist-Rezept) je Seed, Laden mit (a) oberen e Ebenen exakt, e = 0..8, (b) Top-m Winkel je Bild nach |Abstand zum Gitter|, Rest gerundet; Kopf + Schaltung mit gleicher zweiter Phase auf genaeherten Zustaenden nachtrainieren, Referenz exakt geladen mit gleicher Phase; T aus kodierung.py: ~30-45 min. | Modul gebaut (Forscher-Agent): gerundet werden die 255 Gatterwinkel phi der Gray-Code-Zerlegung (duenn besetzte Basis aus I-020), Arme referenz (exakt, faire zweite Phase), alle_pi2, ebene_4/5/6, top_4/16/32/48, zufall_16, Identitaet; Seeds 140-149. L-0 Positivkontrolle, L-1 Hauptstufen ebene_6 + top_48 (<= 50 % Lade-T, TOST 1 pp, Holm), L-2 top_16 vs zufall_16, L-3 Kurven. ~60-65 min.",
-   "folgen": {}
-  },
-  {
-   "id": "I-015-hybrid",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.kaskade_hybrid",
-   "prioritaet": 1,
-   "frage": "Hybrid-Magie-Kaskade: Clifford-Stufe klassisch (0 T, kein Laden, nur Additionen), nur unsichere Bilder auf den Quantenrechner -- spart sie >= 75 % Hardware-T von k=2 ohne Genauigkeitsverlust?",
-   "notiz": "Direktor 24.09. nach I-015 (post hoc 5 Seeds: 14,5 % der Hardware-T bei gleicher Genauigkeit). Bestaetigung vorregistriert: 10 frische Seeds 100-109, tau auf Validierung nach Hybrid-Kosten, H-1 T <= 25 % und Nichtunterlegenheit 0,5 pp, H-2 Konfidenz vs. Zufall. ~15 min.",
-   "folgen": {}
-  },
-  {
-   "id": "I-004-mnist",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.geruest_mnist",
-   "prioritaet": 1,
-   "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
-   "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz). | Nach I-024: zusaetzlich n_train = 500 -- Training IM Clifford-Geruest ist der eigentliche Regularisierungstest (nachtraegliches Runden war es nicht). | Modul gebaut (Forscher-Agent): n 500/10.000, Arme voll/Identitaet/nachtrainiert/nachtraeglich_k2,k4/geruest_zufall_k2,k4/geruest_fest_k2, Rate je (Arm, n), Seeds 160-169. R-0 Vorbedingung, R-P Positivkontrolle Verfahren, R-1 Zufallsgeruest k4 >= 0,5 G, R-2 nachtraeglich vs Geruest k2, R-3 Regularisierung G_500 - G_10000 >= 0,15 (Holm R-1..R-3). ~75-85 min.",
-   "folgen": {}
-  },
-  {
-   "id": "I-015-hybrid-fashion",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.kaskade_hybrid",
-   "prioritaet": 1,
-   "argumente": {
-    "datensatz": "fashion_mnist",
-    "seeds": [
-     110,
-     111,
-     112,
-     113,
-     114,
-     115,
-     116,
-     117,
-     118,
-     119
-    ]
-   },
-   "frage": "Replikation der Hybrid-Magie-Kaskade auf Fashion-MNIST (schwerer, groesserer Magie-Anteil): dieselben vorregistrierten H-1/H-2 wie I-015-hybrid.",
-   "notiz": "Direktor 25.09. nach I-015-hybrid H1 (MNIST 11,7 %). Rate 0,08 = getunte voll-Rate aus C-fashion (stabil). Ladekosten konservativ dicht (7.636 T); H-5 (duenn) nur MNIST. ~15 min.",
-   "folgen": {}
-  },
-  {
-   "id": "I-034",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.gesamt_kombi",
-   "frage": "Gesamt-Magie-Budget kombiniert: Hybrid-Kaskade (Stufe 0 klassisch) + Top-m-Laden + k Magiewinkel -- Hardware-T je Bild gegen Genauigkeit, Ziel <= 5 % von heute (k=2, dicht geladen, 7.698 T)",
-   "prioritaet": 1,
-   "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination <= 5 % der heutigen Hardware-T (7.698 T) die Genauigkeit von k=2 innerhalb 0,5 pp haelt (Nichtunterlegenheit, 10 Seeds). Test: MNIST 16x16, 10 frische Seeds: Stufenmodelle k=2/8 auf Top-m-geladenen Zustaenden (m = 32, 48) nachtrainieren (Rezept I-033), Kaskade 0(klassisch, exakt) -> k2(Top-m) -> k8(Top-m), tau auf Validierung nach Hybrid-Kosten; ~60-75 min. | Modul gebaut (Forscher-Agent): Kaskade 0(klassisch) -> k2 -> k8 auf Top-m-Laden (m=48 Haupt, m=32, Holm), bildweise exakte Lade-T, Rate 0,08, Seeds 210-219. PK k2 exakt > Identitaet; G-1 <= 5 % von 7.698 T + Nichtunterlegenheit 0,5 pp; G-2 Verlust durch genaehertes Laden in der Kaskade; G-3 Pareto. Ausweichregel tau=1 (alle bis k8), wenn Validierungsziel verfehlt (konservativ). ~35-45 min.",
-   "folgen": {}
-  },
-  {
-   "id": "C-skala-v2",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.skala_v2",
-   "prioritaet": 1,
-   "frage": "C-skala mit stabiler Referenz: waechst M50 langsamer als n*L, auch wenn Breite und Bildaufloesung getrennt werden (fest10)?",
-   "notiz": "Folge aus C-skala (S-1 H1 echt6->echt10 +0,14 G, aber S-3 HU wegen Instabilitaet von nachtrainiert bei Rate 0,32 an der Stabilitaetskante: echt8 2/10, fest10 5/10). Neu: Ratenwahl mit Stabilitaetsabstand (Kriterium schlechtester Tuning-Seed oder oberer Nachbar stabil), >= 3 Tuning-Seeds, frische Mess-Seeds. | Modul gebaut (Forscher-Agent): S-0..S-3 aus skala.py unveraendert, Ratenwahl min ueber 3 Tuning-Seeds (930-932), Gitter Faktor 2, Stabilitaetsabstand (oberer Nachbar 2r darf auf keinem Tuning-Seed > 5 pp einbrechen), Magie-Arme in zwei Ratengruppen; echt6/echt10/fest10, Mess-Seeds 220-229. ~115-130 min.",
-   "folgen": {}
-  },
-  {
-   "id": "I-034-fashion",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.gesamt_kombi",
-   "prioritaet": 1,
-   "argumente": {
-    "datensatz": "fashion_mnist",
-    "seeds": [
-     230,
-     231,
-     232,
-     233,
-     234,
-     235,
-     236,
-     237,
-     238,
-     239
-    ]
-   },
-   "frage": "Replikation des kombinierten Magie-Budgets (Hybrid-Kaskade + Top-m-Laden) auf Fashion-MNIST: dieselben vorregistrierten PK/G-1/G-2/G-3 wie I-034.",
-   "notiz": "Direktor 25.09. nach I-034 H1 (MNIST 2,25 %). Rate 0,08 (= getunte voll-Rate C-fashion, stabil); Referenz 7.698 T (dichtes Laden ist bildunabhaengig). Fashion ist weniger duenn besetzt -> Top-m-Laden relativ verlustreicher; genau das prueft die Replikation. ~40 min.",
-   "folgen": {}
-  },
-  {
-   "id": "I-035",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "modul": "abteilungen.magie_schwierigkeit",
-   "frage": "Sagt die Aufgaben-Schwierigkeit (abgestufte Label-Rausch-Skala) den Magiebedarf M50 voraus, und gibt es einen billigen Kennwert (Generalisierungsluecke) dafuer statt des teuren Rundungs-Sweeps?",
-   "prioritaet": 1,
-   "notiz": "Direktor 25.09. (Vorgabe 7, echte Neuheit, Literatur geprueft: 2403.00919/2409.13008 stellen andere Fragen). Modul gebaut (Forscher-Agent, nachgebessert auf 10 Rausch-Stufen fuer Teststaerke): 10 Stufen 0-100% x 6 Seeds (250-255), K_STUFEN=(0,2,8), eigene Rate je (Stufe,Arm). P-0 Vorbedingung, P-1 M50~Rauschen (Spearman, Bootstrap, TOST +-0.3, Holm), P-2 Generalisierungsluecke~M50, P-3 Born-Entropie beschreibend, P-4 Kontrolle (Kopf ohne Schaltung). ~65-95 min. Teststaerke bei nur 10 Punkten weiterhin begrenzt -- HU realistischer Ausgang bei mittlerem Effekt (im Modul-Docstring benannt).",
-   "folgen": {}
-  },
-  {
-   "id": "I-036-v2",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "prioritaet": 1,
-   "frage": "Traegt die gesuchte Vorzeichenmaske den Vorsprung der Clifford-Suche? Je Seed aus der gefundenen Bruhat-Form (V_s, m_s): suche vs. ohne_maske = W(V_s,1) (M-1 MNIST, M-3 Fashion; TOST +-0,5 pp, je eigene Familie); suche vs. block2x2_maske (M-2/M-4) nur beschreibend; Positivkontrolle P-0: suche - block2x2 reproduziert I-036 W-4.",
-   "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'. | Modul von Forscher-Agent 05.10., Vortest (18 s, vom Direktor wiederholt) und Rauchtest (67 s) bestanden. M-2 vor jeder Zahl aus der Familie genommen (in ~60 % der Seeds block2x2_maske = block2x2 exakt -> nur W-4-Wiederholung). Seeds MNIST 700-719, Fashion 720-739, Struktur 740-749. Wiederaufnahme je Seed (ergebnisse/_zwischen_I-036-v2.json). ~1,1-1,3 h bei 4 Prozessen. Vorhersage: P-0 besteht, M-1 SUCHE_BESSER (+1-2 pp). | Gerechnet 05.10. (66 min, Container): P-0 bestanden, P-0F durchgefallen (vorhergesagt), M-1/M-3 SUCHE_BESSER, Wechselwirkung +2,1/+2,7 pp. Laborbuch 05.10. 18:24.",
-   "neuheit": "05.10.: Literatursuche (3 Anfragen) ohne Vergleichbares, Details recherche/2026-10-05_neuheit_I-036-v2.md; Neuheit plausibel",
-   "modul": "abteilungen.maske_block",
-   "folgen": {
-    "M-1 SUCHE_BESSER": "Welche Maskeneigenschaft traegt (Rang der quadratischen Form, Masken-Transfer zwischen Seeds)?",
-    "M-1 GLEICHWERTIG": "Reicht eine Suche nur ueber Unterraeume V ohne Maske?",
-    "M-1 OHNE_BESSER": "Suchdefizit: W(V_s,1) als Start/Politur der Suche",
-    "M-1 HU": "Wiederholung mit 40 Seeds",
-    "M-3 *": "wie M-1, auf Fashion",
-    "M-2 beschreibend Blockwahl": "eigene Karte: Suche nur ueber V bei fester (kanonischer) Maske",
-    "P-0 DURCHGEFALLEN": "I-036 W-4 repliziert nicht: Siegerfluch/Seed-Satz pruefen"
-   }
-  },
-  {
-   "id": "I-036-v3",
-   "abteilung": "Clifford",
-   "status": "erledigt",
-   "prioritaet": 1,
-   "frage": "Welche Eigenschaft der gesuchten quadratischen Maske traegt? Je Seed aus (V_s, B_s): suche vs. zufall_gleicher_rang (Median 20 Formen B_r = P^T B_s P, P in GL(k,2)) = R-1; zufall_gleicher_rang vs. ohne_maske = R-2 (Holm x2, MNIST); Fashion R-3/R-4 als Replikation; TOST +-0,5 pp; fremde_maske (V_s Teilraum V_t) und Rang-Gewinn-Spearman ueber Seeds beschreibend. Positivkontrolle P-0/P-0F: suche - ohne_maske >= 0,5 pp einseitig.",
-   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig. | Modul von Forscher-Agent 05.10., Vortest (8 s, vom Direktor wiederholt; 6 eingebaute Fehler erkannt) und Rauchtest (143 s) bestanden. Invariante = Rang der alternierenden Form (volle GL(V)-Invariante des merkmalswirksamen Teils). Rang-0-Seeds vorab ausgeschlossen. Seeds MNIST 760-779, Fashion 780-799, Struktur 800-809. Wiederaufnahme je Seed. ~1,2-1,4 h bei 4 Prozessen. GLEICHWERTIG erreichbar nur bei sd < 1,07 pp. Vorhersage: R-1 SUCHE_BESSER (+0,7), R-2 ZUFALL_BESSER (+1,2) -> RANG_UND_FORM. | Gerechnet 05.10. (73 min, Container): P-0/P-0F bestanden, R-1/R-3 SUCHE_BESSER, R-2/R-4 ZUFALL_BESSER -> RANG_UND_FORM (Rang 52 % MNIST, 78 % Fashion), fremde Maske fast so gut wie eigene. Laborbuch 05.10. 20:05.",
-   "neuheit": "05.10.: 2 Anfragen, nichts Vergleichbares; naechster Nachbar 2604.25480 (optische gelernte Phasenmaske + Hadamard, kontinuierlich) -- zitieren. recherche/2026-10-05_neuheit_I-036-v3.md",
-   "modul": "abteilungen.maske_eigenschaft",
-   "folgen": {
-    "R-1 SUCHE_BESSER": "Form-Suche bei festem V_s und Rang (nur CZ/S-Lage)",
-    "R-1 GLEICHWERTIG": "Zweistufensuche (V, Rang) mit Zufallsform",
-    "R-1 ZUFALL_BESSER": "Siegerfluch: Hold-out-Kriterium",
-    "R-1 HU": "40 Seeds / 10.000 Testbilder",
-    "R-2 ZUFALL_BESSER": "Dosis-Kurve ueber den Rang 0..k",
-    "R-2 GLEICHWERTIG": "Lage der Form zu den Bildachsen",
-    "R-2 OHNE_BESSER": "Paarbindung Maske-V_s",
-    "R-2 HU": "wie R-1",
-    "P-0 DURCHGEFALLEN": "Seed-Satz/Siegerfluch pruefen"
-   }
-  },
-  {
-   "id": "I-037",
-   "abteilung": "Clifford",
-   "status": "idee",
-   "prioritaet": 1,
-   "frage": "Dosis-Kurve ueber den Rang (Folge R-2 ZUFALL_BESSER) + Aufgabenform: Genauigkeit von W(V, B) fuer Rang 0,2,4,6 (zufaellige Formen) bei festen V aus der Suche; und eine EINMAL gesuchte Form auf neue Seeds/Bloecke uebertragen vs. Suche je Seed (Methode statt Suche).",
-   "notiz": "Aus I-036-v3 (05.10.): Rang traegt 52/78 %, Spearman Rang~Gewinn +0,79; fremde Maske nur 0,29 pp hinter eigener. Vor dem Bauen: Literatursuche (Vorgabe 7) zu Graphzustand-Rang/Verschraenkung als Merkmalsqualitaet."
-  },
-  {
-   "id": "I-038",
-   "abteilung": "Struktur",
-   "status": "vorregistriert",
-   "prioritaet": 1,
-   "frage": "Ist QIRE gleichwertig zu klassischer dichter Mischung plus Quadrat? Arme: Pixel-Softmax, Identitaet², Haar², Haar linear, Fastfood-2², QIRE Zufallswinkel/gelernt/ohne CNOT, Clifford-Suche (gepaart, Seeds 2000-2009), Cayley; klassische Nichtlinearitaeten (ReLU, tanh, |z|, z² ohne Normierung, MLP 256-9-10). H-A..H-G (Holm x7 je Datensatz), TOST ±0,5 pp, Zufallslabel-Negativkontrolle, Seeds 2000-2019, Tuning-Seed 2099, MNIST+Fashion.",
-   "notiz": "Plan PLAN_2026-10-06_gesamt.md §2 P1, Vorlage v3_kontrollen.md. Vorregistrierung: LABORBUCH.md 06.10.2026 (I-038). Modul abteilungen/struktur_aequivalenz.py, Wiederaufnahme je Seed (ergebnisse/_zwischen_I-038.json). Start: INSTITUT_PROZESSE=4 python direktor.py lauf I-038 (erst nach Freigabe; vorher Status auf 'offen'/'laeuft (Container)').",
-   "modul": "abteilungen.struktur_aequivalenz",
-   "folgen": {
-    "H-A GLEICHWERTIG": "Kernaussage 'quanten-inspiriert' belegt",
-    "H-A QIRE_BESSER": "welche Struktur traegt? Skalierung n=10",
-    "H-G KLASSISCH_BESSER": "Kernaussage auf 'Mischung' kuerzen"
-   }
-  },
-  {
-   "id": "I-039",
-   "abteilung": "Clifford",
-   "status": "vorregistriert",
-   "modul": "abteilungen.mnist100",
-   "prioritaet": 1,
-   "frage": "MNIST mit ~100 Parametern: erreicht eine Born-Zelle (Haar/Fastfood-Mischung, Gruppierung) >= 70 % bei <= 110 trainierten reellen Parametern, gleichwertig zur klassischen 5x5->3 tanh->10 (H2) und traegt die Mischung (H3)?",
-   "notiz": "PLAN_2026-10-06_gesamt.md P2. Arme a-f (a Gruppierung+10 Bias, b +10x10, c quadrierte Pixel ohne Mischung, d klassisch 118 P., e Fisher-Top-9, f Klassenregister ohne Kopf), Kontrollen PK-1 Voll-Kopf, PK-2 (d), NK Zufallslabel. Seeds 2020-2039, Tuning-Seeds 2090-2092 (gittersuche_stabil, nie Test). Zaehlung: reell + Strukturbits (formal/streng) getrennt, Bit/pp. Vorregistriert vor jeder Testzahl; Rauchtest auf Mess-Seed 2020 im Modulkopf offengelegt. Freigabe E2 steht aus (nicht gestartet). ~10-15 min bei INSTITUT_PROZESSE=4. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-039 (Status vorher auf offen setzen) oder python abteilungen/mnist100.py",
-   "folgen": {}
-  }
- ]
+  "hinweis": "Status: aktiv | offen | wartet (erst nach vorregistrierter Bedingung) | erledigt | verworfen_papier | idee. 'folgen' wurde VOR dem jeweiligen Lauf festgelegt (Frage:Marke -> Punkte).",
+  "punkte": [
+    {
+      "id": "C-clifford",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford",
+      "frage": "Wie viele Nicht-Clifford-Winkel braucht die QIRE-Zelle auf 8x8-Ziffern (6 Qubits)?",
+      "folgen": {
+        "C-1:H1": [
+          "C-mnist"
+        ],
+        "C-1:H0": [
+          "C-mnist",
+          "C-bewusst"
+        ],
+        "C-0:H0": [
+          "C-mnist"
+        ],
+        "C-2:H0": [
+          "C-mnist"
+        ]
+      },
+      "notiz": "v1: Rundungsarme mit geerbtem Kopf -- unfair gegen Kontrollen (FEHLERBUCH 24.09.). Ersetzt durch C-clifford-v2.",
+      "prioritaet": 1
+    },
+    {
+      "id": "C-clifford-v2",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford",
+      "frage": "Wiederholung mit fairem Design (frischer Kopf, eigene Lernrate, Nichtunterlegenheits-KI) auf frischen Seeds 10-19.",
+      "folgen": {
+        "C-1:H0": [
+          "C-bewusst"
+        ],
+        "C-1:HU": [
+          "C-bewusst"
+        ]
+      },
+      "prioritaet": 1
+    },
+    {
+      "id": "C-mnist",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford",
+      "argumente": {
+        "datensatz": "mnist"
+      },
+      "frage": "Dasselbe auf MNIST 16x16 (8 Qubits, 256 Dim.). Traegt die Schaltung dort mehr bei als die Identitaet?",
+      "folgen": {
+        "C-1:H1": [
+          "C-fashion",
+          "C-skala"
+        ],
+        "C-1:H0": [
+          "C-fashion",
+          "C-bewusst"
+        ],
+        "C-0:H0": [
+          "C-fashion"
+        ]
+      },
+      "notiz": "freigeschaltet durch C-clifford C-2:H0; laeuft mit Design v2 (Aenderung vor jeder MNIST-Zahl, LABORBUCH).",
+      "prioritaet": 1
+    },
+    {
+      "id": "C-fashion",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford",
+      "argumente": {
+        "datensatz": "fashion_mnist"
+      },
+      "frage": "Replikation auf Fashion-MNIST 16x16 (schwerer, viermal hoehere Streuung laut Projekt A).",
+      "folgen": {},
+      "prioritaet": 1
+    },
+    {
+      "id": "C-bewusst",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford_bewusst",
+      "frage": "Clifford-bewusstes Training (Winkel werden waehrend des Trainings zum Gitter gezogen) senkt M*.",
+      "notiz": "Kriterien B-1..B-3 im Modul; freigeschaltet durch C-clifford-v2 C-1:HU.",
+      "folgen": {
+        "B-1:H1": [
+          "C-skala"
+        ]
+      },
+      "prioritaet": 1
+    },
+    {
+      "id": "C-skala",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.skala",
+      "frage": "Magie-Skalierung: waechst M* langsamer als die Winkelzahl n*L (n=6,8,10)? Dann wird die Schicht mit wachsender Breite fast multiplikationsfrei.",
+      "notiz": "Freigeschaltet vom Direktor 24.09. (Prio 1, Q3, traegt den Namen M50). Modul gebaut (Forscher-Agent): echt6/8/10 (MNIST 8x8/16x16/32x32) + fest10 (8x8 hochskaliert, trennt Breite von Aufloesung); S-0 Positivkontrollen, S-1/S-3 gepaart, Holm (zweiseitig), S-2 Fit M50~a*n^b. 2.500 Bilder, 500 Schritte, Seeds 120-129; ~70-90 min bei 4 Kernen.",
+      "prioritaet": 1,
+      "folgen": {}
+    },
+    {
+      "id": "Z-zne",
+      "abteilung": "Theorie",
+      "status": "verworfen_papier",
+      "modul": null,
+      "frage": "Zero-Noise-Extrapolation ueber verschachtelte Bitbreiten (b, b-1) ersetzt ein Bit Genauigkeit.",
+      "notiz": "Auf Papier widerlegt, siehe LABORBUCH 24.09. (Extrapolation verschiebt ungerade Codes weg vom Sollwert, MSE 7x schlechter).",
+      "prioritaet": 2
+    },
+    {
+      "id": "V-kompass",
+      "abteilung": "Verschraenkung",
+      "status": "erledigt",
+      "modul": "abteilungen.kompass",
+      "frage": "Qubit-Reihenfolge nach Mutual Information (wie Orbital-Ordnung in der DMRG-Quantenchemie) macht die Tensor-Train-Kompression trainierter Gewichte besser als zufaellige Reihenfolge bei gleicher Parameterzahl.",
+      "notiz": "Kriterien in abteilungen/kompass.py (V-1..V-3). | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
+      "argumente": {
+        "datensatz": "mnist"
+      },
+      "folgen": {
+        "V-1:H1": [
+          "V-fashion"
+        ]
+      },
+      "prioritaet": 3
+    },
+    {
+      "id": "B-paritaet",
+      "abteilung": "Auslese",
+      "status": "idee",
+      "modul": null,
+      "frage": "Paritaetsmerkmale <Z_S> niedriger Ordnung aus EINER Messbasis schlagen <Z_q> bei gleicher Kopfgroesse.",
+      "notiz": "IDEEN.md Nr. 5",
+      "prioritaet": 1
+    },
+    {
+      "id": "V-fashion",
+      "abteilung": "Verschraenkung",
+      "status": "wartet",
+      "modul": "abteilungen.kompass",
+      "argumente": {
+        "datensatz": "fashion_mnist"
+      },
+      "frage": "Replikation des Verschraenkungs-Kompasses auf Fashion-MNIST.",
+      "folgen": {},
+      "notiz": " | Quantenstufe Q1 (Tensor-Train auf klassischen Gewichten = nur Analogie) -- niedrige Prioritaet (3), nicht gestrichen.",
+      "prioritaet": 3
+    },
+    {
+      "id": "I-001",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.magie_pruning",
+      "frage": "Magie-Pruning: Winkel nach Verlustanstieg beim Runden ordnen, nur die Top-k bleiben Nicht-Clifford",
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn Verlust-Ranking G(2) nicht um >=0,1 ueber Abstands-Ranking hebt (gepaart, 10 Seeds). Test: Ziffern, Winkel aus C-clifford-v2-Rohdaten, zwei Rankings, k in {1,2,4}: ~10 min CPU. | Modul gebaut (Forscher-Agent), P-0..P-3 im Code. Rauchtest: abstand/verlust korrelieren 0,94.",
+      "prioritaet": 1
+    },
+    {
+      "id": "I-002",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.sre",
+      "frage": "Stabilisator-Renyi-Entropie der gelernten Schicht sagt vorher, wie viel Magie die Aufgabe braucht (M50) -- ohne Rundungsversuche",
+      "notiz": "Aus der Ideenschmiede. Abbruch: Rangkorrelation SRE vs. gemessenem Rundungsverlust ueber Seeds und Datensaetze |rho| < 0,3. Test: SRE aus gespeicherten Winkeln der C-Laeufe berechnen, gegen G(k) korrelieren: <5 min, kein Training.",
+      "prioritaet": 1
+    },
+    {
+      "id": "I-003",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.magie_aufgabe",
+      "frage": "Magie-Konzentration als Kennzahl einer Aufgabe: Anteil des Nutzens in den Top-k Nicht-Clifford-Winkeln",
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 auf allen drei Datensaetzen gleich ist und sich mit zufaelligen Etiketten nicht aendert -> Architektureigenschaft, keine Aufgabeneigenschaft. Test: laeuft bereits (C-mnist), dann C-fashion; zusaetzlich ein Lauf mit zufaelligen Etiketten als Kontrolle. | Modul gebaut (Forscher-Agent): echt / Zufallsetiketten (Trainingsgenauigkeit) / Struktur-Aufgabe ohne Magiebedarf als Positivkontrolle (T-1). T-2 mit Wilcoxon + TOST.",
+      "prioritaet": 1
+    },
+    {
+      "id": "I-004",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.geruest",
+      "frage": "Clifford-Geruest + k trainierbare Nicht-Clifford-Winkel von Anfang an (statt nachtraeglich runden)",
+      "notiz": "Aus der Ideenschmiede. Abbruch: Nicht besser als nachtraegliches Runden mit gleichem k (gepaart). Test: Ziffern, k=2 und 4, Positionen aus Magie-Pruning: ~20 min. | Modul gebaut (Forscher-Agent), R-0..R-4 im Code, Holm ueber R-1/R-2.",
+      "prioritaet": 1
+    },
+    {
+      "id": "I-005",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford_suche",
+      "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
+      "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min. | Aufgewertet nach I-003: Gradientenabstieg findet eine bekannte Clifford-Loesung nicht (voll unter Identitaet) -- diskrete Suche ist ein eigener, noetiger Lerner. | Modul gebaut (Forscher-Agent): simulated annealing ueber 2^(nL) Clifford-Wahlen (c ~ c+2 aequivalent), Ridge-LOO-Kriterium, gemeinsamer L-BFGS-Kopf fuer alle Arme. Q-0 Positivkontrolle Strukturaufgabe (G_L >= 0,8), Q-1 Suche vs Median 100 Zufall, Q-2 Suche vs k0, Q-4 Suche vs Zufallssuche gleicher Bewertungszahl (Holm Q-1/2/4). Mess-Seeds MNIST 190-199, Struktur 200-209 (Direktor: urspruengliche Seeds im Rauchtest beruehrt -> ersetzt). ~35-50 min.",
+      "prioritaet": 1,
+      "folgen": {}
+    },
+    {
+      "id": "I-005-v2",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford_suche_v2",
+      "prioritaet": 1,
+      "frage": "Ist eine reine Clifford-Schaltung aus der diskreten Suche (0 Magiewinkel) auf MNIST UND Fashion-MNIST 16x16 gleichwertig zum vollen Training (Rate je Datensatz mit Stabilitaetsabstand)? TOST +-0,5 pp, Holm ueber V-1..V-3.",
+      "notiz": "Folge aus I-005 (alle H1; suche 0,9352 ~ voll 0,9344 nur beschreibend, voll mit fester Rate 0,08 = Verstoss Regel 1). Modul von Forscher-Agent, Vortest bestanden, Rauchtest 28.09. (160 s). N_SEEDS = 20 (Direktor 28.09.: bei 10 Macht fuer GLEICHWERTIG nur ~10-20 %). Mess-Seeds MNIST 300-309+330-339, Fashion 310-319+340-349, Struktur 360-369, Tuning 950-955. V-1/V-2 suche vs voll GLEICHWERTIG/VOLL_BESSER/SUCHE_BESSER/HU (GLEICHWERTIG braucht Q-0 H1, voll-id >= 1 pp, kein Kollaps), V-3 Fashion suche vs Median 100 Zufall. ~3,3 h.",
+      "folgen": {}
+    },
+    {
+      "id": "I-005-v3",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.clifford_suche_v3",
+      "prioritaet": 1,
+      "frage": "Wie viele Nicht-Clifford-Winkel AUF der gesuchten Clifford-Schaltung schliessen die Fashion-Luecke zu voll (I-005-v2 V-2: 1,31 pp)? Suche + k in {1,2,4,8} nachtrainierte Winkel (Auswahl nach Verlustanstieg vs. zufaellig), G_S(k), M50_S/M90_S. Holm ueber M-1..M-3.",
+      "notiz": "Folge aus I-005-v2 (MNIST GLEICHWERTIG, Fashion VOLL_BESSER, G_voll 0,65). Modul von Forscher-Agent, Vortest bestanden (auch vom Direktor wiederholt), Rauchtest 28.09. (447 s). N_SEEDS = 20. Mess-Seeds Fashion 420-439, Tuning 960-962, Entwurf 963-966. M-1 k8_verlust vs voll TOST +-0,5 pp (GLEICHWERTIG/VOLL_BESSER/K8_BESSER/HU; braucht voll - suche >= 1 pp), M-2 k2 verlust vs zufall, M-3 voll vs suche. Kollaps in jedem Zweig. ~3 h 10 min - 3 h 40 min.",
+      "folgen": {
+        "M-1 GLEICHWERTIG": "M50_S/M90_S als Magiebedarf ueber der besten Clifford-Schaltung; auf MNIST pruefen, ob M50_S = 0 ist; T-Gatter-Budget mit Hybrid-Kaskade neu rechnen",
+        "M-1 VOLL_BESSER": "k = 12/16 oder gierige Auswahl; pruefen, ob k32_alle voll erreicht -- sonst sitzt die Suche in einem anderen Becken als der Gradient",
+        "M-2 H0": "Einzelwinkel-Naeherung der Verlust-Rangfolge reicht auf dem Suche-Geruest nicht -> gierige Auswahl"
+      }
+    },
+    {
+      "id": "I-036",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.walsh_kontrolle",
+      "prioritaet": 1,
+      "frage": "Ist die gesuchte Clifford-Zelle im Kern ein klassischer Walsh-Klassifikator? Suche (0 Magiewinkel) vs. FESTE quadrierte Walsh-Hadamard-Merkmale (walsh_fest = H^8, im Suchraum) auf MNIST und Fashion, walsh_fest vs. Identitaet (MNIST), Suche vs. FESTER lokaler 2x2-Block-Walsh (block2x2, MNIST); gleicher L-BFGS-Kopf, TOST +-0,5 pp, Holm ueber W-1..W-4.",
+      "notiz": "Folge aus I-005-v3 / Recherche 29.09. Modul von Forscher-Agent, Vortest bestanden (29.09., auch nach Aufnahme von W-4; vom Direktor wiederholt), Rauchtest 29.09. (101 s). Theorie im Modulkopf: Clifford-Zelle = quadrierter Block-Walsh (Blockdim. k) von vorzeichenmaskierten Pixeln (Bruhat-Form, 70/70 alte Suchergebnisse; 0/70 Walsh-aequivalent; MNIST k 4-7, Fashion 5-8). W-4 nach dem Rauchtest aufgenommen (Direktor 29.09.): Wahl von block2x2 nur aus Rauchtest-Seeds 942-947. Vorhersage: W-1 SUCHE_BESSER, W-3 H0 (Gegenrichtung). N_SEEDS = 20. Mess-Seeds MNIST 640-659, Fashion 660-679, Struktur 680-689, Entwurf 942-947. Kopf-L2 0,003 aus I-005-v2. ~1,5-1,75 h bei 5 Prozessen. | Gerechnet 05.10. im Container (4 Prozesse, zweiter Anlauf): W-1/W-2/W-4 SUCHE_BESSER, W-3 H0 (Gegenrichtung), Q-0 H1. Laborbuch 05.10.",
+      "folgen": {
+        "W-1 SUCHE_BESSER": "Die Suche ist mehr als der globale Walsh-Klassifikator; Einordnung ueber W-4 und die beschreibende Dosis-Kurve fester Block-Walsh",
+        "W-1 GLEICHWERTIG": "Die Suche ist auf MNIST ersetzbar durch feste Walsh-Merkmale: I-005-Befund als klassische Transformation einordnen (Q-019W verbinden), Hybrid-Kaskade mit walsh_fest als Stufe 0",
+        "W-1 WALSH_BESSER": "Suchdefizit oder Siegerfluch: walsh_val vs. suche_val auswerten, Suche mit walsh_fest als Start",
+        "W-2 SUCHE_BESSER": "Fashion-Rueckstand zu voll (1,31 pp) gegen feste Block-Walsh-Merkmale setzen: Magie vs. Maske/Blockstruktur",
+        "W-4 GLEICHWERTIG": "Die Clifford-Suche ist auf MNIST ein fester lokaler 2x2-Block-Walsh-Klassifikator: 0-T-Befund aus I-005-v2 klassisch einordnen; auf Fashion vorregistriert wiederholen; Hybrid-Kaskade mit block2x2 als Stufe 0",
+        "W-4 SUCHE_BESSER": "Maske/Blockwahl der Suche traegt ueber den festen Block hinaus: gesuchte Blockform mit fester Maske vs. Suche",
+        "W-4 BLOCK_BESSER": "Suchdefizit: Suche mit block2x2 als Start, Siegerfluch pruefen"
+      }
+    },
+    {
+      "id": "C-hardware",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.hardware",
+      "frage": "Q3-Bruecke: die gerundete Schaltung mit k Magiewinkeln mit Qiskit nach Clifford+T uebersetzen (T-Zahl zaehlen) und auf IBM-Hardware laufen lassen. Uebersetzt M50 direkt in T-Gatter.",
+      "notiz": "Bausteine in Projekt A: quantum_sim/qiskit_bridge.py, run_on_hardware.py. IBM-Token vorher neu erzeugen (HANDOFF §7). | Gebaut und gerechnet 24.09. (T ~ 31*k bei eps=1e-3). Offen: Kosten der Amplitudenkodierung, Lauf auf IBM-Hardware.",
+      "prioritaet": 1
+    },
+    {
+      "id": "I-008",
+      "abteilung": "Auslese",
+      "status": "erledigt",
+      "modul": "abteilungen.schuesse",
+      "frage": "Schuss-Budget: wie viele Messungen braucht die Born-Auslese auf echter Hardware -- und welche Auslese ist am schusssparsamsten?",
+      "prioritaet": 1,
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn alle Ausleseformen bei S=1.000 innerhalb 1 pp der exakten Genauigkeit liegen -> Schuesse sind kein Engpass, Linie ruht. Test: Trainiertes Modell (Ziffern/MNIST), Multinomial-Stichproben mit S in {10,100,1.000,10.000} aus p ziehen, Kopf unveraendert: Minuten, kein Training. | Modul gebaut, Kriterien A-1..A-3 im Code. Abweichung Regel 1: feste Rate 0,08 (voll-Rate aus C-v2/C-mnist); Koepfe paritaet/z ungetunt -> A-2 eher gegen H1 verzerrt."
+    },
+    {
+      "id": "I-010",
+      "abteilung": "Clifford",
+      "status": "idee",
+      "modul": null,
+      "frage": "Magie-Quantisierung grosser Rotationsschichten: Clifford-Winkel mit 2 Bit speichern, nur die wenigen magischen Winkel als Gleitkomma (z. B. ButterflyFFN/QKV im Chatbot T-002)",
+      "prioritaet": 2,
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn in den Butterfly-Schichten des Chatbots G(k) fuer k = 10 % der Winkel unter 0,5 bleibt. Test: Projekt-A-Modell butterfly_qkv nach kurzem Training runden (Validierungs-Perplexitaet), ~1-2 h CPU."
+    },
+    {
+      "id": "I-020",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.gesamtbudget",
+      "frage": "Gemeinsames Magie-Budget fuer Kodierung + Schaltung: Zelle direkt auf billiger Quantenkodierung trainieren (MPS chi=2, duenn besetzte Praeparation) und Gesamt-T gegen Genauigkeit optimieren",
+      "prioritaet": 1,
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination unter 25 % der heutigen Gesamt-T (8.625) die Genauigkeit innerhalb 2 pp haelt. Test: MNIST, 3 Seeds beschreibend: Zelle auf chi=1/2/4 und duenn besetzter Kodierung neu trainieren, T aus kodierung.py/hardware.py zaehlen, Pareto-Kurve T gegen Genauigkeit. | Modul gebaut (Forscher-Agent); duenne Praeparation 2.384-3.870 T statt ~7.800 T (exakt, obere Schranke). G-1/G-2 im Code."
+    },
+    {
+      "id": "I-015",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.kaskade",
+      "frage": "Magie-Kaskade: erst die Clifford-Schaltung (0 T-Gatter) rechnen, nur bei unsicheren Bildern magische Winkel zuschalten -- mittlere T-Zahl je Bild statt fester T-Zahl",
+      "prioritaet": 1,
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei gleicher Genauigkeit wie k=2 die mittlere Schaltungs-T-Zahl nicht unter 50 % von k=2 faellt -- oder wenn mit Ladekosten keine Ersparnis bleibt. Test: MNIST, Modelle k=0/2/8 je Seed trainieren, Schwelle auf Kopf-Konfidenz (Validierung) waehlen, Genauigkeit gegen mittlere T (hardware.py-Zahlen) und Schuesse (I-008) auftragen: ~1 h CPU. | Modul gebaut (Forscher-Agent). Papier: mit Ladekosten lohnt die Kaskade erst bei < 0,8 % Weiterleitung."
+    },
+    {
+      "id": "I-024",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.datenmenge",
+      "frage": "Magie gegen Datenmenge: braucht die Zelle mit weniger Trainingsdaten weniger Magie? (Clifford-Gitter als Regularisierer, M50 als Funktion von n_train)",
+      "prioritaet": 1,
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn M50 (und der Abstand voll - k=0) bei n_train = 500 / 2.000 / 10.000 innerhalb der Seed-Streuung gleich bleibt (TOST 0,5 pp auf dem Abstand). Test: MNIST 16x16, n_train in {500, 2000, 10000}, 10 Seeds, Arme voll / k=0 / k=2 / k=8 (Rundung nach Abstand wie C-mnist), Kopf-Lernrate je Arm auf Tuning-Seeds: ~1 h CPU. | Modul gebaut (Forscher-Agent): n_train 500/2.000/10.000 geschachtelt, Arme voll/k0,1,2,4,8/Identitaet/Zufalls-Clifford, 1.500 Vollbatch-Schritte, fruehes Stoppen gleich fuer alle, Seeds 100-109. D-0 Positivkontrolle, D-1 Delta-Schrumpfen >= 0,5 pp (TOST +-0,5 fuer H0), D-2 G(2) +0,15, Holm D-1/D-2. Teststaerke: H1 ab ~1,5 pp Schrumpfen, H0 per TOST unwahrscheinlich (HU realistisch). ~40-60 min.",
+      "folgen": {}
+    },
+    {
+      "id": "C-referenz",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.referenz",
+      "frage": "Faire Referenz fuer die Magie-Konzentration: verzerrt die zweite Trainingsphase der Rundungsarme G(k)/M50? (Arm nachtrainiert = alle Winkel frei, gleiche zweite Phase; MNIST + Fashion, frische Seeds 30-39)",
+      "prioritaet": 1,
+      "notiz": "Direktor 24.09. nach C-fashion (k8 schlug voll um +0,53 pp): Rundungsarme bekommen ein zweites volles Training, voll nicht (FEHLERBUCH). R-1 Verzerrung (Holm, TOST 0,3 pp), R-2 Gm*(4) >= 0,5 auf beiden Datensaetzen, R-3 Runden als Regularisierer (Fashion), R-4 M50*/M90*. ~1 h bei 4 Kernen.",
+      "folgen": {}
+    },
+    {
+      "id": "I-003-v2",
+      "abteilung": "Clifford",
+      "status": "idee",
+      "modul": null,
+      "prioritaet": 1,
+      "frage": "Magie-Konzentration: Aufgabe oder Architektur? -- mit einer Positivkontrolle, die das LERNVERFAHREN erreicht, und fairer Referenz (nachtrainiert).",
+      "notiz": "Folge aus I-003 (T-1 HU: Gradient findet die Clifford-Lehrer-Loesung nicht, voll 0,726 < Identitaet 0,784). Kandidaten fuer die Kontrolle: Lehrer = gerundete (k0) Schaltung eines trainierten Schuelers auf echten Ziffern (sicher erreichbar), oder diskrete Clifford-Suche (I-005). Explorativer Hinweis aus I-003: echt-Kurve ueber zufall-Kurve (+0,51 G, p = 0,002), Memorieren M50 = 8 vs. Generalisieren M50 = 1. Erst nach C-referenz bauen."
+    },
+    {
+      "id": "I-033",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.lade_magie",
+      "frage": "Magie-Konzentration im Laden: Moettoenen-Baum grob-zu-fein -- nur die oberen Baumebenen (bzw. Top-m Winkel je Bild) exakt, Rest auf das Clifford-Gitter; T je Bild gegen Genauigkeit",
+      "prioritaet": 1,
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn bei <= 50 % der Lade-T (duenn exakt) die Genauigkeit mehr als 1 pp unter exakt geladen liegt (Mittel ueber Seeds, TOST-Grenze 1 pp). Test: MNIST 16x16, trainierte volle Zelle (C-mnist-Rezept) je Seed, Laden mit (a) oberen e Ebenen exakt, e = 0..8, (b) Top-m Winkel je Bild nach |Abstand zum Gitter|, Rest gerundet; Kopf + Schaltung mit gleicher zweiter Phase auf genaeherten Zustaenden nachtrainieren, Referenz exakt geladen mit gleicher Phase; T aus kodierung.py: ~30-45 min. | Modul gebaut (Forscher-Agent): gerundet werden die 255 Gatterwinkel phi der Gray-Code-Zerlegung (duenn besetzte Basis aus I-020), Arme referenz (exakt, faire zweite Phase), alle_pi2, ebene_4/5/6, top_4/16/32/48, zufall_16, Identitaet; Seeds 140-149. L-0 Positivkontrolle, L-1 Hauptstufen ebene_6 + top_48 (<= 50 % Lade-T, TOST 1 pp, Holm), L-2 top_16 vs zufall_16, L-3 Kurven. ~60-65 min.",
+      "folgen": {}
+    },
+    {
+      "id": "I-015-hybrid",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.kaskade_hybrid",
+      "prioritaet": 1,
+      "frage": "Hybrid-Magie-Kaskade: Clifford-Stufe klassisch (0 T, kein Laden, nur Additionen), nur unsichere Bilder auf den Quantenrechner -- spart sie >= 75 % Hardware-T von k=2 ohne Genauigkeitsverlust?",
+      "notiz": "Direktor 24.09. nach I-015 (post hoc 5 Seeds: 14,5 % der Hardware-T bei gleicher Genauigkeit). Bestaetigung vorregistriert: 10 frische Seeds 100-109, tau auf Validierung nach Hybrid-Kosten, H-1 T <= 25 % und Nichtunterlegenheit 0,5 pp, H-2 Konfidenz vs. Zufall. ~15 min.",
+      "folgen": {}
+    },
+    {
+      "id": "I-004-mnist",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.geruest_mnist",
+      "prioritaet": 1,
+      "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
+      "notiz": "Folge aus I-004 (Ziffern, alles HU wegen Aufloesung; beschreibend: zufaelliges Geruest + 4 Winkel G = 0,71). Rate je Arm eigen (Lehre C-referenz). | Nach I-024: zusaetzlich n_train = 500 -- Training IM Clifford-Geruest ist der eigentliche Regularisierungstest (nachtraegliches Runden war es nicht). | Modul gebaut (Forscher-Agent): n 500/10.000, Arme voll/Identitaet/nachtrainiert/nachtraeglich_k2,k4/geruest_zufall_k2,k4/geruest_fest_k2, Rate je (Arm, n), Seeds 160-169. R-0 Vorbedingung, R-P Positivkontrolle Verfahren, R-1 Zufallsgeruest k4 >= 0,5 G, R-2 nachtraeglich vs Geruest k2, R-3 Regularisierung G_500 - G_10000 >= 0,15 (Holm R-1..R-3). ~75-85 min.",
+      "folgen": {}
+    },
+    {
+      "id": "I-015-hybrid-fashion",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.kaskade_hybrid",
+      "prioritaet": 1,
+      "argumente": {
+        "datensatz": "fashion_mnist",
+        "seeds": [
+          110,
+          111,
+          112,
+          113,
+          114,
+          115,
+          116,
+          117,
+          118,
+          119
+        ]
+      },
+      "frage": "Replikation der Hybrid-Magie-Kaskade auf Fashion-MNIST (schwerer, groesserer Magie-Anteil): dieselben vorregistrierten H-1/H-2 wie I-015-hybrid.",
+      "notiz": "Direktor 25.09. nach I-015-hybrid H1 (MNIST 11,7 %). Rate 0,08 = getunte voll-Rate aus C-fashion (stabil). Ladekosten konservativ dicht (7.636 T); H-5 (duenn) nur MNIST. ~15 min.",
+      "folgen": {}
+    },
+    {
+      "id": "I-034",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.gesamt_kombi",
+      "frage": "Gesamt-Magie-Budget kombiniert: Hybrid-Kaskade (Stufe 0 klassisch) + Top-m-Laden + k Magiewinkel -- Hardware-T je Bild gegen Genauigkeit, Ziel <= 5 % von heute (k=2, dicht geladen, 7.698 T)",
+      "prioritaet": 1,
+      "notiz": "Aus der Ideenschmiede. Abbruch: Wenn keine Kombination <= 5 % der heutigen Hardware-T (7.698 T) die Genauigkeit von k=2 innerhalb 0,5 pp haelt (Nichtunterlegenheit, 10 Seeds). Test: MNIST 16x16, 10 frische Seeds: Stufenmodelle k=2/8 auf Top-m-geladenen Zustaenden (m = 32, 48) nachtrainieren (Rezept I-033), Kaskade 0(klassisch, exakt) -> k2(Top-m) -> k8(Top-m), tau auf Validierung nach Hybrid-Kosten; ~60-75 min. | Modul gebaut (Forscher-Agent): Kaskade 0(klassisch) -> k2 -> k8 auf Top-m-Laden (m=48 Haupt, m=32, Holm), bildweise exakte Lade-T, Rate 0,08, Seeds 210-219. PK k2 exakt > Identitaet; G-1 <= 5 % von 7.698 T + Nichtunterlegenheit 0,5 pp; G-2 Verlust durch genaehertes Laden in der Kaskade; G-3 Pareto. Ausweichregel tau=1 (alle bis k8), wenn Validierungsziel verfehlt (konservativ). ~35-45 min.",
+      "folgen": {}
+    },
+    {
+      "id": "C-skala-v2",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.skala_v2",
+      "prioritaet": 1,
+      "frage": "C-skala mit stabiler Referenz: waechst M50 langsamer als n*L, auch wenn Breite und Bildaufloesung getrennt werden (fest10)?",
+      "notiz": "Folge aus C-skala (S-1 H1 echt6->echt10 +0,14 G, aber S-3 HU wegen Instabilitaet von nachtrainiert bei Rate 0,32 an der Stabilitaetskante: echt8 2/10, fest10 5/10). Neu: Ratenwahl mit Stabilitaetsabstand (Kriterium schlechtester Tuning-Seed oder oberer Nachbar stabil), >= 3 Tuning-Seeds, frische Mess-Seeds. | Modul gebaut (Forscher-Agent): S-0..S-3 aus skala.py unveraendert, Ratenwahl min ueber 3 Tuning-Seeds (930-932), Gitter Faktor 2, Stabilitaetsabstand (oberer Nachbar 2r darf auf keinem Tuning-Seed > 5 pp einbrechen), Magie-Arme in zwei Ratengruppen; echt6/echt10/fest10, Mess-Seeds 220-229. ~115-130 min.",
+      "folgen": {}
+    },
+    {
+      "id": "I-034-fashion",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.gesamt_kombi",
+      "prioritaet": 1,
+      "argumente": {
+        "datensatz": "fashion_mnist",
+        "seeds": [
+          230,
+          231,
+          232,
+          233,
+          234,
+          235,
+          236,
+          237,
+          238,
+          239
+        ]
+      },
+      "frage": "Replikation des kombinierten Magie-Budgets (Hybrid-Kaskade + Top-m-Laden) auf Fashion-MNIST: dieselben vorregistrierten PK/G-1/G-2/G-3 wie I-034.",
+      "notiz": "Direktor 25.09. nach I-034 H1 (MNIST 2,25 %). Rate 0,08 (= getunte voll-Rate C-fashion, stabil); Referenz 7.698 T (dichtes Laden ist bildunabhaengig). Fashion ist weniger duenn besetzt -> Top-m-Laden relativ verlustreicher; genau das prueft die Replikation. ~40 min.",
+      "folgen": {}
+    },
+    {
+      "id": "I-035",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "modul": "abteilungen.magie_schwierigkeit",
+      "frage": "Sagt die Aufgaben-Schwierigkeit (abgestufte Label-Rausch-Skala) den Magiebedarf M50 voraus, und gibt es einen billigen Kennwert (Generalisierungsluecke) dafuer statt des teuren Rundungs-Sweeps?",
+      "prioritaet": 1,
+      "notiz": "Direktor 25.09. (Vorgabe 7, echte Neuheit, Literatur geprueft: 2403.00919/2409.13008 stellen andere Fragen). Modul gebaut (Forscher-Agent, nachgebessert auf 10 Rausch-Stufen fuer Teststaerke): 10 Stufen 0-100% x 6 Seeds (250-255), K_STUFEN=(0,2,8), eigene Rate je (Stufe,Arm). P-0 Vorbedingung, P-1 M50~Rauschen (Spearman, Bootstrap, TOST +-0.3, Holm), P-2 Generalisierungsluecke~M50, P-3 Born-Entropie beschreibend, P-4 Kontrolle (Kopf ohne Schaltung). ~65-95 min. Teststaerke bei nur 10 Punkten weiterhin begrenzt -- HU realistischer Ausgang bei mittlerem Effekt (im Modul-Docstring benannt).",
+      "folgen": {}
+    },
+    {
+      "id": "I-036-v2",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "prioritaet": 1,
+      "frage": "Traegt die gesuchte Vorzeichenmaske den Vorsprung der Clifford-Suche? Je Seed aus der gefundenen Bruhat-Form (V_s, m_s): suche vs. ohne_maske = W(V_s,1) (M-1 MNIST, M-3 Fashion; TOST +-0,5 pp, je eigene Familie); suche vs. block2x2_maske (M-2/M-4) nur beschreibend; Positivkontrolle P-0: suche - block2x2 reproduziert I-036 W-4.",
+      "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'. | Modul von Forscher-Agent 05.10., Vortest (18 s, vom Direktor wiederholt) und Rauchtest (67 s) bestanden. M-2 vor jeder Zahl aus der Familie genommen (in ~60 % der Seeds block2x2_maske = block2x2 exakt -> nur W-4-Wiederholung). Seeds MNIST 700-719, Fashion 720-739, Struktur 740-749. Wiederaufnahme je Seed (ergebnisse/_zwischen_I-036-v2.json). ~1,1-1,3 h bei 4 Prozessen. Vorhersage: P-0 besteht, M-1 SUCHE_BESSER (+1-2 pp). | Gerechnet 05.10. (66 min, Container): P-0 bestanden, P-0F durchgefallen (vorhergesagt), M-1/M-3 SUCHE_BESSER, Wechselwirkung +2,1/+2,7 pp. Laborbuch 05.10. 18:24.",
+      "neuheit": "05.10.: Literatursuche (3 Anfragen) ohne Vergleichbares, Details recherche/2026-10-05_neuheit_I-036-v2.md; Neuheit plausibel",
+      "modul": "abteilungen.maske_block",
+      "folgen": {
+        "M-1 SUCHE_BESSER": "Welche Maskeneigenschaft traegt (Rang der quadratischen Form, Masken-Transfer zwischen Seeds)?",
+        "M-1 GLEICHWERTIG": "Reicht eine Suche nur ueber Unterraeume V ohne Maske?",
+        "M-1 OHNE_BESSER": "Suchdefizit: W(V_s,1) als Start/Politur der Suche",
+        "M-1 HU": "Wiederholung mit 40 Seeds",
+        "M-3 *": "wie M-1, auf Fashion",
+        "M-2 beschreibend Blockwahl": "eigene Karte: Suche nur ueber V bei fester (kanonischer) Maske",
+        "P-0 DURCHGEFALLEN": "I-036 W-4 repliziert nicht: Siegerfluch/Seed-Satz pruefen"
+      }
+    },
+    {
+      "id": "I-036-v3",
+      "abteilung": "Clifford",
+      "status": "erledigt",
+      "prioritaet": 1,
+      "frage": "Welche Eigenschaft der gesuchten quadratischen Maske traegt? Je Seed aus (V_s, B_s): suche vs. zufall_gleicher_rang (Median 20 Formen B_r = P^T B_s P, P in GL(k,2)) = R-1; zufall_gleicher_rang vs. ohne_maske = R-2 (Holm x2, MNIST); Fashion R-3/R-4 als Replikation; TOST +-0,5 pp; fremde_maske (V_s Teilraum V_t) und Rang-Gewinn-Spearman ueber Seeds beschreibend. Positivkontrolle P-0/P-0F: suche - ohne_maske >= 0,5 pp einseitig.",
+      "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig. | Modul von Forscher-Agent 05.10., Vortest (8 s, vom Direktor wiederholt; 6 eingebaute Fehler erkannt) und Rauchtest (143 s) bestanden. Invariante = Rang der alternierenden Form (volle GL(V)-Invariante des merkmalswirksamen Teils). Rang-0-Seeds vorab ausgeschlossen. Seeds MNIST 760-779, Fashion 780-799, Struktur 800-809. Wiederaufnahme je Seed. ~1,2-1,4 h bei 4 Prozessen. GLEICHWERTIG erreichbar nur bei sd < 1,07 pp. Vorhersage: R-1 SUCHE_BESSER (+0,7), R-2 ZUFALL_BESSER (+1,2) -> RANG_UND_FORM. | Gerechnet 05.10. (73 min, Container): P-0/P-0F bestanden, R-1/R-3 SUCHE_BESSER, R-2/R-4 ZUFALL_BESSER -> RANG_UND_FORM (Rang 52 % MNIST, 78 % Fashion), fremde Maske fast so gut wie eigene. Laborbuch 05.10. 20:05.",
+      "neuheit": "05.10.: 2 Anfragen, nichts Vergleichbares; naechster Nachbar 2604.25480 (optische gelernte Phasenmaske + Hadamard, kontinuierlich) -- zitieren. recherche/2026-10-05_neuheit_I-036-v3.md",
+      "modul": "abteilungen.maske_eigenschaft",
+      "folgen": {
+        "R-1 SUCHE_BESSER": "Form-Suche bei festem V_s und Rang (nur CZ/S-Lage)",
+        "R-1 GLEICHWERTIG": "Zweistufensuche (V, Rang) mit Zufallsform",
+        "R-1 ZUFALL_BESSER": "Siegerfluch: Hold-out-Kriterium",
+        "R-1 HU": "40 Seeds / 10.000 Testbilder",
+        "R-2 ZUFALL_BESSER": "Dosis-Kurve ueber den Rang 0..k",
+        "R-2 GLEICHWERTIG": "Lage der Form zu den Bildachsen",
+        "R-2 OHNE_BESSER": "Paarbindung Maske-V_s",
+        "R-2 HU": "wie R-1",
+        "P-0 DURCHGEFALLEN": "Seed-Satz/Siegerfluch pruefen"
+      }
+    },
+    {
+      "id": "I-037",
+      "abteilung": "Clifford",
+      "status": "idee",
+      "prioritaet": 1,
+      "frage": "Dosis-Kurve ueber den Rang (Folge R-2 ZUFALL_BESSER) + Aufgabenform: Genauigkeit von W(V, B) fuer Rang 0,2,4,6 (zufaellige Formen) bei festen V aus der Suche; und eine EINMAL gesuchte Form auf neue Seeds/Bloecke uebertragen vs. Suche je Seed (Methode statt Suche).",
+      "notiz": "Aus I-036-v3 (05.10.): Rang traegt 52/78 %, Spearman Rang~Gewinn +0,79; fremde Maske nur 0,29 pp hinter eigener. Vor dem Bauen: Literatursuche (Vorgabe 7) zu Graphzustand-Rang/Verschraenkung als Merkmalsqualitaet."
+    },
+    {
+      "id": "I-038",
+      "abteilung": "Struktur",
+      "status": "läuft (Container)",
+      "prioritaet": 1,
+      "frage": "Ist QIRE gleichwertig zu klassischer dichter Mischung plus Quadrat? Arme: Pixel-Softmax, Identitaet², Haar², Haar linear, Fastfood-2², QIRE Zufallswinkel/gelernt/ohne CNOT, Clifford-Suche (gepaart, Seeds 2000-2009), Cayley; klassische Nichtlinearitaeten (ReLU, tanh, |z|, z² ohne Normierung, MLP 256-9-10). H-A..H-G (Holm x7 je Datensatz), TOST ±0,5 pp, Zufallslabel-Negativkontrolle, Seeds 2000-2019, Tuning-Seed 2099, MNIST+Fashion.",
+      "notiz": "Plan PLAN_2026-10-06_gesamt.md §2 P1, Vorlage v3_kontrollen.md. Vorregistrierung: LABORBUCH.md 06.10.2026 (I-038). Modul abteilungen/struktur_aequivalenz.py, Wiederaufnahme je Seed (ergebnisse/_zwischen_I-038.json). Start: INSTITUT_PROZESSE=4 python direktor.py lauf I-038 (erst nach Freigabe; vorher Status auf 'offen'/'laeuft (Container)').",
+      "modul": "abteilungen.struktur_aequivalenz",
+      "folgen": {
+        "H-A GLEICHWERTIG": "Kernaussage 'quanten-inspiriert' belegt",
+        "H-A QIRE_BESSER": "welche Struktur traegt? Skalierung n=10",
+        "H-G KLASSISCH_BESSER": "Kernaussage auf 'Mischung' kuerzen"
+      }
+    },
+    {
+      "id": "I-039",
+      "abteilung": "Clifford",
+      "status": "vorregistriert",
+      "modul": "abteilungen.mnist100",
+      "prioritaet": 1,
+      "frage": "MNIST mit ~100 Parametern: erreicht eine Born-Zelle (Haar/Fastfood-Mischung, Gruppierung) >= 70 % bei <= 110 trainierten reellen Parametern, gleichwertig zur klassischen 5x5->3 tanh->10 (H2) und traegt die Mischung (H3)?",
+      "notiz": "PLAN_2026-10-06_gesamt.md P2. Arme a-f (a Gruppierung+10 Bias, b +10x10, c quadrierte Pixel ohne Mischung, d klassisch 118 P., e Fisher-Top-9, f Klassenregister ohne Kopf), Kontrollen PK-1 Voll-Kopf, PK-2 (d), NK Zufallslabel. Seeds 2020-2039, Tuning-Seeds 2090-2092 (gittersuche_stabil, nie Test). Zaehlung: reell + Strukturbits (formal/streng) getrennt, Bit/pp. Vorregistriert vor jeder Testzahl; Rauchtest auf Mess-Seed 2020 im Modulkopf offengelegt. Freigabe E2 steht aus (nicht gestartet). ~10-15 min bei INSTITUT_PROZESSE=4. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-039 (Status vorher auf offen setzen) oder python abteilungen/mnist100.py",
+      "folgen": {}
+    }
+  ]
 }
