@@ -473,15 +473,15 @@
     {
       "id": "I-038",
       "abteilung": "Struktur",
-      "status": "läuft (Container)",
+      "status": "erledigt",
       "prioritaet": 1,
       "frage": "Ist QIRE gleichwertig zu klassischer dichter Mischung plus Quadrat? Arme: Pixel-Softmax, Identitaet², Haar², Haar linear, Fastfood-2², QIRE Zufallswinkel/gelernt/ohne CNOT, Clifford-Suche (gepaart, Seeds 2000-2009), Cayley; klassische Nichtlinearitaeten (ReLU, tanh, |z|, z² ohne Normierung, MLP 256-9-10). H-A..H-G (Holm x7 je Datensatz), TOST ±0,5 pp, Zufallslabel-Negativkontrolle, Seeds 2000-2019, Tuning-Seed 2099, MNIST+Fashion.",
-      "notiz": "Plan PLAN_2026-10-06_gesamt.md §2 P1, Vorlage v3_kontrollen.md. Vorregistrierung: LABORBUCH.md 06.10.2026 (I-038). Modul abteilungen/struktur_aequivalenz.py, Wiederaufnahme je Seed (ergebnisse/_zwischen_I-038.json). Start: INSTITUT_PROZESSE=4 python direktor.py lauf I-038 (erst nach Freigabe; vorher Status auf 'offen'/'laeuft (Container)').",
+      "notiz": "Plan PLAN_2026-10-06_gesamt.md §2 P1, Vorlage v3_kontrollen.md. Vorregistrierung: LABORBUCH.md 06.10.2026 (I-038). Modul abteilungen/struktur_aequivalenz.py, Wiederaufnahme je Seed (ergebnisse/_zwischen_I-038.json). Start: INSTITUT_PROZESSE=4 python direktor.py lauf I-038 (erst nach Freigabe; vorher Status auf 'offen'/'laeuft (Container)'). | ERGEBNIS 06.10.: H-A/B/C GLEICHWERTIG (MNIST+Fashion); H-D HAAR_BESSER +2,84/+1,43 pp; H-E QUADRAT_TRAEGT +2,21/+1,27; H-F MNIST HU, Fashion SUCHE_NICHT_BESSER -1,11; H-G MNIST BORN_BESSER +0,35 pp (gegen |z|), Fashion GLEICHWERTIG.",
       "modul": "abteilungen.struktur_aequivalenz",
       "folgen": {
-        "H-A GLEICHWERTIG": "Kernaussage 'quanten-inspiriert' belegt",
-        "H-A QIRE_BESSER": "welche Struktur traegt? Skalierung n=10",
-        "H-G KLASSISCH_BESSER": "Kernaussage auf 'Mischung' kuerzen"
+        "H-A:GLEICHWERTIG": "Kernaussage 'quanten-inspiriert' belegt",
+        "H-A:QIRE_BESSER": "welche Struktur traegt? Skalierung n=10",
+        "H-G:KLASSISCH_BESSER": "Kernaussage auf 'Mischung' kuerzen"
       }
     },
     {
@@ -497,7 +497,7 @@
     {
       "id": "I-040",
       "abteilung": "Clifford",
-      "status": "offen",
+      "status": "erledigt",
       "modul": "abteilungen.holevo_wirkungsgrad",
       "prioritaet": 2,
       "frage": "Holevo-Wirkungsgrad: wie viel der Holevo-Groesse chi_C nutzt eine Born-Auslese pro Schuss (Identitaet, Haar, Fastfood-2, Bent-4x4, Clifford-Suche), schlaegt ein schussbewusster Kopf den exakt trainierten bei S<=100 (H2), und sagt eta=I/chi den Schussbedarf fuer 90 % voraus (H3)?",

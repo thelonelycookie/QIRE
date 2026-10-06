@@ -1230,3 +1230,29 @@ Rohdaten: `ergebnisse/I-039__20261006_051108.json`. Offenlegung (siehe Vorregist
 - **H3 MISCHUNG_TRÄGT:** b_ff − quadrierte Pixel ohne Mischung = **+2,74 pp**.
 - Beschreibend: (a) nur 10 Bias 74,1/74,3 %; (e) Fisher-Top-9 63,4 %; (f) kopffreie Klassenregister-Auslese, 0 reelle Parameter: 71,7/72,7 %.
 - Einordnung: Das ist besser als die v1-Erkundung (76,4 %), weil Fastfood statt Bent verwendet und die Lernrate je Arm stabil gesucht wurde. Ein Vorteil gegenüber der klassischen Referenz bei gleicher Zahl reeller Parameter, aber mit ~900 Strukturbits. Der faire Vergleich nach Bits steht in H2 nicht und ist eine Folgefrage (klassische Arme mit gleichem Bitbudget).
+
+## 06.10.2026 – I-038 ERGEBNIS (Struktur-Äquivalenz, 20 Seeds 2000–2019, Suche gepaart 2000–2009, Container)
+Rohdaten: `ergebnisse/I-038__20261006_065007.json`. Kontrollen: Die NK ist bestanden (Zufallslabel 10,0 / 10,2 %), die PK (H-D/H-E) auf beiden Datensätzen ebenfalls.
+
+| Hypothese | MNIST | Fashion |
+|---|---|---|
+| H-A QIRE gelernt ≡ Haar² | GLEICHWERTIG (+0,18 pp) | GLEICHWERTIG (+0,10) |
+| H-B QIRE gelernt ≡ Zufallswinkel | GLEICHWERTIG (+0,22) | GLEICHWERTIG (+0,07) |
+| H-C Fastfood-2 ≡ Haar² | GLEICHWERTIG (+0,09) | GLEICHWERTIG (+0,01) |
+| H-D Haar² − Pixel-Softmax | **+2,84 pp** | **+1,43 pp** |
+| H-E Quadrat − linear | **+2,21 pp** | **+1,27 pp** |
+| H-F Suche < Haar² | HU (−0,04) | SUCHE_NICHT_BESSER (−1,11) |
+| **H-G Born² − beste klassische Nichtlinearität (|z|)** | **BORN_BESSER +0,35 pp** [0,27; 0,43] | GLEICHWERTIG (0,00) |
+
+Beschreibend: Cayley − QIRE +1,61 / +1,35 pp bei 35.210 gegen 2.602 Parametern.
+
+**Deutung:** v3 ist bestätigt. Die Zelle ist gleichwertig zu einer festen dichten Mischung (Haar oder Fastfood); gelernte Winkel tragen nichts Messbares. Die Born-Nichtlinearität (Quadrat) schlägt auf MNIST die beste klassische Alternative knapp (+0,35 pp), auf Fashion ist sie gleichwertig. Der Effekt ist klein, aber signifikant.
+
+Technik: `direktor.py` brach nach dem Sichern ab, weil die Folgen-Schlüssel in agenda.json „H-A GLEICHWERTIG“ statt „H-A:GLEICHWERTIG“ lauteten. Ich habe den Eintrag von Hand nachgetragen und die Schlüssel korrigiert.
+
+## 06.10.2026 – I-040 ERGEBNIS (Holevo-Wirkungsgrad, 10 Seeds 2050–2059, Container)
+Rohdaten: `ergebnisse/I-040__20261006_070724.json`.
+- **PK-1 VERSAGT:** Die Identität mit exaktem Kopf erreicht 0,868 < 0,88 (vorregistrierte Schwelle). Damit sind **H2 und H3 HU**, weil ihre Vorbedingung fehlt.
+- PK-2 OK, NK OK (I 0,004 Bit, acc 0,099).
+- **H1 IDENTITÄT_BESTE:** I(Klasse; 1 Schuss): Identität − Haar **+0,197 Bit**, Identität − Suche **+0,193 Bit** (Holm-p 0,003, 10/10 Seeds). **Dichte Mischung verschlechtert die Information pro Schuss**, obwohl sie die Genauigkeit bei exakter Auslese verbessert.
+- Vermutung zu PK-1: Die Schwelle 0,88 wurde aus v4 (andere Kopfregularisierung) übernommen und lag zu knapp. Kein nachträgliches Umdeuten; eine Wiederholung braucht eine neue Vorregistrierung (I-040-v2).
