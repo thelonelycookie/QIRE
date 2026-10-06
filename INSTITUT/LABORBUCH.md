@@ -1192,3 +1192,16 @@ Vorregistrierung steht im Modulkopf (Arme a–f, Zählregel reell/Strukturbit/Bi
 und Urteilsstrings im Code). Seeds 2020–2039, Tuning-Seeds 2090–2092. Vortest (jeder Urteilszweig erzwungen) bestanden,
 Rauchtest 1 Seed (2095) gelaufen. **Offenlegung:** ein früher Rauchtest sah die Testzeile von Seed 2020 (150 Schritte);
 Kriterien blieben unverändert. Lauf nicht gestartet (wartet auf Freigabe E2).
+
+## 06.10.2026 — I-038 „Struktur-Äquivalenz“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Modul `abteilungen/struktur_aequivalenz.py`, Plan `PLAN_2026-10-06_gesamt.md` §2 P1, Vorlage `recherche/2026-10-05_vertiefung/v3_kontrollen.md`. Vortest (alle Urteilszweige erzwungen) und Rauchtest (1 Seed, kleine Daten) bestanden; der Volllauf ist **nicht** gestartet.
+
+- **Daten/Seeds:** MNIST und Fashion, 16×16, 6.000 Training / 5.000 Test je Seed; Seeds 2000–2019; Clifford-Suche gepaart nur auf 2000–2009; Tuning-Seed 2099 (Validierung 1.000 aus 6.000, nie Test).
+- **Arme (gleicher Kopf, Softmax-Regression, L2 3e-3, 2.570 P.):** Pixel-Softmax, Identität², Haar², Haar linear, Fastfood-2 (H·D₂·H·D₁)², QIRE L=4 Zufallswinkel / gelernt / ohne CNOT gelernt, Clifford-Suche, Cayley gelernt; Erweiterung: Haar-Mischung mit ReLU, tanh(a·z) (a auf Tuning-Seed), |z|, z² ohne Normierung von x, ReLU-MLP 256→9→10; Negativkontrolle Zufallslabel (Haar², permutierte Trainingslabels).
+- **Lernraten** (QIRE, QIRE ohne CNOT, Cayley, MLP) je Arm und Datensatz mit `gittersuche_stabil` auf Tuning-Seed 2099, 300 Adam-Schritte wie v3.
+- **Hypothesen, Holm x7 je Datensatz:** H-A QIRE ≡ Haar² (TOST ±0,5 pp); H-B QIRE ≡ QIRE-Zufallswinkel (TOST); H-C Fastfood-2 ≡ Haar² (TOST); H-D Haar² − Pixel-Softmax > 0; H-E Haar² − Haar linear > 0; H-F Suche < Haar² (einseitig, 10 Seeds); H-G Haar² ≥ bester klassischer Nichtlinearitäts-Arm (auf Tuning-Seed bestimmt; Superiorität einseitig, TOST zusätzlich mit Bonferroni x2). Cayley − QIRE nur berichtet, mit Parameterzählung.
+- **Kontrollen:** NK Zufallslabel-Mittel in [0,09; 0,115], sonst alle Urteile HU/UNKLAR. PK je Datensatz: H-D und H-E je Holm-signifikant mit ≥ 0,5 pp, sonst kein GLEICHWERTIG. Kollaps-Prüfung (Seed < Median − 5 pp) macht betroffene Urteile HU/UNKLAR.
+- **Urteile (Strings):** GLEICHWERTIG / X_BESSER / HU (A–C), HAAR_BESSER / H0 / HU (D), QUADRAT_TRAEGT / H0 / HU (E), SUCHE_NICHT_BESSER / H0 / HU (F), BORN_BESSER / GLEICHWERTIG / KLASSISCH_BESSER / UNKLAR (G). Kriterien: `urteil()` im Modul.
+- **Erwartung (v3):** H-A/B/C GLEICHWERTIG, H-D und H-E ja (+2,9/+1,6 bzw. +2,5/+1,2 pp), H-F SUCHE_NICHT_BESSER auf Fashion; H-G offen (Quadrat gegen |z| nur +0,5/+0,3 pp in v3, daher KLASSISCH_BESSER/GLEICHWERTIG möglich).
+- **Start:** `INSTITUT_PROZESSE=4 python direktor.py lauf I-038` (Wiederaufnahme je Seed über `ergebnisse/_zwischen_I-038.json`). Laufzeit ≈ 40–55 min bei 4 Prozessen.
