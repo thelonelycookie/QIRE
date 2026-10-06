@@ -122,19 +122,21 @@ Für alle Läufe gilt:
 - **Seeds:** 2020–2039 (20). **Laufzeit / Ort:** ≈ 30–45 min Container.
 - **Realistische Erwartung (v1):** H1 knapp ja (70–76 %), H2 gleich, H3 offen. 80 % mit 100 P. ist nicht zu erwarten; das wird vorher offen gesagt.
 
-### P3 · T-006 „Adapter-Sättigung“ (QLM-Skalierung) — Prio 1, **PC**
+### P3 · T-006 „Adapter-Skalierung L = 20/40“ (QLM-Skalierung) — Prio 1, **PC**
 
-- **Frage:** Wächst der Gewinn des log-d-Adapters (T-005: L^0,55 bis L = 10) weiter, oder sättigt er? Und liegt die Sättigung dort, wo die Lie-Algebra bzw. der Jacobi-Rang (v5) sie vorhersagt?
-- **Arme:** QIRE-Adapter L ∈ {1, 2, 5, 10, 20, 40} auf LLäMmlein-120M wie T-005. Kontrollen:
-  - Kronecker-Drehung ohne CNOT, gleiches L (Mischungskontrolle);
-  - LoRA r = 1 als Referenz;
-  - Zufallswinkel, eingefroren.
-- **Hypothesen (vor dem Lauf festgelegt):**
-  - H1: Der Gewinn bei L = 40 ist höchstens 10 % größer als bei L = 20, also Sättigung.
-  - H2: Ein Modell „Potenzgesetz + Plateau“ passt besser als ein reines Potenzgesetz (ΔAIC > 4).
-  - H3: Das Plateau liegt dort, wo der Jacobi-Rang (v5) aufhört zu wachsen.
-- **Seeds:** 3 Seeds 2040–2042 je L. **Laufzeit / Ort:** PC, geschätzt 8–15 h insgesamt; die genaue Zahl folgt aus den T-005-Zeiten vor der Freigabe. Grund für den PC: Modell und Daten liegen dort, die Läufe sind lang.
-- **Wert:** Direkte, ehrliche Antwort auf „Ist ein QLM unendlich skalierbar?“: **Nein. Hier sättigt es, und das ist der Grund.**
+*Nach v5 (06.10.) angepasst.* Die Lie-Algebra ist die volle so(256). Der Jacobi-Rang ist min(8·L, 32.640). Algebraisch sättigt der Adapter also erst bei **L\* = 4.080**; bei L = 20/40 ist diese Grenze irrelevant. Die trainierten Winkel sind winzig (|θ| ≈ 0,02), der Adapter arbeitet im linearen Bereich. Begrenzend ist daher das **Trainingsbudget bzw. die Gradientengeometrie (√L)**, nicht die Gruppe. Meine frühere Hypothese „Plateau beim Jacobi-Rang“ ist damit verworfen.
+
+- **Arme** (wie T-005, 300 Schritte, Batch 4, Adam):
+  - qire_L10 als Brücke und Positivkontrolle (reproduziert 2,4115);
+  - qire_L20 und qire_L40, Lernratengitter 3e-4 / 1e-3 / 3e-3 mit Verlängerung;
+  - lora_r1 als Kontrolle;
+  - optional qire_L10 mit 600 Schritten (trennt Budget- von Strukturgrenze).
+- **Hypothesen (Holm über 3, aus v5 §6):**
+  - K1: Monotonie L10 → L20 → L40.
+  - K2: qire_L40 − lora_r1 (zweiseitig + TOST ±20 % Gewinn).
+  - K3: Form Potenzgesetz gegen Sättigung, gemessen an den Gewinnverhältnissen L20/L10 und L40/L20 gegen 2^b (b ≈ 0,5).
+- **Seeds:** 60001–60008, Tuning 60401/60402. **Laufzeit:** Kern ≈ 10 h ungestört, realistisch 12–16 h, auf Maltes PC über Nacht.
+- **Wert:** Ehrliche Antwort auf „unendlich skalierbar?“: Die Gruppe wäre bis L ≈ 4.000 nicht die Grenze. Die Parameter wachsen nur mit L·log d. Was die Kurve real begrenzt, misst dieser Lauf.
 
 ### P4 · I-040 „Holevo-Wirkungsgrad“ — Prio 2
 
