@@ -1221,3 +1221,12 @@ Modul `abteilungen/holevo_wirkungsgrad.py`, Plan `PLAN_2026-10-06_gesamt.md` §2
 - **Erwartung (v4):** H1 ja (≈ 0,36 gegen ≈ 0,16 Bit, praktisch deterministisch). H2 bei S = 10/30 ja, bei S = 100 knapp; der Schnitt-Vereinigungs-Test ist streng. **H3 eher nein oder unentschieden**: In v4 hat die Identität das höchste η, erreicht aber 90 % nicht (zensiert), Bent/Suche haben weniger η und erreichen 90 % — das wäre die Gegenrichtung.
 - **Grenzen/Offenlegung:** Testbilder stammen aus denselben 10.000 offiziellen Bildern (sd über Seeds unterschätzt die Genauigkeitsunsicherheit); eine Schussziehung je Trainingsbild; Bent-Form fest; η-Neuheit nicht geprüft (Plan E4) — bis dahin nicht als neu formulieren. Beim Rauchtest wurden Zeitwerte gemessen (4 s je Kopf-Aufgabe, 0,06 s je Suchbewertung), keine Mess-Seed-Zahlen.
 - **Start:** `INSTITUT_PROZESSE=4 python direktor.py lauf I-040` (Wiederaufnahme je (Seed, Arm) in `ergebnisse/_zwischen_I-040/`). Laufzeit ≈ 20–25 min bei 4 Prozessen (Suche ≈ 6 min je Seed dominiert; Fashion +≈ 20 min).
+
+## 06.10.2026 – I-039 ERGEBNIS (MNIST mit ~100 Parametern, 20 Seeds 2020–2039, Container)
+Rohdaten: `ergebnisse/I-039__20261006_051108.json`. Offenlegung (siehe Vorregistrierung): Rauchtest einmal auf Seed 2020 mit 150 Schritten; die Kriterien waren da schon fixiert.
+- PK-1 OK (Voll-Kopf Haar² 92,1 %), PK-2 OK (klassisch d 74,8 %), NK OK (Zufallslabel 9,95 %).
+- **H1 BESTÄTIGT:** b_ff (Fastfood-Mischung → Born-Quadrat → Gruppensummen + 10×10-Kopf) **80,46 ± 0,81 %** bei **110 reellen Parametern** (Strukturbits: 882 formal / 3.046 streng).
+- **H2 ÜBERLEGEN:** b_ff − klassisch 5×5→3 tanh→10 (118 P.) = **+5,61 pp** (Holm-p < 10⁻⁴).
+- **H3 MISCHUNG_TRÄGT:** b_ff − quadrierte Pixel ohne Mischung = **+2,74 pp**.
+- Beschreibend: (a) nur 10 Bias 74,1/74,3 %; (e) Fisher-Top-9 63,4 %; (f) kopffreie Klassenregister-Auslese, 0 reelle Parameter: 71,7/72,7 %.
+- Einordnung: Das ist besser als die v1-Erkundung (76,4 %), weil Fastfood statt Bent verwendet und die Lernrate je Arm stabil gesucht wurde. Ein Vorteil gegenüber der klassischen Referenz bei gleicher Zahl reeller Parameter, aber mit ~900 Strukturbits. Der faire Vergleich nach Bits steht in H2 nicht und ist eine Folgefrage (klassische Arme mit gleichem Bitbudget).

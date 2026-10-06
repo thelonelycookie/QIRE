@@ -487,7 +487,7 @@
     {
       "id": "I-039",
       "abteilung": "Clifford",
-      "status": "vorregistriert",
+      "status": "erledigt",
       "modul": "abteilungen.mnist100",
       "prioritaet": 1,
       "frage": "MNIST mit ~100 Parametern: erreicht eine Born-Zelle (Haar/Fastfood-Mischung, Gruppierung) >= 70 % bei <= 110 trainierten reellen Parametern, gleichwertig zur klassischen 5x5->3 tanh->10 (H2) und traegt die Mischung (H3)?",
@@ -497,7 +497,7 @@
     {
       "id": "I-040",
       "abteilung": "Clifford",
-      "status": "vorregistriert",
+      "status": "offen",
       "modul": "abteilungen.holevo_wirkungsgrad",
       "prioritaet": 2,
       "frage": "Holevo-Wirkungsgrad: wie viel der Holevo-Groesse chi_C nutzt eine Born-Auslese pro Schuss (Identitaet, Haar, Fastfood-2, Bent-4x4, Clifford-Suche), schlaegt ein schussbewusster Kopf den exakt trainierten bei S<=100 (H2), und sagt eta=I/chi den Schussbedarf fuer 90 % voraus (H3)?",
