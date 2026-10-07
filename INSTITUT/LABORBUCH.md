@@ -1439,3 +1439,12 @@ Anlass: Nebenbefund aus I-045 (nicht konfirmatorisch): Sz (Fastfood-FFN mit z²)
 Rohdaten `ergebnisse/I-044-r__20261007_075727.json`. NK bestanden.
 - **H3 repliziert:** strukturierter Kopf Ks 74,33 % gegen dichten Kopf Kd 72,44 %, **+1,89 pp** [1,69; 2,09], n = 15. Das bestätigt I-044 (+1,8 pp, n = 5), mit ≈ 85× weniger Kopfparametern.
 - **H4 jetzt NICHT_UNTERLEGEN:** strukturierte Kanalmischung −0,63 pp [−0,85; −0,41] gegen dicht. Das liegt innerhalb der 1-pp-Grenze, ist aber ein kleiner Verlust.
+
+## 07.10.2026 — I-044-v2 „Strukturkopf gegen faire Köpfe“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+Anlass (`recherche/2026-10-07_durchsicht_kernaussage.md`): In I-044-r schlug Ks (74,33 %) den dichten Kopf Kd (72,44 %). Kd war aber unregularisiert, und schon ein linearer Kopf hinter einer 1×1-Conv (Kcd) erreichte 73,70 %. Die Idee selbst ist bekannt (Deep Fried Convnets 2015). Modul `abteilungen/struktur_kopf_fair.py`, Wirkung klassisch (I-038).
+- **Arme:** Ks (Fastfood 1024→4096 + z², wie I-044) · Kd (wie I-044, Brücke) · **Klin** (kein breiter Kopf, LayerNorm + linear, ≈ 10 k) · **Kreg** (Kd + Dropout 0,5 + AdamW-WD 5e-4) · **Kklein** (dicht 1024→48→10, ≈ 49,7 k = Kopfbudget von Ks). CNN-Rumpf identisch, gleicher Startzustand je Seed (im Vortest geprüft).
+- **Hypothesen (Holm über H1a, H1b, H1c, H2; gepaarter einseitiger t, n = 15):** H1a/b/c Ks ≥ Klin/Kreg/Kklein − 0,5 pp (NICHT_UNTERLEGEN | H0 | HU); **H2 Ks − Klin > 0** (STRUKTUR_HILFT | H0 | HU). NK: Ks mit permutierten Labels, Band (0,05; 0,15). Kollaps → HU. Beschreibend: Ks − Kd, alle Arme gegen Klin, Kopfparameter.
+- **Seeds 2330–2344 (15, frisch), Tuning 2399.** Raten Ks/Kd aus I-044 übernommen (3e-3); Klin/Kreg/Kklein neu mit demselben Verfahren (gittersuche_stabil, Gitter 1e-3/3e-3/1e-2, Faktor 3). 4 Epochen, Batch 256, Kosinus.
+- **Ehrliche Erwartung vorab:** H1a/H1c eher NICHT_UNTERLEGEN, H2 klein oder HU. Der Vorsprung gegen faire Köpfe liegt eher bei 0–1 pp als bei 1,9 pp.
+- Vortest bestanden (jeder Urteilszweig erzwungen). Rauchtest nur auf Tuning-Seed 2399 (kleine Daten, 1 Epoche), verworfen. **Freigabe Malte 07.10.**
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v2` (Wiederaufnahme in `ergebnisse/_zwischen_I-044-v2.json`).
