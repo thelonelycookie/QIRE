@@ -3,6 +3,17 @@
 Ergänzt `UEBERGABE.md` Abschnitt 2/3. Ergebnis einer Websuche „wie forscht man gut“,
 zugeschnitten auf QIRE. Kurz halten, anwenden.
 
+## 0. Einordnung (Maltes Klarstellung 07.10.)
+- **QIRE (AI) = Quanteninspirierte Ressourcen-Effizienz (KI).** Das Gesamtziel:
+  KI quanteninspiriert ressourceneffizienter machen.
+- **Projekt A** ist das Hauptprojekt. **Projekt B** ist ein kleines Nebenprojekt, das aus A entstanden ist.
+- **INSTITUT** ist keine Hauptlinie, sondern das *Werkzeug*: so werden KI-Agenten
+  zum Forschen eingesetzt. Gerade arbeiten sie an der Magie.
+- **Neuheit ist erwünscht, aber kein Muss.** Vorrang hat ein *brauchbares* Ergebnis
+  für das Gesamtziel. Eine solide Effizienzverbesserung mit bekannten Mitteln
+  (sauber als solche gekennzeichnet) ist besser als kein Ergebnis. Neuheitsprüfung
+  dient dazu, Eigenes vom Bekannten abzugrenzen, nicht dazu, Brauchbares zu verwerfen.
+
 ## 1. Neuheitsprüfung (Vorgabe 7) als festes Verfahren
 1. **Kernaussage in einem Satz** formulieren (Behauptung, nicht Methode).
 2. **6–12 Suchanfragen** daraus: Kernaufgabe + Beitrag + Synonyme
