@@ -567,7 +567,7 @@
   {
    "id": "I-042-r",
    "abteilung": "Struktur",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.struktur_gross",
    "funktion": "lauf_r",
    "prioritaet": 2,
@@ -589,7 +589,7 @@
   {
    "id": "I-045-v2",
    "abteilung": "Struktur",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.struktur_sprache",
    "funktion": "lauf_v2",
    "prioritaet": 2,
