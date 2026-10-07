@@ -618,6 +618,17 @@
    "frage": "Epochenreihe 4/12/24 fuer Ks, Klin, Kklein: haelt der Strukturkopf-Vorsprung (I-044-v2 +0,83 pp gegen linear) bei laengerem Training? H1 Ks>Klin @24, H2 Ks>Kklein @24 (Holm), H3 Trend d24-d4 zweiseitig.",
    "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-044-v3). Seeds 2350-2357, Raten fest aus I-044-v2 (Ks/Klin 3e-3, Kklein 3e-2), NK Ks permutiert 4 Ep. Freigabe Malte 07.10. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v3.",
    "folgen": {}
+  },
+  {
+   "id": "I-046",
+   "abteilung": "Information",
+   "status": "offen",
+   "modul": "abteilungen.pareto_schuss",
+   "funktion": "lauf",
+   "prioritaet": 1,
+   "frage": "Pareto-Front Genauigkeit x Information pro Schuss: gelernte Orthogonale U mit L = (1-l)CE - l I_C/log2(10), l in {0,.25,.5,.75,.9,1}, gegen fest id/haar. H1 Zielkonflikt trainierbar, H2a I(L100)>I(id), H2b acc(L0)>acc(haar). Holm.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-046). Seeds 2460-2469, Tuning 2479, 400 Adam-Schritte, I-038-Kopf fuer acc_inf. Freigabe Malte 07.10. Startet nach I-044-v3. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-046.",
+   "folgen": {}
   }
  ]
 }

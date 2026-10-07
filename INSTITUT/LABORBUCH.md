@@ -1489,3 +1489,13 @@ Anlass: I-044-v2 (Ks − Klin +0,83 pp) lief nur 4 Epochen. Die Literatur (`rech
 - **Hypothesen (Holm über H1, H2; gepaarter einseitiger t, n = 8):** H1 Ks − Klin > 0 bei 24 Epochen; H2 Ks − Kklein > 0 bei 24 Epochen (STRUKTUR_HAELT | H0 | HU). H3 (nicht in Holm, zweiseitig): Trend (Ks − Klin)₂₄ − (Ks − Klin)₄ (SCHRUMPFT | WAECHST | HU). NK: Ks permutiert, 4 Epochen, Band (0,05; 0,15).
 - **Seeds 2350–2357 (8, frisch).** Erwartung vorab: H3 SCHRUMPFT, H1 offen.
 - Vortest bestanden, Rauchtest nur auf Tuning-Seed 2399 (kleine Daten). **Freigabe Malte 07.10.**
+
+## 07.10.2026 — I-046 „Pareto-Front Genauigkeit × Information pro Schuss“: VORREGISTRIERUNG (vor jeder Zahl auf Mess-Seeds)
+Anlass: I-040-v2 H4 (feste Mischung: Genauigkeit gegen Information pro Schuss) und `recherche/2026-10-07_volltext_2.md` Teil B. Sbaiz u. a. 2021 trainieren nur auf ein Ziel, Hu u. a. 2023 trainieren die Schaltung nicht. Eine Pareto-Front mit λ-Reihe wurde nicht gefunden (Urteil: neue Verbindung). Modul `abteilungen/pareto_schuss.py`, Quantenstufe Q2, Wirkung klassisch erklärbar.
+- **Arme:** id, haar (fest) · L0, L25, L50, L75, L90, L100: gelernte Orthogonale U = exp(A − Aᵀ), Start Identität, Verlust (1 − λ)·CE(Kopf) − λ·I_C/log₂10, 400 Adam-Schritte Vollbatch. Lernrate je λ auf Tuning-Seed 2479 (gittersuche_stabil, Kriterium (1 − λ)·acc + λ·I_C/log₂10 auf Validierung).
+- **Messung:** acc_inf mit dem I-038-Kopf (L2 3e-3, L-BFGS 500), I_C aus Test-Klassenmitteln (wie I-040-v2), beschreibend acc bei S = 30/100.
+- **Hypothesen (Holm über H1, H2a, H2b; exakter Wilcoxon einseitig, 10 Seeds):** H1 I_C(L100) > I_C(L0) UND acc(L0) > acc(L100) (ZIELKONFLIKT_TRAINIERBAR) · H2a I_C(L100) > I_C(id) (INFO_UEBER_FEST) · H2b acc(L0) > acc(haar) (GENAUIGKEIT_UEBER_FEST). Je Ja | H0 | HU. Beschreibend: Front, Anteil Seeds, in denen ein gelernter Arm BEIDE festen dominiert.
+- **Kontrollen:** PK acc(id) ≥ 0,85 (sonst H2b HU). NK: L50 mit permutierten Labels in Training, Kopf und I_C-Messung: I_C < 0,03 Bit und acc ≤ 0,15 (sonst alles HU). Die NK war in der ersten Fassung falsch gebaut: I_C wurde mit echten Testlabels gemessen und ist dann auch für eine nutzlose U > 0. Korrigiert vor jeder Messzahl.
+- **Seeds 2460–2469, Tuning 2479.**
+- **Offenlegung Rauchtest (nur Tuning-Seed 2479, 1.500 Bilder):** Alle gelernten Arme lagen bei 92–94 % mit I_C 0,21–0,62 Bit, L100 sogar am genauesten. Ein Zielkonflikt zwischen den gelernten Armen war dort nicht zu sehen, alle λ > 0 dominierten beide festen. Daher die ehrliche Erwartung: **H1 eher H0 oder HU, H2a/H2b eher ja.** Der mögliche Befund wäre dann „der Zielkonflikt der festen Mischungen ist durch Lernen auflösbar“. Kriterien bleiben unverändert.
+- **Freigabe Malte 07.10.** Start nach I-044-v3.
