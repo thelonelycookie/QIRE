@@ -553,6 +553,16 @@
    "frage": "Strukturschicht auf CIFAR-10: tiefer und im CNN. Schliesst man die -6 pp Luecke (I-042: dicht 55,3 vs. Struktur 49,1 bei N=16k) durch (a) mehrere Fastfood-Schichten hintereinander (Teil 1, MLP N=4096: A, A2, S1/S2/S3 mit trainierten Diagonalen; H1 S3 >= A-1pp, H2 S3-S1>0) oder (b) Struktur in einem kleinen CNN (Teil 2: Kd/Ks Kopfschicht, H3 Ks >= Kd-1pp bei >=10x weniger Kopfparametern; Kcd/Kcs Kanalmischung, H4 Kcs >= Kcd-1pp)?",
    "notiz": "Vorregistrierung LABORBUCH.md 06.10.2026 (I-044). Seeds 2300-2304, Tuning 2399. Profil standard (4 Epochen) fest, Fallback (3 Epochen) per I044_PROFIL=fallback. Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-044.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044.",
    "folgen": {}
+  },
+  {
+   "id": "I-045",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_sprache",
+   "prioritaet": 1,
+   "frage": "Strukturschicht im kleinen Sprachmodell (Container): ersetzt eine Fastfood-FFN (trainierte Diagonalen, O(N)) die dichten FFN-Matrizen eines 4-lagigen Decoder-Transformers (d=256, Byte-Ebene, deutscher Text UD_German-GSD)? Arme D dicht, S Fastfood gleicher Breite, Sb Fastfood 4x breit, L niedriger Rang (Budget wie S), Sz (S mit z^2, Nebenarm). H1 Sb <= D + 0,02 bpc bei weniger FFN-Parametern; H2 S < L; H3 Sb schneller als D (Inferenz je Token).",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-045). Seeds 2400-2404, Tuning 2499. Profil standard (1000 Schritte, Batch 8x128) fest, Fallback (600) per I045_PROFIL=fallback. Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-045.json. Geschaetzt ca. 1,4 h bei 4 Prozessen. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045.",
+   "folgen": {}
   }
  ]
 }

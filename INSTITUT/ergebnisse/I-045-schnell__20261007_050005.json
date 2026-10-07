@@ -1,0 +1,301 @@
+{
+ "abteilung": "Struktur",
+ "modul": "struktur_sprache",
+ "karte": "I-045",
+ "version": 1,
+ "profil": "standard",
+ "hypothesen": {
+  "H1": "Sb <= D + 0,02 bpc (Nichtunterlegenheit, einseitig gepaart t, Holm H1-H3) UND weniger FFN-Parameter als D. NICHT_UNTERLEGEN | H0 (Sb sicher um mehr als 0,02 bpc schlechter) | HU.",
+  "H2": "S < L bei gleichem Budget (kleiner bpc; einseitig gepaart t, Holm). S_BESSER | H0 (L sicher besser) | HU.",
+  "H3": "Sb schneller als D (Inferenzzeit je Token, 1 Thread, gepaart log-Verhaeltnis je Seed, einseitig, Holm). SCHNELLER | H0 (sicher langsamer) | HU.",
+  "NK": "Negativkontrolle (D, Sb mit permutierten Trainingsbytes): mittlerer Test-bpc >= 0.9 x Unigramm-Entropie des Tests. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+  "B": "beschreibend: bpc je Arm, Parameter, Zeiten, Lernraten, Sz gegen S, Sb gegen D, S gegen D, Trainingszeit."
+ },
+ "folgefragen": {
+  "H1 NICHT_UNTERLEGEN": "Struktur-FFN traegt im Sprachmodell: groesseres Modell/laengeres Training, dann Parameter- und Zeitvergleich bei gleicher Qualitaet.",
+  "H1 H0": "FFN im Transformer braucht dichte Matrizen: Struktur nur in Randschichten (Einbettung/Kopf) oder als Zusatz testen.",
+  "H3 SCHNELLER": "Zeitgewinn schon bei d=256: Skalierung auf d=1024 messen.",
+  "H3 H0": "Fastfood ist bei kleinem d auf der CPU langsamer als BLAS: Gewinn nur in Parametern, nicht in Zeit; Zeit erst bei grossem d erwartbar."
+ },
+ "seeds": [
+  2499
+ ],
+ "tuning_seed": 2499,
+ "tuning": {
+  "Sb": {
+   "lr": 0.0015,
+   "am_rand": false,
+   "abgestuft": 0,
+   "gitter": {
+    "0.0005": 0.35415623742010816,
+    "0.0015": 0.4241011392849102,
+    "0.0045": 0.4223320656807017
+   }
+  },
+  "Sz": {
+   "lr": 0.0015,
+   "am_rand": false,
+   "abgestuft": 0,
+   "gitter": {
+    "0.0005": 0.3411307409836948,
+    "0.0015": 0.42229452432491343,
+    "0.0045": 0.4202107115500926
+   }
+  },
+  "D": {
+   "lr": 0.0045,
+   "am_rand": false,
+   "abgestuft": 0,
+   "gitter": {
+    "0.0005": 0.361074045729347,
+    "0.0015": 0.41846834166478475,
+    "0.0045": 0.41956467373648487,
+    "0.013499999999999998": 0.4119080443384395
+   }
+  },
+  "L": {
+   "lr": 0.0045,
+   "am_rand": false,
+   "abgestuft": 0,
+   "gitter": {
+    "0.0005": 0.3563758564316769,
+    "0.0015": 0.41764451746831843,
+    "0.0045": 0.41918780242089426,
+    "0.013499999999999998": 0.41576612841536154
+   }
+  },
+  "S": {
+   "lr": 0.0015,
+   "am_rand": false,
+   "abgestuft": 1,
+   "gitter": {
+    "0.0005": 0.3502039942067804,
+    "0.0015": 0.4214688874859046,
+    "0.0045": 0.42345494859783506,
+    "0.013499999999999998": 0.41303348788615224
+   }
+  }
+ },
+ "einstellungen": {
+  "schritte": 20,
+  "nk_schritte": 10,
+  "batch": 8,
+  "kontext": 128,
+  "d": 256,
+  "lagen": 4,
+  "breite": {
+   "D": 1024,
+   "S": 1024,
+   "Sb": 4096,
+   "L": 1024,
+   "Sz": 1024
+  },
+  "lr_gitter": [
+   0.0005,
+   0.0015,
+   0.0045
+  ],
+  "daten_bytes": [
+   100000,
+   8192,
+   8192
+  ]
+ },
+ "zwischendatei": "/home/user/QIRE/INSTITUT/ergebnisse/_zwischen_I-045-schnell.json",
+ "zeilen": [
+  {
+   "teil": "mess",
+   "arm": "D",
+   "seed": 2499,
+   "bpc": 4.65110929268585,
+   "instabil": false,
+   "sekunden_training": 4.7391016483306885,
+   "zeit_je_token": 5.921842578127112e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "S",
+   "seed": 2499,
+   "bpc": 4.6355964794170905,
+   "instabil": false,
+   "sekunden_training": 4.803400993347168,
+   "zeit_je_token": 6.197159082022008e-05
+  },
+  {
+   "teil": "nk",
+   "arm": "D",
+   "seed": 2499,
+   "bpc": 4.678120025187225,
+   "instabil": false,
+   "sekunden_training": 2.271761655807495
+  },
+  {
+   "teil": "nk",
+   "arm": "Sb",
+   "seed": 2499,
+   "bpc": 4.866963003417019,
+   "instabil": false,
+   "sekunden_training": 9.280893087387085
+  },
+  {
+   "teil": "mess",
+   "arm": "Sz",
+   "seed": 2499,
+   "bpc": 4.629856779565096,
+   "instabil": false,
+   "sekunden_training": 4.785032510757446,
+   "zeit_je_token": 5.9497831054633465e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "L",
+   "seed": 2499,
+   "bpc": 4.653162033928414,
+   "instabil": false,
+   "sekunden_training": 2.521251916885376,
+   "zeit_je_token": 3.120911694334816e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "Sb",
+   "seed": 2499,
+   "bpc": 4.612118958495041,
+   "instabil": false,
+   "sekunden_training": 14.117769241333008,
+   "zeit_je_token": 0.00017321222460942032
+  }
+ ],
+ "sekunden": 68.3552610874176,
+ "auswertung": {
+  "arme": {
+   "D": {
+    "mittel": 4.65110929268585,
+    "std": 0.0,
+    "min": 4.65110929268585,
+    "max": 4.65110929268585,
+    "n": 1
+   },
+   "S": {
+    "mittel": 4.6355964794170905,
+    "std": 0.0,
+    "min": 4.6355964794170905,
+    "max": 4.6355964794170905,
+    "n": 1
+   },
+   "Sb": {
+    "mittel": 4.612118958495041,
+    "std": 0.0,
+    "min": 4.612118958495041,
+    "max": 4.612118958495041,
+    "n": 1
+   },
+   "L": {
+    "mittel": 4.653162033928414,
+    "std": 0.0,
+    "min": 4.653162033928414,
+    "max": 4.653162033928414,
+    "n": 1
+   },
+   "Sz": {
+    "mittel": 4.629856779565096,
+    "std": 0.0,
+    "min": 4.629856779565096,
+    "max": 4.629856779565096,
+    "n": 1
+   }
+  },
+  "kollaps": {
+   "D": [],
+   "S": [],
+   "Sb": [],
+   "L": [],
+   "Sz": []
+  },
+  "negativ": {
+   "mittel": 4.772541514302121,
+   "n": 2
+  },
+  "diff": {
+   "H1": {
+    "n": 1
+   },
+   "H2": {
+    "n": 1
+   },
+   "H3": {
+    "n": 1
+   }
+  },
+  "p_holm": {},
+  "parameter": {
+   "D": {
+    "ffn": 2102272,
+    "gesamt": 3257856
+   },
+   "S": {
+    "ffn": 21504,
+    "gesamt": 1177088
+   },
+   "Sb": {
+    "ffn": 82944,
+    "gesamt": 1238528
+   },
+   "L": {
+    "ffn": 25600,
+    "gesamt": 1181184
+   },
+   "Sz": {
+    "ffn": 21504,
+    "gesamt": 1177088
+   }
+  },
+  "beschreibend": {
+   "Sb - D (bpc, negativ = Sb besser)": {
+    "n": 1
+   },
+   "S - D (bpc, negativ = S besser)": {
+    "n": 1
+   },
+   "Sz - S (bpc, negativ = Sz besser)": {
+    "n": 1
+   }
+  },
+  "unigramm_bpc": 4.625619601771299,
+  "zeit_je_token_mittel": {
+   "D": 5.921842578127112e-05,
+   "S": 6.197159082022008e-05,
+   "Sz": 5.9497831054633465e-05,
+   "L": 3.120911694334816e-05,
+   "Sb": 0.00017321222460942032
+  },
+  "training_s_mittel": {
+   "D": 4.7391016483306885,
+   "S": 4.803400993347168,
+   "Sz": 4.785032510757446,
+   "L": 2.521251916885376,
+   "Sb": 14.117769241333008
+  }
+ },
+ "zeitmessung_einzelprozess_s_je_token": {
+  "D": 6.633502636710364e-05,
+  "S": 0.00010410234863278411,
+  "Sb": 0.0003832686396484375,
+  "L": 3.301474169922769e-05,
+  "Sz": 5.5378045898391015e-05
+ },
+ "zeitverhaeltnis_D_durch_arm": {
+  "D": 1.0,
+  "S": 0.6372097002450653,
+  "Sb": 0.17307710442459123,
+  "L": 2.0092547435758195,
+  "Sz": 1.1978578386246557
+ },
+ "urteil": {
+  "NK": "BESTANDEN (Mittel permutiert D/Sb: 4.773 bpc; Unigramm 4.626; Schwelle 0.9x)",
+  "H1": "HU (Arme fehlen oder zu wenige Seeds)",
+  "H2": "HU (Arme fehlen oder zu wenige Seeds)",
+  "H3": "HU (Arme fehlen oder zu wenige Seeds)",
+  "B": "beschreibend: Test-bpc D 4,6511, S 4,6356, Sb 4,6121, L 4,6532, Sz 4,6299; Rest in auswertung",
+  "B-Zeit": "beschreibend: Zeit/Token Inferenz (Einzelprozess, 1 Thread), Verhaeltnis D/Arm: D 1.00, S 0.64, Sb 0.17, L 2.01, Sz 1.20"
+ }
+}
