@@ -383,7 +383,7 @@
   {
    "id": "T-ternaer",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.ternaer",
    "prioritaet": 1,
    "frage": "Ist die Clifford-gerundete QIRE-Zelle (multiplikationsfrei in der Schaltung) bei gleichem Budget mindestens gleich gut wie eine ternaere 256x256-Schicht (BitNet b1.58, arXiv:2402.17764, Gewichte {-1,0,+1}·gamma)? MNIST 16x16, 8 Qubits.",
@@ -425,7 +425,7 @@
   {
    "id": "T-ternaer-butterfly",
    "abteilung": "Clifford",
-   "status": "wartet",
+   "status": "offen",
    "prioritaet": 1,
    "frage": "Gleiche Struktur, ternaere Parameter: Zelle mit Butterfly-Struktur (8 Qubits x 4 Lagen, 2x2-Bloecke) deren Eintraege ternaer {-1,0,+1}·gamma statt Ry-Winkel sind. Liegt der Unterschied an der Clifford-/Rotationsgeometrie oder an der Parameterzahl?",
    "notiz": "Freigeschaltet bei T-1:H0. Modul noch nicht gebaut; Vergleich bei GLEICHER Parameterzahl (32 Bloecke).",
