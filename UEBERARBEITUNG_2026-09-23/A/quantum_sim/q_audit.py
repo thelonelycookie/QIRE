@@ -770,6 +770,47 @@ def check_t006() -> List[Tuple[str, bool, str]]:
     return out
 
 
+def check_t007() -> List[Tuple[str, bool, str]]:
+    """T-007 (I-043, Fastfood-Adapter). VOR dem Lauf: 'noch nicht gerechnet'. NACH dem Lauf prueft dies die
+    Struktur der Rohdaten (Positivkontrolle, Parameterzahlen, 8 Seeds, Parametergleichheit ff_adapter == lora_r1,
+    Tuning-Rohdaten vorhanden, Randvermerk unabhaengig nachgerechnet); die Tagebuchzahlen (Mittel je Arm,
+    H1-H3-Urteile) sind beim Eintrag der Ergebnisse HIER zu ergaenzen (Platzhalter TAGEBUCH_T007)."""
+    try:
+        payload = load("T-007")
+    except Exception:                                  # noqa: BLE001 -- keine Rohdaten
+        return [("T-007 noch nicht gerechnet", True, "keine Rohdaten, nichts zu pruefen")]
+    rec, cfg = payload["records"], payload["config"]
+    from .chatbot_fastfood import POS_SOLL, POS_TOL, rand_aus_tuning
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    arme = ("basis", "qire_L10", "lora_r1", "ff_adapter", "ff_adapter_breit")
+    b, q, lo, ff, fb = (m(a) for a in arme)
+    out.append((f"Positivkontrolle qire_L10 = {POS_SOLL} +- {POS_TOL}",
+                bool(len(q)) and abs(float(q.mean()) - POS_SOLL) <= POS_TOL, f"Rohdaten {q.mean() if len(q) else float('nan'):.4f}"))
+    for arm, n in (("qire_L10", 1920), ("lora_r1", 30720), ("ff_adapter", 30720), ("ff_adapter_breit", 61440)):
+        t = next((int(r["trainierbar"]) for r in rec if r["arm"] == arm), -1)
+        out.append((f"trainierbar {arm}", t == n, f"Vorregistrierung {n} | Rohdaten {t}"))
+    out.append(("Parametergleichheit ff_adapter == lora_r1",
+                next((r["trainierbar"] for r in rec if r["arm"] == "ff_adapter"), -1)
+                == next((r["trainierbar"] for r in rec if r["arm"] == "lora_r1"), -2), "30.720 == 30.720"))
+    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, q, lo, ff, fb)), f"{[len(x) for x in (b, q, lo, ff, fb)]}"))
+    out.append(("alle Werte endlich", all(np.isfinite(x).all() for x in (b, q, lo, ff, fb)), "keine NaN/inf"))
+    out.append(("Tuning-Rohdaten in config['tuning'] (Lehre T-006)", len(cfg.get("tuning", {})) >= 20,
+                f"{len(cfg.get('tuning', {}))} Zellen"))
+    for arm in ("ff_adapter", "ff_adapter_breit"):
+        best, rand, _ = rand_aus_tuning(cfg.get("tuning", {}), arm)
+        gesp = cfg.get("lr", {}).get(arm, {})
+        out.append((f"lr {arm}: Rohdaten-Optimum == gespeichert, Rand '{gesp.get('rand')}' == nachgerechnet '{rand}'",
+                    best is not None and abs(np.log10(best / float(gesp.get("lr", 1e-99)))) < 1e-6
+                    and rand == gesp.get("rand") and rand == "innen", f"Optimum {best}, Rand {rand}"))
+    # TAGEBUCH_T007: Mittel je Arm und H1-H3 nach Eintrag der Ergebnisse hier ergaenzen
+    return out
+
+
 CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-003-replication": check_q003,
     "Q-011 (dritter Anlauf, gerettet)": check_q011,
@@ -782,6 +823,7 @@ CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "T-004": check_t004,
     "T-005": check_t005,
     "T-006": check_t006,
+    "T-007": check_t007,
     "Randlagen (Regel 1b, Tagebuch 27.08.)": check_randlagen,
     "T-000": check_t000,
     "T-001": check_t001,

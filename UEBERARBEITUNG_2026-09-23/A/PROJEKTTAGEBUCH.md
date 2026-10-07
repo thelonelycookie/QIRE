@@ -5246,6 +5246,22 @@ Auflösung bestanden: lora_r1 − basis = −0,2730, p = 0,0078.
 - Das Wurzelgesetz-Urteil hängt an einem Potenzgesetz-Modell mit nur drei Punkten.
 - Ein Verlust ist keine Chatqualität.
 
+## 7. Oktober — T-007 (Institut I-043) „Fastfood-Adapter im Sprachmodell“: VORREGISTRIERUNG (vor jeder Zahl)
+
+Modul `quantum_sim/chatbot_fastfood.py`, Entwurf `ENTWURF_T007_FASTFOOD_ADAPTER.md`. Vortest ohne Modell bestanden
+(Fastfood gegen explizite Matrix, Parametergleichheit, Mini-Llama, 26 Szenarien, 8 Mutationen). **Kein Seed gerechnet;
+der Lauf wartet auf Maltes Freigabe.**
+- **Frage:** Schließt ein Fastfood-Adapter (ΔW = c·H D₂ H D₁, trainierte Diagonalen, O(d), Init ΔW = 0) bei **exakt gleicher
+  Parameterzahl wie LoRA r=1 (30.720)** die Lücke, die der sättigende QIRE-Adapter in T-006 ließ?
+- **Arme:** basis, qire_L10 (Positivkontrolle 2,4111 ± 0,003), lora_r1, ff_adapter (30.720), ff_adapter_breit (61.440, vier Stufen).
+- **Seeds:** Messung 70001–70008, Tuning 70401/70402; 300 Schritte; lr: qire_L10 und lora_r1 aus T-005 (1e-3), ff-Arme getunt
+  mit Gitter 1e-4…1e-2 (5 Punkte) und Verlängerung ×3/÷3, **Tuningzellen kommen in die Rohdaten**, Randvermerk wird aus ihnen nachgerechnet.
+- **Hypothesen (Holm über 3):** H1 ff_adapter − lora_r1 (zweiseitig + TOST ±20 % des LoRA-Gewinns), H2 ff_adapter < qire_L10
+  (einseitig; nicht parametergleich), H3 ff_adapter_breit < ff_adapter (einseitig).
+- **Laufzeit:** ≈ 6,3 h ungestört, 7–9 h mit Störungen (ff-Zeiten sind Annahmen, `zeit` misst sie).
+- **Start (PC):** `.\py.cmd -m quantum_sim.chatbot_fastfood vortest`, dann `... lauf *> results\T-007_run.log`.
+- Ehrlichkeit: Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der

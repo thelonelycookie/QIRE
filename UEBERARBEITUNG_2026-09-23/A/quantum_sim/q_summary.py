@@ -79,6 +79,8 @@ QUESTIONS: Dict[str, str] = {
               "kommt L=10 an LoRA heran, und ergaenzt QIRE ein LoRA?"),
     "T-006": ("Chatbot: wie waechst der Gewinn des QIRE-Adapters von L=10 ueber 20 "
               "auf 40 Lagen (Monotonie, Form gegen sqrt(L)), und kommt L=40 an LoRA heran?"),
+    "T-007": ("Chatbot: schlaegt oder erreicht ein Fastfood-Adapter (H D2 H D1, O(d) Diagonalen) "
+              "bei GLEICHER Parameterzahl (30.720) LoRA r=1, und liegt er vor dem QIRE-Adapter?"),
     "T-002": "Haelt die Struktur in einem Sprachmodell auf deutschem Text?",
 }
 # T-001 steht hier, obwohl es kein Q-Lauf ist: Der Zweck dieses Werkzeugs ist,
