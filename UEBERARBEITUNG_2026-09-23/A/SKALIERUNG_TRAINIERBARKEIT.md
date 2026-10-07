@@ -76,3 +76,68 @@ der billig zu beheben ist. Vorgeschlagener Folgetest **S1b** (billig, kein Train
 messung mit (i) Ring nur *zwischen* den Lagen, nicht vor der Auslese, (ii) Kette statt Ring, (iii)
 echte Bildeingaben statt Zufallsvektoren (Zufallsvektoren sind selbst schon „konzentriert“). Erwartung:
 (i)/(ii) verschieben die trainierbare Breite um mehrere Qubits. Skripte: `skalierung/dla*.py`.
+
+---
+
+## S1b: CNOT-Varianten x Eingabe (Folgetest, 07.10.)
+
+Skript `skalierung/s1b.py` (Rohdaten `skalierung/s1b_ergebnis.json`, Log `s1b_log.txt`). Methode wie `dla.py`: Var von d<Z_0>/dtheta per Parameter-Shift an Ry auf Qubit 0, n = 2..10, L = 1, 3, 5, 200 Stichproben, Winkel gleichverteilt, Fit log2 Var = c - a n. Neu: Bootstrap-95 %-Intervall fuer a (1000 Ziehungen mit Zuruecklegen der 200 Gradienten je n). Gemessen werden zwei Parameter: **letzt** = Ry q0 der letzten Lage (der Parameter, der in V0 exakt null ist), **erst** = Ry q0 der ersten Lage. Bei L=1 sind beide dasselbe. Theta und Eingaben sind fuer alle Varianten gleich (gepaart). V0 reproduziert `ButterflyQuantumLayer.forward` bis zur letzten Stelle (geprueft). Eine Kontrolle: Die Kette V2/V3 liefert fuer <Z_0> exakt dieselben Werte (Qubit 0 ist in der Kette nur Kontrolle, Z_0 kommutiert mit jedem CNOT, der q0 als Kontrolle hat), V3 ist hier also keine eigene Messung, nur die Bestaetigung.
+
+Varianten: V0 Ring nach jeder Lage; V1 Ring nur zwischen den Lagen; V2 Kette (q -> q+1, q = 0..n-2) nach jeder Lage; V3 V1 + V2. Eingaben: (a) Zufallsvektor, normiert; (b) MNIST (200 zufaellige Bilder je n), 2D-Flaeche per Flaechenmittelung (n <= 9, z. B. 16x16 fuer n=8) bzw. bilinear (n=10: 32x32) auf 2^ceil(n/2) x 2^floor(n/2) gebracht, flach, normiert.
+
+### Ergebnis (a mit 95-%-Bootstrap-KI; Var bei n=8 und n=10; Nullanteil = Anteil der Stichproben mit |g| < 1e-6, gemittelt ueber n=2..10)
+
+| Eingabe | Variante | Parameter | L | a [KI] | Var(n=8) | Var(n=10) | Nullanteil |
+|---|---|---|---|---|---|---|---|
+| Zufall | V0 | erst | 3 | 1,01 [0,97; 1,04] | 1,8e-3 | 4,4e-4 | 0 |
+| Zufall | V0 | erst | 5 | 1,06 [1,02; 1,09] | 1,9e-3 | 4,5e-4 | 0 |
+| Zufall | V0 | letzt | 3, 5 | (Rauschen, ca. 1e-15) | 7e-16 | 6e-16 | **1,00** |
+| Zufall | V0 | L=1 | 1 | (Rauschen) | 7e-16 | 6e-16 | **1,00** |
+| Zufall | V1 | L=1 | 1 | 0,95 [0,92; 0,99] | 8,8e-3 | 1,9e-3 | 0 |
+| Zufall | V1 | letzt | 3 | 0,96 [0,92; 1,00] | 3,9e-3 | 1,1e-3 | 0 |
+| Zufall | V1 | letzt | 5 | 0,99 [0,96; 1,02] | 3,5e-3 | 9,1e-4 | 0 |
+| Zufall | V2 = V3 | letzt | 3 | 0,94 [0,91; 0,98] | 4,2e-3 | 1,4e-3 | 0 |
+| Zufall | V2 = V3 | letzt | 5 | 0,97 [0,94; 1,01] | 4,6e-3 | 1,1e-3 | 0 |
+| MNIST | V0 | erst | 3 | 0,98 [0,94; 1,01] | 1,9e-3 | 5,3e-4 | 0 |
+| MNIST | V0 | erst | 5 | 1,01 [0,97; 1,05] | 1,6e-3 | 4,4e-4 | 0 |
+| MNIST | V0 | letzt / L=1 | 1, 3, 5 | (Rauschen, ca. 1e-15) | 6e-16 | 6e-16 | **1,00** |
+| MNIST | V1 | L=1 | 1 | 0,36 [0,33; 0,39] | 5,5e-2 | 4,7e-2 | 0 |
+| MNIST | V1 | letzt | 3 | 0,67 [0,62; 0,72] | 8,8e-3 | 5,3e-3 | 0 |
+| MNIST | V1 | letzt | 5 | 0,92 [0,89; 0,96] | 4,0e-3 | 1,4e-3 | 0 |
+| MNIST | V2 = V3 | L=1 | 1 | 0,36 [0,33; 0,38] | 5,5e-2 | 4,7e-2 | 0 |
+| MNIST | V2 = V3 | letzt | 3 | 0,27 [0,23; 0,30] | 5,8e-2 | 5,3e-2 | 0 |
+| MNIST | V2 = V3 | letzt | 5 | 0,35 [0,32; 0,39] | 3,5e-2 | 2,6e-2 | 0 |
+
+Weitere Zeilen (erster Parameter in V1..V3, L=3, 5) liegen alle in `s1b_log.txt`; sie weichen nicht qualitativ ab (Zufall: a = 0,96 bis 1,06; MNIST V1 erst: 0,77 (L=3), 0,96 (L=5); MNIST V2/V3 erst: 0,30 (L=3), 0,36 (L=5)). Die a-Werte der V0-"letzt"-Zeilen (0,2 bis 0,3) sind Fits an Rauschen von 1e-15 und bedeuten nichts.
+
+### Lesart
+
+1. **Nullgradient ist reiner Ring-Effekt, und weg.** V0: Ry q0 der letzten Lage hat in 100 % der Stichproben Gradient null (beide Eingaben, alle n, L). V1, V2, V3: 0 %. Die Kosten der Korrektur sind null Parameter und null Gatter (eher eines weniger).
+2. **Hypothese 1 (V1/V3 haben kleineres a als V0): fuer Zufallsvektoren nein.** a bleibt 0,94 bis 1,06 in allen Varianten (KIs ueberlappen mit V0, V0-erst = 1,01/1,06). Die Varianz bei n=10 steigt bei V1/V2 gegenueber V0-erst allenfalls um den Faktor 2 bis 3 (9e-4 bis 1,4e-3 gegen 4,5e-4), die Steigung nicht. Grund (Deutung, nicht separat geprueft, aber mit V1 L=1 vertraeglich): V1 mit L=1 hat gar kein CNOT und liefert trotzdem a = 0,95. Bei Zufallsvektor sitzt die Konzentration in der **Eingabe**: das Randmoment von Qubit 0 eines Zufallszustands fluktuiert mit 2^(-n/2), so schon in der Varianz 2^(-n). Der Ring ist hier nicht die Ursache von a = 1. Das revidiert die Lesart in Abschnitt 3/Bewertung Opus teilweise: Der Ring erzeugt die exakten Nullen, aber nicht den Abfall. Der Befund "a ca. 1" gilt fuer Zufallseingaben und ist durch die Architekturaenderung nicht verschiebbar.
+3. **Hypothese 1 fuer echte Bilder: ja, deutlich.** MNIST V0: a = 0,98 bis 1,01. MNIST V2/V3 (Kette): a = 0,27 bis 0,36 [KI ca. +-0,04], Varianz bei n=10 etwa 2,6e-2 bis 5,3e-2 gegen 4,4e-4 bei V0: Faktor 60 bis 120. Extrapoliert (nur Fit-Fortsetzung, nicht gemessen): bei a = 0,3 Std ca. 0,2 bei n=10, ca. 0,09 bei n=20 gegen 6e-4 (a=1). V1 (Ring zwischen den Lagen) ist dazwischen und von L abhaengig: a = 0,36 (L=1, ohne CNOT), 0,67 (L=3), 0,92 (L=5): Der Ring zwischen den Lagen mischt die Bildstruktur mit wachsender Tiefe weg, die Kette nicht. Mit V1 bei L=5 ist der Gewinn gegenueber V0 nur noch ein Faktor 3 in der Varianz (Var10 1,4e-3), die Steigung bleibt 0,92 [0,89; 0,96].
+4. **Hypothese 2 (echte Bilder haben groessere Varianz als Zufallsvektoren): nur fuer V1 bei kleinem L und fuer V2/V3.** Bei V0 sind Bilder und Zufall gleich (Var10 4,4e-4 gegen 4,5e-4, a = 1,0). Bei V2/V3 ist die Varianz mit Bildern 25- bis 50-mal groesser bei n=10 (2,6e-2 gegen 1,1e-3). Warum, ist nicht ausgemessen; eine naheliegende Deutung ist, dass Bildvektoren (alle Pixel >= 0, grosse gemeinsame Komponente) nicht Haar-artig sind und eine Randverteilung von Qubit 0 behalten, die nicht gegen 1/2 konzentriert. Bei V0 zerstoert der Ring-Rueckweg diese Struktur, weil <Z_0> dort ein globaler Z-String ist.
+5. **Zusammen:** Kette (V2/V3) + Bilder ist die einzige Kombination mit a deutlich unter 1 (ca. 0,3). Alle anderen liegen bei ca. 1. Ob das beim Training hilft, ist offen: Eine grosse Gradientenvarianz ist nicht gleich ein lernbares Signal (siehe Grenzen).
+
+### Deutung fuer Q-020 (kurz)
+
+- **V1 ist eine andere Funktion als V0.** Zu klaeren war, ob das bei Q-020 zaehlt. Bei L=1 ist der CNOT-Ring eine Permutation der Basiszustaende nach den Rotationen. Die Born-Wahrscheinlichkeiten sind dieselben, nur umsortiert; die Auslese <Z_0> ist mit Ring ein Z-String in den umsortierten Wahrscheinlichkeiten, ohne Ring die Randverteilung von Bit 0. Fuer eine **Auslese, die alle Born-Werte nutzt** (volle Wahrscheinlichkeitsverteilung, lineare Auslese ueber alle 2^n Werte), aendert der Ring bei L=1 nichts, ausser der Reihenfolge, die ein lineares Gewicht ohnehin lernt: die Armfunktion ist dann dieselbe Funktionsklasse. Bei der <Z_q>-Auslese ist es nicht dieselbe Funktion (Z_q gegen Z-String), und fuer L>=2 steht der Ring zwischen den Rotationen und ist dann nicht mehr bloss Umsortierung: dort aendern V0 und V1 die Funktionenfamilie wirklich (nur die letzte Permutation faellt weg; bei volllinearer Auslese ist V1 = V0 mit umsortiertem Ausleseträger, also aequivalent, bei <Z_q> nicht).
+- **Folge fuer die Arme:** Die Nullgradient-Eigenschaft von V0 betrifft die <Z_q>-Arme (q=0 in der letzten Lage), nicht die lineare Auslese. Die Q-020-Arme mit <Z>-Auslese sollten, wenn sie V0 bleiben, mit der Einschraenkung gelesen werden, dass 1 von 2 Parametern/Qubit in der letzten Lage fuer q=0 (und analog fuer andere q) tot sein kann. Ein V1- oder V2-Arm als zusaetzliche Kontrolle ist billig (kein Parameter, keine Mehrkosten) und trennt "Ring-Artefakt" von "Architektur". Ich habe diese Arme nicht trainiert, und `q020_*` nicht angefasst.
+
+### Ehrliche Grenzen
+
+- Nur die Varianz **eines** Gradienten (Ry q0) wurde gemessen, nicht die Gesamtgradientennorm, und nur fuer die Auslese <Z_0>. Fuer <Z_q> mit q > 0 sind in V2/V3 die Kegel anders (Kette: q ist Ziel von q-1 und Kontrolle von q+1); das ist nicht gemessen, V2 = V3 gilt nur fuer q = 0.
+- 200 Stichproben je Punkt, Bootstrap beruecksichtigt nur die Stichprobenstreuung bei gegebenen Bildern und Winkeln, nicht Unterschiede zwischen Bildmengen. Die KIs sind also eher zu eng. Fit ueber n=2..10 (inkl. kleiner n, bei den Bildern stehen n=2..4 mit sehr grober Pixelzahl 4 bis 16): Die Steigungen fuer MNIST sind teils durch die Wahl der Verkleinerung bestimmt. Ein anderes Downsampling (z. B. Zentralausschnitt, Zeilenmittelung) wurde nicht ausprobiert und kann a verschieben.
+- Gemeinsamer Teil MNIST: Fuer n=10 wird das 28x28-Bild per bilinearer Interpolation auf 32x32 hochgerechnet (keine neue Information).
+- Gradientenvarianz ist eine Trainierbarkeits-Notwendigkeit, kein Beleg fuer Lernerfolg. Kein Training, keine Genauigkeit gemessen. Die Extrapolationen jenseits n=10 sind Fit-Fortsetzungen.
+- Die Deutung der Ursachen (Eingabekonzentration, nichtzentrierte Bildrandverteilung) ist eine Erklaerung, die zu den Zahlen passt (V1 L=1 ohne CNOT hat a=0,95), aber nicht durch eine eigene Ablationsmessung abgesichert ist.
+- Aufwand: 713 s CPU, 1 Thread (OMP_NUM_THREADS=1). Nichts committet.
+
+---
+**Bewertung Opus zu S1b (07.10.):** Meine Hypothese „Ring nur zwischen den Lagen hilft“ ist für
+Zufallseingaben **widerlegt** (a bleibt ≈ 1) und für Bilder nur schwach (Faktor ~3). Der eigentliche
+Befund ist die **Kette statt Ring auf echten Bildern**: a = 0,27–0,35 statt 1,0, bei n = 10 eine
+60–120-fach größere Gradientenvarianz. Der Abfall bei Zufallseingaben liegt in der Eingabe selbst
+(Konzentration), nicht in der Schaltung. Grenzen: nur ein Gradient, kein Training. Gradientenvarianz ≠
+Genauigkeit. **Nächster Schritt S1c** (wenn Q-020 die Kerne freigibt): Training Kette vs. Ring auf
+MNIST bei n = 8 und n = 10–12 (Bilder hochskaliert), gleiche Lernratensuche, vorregistriert:
+„Kette ist bei n ≥ 10 nicht schlechter und trainiert schneller“.
