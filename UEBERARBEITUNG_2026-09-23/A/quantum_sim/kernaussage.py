@@ -44,6 +44,17 @@ DIE ARME (Mittelschicht; Parameterzahl der Mittelschicht)
   linear          256 -> 8, keine Nichtlinearitaet        2.056  (Untergrenze)
   ohne_engstelle  keine 8-Kanal-Engstelle -- BESCHREIBEND (Obergrenze)
   norm_deep       die Kontrolle aus Q-003 -- nur (a), BESCHREIBEND (Anschluss an Q-003)
+  -- Ergaenzung 07.10.2026, nur Aufbau (b) (ohne Encoder kann nichts kompensieren): --
+  q5_linear       BORN-ABLATION: q5 (gleiche 80 Winkel, CNOT, gleiche Normierung),
+                  aber Auslese LINEAR in den Amplituden: <Z_q> = c * Summe_i z_q(i)
+                  * Re(psi_i) statt Summe_i z_q(i) * |psi_i|^2. c = sqrt(2/d)  80 Winkel
+  q5_frei         UNITARITAETS-ABLATION: wie q5 (Born, CNOT, 5 Lagen, Teilung ueber
+                  die Qubit-Ebene), aber jedes 2x2-Gatter eine FREIE reelle Matrix
+                  (4 Parameter je Qubit und Lage), keine Renormierung   160 Parameter
+                  (doppelt so viele wie q5 -- Vergleich daher nur beschreibend)
+  q5_ungeteilt    STRUKTUR OHNE WINKELTEILUNG: ButterflyQuantumLayer(8, 5, CNOT,
+                  tie_weights=False), BOFT-artig, je Amplitudenpaar eigene Winkel
+                  Ry/Rz: 5 Lagen * 8 Qubits * 128 Paare * 2 Winkel = 10.240 Parameter
 
   * Nachgerechnet in `pruefe_theorie()`: In einer einzigen Lage stehen die
     Rz-Winkel VOR der Messung (ohne CNOT) bzw. vor einer reinen
@@ -73,13 +84,37 @@ VORREGISTRIERUNG -- vor jeder Q-020-Zahl festgelegt (23. September 2026)
            GLEICHWERTIG / VERSCHRAENKUNG_SCHADET / UNENTSCHIEDEN.
   P3       (b) 128 Haufen: q5 gegen q1 -- traegt Tiefe bei (mit CNOT)?
            Ausgaenge: TIEFE_TRAEGT / GLEICHWERTIG / TIEFE_SCHADET / UNENTSCHIEDEN.
-  Holm ueber GENAU diese drei (Regel 4). Alles andere ist beschreibend.
+  Holm ueber GENAU diese drei (Regel 4) -- seit der Ergaenzung vom 07.10.2026
+  vier, siehe P4 unten. Alles andere ist beschreibend.
 
   RANGFOLGE DER ZWEIGE (wie in `zeitreihen.py`, dort begruendet): TOST vor
   Signifikanz. Ein Unterschied, der signifikant UND nachweislich kleiner als
   +-0,005 ist, heisst GLEICHWERTIG (mit Anmerkung). Davor stehen die
   Ausschluesse: HU_UNVOLLSTAENDIG, HU_AUFLOESUNG, HU_BODEN; im
   Gleichwertigkeitszweig zusaetzlich HU_DECKE (beide Arme > 0,95).
+
+  ERGAENZUNG 07.10.2026 -- vor jeder Q-020-Messzahl; bisher nur Piloten.
+  P4       (b) 128 Haufen: q5 gegen q5_linear -- traegt die Born-Regel (das
+           Quadrat der Auslese), wenn kein Encoder aushelfen kann? Ausgaenge:
+           BORN_TRAEGT / GLEICHWERTIG / BORN_SCHADET / UNENTSCHIEDEN, gleiche Logik
+           und gleiche Ausschlusszweige wie P2/P3 (TOST +-0,005 vor Signifikanz,
+           HU_UNVOLLSTAENDIG / HU_AUFLOESUNG / HU_BODEN / HU_DECKE).
+           Die Holm-Familie wird damit ("PRIMAER", "P2", "P3", "P4"), Groesse 4.
+           Begruendung: Quantum-PEFT (ICLR 2025) nutzt fast dieselbe Schaltung,
+           aber linear; die Born-Auslese ist QIREs einziger struktureller
+           Unterschied dazu.
+           ERWARTUNG VORHER: BORN_TRAEGT. Die lineare Auslese einer orthogonalen
+           Abbildung ist eine lineare Funktion der normierten Eingabe mit fester
+           Struktur; ohne Quadrat gibt es keine Nichtlinearitaet vor dem linearen
+           Kopf, der ganze Pfad ist (bis auf die Normierung) linear und kann hoechstens
+           so gut wie `linear` sein.
+  BESCHREIBEND (ohne Holm) dazu, in (b): q5 gegen q5_frei (traegt die
+           Orthogonalitaet?), q5 gegen q5_ungeteilt (traegt die Winkelteilung?),
+           q5_linear gegen linear (Einordnung der linearen Auslese).
+  SKALIERUNG von q5_linear (vor dem Lauf festgelegt, kein Tuning-Parameter):
+           c = sqrt(2/d) = 1/11,3, damit die Ausgaben bei zufaelliger Eingabe die
+           Groessenordnung der Born-Auslese haben (Begruendung und Zahlen bei
+           `LinearAuslese`).
 
   AUFLOESUNGSPRUEFUNG (Regel 6, urteilstragend): mlp muss sich von linear
   TRENNEN (Wilcoxon zweiseitig p<0,05), in (a) auf MNIST und in (b) auf der
@@ -129,7 +164,7 @@ from qire_ai.benchmark import set_seed
 from qire_ai.equivalence import MARGIN, holm, tost_paired
 from qire_ai.result_store import RESULTS_DIR, Recorder
 
-from .butterfly_layer import ButterflyQuantumLayer
+from .butterfly_layer import (ButterflyQuantumLayer, apply_1q, cnot_permutation)
 from .frozen_angles import make_data as haufen_daten
 from .hybrid_final_control import QuadraticReadout
 
@@ -142,7 +177,9 @@ KANAELE = 8
 
 ARME_A = ("q1", "q1_ohne", "q5", "q5_ohne", "kron", "quad_free", "mlp",
           "linear", "ohne_engstelle", "norm_deep")
-ARME_B = ARME_A[:-1]                      # norm_deep nur als Anschluss an Q-003
+# norm_deep nur als Anschluss an Q-003; die drei Ablationen (Ergaenzung 07.10.2026)
+# nur in (b): in (a) koennte der Encoder ausgleichen.
+ARME_B = ARME_A[:-1] + ("q5_linear", "q5_frei", "q5_ungeteilt")
 SCHALTUNG = {"q1": (1, True), "q1_ohne": (1, False),
              "q5": (5, True), "q5_ohne": (5, False)}   # (Lagen, CNOT)
 
@@ -172,7 +209,7 @@ PILOT_ABSCHNITTE = ("mnist", f"haufen{HAUFEN_B}")
 PILOT_GITTER_A = (0.01, 0.1)
 PILOT_GITTER_B = (0.03, 0.1)
 
-FAMILIE = ("PRIMAER", "P2", "P3")
+FAMILIE = ("PRIMAER", "P2", "P3", "P4")
 BODEN_ABSTAND = 0.10
 SAETTIGUNG = 0.95
 
@@ -228,6 +265,66 @@ class KroneckerDrehung(nn.Module):
         return z_auslese(self.wahrscheinlichkeiten(x), self.n)
 
 
+# Skalierung der linearen Auslese. Bei zufaelliger Einheitsamplitude (Dimension d)
+# hat Summe_i z_q(i) |psi_i|^2 die Streuung ~ 1/sqrt(d) (Porter-Thomas), die lineare
+# Summe Summe_i z_q(i) Re(psi_i) bei komplexem psi die Streuung 1/sqrt(2). Gleiche
+# Groessenordnung also mit c = sqrt(2/d) (d=256: 0,088). Numerisch geprueft in
+# `pruefe_theorie()` (Streuungsverhaeltnis Born : linear durch die echte Schaltung).
+SKALA_LINEAR = math.sqrt(2.0 / DIM)
+
+
+class LinearAuslese(ButterflyQuantumLayer):
+    """BORN-ABLATION (q5_linear): dieselbe Schaltung wie q5 -- dieselben Winkel,
+    dieselbe Normierung der Eingabe, dieselbe Zustandsentwicklung (`_zustand`),
+    keine zusaetzlichen Parameter --, aber die Auslese ist LINEAR in den
+    Amplituden:
+        <Z_q>_lin = c * Summe_i z_q(i) * Re(psi_i),   c = sqrt(2/d),
+    z_q(i) = +1 wenn Bit q von i = 0 (Qubit 0 = hoechstwertiges Bit), sonst -1.
+    Kein Quadrat, keine Born-Regel."""
+
+    def auslese(self, state: torch.Tensor) -> torch.Tensor:
+        return SKALA_LINEAR * z_auslese(state.real, self.n)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.auslese(self._zustand(x))
+
+
+class FreiButterfly(nn.Module):
+    """UNITARITAETS-ABLATION (q5_frei): Struktur wie q5 -- 5 Lagen, auf jedem
+    Qubit je Lage EIN Gatter fuer alle Amplitudenpaare der Ebene, danach der
+    CNOT-Ring als Permutation --, aber jedes 2x2-Gatter ist eine FREIE reelle
+    Matrix (4 Parameter je Qubit und Lage, 160 statt 80). Init: zufaellige
+    Drehung R(t/2) (wie Ry) plus kleines Rauschen. Nicht mehr normerhaltend:
+    NACH JEDER LAGE WIRD NICHT RENORMIERT (nur die Eingabe wird einmal normiert),
+    Auslese = Born-Quadrate der reellen Amplituden, dann Z-Auslese wie gehabt.
+    Parameterzahl doppelt so hoch -> Vergleich mit q5 nur beschreibend."""
+
+    INIT_RAUSCHEN = 0.05
+
+    def __init__(self, n: int = QUBITS, lagen: int = 5):
+        super().__init__()
+        self.n, self.L = n, lagen
+        t = torch.rand(lagen, n) * 2 * math.pi
+        c, s = torch.cos(t / 2), torch.sin(t / 2)
+        drehung = torch.stack([torch.stack([c, -s], dim=-1),
+                               torch.stack([s, c], dim=-1)], dim=-2)   # (L, n, 2, 2)
+        self.gatter = nn.Parameter(drehung + self.INIT_RAUSCHEN * torch.randn(lagen, n, 2, 2))
+        for q in range(n):
+            self.register_buffer(f"perm_{q}", cnot_permutation(n, q, (q + 1) % n))
+
+    def _zustand(self, x: torch.Tensor) -> torch.Tensor:
+        h = x / x.norm(dim=1, keepdim=True).clamp_min(1e-12)
+        for lage in range(self.L):
+            for q in range(self.n):
+                h = apply_1q(h, self.gatter[lage, q], q, self.n)
+            for q in range(self.n):
+                h = h[:, getattr(self, f"perm_{q}")]
+        return h
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return z_auslese(self._zustand(x) ** 2, self.n)
+
+
 class NormDeep(nn.Module):
     """Die Mittelschicht von `ClassicalDeepNormed` (Q-003): normieren ->
     Linear/Tanh -> Linear/Tanh. 67.848 Parameter. Nur als Anschluss an Q-003."""
@@ -248,6 +345,12 @@ def _mitte(arm: str, aufbau: str) -> nn.Module:
         # zeigt dieselbe Funktion bis 1e-4, und sie ist um ein Vielfaches
         # schneller. `pruefe_theorie()` wiederholt die Pruefung fuer n=8.
         return ButterflyQuantumLayer(QUBITS, lagen, entangle=cnot)
+    if arm == "q5_linear":
+        return LinearAuslese(QUBITS, 5, entangle=True)
+    if arm == "q5_frei":
+        return FreiButterfly(QUBITS, 5)
+    if arm == "q5_ungeteilt":
+        return ButterflyQuantumLayer(QUBITS, 5, entangle=True, tie_weights=False)
     if arm == "kron":
         return KroneckerDrehung()
     if arm == "quad_free":
@@ -451,6 +554,7 @@ def run(lauf_id: str = "Q-020", abschnitte: Sequence[str] = ABSCHNITTE,
                 "primaer": "(a) mnist: q1 gegen mlp, Wilcoxon zweiseitig + TOST",
                 "p2": f"(b) {PRIMAER_B}: q5 gegen q5_ohne",
                 "p3": f"(b) {PRIMAER_B}: q5 gegen q1",
+                "p4": f"(b) {PRIMAER_B}: q5 gegen q5_linear (Born-Ablation, Ergaenzung 07.10.2026)",
                 "aufloesungspruefung": "mlp trennt sich von linear (a: mnist, b: Primaerstufe)",
                 "aequivalenzkontrolle": "kron gleichwertig q1_ohne (TOST)",
                 "bodenpruefung": f"bester Arm >= Rateniveau + {BODEN_ABSTAND}",
@@ -570,6 +674,11 @@ _TEXTE = {
            "ohne Encoder tragen 5 Lagen (mit CNOT) gegenueber 1 Lage bei; der Nullbefund "
            "aus Q-003 war ein Encoder-Artefakt",
            "1 Lage ist BESSER als 5 -- Gegenrichtung, eigenes Ergebnis (Optimierung?)"),
+    "P4": ("BORN_TRAEGT", "BORN_SCHADET",
+           "ohne Encoder traegt die Born-Auslese (das Quadrat) bei: dieselbe Schaltung mit "
+           "linearer Auslese (wie Quantum-PEFT) ist schlechter",
+           "die LINEARE Auslese ist BESSER als die Born-Auslese -- Gegenrichtung der "
+           "Erwartung, eigenes Ergebnis"),
 }
 
 
@@ -629,6 +738,9 @@ BESCHREIBEND = {
     "b": [("q5_ohne", "q1_ohne", "Tiefe ohne CNOT -- Theorie: gleichwertig"),
           ("q1", "q1_ohne", "CNOT in 1 Lage = nur Auslese-Vertauschung"),
           ("q5", "quad_free", "Schaltung 80 gegen 2.048"),
+          ("q5", "q5_frei", "Unitaritaet: orthogonale Gatter gegen freie reelle (80 gegen 160)"),
+          ("q5", "q5_ungeteilt", "Winkelteilung: 80 geteilte gegen 10.240 ungeteilte Winkel"),
+          ("q5_linear", "linear", "lineare Auslese gegen lineare Untergrenze"),
           ("q5", "mlp", "Schaltung 80 gegen ReLU-MLP"),
           ("q1", "mlp", "Schaltung 16 gegen ReLU-MLP"),
           ("kron", "q1_ohne", "AEQUIVALENZ-POSITIVKONTROLLE"),
@@ -673,10 +785,10 @@ def analyse(rec_or_id, still: bool = False) -> Dict[str, object]:
                   PRIMAER_B: _kontrollen(records, PRIMAER_B, KLASSEN_B)}
     out["kontrollen"] = kontrollen
     paare = {"PRIMAER": (PRIMAER_A, "q1", "mlp"), "P2": (PRIMAER_B, "q5", "q5_ohne"),
-             "P3": (PRIMAER_B, "q5", "q1")}
+             "P3": (PRIMAER_B, "q5", "q1"), "P4": (PRIMAER_B, "q5", "q5_linear")}
     verg = {t: _vergleich(records, *paare[t]) for t in FAMILIE}
     # Holm ueber die GANZE angemeldete Familie. Fehlt ein Mitglied, geht es mit
-    # p=1 ein -- konservativ, die Familiengroesse bleibt 3.
+    # p=1 ein -- konservativ, die Familiengroesse bleibt 4.
     p_holm = dict(zip(FAMILIE, holm([verg[t]["p"] if verg[t] else 1.0 for t in FAMILIE])))
     say("\n" + "=" * 96)
     say(f"VORREGISTRIERTE FAMILIE (Holm ueber {len(FAMILIE)}), Grenze +-{MARGIN}")
@@ -739,6 +851,73 @@ def analyse(rec_or_id, still: bool = False) -> Dict[str, object]:
 # ---------------------------------------------------------------------------
 # Pflichtvortest (CLAUDE.md §5)
 # ---------------------------------------------------------------------------
+def _theorie_ablationen(x: torch.Tensor) -> List[Tuple[str, float]]:
+    """Pruefungen der drei Ablationsarme (Ergaenzung 07.10.2026). Rueckgabe wie
+    `zeilen` in `pruefe_theorie`: (Name, Abweichung), gut wenn < 1e-4. Die
+    Gegenproben stehen dort gesondert (muessen GROSS sein)."""
+    z: List[Tuple[str, float]] = []
+    torch.manual_seed(1)
+    with torch.no_grad():
+        # (1) q5_linear: bei festen Winkeln exakt linear in x -- VOR der Normierung
+        lin = LinearAuslese(QUBITS, 5, entangle=True)
+        x2 = torch.randn_like(x)
+        a, b = 1.7, -0.6
+
+        def roh(v):
+            return lin.auslese(lin._zustand(v, normieren=False))
+
+        z.append(("q5_linear: f(a x1 + b x2) = a f(x1) + b f(x2) (roh)",
+                  float((roh(a * x + b * x2) - (a * roh(x) + b * roh(x2))).abs().max())))
+        z.append(("q5_linear: f(-x) = -f(x) (nach Normierung)",
+                  float((lin(-x) + lin(x)).abs().max())))
+        z.append(("q5_linear: forward(x) = roh(x/|x|)",
+                  float((lin(x) - roh(x / x.norm(dim=1, keepdim=True))).abs().max())))
+        # gleiche Schaltung wie q5: Zustand identisch, nur die Auslese anders
+        q5 = ButterflyQuantumLayer(QUBITS, 5, entangle=True)
+        lin.theta.copy_(q5.theta)
+        z.append(("q5_linear: Zustand == q5-Zustand bei gleichen Winkeln",
+                  float((lin._zustand(x) - q5._zustand(x)).abs().max())))
+        z.append(("q5_linear: 80 Parameter, wie q5",
+                  float(sum(p.numel() for p in lin.parameters()) != 80)))
+        # (2) q5_frei mit orthogonalen Gattern == q5 ohne Rz
+        fr = FreiButterfly(QUBITS, 5)
+        t = q5.theta[:, :, 0]
+        c, s_ = torch.cos(t / 2), torch.sin(t / 2)
+        fr.gatter.copy_(torch.stack([torch.stack([c, -s_], dim=-1),
+                                     torch.stack([s_, c], dim=-1)], dim=-2))
+        q5_ry = ButterflyQuantumLayer(QUBITS, 5, entangle=True)
+        q5_ry.theta.copy_(q5.theta)
+        q5_ry.theta[:, :, 1] = 0.0
+        z.append(("q5_frei (orthogonal) == q5 ohne Rz",
+                  float((fr(x) - q5_ry(x)).abs().max())))
+        z.append(("q5_frei: 160 Parameter",
+                  float(sum(p.numel() for p in fr.parameters()) != 160)))
+        # (3) q5_ungeteilt: mit je Ebene gleichen Winkeln == q5; Parameterzahl
+        un = ButterflyQuantumLayer(QUBITS, 5, entangle=True, tie_weights=False)
+        un.theta.copy_(q5.theta[:, :, None, :].expand_as(un.theta))
+        z.append(("q5_ungeteilt mit gleichen Winkeln je Ebene == q5",
+                  float((un(x) - q5(x)).abs().max())))
+        z.append(("q5_ungeteilt: 10.240 Parameter",
+                  float(un.num_circuit_parameters() != 5 * QUBITS * 128 * 2)))
+        # (4) Skalierung: Streuung der Ausgaben bei zufaelliger Eingabe, Born : linear
+        xs = torch.randn(512, DIM)
+        verh = float(q5(xs).std() / lin(xs).std())
+        z.append(("Skalierung: Streuung Born/linear in [0,5; 2] (Abweichung vom Intervall)",
+                  max(0.0, 0.5 - verh, verh - 2.0)))
+        print(f"  (Streuung Born {float(q5(xs).std()):.4f}, linear skaliert "
+              f"{float(lin(xs).std()):.4f}, Verhaeltnis {verh:.2f}; "
+              f"ohne Skala wuerde linear {float(lin(xs).std()) / SKALA_LINEAR:.3f} liefern)")
+        # (5) Gegenproben: Born-q5 ist NICHT linear, q5_frei nicht normerhaltend
+        gegen_q5 = float((q5(a * x + b * x2) - (a * q5(x) + b * q5(x2))).abs().max())
+        z.append(("Gegenprobe: q5 (Born) ist NICHT linear (Abweichung muss gross sein)",
+                  0.0 if gegen_q5 > 1e-2 else 1.0))
+        fr2 = FreiButterfly(QUBITS, 5)
+        nrm = float((fr2._zustand(x).norm(dim=1) - 1).abs().max())
+        z.append(("Gegenprobe: q5_frei erhaelt die Norm NICHT (muss > 1e-3 sein)",
+                  0.0 if nrm > 1e-3 else 1.0))
+    return z
+
+
 def pruefe_theorie() -> bool:
     """Deterministische Pruefungen, ohne Training. Eine Deutung, die im Code
     steht, muss nachgerechnet sein, bevor sie ein Urteil traegt."""
@@ -771,6 +950,7 @@ def pruefe_theorie() -> bool:
         ref = s5(x)
         s5.theta[:, :, 1] = torch.rand(5, QUBITS) * 2 * math.pi
         gegen = float((s5(x) - ref).abs().max())
+    zeilen += _theorie_ablationen(x)
     for name, dev in zeilen:
         good = dev < 1e-4
         ok &= good
@@ -809,7 +989,8 @@ VERSATZ = {"a": {"q1": 0.0, "q1_ohne": -0.01, "q5": 0.0, "q5_ohne": -0.01, "kron
                  "quad_free": -0.01, "mlp": 0.0, "linear": -0.04, "ohne_engstelle": 0.01,
                  "norm_deep": -0.08},
            "b": {"q1": -0.20, "q1_ohne": -0.30, "q5": 0.0, "q5_ohne": -0.30, "kron": -0.30,
-                 "quad_free": -0.10, "mlp": 0.20, "linear": -0.30, "ohne_engstelle": 0.25}}
+                 "quad_free": -0.10, "mlp": 0.20, "linear": -0.30, "ohne_engstelle": 0.25,
+                 "q5_linear": -0.30, "q5_frei": -0.05, "q5_ungeteilt": -0.05}}
 
 
 def _kunst(seed: int, streuung: float = 0.008, n: int = 15,
@@ -894,6 +1075,29 @@ def vortest() -> bool:
         ("T-U   Nulleffekt, grosses Rauschen", "P3",
          dict(streuung=0.025, versatz={"b": {"q1": 0.0}}), "UNENTSCHIEDEN",
          "weder Unterschied", 40, 0.80),
+        ("B-T   Born traegt +0,3 (q5_linear schwach)", "P4", {}, "BORN_TRAEGT",
+         "Quantum-PEFT", 5, 1.0),
+        ("B-G   Born gleichwertig", "P4",
+         dict(streuung=0.0015, versatz={"b": {"q5_linear": 0.0}}), "GLEICHWERTIG",
+         "Positiver Gleichwertigkeitsnachweis", 5, 1.0),
+        ("B-Gs  +0,002 bei winzigem Rauschen: signifikant UND gleichwertig", "P4",
+         dict(streuung=0.0004, versatz={"b": {"q5_linear": -0.002}}), "GLEICHWERTIG",
+         "zugleich signifikant", 5, 1.0),
+        ("B-S   lineare Auslese besser", "P4", dict(versatz={"b": {"q5_linear": 0.05}}),
+         "BORN_SCHADET", "Gegenrichtung der Erwartung", 5, 1.0),
+        ("B-U   Nulleffekt, grosses Rauschen", "P4",
+         dict(streuung=0.025, versatz={"b": {"q5_linear": 0.0}}), "UNENTSCHIEDEN",
+         "weder Unterschied", 40, 0.80),
+        ("B-A   Aufloesung (b) faellt", "P4",
+         dict(versatz={"b": {"linear": 0.20}}), "HU_AUFLOESUNG", "blind", 40, 0.80),
+        ("B-B   Boden unterschritten in (b)", "P4",
+         dict(versatz={"b": {"mlp": 0.0, "ohne_engstelle": 0.0}}, niveau={PRIMAER_B: 0.12}),
+         "HU_BODEN", "Trainingsversagen", 5, 1.0),
+        ("B-D   Decke in (b)", "P4",
+         dict(streuung=0.0015, versatz={"b": {"q5_linear": 0.0}}, niveau={PRIMAER_B: 0.985}),
+         "HU_DECKE", "Decke", 5, 1.0),
+        ("B-X   (b) fehlt -> P4 unvollstaendig", "P4",
+         dict(abschnitte=("mnist", "fashion_mnist")), "HU_UNVOLLSTAENDIG", "Daten fehlen", 5, 1.0),
         ("X-U   (b) fehlt ganz -> P2 unvollstaendig", "P2",
          dict(abschnitte=("mnist", "fashion_mnist")), "HU_UNVOLLSTAENDIG", "Daten fehlen", 5, 1.0),
         ("X-P   (b) fehlt -> PRIMAER trotzdem gerechnet", "PRIMAER",
