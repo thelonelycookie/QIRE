@@ -817,3 +817,13 @@ in einer Nacht (C-referenz, I-003-Struktur, jetzt I-035) — immer dieselbe
 Ursache: Ratensuche ohne Stabilitätsabstand aus Zeitgründen. Ab sofort
 gehört eine automatische Ausreißer-Erkennung vor die Urteilsbildung, nicht
 nur als deskriptiver Zähler danach.
+
+## 07.10.2026 — T-ternaer ausgewertet (Opus)
+
+Gerechnet in der Cloud (4 Kerne), Seeds 310–319. Vorbedingungen V-1/V-2 H1.
+- **T-1 H0, T-2 H0:** Clifford-Zelle (cliff0) 4,4 pp, mit 4 Magiewinkeln (cliff4) 2,6 pp unter der ternären 256x256-Schicht (ternaer_quad). Erwartung war genau das.
+- **Ternärisierung ist praktisch kostenlos:** ternaer_quad − dicht_quad = +0,07 pp. BitNet-Gewichte verlieren hier nichts gegen Gleitkomma.
+- **Die Quadrierung trägt:** ternaer_quad − ternaer = +6,2 pp. Gleiche Richtung wie die Born-Frage P4 in Q-020.
+- **Pareto (eigentlicher Befund):** cliff0 (64 Bit Mitte) schlägt ternaer8_quad (3.278 Bit) um +6,5 pp und ternaer ohne Quadrat (103.904 Bit) um +1,8 pp. Im Bereich *sehr kleiner Speicher* ist die quantenabgeleitete Zelle die beste gemessene Option; bei viel Speicher gewinnt die ternäre Matrix.
+- Die volle Zelle liegt 1,7 pp unter dicht_quad: die 32 Winkel begrenzen die Genauigkeit, nicht die Quantisierung.
+Nächste Frage (freigeschaltet): T-ternaer-butterfly — ternäre Einträge in derselben Butterfly-Struktur, um Geometrie von Parameterzahl zu trennen.
