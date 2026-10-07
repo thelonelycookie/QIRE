@@ -1440,6 +1440,26 @@ Rohdaten `ergebnisse/I-044-r__20261007_075727.json`. NK bestanden.
 - **H3 repliziert:** strukturierter Kopf Ks 74,33 % gegen dichten Kopf Kd 72,44 %, **+1,89 pp** [1,69; 2,09], n = 15. Das bestätigt I-044 (+1,8 pp, n = 5), mit ≈ 85× weniger Kopfparametern.
 - **H4 jetzt NICHT_UNTERLEGEN:** strukturierte Kanalmischung −0,63 pp [−0,85; −0,41] gegen dicht. Das liegt innerhalb der 1-pp-Grenze, ist aber ein kleiner Verlust.
 
+## 07.10.2026 – I-042-r ERGEBNIS (Replikation Strukturschicht in groß, 15 neue Seeds 2210–2224)
+Rohdaten `ergebnisse/I-042-r__20261007_095606.json`. NK bestanden. **Alle Befunde repliziert:**
+- Fashion H1: feste Struktur B 89,16 % / E 89,18 % gegen dicht A 88,93 % (16,8 Mio Parameter), also **+0,23 / +0,26 pp, nicht unterlegen** (n = 15).
+- Fashion H3: E gegen niedrigen Rang K, **+22,8 pp**.
+- CIFAR H1: −6,3 pp (H0, wie im Original).
+
+## 07.10.2026 – I-045-v2 ERGEBNIS (Struktur × Quadrat im Sprachmodell, 10 Seeds 2410–2419)
+Rohdaten `ergebnisse/I-045-v2__20261007_112736.json`. NK bestanden, keine Divergenz.
+| Arm | Test-bpc |
+|---|---|
+| D_gelu (dicht, Standard) | 3,520 |
+| D_relu2 (squared ReLU, Primer) | 3,485 |
+| D_z2 (dicht + z²) | 3,478 |
+| **Sz (Fastfood-Struktur + z²)** | **3,403** |
+| L_z2 (niedriger Rang + z²) | 3,563 |
+| S_gelu (Struktur + GELU) | 3,599 |
+- **H1 SZ_BESSER:** Sz besser als D_gelu um **0,118 bpc** (Holm-p ≈ 10⁻⁴).
+- **H3 AKTIVIERUNG:** z² hilft schon dicht (D_z2 besser als D_gelu um 0,043 bpc); das ist der bekannte Primer-Effekt.
+- **H2 UNTERSCHIED:** **Sz ist besser als D_z2 um 0,075 bpc** [0,043; 0,107]. Die Struktur trägt also **zusätzlich** zum Quadrat bei.
+**Deutung:** Es gibt eine **Wechselwirkung Struktur × Quadrat**. Mit GELU schadet die Struktur (S_gelu schlechter als D_gelu um 0,08 bpc), mit z² nützt sie (Sz besser als D_z2 um 0,075 bpc), bei viel weniger FFN-Parametern. Die Kombination „unitäre/Hadamard-Mischung → Born-Quadrat“ ist genau die QIRE-Born-Auslese. **Das ist der erste Befund, in dem die quanten-inspirierte Kombination mehr bringt als ihre Teile.** Grenzen: kleines Modell (4 Lagen, d = 256), ein Datensatz, Byte-Ebene. Replikation in größerem Modell (T-007/PC, MPI) und eine Literaturprüfung („structured FFN squared activation“) sind nötig.
 ## 07.10.2026 — I-044-v2 „Strukturkopf gegen faire Köpfe“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
 Anlass (`recherche/2026-10-07_durchsicht_kernaussage.md`): In I-044-r schlug Ks (74,33 %) den dichten Kopf Kd (72,44 %). Kd war aber unregularisiert, und schon ein linearer Kopf hinter einer 1×1-Conv (Kcd) erreichte 73,70 %. Die Idee selbst ist bekannt (Deep Fried Convnets 2015). Modul `abteilungen/struktur_kopf_fair.py`, Wirkung klassisch (I-038).
 - **Arme:** Ks (Fastfood 1024→4096 + z², wie I-044) · Kd (wie I-044, Brücke) · **Klin** (kein breiter Kopf, LayerNorm + linear, ≈ 10 k) · **Kreg** (Kd + Dropout 0,5 + AdamW-WD 5e-4) · **Kklein** (dicht 1024→48→10, ≈ 49,7 k = Kopfbudget von Ks). CNN-Rumpf identisch, gleicher Startzustand je Seed (im Vortest geprüft).

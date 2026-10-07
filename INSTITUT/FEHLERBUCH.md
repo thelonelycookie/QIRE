@@ -264,3 +264,7 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 - **H2**: H0 (L sicher besser als S; d -0,0386 bpc, 90-%-KI [-0,0519; -0,0253], n 5, p_Holm 1)
 - **H3**: H0 (Sb sicher langsamer als D; d -1,2232 ln-Zeitverhaeltnis D/Sb, 90-%-KI [-1,3019; -1,1445], n 5, p_Holm 1)
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 07.10.2026 09:56 — I-042-r (automatisch)
+- **H1-CIFAR**: H0 (beide unterlegen um mehr als 1 pp; H1B: d -6,33 pp, 90-%-KI [-6,50; -6,17], n 15, p_Holm 1; H1E: d -6,30 pp, 90-%-KI [-6,47; -6,14], n 15, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
