@@ -1482,3 +1482,10 @@ Rohdaten `ergebnisse/I-044-v2__20261007_112259.json`. NK bestanden (0,099). Rate
 - **Deutung:** Der ehrliche Vorsprung ist **+0,8 pp gegen den linearen Kopf**, nicht +1,9 pp. Jede dichte versteckte Schicht ist bei 4 Epochen *schlechter* als gar keine (Kd −1,2, Kklein −0,8 gegen Klin), und Regularisierung verschlechtert weiter. Der Engpass ist also Untertraining, nicht Überanpassung. Nur die Fastfood-Schicht verbessert den linearen Kopf.
 - **Vorbehalt:** nur 4 Epochen. Ob der Vorsprung bei längerem Training hält, ist offen (Folgefrage: Epochenreihe 4/16/32 für Ks, Klin, Kklein).
 - **Literatur** (`recherche/2026-10-07_volltext_arxiv.md`): Deep Fried Convnets verglichen nur gegen den vollen dichten Kopf. Der Vergleich gegen linearen und budgetgleichen Kopf ist dort nicht gemacht.
+
+## 07.10.2026 — I-044-v3 „Epochenreihe Strukturkopf“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+Anlass: I-044-v2 (Ks − Klin +0,83 pp) lief nur 4 Epochen. Die Literatur (`recherche/2026-10-07_volltext_2.md`, Teil A: Qiu 2024/2025, Ba 2022) lässt erwarten, dass der Abstand mit längerem Training schrumpft. Hält er, ist das ein Kapazitätseffekt (Grad-2-Merkmale), kein reiner Trainingsvorteil. Profil `lauf_v3` in `abteilungen/struktur_kopf_fair.py`.
+- **Arme:** Ks, Klin, Kklein (wie I-044-v2). **Epochen 4, 12, 24.** Lernraten fest aus I-044-v2 (Ks/Klin 3e-3, Kklein 3e-2). **Vorbehalt:** keine neue Ratensuche je Epochenzahl; der Kosinus-Abfall skaliert mit.
+- **Hypothesen (Holm über H1, H2; gepaarter einseitiger t, n = 8):** H1 Ks − Klin > 0 bei 24 Epochen; H2 Ks − Kklein > 0 bei 24 Epochen (STRUKTUR_HAELT | H0 | HU). H3 (nicht in Holm, zweiseitig): Trend (Ks − Klin)₂₄ − (Ks − Klin)₄ (SCHRUMPFT | WAECHST | HU). NK: Ks permutiert, 4 Epochen, Band (0,05; 0,15).
+- **Seeds 2350–2357 (8, frisch).** Erwartung vorab: H3 SCHRUMPFT, H1 offen.
+- Vortest bestanden, Rauchtest nur auf Tuning-Seed 2399 (kleine Daten). **Freigabe Malte 07.10.**

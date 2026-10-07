@@ -333,3 +333,150 @@ def lauf(schnell=False, prozesse=None, zwischen=None, **_):
          "sekunden": time.time() - t0, "auswertung": r}
     e["urteil"] = urteil(r)
     return e
+
+
+# ================================================================== I-044-v3: Epochenreihe (vorregistriert 07.10.2026, vor jeder Zahl)
+# Frage (aus recherche/2026-10-07_volltext_2.md, Teil A): Hält der Vorsprung des Strukturkopfs (I-044-v2: Ks - Klin +0,83 pp bei
+# 4 Epochen) bei längerem Training, oder holen lineare/dichte Köpfe auf? Literatur sagt eher: schrumpft. Hält er bei 24 Epochen,
+# spricht das für Kapazität (Grad-2-Merkmale), nicht für schnelleres Training.
+# Arme Ks, Klin, Kklein; Epochen 4, 12, 24; Lernraten FEST aus I-044-v2 (keine neue Suche je Epochenzahl -- Vorbehalt, im LABORBUCH).
+# Seeds 2350-2357 (8, frisch). NK: Ks permutiert, 4 Epochen.
+# Hypothesen (Holm über H1, H2; gepaarter einseitiger t, n = 8):
+#   H1 Ks - Klin > 0 bei 24 Epochen   (STRUKTUR_HAELT | H0 | HU)
+#   H2 Ks - Kklein > 0 bei 24 Epochen (STRUKTUR_HAELT | H0 | HU)
+#   H3 (nicht in Holm, zweiseitig) Trend: d24 - d4 für Ks - Klin (SCHRUMPFT | WAECHST | HU, zweiseitiger t, alpha 0,05)
+#   B: alle Mittel je Epochenzahl.
+KARTE_V3 = "I-044-v3"
+SEEDS_V3 = tuple(range(2350, 2358))
+ARME_V3 = ("Ks", "Klin", "Kklein")
+EPOCHEN_V3 = (4, 12, 24)
+LR_V3 = {"Ks": 0.003, "Klin": 0.003, "Kklein": 0.03}      # aus ergebnisse/I-044-v2__20261007_112259.json
+HYPOTHESEN_V3 = {
+    "H1": "Ks - Klin > 0 bei 24 Epochen (einseitig gepaart t, Holm über H1, H2). STRUKTUR_HAELT | H0 | HU.",
+    "H2": "Ks - Kklein > 0 bei 24 Epochen. STRUKTUR_HAELT | H0 | HU.",
+    "H3": "Trend (Ks - Klin)(24) - (Ks - Klin)(4), zweiseitig, nicht in Holm. SCHRUMPFT | WAECHST | HU.",
+    "NK": f"Ks permutiert (4 Epochen), Mittel in {NK_BAND}.",
+}
+
+
+def auswertung_v3(zeilen: list) -> dict:
+    acc = {}
+    for z in zeilen:
+        acc.setdefault((z["teil"], z["arm"]), {})[z["seed"]] = z["acc"]
+    seeds = sorted({z["seed"] for z in zeilen if z["teil"] != "nk"})
+    r = {"arme": {}, "kollaps": {}, "diff": {}, "p_holm": {}, "negativ": {}}
+    zl = {}
+    for ep in EPOCHEN_V3:
+        t = f"e{ep}"
+        zl[ep] = [{"seed": s, **{a: acc[(t, a)][s] for a in ARME_V3 if (t, a) in acc and s in acc[(t, a)]}} for s in seeds]
+        for a in ARME_V3:
+            if zl[ep] and all(a in z for z in zl[ep]):
+                r["arme"][f"{a}@{ep}"] = zusammenfassung(_arr(zl[ep], a))
+                r["kollaps"][f"{a}@{ep}"] = kollaps_seeds(zl[ep], a)
+    perm = [v for (t, a), d in acc.items() if t == "nk" for v in d.values()]
+    r["negativ"] = {"mittel": float(np.mean(perm)), "n": len(perm)} if perm else {}
+    ok = lambda ep, *a: zl[ep] and all(all(x in z for x in a) for z in zl[ep])
+    d = lambda ep, x, y: _arr(zl[ep], x) - _arr(zl[ep], y)
+    if ok(24, "Ks", "Klin"):
+        r["diff"]["H1"] = _stat(d(24, "Ks", "Klin"))
+    if ok(24, "Ks", "Kklein"):
+        r["diff"]["H2"] = _stat(d(24, "Ks", "Kklein"))
+    if ok(24, "Ks", "Klin") and ok(4, "Ks", "Klin"):
+        r["diff"]["H3"] = _stat(d(24, "Ks", "Klin") - d(4, "Ks", "Klin"))
+    for ep in EPOCHEN_V3:
+        for x, y in (("Ks", "Klin"), ("Ks", "Kklein"), ("Kklein", "Klin")):
+            if ok(ep, x, y):
+                r.setdefault("beschreibend", {})[f"{x} - {y} @{ep}"] = _stat(d(ep, x, y))
+    prim = {h: r["diff"][h].get("p_gr", 1.0) for h in ("H1", "H2") if h in r["diff"]}
+    if prim:
+        r["p_holm"] = holm(prim)
+    return r
+
+
+def urteil_v3(r: dict) -> dict:
+    nk = _nk(r)
+    u = {"NK": f"{nk} (Mittel permutierte Labels Ks: {r['negativ'].get('mittel', float('nan')):.3f}; Band {NK_BAND})"}
+    for h, g in (("H1", "Klin"), ("H2", "Kklein")):
+        v = _vorab(r, nk, h, (f"Ks@24", f"{g}@24"))
+        u[h] = v or _urteil(r, nk, h, (f"Ks@24", f"{g}@24"), "STRUKTUR_HAELT")
+    if "H3" not in r["diff"] or "mittel_pp" not in r["diff"]["H3"]:
+        u["H3"] = "HU (Arme fehlen oder zu wenige Seeds)"
+    elif nk != "BESTANDEN":
+        u["H3"] = "HU (Negativkontrolle durchgefallen)"
+    else:
+        x = r["diff"]["H3"]
+        z = f"d {_f(x['mittel_pp'])} pp, 90-%-KI [{_f(x['ki_pp'][0])}; {_f(x['ki_pp'][1])}], n {x['n']}, p_zwei {x['p_zwei']:.3g}"
+        u["H3"] = (f"SCHRUMPFT ({z})" if x["mittel_pp"] < 0 else f"WAECHST ({z})") if x["p_zwei"] < ALPHA else f"HU ({z})"
+    g = lambda k: f"{r['arme'][k]['mittel'] * 100:.2f}".replace(".", ",") if k in r["arme"] else "n/a"
+    u["B"] = "beschreibend: " + "; ".join(f"{ep} Ep.: " + ", ".join(f"{a} {g(f'{a}@{ep}')}" for a in ARME_V3) for ep in EPOCHEN_V3)
+    return u
+
+
+def _synth_v3(rng, sd=0.001, n=8, trend=-0.004, ks24=0.01, nk=0.10):
+    zl = []
+    for i in range(n):
+        gem = rng.normal(0, 0.003)
+        for ep in EPOCHEN_V3:
+            f = (ep - 4) / 20
+            base = {"Klin": 0.734 + 0.01 * f, "Kklein": 0.726 + 0.02 * f}
+            base["Ks"] = base["Klin"] + 0.008 + trend * f + (ks24 - 0.008 - trend) * f
+            for a, v in base.items():
+                zl.append({"teil": f"e{ep}", "arm": a, "seed": 2350 + i, "acc": v + gem + rng.normal(0, sd)})
+        zl.append({"teil": "nk", "arm": "Ks", "seed": 2350 + i, "acc": nk + rng.normal(0, 0.01)})
+    return zl
+
+
+def _vortest_v3() -> bool:
+    ok = True
+    rng = np.random.default_rng(443)
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-044-v3): {name}", flush=True)
+            ok = False
+    pruefe("Seeds frisch", not (set(SEEDS_V3) & (_BELEGT | set(SEEDS))))
+    u = lambda **kw: urteil_v3(auswertung_v3(_synth_v3(rng, **kw)))
+    a = u(ks24=0.012)                                  # Ks vorn bei 24
+    pruefe("Haelt", a["H1"].startswith("STRUKTUR_HAELT") and a["H2"].startswith("STRUKTUR_HAELT"))
+    b = u(ks24=-0.012)
+    pruefe("H0", b["H1"].startswith("H0") and b["H2"].startswith("H0"))
+    c = u(sd=0.03, ks24=0.0)
+    pruefe("HU", c["H1"].startswith("HU") and c["H3"].startswith("HU"))
+    pruefe("schrumpft", u(ks24=0.002)["H3"].startswith("SCHRUMPFT"))
+    pruefe("waechst", u(ks24=0.02)["H3"].startswith("WAECHST"))
+    pruefe("NK", u(nk=0.3)["H1"].startswith("HU (Negativkontrolle"))
+    pruefe("Arm fehlt", urteil_v3(auswertung_v3([z for z in _synth_v3(rng) if not (z["arm"] == "Kklein" and z["teil"] == "e24")]))["H2"].startswith("HU (Arme fehlen"))
+    return ok
+
+
+def lauf_v3(schnell=False, prozesse=None, zwischen=None, **_):
+    if schnell:
+        seeds, klein, eps, epnk = (TUNING_SEED,), True, (1, 2, 3), 1
+    else:
+        seeds, klein, eps, epnk = SEEDS_V3, False, EPOCHEN_V3, 4
+        if set(seeds) & (_BELEGT | set(SEEDS)):
+            raise ValueError("Seeds nicht frisch")
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_V3}{'-schnell' if schnell else ''}.json"
+    kennung = {"karte": KARTE_V3, "version": 1, "seeds": list(seeds), "epochen": list(eps), "nk": epnk, "klein": klein}
+    t0 = time.time()
+    aufg = [(f"e{ep_v}", a, s, LR_V3[a], ep, klein) for ep_v, ep in zip(EPOCHEN_V3, eps) for a in ARME_V3 for s in seeds]
+    aufg += [("nk", "Ks", s, LR_V3["Ks"], epnk, klein) for s in seeds]
+    aufg.sort(key=lambda a: -a[4])                     # lange Einheiten zuerst
+    alle = _rechne(aufg, pfad, kennung, fn=_arbeiter, schluessel=_schl, prozesse=prozesse)
+    zeilen = [v for k, v in alle.items() if k.startswith("einheit|")]
+    r = auswertung_v3(zeilen)
+    e = {"abteilung": "Struktur", "modul": "struktur_kopf_fair", "karte": KARTE_V3, "version": 1, "seeds": list(seeds),
+         "lernraten": LR_V3, "epochen": list(eps), "zwischendatei": str(pfad), "zeilen": zeilen, "sekunden": time.time() - t0,
+         "auswertung": r}
+    e["urteil"] = urteil_v3(r)
+    return e
+
+
+_vortest_v2 = vortest
+
+
+def vortest() -> bool:          # noqa: F811  (deckt I-044-v2 und I-044-v3 ab)
+    a = _vortest_v2()
+    b = _vortest_v3()
+    return a and b
