@@ -1448,3 +1448,17 @@ Anlass (`recherche/2026-10-07_durchsicht_kernaussage.md`): In I-044-r schlug Ks 
 - **Ehrliche Erwartung vorab:** H1a/H1c eher NICHT_UNTERLEGEN, H2 klein oder HU. Der Vorsprung gegen faire Köpfe liegt eher bei 0–1 pp als bei 1,9 pp.
 - Vortest bestanden (jeder Urteilszweig erzwungen). Rauchtest nur auf Tuning-Seed 2399 (kleine Daten, 1 Epoche), verworfen. **Freigabe Malte 07.10.**
 - **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v2` (Wiederaufnahme in `ergebnisse/_zwischen_I-044-v2.json`).
+
+## 07.10.2026 – I-044-v2 ERGEBNIS (Strukturkopf gegen faire Köpfe, Seeds 2330–2344)
+Rohdaten `ergebnisse/I-044-v2__20261007_112259.json`. NK bestanden (0,099). Raten: Ks/Kd/Klin/Kreg 3e-3, Kklein 3e-2 (keine am Gitterrand).
+| Arm | Genauigkeit | Kopfparameter |
+|---|---|---|
+| Ks Fastfood + z² | **74,27 %** | 49 k |
+| Klin linear | 73,44 % | 10 k |
+| Kklein dicht 1024→48→10 | 72,60 % | 50 k |
+| Kd dicht 1024→4096 | 72,26 % | 4,2 Mio |
+| Kreg Kd + Dropout + WD | 71,55 % | 4,2 Mio |
+- **H1a–c NICHT_UNTERLEGEN, H2 STRUKTUR_HILFT:** Ks schlägt alle fairen Köpfe: Klin **+0,83 pp** [0,60; 1,06], Kklein +1,66, Kreg +2,72 (n = 15, Holm p < 10⁻⁵).
+- **Deutung:** Der ehrliche Vorsprung ist **+0,8 pp gegen den linearen Kopf**, nicht +1,9 pp. Jede dichte versteckte Schicht ist bei 4 Epochen *schlechter* als gar keine (Kd −1,2, Kklein −0,8 gegen Klin), und Regularisierung verschlechtert weiter. Der Engpass ist also Untertraining, nicht Überanpassung. Nur die Fastfood-Schicht verbessert den linearen Kopf.
+- **Vorbehalt:** nur 4 Epochen. Ob der Vorsprung bei längerem Training hält, ist offen (Folgefrage: Epochenreihe 4/16/32 für Ks, Klin, Kklein).
+- **Literatur** (`recherche/2026-10-07_volltext_arxiv.md`): Deep Fried Convnets verglichen nur gegen den vollen dichten Kopf. Der Vergleich gegen linearen und budgetgleichen Kopf ist dort nicht gemacht.

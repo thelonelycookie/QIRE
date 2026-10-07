@@ -600,7 +600,7 @@
   {
    "id": "I-044-v2",
    "abteilung": "Struktur",
-   "status": "läuft (Container)",
+   "status": "erledigt",
    "modul": "abteilungen.struktur_kopf_fair",
    "funktion": "lauf",
    "prioritaet": 1,
