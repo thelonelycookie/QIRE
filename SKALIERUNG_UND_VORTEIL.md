@@ -126,3 +126,24 @@ Vorteilsaussage muss deshalb **fünf Fragen** beantworten:
 - Yaras u. a., *MonarchAttention*, NeurIPS 2025 · Dao u. a., *Monarch*, arXiv:2204.00595
 - *Quantum-Inspired Hybrid Neural Networks for Neural Decoding*, arXiv:2608.22475 (Warnbeispiel)
 - *QML advantages beyond hardness of evaluation*, arXiv:2504.15964
+
+---
+
+## Teil 3 — Weitere Forschungsfelder (Neuheitsprüfung 07.10., Sonnet-Agent, von Opus bewertet)
+
+Einschränkung: ~2 Suchen je Idee, nur Snippets → vorläufig. Vor „erstmals“-Aussagen nachprüfen.
+
+| Rang | Idee | Neuheit | Nutzen fürs Gesamtziel | Bewertung |
+|---|---|---|---|---|
+| **1** | **Born-Regel als Nichtlinearität** (Ablation quadratisch vs. linear bei gleicher Butterfly-Struktur) | teilweise — Ablation nicht gefunden | hoch: Alleinstellung ggü. Quantum-PEFT | billig, steckt schon in V1 → **sofort** |
+| **2** | **Magie als Komplexitätsmaß** für trainierte Schichten (Institut-Linie) | neu (nur Gegenrichtung gefunden) | mittel–hoch: multiplikationsfreie Anteile | weiterführen; Zuordnung Schicht→Zustand sauber begründen |
+| **3** | **Clifford-Rundung vs. ternär/BitNet** | Kombination nicht gefunden | hoch: direkter Effizienzbefund | billig; BitNet-Arm als Vergleich in Magie-Linie aufnehmen |
+| **4** | **Winkelzahl ↔ Effektivrang** (S3, verbindet A und B) | teilweise (in Quantum-PEFT implizit) | hoch für Skalierung | Beitrag = Messreihe/Skalierungsgesetz, nicht die Idee |
+| 5 | Quantum Natural Gradient für Butterfly-Winkel | teilweise | mittel (Trainingskosten) | nur wenn Zeit; Gegner Riemann/Adam |
+| 6 | Offene Systeme/Lindblad als Regularisierung | teilweise | unsicher | Abgrenzung zu Dropout kritisch → zurückstellen |
+| 7 | Projizierte Kerne | teilweise | gering (Kerne sind Nebenlinie) | zurückstellen |
+| 8 | Classical Shadows als Auslese | teilweise–neu | gering klassisch (Zustand liegt eh vor) | nur für Hardware-Kapitel |
+
+Neu für Related Work: ButterflyQuant (arXiv:2509.09679), Group-and-Shuffle (arXiv:2406.10019),
+Cayley Unitary Adapters (arXiv:2605.05914) — Butterfly-Winkel mit O(n log n) Parametern sind
+bekannt; Parametereffizienz allein ist **keine** Alleinstellung.
