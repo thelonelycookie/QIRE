@@ -117,12 +117,13 @@ def unigramm_entropie(train, test) -> float:
 
 # ------------------------------------------------------------------ Bausteine
 class FFNDicht(nn.Module):
-    def __init__(self, d, F_):
+    def __init__(self, d, F_, akt=F.gelu):
         super().__init__()
         self.a, self.b = nn.Linear(d, F_), nn.Linear(F_, d)
+        self.akt = akt
 
     def forward(self, x):
-        return self.b(F.gelu(self.a(x)))
+        return self.b(self.akt(self.a(x)))
 
 
 class Matrix(nn.Module):
@@ -159,8 +160,22 @@ class FFNStruktur(nn.Module):
         return self.b(self.akt(self.a(x)))
 
 
+def _relu2(x):
+    """squared ReLU (Primer): relu(x)^2."""
+    return torch.square(F.relu(x))
+
+
+# I-045-v2: Arm -> (Struktur, Aktivierung); Struktur "dicht" | "ff" (Fastfood) | "lr" (niedriger Rang). Alle Breite 1024.
+ARME_V2 = {"D_gelu": ("dicht", F.gelu), "D_z2": ("dicht", torch.square), "Sz": ("ff", torch.square),
+           "S_gelu": ("ff", F.gelu), "L_z2": ("lr", torch.square), "D_relu2": ("dicht", _relu2)}
+BREITE.update({a: 1024 for a in ARME_V2})
+
+
 def baue_ffn(arm, d, gen):
     F_ = BREITE[arm]
+    if arm in ARME_V2 and arm != "Sz":
+        art, akt = ARME_V2[arm]
+        return FFNDicht(d, F_, akt) if art == "dicht" else FFNStruktur(d, F_, art, akt, gen)
     if arm == "D":
         return FFNDicht(d, F_)
     if arm == "L":
@@ -289,15 +304,16 @@ def _schl(a):
 
 def _zeit_arbeiter(a):
     torch.set_num_threads(1)
-    return {arm: zeit_je_token(Sprachmodell(arm, 0), b) for arm in ARME for b in (a,)}
+    b, arme = a if isinstance(a, tuple) else (a, ARME)
+    return {arm: zeit_je_token(Sprachmodell(arm, 0), b) for arm in arme}
 
 
-def zeit_im_ein_thread(batch=ZEIT_BATCH):
+def zeit_im_ein_thread(batch=ZEIT_BATCH, arme=ARME):
     import multiprocessing as mp
     for var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
         os.environ[var] = "1"
     with mp.get_context("spawn").Pool(1) as pool:
-        return pool.apply(_zeit_arbeiter, (batch,))
+        return pool.apply(_zeit_arbeiter, ((batch, tuple(arme)),))
 
 
 # ------------------------------------------------------------------ Auswertung (bpc: kleiner ist besser)
@@ -566,6 +582,7 @@ def vortest() -> bool:
     ok = _vortest_bausteine()
     ok &= _vortest_wiederaufnahme()
     ok &= _vortest_urteile()
+    ok &= _vortest_v2()
     return bool(ok)
 
 
@@ -621,3 +638,289 @@ def lauf(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None):
         e["urteil"]["B-Zeit"] = ("beschreibend: Zeit/Token Inferenz (Einzelprozess, 1 Thread), Verhaeltnis D/Arm: "
                                  + ", ".join(f"{a} {v:.2f}" for a, v in e["zeitverhaeltnis_D_durch_arm"].items()))
     return e
+
+
+# ================================================================== I-045-v2: vorregistrierte Bestaetigung des Nebenbefunds Sz (Fastfood+z²) < D (GELU)
+# Profil/Erweiterung von I-045 (gleiches Modell, Daten, Training, Tuning-Verfahren; nur Arme, Seeds, Hypothesen neu), keine Kopie.
+# ARME: D_gelu (= D aus I-045) | D_z2 (dicht, z²) | Sz (Fastfood, z²) | S_gelu (= S aus I-045) | L_z2 (niedriger Rang 2, z²) | D_relu2 (dicht, squared ReLU), alle FFN-Breite 1024.
+# HYPOTHESEN (Holm ueber H1-H3, gepaarter t-Test n=10, bpc, d = Referenz - Pruefarm je Seed):
+#   H1 Sz < D_gelu (einseitig)                          : SZ_BESSER | H0 (D_gelu sicher besser) | HU
+#   H2 Sz vs D_z2: TOST ±0,02 bpc ODER zweiseitig        : AEQUIVALENT (TOST) | UNTERSCHIED (zweiseitig, Richtung im Text) | HU
+#      p_H2 = min(1, 2·min(p_TOST, p_zweiseitig)) (Bonferroni innerhalb H2, dann Holm); AEQUIVALENT hat Vorrang, wenn beide Holm-signifikant sind.
+#   H3 D_z2 < D_gelu (einseitig, Aktivierungseffekt)     : AKTIVIERUNG | H0 (D_gelu sicher besser) | HU
+# DIVERGENZ (vorab): Seed divergiert, wenn der Trainingsverlust nicht endlich wird (bpc := 8) ODER der End-Test-bpc >= Unigramm-Entropie des Tests.
+#   Divergierte Seeds bleiben in allen Zahlen (kein Verwerfen), zaehlen aber als HU: jede Hypothese mit einem Arm, der in einem Seed divergiert
+#   oder kollabiert (Median + 0,2 bpc), ist HU. Divergenzrate je Arm beschreibend. Tuning: Kollaps-Score wie I-045.
+# NEGATIVKONTROLLE wie I-045, aber D_gelu und Sz (permutierte Bytes, Seeds 2410, 2411, 300 Schritte).
+# BESCHREIBEND: Sz vs L_z2, Sz vs D_relu2, D_z2 vs D_relu2, S_gelu vs Sz (Struktur bei GELU), Parameter, Trainingszeit, Inferenzzeit, Divergenzrate.
+KARTE_V2 = "I-045-v2"
+SEEDS_V2 = tuple(range(2410, 2420))
+TUNING_SEED_V2 = 2498
+PROFILE_V2 = {"standard": {"schritte": 1000, "nk_schritte": 300, "seeds": SEEDS_V2},
+              "acht": {"schritte": 1000, "nk_schritte": 300, "seeds": SEEDS_V2[:8]}}      # „acht“ nur bei Zeitnot (vorab)
+ARME_M = tuple(ARME_V2)                    # Messarme
+NK_ARME_V2 = ("D_gelu", "Sz")
+NK_SEEDS_V2 = (2410, 2411)
+TOST_GRENZE = 0.02
+_BELEGT_V2 = _BELEGT | set(range(2400, 2405)) | {2499} | set(range(2210, 2225)) | set(range(2310, 2325))
+HYPOTHESEN_V2 = {
+    "H1": "Sz < D_gelu (bpc, einseitig gepaart t, Holm H1-H3). SZ_BESSER | H0 (D_gelu sicher besser) | HU.",
+    "H2": f"Sz gegen D_z2: TOST +-{TOST_GRENZE} bpc ODER zweiseitig (p_H2 = min(1, 2 min(p_TOST, p_zwei)), Holm). AEQUIVALENT | UNTERSCHIED | HU.",
+    "H3": "D_z2 < D_gelu (Aktivierungseffekt, einseitig, Holm). AKTIVIERUNG | H0 (D_gelu sicher besser) | HU.",
+    "DIVERGENZ": "Seed divergiert: Verlust nicht endlich ODER End-bpc >= Unigramm-Entropie. Bleibt in den Zahlen, Hypothesen mit solchem Arm = HU.",
+    "NK": f"Negativkontrolle (D_gelu, Sz, permutierte Trainingsbytes): mittlerer Test-bpc >= {NK_FAKTOR} x Unigramm-Entropie. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+    "B": "beschreibend: bpc je Arm, Sz-L_z2, Sz-D_relu2, D_z2-D_relu2, S_gelu-Sz, Parameter, Zeiten, Divergenzrate, Lernraten.",
+}
+
+
+def auswertung_v2(zeilen: list, params: dict, unigramm: float) -> dict:
+    seeds = sorted({z["seed"] for z in zeilen if z["teil"] == "mess"})
+    bpc, zt, tt, inst = {}, {}, {}, {}
+    for z in zeilen:
+        if z["teil"] == "mess":
+            bpc.setdefault(z["arm"], {})[z["seed"]] = z["bpc"]
+            inst.setdefault(z["arm"], {})[z["seed"]] = bool(z.get("instabil"))
+            if "zeit_je_token" in z:
+                zt.setdefault(z["arm"], {})[z["seed"]] = z["zeit_je_token"]
+            tt.setdefault(z["arm"], {})[z["seed"]] = z.get("sekunden_training", float("nan"))
+    zl = [{"seed": s, **{a: bpc[a][s] for a in bpc if s in bpc[a]}} for s in seeds]
+    zlt = [{"seed": s, **{a: zt[a][s] for a in zt if s in zt[a]}} for s in seeds]
+    r = {"arme": {}, "kollaps": {}, "divergiert": {}, "divergenzrate": {}, "negativ": {}, "diff": {}, "p_holm": {}, "parameter": params,
+         "beschreibend": {}, "unigramm_bpc": unigramm, "zeit_je_token_mittel": {}, "bpc_ohne_divergente": {},
+         "training_s_mittel": {a: float(np.nanmean(list(v.values()))) for a, v in tt.items()}}
+    for a in ARME_M:
+        if zl and a in zl[0]:
+            w = _arr(zl, a)
+            r["arme"][a] = zusammenfassung(w)
+            med = float(np.median(w))
+            r["kollaps"][a] = [z["seed"] for z in zl if not (z[a] <= med + KOLLAPS_BPC)]
+            r["divergiert"][a] = [z["seed"] for z in zl if inst[a].get(z["seed"]) or not (z[a] < unigramm)]
+            r["divergenzrate"][a] = len(r["divergiert"][a]) / len(zl)
+            ok = [z[a] for z in zl if z["seed"] not in r["divergiert"][a]]
+            r["bpc_ohne_divergente"][a] = float(np.mean(ok)) if ok else None
+    for a, v in zt.items():
+        r["zeit_je_token_mittel"][a] = float(np.mean(list(v.values())))
+    nk = [z["bpc"] for z in zeilen if z["teil"] == "nk"]
+    r["negativ"] = {"mittel": float(np.mean(nk)), "n": len(nk)} if nk else {}
+
+    def hat(*a):
+        return bool(zl) and all(x in zl[0] for x in a)
+    if hat("D_gelu", "Sz"):
+        r["diff"]["H1"] = _stat(_arr(zl, "D_gelu") - _arr(zl, "Sz"))
+    if hat("Sz", "D_z2"):
+        d = _arr(zl, "D_z2") - _arr(zl, "Sz")
+        st = _stat(d)
+        if "p_gr" in st:
+            st["p_tost"] = max(_t_p(d + TOST_GRENZE, "gr"), _t_p(d - TOST_GRENZE, "kl"))
+            st["p_komposit"] = min(1.0, 2 * min(st["p_tost"], st["p_zwei"]))
+        r["diff"]["H2"] = st
+    if hat("D_gelu", "D_z2"):
+        r["diff"]["H3"] = _stat(_arr(zl, "D_gelu") - _arr(zl, "D_z2"))
+    for x, y in (("Sz", "L_z2"), ("Sz", "D_relu2"), ("D_z2", "D_relu2"), ("S_gelu", "Sz")):
+        if hat(x, y):
+            r["beschreibend"][f"{x} - {y} (bpc, negativ = {x} besser)"] = _stat(_arr(zl, y) - _arr(zl, x))
+    prim = {}
+    for h in ("H1", "H3"):
+        if h in r["diff"] and "p_gr" in r["diff"][h]:
+            prim[h] = r["diff"][h]["p_gr"]
+    if "H2" in r["diff"] and "p_komposit" in r["diff"]["H2"]:
+        prim["H2"] = r["diff"]["H2"]["p_komposit"]
+    if prim:
+        r["p_holm"] = holm(prim)
+    return r
+
+
+def _vorab_v2(r, nk, h, arme):
+    if h not in r["diff"] or "mittel" not in r["diff"][h] or h not in r["p_holm"]:
+        return "HU (Arme fehlen oder zu wenige Seeds)"
+    if nk != "BESTANDEN":
+        return "HU (Negativkontrolle durchgefallen)"
+    dv = {a: r["divergiert"].get(a, []) for a in arme if r["divergiert"].get(a)}
+    if dv:
+        return f"HU (Divergenz in {dv})"
+    k = {a: r["kollaps"].get(a, []) for a in arme if r["kollaps"].get(a)}
+    if k:
+        return f"HU (Kollaps in {k})"
+    return None
+
+
+def urteil_v2(r: dict) -> dict:
+    nk = _nk(r)
+    u = {"NK": f"{nk} (Mittel permutiert D_gelu/Sz: {r['negativ'].get('mittel', float('nan')):.3f} bpc; Unigramm {r['unigramm_bpc']:.3f}; Schwelle {NK_FAKTOR}x)"}
+    for h, arme, gut, schlecht in (("H1", ("D_gelu", "Sz"), "SZ_BESSER", "D_gelu sicher besser als Sz"),
+                                   ("H3", ("D_gelu", "D_z2"), "AKTIVIERUNG", "D_gelu sicher besser als D_z2")):
+        u[h] = _vorab_v2(r, nk, h, arme) or _urteil_zweiseitig(r, nk, h, arme, gut, schlecht)
+    v = _vorab_v2(r, nk, "H2", ("Sz", "D_z2"))
+    if v:
+        u["H2"] = v
+    else:
+        d, ph = r["diff"]["H2"], r["p_holm"]["H2"]
+        z = (f"D_z2-Sz {d['mittel']:+.4f} bpc, 90-%-KI [{d['ki'][0]:+.4f}; {d['ki'][1]:+.4f}], n {d['n']}, p_TOST {d['p_tost']:.3g}, "
+             f"p_zweiseitig {d['p_zwei']:.3g}, p_H2_Holm {ph:.3g}").replace(".", ",")
+        if ph < ALPHA and d["p_tost"] <= d["p_zwei"]:
+            u["H2"] = f"AEQUIVALENT ({z})"
+        elif ph < ALPHA:
+            u["H2"] = f"UNTERSCHIED ({'Sz besser' if d['mittel'] > 0 else 'D_z2 besser'}; {z})"
+        else:
+            u["H2"] = f"HU ({z})"
+    g = lambda a: f"{r['arme'][a]['mittel']:.4f}".replace(".", ",") if a in r["arme"] else "n/a"
+    u["B"] = "beschreibend: Test-bpc " + ", ".join(f"{a} {g(a)}" for a in ARME_M) + "; Divergenzrate " + \
+             ", ".join(f"{a} {r['divergenzrate'].get(a, float('nan')):.2f}" for a in ARME_M) + "; Rest in auswertung"
+    return u
+
+
+def lauf_v2(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None, **_):
+    profil = profil or os.environ.get("I045V2_PROFIL", "standard")
+    P = PROFILE_V2[profil]
+    if schnell:      # Rauchtest NUR Tuning-Seed, kleine Daten, wenige Schritte
+        seeds, klein, nk_seeds = (TUNING_SEED_V2,), True, (TUNING_SEED_V2,)
+        P = {"schritte": 20, "nk_schritte": 10}
+    else:
+        seeds, klein, nk_seeds = P["seeds"], False, NK_SEEDS_V2
+        if set(seeds) & _BELEGT_V2 or TUNING_SEED_V2 in seeds or TUNING_SEED_V2 in _BELEGT_V2:
+            raise ValueError("Seeds nicht frisch/vorregistriert")
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_V2}{'-schnell' if schnell else ''}.json"
+    kennung = {"karte": KARTE_V2, "version": 1, "profil": "rauch" if schnell else profil, "profil_werte": {k: list(v) if k == "seeds" else v for k, v in P.items()},
+               "lr_gitter": list(LR_GITTER), "tuning_seed": TUNING_SEED_V2, "klein": klein}
+    t0 = time.time()
+    zw = _lade_zwischen(pfad, kennung)
+    if "tuning" not in zw:
+        zw["tuning"] = tuning(ARME_M, P["schritte"], klein, TUNING_SEED_V2)
+        _schreibe_zwischen(pfad, kennung, zw)
+        print(f"  Tuning fertig: {({a: v['lr'] for a, v in zw['tuning'].items()})}", flush=True)
+    hp = zw["tuning"]
+    aufg = [("mess", a, s, hp[a]["lr"], P["schritte"], klein) for a in ARME_M for s in seeds]
+    aufg += [("nk", a, s, hp[a]["lr"], P["nk_schritte"], klein) for a in NK_ARME_V2 for s in nk_seeds]
+    kosten = {"D_gelu": 3, "D_z2": 3, "D_relu2": 3, "Sz": 3, "S_gelu": 3, "L_z2": 2}
+    aufg.sort(key=lambda a: -kosten.get(a[1], 1))
+    alle = _rechne(aufg, pfad, kennung, fn=_arbeiter, schluessel=_schl, prozesse=prozesse)
+    zeilen = [z for k, z in alle.items() if k.startswith("einheit|")]
+    zm = None
+    if zeit:
+        if "zeit" in alle:
+            zm = alle["zeit"]
+        else:
+            zm = zeit_im_ein_thread(arme=ARME_M)
+            alle["zeit"] = zm
+            _schreibe_zwischen(pfad, kennung, alle)
+    netze = {a: Sprachmodell(a, 0) for a in ARME_M}
+    params = {a: {"ffn": param_ffn(n), "gesamt": param_gesamt(n)} for a, n in netze.items()}
+    tr, _, te = daten(klein)
+    e = {"abteilung": "Struktur", "modul": "struktur_sprache", "karte": KARTE_V2, "version": 1, "profil": profil, "hypothesen": HYPOTHESEN_V2,
+         "seeds": list(seeds), "tuning_seed": TUNING_SEED_V2, "tuning": hp,
+         "einstellungen": {"schritte": P["schritte"], "nk_schritte": P["nk_schritte"], "batch": BATCH, "kontext": KONTEXT, "d": D_MODELL,
+                           "lagen": LAGEN, "breite": {a: BREITE[a] for a in ARME_M}, "lr_gitter": list(LR_GITTER), "daten_bytes": [len(x) for x in daten(klein)]},
+         "zwischendatei": str(pfad), "zeilen": zeilen, "sekunden": time.time() - t0}
+    e["auswertung"] = auswertung_v2(zeilen, params, unigramm_entropie(tr, te))
+    if zm is not None:
+        e["zeitmessung_einzelprozess_s_je_token"] = zm
+        e["zeitverhaeltnis_D_gelu_durch_arm"] = {a: zm["D_gelu"] / v for a, v in zm.items()}
+    e["urteil"] = urteil_v2(e["auswertung"])
+    return e
+
+
+def _synth_v2(rng, off=None, sd=0.005, n=10, koll=None, nk=5.0, div=None):
+    base = {"D_gelu": 2.50, "D_z2": 2.40, "Sz": 2.40, "S_gelu": 2.62, "L_z2": 2.45, "D_relu2": 2.41}
+    base.update(off or {})
+    zl = []
+    for i in range(n):
+        gem = rng.normal(0, 0.01)
+        for a, v in base.items():
+            x, inst = v + gem + rng.normal(0, sd), False
+            if koll == a and i == 0:
+                x += 1.0
+            if div == a and i == 1:
+                x, inst = 8.0, True
+            zl.append({"teil": "mess", "arm": a, "seed": 2410 + i, "bpc": x, "instabil": inst, "sekunden_training": 10.0, "zeit_je_token": 1e-5})
+        if i < 2:
+            for a in NK_ARME_V2:
+                zl.append({"teil": "nk", "arm": a, "seed": 2410 + i, "bpc": nk + rng.normal(0, 0.02)})
+    return zl
+
+
+def _u2(rng, **kw):
+    p = {a: {"ffn": 1, "gesamt": 2} for a in ARME_M}
+    return urteil_v2(auswertung_v2(_synth_v2(rng, **kw), p, 5.0))
+
+
+def _vortest_v2() -> bool:
+    ok = True
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-045-v2): {name}", flush=True)
+            ok = False
+
+    torch.manual_seed(0)
+    x = torch.randint(0, 256, (2, KONTEXT))
+    nz = {a: Sprachmodell(a, 0) for a in ARME_M}
+    for a, m in nz.items():
+        m.eval()
+        x2 = x.clone()
+        x2[:, 60] = (x2[:, 60] + 1) % 256
+        pruefe(f"Form/Kausalitaet {a}", m(x).shape == (2, KONTEXT, 256) and torch.allclose(m(x)[:, :60], m(x2)[:, :60], atol=1e-5)
+               and not torch.allclose(m(x)[:, 60:], m(x2)[:, 60:]))
+    pf = {a: param_ffn(n) for a, n in nz.items()}
+    pruefe("Parameter: D_gelu = D_z2 = D_relu2 (dicht)", pf["D_gelu"] == pf["D_z2"] == pf["D_relu2"] == 4 * (2 * 256 * 1024 + 1024 + 256))
+    pruefe("Parameter: Sz = S_gelu = Fastfood", pf["Sz"] == pf["S_gelu"] == param_ffn(Sprachmodell("S", 0)))
+    pruefe("Parameter: L_z2 = L", pf["L_z2"] == param_ffn(Sprachmodell("L", 0)))
+    pruefe("Aktivierungen: D_gelu GELU, D_z2 z², D_relu2 relu²", nz["D_gelu"].bl[0].ffn.akt is F.gelu and nz["D_z2"].bl[0].ffn.akt is torch.square
+           and torch.allclose(_relu2(torch.tensor([-2.0, 3.0])), torch.tensor([0.0, 9.0])))
+    pruefe("Sz identisch zu I-045 (Fastfood, z²)", nz["Sz"].bl[0].ffn.akt is torch.square and nz["Sz"].bl[0].ffn.a.m.m == 4)
+    def _neu(a, sd):
+        torch.manual_seed(sd)
+        return list(Sprachmodell(a, sd).parameters())
+    pruefe("Sz bei gleichem Seed reproduzierbar", all(torch.equal(p, q) for p, q in zip(_neu("Sz", 3), _neu("Sz", 3))))
+    unit = torch.arange(32).repeat(8)[None].repeat(16, 1)[:, :KONTEXT + 1]
+    for a in ARME_M:
+        m = Sprachmodell(a, 0)
+        opt = torch.optim.Adam(m.parameters(), lr=2e-3)
+        l0 = None
+        for k in range(30):
+            opt.zero_grad()
+            l = F.cross_entropy(m(unit[:, :-1]).reshape(-1, 256), unit[:, 1:].reshape(-1))
+            l0 = l0 or float(l.detach())
+            l.backward()
+            opt.step()
+        pruefe(f"Trainierbar {a}", float(l) < 0.7 * l0)
+    pruefe("Seeds frisch (10, Tuning 2498 neu)", len(SEEDS_V2) == 10 and not (set(SEEDS_V2) & _BELEGT_V2) and TUNING_SEED_V2 not in _BELEGT_V2
+           and set(PROFILE_V2["acht"]["seeds"]) <= set(SEEDS_V2))
+    # Divergenz im Trainingsschritt: absurd hohe Lernrate muss als instabil/bpc 8 enden oder End-bpc >= Unigramm ergeben (Zweig der Erkennung)
+    t = trainiere("Sz", 1e9, 0, 5, klein=True, val=True)
+    pruefe("Divergenz-Pfad liefert instabil oder schlechten bpc", t["instabil"] or t["bpc"] > 5.0)
+
+    rng = np.random.default_rng(7)
+    gesehen = set()
+
+    def erwarte(name, u, **soll):
+        nonlocal ok
+        for k, w in soll.items():
+            gesehen.add((k, w.split(" (")[0]))
+            if not u[k].startswith(w):
+                print(f"  Vortest FEHLER (I-045-v2) {name}: {k} soll {w}, ist {u[k]}", flush=True)
+                ok = False
+
+    erwarte("Sz = D_z2 < D_gelu", _u2(rng), **{"NK": "BESTANDEN", "H1": "SZ_BESSER", "H2": "AEQUIVALENT", "H3": "AKTIVIERUNG"})
+    erwarte("Sz deutlich besser als D_z2", _u2(rng, off={"Sz": 2.30}), **{"H2": "UNTERSCHIED (Sz besser"})
+    erwarte("D_z2 deutlich besser als Sz", _u2(rng, off={"Sz": 2.50, "D_z2": 2.30}), **{"H2": "UNTERSCHIED (D_z2 besser"})
+    erwarte("D_gelu besser als Sz", _u2(rng, off={"D_gelu": 2.30}), **{"H1": "H0", "H3": "H0"})
+    erwarte("Kein Unterschied D_gelu", _u2(rng, off={"D_gelu": 2.40, "Sz": 2.40, "D_z2": 2.40}, sd=0.02), **{"H1": "HU", "H3": "HU"})
+    erwarte("H2 unklar", _u2(rng, off={"Sz": 2.42}, sd=0.03), **{"H2": "HU"})
+    erwarte("NK faellt", _u2(rng, nk=2.5), **{"NK": "DURCHGEFALLEN", "H1": "HU (Negativkontrolle", "H2": "HU (Negativkontrolle", "H3": "HU (Negativkontrolle"})
+    erwarte("Divergenz Sz", _u2(rng, div="Sz"), **{"H1": "HU (Divergenz", "H2": "HU (Divergenz", "H3": "AKTIVIERUNG"})
+    erwarte("Kollaps D_z2", _u2(rng, koll="D_z2"), **{"H3": "HU (Kollaps", "H1": "SZ_BESSER"})
+    p = {a: {"ffn": 1, "gesamt": 2} for a in ARME_M}
+    erwarte("Arm fehlt", urteil_v2(auswertung_v2([z for z in _synth_v2(rng) if z["arm"] != "D_z2"], p, 5.0)), **{"H2": "HU (Arme fehlen", "H3": "HU (Arme fehlen"})
+    a_ = auswertung_v2(_synth_v2(rng, div="Sz"), p, 5.0)
+    pruefe("Divergenzrate Sz = 0,1, Seed bleibt in den Zahlen (n=10)", abs(a_["divergenzrate"]["Sz"] - 0.1) < 1e-9 and a_["arme"]["Sz"]["n"] == 10
+           and a_["diff"]["H1"]["n"] == 10)
+    erlaubt = ("SZ_BESSER", "AEQUIVALENT", "UNTERSCHIED", "AKTIVIERUNG", "HU", "H0", "BESTANDEN", "DURCHGEFALLEN", "beschreibend")
+    pruefe("Vokabular", all(v.startswith(erlaubt) for v in _u2(rng).values()))
+    soll = {"H1": {"SZ_BESSER", "H0", "HU"}, "H2": {"AEQUIVALENT", "UNTERSCHIED", "HU"}, "H3": {"AKTIVIERUNG", "H0", "HU"}}
+    for h, ws in soll.items():
+        fehlt = ws - {w for k, w in gesehen if k == h}
+        pruefe(f"Zweige {fehlt} fuer {h} erzwungen", not fehlt)
+    # Wiederaufnahme (generisch, gleiche Maschinerie)
+    ok &= _vortest_wiederaufnahme()
+    return bool(ok)

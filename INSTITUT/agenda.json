@@ -585,6 +585,17 @@
    "frage": "Replikation von I-044 Teil 2 mit mehr Seeds (15 neue, 2310-2324): H3 (Ks >= Kd - 1 pp bei >=10x weniger Kopfparametern) und H4 (Kcs >= Kcd - 1 pp). Kriterien woertlich wie I-044; Holm ueber H3, H4; Tuning und Nichtlinearitaet aus I-044 uebernommen; gepoolt nur beschreibend.",
    "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-044-r). Seeds 2310-2324, Lernraten und Nichtlinearitaet (Ks: z2) fest aus I-044, 4 Epochen, NK nur Ks (2 Epochen). Schaetzung ca. 0,6 h bei 4 Prozessen; Fallback nur bei Zeitnot: I044R_PROFIL=zehn (Seeds 2310-2319). Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-044-r.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-r.",
    "folgen": {}
+  },
+  {
+   "id": "I-045-v2",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_sprache",
+   "funktion": "lauf_v2",
+   "prioritaet": 2,
+   "frage": "Bestaetigung des I-045-Nebenbefunds (Sz 3,410 gegen D 3,516 bpc): Arme D_gelu, D_z2, Sz, S_gelu, L_z2, D_relu2 (FFN-Breite 1024). H1 Sz < D_gelu; H2 Sz vs D_z2 (TOST +-0,02 bpc ODER zweiseitig); H3 D_z2 < D_gelu (Aktivierungseffekt). Holm ueber H1-H3, 10 Seeds, Divergenz = HU.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-045-v2). Seeds 2410-2419, Tuning 2498 (gittersuche_stabil, verlaengerbar), Profil standard 1000 Schritte. Fallback nur Zeitnot: I045V2_PROFIL=acht (Seeds 2410-2417). Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-045-v2.json. Geschaetzt ca. 1,6-2,0 h bei 4 Prozessen. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v2.",
+   "folgen": {}
   }
  ]
 }
