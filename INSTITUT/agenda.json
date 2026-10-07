@@ -578,7 +578,7 @@
   {
    "id": "I-044-r",
    "abteilung": "Struktur",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.struktur_tief",
    "funktion": "lauf_r",
    "prioritaet": 2,

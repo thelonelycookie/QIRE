@@ -1434,3 +1434,8 @@ Anlass: Nebenbefund aus I-045 (nicht konfirmatorisch): Sz (Fastfood-FFN mit z²)
 - **Erwartung vorab (keine Befunde):** Aktivierungseffekt plausibel (Primer: squared ReLU), also H3 und H1 eher positiv, H2 eher AEQUIVALENT; z² ist unbeschränkt und kann bei hoher Lernrate divergieren (daher Divergenzregel und Tuning mit Stabilitätsabstand).
 - **Laufzeit (Messwerte I-045, 1 Thread, Schritt 8×128): D-Arme 0,22 s, Fastfood 0,23 s, L 0,12 s; sechs Arme zusammen ≈ 1,2 s je Schritt.** Mess-Läufe 10 Seeds × 1000 × 1,2 ≈ 12.300, Tuning (≈ 4–5 Raten je Arm) ≈ 5.000–6.200, NK ≈ 300, Zeit/Daten/Auswertung ≈ 300 Kernsekunden, ≈ 18.000–19.000 / 4 ≈ **1,3 h**, mit Parallel-Aufschlag (I-045: 1,2–1,5×) **1,6–2,0 h, also ≤ 2,5 h: 10 Seeds bleiben.** Fallback nur bei Zeitnot (vorab): `I045V2_PROFIL=acht` (Seeds 2410–2417, ≈ 1,4–1,7 h); Kennung steht in der Zwischendatei, kein Mischen.
 - **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v2` (Wiederaufnahme je (Teil, Arm, Seed) in `ergebnisse/_zwischen_I-045-v2.json`; Tuning ebenfalls dort; Zwischenstände committen).
+
+## 07.10.2026 – I-044-r ERGEBNIS (Replikation CNN-Kopf, 15 neue Seeds 2310–2324)
+Rohdaten `ergebnisse/I-044-r__20261007_075727.json`. NK bestanden.
+- **H3 repliziert:** strukturierter Kopf Ks 74,33 % gegen dichten Kopf Kd 72,44 %, **+1,89 pp** [1,69; 2,09], n = 15. Das bestätigt I-044 (+1,8 pp, n = 5), mit ≈ 85× weniger Kopfparametern.
+- **H4 jetzt NICHT_UNTERLEGEN:** strukturierte Kanalmischung −0,63 pp [−0,85; −0,41] gegen dicht. Das liegt innerhalb der 1-pp-Grenze, ist aber ein kleiner Verlust.
