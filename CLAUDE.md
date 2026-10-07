@@ -13,6 +13,7 @@
 - **Antworten sehr kurz, in Stichpunkten** (Token sparen). Große Ideen erst in 2–3 Sätzen spiegeln. QIRE-Fakten aus den Dateien lesen, nicht aus dem Gedächtnis.
 - **Opus plant, Sonnet-Agenten führen aus** (Agent-Tool, model „sonnet“): Recherche, Modulbau, Rechnungen. Opus nur, wo Sonnet nicht reicht.
 - **Vor jedem neuen vorregistrierten Lauf auf Maltes Zustimmung warten** (Stand 06.10.: das Nutzungslimit ist knapp; die Regel kann sich wieder ändern). Modulbau, Vortest und Analyse brauchen keine Freigabe.
+- **Ziel (Malte, 07.10.):** eine quanten-inspirierte, ressourceneffiziente KI bauen. Neuheit ist nicht nötig: Bekanntes (Fastfood, Hadamard-MLP, Primer usw.) darf als Grundlage dienen und wird zitiert. Das ersetzt Vorgabe 7 (Vorrang für Neuheit) aus UEBERGABE §2.
 - Ehrlich bleiben: Die Wirkung von QIRE ist klassisch (I-038). Formuliert wird „quanten-inspirierter Vorteil“, nicht „Quantenvorteil“.
 - Ergebnisse: Institutsläufe kommen in `INSTITUT/LABORBUCH.md` und `agenda.json`, Q/T-Läufe von Projekt A in Tagebuch, `q_audit` und `q_summary`.
 
