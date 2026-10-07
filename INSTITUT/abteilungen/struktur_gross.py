@@ -413,7 +413,7 @@ def _lade_zwischen(pfad: Path, kennung: dict) -> dict:
 def _schreibe_zwischen(pfad: Path, kennung: dict, zeilen: dict):
     pfad.parent.mkdir(parents=True, exist_ok=True)
     tmp = pfad.with_name(pfad.name + ".tmp")
-    tmp.write_text(json.dumps({"karte": KARTE, "kennung": kennung, "zeilen": zeilen}, ensure_ascii=False))
+    tmp.write_text(json.dumps({"karte": kennung.get("karte", KARTE), "kennung": kennung, "zeilen": zeilen}, ensure_ascii=False))
     os.replace(tmp, pfad)
 
 
@@ -911,6 +911,7 @@ def vortest() -> bool:
     ok = _vortest_bausteine()
     ok &= _vortest_wiederaufnahme()
     ok &= _vortest_urteile()
+    ok &= _vortest_r()
     return bool(ok)
 
 
@@ -970,3 +971,168 @@ def lauf(schnell=False, datensaetze=DATENSAETZE, prozesse=None, zwischen=None, z
         e["zeitmessung"] = {"roh": zm, "zusammenfassung": zeit_urteil(zm)}
     e["urteil"] = urteil(e["auswertung"], zm)
     return e
+
+
+# ================================================================== I-042-r: vorregistrierte Replikation (mehr Seeds)
+# Nur die tragenden Vergleiche aus I-042 bei N=16384: Fashion32 H1 (B, E gegen A) und H3 (E gegen K), CIFAR H1.
+# Arme A, B, E (+K nur Fashion). Hypothesen und Kriterien WÖRTLICH wie in I-042 (_urteil_h1/_urteil_h3, Band, Kollaps, 1 pp, 100x).
+# Holm über die 5 übernommenen Tests gemeinsam (Fashion H1B, H1E, H3; CIFAR H1B, H1E). H2/H4 entfallen. NK (A, B, N=1024) bleibt als Tor.
+# Lernraten: aus I-042 ÜBERNOMMEN (keine neue Suche), hier fest eingetragen (Quelle: _zwischen_I-042.json, Tuning-Seed 2299).
+# Gepoolte Auswertung (Original 2200-2204 + Replikation) nur beschreibend (keine Tests, kein Urteil).
+KARTE_R = "I-042-r"
+SEEDS_R = tuple(range(2210, 2225))
+PROFILE_R = {"standard": SEEDS_R, "zehn": tuple(range(2210, 2220))}      # „zehn“ nur bei Zeitnot (vorab festgelegt)
+EPOCHEN_R = 5
+ARME_R = {"cifar10": ("A", "B", "E"), "fashion32": ("A", "B", "E", "K")}
+FAMILIE_R = (("fashion32", "H1B"), ("fashion32", "H1E"), ("fashion32", "H3"), ("cifar10", "H1B"), ("cifar10", "H1E"))
+TUNING_R = {"cifar10|1024": {"A": 0.001, "B": 0.001}, "cifar10|16384": {"A": 9.999999999999999e-05, "B": 0.0003, "E": 0.0003}, "fashion32|1024": {"A": 0.001, "B": 0.01}, "fashion32|16384": {"A": 9.999999999999999e-05, "B": 0.001, "E": 0.001, "K": 0.001}}
+
+
+def _tuning_r():
+    return {k: {a: {"lr": lr} for a, lr in v.items()} for k, v in TUNING_R.items()}
+
+
+def _holm_r(a: dict):
+    """Gemeinsames Holm über FAMILIE_R; schreibt p_holm je Datensatz zurück (Familie = die übernommenen 5 Tests)."""
+    prim = {}
+    for ds, h in FAMILIE_R:
+        d = a["datensaetze"].get(ds, {}).get("diff", {}).get(h)
+        prim[f"{ds}:{h}"] = d["p_gr"] if d and "p_gr" in d else 1.0
+    ph = holm(prim)
+    for ds, r in a["datensaetze"].items():
+        r["p_holm"] = {h: ph[f"{ds}:{h}"] for d2, h in FAMILIE_R if d2 == ds and f"{ds}:{h}" in ph}
+    return a
+
+
+def urteil_r(a: dict) -> dict:
+    nk = _nk(a)
+    u = {"NK": f"{nk} (Mittel permutierte Labels A/B: " + ", ".join(
+        f"{NAME[ds]} {k} {v:.3f}" for ds, r in a["datensaetze"].items() for k, v in r["negativ"].items()) + f"; Band {NK_BAND})"}
+    for ds, r in a["datensaetze"].items():
+        n = NAME[ds]
+        u[f"H1-{n}"] = _urteil_h1(r, nk, ds)
+        if ds == "fashion32":
+            u[f"H3-{n}"] = _urteil_h3(r, nk)
+        g = lambda k: _f(r["arme"][k]["mittel"] * 100).lstrip("+") if k in r["arme"] else "n/a"
+        u[f"B-{n}"] = "beschreibend: Genauigkeit % bei N=16384 " + ", ".join(f"{x} {g(f'{x}_{BREITEN[-1]}')}" for x in ARME_R[ds])
+    return u
+
+
+def _gepoolt(zeilen_r: dict, original=None) -> dict:
+    """NUR beschreibend: Original (I-042, Seeds 2200-2204) + Replikation, N=16384, Differenzen mit Mittel und 90-%-KI (ohne p-Werte)."""
+    if original is None:
+        dat = sorted(ERGEBNISSE.glob("I-042__*.json"))
+        original = json.loads(dat[-1].read_text())["zeilen"] if dat else None
+    if not original:
+        return {"hinweis": "Originaldatei I-042 nicht gefunden"}
+    out = {}
+    G = str(BREITEN[-1])
+    for ds, zr in zeilen_r.items():
+        zo = original.get(ds, {}).get(G, [])
+        zz = list(zo) + list(zr[BREITEN[-1]])
+        for x, y in (("B", "A"), ("E", "A")) + ((("E", "K"),) if ds == "fashion32" else ()):
+            if all(x in z and y in z for z in zz):
+                s = _stat(_arr(zz, x) - _arr(zz, y))
+                out[f"{NAME[ds]} {x} - {y}"] = {k: s[k] for k in ("mittel_pp", "ki_pp", "n", "sd_pp") if k in s} | {"n_original": len(zo)}
+    return out
+
+
+def lauf_r(schnell=False, prozesse=None, zwischen=None, profil=None, **_):
+    profil = profil or os.environ.get("I042R_PROFIL", "standard")
+    ds_alle = tuple(ARME_R)
+    if schnell:      # Rauchtest NUR Tuning-Seed, kleine Daten, 1 Epoche
+        seeds, klein, ep = (TUNING_SEED,), True, 1
+    else:
+        seeds, klein, ep = PROFILE_R[profil], False, EPOCHEN_R
+        if set(seeds) & _BELEGT or set(seeds) & set(SEEDS) or TUNING_SEED in seeds:
+            raise ValueError("Seeds nicht frisch/vorregistriert")
+    hp = _tuning_r()
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_R}{'-schnell' if schnell else ''}.json"
+    kennung = {"karte": KARTE_R, "version": 1, "profil": "rauch" if schnell else profil, "epochen": ep, "seeds": list(seeds),
+               "tuning": TUNING_R, "klein": klein}
+    t0 = time.time()
+    aufg = []
+    for N in (BREITEN[0], BREITEN[-1]):
+        for ds in ds_alle:
+            for s in seeds:       # N=1024: nur die NK (arme leer -> _arbeiter rechnet A_perm, B_perm)
+                aufg.append((ds, N, s, () if N == BREITEN[0] else ARME_R[ds], hp[f"{ds}|{N}"], ep, klein))
+    aufg.sort(key=lambda a: -(a[1] == BREITEN[-1]) * (3 if a[0] == "cifar10" else 2))    # teure CIFAR-Einheiten zuerst
+    alle = _rechne(aufg, pfad, kennung, prozesse=prozesse)
+    zeilen = {ds: {} for ds in ds_alle}
+    for ds in ds_alle:
+        for N in (BREITEN[0], BREITEN[-1]):
+            zeilen[ds][N] = [alle[f"einheit|{ds}|{N}|{s}"] for s in seeds]
+    # 1024-Zeilen tragen nur A_perm/B_perm, 16384-Zeilen nur die Arme; für die Auswertung zusammenführen (NK steht bei N=1024)
+    params = {ds: {N: {a: param_schicht(a, _dins()[ds], N) for a in ARME} for N in (BREITEN[0], BREITEN[-1])} for ds in ds_alle}
+    a = _holm_r(auswertung(zeilen, params))
+    e = {"abteilung": "Struktur", "modul": "struktur_gross", "karte": KARTE_R, "version": 1, "profil": profil,
+         "hinweis": "Replikation von I-042; Kriterien wörtlich wie I-042; Holm über 5 übernommene Tests; gepoolt nur beschreibend",
+         "seeds": list(seeds), "tuning_seed": TUNING_SEED, "tuning_uebernommen": TUNING_R,
+         "einstellungen": {"epochen": ep, "batch": BATCH, "arme": ARME_R}, "zwischendatei": str(pfad),
+         "zeilen": {ds: {str(N): z for N, z in zn.items()} for ds, zn in zeilen.items()}, "sekunden": time.time() - t0,
+         "auswertung": a, "gepoolt_beschreibend": _gepoolt(zeilen)}
+    e["urteil"] = urteil_r(a)
+    return e
+
+
+def _vortest_r() -> bool:
+    ok = True
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-042-r): {name}", flush=True)
+            ok = False
+    for pn, sd in PROFILE_R.items():
+        pruefe(f"Seeds frisch {pn}", not (set(sd) & (_BELEGT | set(SEEDS) | {TUNING_SEED})))
+    pruefe("15 Seeds", len(SEEDS_R) == 15 and len(PROFILE_R["zehn"]) == 10)
+    pruefe("Tuning vollständig", all(a in TUNING_R[f"{ds}|{N}"] for ds in ARME_R for N in (BREITEN[0], BREITEN[-1])
+                                      for a in (ARME_R[ds] if N == BREITEN[-1] else ("A", "B"))))
+    orig = ERGEBNISSE / "_zwischen_I-042.json"
+    if orig.exists():
+        t = json.loads(orig.read_text())["zeilen"]["tuning"]
+        pruefe("Tuning stimmt mit I-042 überein", all(t[k][a]["lr"] == lr for k, v in TUNING_R.items() for a, lr in v.items()))
+    # Urteilszweige erzwingen: Daten wie _synth (Arme A,B,E,K; N=1024 für NK), je Datensatz
+    rng = np.random.default_rng(23)
+
+    def u(n=15, **kw):
+        off = kw.pop("off", None); pr_off = kw.pop("param_off", None); sdk = kw.pop("sd", 0.001)
+        zeilen, pr = {}, {}
+        for ds, din in (("cifar10", 3072), ("fashion32", 1024)):
+            kk = dict(kw); kk["mitK"] = ds == "fashion32"
+            z = _synth(rng, off=off, sd=sdk, n=n, **kk)
+            zeilen[ds] = z
+            pr[ds] = {N: {a: param_schicht(a, din, N) for a in ARME} for N in BREITEN}
+            if pr_off:
+                for N in pr[ds]:
+                    pr[ds][N].update(pr_off)
+        return urteil_r(_holm_r(auswertung(zeilen, pr)))
+    gesehen = set()
+
+    def erwarte(name, ur, **soll):
+        nonlocal ok
+        for k, w in soll.items():
+            gesehen.add((k.split("-")[0], w.split(" (")[0]))
+            if not ur[k].startswith(w):
+                print(f"  Vortest FEHLER (I-042-r) {name}: {k} soll {w}, ist {ur[k]}", flush=True)
+                ok = False
+    erwarte("Normalfall", u(), **{"NK": "BESTANDEN", "H1-CIFAR": "NICHT_UNTERLEGEN", "H1-Fashion": "NICHT_UNTERLEGEN", "H3-Fashion": "E_DOMINIERT"})
+    erwarte("H1 beide unterlegen", u(off={"B": 0.50, "E": 0.50}), **{"H1-CIFAR": "H0 (beide unterlegen", "H1-Fashion": "H0 (beide unterlegen"})
+    erwarte("H3 K besser", u(off={"K": 0.60}), **{"H3-Fashion": "H0 (K besser"})
+    erwarte("Rauschen", u(sd=0.02, off={"B": 0.56, "K": 0.56}), **{"H1-CIFAR": "HU", "H1-Fashion": "HU", "H3-Fashion": "HU"})
+    erwarte("NK faellt", u(nk=0.30), **{"NK": "DURCHGEFALLEN", "H1-Fashion": "HU (Negativkontrolle", "H3-Fashion": "HU (Negativkontrolle"})
+    erwarte("Kollaps B", u(koll="B"), **{"H1-Fashion": "HU (Instabilitaet"})
+    erwarte("Parameter reichen nicht", u(param_off={"B": 10 ** 6, "E": 10 ** 6}), **{"H1-Fashion": "HU"})
+    erwarte("Budget K zu klein", u(param_off={"K": 10}), **{"H3-Fashion": "HU (Budget"})
+    erwarte("10 Seeds (Profil zehn)", u(n=10), **{"H1-Fashion": "NICHT_UNTERLEGEN"})
+    for h, ws in {"H1": {"NICHT_UNTERLEGEN", "H0", "HU"}, "H3": {"E_DOMINIERT", "H0", "HU"}}.items():
+        pruefe(f"Zweige {h}", ws <= {w for k, w in gesehen if k == h})
+    # gemeinsames Holm wirkt: 5 Tests, kleinstes p wird mit 5 multipliziert
+    ph = holm({f"t{i}": 0.01 for i in range(5)})
+    pruefe("Holm über 5", all(abs(v - 0.05) < 1e-12 for v in ph.values()))
+    # gepoolte Auswertung (beschreibend) läuft auf synthetischen Originaldaten
+    zr = {"fashion32": {BREITEN[-1]: _synth(rng, n=15)[BREITEN[-1]]}}
+    orig_s = {"fashion32": {str(BREITEN[-1]): _synth(rng, n=5)[BREITEN[-1]]}}
+    g = _gepoolt(zr, orig_s)
+    pruefe("gepoolt n=20, ohne p", g["Fashion B - A"]["n"] == 20 and "p_gr" not in g["Fashion B - A"])
+    return ok

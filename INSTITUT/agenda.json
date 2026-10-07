@@ -563,6 +563,28 @@
    "frage": "Strukturschicht im kleinen Sprachmodell (Container): ersetzt eine Fastfood-FFN (trainierte Diagonalen, O(N)) die dichten FFN-Matrizen eines 4-lagigen Decoder-Transformers (d=256, Byte-Ebene, deutscher Text UD_German-GSD)? Arme D dicht, S Fastfood gleicher Breite, Sb Fastfood 4x breit, L niedriger Rang (Budget wie S), Sz (S mit z^2, Nebenarm). H1 Sb <= D + 0,02 bpc bei weniger FFN-Parametern; H2 S < L; H3 Sb schneller als D (Inferenz je Token).",
    "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-045). Seeds 2400-2404, Tuning 2499. Profil standard (1000 Schritte, Batch 8x128) fest, Fallback (600) per I045_PROFIL=fallback. Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-045.json. Geschaetzt ca. 1,4 h bei 4 Prozessen. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045.",
    "folgen": {}
+  },
+  {
+   "id": "I-042-r",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_gross",
+   "funktion": "lauf_r",
+   "prioritaet": 2,
+   "frage": "Replikation von I-042 mit mehr Seeds (15 neue, 2210-2224): tragende Vergleiche bei N=16384: Fashion32 H1 (B, E >= A - 1 pp, >=100x weniger Parameter) und H3 (E - K), CIFAR H1. Arme A, B, E (+K nur Fashion). Kriterien woertlich wie I-042; Holm ueber die 5 uebernommenen Tests; Tuning aus I-042 uebernommen; gepoolt (Original+Replikation) nur beschreibend.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-042-r). Seeds 2210-2224, Tuning-Lernraten fest aus I-042 (keine Suche), 5 Epochen. Schaetzung ca. 1,8 h bei 4 Prozessen; Fallback nur bei Zeitnot: I042R_PROFIL=zehn (Seeds 2210-2219, ca. 1,2 h). Wiederaufnahme je (Datensatz,N,Seed) in ergebnisse/_zwischen_I-042-r.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-042-r.",
+   "folgen": {}
+  },
+  {
+   "id": "I-044-r",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_tief",
+   "funktion": "lauf_r",
+   "prioritaet": 2,
+   "frage": "Replikation von I-044 Teil 2 mit mehr Seeds (15 neue, 2310-2324): H3 (Ks >= Kd - 1 pp bei >=10x weniger Kopfparametern) und H4 (Kcs >= Kcd - 1 pp). Kriterien woertlich wie I-044; Holm ueber H3, H4; Tuning und Nichtlinearitaet aus I-044 uebernommen; gepoolt nur beschreibend.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-044-r). Seeds 2310-2324, Lernraten und Nichtlinearitaet (Ks: z2) fest aus I-044, 4 Epochen, NK nur Ks (2 Epochen). Schaetzung ca. 0,6 h bei 4 Prozessen; Fallback nur bei Zeitnot: I044R_PROFIL=zehn (Seeds 2310-2319). Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-044-r.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-r.",
+   "folgen": {}
   }
  ]
 }

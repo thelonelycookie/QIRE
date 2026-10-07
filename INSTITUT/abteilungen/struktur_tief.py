@@ -22,6 +22,7 @@ MESSUNG: Genauigkeit, trainierte Parameter (Schicht und gesamt), Inferenzzeit (1
 """
 from __future__ import annotations
 
+import json
 import math
 import os
 import time
@@ -577,6 +578,7 @@ def vortest() -> bool:
     ok = _vortest_bausteine()
     ok &= _vortest_wiederaufnahme()
     ok &= _vortest_urteile()
+    ok &= _vortest_r()
     return bool(ok)
 
 
@@ -634,3 +636,133 @@ def lauf(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None):
         e["zeitmessung"] = {"roh": zm, "zusammenfassung": zeit_text(zm)}
     e["urteil"] = urteil(e["auswertung"], zm)
     return e
+
+
+# ================================================================== I-044-r: vorregistrierte Replikation (mehr Seeds)
+# Nur Teil 2 aus I-044: H3 (Ks >= Kd - 1 pp UND >= 10x weniger Kopfparameter) und H4 (Kcs >= Kcd - 1 pp). Kriterien WÖRTLICH wie in I-044
+# (_ni/_vorab/_kopf_pruefung, 1 pp, Kollaps, NK-Band), Holm über H3 und H4 (die übernommenen Hypothesen; wie im Original die Teil-2-Familie).
+# Lernraten und Nichtlinearität von Ks ÜBERNOMMEN aus I-044 (Tuning-Seed 2399; keine neue Suche, keine neue Auswahl), hier fest eingetragen.
+# NK-Tor: nur Ks permutiert (S1 gehört zu Teil 1 und entfällt), Mittel in NK_BAND. Teil 1 wird nicht wiederholt.
+# Gepoolte Auswertung (Original 2300-2304 + Replikation) nur beschreibend (keine Tests, kein Urteil).
+KARTE_R = "I-044-r"
+SEEDS_R = tuple(range(2310, 2325))
+PROFILE_R = {"standard": SEEDS_R, "zehn": tuple(range(2310, 2320))}      # „zehn“ nur bei Zeitnot (vorab festgelegt)
+ARME_R = ("Kd", "Ks", "Kcd", "Kcs")
+NK_ARME_R = ("Ks",)
+EP_R = {"ep2": 4, "nk": 2}              # wie Profil „standard“ von I-044
+TUNING_R = {"Kd": 0.003, "Ks": 0.003, "Kcd": 0.003, "Kcs": 0.003}
+AKT_R = {"Ks": ("z2",), "S1": ("relu",), "S2": ("relu", "relu"), "S3": ("relu", "relu", "relu")}   # nur Ks wird gebraucht
+
+
+def urteil_r(r: dict) -> dict:
+    nk = _nk(r)
+    u = {"NK": f"{nk} (Mittel permutierte Labels Ks: {r['negativ'].get('mittel', float('nan')):.3f}; Band {NK_BAND})"}
+    u["H3"] = _ni(r, nk, "H3", ("Kd", "Ks"), _kopf_pruefung)
+    u["H4"] = _ni(r, nk, "H4", ("Kcd", "Kcs"))
+    g = lambda a: f"{r['arme'][a]['mittel'] * 100:.2f}".replace(".", ",") if a in r["arme"] else "n/a"
+    u["B"] = "beschreibend: Genauigkeit % " + ", ".join(f"{a} {g(a)}" for a in ARME_R)
+    return u
+
+
+def _gepoolt(zeilen_r: list, original=None) -> dict:
+    """NUR beschreibend: Original (I-044, Seeds 2300-2304) + Replikation, Differenzen mit Mittel und 90-%-KI (ohne p-Werte)."""
+    if original is None:
+        dat = sorted(ERGEBNISSE.glob("I-044__*.json"))
+        original = json.loads(dat[-1].read_text())["zeilen"] if dat else None
+    if not original:
+        return {"hinweis": "Originaldatei I-044 nicht gefunden"}
+    acc = {}
+    for z in list(original) + list(zeilen_r):
+        if z["teil"] == "t2":
+            acc.setdefault(z["arm"], {})[z["seed"]] = z["acc"]
+    out = {}
+    for x, y in (("Ks", "Kd"), ("Kcs", "Kcd")):
+        seeds = sorted(set(acc.get(x, {})) & set(acc.get(y, {})))
+        if seeds:
+            d = np.array([acc[x][s] - acc[y][s] for s in seeds])
+            m, se = float(d.mean()), float(d.std(ddof=1) / math.sqrt(len(d)))
+            from scipy.stats import t as tv
+            q = float(tv.ppf(0.95, len(d) - 1))
+            out[f"{x} - {y}"] = {"mittel_pp": m * 100, "ki_pp": [(m - q * se) * 100, (m + q * se) * 100], "n": len(d),
+                                 "n_original": sum(1 for s in seeds if s in SEEDS)}
+    return out
+
+
+def lauf_r(schnell=False, prozesse=None, zwischen=None, profil=None, **_):
+    profil = profil or os.environ.get("I044R_PROFIL", "standard")
+    if schnell:      # Rauchtest NUR Tuning-Seed, kleine Daten, 1 Epoche
+        seeds, klein, ep, epnk = (TUNING_SEED,), True, 1, 1
+    else:
+        seeds, klein, ep, epnk = PROFILE_R[profil], False, EP_R["ep2"], EP_R["nk"]
+        if set(seeds) & _BELEGT or set(seeds) & set(SEEDS) or TUNING_SEED in seeds:
+            raise ValueError("Seeds nicht frisch/vorregistriert")
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_R}{'-schnell' if schnell else ''}.json"
+    kennung = {"karte": KARTE_R, "version": 1, "profil": "rauch" if schnell else profil, "epochen": {"ep2": ep, "nk": epnk},
+               "seeds": list(seeds), "tuning": TUNING_R, "akt": {k: list(v) for k, v in AKT_R.items()}, "klein": klein}
+    t0 = time.time()
+    akt = dict(AKT_R)
+    aufg = [("t2", a, s, TUNING_R[a], akt, ep, klein) for a in ARME_R for s in seeds]
+    aufg += [("nk", a, s, TUNING_R[a], akt, epnk, klein) for a in NK_ARME_R for s in seeds]
+    kosten = {"Kd": 3, "Ks": 3, "Kcd": 2, "Kcs": 2}
+    aufg.sort(key=lambda a: -kosten.get(a[1], 1))
+    alle = _rechne(aufg, pfad, kennung, fn=_arbeiter, schluessel=_schl, prozesse=prozesse)
+    zeilen = [z for k, z in alle.items() if k.startswith("einheit|")]
+    netze = {a: Netz(a, 0, akt) for a in ARME_R}
+    params = {a: {"breit": param_breit(n), "kopf": param_kopf(n), "gesamt": param_gesamt(n)} for a, n in netze.items()}
+    r = auswertung(zeilen, params)
+    e = {"abteilung": "Struktur", "modul": "struktur_tief", "karte": KARTE_R, "version": 1, "profil": profil,
+         "hinweis": "Replikation von I-044 Teil 2 (H3, H4); Kriterien wörtlich wie I-044; Holm über H3, H4; gepoolt nur beschreibend",
+         "seeds": list(seeds), "tuning_seed": TUNING_SEED, "tuning_uebernommen": TUNING_R,
+         "einstellungen": {"epochen": ep, "nk_epochen": epnk, "batch": BATCH}, "zwischendatei": str(pfad),
+         "zeilen": zeilen, "sekunden": time.time() - t0, "auswertung": r, "gepoolt_beschreibend": _gepoolt(zeilen)}
+    e["urteil"] = urteil_r(r)
+    return e
+
+
+def _vortest_r() -> bool:
+    ok = True
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-044-r): {name}", flush=True)
+            ok = False
+    for pn, sd in PROFILE_R.items():
+        pruefe(f"Seeds frisch {pn}", not (set(sd) & (_BELEGT | set(SEEDS) | {TUNING_SEED})))
+    pruefe("15/10 Seeds", len(SEEDS_R) == 15 and len(PROFILE_R["zehn"]) == 10)
+    orig = ERGEBNISSE / "_zwischen_I-044.json"
+    if orig.exists():
+        z = json.loads(orig.read_text())["zeilen"]
+        pruefe("Tuning stimmt mit I-044 überein", all(z["tuning"][a]["lr"] == lr for a, lr in TUNING_R.items()))
+        pruefe("Nichtlinearität Ks stimmt mit I-044 überein", tuple(z["akt"]["Ks"]) == AKT_R["Ks"])
+    rng = np.random.default_rng(31)
+
+    def synth(n=15, **kw):
+        zl = _synth(rng, n=n, **kw)
+        zl = [z for z in zl if not (z["teil"] == "nk" and z["arm"] != "Ks") and z["teil"] != "t1"]
+        return zl
+
+    def u(n=15, param_off=None, **kw):
+        return urteil_r(auswertung(synth(n, **kw), _synth_param(param_off)))
+    gesehen = set()
+
+    def erwarte(name, ur, **soll):
+        nonlocal ok
+        for k, w in soll.items():
+            gesehen.add((k, w.split(" (")[0]))
+            if not ur[k].startswith(w):
+                print(f"  Vortest FEHLER (I-044-r) {name}: {k} soll {w}, ist {ur[k]}", flush=True)
+                ok = False
+    erwarte("Normalfall", u(), **{"NK": "BESTANDEN", "H3": "NICHT_UNTERLEGEN", "H4": "NICHT_UNTERLEGEN"})
+    erwarte("alle unterlegen", u(off={"Ks": 0.65, "Kcs": 0.64}), **{"H3": "H0", "H4": "H0"})
+    erwarte("Rauschen", u(sd=0.03, off={"Kd": 0.70, "Ks": 0.695, "Kcs": 0.695, "Kcd": 0.70}), **{"H3": "HU", "H4": "HU"})
+    erwarte("Kopfparameter reichen nicht", u(param_off={"Ks": {"breit": 3_000_000, "kopf": 3_040_000, "gesamt": 3_050_000}}), **{"H3": "HU"})
+    erwarte("NK faellt", u(nk=0.30), **{"NK": "DURCHGEFALLEN", "H3": "HU (Negativkontrolle", "H4": "HU (Negativkontrolle"})
+    erwarte("Kollaps Ks", u(koll="Ks"), **{"H3": "HU (Instabilitaet", "H4": "NICHT_UNTERLEGEN"})
+    erwarte("Arm fehlt", urteil_r(auswertung([z for z in synth() if z["arm"] != "Kcs"], _synth_param())), **{"H4": "HU (Arme fehlen"})
+    erwarte("10 Seeds (Profil zehn)", u(n=10), **{"H3": "NICHT_UNTERLEGEN"})
+    for h, ws in {"H3": {"NICHT_UNTERLEGEN", "H0", "HU"}, "H4": {"NICHT_UNTERLEGEN", "H0", "HU"}}.items():
+        pruefe(f"Zweige {h}", ws <= {w for k, w in gesehen if k == h})
+    g = _gepoolt([dict(z, seed=z["seed"] + 10) for z in synth(15) if z["teil"] == "t2"], _synth(rng, n=5))
+    pruefe("gepoolt n=20, ohne p", g["Ks - Kd"]["n"] == 20 and g["Ks - Kd"]["n_original"] == 5 and "p_gr" not in g["Ks - Kd"])
+    return ok
