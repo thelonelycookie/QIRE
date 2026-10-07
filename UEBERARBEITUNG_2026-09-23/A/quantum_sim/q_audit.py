@@ -774,7 +774,7 @@ def check_t007() -> List[Tuple[str, bool, str]]:
     """T-007 (I-043, Fastfood-Adapter). VOR dem Lauf: 'noch nicht gerechnet'. NACH dem Lauf prueft dies die
     Struktur der Rohdaten (Positivkontrolle, Parameterzahlen, 8 Seeds, Parametergleichheit ff_adapter == lora_r1,
     Tuning-Rohdaten vorhanden, Randvermerk unabhaengig nachgerechnet); die Tagebuchzahlen (Mittel je Arm,
-    H1-H3-Urteile) sind beim Eintrag der Ergebnisse HIER zu ergaenzen (Platzhalter TAGEBUCH_T007)."""
+    H1/H2/H4/H5-Urteile) sind beim Eintrag der Ergebnisse HIER zu ergaenzen (Platzhalter TAGEBUCH_T007)."""
     try:
         payload = load("T-007")
     except Exception:                                  # noqa: BLE001 -- keine Rohdaten
@@ -787,27 +787,34 @@ def check_t007() -> List[Tuple[str, bool, str]]:
         rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
         return np.array([r["val_verlust"] for r in rows])
 
-    arme = ("basis", "qire_L10", "lora_r1", "ff_adapter", "ff_adapter_breit")
-    b, q, lo, ff, fb = (m(a) for a in arme)
+    arme = ("basis", "qire_L10", "lora_r1", "ff_adapter", "ff_born", "ff_gelu")
+    b, q, lo, ff, fb, fg = (m(a) for a in arme)
+    r2 = m("lora_r2")                                  # nur beschreibend (Rate nicht getunt); darf fehlen
     out.append((f"Positivkontrolle qire_L10 = {POS_SOLL} +- {POS_TOL}",
                 bool(len(q)) and abs(float(q.mean()) - POS_SOLL) <= POS_TOL, f"Rohdaten {q.mean() if len(q) else float('nan'):.4f}"))
-    for arm, n in (("qire_L10", 1920), ("lora_r1", 30720), ("ff_adapter", 30720), ("ff_adapter_breit", 61440)):
+    for arm, n in (("qire_L10", 1920), ("lora_r1", 30720), ("ff_adapter", 30720), ("ff_born", 43008),
+                   ("ff_gelu", 43008), ("lora_r2", 61440)):
+        if arm == "lora_r2" and not len(r2):
+            continue
         t = next((int(r["trainierbar"]) for r in rec if r["arm"] == arm), -1)
         out.append((f"trainierbar {arm}", t == n, f"Vorregistrierung {n} | Rohdaten {t}"))
     out.append(("Parametergleichheit ff_adapter == lora_r1",
                 next((r["trainierbar"] for r in rec if r["arm"] == "ff_adapter"), -1)
                 == next((r["trainierbar"] for r in rec if r["arm"] == "lora_r1"), -2), "30.720 == 30.720"))
-    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, q, lo, ff, fb)), f"{[len(x) for x in (b, q, lo, ff, fb)]}"))
-    out.append(("alle Werte endlich", all(np.isfinite(x).all() for x in (b, q, lo, ff, fb)), "keine NaN/inf"))
-    out.append(("Tuning-Rohdaten in config['tuning'] (Lehre T-006)", len(cfg.get("tuning", {})) >= 20,
+    out.append(("ff_born == ff_gelu Parameter (43.008, 1,40 x lora_r1)",
+                next((r["trainierbar"] for r in rec if r["arm"] == "ff_born"), -1)
+                == next((r["trainierbar"] for r in rec if r["arm"] == "ff_gelu"), -2), "43.008 == 43.008"))
+    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, q, lo, ff, fb, fg)), f"{[len(x) for x in (b, q, lo, ff, fb, fg)]}"))
+    out.append(("alle Werte endlich", all(np.isfinite(x).all() for x in (b, q, lo, ff, fb, fg)), "keine NaN/inf"))
+    out.append(("Tuning-Rohdaten in config['tuning'] (Lehre T-006)", len(cfg.get("tuning", {})) >= 30,
                 f"{len(cfg.get('tuning', {}))} Zellen"))
-    for arm in ("ff_adapter", "ff_adapter_breit"):
+    for arm in ("ff_adapter", "ff_born", "ff_gelu"):
         best, rand, _ = rand_aus_tuning(cfg.get("tuning", {}), arm)
         gesp = cfg.get("lr", {}).get(arm, {})
         out.append((f"lr {arm}: Rohdaten-Optimum == gespeichert, Rand '{gesp.get('rand')}' == nachgerechnet '{rand}'",
                     best is not None and abs(np.log10(best / float(gesp.get("lr", 1e-99)))) < 1e-6
                     and rand == gesp.get("rand") and rand == "innen", f"Optimum {best}, Rand {rand}"))
-    # TAGEBUCH_T007: Mittel je Arm und H1-H3 nach Eintrag der Ergebnisse hier ergaenzen
+    # TAGEBUCH_T007: Mittel je Arm und H1/H2/H4/H5 nach Eintrag der Ergebnisse hier ergaenzen
     return out
 
 

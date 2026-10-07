@@ -7,7 +7,7 @@ Seeds, Hypothesen, Auswertung. Vorregistrierung ausfuehrlich: ENTWURF_T007_FASTF
 (massgeblich ist dieser Modulkopf, Stand Commit). Herleitung: INSTITUT/LABORBUCH.md I-044 ERGEBNIS
 (Struktur traegt dort, wo die Eingabe schon gute Merkmale hat).
 
-FRAGE  Ersetzt eine strukturierte Fastfood-Abbildung mit O(d) trainierbaren Parametern den
+FRAGE  (1) Ersetzt eine strukturierte Fastfood-Abbildung mit O(d) trainierbaren Parametern den
   niedrigen Rang (LoRA r=1) als Adapter -- bei GLEICHER Parameterzahl?
 
 ADAPTER  Je Projektionsmatrix W (q_proj 768->768, v_proj 768->256; 24 Matrizen) y = W x + dW x mit
@@ -24,40 +24,50 @@ ADAPTER  Je Projektionsmatrix W (q_proj 768->768, v_proj 768->256; 24 Matrizen) 
   == lora_r1 EXAKT (A: d_in, B: d_aus je Matrix) -> fairer Paritaetsvergleich.
   ff_adapter_breit = 61.440 (2 x lora_r1; Tiefe/Breite-Test, kein Paritaetsarm).
 
+BORN-ZWEIG (Aenderung 07.10.2026, vor jeder Zahl; Grund: I-045-v2 zeigt Wechselwirkung Struktur x z^2)
+  ff_born  dW x = c * D3 * H( D2 * fold( (H(D1 * x))^2 ) )     c = 2,0 fest, H blockweise 256, fold wie oben
+  ff_gelu  dasselbe mit GELU statt z^2 (Kontrolle der Wechselwirkung, gleiche Struktur, gleiche Parameter)
+  Init D1, D2 = Zufallsvorzeichen, D3 = 0 -> dW = 0, Start = Basismodell. Parameter d_in + 2 d_aus je Matrix
+  = 12 * ((768+1536) + (768+512)) = 43.008 = 1,40 x lora_r1 (30.720), 0,70 x lora_r2 (61.440): NICHT
+  parametergleich zu LoRA; lora_r1 und lora_r2 klammern den Born-Zweig ein (offen gelegt). Nahe Verwandte:
+  Needle-2-Hadamard-MLP (SiLU), siehe INSTITUT/recherche/2026-10-07_literatur_struktur_quadrat.md.
+  ff_adapter_breit (61.440) GESTRICHEN (mit ihm Kern ca. 11 h > 10 h); H3 entfaellt.
+
 ARME
     basis             kein Training                                         0
     qire_L10          Bruecke und POSITIVKONTROLLE (T-006: 2,4111)      1.920
     lora_r1           Referenz (wie T-004/T-005/T-006)                 30.720
     ff_adapter        Fastfood, 2 Diagonalstufen (1 je Seite)          30.720
-    ff_adapter_breit  Fastfood, 4 Diagonalstufen (2 je Seite)          61.440
+    ff_born           Born-Zweig, z^2                                  43.008
+    ff_gelu           Born-Zweig, GELU (Kontrolle)                     43.008
+    lora_r2           obere LoRA-Klammer, nur beschreibend, lr = 1e-3
+                      von lora_r1 uebernommen (NICHT getunt)           61.440
 
 VORREGISTRIERUNG (vor jeder T-007-Zahl; Aenderungen erst ins Tagebuch)
   Seeds FRISCH: Messung 70001-70008, Tuning 70401/70402 (disjunkt zu T-004 40001-40008/40401-40402,
   T-005 50001-50008/50401-50402, T-006 60001-60008/60401-60402; `pruefe_theorie` prueft das).
   SCHRITTE = 300 fuer alle trainierten Arme.
-  Lernraten: qire_L10, lora_r1 uebernommen aus T-005 (1e-3, innen; wie T-006). ff_adapter und
-  ff_adapter_breit getunt: Startgitter 1e-4/3e-4/1e-3/3e-3/1e-2 (5 Punkte; Gitter reicht von
-  Anfang an bis 1e-4, Lehre aus T-006), Verlaengerung x3 bzw. :3 (hoechstens 3 Schritte,
-  `sweep_lr`) in BEIDE Richtungen. Randpruefung: Optimum nie am Rand der gemessenen Raten, sonst
-  "ACHTUNG Rand" im Urteil. ALLE Tuningzellen und die Mittel je Rate stehen in den ROHDATEN
-  (config["tuning"], config["lr"][arm]["mittel"]); `rand_aus_tuning` rechnet den Randvermerk
-  unabhaengig aus den Rohdaten nach (q_audit).
-  Familie, Holm ueber GENAU 3 (alpha 0,05):
-    H1  ff_adapter - lora_r1, zweiseitig (Wilcoxon) + TOST, Grenze +-20 % x |Gewinn lora_r1|;
-        TOST wird vor der Signifikanz geprueft (wie T-004..T-006)
+  Lernraten: qire_L10, lora_r1 uebernommen aus T-005 (1e-3, innen; wie T-006). ff_adapter, ff_born, ff_gelu
+  getunt (gleiches Gitter): Startgitter 1e-4/3e-4/1e-3/3e-3/1e-2, Verlaengerung x3 bzw. :3 in BEIDE
+  Richtungen, hoechstens 3 Schritte (`sweep_lr`), Tuning-Seeds. Randpruefung: Optimum nie am Rand, sonst
+  "ACHTUNG Rand". ALLE Tuningzellen und Mittel je Rate in den ROHDATEN (config["tuning"]); `rand_aus_tuning`
+  rechnet den Randvermerk unabhaengig nach (q_audit).
+  Familie, Holm ueber GENAU 4 (alpha 0,05):
+    H1  ff_adapter - lora_r1, zweiseitig (Wilcoxon) + TOST +-20 % x |Gewinn lora_r1|; TOST vor Signifikanz
           FF_BESSER / GLEICHWERTIG / LORA_BESSER / UNENTSCHIEDEN
-    H2  ff_adapter < qire_L10 (Wilcoxon einseitig: ff besser). NICHT parametergleich (30.720 gegen
-        1.920): Bruecke zu T-005/T-006, kein Effizienzbeweis.
+    H2  ff_adapter < qire_L10 (einseitig). NICHT parametergleich: Bruecke.
           FF_BESSER_ALS_QIRE / KEIN_NACHWEIS
-    H3  ff_adapter_breit < ff_adapter (Wilcoxon einseitig: mehr Stufen helfen)
-          BREIT_BESSER / KEIN_NACHWEIS
-  Rangfolge: HU_UNVOLLSTAENDIG -> HU_DIVERGENZ (nicht endliche Werte) -> HU_POSKONTROLLE
-    (qire_L10 Mittel 8 Seeds = 2,4111 +- 0,003) -> HU_AUFLOESUNG (lora_r1 trennt sich von basis,
-    Wilcoxon zweiseitig p < 0,05) -> Urteil.
-  Erreichbarkeit (Regel 2): 8 Seeds -> Wilcoxon einseitig min 0,0039, zweiseitig 0,0078, je x3 (Holm)
-    <= 0,023 < 0,05.
+    H4  ff_born < ff_gelu (einseitig; Wechselwirkung Struktur x Quadrat, gleiche Parameter)
+          BORN_BESSER / KEIN_NACHWEIS
+    H5  ff_born vs lora_r1, zweiseitig + TOST +-20 % x |Gewinn lora_r1| (lora_r1 = parametergleichste
+        Referenz, Born hat 1,4 x so viele Parameter; lora_r2 als Gegenstueck nur beschreibend)
+          BORN_BESSER / GLEICHWERTIG / LORA_BESSER / UNENTSCHIEDEN
+  Rangfolge: HU_UNVOLLSTAENDIG -> HU_DIVERGENZ -> HU_POSKONTROLLE (qire_L10 Mittel 2,4111 +- 0,003)
+    -> HU_AUFLOESUNG (lora_r1 trennt sich von basis, Wilcoxon zweiseitig p < 0,05) -> Urteil.
+  Erreichbarkeit: 8 Seeds, Wilcoxon einseitig min 0,0039, zweiseitig 0,0078, je x4 (Holm) <= 0,031 < 0,05.
   Beschreibend (ohne Holm): Gewinn je Arm, Anteil am LoRA-Gewinn, Gewinn je Parameter, s/Schritt,
-    ff_adapter_breit - lora_r1, Randvermerke.
+    ff_born - lora_r2, ff_born - ff_adapter, ff_gelu - lora_r1, Randvermerke.
+  Laufzeit: Ziel Kern <= 10 h (`prognose`: 9,0 h, 9,7 h mit Verlaengerung); misst `zeit` mehr, entfaellt lora_r2 (letzter Arm).
 
 Run (aus dem Ordner A):
     python -m quantum_sim.chatbot_fastfood vortest            # Pflicht (Modell noetig)
@@ -95,10 +105,15 @@ from .kernaussage import sweep_lr
 # Aufbau -- alle Zahlen VOR dem Lauf festgelegt
 # ---------------------------------------------------------------------------
 LAUF_ID = "T-007"
-FF_ARME = {"ff_adapter": 1, "ff_adapter_breit": 2}          # Diagonalstufen JE SEITE
-ARME = ("basis", "qire_L10", "lora_r1", *FF_ARME)
-# Reihenfolge = Wichtigkeit: Positivkontrolle zuerst, dann die Referenz, dann H1/H2, zuletzt H3.
-TRAINIERT = ("qire_L10", "lora_r1", "ff_adapter", "ff_adapter_breit")
+FF_ARME = {"ff_adapter": 1}                                 # lineare Fastfood-Arme: Diagonalstufen JE SEITE
+BORN_ARME = {"ff_born": "z2", "ff_gelu": "gelu"}            # Mischung -> Nichtlinearitaet -> Rueckmischung
+FF_ALLE = (*FF_ARME, *BORN_ARME)
+# ff_adapter_breit (4 Stufen, 61.440) ist seit 07.10. (Aenderung der Vorregistrierung) GESTRICHEN: mit ihm laege
+# die Kernzeit bei ca. 11 h > 10 h. H3 entfaellt; Familie = H1, H2, H4, H5.
+ARME = ("basis", "qire_L10", "lora_r1", "lora_r2", *FF_ALLE)
+# Reihenfolge = Wichtigkeit: Positivkontrolle zuerst, dann die Referenz, dann H1/H2, H4/H5; lora_r2 (nur
+# beschreibend) ZULETZT -- bei Zeitnot ist es der Arm, der wegfaellt.
+TRAINIERT = ("qire_L10", "lora_r1", "ff_adapter", "ff_born", "ff_gelu", "lora_r2")
 SCHRITTE = ca.SCHRITTE                                      # 300
 FF_SKALA = 2.0                                              # c, fest (wie LoRA alpha/r)
 WHT_A, WHT_B = 16, 16                                       # H_256 = H_16 (x) H_16
@@ -107,17 +122,21 @@ N_MATRIZEN = 24
 _DIMS = (("q_proj", 768, 768), ("v_proj", 768, 256))        # (Name, d_in, d_aus)
 ERWARTETE_PARAMETER = {"basis": 0, "qire_L10": ck.ERWARTETE_PARAMETER["qire_L10"],
                        "lora_r1": ca.ERWARTETE_PARAMETER["lora_r1"],
-                       **{a: 12 * s * sum(di + do for _, di, do in _DIMS) for a, s in FF_ARME.items()}}
+                       "lora_r2": 2 * ca.ERWARTETE_PARAMETER["lora_r1"],
+                       **{a: 12 * s * sum(di + do for _, di, do in _DIMS) for a, s in FF_ARME.items()},
+                       # Born-Zweig: D1 (d_in) + D2 (d_aus) + D3 (d_aus) je Matrix
+                       **{a: 12 * sum(di + 2 * do for _, di, do in _DIMS) for a in BORN_ARME}}
 EVAL_SEEDS = tuple(range(70001, 70009))
 TUNING_SEEDS = (70401, 70402)
 LR_START = (1e-4, 3e-4, 1e-3, 3e-3, 1e-2)
 T005_ROH_PATTERN = cs.T005_ROH_PATTERN
 T005_ROH = cs.T005_ROH
 LR_UEBERNOMMEN = {"qire_L10": 0.001, "lora_r1": 0.001}      # aus T-005 (config["lr"], innen)
-LR_GITTER = {a: LR_START for a in TRAINIERT if a not in LR_UEBERNOMMEN}
+LR_ABGELEITET = {"lora_r2": 0.001}                          # NICHT getunt: von lora_r1 uebernommen (nur beschreibend)
+LR_GITTER = {a: LR_START for a in TRAINIERT if a not in LR_UEBERNOMMEN and a not in LR_ABGELEITET}
 ERWEITERUNGEN = 3
 REL_GRENZE = ca.REL_GRENZE                                  # 0,20
-FAMILIE = ("H1", "H2", "H3")
+FAMILIE = ("H1", "H2", "H4", "H5")
 ALPHA = 0.05
 METRIK = "val_verlust"
 POS_SOLL, POS_TOL = 2.4111, 0.003                           # Positivkontrolle qire_L10 (T-006, 8 Seeds)
@@ -171,6 +190,40 @@ class FFAdapter(nn.Module):
         return self.skala * z
 
 
+class FFBorn(nn.Module):
+    """Mischung -> Quadrat (bzw. GELU) -> Rueckmischung, blockweise H_256, trainierte Diagonalen:
+        dW x = c * D3 * H( D2 * fold( act( H( D1 * x ) ) ) )         act = z^2 (ff_born) oder GELU (ff_gelu)
+    D1 (d_in), D2 (d_aus), D3 (d_aus); Parameter d_in + 2 d_aus je Matrix. Ist d_aus < d_in (v_proj), werden
+    nach act die d_in/d_aus Bloecke summiert (Faktor 1/sqrt). Init: D1, D2 = Zufallsvorzeichen, D3 = 0 -> dW = 0.
+    z^2 ist Born-Regel-artig (Betragsquadrat der gemischten Amplituden); klassisch gerechnet (I-038)."""
+
+    def __init__(self, d_in: int, d_aus: int, art: str, gen: torch.Generator, skala: float = FF_SKALA):
+        super().__init__()
+        if d_in % BLOCK or d_aus % BLOCK or d_in % d_aus:
+            raise ValueError(f"d_in {d_in}, d_aus {d_aus}: Vielfache von {BLOCK}, d_aus teilt d_in verlangt")
+        if art not in ("z2", "gelu"):
+            raise ValueError(art)
+        self.d_in, self.d_aus, self.art, self.skala = d_in, d_aus, art, skala
+        self.fold = d_in // d_aus
+        self.register_buffer("ha", walsh(int(math.log2(WHT_A))))
+        self.register_buffer("hb", walsh(int(math.log2(WHT_B))))
+
+        def zeichen(n):
+            return (torch.randint(0, 2, (n,), generator=gen) * 2 - 1).float()
+        self.d1 = nn.Parameter(zeichen(d_in))
+        self.d2 = nn.Parameter(zeichen(d_aus))
+        self.d3 = nn.Parameter(torch.zeros(d_aus))
+
+    _wht = FFAdapter._wht
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        z = self._wht(x * self.d1)
+        z = z * z if self.art == "z2" else torch.nn.functional.gelu(z)
+        if self.fold > 1:
+            z = z.reshape(*z.shape[:-1], self.fold, self.d_aus).sum(-2) / math.sqrt(self.fold)
+        return self.skala * self.d3 * self._wht(z * self.d2)
+
+
 class FFLinear(nn.Module):
     """y = W x + b + dW x; W eingefroren."""
 
@@ -182,19 +235,27 @@ class FFLinear(nn.Module):
         return self.basis(x) + self.ff(x)
 
 
-def ff_einbauen(m, stufen: int, seed: int):
-    """Adapter auf q_proj und v_proj aller Lagen. Zeichen aus eigenem Generator (Seed), feste Reihenfolge."""
+def ff_einbauen(m, stufen, seed: int):
+    """Adapter auf q_proj und v_proj aller Lagen. Zeichen aus eigenem Generator (Seed), feste Reihenfolge.
+    `stufen`: int -> FFAdapter (linear); "z2" / "gelu" -> FFBorn."""
     gen = torch.Generator().manual_seed(seed)
     for schicht in m.model.layers:
         for name in ZIELE:
             lin = getattr(schicht.self_attn, name)
-            setattr(schicht.self_attn, name, FFLinear(lin, FFAdapter(lin.in_features, lin.out_features, stufen, gen)))
+            ad = (FFBorn(lin.in_features, lin.out_features, stufen, gen) if isinstance(stufen, str)
+                  else FFAdapter(lin.in_features, lin.out_features, stufen, gen))
+            setattr(schicht.self_attn, name, FFLinear(lin, ad))
     return m
 
 
 def modell(arm: str, seed: int = 0):
-    if arm in FF_ARME:
-        return ff_einbauen(ca.modell("basis"), FF_ARME[arm], seed)
+    if arm in FF_ALLE:
+        return ff_einbauen(ca.modell("basis"), {**FF_ARME, **BORN_ARME}[arm], seed)
+    if arm == "lora_r2":                                    # parametergleiche Obergrenze, alpha/r = 2 wie lora_r1
+        from peft import LoraConfig, get_peft_model
+        m = ca.modell("basis")
+        return get_peft_model(m, LoraConfig(r=2, lora_alpha=2 * ca.LORA_ALPHA // ca.LORA_R, lora_dropout=0.0,
+                                            target_modules=list(ZIELE), bias="none"))
     if arm in ("basis", "lora_r1"):
         return ca.modell(arm)
     if arm == "qire_L10":
@@ -203,7 +264,7 @@ def modell(arm: str, seed: int = 0):
 
 
 def adapter_zustand(m, arm: str) -> Dict[str, torch.Tensor]:
-    if arm in FF_ARME:
+    if arm in FF_ALLE or arm == "lora_r2":
         return {k: v.detach().clone() for k, v in m.named_parameters() if v.requires_grad}
     return ck.adapter_zustand(m, arm)
 
@@ -249,7 +310,7 @@ def zelle(arm: str, seed: int, lr: float, menge: str = "validierung", threads: i
     out = {"arm": arm, "seed": seed, "lr": lr, "menge": menge, "schritte": len(verlauf),
            METRIK: e["verlust"], "val_verlust_alle": e["verlust_alle"], "tokens": e["tokens"],
            "train_verlust_ende": float(np.mean(verlauf[-20:])) if verlauf else None,
-           "trainierbar": zahl, "stufen": FF_ARME.get(arm, 0),
+           "trainierbar": zahl, "stufen": FF_ARME.get(arm, 0), "art": BORN_ARME.get(arm, "linear"),
            "s_je_schritt": round(t_train, 3), "s_auswertung": round(time.perf_counter() - t2, 2),
            "sekunden": round(time.perf_counter() - t0, 2), "threads": threads}
     out["_adapter"] = adapter_zustand(m, arm) if arm != "basis" else None
@@ -275,7 +336,8 @@ class Zustand(ca.Zustand):
 
 def konfiguration() -> Dict[str, object]:
     return {"basis_t004": ca.konfiguration(), "arme": list(ARME), "trainiert": list(TRAINIERT),
-            "ff_stufen": FF_ARME, "ff_skala": FF_SKALA, "schritte": SCHRITTE,
+            "ff_stufen": FF_ARME, "born_arme": BORN_ARME, "ff_skala": FF_SKALA,
+            "lr_abgeleitet": LR_ABGELEITET, "schritte": SCHRITTE,
             "seeds": list(EVAL_SEEDS), "tuning_seeds": list(TUNING_SEEDS),
             "lr_gitter": {k: list(v) for k, v in LR_GITTER.items()}, "erweiterungen": ERWEITERUNGEN,
             "lr_uebernommen": LR_UEBERNOMMEN, "lr_quelle": T005_ROH_PATTERN,
@@ -306,9 +368,10 @@ def run(lauf_id: str = LAUF_ID, threads: int = 6) -> Recorder:
     konfig = konfiguration()
     z = Zustand(lauf_id, konfig)
     rec = Recorder(experiment_id=lauf_id,
-                   description=("T-007 (I-043): Fastfood-Adapter ff_adapter (30.720) und ff_adapter_breit (61.440) "
-                                "gegen lora_r1 und qire_L10 auf LLaeMmlein-120M; H1 ff-lora TOST, H2 ff<qire_L10, "
-                                "H3 breit<ff; Positivkontrolle qire_L10 = 2,4111."),
+                   description=("T-007 (I-043): Fastfood-Adapter ff_adapter (30.720), Born-Zweig ff_born (43.008, z^2), "
+                                "ff_gelu (43.008, GELU-Kontrolle) gegen lora_r1, lora_r2 (61.440) und qire_L10 auf "
+                                "LLaeMmlein-120M; H1 ff-lora TOST, H2 ff<qire_L10, H4 born<gelu, H5 born-lora TOST; "
+                                "Positivkontrolle qire_L10 = 2,4111."),
                    config={**konfig, "metrik": METRIK, "torch_threads": threads,
                            "aufloesungspruefung": "lora_r1 trennt sich von basis (zweiseitig)",
                            "fingerabdruck": z.fingerabdruck})
@@ -329,6 +392,10 @@ def run(lauf_id: str = LAUF_ID, threads: int = 6) -> Recorder:
             z.lr[arm] = {"lr": LR_UEBERNOMMEN[arm], "rand": "innen", "quelle": T005_ROH_PATTERN}
             z.speichern()
             print(f"  {arm:<17} -> lr {LR_UEBERNOMMEN[arm]:g}  (aus T-005 uebernommen)", flush=True)
+        if arm not in z.lr and arm in LR_ABGELEITET:
+            z.lr[arm] = {"lr": LR_ABGELEITET[arm], "rand": "nicht getunt", "quelle": "von lora_r1 uebernommen"}
+            z.speichern()
+            print(f"  {arm:<17} -> lr {LR_ABGELEITET[arm]:g}  (von lora_r1 uebernommen, NICHT getunt)", flush=True)
         if arm not in z.lr:
             def messe(lr: float, seed: int, _arm=arm) -> float:
                 k = _schl(_arm, seed, f"{lr:.6g}")
@@ -379,14 +446,16 @@ def divergiert(records, feld: str):
 
 def _familie(records, feld: str, grenze: float, mut: Dict[str, object]):
     r = {a: _reihe(records, a, feld) for a in ARME}
-    h3 = (_vergleich(r["ff_adapter"], r["ff_adapter_breit"], 0.0, "less") if mut.get("h3_vertauscht")
-          else _vergleich(r["ff_adapter_breit"], r["ff_adapter"], 0.0, "less"))
+    h4 = (_vergleich(r["ff_gelu"], r["ff_born"], 0.0, "less") if mut.get("h4_vertauscht")
+          else _vergleich(r["ff_born"], r["ff_gelu"], 0.0, "two-sided" if mut.get("h4_zweiseitig") else "less"))
     return {"H1": _vergleich(r["ff_adapter"], r["lora_r1"], grenze),
             "H2": _vergleich(r["ff_adapter"], r["qire_L10"], 0.0, "two-sided" if mut.get("h2_zweiseitig") else "less"),
-            "H3": h3}
+            "H4": h4,
+            "H5": _vergleich(r["ff_born"], r["lora_r1"], grenze)}
 
 
-_VERGLEICH = {"H1": "ff_adapter - lora_r1", "H2": "ff_adapter - qire_L10", "H3": "ff_adapter_breit - ff_adapter"}
+_VERGLEICH = {"H1": "ff_adapter - lora_r1", "H2": "ff_adapter - qire_L10", "H4": "ff_born - ff_gelu",
+              "H5": "ff_born - lora_r1"}
 
 
 def _urteil(tag: str, v, p_holm: float, k, pos, div, tost_zuerst: bool = True) -> str:
@@ -403,21 +472,28 @@ def _urteil(tag: str, v, p_holm: float, k, pos, div, tost_zuerst: bool = True) -
                 + ". Der Aufbau sieht keine Anpassung; KEIN Nullbefund.")
     z = (f"{_VERGLEICH[tag]}: {v['delta']:+.4f} nats, {v['siege']}/{v['n']} Seeds besser, "
          f"p={v['p']:.4f}, Holm={p_holm:.4f}")
-    if tag == "H1":
+    if tag in ("H1", "H5"):
         z += f", TOST p={v['p_tost']:.4f} (Grenze +-{v['grenze']:.4f})"
-        gleich = (f"GLEICHWERTIG -- H1: gleichwertig innerhalb +-{v['grenze']:.4f} nats "
+        gleich = (f"GLEICHWERTIG -- {tag}: gleichwertig innerhalb +-{v['grenze']:.4f} nats "
                   f"({REL_GRENZE:.0%} des LoRA-Gewinns; erreicht +-{v['erreicht']:.4f}); {z}. Positiver "
-                  "Gleichwertigkeitsnachweis bei GLEICHER Parameterzahl, nicht blosses p>0,05."
+                  "Gleichwertigkeitsnachweis"
+                  + (" bei GLEICHER Parameterzahl" if tag == "H1" else " (Parameter 43.008 gegen 30.720, siehe Entwurf Abschn. 3)")
+                  + ", nicht blosses p>0,05."
                   + (" ANMERKUNG: zugleich signifikant -- nachweisbar, aber kleiner als die Grenze."
                      if p_holm < ALPHA else ""))
-        code, satz = (("FF_BESSER", "der Fastfood-Adapter senkt den Verlust staerker als LoRA r=1 bei gleicher Parameterzahl")
-                      if v["delta"] < 0 else
-                      ("LORA_BESSER", "LoRA r=1 senkt den Verlust staerker als der Fastfood-Adapter gleicher Parameterzahl"))
-        reihenfolge = ((v["p_tost"] < ALPHA, gleich), (p_holm < ALPHA, f"{code} -- H1: {satz}; {z}."))
+        if tag == "H1":
+            code, satz = (("FF_BESSER", "der Fastfood-Adapter senkt den Verlust staerker als LoRA r=1 bei gleicher Parameterzahl")
+                          if v["delta"] < 0 else
+                          ("LORA_BESSER", "LoRA r=1 senkt den Verlust staerker als der Fastfood-Adapter gleicher Parameterzahl"))
+        else:
+            code, satz = (("BORN_BESSER", "der Born-Zweig (43.008 Parameter, 1,4 x lora_r1) senkt den Verlust staerker als LoRA r=1")
+                          if v["delta"] < 0 else
+                          ("LORA_BESSER", "LoRA r=1 senkt den Verlust staerker als der Born-Zweig (der 1,4 x so viele Parameter hat)"))
+        reihenfolge = ((v["p_tost"] < ALPHA, gleich), (p_holm < ALPHA, f"{code} -- {tag}: {satz}; {z}."))
         for bedingung, text in (reihenfolge if tost_zuerst else reihenfolge[::-1]):
             if bedingung:
                 return text
-        return (f"UNENTSCHIEDEN -- H1: weder Unterschied (Holm) noch Gleichwertigkeit belegt; "
+        return (f"UNENTSCHIEDEN -- {tag}: weder Unterschied (Holm) noch Gleichwertigkeit belegt; "
                 f"die Daten tragen erst ab +-{v['erreicht']:.4f}; {z}.")
     if tag == "H2":
         if p_holm < ALPHA:
@@ -426,9 +502,10 @@ def _urteil(tag: str, v, p_holm: float, k, pos, div, tost_zuerst: bool = True) -
         return (f"KEIN_NACHWEIS -- H2: ff_adapter ist nicht belegt besser als qire_L10; {z}."
                 + (" Beschreibend liegt qire_L10 im Mittel VORN." if v["delta"] > 0 else ""))
     if p_holm < ALPHA:
-        return f"BREIT_BESSER -- H3: zwei Stufen mehr je Seite (61.440) senken den Verlust weiter; {z}."
-    return (f"KEIN_NACHWEIS -- H3: mehr Stufen sind nicht belegt besser; {z}."
-            + (" Beschreibend liegt ff_adapter_breit im Mittel HINTER ff_adapter." if v["delta"] > 0 else ""))
+        return (f"BORN_BESSER -- H4: bei GLEICHER Struktur und Parameterzahl (43.008) senkt z^2 den Verlust staerker "
+                f"als GELU (Wechselwirkung Struktur x Quadrat, vgl. I-045-v2); {z}.")
+    return (f"KEIN_NACHWEIS -- H4: ff_born ist nicht belegt besser als ff_gelu; {z}."
+            + (" Beschreibend liegt ff_gelu im Mittel VORN." if v["delta"] > 0 else ""))
 
 
 def analyse(rec_or_id, still: bool = False, mut: Optional[Dict[str, object]] = None) -> Dict[str, object]:
@@ -456,7 +533,7 @@ def analyse(rec_or_id, still: bool = False, mut: Optional[Dict[str, object]] = N
     say("=" * 96)
     say(f"POSITIVKONTROLLE qire_L10 {pos['mittel']:.4f} (soll {POS_SOLL} +-{POS_TOL}): "
         f"{'bestanden' if pos['bestanden'] else 'NICHT BESTANDEN'}")
-    say(f"VORREGISTRIERTE FAMILIE (Holm ueber 3), TOST-Grenze H1 {REL_GRENZE:.0%} x LoRA-Gewinn "
+    say(f"VORREGISTRIERTE FAMILIE (Holm ueber 4), TOST-Grenze H1/H5 {REL_GRENZE:.0%} x LoRA-Gewinn "
         f"{k['gewinn_lora']:+.4f} = +-{k['grenze']:.4f}")
     for t in FAMILIE:
         u = _urteil(t, fam[t], p_holm[t], k, pos, div, bool(mut.get("tost_zuerst", True)))
@@ -479,13 +556,17 @@ def analyse(rec_or_id, still: bool = False, mut: Optional[Dict[str, object]] = N
                     + (f"  {g / n_p:.2e}/Param" if n_p else "") + f"  trainierbar {n_p}"
                     + f"  lr {config.get('lr', {}).get(arm, {}).get('lr', '-')}"
                     + (f"  {np.mean(s):.2f} s/Schritt" if s else ""))
-        r = {a: _reihe(records, a, feld) for a in ("ff_adapter_breit", "lora_r1")}
-        bl = _vergleich(r["ff_adapter_breit"], r["lora_r1"], 0.0)
-        if bl:
-            say(f"  ff_adapter_breit - lora_r1: {bl['delta']:+.4f} nats, {bl['siege']}/{bl['n']} Seeds besser, "
-                f"p={bl['p']:.4f} (beschreibend, 2 x Parameter)")
+        rr = {a: _reihe(records, a, feld) for a in ARME}
+        for x, y, hinweis in (("ff_born", "lora_r2", "lora_r2 = 61.440 Parameter, Rate NICHT getunt"),
+                              ("ff_born", "ff_adapter", "Born-Zweig gegen linearen Fastfood-Adapter"),
+                              ("ff_gelu", "lora_r1", "Kontrolle gegen LoRA")):
+            bl = _vergleich(rr[x], rr[y], 0.0)
+            if bl:
+                say(f"  {x} - {y}: {bl['delta']:+.4f} nats, {bl['siege']}/{bl['n']} Seeds besser, "
+                    f"p={bl['p']:.4f} (beschreibend; {hinweis})")
     # Randpruefung: gespeicherter Vermerk UND unabhaengige Nachrechnung aus den Rohdaten
-    raender = {s: v["rand"] for s, v in config.get("lr", {}).items() if v.get("rand") != "innen"}
+    raender = {s: v["rand"] for s, v in config.get("lr", {}).items()
+               if v.get("rand") != "innen" and s in LR_GITTER}
     tun = config.get("tuning", {})
     inkons = {}
     for arm in LR_GITTER:
@@ -527,6 +608,20 @@ def _explizit(d_in: int, d_aus: int, ein, aus, skala: float = FF_SKALA) -> torch
     return skala * m
 
 
+def _explizit_born(d_in: int, d_aus: int, d1, d2, d3, x, art: str, skala: float = FF_SKALA) -> torch.Tensor:
+    """Referenz fuer FFBorn: Zeile fuer Zeile mit expliziten scipy-Hadamard-Matrizen (blockdiagonal), float64."""
+    from scipy.linalg import hadamard
+    h = torch.tensor(hadamard(BLOCK), dtype=torch.float64) / math.sqrt(BLOCK)
+    n_in, n_aus = d_in // BLOCK, d_aus // BLOCK
+    hb = lambda n: torch.block_diag(*[h] * n)                                   # noqa: E731
+    z = (hb(n_in) @ (d1.double() * x.double()).T).T
+    z = z * z if art == "z2" else torch.nn.functional.gelu(z)
+    if n_in > n_aus:
+        z = z.reshape(z.shape[0], n_in // n_aus, d_aus).sum(1) / math.sqrt(n_in // n_aus)
+    z = (hb(n_aus) @ (d2.double() * z).T).T
+    return skala * d3.double() * z
+
+
 def pruefe_theorie(threads: int = 3, mit_modell: bool = True) -> bool:
     torch.set_num_threads(threads)
     zeilen = []
@@ -561,6 +656,39 @@ def pruefe_theorie(threads: int = 3, mit_modell: bool = True) -> bool:
                 if di == do:
                     zeilen.append((f"s={stufen} {name}: alle Diagonalen +-1 -> ||dW x|| = c ||x||",
                                    float(abs(ff2(x).norm() / (FF_SKALA * x.norm()) - 1)), "<", 1e-9))
+        # Born-Zweig (ff_born / ff_gelu): Start 0, Vorwaertslauf == explizite Referenz, Homogenitaet, Parameter
+        for art in ("z2", "gelu"):
+            for name, di, do in _DIMS:
+                fb = FFBorn(di, do, art, gen).double()
+                x = torch.randn(5, di, dtype=torch.float64)
+                zeilen.append((f"Born {art} {name}: dW = 0 beim Start (D3 = 0)", float(fb(x).abs().max()), "<", 1e-12))
+                for p in (fb.d1, fb.d2, fb.d3):
+                    p.copy_(torch.randn_like(p))
+                ref = _explizit_born(di, do, fb.d1.data, fb.d2.data, fb.d3.data, x, art)
+                zeilen.append((f"Born {art} {name}: Vorwaertslauf == explizite Referenz (scipy-Hadamard)",
+                               float((fb(x) - ref).abs().max()), "<", 1e-9))
+                zeilen.append((f"Born {art} {name}: Parameter d_in + 2 d_aus = {di + 2 * do}",
+                               float(sum(p.numel() for p in fb.parameters()) - (di + 2 * do)), "<", 0.5))
+                if art == "z2":
+                    zeilen.append((f"Born z2 {name}: quadratisch homogen, dW(2x) = 4 dW(x)",
+                                   float((fb(2 * x) - 4 * fb(x)).abs().max()), "<", 1e-9))
+                    zeilen.append((f"Born z2 {name}: gerade, dW(-x) = dW(x) (Vorzeichen der Eingabe egal)",
+                                   float((fb(-x) - fb(x)).abs().max()), "<", 1e-9))
+        for art in ("z2", "gelu"):
+            fb = FFBorn(768, 256, art, gen)
+            x, w = torch.randn(7, 768), torch.randn(7, 256)
+            with torch.enable_grad():
+                (fb(x) * w).sum().backward()
+            zeilen.append((f"Born {art} Start: Gradient von D3 != 0", float(fb.d3.grad.abs().max()), ">", 0.0))
+            zeilen.append((f"Born {art} Start: Gradient von D1, D2 == 0 (dW = 0)",
+                           max(float(fb.d1.grad.abs().max()), float(fb.d2.grad.abs().max())), "<", 1e-12))
+            with torch.no_grad():
+                fb.d3.add_(0.01)
+            fb.zero_grad()
+            with torch.enable_grad():
+                (fb(x) * w).sum().backward()
+            zeilen.append((f"Born {art}: nach kleinem Schritt Gradient in D1, D2, D3 != 0",
+                           min(float(p.grad.abs().max()) for p in (fb.d1, fb.d2, fb.d3)), ">", 0.0))
         # Gradientenfluss: Start nur in die letzte Diagonale, nach einem Schritt auch in die vorderen
         ff = FFAdapter(768, 256, 2, gen)
         x = torch.randn(7, 768)
@@ -581,8 +709,16 @@ def pruefe_theorie(threads: int = 3, mit_modell: bool = True) -> bool:
     # Parametergleichheit -- das Herzstueck des fairen Vergleichs
     zeilen.append(("Parametergleichheit: ff_adapter == lora_r1 (30.720)",
                    float(abs(ERWARTETE_PARAMETER["ff_adapter"] - ERWARTETE_PARAMETER["lora_r1"])), "<", 0.5))
-    zeilen.append(("ff_adapter_breit == 2 x ff_adapter",
-                   float(abs(ERWARTETE_PARAMETER["ff_adapter_breit"] - 2 * ERWARTETE_PARAMETER["ff_adapter"])), "<", 0.5))
+    zeilen.append(("lora_r2 == 2 x lora_r1 (61.440)",
+                   float(abs(ERWARTETE_PARAMETER["lora_r2"] - 2 * ERWARTETE_PARAMETER["lora_r1"])), "<", 0.5))
+    zeilen.append(("ff_born == ff_gelu == 12 x ((768+2x768) + (768+2x256)) = 43.008 (Offenlegung: 1,40 x lora_r1)",
+                   float(abs(ERWARTETE_PARAMETER["ff_born"] - 43008) + abs(ERWARTETE_PARAMETER["ff_gelu"] - 43008)
+                         + abs(ERWARTETE_PARAMETER["ff_born"] - 12 * ((768 + 1536) + (768 + 512)))), "<", 0.5))
+    zeilen.append(("lora_r1 < ff_born < lora_r2 (die zwei LoRA-Arme klammern den Born-Zweig ein)",
+                   float(not (ERWARTETE_PARAMETER["lora_r1"] < ERWARTETE_PARAMETER["ff_born"]
+                              < ERWARTETE_PARAMETER["lora_r2"])), "<", 0.5))
+    zeilen.append(("ff_adapter_breit gestrichen (nicht in ARME/TRAINIERT/Familie), H3 entfaellt",
+                   float("ff_adapter_breit" in ARME or "ff_adapter_breit" in TRAINIERT or "H3" in FAMILIE), "<", 0.5))
     zeilen.append(("lora_r1 == 12 x ((768+768) + (768+256)) (A: d_in, B: d_aus)",
                    float(abs(ERWARTETE_PARAMETER["lora_r1"] - 12 * ((768 + 768) + (768 + 256)))), "<", 0.5))
     zeilen.append(("Breite 768 == BREITE des T-004-Aufbaus", float(abs(BREITE - 768)), "<", 0.5))
@@ -609,7 +745,7 @@ def pruefe_theorie(threads: int = 3, mit_modell: bool = True) -> bool:
                            "<", 1e-9))
         # ff-Zellen laufen (Tuning-Seed-Bereich, nie Messseed), Werte endlich, Verlust nach 3 Schritten ~ Basis
         basis = ca.auswerten(ref, d_["validierung"][:40])["verlust"]
-        for arm in FF_ARME:
+        for arm in FF_ALLE:
             with torch.enable_grad():
                 a = zelle(arm, TUNING_SEEDS[0], 1e-3, "validierung", threads, 3, True)
             zeilen.append((f"{arm}: 3 Schritte laufen, Verlust endlich und |Verlust - Basis| < 0,05",
@@ -622,8 +758,11 @@ def pruefe_theorie(threads: int = 3, mit_modell: bool = True) -> bool:
         zeilen.append(("LR-Uebernahme == T-005-Rohdaten (lr, innen, Schritte)", float(abw), "<", 0.5))
     else:
         print(f"  HINWEIS: {T005_ROH_PATTERN} fehlt, LR-Uebernahme nicht gegengeprueft")
-    zeilen.append(("Rest getunt: jeder trainierte Arm hat Rate (uebernommen oder Gitter)",
-                   float(sum(a not in LR_GITTER and a not in LR_UEBERNOMMEN for a in TRAINIERT)), "<", 0.5))
+    zeilen.append(("Rest getunt: jeder trainierte Arm hat Rate (uebernommen, abgeleitet oder Gitter)",
+                   float(sum(a not in LR_GITTER and a not in LR_UEBERNOMMEN and a not in LR_ABGELEITET
+                             for a in TRAINIERT)), "<", 0.5))
+    zeilen.append(("Wechselwirkungs-Kontrolle: ff_born und ff_gelu getunt mit GLEICHEM Gitter und gleichen Tuning-Seeds",
+                   float(LR_GITTER["ff_born"] != LR_GITTER["ff_gelu"] or "ff_born" not in LR_GITTER), "<", 0.5))
     zeilen.append(("Lernrategitter reicht bis 1e-4 nach unten (Lehre T-006)",
                    float(min(min(g) for g in LR_GITTER.values()) > 1.0001e-4), "<", 0.5))
     alt = (set(ca.EVAL_SEEDS) | set(ca.TUNING_SEEDS) | set(ck.EVAL_SEEDS) | set(ck.TUNING_SEEDS)
@@ -650,7 +789,7 @@ def pruefe_mini_modell() -> bool:
                       num_key_value_heads=4, vocab_size=300, max_position_embeddings=64)
     ids = torch.randint(0, 300, (4, 24))
     zeilen = []
-    for arm, s in FF_ARME.items():
+    for arm, s in {**FF_ARME, **BORN_ARME}.items():
         m = LlamaForCausalLM(cfg).float()
         for p in m.parameters():
             p.requires_grad_(False)
@@ -660,13 +799,14 @@ def pruefe_mini_modell() -> bool:
         with torch.no_grad():
             dl = float((m(input_ids=ids).logits - l0).abs().max())
         zeilen.append((f"Mini {arm}: Start-Logits == Basis (dW = 0)", dl, "<", 1e-6))
-        zeilen.append((f"Mini {arm}: trainierbar == 2 Lagen x {s} x 2560",
-                       float(abs(trainierbar(m) - 2 * s * 2560)), "<", 0.5))
+        zeilen.append((f"Mini {arm}: trainierbar == 2 Lagen x {ERWARTETE_PARAMETER[arm] // 12}",
+                       float(abs(trainierbar(m) - 2 * ERWARTETE_PARAMETER[arm] // 12)), "<", 0.5))
         zeilen.append((f"Mini {arm}: q_proj und v_proj ersetzt, Rest unveraendert",
                        float(sum(not isinstance(getattr(l.self_attn, n), FFLinear) for l in m.model.layers for n in ZIELE)
                              + sum(isinstance(getattr(l.self_attn, n), FFLinear) for l in m.model.layers
                                    for n in ("k_proj", "o_proj"))), "<", 0.5))
         m.train()
+        start = [p.detach().clone() for p in m.parameters() if p.requires_grad]
         opt = torch.optim.Adam([p for p in m.parameters() if p.requires_grad], lr=1e-2)
         ziel = torch.randint(0, 300, (4, 24))
         v = []
@@ -678,6 +818,9 @@ def pruefe_mini_modell() -> bool:
             opt.step()
             v.append(float(loss.detach()))
         zeilen.append((f"Mini {arm}: Verlust faellt in 30 Schritten (Lernfaehigkeit, fester Batch)", v[0] - v[-1], ">", 0.01))
+        zeilen.append((f"Mini {arm}: alle Diagonalen haben nach dem Training Gradient/Bewegung (nicht eingefroren)",
+                       float(sum(float((p.detach() - q).abs().max()) == 0.0
+                                 for p, q in zip([p for p in m.parameters() if p.requires_grad], start))), "<", 0.5))
         zeilen.append((f"Mini {arm}: Basisgewichte eingefroren (kein Gradient, requires_grad aus)",
                        float(sum(p.requires_grad for n, p in m.named_parameters() if ".basis." in n or "embed" in n)), "<", 0.5))
     return ck._zeilen_drucken("MINI-MODELL T-007 (Zufallsgewichte, gleiche Form)", zeilen)
@@ -716,7 +859,8 @@ def pruefe_rand() -> bool:
 # ---------------------------------------------------------------------------
 NIVEAU, NIVEAU_ALLE = 2.5616, 3.50
 G_Q, G_LORA = 0.1505, 0.2730                          # T-006: qire_L10 2,4111, lora_r1 2,2886
-_V = {"basis": 0.0, "qire_L10": -G_Q, "lora_r1": -G_LORA, "ff_adapter": -0.20, "ff_adapter_breit": -0.22}
+_V = {"basis": 0.0, "qire_L10": -G_Q, "lora_r1": -G_LORA, "lora_r2": -0.30, "ff_adapter": -0.20,
+      "ff_born": -0.20, "ff_gelu": -0.15}
 VERSATZ = {a: _V[a] for a in ARME}
 
 
@@ -747,8 +891,11 @@ def _kunst(seed: int, streuung: float = 0.003, versatz=None, weg: Sequence[str] 
 _E = np.array([0.001, -0.001, 0.0005, -0.0005, 0.0015, -0.0015, 0.0, 0.0])
 _DH1 = np.array([0.001, 0.002, -0.003, 0.10, 0.11, 0.12, 0.13, 0.14])
 _LORA_W = 2.2886 + _E
+_WIGGLE = np.array([0.004, -0.003, 0.002, -0.001, 0.001, -0.002, 0.003, -0.004])
+# ff_born = ff_adapter + Wackeln (H5 ~ H1: raw p ~ 0,039, gekippt), ff_gelu = ff_born + Wackeln' (H4 nicht signifikant)
 HOLM_WERTE = {"lora_r1": _LORA_W, "qire_L10": 2.4111 + _E[::-1], "ff_adapter": _LORA_W + _DH1,
-              "ff_adapter_breit": _LORA_W + _DH1 + np.array([0.004, -0.003, 0.002, -0.001, 0.001, -0.002, 0.003, -0.004])}
+              "ff_born": _LORA_W + _DH1 + _WIGGLE, "ff_gelu": _LORA_W + _DH1 + _WIGGLE[::-1] * 0.5,
+              "lora_r2": _LORA_W - 0.03}
 
 FAELLE = [
     # (Name, Test, kwargs, Code, Zweigtext, Ziehungen, Anteil)
@@ -783,12 +930,29 @@ FAELLE = [
     ("H2-P  Positivkontrolle faellt -> auch H2", "H2", dict(versatz={"qire_L10": -0.11}), "HU_POSKONTROLLE",
      "nicht reproduziert", 5, 1.0),
     ("H2-A  Aufloesung faellt", "H2", dict(versatz={"lora_r1": 0.0}), "HU_AUFLOESUNG", "KEIN Nullbefund", 40, 0.8),
-    ("H3-J  breit besser als ff", "H3", {}, "BREIT_BESSER", "zwei Stufen mehr", 5, 1.0),
-    ("H3-N  breit = ff, Rauschen", "H3", dict(versatz={"ff_adapter_breit": -0.20}), "KEIN_NACHWEIS", "nicht belegt besser", 40, 0.8),
-    ("H3-S  breit schlechter als ff", "H3", dict(versatz={"ff_adapter_breit": -0.15}), "KEIN_NACHWEIS", "HINTER ff_adapter", 5, 1.0),
-    ("H3-X  ff_adapter_breit fehlt", "H3", dict(weg=["ff_adapter_breit"]), "HU_UNVOLLSTAENDIG", "Daten fehlen", 5, 1.0),
-    ("H3-A  Aufloesung faellt", "H3", dict(versatz={"lora_r1": 0.0}), "HU_AUFLOESUNG", "KEIN Nullbefund", 40, 0.8),
-    ("H3-D  breit NaN", "H3", dict(versatz={"ff_adapter_breit": float("nan")}), "HU_DIVERGENZ", "nicht endliche Werte", 5, 1.0),
+    ("H4-J  born besser als gelu", "H4", {}, "BORN_BESSER", "z^2 den Verlust staerker", 5, 1.0),
+    ("H4-N  born = gelu, Rauschen", "H4", dict(versatz={"ff_born": -0.15}), "KEIN_NACHWEIS", "nicht belegt besser", 40, 0.8),
+    ("H4-S  born schlechter als gelu", "H4", dict(versatz={"ff_born": -0.10}), "KEIN_NACHWEIS", "ff_gelu im Mittel VORN", 5, 1.0),
+    ("H4-X  ff_born fehlt", "H4", dict(weg=["ff_born"]), "HU_UNVOLLSTAENDIG", "Daten fehlen", 5, 1.0),
+    ("H4-Xg ff_gelu fehlt", "H4", dict(weg=["ff_gelu"]), "HU_UNVOLLSTAENDIG", "Daten fehlen", 5, 1.0),
+    ("H4-Xs ein Seed fehlt in ff_gelu", "H4", dict(weg_seed={"ff_gelu": EVAL_SEEDS[3]}), "HU_UNVOLLSTAENDIG",
+     "Seeds ungleich", 5, 1.0),
+    ("H4-A  Aufloesung faellt", "H4", dict(versatz={"lora_r1": 0.0}), "HU_AUFLOESUNG", "KEIN Nullbefund", 40, 0.8),
+    ("H4-P  Positivkontrolle faellt", "H4", dict(versatz={"qire_L10": -0.11}), "HU_POSKONTROLLE", "nicht reproduziert", 5, 1.0),
+    ("H4-D  gelu NaN", "H4", dict(versatz={"ff_gelu": float("nan")}), "HU_DIVERGENZ", "nicht endliche Werte", 5, 1.0),
+    ("H5-Q  born besser als LoRA (-0,40)", "H5", dict(versatz={"ff_born": -0.40}), "BORN_BESSER", "staerker als LoRA", 5, 1.0),
+    ("H5-L  LoRA besser (born -0,20)", "H5", {}, "LORA_BESSER", "staerker als der Born-Zweig", 5, 1.0),
+    ("H5-G  gleich, kleines Rauschen", "H5", dict(versatz={"ff_born": -G_LORA}, s_arm={"qire_L10": 0.001}), "GLEICHWERTIG",
+     "Positiver Gleichwertigkeitsnachweis", 5, 1.0),
+    ("H5-U  gleich, grosses Rauschen", "H5",
+     dict(versatz={"ff_born": -G_LORA}, s_arm={"ff_born": 0.08, "lora_r1": 0.08}), "UNENTSCHIEDEN", "weder Unterschied", 40, 0.8),
+    ("H5-H  Holm kippt raw p 0,039 -> UNENTSCHIEDEN", "H5", dict(werte=HOLM_WERTE), "UNENTSCHIEDEN", "weder Unterschied", 1, 1.0),
+    ("H5-X  ff_born fehlt", "H5", dict(weg=["ff_born"]), "HU_UNVOLLSTAENDIG", "Daten fehlen", 5, 1.0),
+    ("H5-P  Positivkontrolle faellt", "H5", dict(versatz={"qire_L10": -0.11}), "HU_POSKONTROLLE", "nicht reproduziert", 5, 1.0),
+    ("H5-A  Aufloesung faellt", "H5", dict(versatz={"lora_r1": 0.0}), "HU_AUFLOESUNG", "KEIN Nullbefund", 40, 0.8),
+    ("H5-D  born NaN", "H5", dict(versatz={"ff_born": float("nan")}), "HU_DIVERGENZ", "nicht endliche Werte", 5, 1.0),
+    ("H5-r2 lora_r2 fehlt: H5 unberuehrt (lora_r2 nur beschreibend)", "H5", dict(weg=["lora_r2"]), "LORA_BESSER",
+     "staerker als der Born-Zweig", 5, 1.0),
 ]
 
 
@@ -818,9 +982,9 @@ def pruefe_generator() -> bool:
              ("basis deterministisch, trainierte Arme streuen",
               float(np.std(r("basis", METRIK))) == 0 and float(np.std(r("ff_adapter", METRIK))) > 1e-4),
              ("Positivkontrolle im Standardfall erfuellt", poskontrolle(rec.records, METRIK, {})["bestanden"]),
-             ("Holm-Szenario: Positivkontrolle und Aufloesung bestanden, H1 raw p in (0,0167; 0,05)",
+             ("Holm-Szenario (4 Tests): Positivkontrolle und Aufloesung bestanden, H1 raw p in (0,0125; 0,05)",
               p_holm_szenario["poskontrolle"]["bestanden"] and p_holm_szenario["kontrollen"]["aufloesung"]["bestanden"]
-              and 0.0167 < p_holm_szenario["H1"]["p"] < 0.05)]
+              and 0.0125 < p_holm_szenario["H1"]["p"] < 0.05)]
     for name, good in pruef:
         print(f"  {'OK    ' if good else 'FEHLER'} {name}")
     return all(g for _, g in pruef)
@@ -831,7 +995,8 @@ MUTATIONEN = [("Metrikfeld val_verlust_alle statt val_verlust", {"feld": "val_ve
               ("Aufloesung verlangt Richtung statt Trennung", {"richtung": True}),
               ("TOST-Grenze absolut 0,2 statt relativ", {"grenze_absolut": True}),
               ("H2 zweiseitig statt einseitig", {"h2_zweiseitig": True}),
-              ("H3 Arme vertauscht", {"h3_vertauscht": True}),
+              ("H4 Arme vertauscht", {"h4_vertauscht": True}),
+              ("H4 zweiseitig statt einseitig", {"h4_zweiseitig": True}),
               ("Holm abgeschaltet", {"kein_holm": True}),
               ("Positivkontrolle abgeschaltet", {"pos_aus": True})]
 
@@ -860,7 +1025,7 @@ def vortest(mit_modell: bool = False) -> bool:
 # T-006-Ist (Mittel je Arm, 6 Threads, Maltes PC): qire_L10 1,64 s/Schritt, 10,4 min/Zelle; lora_r1 0,84 s,
 # 5,9 min/Zelle. Zelle = 300 x s + ~100 s (Laden + Auswertung 1.000 Beispiele). ff-Zeiten sind ANNAHMEN
 # (Hadamard als 2 kleine Matmuls je Block: ca. +10-20 % gegen LoRA; breit ca. +40 %); `zeit` misst sie.
-S_ANNAHME = {"qire_L10": 1.64, "lora_r1": 0.84, "ff_adapter": 1.0, "ff_adapter_breit": 1.2}
+S_ANNAHME = {"qire_L10": 1.64, "lora_r1": 0.84, "lora_r2": 0.95, "ff_adapter": 1.0, "ff_born": 1.1, "ff_gelu": 1.1}
 ZELLE_FIX_S = 100.0
 
 
@@ -873,8 +1038,12 @@ def prognose() -> None:
     n_roh = len(LR_START) * len(TUNING_SEEDS)
     tune = sum(n_roh * (zelle_min(a) - 0.5) for a in LR_GITTER) / 60
     tune_verl = sum(len(TUNING_SEEDS) * (zelle_min(a) - 0.5) for a in LR_GITTER) / 60
-    print(f"  Messung {mess:.1f} h, Tuning {tune:.1f} h (+ je Verlaengerung {tune_verl:.1f} h fuer beide Arme), "
-          f"Kern {mess + tune:.1f} h; mit einer Verlaengerung je Arm {mess + tune + tune_verl:.1f} h")
+    kern = mess + tune
+    print(f"  Messung {mess:.1f} h, Tuning {tune:.1f} h (+ je Verlaengerung {tune_verl:.1f} h fuer {len(LR_GITTER)} Arme), "
+          f"Kern {kern:.1f} h; mit einer Verlaengerung je Arm {kern + tune_verl:.1f} h")
+    breit = (8 * (SCHRITTE * 1.2 + ZELLE_FIX_S) + n_roh * (SCHRITTE * 1.2 + ZELLE_FIX_S - 30)) / 3600
+    print(f"  (gestrichener Arm ff_adapter_breit haette +{breit:.1f} h gekostet: Kern {kern + breit:.1f} h > 10 h)")
+    print("  Regel vorab: Ziel Kern <= 10 h; misst `zeit` > 10 h, entfaellt lora_r2 (letzter Arm, nur beschreibend).")
 
 
 def zeit(threads: int = 6, schritte: int = 4) -> None:

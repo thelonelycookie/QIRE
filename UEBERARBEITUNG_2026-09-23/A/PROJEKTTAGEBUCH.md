@@ -5262,6 +5262,22 @@ der Lauf wartet auf Maltes Freigabe.**
 - **Start (PC):** `.\py.cmd -m quantum_sim.chatbot_fastfood vortest`, dann `... lauf *> results\T-007_run.log`.
 - Ehrlichkeit: Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil.
 
+### 7. Oktober (später) — T-007: ÄNDERUNG der Vorregistrierung (Born-Zweig), weiter vor jeder Zahl
+
+**Grund:** I-045-v2 fand die Wechselwirkung Struktur × z² (Fastfood-FFN + z² besser als dicht + z² um 0,075 bpc, mit GELU
+umgekehrt). **Kein Seed gerechnet**, deshalb zulässig. Einzelheiten: Abschnitt „ÄNDERUNG“ in `ENTWURF_T007_FASTFOOD_ADAPTER.md`.
+- **Neu:** ff_born (ΔW x = c·D3⊙H(D2⊙fold((H(D1⊙x))²)), D3 = 0 am Start) und ff_gelu (GELU statt z²), je **43.008** Parameter
+  (1,40 × lora_r1); lora_r2 (61.440) als obere Klammer, nur beschreibend, Rate von lora_r1 übernommen.
+- **Hypothesen:** H4 ff_born < ff_gelu (einseitig), H5 ff_born vs lora_r1 (zweiseitig + TOST ±20 %); Holm über 4 (H1, H2, H4, H5).
+- **Gestrichen:** ff_adapter_breit und H3 (Kern sonst ≈ 11 h > 10 h). Kern jetzt ≈ 9,0 h (9,7 h mit Verlängerung); misst
+  `zeit` > 10 h, entfällt lora_r2.
+- **Vortest erweitert und im Container bestanden** (`vortest_statistik`: Born gegen explizite Referenz, Mini-Llama, 40 Szenarien,
+  9 Mutationen). Modellteil (Start-Logits, s/Schritt, Bitgleichheit der Brücke) nur auf Maltes PC prüfbar.
+- **Literatur:** Needle-2-„Hadamard MLP“ (D1, D2, D3, H, SiLU) ist der nächste Nachbar, Quadrat-Aktivierung/Adapter nicht gefunden
+  (`INSTITUT/recherche/2026-10-07_literatur_struktur_quadrat.md`). Baustein nicht als neu behaupten.
+- **Start (PC) unverändert:** `.\py.cmd -m quantum_sim.chatbot_fastfood vortest`, dann `... lauf *> results\T-007_run.log`.
+  **Wartet weiter auf Maltes Freigabe.**
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der

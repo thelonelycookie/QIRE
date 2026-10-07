@@ -8,6 +8,42 @@ Herleitung: `INSTITUT/LABORBUCH.md` I-044 ERGEBNIS (Struktur trägt dort, wo die
 CNN-Kopf +1,8 pp mit 85× weniger Parametern), `INSTITUT/abteilungen/struktur_gross.py` (Fastfood-Baustein),
 Tagebuch T-006 (QIRE-Adapter sättigt, b = 0,08; L40 holt 62 % des LoRA-Gewinns).
 
+## ÄNDERUNG DER VORREGISTRIERUNG vom 07.10.2026 (vor jeder T-007-Zahl; gilt vor den Abschnitten unten)
+
+**Grund:** I-045-v2 (Laborbuch 07.10.): Fastfood-FFN + z² schlägt dichte FFN + z² um 0,075 bpc, Fastfood + GELU ist
+dagegen schlechter als dicht + GELU (Wechselwirkung Struktur × Quadrat). T-007 soll prüfen, ob das im Sprachmodell als
+Adapter trägt. Noch kein Mess- und kein Tuning-Seed gerechnet; Änderung ist daher zulässig.
+- **Neuer Arm ff_born:** ΔW x = c · D3 ⊙ H(D2 ⊙ fold((H(D1 ⊙ x))²)), c = 2,0 fest, H blockweise 256, Init D1, D2 = ±1,
+  **D3 = 0 (Zweig = 0, Start = Basismodell)**. Bei v_proj (768→256) werden nach dem Quadrat die 3 Blöcke summiert (÷√3).
+- **Neuer Arm ff_gelu:** identisch, GELU statt z² (Kontrolle der Wechselwirkung).
+- **Parameter (offengelegt):** d_in + 2·d_aus je Matrix = q 2.304 + v 1.280 = 3.584 je Lage, ×12 = **43.008**
+  (1,40 × lora_r1 mit 30.720; 0,70 × lora_r2 mit 61.440). Nicht ≈ 3d·Matrix wie lora_r2, daher **kein exakter
+  Paritätsarm**. Ergänzt wird **lora_r2 (61.440, alpha/r = 2)** als obere Klammer, **nur beschreibend**, Lernrate
+  1e-3 **von lora_r1 übernommen, nicht getunt** (Nachteil für lora_r2 offen genannt). Hat ff_born einen Vorsprung vor
+  lora_r1, relativiert lora_r2 das Parameterargument; bleibt lora_r1 vorn, ist das trotz 1,4 × Parametern eine starke Aussage.
+- **Neue Hypothesen:** **H4 ff_born < ff_gelu** (einseitig Wilcoxon; BORN_BESSER / KEIN_NACHWEIS).
+  **H5 ff_born vs lora_r1**, zweiseitig + TOST ±20 % × |Gewinn lora_r1| (BORN_BESSER / GLEICHWERTIG / LORA_BESSER /
+  UNENTSCHIEDEN). **Holm neu über 4 (H1, H2, H4, H5), α = 0,05.** Erreichbarkeit: einseitig min 0,0039 ×4 = 0,016,
+  zweiseitig 0,0078 ×4 = 0,031, beide < 0,05.
+- **ff_adapter_breit und H3 gestrichen** (vorab festgelegt, weil Kern mit ihm ≈ 11 h > 10 h wäre). ff_adapter bleibt (H1, H2).
+- **Lernraten:** ff_adapter, ff_born, ff_gelu getunt mit gleichem Gitter (1e-4…1e-2, ×3-Verlängerung, 70401/70402).
+  Risiko: z² wächst mit |x|², das Gitter kann zu groß sein; Rand wird gemeldet, nicht stillschweigend gewertet.
+- **Vortest erweitert (jeder Zweig erzwungen):** Born gegen explizite scipy-Hadamard-Referenz (z² und GELU, q und v),
+  Start = 0, Gradientenfluss (Start nur D3, danach alle), Homogenität/Parität von z², Parameterzahlen; Mini-Llama für beide
+  Born-Arme (Einbau, Start = Basis, Lernfähigkeit, Diagonalen bewegen sich, Basis eingefroren); 40 Szenarien (alle Urteils-
+  zweige H1, H2, H4, H5 inkl. Holm-Fall, HU_DIVERGENZ/POSKONTROLLE/AUFLOESUNG/UNVOLLSTAENDIG, fehlende lora_r2 stört H5 nicht);
+  9 Mutationen (neu: H4 vertauscht, H4 zweiseitig; H3-Mutation entfällt), alle entdeckt. Mit Modell zusätzlich: Start-Logits
+  = Basis und Parameterzahl je Arm, 3-Schritt-Zellen aller ff-Arme.
+- **Laufzeit (Annahmen, `zeit` misst):** qire_L10 9,9 min/Zelle, lora_r1 5,9, ff_adapter 6,7, ff_born 7,2, ff_gelu 7,2,
+  lora_r2 6,4. Messung (6 Arme × 8 Seeds) 5,8 h + Tuning (3 Arme × 10 Zellen) 3,2 h = **Kern ≈ 9,0 h**, mit einer Verlängerung
+  je Arm ≈ 9,7 h. **Regel vorab: misst `zeit` > 10 h Kern, entfällt lora_r2** (letzter Arm in der Reihenfolge, nur beschreibend).
+- **Literatur** (`INSTITUT/recherche/2026-10-07_literatur_struktur_quadrat.md`): Needle-2-„Hadamard MLP“ (D1/D2/D3 + H + SiLU)
+  ist der nächste Nachbar; Quadrat-Aktivierung dort nicht, als Adapter nicht gefunden. Der Baustein ist nicht neu zu nennen.
+- Erwartung vorab (keine Hypothese): H4 plausibel, aber unsicher (I-045 war Byte-Modell von Null, hier Adapter am
+  vortrainierten Modell); H5 am ehesten LORA_BESSER oder UNENTSCHIEDEN.
+- Abschnitte 2–8 unten beschreiben ff_adapter weiter korrekt; wo sie ff_adapter_breit, H3, „Holm über 3“, „26 Szenarien“
+  oder die 6,3-h-Laufzeit nennen, **gilt diese Änderung**.
+
 ## 1. Frage
 
 T-006: Der QIRE-Adapter (Drehungen) sättigt, LoRA r=1 bleibt klar vorn (0,273 gegen 0,168 Gewinn). Kann eine
@@ -138,3 +174,4 @@ git pull --no-rebase
 Auswertung nachholen: `.\py.cmd -m quantum_sim.chatbot_fastfood auswertung T-007`. Der PC darf währenddessen nicht schlafen;
 6 Threads, keine anderen Rechenläufe (`institut.cmd` pausieren). Unterbrechung: derselbe `lauf`-Befehl setzt fort.
 **Vor dem Start auf Maltes Zustimmung warten** (Nutzungslimit).
+Neuer Vortest: ca. 10-20 min wie bisher (Born-Zellen kommen hinzu).
