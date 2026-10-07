@@ -5200,6 +5200,52 @@ Auflösung bestanden: lora_r1 − basis = −0,274, p = 0,0078.
 **Nächste Schritte:** L > 10 oder Winkel je Block, um die Sättigung zu
 finden; Chat-Demo mit dem L10-Adapter; blinde Mini-Bewertung (Recherche 06).
 
+## 7. Oktober — T-006 Kernauswertung (optionaler Arm ausstehend): mehr Lagen helfen weiter, aber flach; LoRA bleibt klar vorn
+
+Rohdaten `results/experiments/T-006__20261006_225435.json` (Kern: basis, qire_L10,
+qire_L20, qire_L40, lora_r1 je 8 Seeds 60001–60008; 40 Zeilen). Auswertung mit
+`python3 -m quantum_sim.chatbot_skalierung auswertung T-006` (vorregistrierte Logik,
+`ENTWURF_T006_SKALIERUNG.md`). `q_audit` prüft die Zahlen, alle OK.
+**qire_L10_600 (optional, außerhalb Holm) steht aus**: läuft noch auf dem PC (1/8),
+keine Aussage zu Budget- gegen Strukturgrenze.
+
+| Arm | trainierbar | Val-Verlust (nats/Token) | Gewinn | Anteil LoRA | lr |
+|---|---|---|---|---|---|
+| basis | 0 | 2,5616 | – | – | – |
+| qire_L10 | 1.920 | 2,4111 | 0,1506 | 55 % | 0,001 (T-005) |
+| qire_L20 | 3.840 | 2,4061 | 0,1556 | 57 % | 0,0003 |
+| qire_L40 | 7.680 | 2,3931 | 0,1685 | 62 % | 0,0003 |
+| lora_r1 | 30.720 | 2,2886 | 0,2730 | 100 % | 0,001 (T-005) |
+
+**Positivkontrolle bestanden:** qire_L10 = 2,4111 gegen 2,4115 ± 0,003 (T-005).
+Auflösung bestanden: lora_r1 − basis = −0,2730, p = 0,0078.
+
+**Familie (Holm über 3):**
+- K1 **STRENG_MONOTON**: Page L = 112, Holm-p ≈ 0 (p = 6·10⁻⁷); L10→L20 −0,0050,
+  L20→L40 −0,0129, je 8/8 Seeds, p = 0,0039 (Schwelle 0,0167). Die Stufe L10→L20 ist
+  winzig (vergleichbar der Seed-Streuung 0,001–0,002), aber in jedem Seed gleichgerichtet.
+- K2 **LORA_BESSER**: qire_L40 − lora_r1 = +0,1045, 0/8 Seeds besser, Holm-p = 0,0078;
+  TOST-Grenze ±0,0546 (20 % des LoRA-Gewinns), TOST-p = 1,0. Vervierfachte Drehung
+  (L10→L40) schließt nur 0,018 der 0,124 Lücke aus T-005.
+- K3 **SAETTIGT_UNTER_WURZEL**: b = 0,081 [0,078; 0,084] gegen 0,5, Holm-p = 0,0004;
+  G20/G10 = 1,033, G40/G20 = 1,083 (Wurzelgesetz: 1,414).
+
+**Was das heißt:**
+1. Der Gewinn wächst mit der Lagenzahl nur noch schwach (Potenzgesetz-Exponent ≈ 0,08);
+   L40 erreicht 62 % des LoRA-Gewinns statt 55 % bei L10. Mehr Lagen allein bringen QIRE
+   nicht an LoRA heran.
+2. Pro Parameter bleibt QIRE effizienter (L40 2,2·10⁻⁵ gegen LoRA 8,9·10⁻⁶), der
+   absolute Abstand aber ist signifikant.
+3. Offen, ob die Grenze am Budget (300 Schritte) oder an der Struktur liegt: dazu dient
+   der optionale Arm qire_L10_600, **ausstehend**.
+
+**Grenzen:**
+- Lernrate für L20 und L40 liegt bei 0,0003, dem untersten Gitterwert. Die Rohdaten
+  vermerken Rand „innen“ nach der vorregistrierten Verlängerung (÷3); `q_summary`
+  zeigt trotzdem „unten“ (gleicher Fehlalarmtyp wie bei basis). Nicht nachgeprüft.
+- Das Wurzelgesetz-Urteil hängt an einem Potenzgesetz-Modell mit nur drei Punkten.
+- Ein Verlust ist keine Chatqualität.
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der

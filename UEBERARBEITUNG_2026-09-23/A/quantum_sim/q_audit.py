@@ -729,16 +729,45 @@ def check_t005() -> List[Tuple[str, bool, str]]:
 
 
 def check_t006() -> List[Tuple[str, bool, str]]:
-    """T-006 (Adapter-Skalierung L=20/40): noch nicht gerechnet -> kein Befund.
-    Nach dem Lauf hier die Tagebuchzahlen gegen die Rohdaten pruefen (Muster check_t005);
-    Positivkontrolle qire_L10 = 2,4115 +- 0,003 ist Teil der Auswertung selbst."""
+    """Zahlen aus dem Eintrag '7. Oktober -- T-006 Kernauswertung' (neueste T-006-Datei,
+    Kern: basis, qire_L10/L20/L40, lora_r1 je 8 Seeds; optionaler Arm qire_L10_600 ausstehend).
+    Messgroesse val_verlust in nats/Token. Positivkontrolle qire_L10 = 2,4115 +- 0,003."""
     try:
         rec = load("T-006")["records"]
     except Exception:                                  # noqa: BLE001 -- keine Rohdaten
         return [("T-006 noch nicht gerechnet", True, "keine Rohdaten, nichts zu pruefen")]
-    w = [r["val_verlust"] for r in rec if r["arm"] == "qire_L10"]
-    return [("Positivkontrolle qire_L10 = 2,4115 +- 0,003", abs(sum(w) / max(1, len(w)) - 2.4115) <= 0.003,
-             f"Rohdaten {sum(w) / max(1, len(w)):.4f}")]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    b, l10, l20, l40, lo = (m(a) for a in ("basis", "qire_L10", "qire_L20", "qire_L40", "lora_r1"))
+    out.append(("Positivkontrolle qire_L10 = 2,4115 +- 0,003",
+                abs(float(l10.mean()) - 2.4115) <= 0.003, f"Rohdaten {l10.mean():.4f}"))
+    for name, claimed, x in (("basis", 2.5616, b), ("qire_L10", 2.4111, l10), ("qire_L20", 2.4061, l20),
+                             ("qire_L40", 2.3931, l40), ("lora_r1", 2.2886, lo)):
+        out.append((name, abs(claimed - float(x.mean())) <= 0.0005,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {x.mean():+.4f}"))
+    out.append(("K1 Stufen L10->L20, L20->L40 je 8/8 Seeds",
+                int((l20 < l10).sum()) == 8 and int((l40 < l20).sum()) == 8, "8/8 je Stufe"))
+    out.append(("K2 qire_L40 - lora_r1 = +0,1045, 0/8 Seeds besser",
+                abs(float((l40 - lo).mean()) - 0.1045) <= 0.0005 and int((l40 < lo).sum()) == 0,
+                f"Rohdaten {(l40 - lo).mean():+.4f}, {int((l40 < lo).sum())}/8"))
+    g10, g20, g40 = (float(b.mean() - x.mean()) for x in (l10, l20, l40))
+    bexp = float(np.log(g40 / g10) / np.log(4))
+    out.append(("K3 Exponent b = 0,081", abs(bexp - 0.081) <= 0.0005, f"Rohdaten {bexp:.4f}"))
+    out.append(("K3 G20/G10 = 1,033 | G40/G20 = 1,083",
+                abs(g20 / g10 - 1.033) <= 0.0005 and abs(g40 / g20 - 1.083) <= 0.0005,
+                f"Rohdaten {g20 / g10:.3f} | {g40 / g20:.3f}"))
+    out.append(("Aufloesung lora_r1 - basis = -0,2730",
+                abs(float((lo - b).mean()) + 0.2730) <= 0.0005, f"Rohdaten {(lo - b).mean():+.4f}"))
+    for arm, n in (("qire_L10", 1920), ("qire_L20", 3840), ("qire_L40", 7680), ("lora_r1", 30720)):
+        t = int(next(r["trainierbar"] for r in rec if r["arm"] == arm))
+        out.append((f"trainierbar {arm}", t == n, f"Tagebuch {n} | Rohdaten {t}"))
+    out.append(("8 Seeds je Kernarm", all(len(x) == 8 for x in (b, l10, l20, l40, lo)),
+                f"{[len(x) for x in (b, l10, l20, l40, lo)]}"))
+    return out
 
 
 CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
