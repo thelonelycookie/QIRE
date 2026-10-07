@@ -268,3 +268,8 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 ### 07.10.2026 09:56 — I-042-r (automatisch)
 - **H1-CIFAR**: H0 (beide unterlegen um mehr als 1 pp; H1B: d -6,33 pp, 90-%-KI [-6,50; -6,17], n 15, p_Holm 1; H1E: d -6,30 pp, 90-%-KI [-6,47; -6,14], n 15, p_Holm 1)
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 07.10.2026 15:31 — I-044-v3 (automatisch)
+- **H1**: H0 (d -0,51 pp, 90-%-KI [-0,78; -0,23], n 8, p_Holm 1)
+- **H2**: HU (d -0,20 pp, 90-%-KI [-0,50; +0,10], n 8, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
