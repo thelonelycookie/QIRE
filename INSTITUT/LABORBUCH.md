@@ -1409,3 +1409,10 @@ Anlass: Die Befunde aus I-042 und I-044 beruhen auf n = 5. Beide Replikationen s
 - **Gepoolt (2300–2304 + Replikation, n = 20), nur beschreibend:** Ks−Kd, Kcs−Kcd mit Mittel und 90-%-KI, ohne p und Urteil.
 - **Laufzeit (aus I-044-Messung, 4 Prozesse):** je Seed Kd 168 + Ks 118 + Kcd 109 + Kcs 120 + NK 60 ≈ 575 s; × 15 / 4 ≈ **0,6 h**. Fallback nur bei Zeitnot: `I044R_PROFIL=zehn` (Seeds 2310–2319).
 - **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-r` (Wiederaufnahme je (Teil, Arm, Seed) in `ergebnisse/_zwischen_I-044-r.json`).
+
+## 07.10.2026 – I-045 ERGEBNIS (Strukturschicht im kleinen Sprachmodell, Seeds 2400–2404)
+Rohdaten `ergebnisse/I-045__20261007_070706.json`. NK bestanden.
+- **H1 H0:** Sb (Fastfood-FFN, 4× breit, GELU) 3,597 gegen dicht D 3,516 bpc, also +0,081 bpc schlechter.
+- **H2 H0:** Niedriger Rang L (3,558) ist besser als S (3,597).
+- **H3 H0:** Sb ist bei d = 256 auf der CPU langsamer (Zeitverhältnis D/Sb 0,17).
+- **Auffällig, nur beschreibend (Nebenarm, nicht konfirmatorisch):** **Sz = Fastfood-FFN mit z² statt GELU: 3,410 bpc, also 0,106 bpc besser als dicht D**, dazu etwas schneller (1,2×). Das ist ein unerwarteter Hinweis. Mögliche Erklärung: Das Quadrat als Aktivierung wirkt allgemein (vgl. Primer/„squared ReLU“), nicht die Struktur. Nötige Kontrolle: dichte FFN mit z² (D_z²). Folgelauf I-045-v2 vorregistrieren, bevor das als Befund gilt.

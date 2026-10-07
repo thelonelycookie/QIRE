@@ -258,3 +258,9 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 - **H2**: H0 (S3 sicher schlechter als S1; d -1,50 pp, 90-%-KI [-1,88; -1,12], n 5, p_Holm 1)
 - **H4**: HU (d -0,67 pp, 90-%-KI [-1,13; -0,21], n 5, p_Holm 0.102)
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 07.10.2026 07:07 — I-045 (automatisch)
+- **H1**: H0 (Sb um mehr als 0.02 bpc schlechter; d -0,0807 bpc, 90-%-KI [-0,0851; -0,0762], n 5, p_Holm 1)
+- **H2**: H0 (L sicher besser als S; d -0,0386 bpc, 90-%-KI [-0,0519; -0,0253], n 5, p_Holm 1)
+- **H3**: H0 (Sb sicher langsamer als D; d -1,2232 ln-Zeitverhaeltnis D/Sb, 90-%-KI [-1,3019; -1,1445], n 5, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
