@@ -46,6 +46,11 @@ Einzelheiten stehen in den verlinkten Dateien; lies sie nur, wenn du sie brauchs
    dass „einfach mal ausprobieren, was noch niemand gefragt hat“ eine
    legitime Strategie ist.
 
+8. **Opus plant, Sonnet führt aus** (07.10.). Planung, Versuchsdesign,
+   Vorregistrierung, Auswertung und Urteile macht Opus. Umsetzung (Module
+   schreiben, Vortests, Läufe vorbereiten, Routinearbeit) geht an Sonnet-Agenten
+   (`Agent` mit `model: "sonnet"`) mit genauem Auftrag. Opus prüft deren Ergebnis.
+
 ## 3. Protokollregeln (aus Projekt A, gelten weiter)
 
 Lernrate je Arm auf eigenen Tuning-Seeds, Gitter in **beide** Richtungen

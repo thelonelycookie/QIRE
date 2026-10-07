@@ -14,6 +14,11 @@ zugeschnitten auf QIRE. Kurz halten, anwenden.
   (sauber als solche gekennzeichnet) ist besser als kein Ergebnis. Neuheitsprüfung
   dient dazu, Eigenes vom Bekannten abzugrenzen, nicht dazu, Brauchbares zu verwerfen.
 
+## 0b. Arbeitsteilung: Opus plant, Sonnet führt aus
+Opus: Fragen, Design, Vorregistrierung, Auswertung, Urteil, Gegenlesen.
+Sonnet-Agenten: Code, Vortests, Laufvorbereitung, Literatur-Fleißarbeit —
+immer mit präzisem, eigenständig lesbarem Auftrag. Opus prüft jede Abgabe.
+
 ## 1. Neuheitsprüfung (Vorgabe 7) als festes Verfahren
 1. **Kernaussage in einem Satz** formulieren (Behauptung, nicht Methode).
 2. **6–12 Suchanfragen** daraus: Kernaufgabe + Beitrag + Synonyme
