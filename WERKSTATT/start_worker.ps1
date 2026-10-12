@@ -3,13 +3,15 @@
 param(
     [ValidateSet("code", "review", "daten")] [string]$Rolle = "code",
     [string]$Modell = "qwen3:8b",
-    [int]$RuheAb = 22,
-    [int]$RuheBis = 7,
+    [int]$RuheAb = 0,
+    [int]$RuheBis = 6,
     [switch]$MitToken   # nur falls ohne Token die Anmeldung scheitert
 )
 
 $stunde = (Get-Date).Hour
-if ($stunde -ge $RuheAb -or $stunde -lt $RuheBis) {
+if ($RuheAb -lt $RuheBis) { $ruhe = ($stunde -ge $RuheAb -and $stunde -lt $RuheBis) }
+else { $ruhe = ($stunde -ge $RuheAb -or $stunde -lt $RuheBis) }
+if ($ruhe) {
     Write-Host "Ruhezeit ($RuheAb-$RuheBis Uhr): kein Start." -ForegroundColor Yellow
     exit 1
 }

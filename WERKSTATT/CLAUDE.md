@@ -13,7 +13,7 @@ schickt dir Aufträge. Lies zusätzlich deine Rollendatei in `WERKSTATT/rollen/`
 5. **Ehrlich berichten.** Fehlgeschlagen ist fehlgeschlagen. Keine Zahl ohne
    Ausgabe, aus der sie stammt. Nichts erfinden.
 6. **Speicher**: 16 GB RAM. Bevor du einen Lauf > 10 min startest: geschätzten
-   Speicher und Dauer in den Bericht. Läufe, die nach 22:00 enden würden, nicht
+   Speicher und Dauer in den Bericht. Läufe, die nach 00:00 enden würden, nicht
    starten, sondern zurückmelden.
 7. **Lange Läufe** im Hintergrund starten und mit
    `A\py.cmd ..\WERKSTATT\monitor.py --pid <PID> --log <LOGDATEI> --auftrag <ID>`

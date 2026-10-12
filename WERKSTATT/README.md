@@ -24,7 +24,7 @@ PC: Claude Code ──► Ollama (qwen, lokal, 8 GB VRAM)
   T-006 schon einmal an OOM gestorben. Läuft eine lange Rechnung, wartet der
   Worker und `monitor.py` beobachtet sie.
 - **Kontext 32k.** Claude Code braucht viel Kontext. Mehr frisst VRAM.
-- **Die Platte ist fast voll.** Ein 7–8B-Modell braucht ~5 GB.
+- **Platz**: mindestens 100 GB frei, reicht für mehrere Modelle (je ~5 GB).
 
 ## Einrichtung (einmalig)
 
@@ -68,11 +68,11 @@ entscheidet die Cloud-Session, was weiter.
 
 ### 4. Ruhezeit (nachts aus)
 
-Der Startskript verweigert den Start zwischen **22:00 und 07:00**.
-Zusätzlich beendet `ruhezeit.ps1` um 22:00 Modell und Worker:
+Der Startskript verweigert den Start zwischen **00:00 und 06:00**.
+Zusätzlich beendet `ruhezeit.ps1` um 00:00 Modell und Worker:
 
 ```powershell
-schtasks /Create /TN "QIRE Ruhezeit" /SC DAILY /ST 22:00 /TR "powershell -ExecutionPolicy Bypass -File \"C:\Users\Malte\Downloads\claude\projects\QIRE AI\WERKSTATT\ruhezeit.ps1\""
+schtasks /Create /TN "QIRE Ruhezeit" /SC DAILY /ST 00:00 /TR "powershell -ExecutionPolicy Bypass -File \"C:\Users\Malte\Downloads\claude\projects\QIRE AI\WERKSTATT\ruhezeit.ps1\""
 ```
 
 ## Rechte
