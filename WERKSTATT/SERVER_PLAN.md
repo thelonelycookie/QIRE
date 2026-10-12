@@ -65,3 +65,34 @@ oder anderes Board nötig.
 - SSD 2 TB: pcwelt.de (Samsung 990, 280 €), coolblue.de (WD SN7100, 389 €)
 - DDR5 64 GB: geizhals.de, guenstiger.de (~460–1.300 €)
 - Ryzen AI Max+ 395 Mini-PCs: borncity.com, ebay.de (~2.270–2.900 €)
+
+---
+
+# Traum-Rack (ganz, ganz später)
+
+27-HE-Schrank, schallgedämmt, im Keller/Abstellraum. Grob geschätzt, Preise Okt. 2026.
+
+| HE | Gerät | Zweck | ca. € |
+|---|---|---|---|
+| 1 | Router/Firewall (OPNsense) | Netz, VPN | 400–800 |
+| 1 | Switch 10/25 GbE | Verbindung der Knoten | 800–1.500 |
+| 1 | Patchpanel + Kabel | Ordnung | 150 |
+| 4 | **KI-Knoten**: AMD EPYC 9005 (32 Kerne), 512 GB DDR5-ECC, **4× RTX PRO 6000 Blackwell 96 GB = 384 GB VRAM** | große Modelle (bis ~400B quantisiert), Training kleiner Modelle | 70.000–95.000 |
+| 2 | **Rechen-Knoten**: EPYC 64 Kerne, 256 GB ECC | Simulationen, parallele Seeds | 12.000–20.000 |
+| 2 | **Speicher-Knoten**: TrueNAS, 6× 20 TB HDD (ZFS), 2× NVMe-Cache | Rohdaten, Backups, Modellarchiv | 4.000–6.000 |
+| 1 | Kleiner Verwaltungsrechner | Monitoring (Grafana), Planer-Brücke | 500–1.000 |
+| 3 | USV 3 kVA | sauberes Herunterfahren bei Stromausfall | 2.000–3.000 |
+| – | Schrank, PDUs mit Strommessung, Lüftung | | 2.000–4.000 |
+| | **Summe** | | **~90.000–130.000** |
+
+**Was ein Traum-Rack wirklich braucht:**
+- **Strom**: Volllast ~3–3,5 kW, das ist eine eigene 16-A-Leitung (Elektriker).
+  Durchschnitt ~1 kW = ~8.800 kWh/Jahr = **~3.000 €/Jahr**.
+- **Wärme**: 3 kW Heizleistung, der Raum braucht Abluft oder Klimagerät.
+- **Lautstärke**: Server-Lüfter sind unter Last 60–70 dB, nur in einem Raum
+  ohne Schlafzimmer daneben.
+- **Ausbaupfad**: Stufe 2 heute → zweite 3090 → Workstation mit 1–2 RTX PRO 6000
+  → Rack. Jede Stufe bleibt als eigener Knoten weiter nutzbar.
+
+Quelle RTX PRO 6000: gpuprix.com (DE-Tiefstpreis 15.490 €, 3.10.2026),
+jacob.de (11.322 €), hardwaredealz.com (12.999 €).
