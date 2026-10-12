@@ -22,18 +22,26 @@ auf Geizhals/Kleinanzeigen prüfen.
 | Gehäuse + Kühler | gedämmtes Midi-Tower + Tower-Kühler | 130 |
 Modelle bis ~14B. Leise, sparsam.
 
-## Stufe 2 — Preis-Leistung (Empfehlung): ca. 2.400–3.100 €
-| Teil | Vorschlag | ca. € |
+## Stufe 2 — Preis-Leistung (GEWÄHLT): ca. 2.700–3.350 €
+Konkrete Teile (Preise Okt. 2026, geschätzt):
+| Teil | Modell | ca. € |
 |---|---|---|
-| CPU | Ryzen 7 9700X (8 Kerne, 65 W) | 300 |
-| Mainboard | B650/X670 mit zweitem PCIe-x16-Steckplatz (Erweiterung) | 200–250 |
-| RAM | 64 GB DDR5 (2×32), später auf 128 GB erweiterbar | 460–800 |
-| GPU | **RTX 3090 24 GB gebraucht** | 1.000–1.200 |
-| SSD | 2 TB NVMe | 150–250 |
-| Netzteil | 1000 W, 80+ Gold (Reserve für zweite GPU) | 150 |
-| Gehäuse | gedämmt, groß (z. B. Fractal Define 7) | 180 |
-| Kühler | Tower-Luftkühler | 40 |
+| CPU | AMD Ryzen 7 9700X (8 Kerne, 65 W) | 290–320 |
+| Mainboard | ASUS ProArt B650-Creator (AM5, 2 GPU-Steckplätze, 2,5-GbE-LAN) | 260–340 |
+| RAM | 64 GB DDR5-5600/6000 (2×32 GB), z. B. Kingston Fury Beast; auf 128 GB erweiterbar | 460–800 |
+| GPU | **RTX 3090 24 GB gebraucht** (Kleinanzeigen, mit Rechnung/Restgarantie) | 1.000–1.200 |
+| SSD | 2 TB NVMe, z. B. Samsung 990 / WD SN7100 (1 TB spart ~120 €) | 280–390 |
+| Netzteil | 1000 W, 80+ Gold, ATX 3.x (z. B. be quiet! Pure Power 12 M) | 150 |
+| Gehäuse | Fractal Define 7 (gedämmt, Platz für zwei GPUs) | 180 |
+| Kühler | Thermalright Peerless Assassin 120 o. ä. | 40 |
 Modelle bis 32B mit großem Kontext, Simulationen nebenher.
+
+**Offen vor dem Kauf:** Abstand der beiden PCIe-Steckplätze im Handbuch prüfen.
+Eine RTX 3090 ist meist 3 Slots dick; für eine zweite Karte ggf. Riser-Kabel
+oder anderes Board nötig.
+
+**Gebrauchte 3090 prüfen:** Rechnung, kein Mining-Einsatz, Stresstest
+(z. B. 15 min FurMark/OCCT) mit Temperatur < 85 °C, Speichertemperatur beachten.
 
 ## Stufe 3 — darüber
 **3a: Mini-PC Ryzen AI Max+ 395, 128 GB gemeinsamer Speicher — ca. 2.300–2.900 €**
@@ -52,5 +60,8 @@ Modelle bis 32B mit großem Kontext, Simulationen nebenher.
 ## Quellen
 - RTX 3090 gebraucht: kleinanzeigen.de (Angebote ~1.000–1.450 €, Okt. 2026)
 - RTX 5060 Ti 16 GB: bestvaluegpu.com, shattered.io (~680–850 €)
+- Ryzen 7 9700X: pcgameshardware.de (~290–313 €)
+- ProArt B650-Creator: hintaseuranta.fi, dateks.lv, ebay.de (~260–340 €)
+- SSD 2 TB: pcwelt.de (Samsung 990, 280 €), coolblue.de (WD SN7100, 389 €)
 - DDR5 64 GB: geizhals.de, guenstiger.de (~460–1.300 €)
 - Ryzen AI Max+ 395 Mini-PCs: borncity.com, ebay.de (~2.270–2.900 €)
