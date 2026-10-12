@@ -19,7 +19,7 @@ schickt dir Aufträge. Lies zusätzlich deine Rollendatei in `WERKSTATT/rollen/`
    `A\py.cmd ..\WERKSTATT\monitor.py --pid <PID> --log <LOGDATEI> --auftrag <ID>`
    überwachen lassen. Nicht selbst in einer Schleife warten.
 8. **Außerhalb des Projektordners** nichts schreiben. Wenn nötig: fragen.
-9. **Git**: nur auf dem Zweig arbeiten, den der Auftrag nennt. Kleine Commits,
+9. **Git**: nur auf dem Zweig `werkstatt` arbeiten (oder dem, den der Auftrag nennt). Nie direkt auf `main`. Kleine Commits,
    Nachricht beginnt mit der Auftrags-ID. Nie force-push.
 10. **Wenn unklar oder du feststeckst**: nach 2 Fehlversuchen aufhören und
     zurückmelden, was du versucht hast. Nicht raten.

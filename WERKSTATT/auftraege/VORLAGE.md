@@ -1,7 +1,7 @@
 # AUFTRAG W-000 — <Kurztitel>
 
 ROLLE: code | review | daten
-ZWEIG: <git-Zweig>
+ZWEIG: werkstatt
 ZIEL: <ein Satz>
 
 ## Aufgabe
