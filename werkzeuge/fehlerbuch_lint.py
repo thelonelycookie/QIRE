@@ -18,6 +18,8 @@ Klassen (Quelle: INSTITUT/FEHLERBUCH.md, UEBERGABE.md §3/§6):
   kontrolle-ohne-matrixcheck  Kontrollarm (hadamard/identitaet/zufall...) ohne Matrix-/Entartungspruefung im vortest
   rauchtest-messseed  Rauchtest-Zweig (if schnell) nutzt Seeds, die in INSTITUT/seeds.json Mess-Seeds sind
   kein-vortest        Modul ohne vortest()
+  doppelte-definition dieselbe Funktion mehrfach auf Modulebene definiert (nur die letzte zaehlt; Spleiss-Artefakt,
+                      Teile davon koennen tot oder kaputt sein -- z.B. mnist100.py)
 
 Es sind HEURISTIKEN: Ausgabe sind Warnungen, keine Beweise. Altmodule (schon gerechnet, Ergebnisse
 festgeschrieben) werden nur berichtet; --streng bewertet nur Module ohne Ergebnisdatei.
@@ -252,6 +254,14 @@ def pruefe_datei(pfad: Path, mess: dict) -> list:
         if not re.search(r"(?i)matrix|nonzero|count_nonzero|entartet|allclose|isclose|torch\.eye|np\.eye|permutation", vt):
             add(funktionen["vortest"].lineno, "kontrolle-ohne-matrixcheck",
                 "Kontrollarm erkannt, aber der Vortest prueft keine Matrix/Entartung (z.B. Hadamard bei gerader Lagenzahl = Identitaet)")
+
+    # --- doppelte-definition
+    gesehen: dict = {}
+    for n in baum.body:
+        if isinstance(n, ast.FunctionDef):
+            if n.name in gesehen:
+                add(n.lineno, "doppelte-definition", f"{n.name}() steht schon in Zeile {gesehen[n.name]} - die fruehere Fassung ist tot")
+            gesehen[n.name] = n.lineno
 
     # --- kein-vortest
     if hat_lauf and "vortest" not in funktionen and pfad.parent.name == "abteilungen":

@@ -31,19 +31,24 @@ def _gesperrt(*a, **k):
 urllib.request.urlretrieve = _gesperrt
 urllib.request.urlopen = _gesperrt
 
-name = sys.argv[1]
-modul = importlib.import_module(f"abteilungen.{name}")
-if not hasattr(modul, "vortest"):
-    sys.exit(78)
-try:
-    ergebnis = modul.vortest()
-except _KeinNetz:
-    print("DATEN_FEHLEN: Datensatz nicht in INSTITUT/daten vorhanden (Download in Tests gesperrt)")
-    sys.exit(77)
-except (FileNotFoundError, OSError) as fehler:       # z.B. fehlende gespeicherte Rohdaten
-    if "daten" in str(fehler).lower() or "npz" in str(fehler).lower():
-        print("DATEN_FEHLEN:", fehler)
+def main():
+    name = sys.argv[1]
+    modul = importlib.import_module(f"abteilungen.{name}")
+    if not hasattr(modul, "vortest"):
+        sys.exit(78)
+    try:
+        ergebnis = modul.vortest()
+    except _KeinNetz:
+        print("DATEN_FEHLEN: Datensatz nicht in INSTITUT/daten vorhanden (Download in Tests gesperrt)")
         sys.exit(77)
-    raise
-print("VORTEST", "bestanden" if ergebnis else "DURCHGEFALLEN")
-sys.exit(0 if ergebnis else 1)
+    except (FileNotFoundError, OSError) as fehler:       # z.B. fehlende gespeicherte Rohdaten
+        if "daten" in str(fehler).lower() or "npz" in str(fehler).lower():
+            print("DATEN_FEHLEN:", fehler)
+            sys.exit(77)
+        raise
+    print("VORTEST", "bestanden" if ergebnis else "DURCHGEFALLEN")
+    sys.exit(0 if ergebnis else 1)
+
+
+if __name__ == "__main__":  # Pflicht: spawn-Kindprozesse importieren dieses Skript erneut
+    main()

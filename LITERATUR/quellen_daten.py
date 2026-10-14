@@ -28,7 +28,7 @@ A("ravi2022cafqa", "2202.12924", "Ravi, Gokhale et al. (weitere Autoren in der R
   "B (Magie als Kompression), I-001, I-005, I-036, Q-020",
   "Naechster Nachbar von QIRE-B, aber Clifford als INITIALISIERUNG vor dem Training (Ziel VQE-Energie); QIRE rundet NACH dem Training und nutzt das Ergebnis als Endmodell/Kompressionsmass. Abgrenzung in der Arbeit Pflicht (Verwechslungsgefahr).",
   "Abstract", ["clifford-initialisierung", "clifford-suche-diskret", "magie-kompression", "vqe"])
-A("lange2023cafqa_folge", "2308.11616", None, None, "(Folgearbeit zu CAFQA, Titel in der Recherche nicht genannt)", None,
+A("cafqa_folge_2308_11616", "2308.11616", None, None, "(Folgearbeit zu CAFQA, Titel in der Recherche nicht genannt)", None,
   "Laut ideen.json vom Institut notiert; Inhalt in den Recherchedateien nicht beschrieben.", "I-001",
   "Als CAFQA-Folgearbeit gefuehrt; keine eigene Neuheitsbewertung.", "nur Titel", ["clifford-initialisierung"])
 A("cheng2022clifford_init", "2207.01539", "Cheng, Khosla, Self, Lin, Li, Medina, Kim", 2022,
@@ -135,7 +135,7 @@ A("aaronson2004chp", "quant-ph/0406196", "Aaronson, Gottesman", 2004, "Improved 
 A("dehaene2003clifford", "quant-ph/0304125", "Dehaene, De Moor", 2003, "Clifford group, stabilizer states, and linear and quadratic operations over GF(2)", "Phys. Rev. A 68, 042318 (2003)",
   "Clifford-Gruppe ~ Gruppe aus linearen/quadratischen Operationen ueber GF(2) (Bruhat-/Quadratform-Darstellung). (Titel aus Wissen, in der Recherche nur Kurzbeschreibung)", "I-036-v3 (quadratische Vorzeichenmaske)",
   "Pflichtzitat fuer die Quadratform-Darstellung der Clifford-Gruppe.", "Auszug", ["clifford-quadratform", "graphzustaende", "gf2"])
-A("hein2003schmidt", "quant-ph/0307130", "Hein et al. (laut Recherche)", 2004, "Multiparty entanglement in graph states", None,
+A("hein2003schmidt", "quant-ph/0307130", "Hein et al. (laut Recherche)", 2003, "Multiparty entanglement in graph states", None,
   "Schmidt-Rang/-Mass fuer jede Bipartition A|B bei Graphzustaenden. (Titel aus Wissen, unvollstaendig belegt)", "Rang <-> Verschraenkung, V-kompass", "Standardwissen.", "Auszug", ["graphzustaende", "schmidt-rang"])
 A("schmidt_mass2000", "quant-ph/0007081", None, 2000, "(Schmidt-Mass; Titel in der Recherche nicht genannt)", None,
   "Schmidt-Mass fuer Verschraenkung.", "V-kompass", "Hintergrund.", "nur Titel", ["schmidt-rang"])
@@ -167,7 +167,7 @@ A("grewal2025t_dotiert", None, "Grewal, Iyer, Kretschmer, Liang", 2025, "(Lernen
   "Lernzeit poly(n, 2^t, 1/eps) fuer Zustaende aus Clifford + t Nicht-Clifford-Gattern.", "Magiebedarf M50", "Naechster Verwandter von 'Magie bestimmt Lernkosten', aber nicht dasselbe wie M50.", "Auszug", ["nichtstabilizerness-qml", "lernbarkeit-stabilizer"])
 A("wang2026lernbar_nicht_simulierbar", "2608.02325", "Wang, Du, Tao", 2026, "Learnable yet not simulable: a quantum resource theory of learning models", None,
   "Dynamische Stabilizer-Entropie (DSE); Schaltungsfamilien, die ein Surrogat lernt, aber nicht aus der Beschreibung emulierbar sind.", "Trainierbar vs. simulierbar", "Praezisest neue Form 'lernbar, aber nicht simulierbar'.", "Auszug", ["trainierbarkeit", "dequantisierung", "sre"])
-A("ghosh_kopplung_ct2025", "2607.17872", None, 2026, "Entanglement geometry separates circuit cutting, classical hardness, and trainability", None,
+A("entanglement_geometry_2607_17872", "2607.17872", None, 2026, "Entanglement geometry separates circuit cutting, classical hardness, and trainability", None,
   "Nur Titel gesehen.", "Rang <-> Verschraenkung (Etappe 2)", "Vor Etappe 2 pruefen.", "nur Titel", ["verschraenkung", "trainierbarkeit"])
 
 # ---------------------------------------------------------------- Dequantisierung / Simulierbarkeit / Benchmarks
@@ -220,7 +220,7 @@ A("caro2022generalisierung", "2111.05292", "Caro et al.", 2022, "Generalization 
   "Generalisierungsfehler <~ sqrt(T/N), T trainierbare Gatter, N Trainingsdaten. (Titel aus Wissen)", "Skalierung (Kopf dominiert die Schranke)", "Hintergrund.", "Auszug", ["generalisierung-qml", "skalierung"])
 A("zhang2022gradient_skalierung", "2203.09376", "Zhang u. a.", 2022, "(Anfangsvarianz ~ 1/L haelt Gradienten polynomial)", "NeurIPS 2022",
   "Anfangsvarianz der Winkel ~ 1/L (Streuung ~ 1/sqrt(L)) hält den Gradienten polynomial statt exponentiell klein.", "T-006 (sqrt(L)-Gesetz)", "Initialisierung, kein Gewinngesetz.", "Auszug", ["trainierbarkeit", "skalierung", "initialisierung"])
-A("holmes_ent_cl_rff", None, None, None, "(Kritik/Grenzen von RFF-Dequantisierung)", "Quantum 2025 (q-2025-02-20-1640)",
+A("rff_kritik_quantum2025", None, None, None, "(Kritik/Grenzen von RFF-Dequantisierung)", "Quantum 2025 (q-2025-02-20-1640)",
   "Kritik/Grenzen der RFF-Naeherung variationaler QML.", "Dequantisierung", "Hintergrund.", "nur Titel", ["dequantisierung"])
 A("tang2019", None, "Tang", 2019, "A quantum-inspired classical algorithm for recommendation systems", None,
   "Dequantisierung: klassischer Algorithmus mit Sampling-Zugang, nur polynomiell langsamer.", "Einordnung 'quantum-inspired'", "Standardquelle.", "Auszug", ["dequantisierung", "quanteninspiriert"])
@@ -232,7 +232,7 @@ A("quantum_inspired_survey2023", "2308.11269", None, 2023, "(Survey zu quantum-i
   "Survey; Begriff 'quantum-inspired' wird uneinheitlich genutzt.", "Etikett 'quantum-inspired'", "Hintergrund.", "nur Titel", ["quanteninspiriert", "tensornetz"])
 A("quantum_inspired_label2026", "2604.14287", None, 2026, "(Quantum-inspired/QML Begriffsverwendung)", None,
   "Nur Snippet gesehen.", "Etikett", "Hintergrund.", "nur Titel", ["quanteninspiriert"])
-A("rfk_kritik", None, None, None, "(Chia/Gilyen u. a., Gharibian/Le Gall STOC 2022: QSVT-Dequantisierung)", "STOC 2022",
+A("dequant_stoc2022", None, None, None, "(Chia/Gilyen u. a., Gharibian/Le Gall STOC 2022: QSVT-Dequantisierung)", "STOC 2022",
   "Dequantisierungsrahmen.", "Einordnung", "Nur im Text erwaehnt.", "nur Titel", ["dequantisierung"])
 A("pitfalls_ml2020", "2011.02832", None, 2020, "Pitfalls in Machine Learning Research (laut FORSCHUNGSMETHODIK 'Pitfalls in ML Research')", None,
   "Methodikquelle.", "FORSCHUNGSMETHODIK", "Methodik.", "nur Titel", ["statistik-methodik"])
@@ -365,7 +365,7 @@ A("brassard2000amplitude", "quant-ph/0005055", "Brassard, Hoyer, Mosca, Tapp", 2
   "Fehler eps mit O(1/eps) Orakelaufrufen statt O(1/eps^2) Schuessen.", "Holevo/Schusszahl", "Standardquelle.", "Auszug", ["amplitudenschaetzung", "schusszahl"])
 A("buhrman2001fingerprint", "quant-ph/0102001", "Buhrman, Cleve, Watrous, de Wolf", 2001, "Quantum Fingerprinting", "PRL 87, 167902",
   "Gleichheitstest mit O(log n) Qubits. (Titel aus Wissen)", "Holevo", "Standardquelle.", "Auszug", ["holevo"])
-A("aaronson2018shadow", "1711.01053", "Aaronson", 2018, "Shadow Tomography of Quantum States", None,
+A("aaronson2017shadow", "1711.01053", "Aaronson", 2017, "Shadow Tomography of Quantum States", None,
   "Õ(eps^-4 log^4 M log D) Kopien fuer M Messungen. (Titel aus Wissen)", "Holevo", "Auszug.", "Auszug", ["shadow-tomography"])
 A("huang2020shadows", "2106.10190", "Huang, Kueng, Preskill", 2020, "Predicting many properties of a quantum system from very few measurements (Classical Shadows)", "Nature Phys. 16, 1050 (2020)",
   "M Eigenschaften mit O(log M) Zufallsmessungen. (arXiv-ID-Zuordnung unsicher: Recherche nennt 2412.03381 und 2106.10190)", "Holevo", "Auszug.", "Auszug", ["shadow-tomography"])
@@ -400,6 +400,8 @@ A("mps_adaptiv2024", "2404.16083", None, 2024, "(konstante Tiefe mit adaptiven S
 A("boosari_walsh2026", "2609.28760", "Boosari", 2026, "Walsh-Transform Realization of Dense-to-Sparse Quantum State Preparation", None,
   "Daten in den Walsh-Raum, nur groesste Koeffizienten laden, danach eine Hadamard-Lage ohne CNOT zurueck.", "Datenladen (Walsh-Raum), I-005/I-036",
   "Walsh-Raum als Laderaum ist NICHT neu; nur die Kopplung mit Magie-Budget/Clifford-Orbit-Suche bleibt.", "Auszug", ["zustandspraeparation", "hadamard-walsh", "approximatives-laden"])
+A("walsh_2307_08384", "2307.08384", None, None, "(Walsh-Raum-Laden; in 03_datenladen neben Boosari verlinkt, moeglicherweise Zylberman-Debbasch - Zuordnung ungeprueft)", None,
+  "Walsh-Reihen fuer Zustandspraeparation (laut Zusammenhang).", "Datenladen (Walsh-Raum)", "Walsh-Raum als Laderaum ist nicht neu.", "nur Titel", ["zustandspraeparation", "hadamard-walsh"])
 A("stab_qram2025", "2509.26494", "Li et al.", 2025, "Stab-QRAM", None, "Clifford-only Orakel fuer affine Boolesche Daten ueber F2, ancillafrei, T-Zahl 0.", "Datenladen, I-005", "Auszug.", "Auszug", ["qram", "clifford-orakel"])
 A("cmps2024", "2412.17209", None, 2024, "Clifford-augmentierte MPS", None, "Cliffords zur Verschraenkungsreduktion.", "I-036-v2, Datenladen", "Autoren nicht geprueft.", "Auszug", ["tensornetz", "clifford-simulation"])
 A("jaques_rattew_qram", "2305.10310", "Jaques, Rattew", 2025, "QRAM: A Survey and Critique", "Quantum 9, 1922 (2025)", "Vorteile schrumpfen, wenn Steuerhardware und klassische Parallelitaet mitgerechnet werden.", "Datenladen", "Auszug.", "Auszug", ["qram"])
@@ -461,7 +463,7 @@ A("scaling_hybrid_qnn2026", "2604.06007", "Vyskubov et al.", 2026, "Scaling Laws
 A("ohno2026lie_scaling", "2608.20603", "Ohno", 2026, "Scaling Behavior of PQCs, Lie-algebraic", None, "DLA-Dimension und Observablen-Orbit saettigen schnell mit der Parameterzahl.", "T-006 / v5", "Effektive Dimension statt nominale Parameter als Skalierungsachse.", "Auszug", ["skalierungsgesetze", "lie-algebra"])
 A("rydberggpt2026", "2609.20912", None, 2026, "Do Quantum Models Scale Like LLMs? (RydbergGPT)", None, "Transformer auf Rydberg-Messdaten; Potenzgesetz nahe kritischem Punkt.", "T-006", "Transformer auf Quantendaten, nicht Quantenmodell.", "Auszug", ["skalierungsgesetze"])
 A("rydberggpt_methode2024", "2405.21052", None, 2024, "RydbergGPT", None, "Transformer auf Rydberg-Atomen.", "T-006", "Auszug.", "Auszug", ["skalierungsgesetze"])
-A("pqc_skalierung_2506", "2601.07824", None, 2026, "(SRE nur bis ca. 15 Qubits direkt berechenbar)", None, "Hessematrix waechst mit T-Count, Saettigung bei ca. 10 (ungeklaert).", "Magie-Messung", "Nicht verifiziert.", "Auszug", ["sre", "skalierungsgesetze"])
+A("sre_qubitgrenze_2601_07824", "2601.07824", None, 2026, "(SRE nur bis ca. 15 Qubits direkt berechenbar)", None, "Hessematrix waechst mit T-Count, Saettigung bei ca. 10 (ungeklaert).", "Magie-Messung", "Nicht verifiziert.", "Auszug", ["sre", "skalierungsgesetze"])
 A("natural_quantization2025", "2503.15482", None, 2025, "Natural Quantization of NN", None, "Randtreffer.", "T-ternaer", "Randtreffer.", "nur Titel", ["quantisierung-ternaer"])
 A("matryoshka_quant2025", "2502.06786", None, 2025, "Matryoshka Quantization", None, "IDEEN.md: Richardson auf die Logits.", "IDEEN", "Nur Verweis.", "nur Titel", ["quantisierung-ternaer"])
 A("polarquant2026", "2603.29078", None, 2026, "PolarQuant", None, "IDEEN.md.", "IDEEN", "Nur Verweis.", "nur Titel", ["quantisierung-ternaer"])
@@ -505,9 +507,9 @@ A("mbqcnn2024", "2412.08207", None, 2024, "Measurement-based quantum CNN", None,
 A("resource_kernel2025", "2507.03689", None, 2025, "A Resource Efficient Quantum Kernel", None, "Titel passt zu Graphzustands-Kernel; nur Snippet.", "Graphzustaende (09)", "Nicht gelesen.", "nur Titel", ["graphzustaende"])
 A("graph_0812_4625", "0812.4625", None, 2008, "(Graphzustaende; Titel nicht genannt)", None, "Quelle in 09_graphzustaende.", "Graphzustaende (09)", "Titel fehlt.", "nur Titel", ["graphzustaende"])
 A("magic_robustness_1807_10296", "1807.10296", None, 2018, "(Robustheit der Magie / Mana / Stabilizer-Polytop; Zuordnung unklar)", None, "Howard & Campbell 2017; Veitch et al.; Heinrich & Gross 2019 - ar5iv-Link nennt 1807.10296.", "Magie-Ressourcentheorie", "Zuordnung zu einer der drei Arbeiten ungeklaert.", "Auszug", ["magie-mass", "ressourcentheorie"])
-A("grosse_unklar_2504_10595", "2504.10595", None, 2025, "(in der Recherche in der Naehe von Holmes-Matsuura genannt)", None, "Siehe 03_datenladen.", "Datenladen", "Nicht zuordenbar.", "nur Titel", ["zustandspraeparation"])
-A("stoudenmire_umfeld_1905_01426", "1905.01426", None, 2019, "(in der Naehe von Stoudenmire&Schwab genannt)", None, "Siehe 05_parametereffizienz.", "Parametereffizienz", "Nicht zuordenbar.", "nur Titel", ["tensornetz"])
-A("saade_cluster_2008_15617", "2608.15617", None, 2026, "(in 10_red_team bei Benchmarking genannt)", None, "Siehe 10_red_team 2.2.", "Red Team", "Nicht zuordenbar.", "nur Titel", ["benchmark-qml"])
+A("ref_2504_10595", "2504.10595", None, 2025, "(in der Recherche in der Naehe von Holmes-Matsuura genannt)", None, "Siehe 03_datenladen.", "Datenladen", "Nicht zuordenbar.", "nur Titel", ["zustandspraeparation"])
+A("ref_1905_01426", "1905.01426", None, 2019, "(in der Naehe von Stoudenmire&Schwab genannt)", None, "Siehe 05_parametereffizienz.", "Parametereffizienz", "Nicht zuordenbar.", "nur Titel", ["tensornetz"])
+A("redteam_2608_15617", "2608.15617", None, 2026, "(in 10_red_team bei Benchmarking genannt)", None, "Siehe 10_red_team 2.2.", "Red Team", "Nicht zuordenbar.", "nur Titel", ["benchmark-qml"])
 A("redteam_2604_18837", "2604.18837", None, 2026, "(in 10_red_team bei Benchmarking genannt)", None, "Siehe 10_red_team 2.2.", "Red Team", "Nicht zuordenbar.", "nur Titel", ["benchmark-qml"])
 A("redteam_2304_04932", "2304.04932", None, 2023, "(in 10_red_team bei Dequantisierung genannt)", None, "Siehe 10_red_team 2.6.", "Red Team", "Nicht zuordenbar.", "nur Titel", ["dequantisierung"])
 A("redteam_2111_09079", "2111.09079", None, 2021, "(in 10_red_team bei Dequantisierung genannt)", None, "Siehe 10_red_team 2.6.", "Red Team", "Nicht zuordenbar.", "nur Titel", ["dequantisierung"])
@@ -575,17 +577,17 @@ PRUEFUNGEN = [
          grenzen="6 Suchanfragen, nur Titel/Zusammenfassungen; Needle ist keine Peer-Review-Quelle."),
     dict(id="N-BREIT01", datum="2026-10-05", datei="INSTITUT/recherche/2026-10-05_breit/01_holevo.md", aussage="Informationsausbeute je Schuss relativ zu log2 K als Guetemass fuer Born-Klassifikatoren; Clifford-Maske auf I(C;X) optimieren",
          urteil="nicht_gefunden", begriffe=["information-pro-schuss", "holevo", "schusszahl"],
-         arbeiten=["qdt_info_schuss2025", "yomo2025", "shofar2022", "recio2024singleshot", "amplitude_limits2025", "audenaert2007chernoff", "huang2020shadows", "aaronson2018shadow", "brassard2000amplitude", "buhrman2001fingerprint", "chen2022speicher", "measure_first2023", "fano_2019", "bennett_wiesner_superdense"],
+         arbeiten=["qdt_info_schuss2025", "yomo2025", "shofar2022", "recio2024singleshot", "amplitude_limits2025", "audenaert2007chernoff", "huang2020shadows", "aaronson2017shadow", "brassard2000amplitude", "buhrman2001fingerprint", "chen2022speicher", "measure_first2023", "fano_2019", "bennett_wiesner_superdense"],
          hinweis="Information pro Schuss bei Quantum Decision Trees und Margen-Schuss-Schranken gefunden; Fano/Holevo einzeln Standard. Als Kennzahl fuer Born-Klassifikatoren: nicht gefunden.",
          grenzen="Nur Auszuege."),
     dict(id="N-BREIT02", datum="2026-10-05", datei="INSTITUT/recherche/2026-10-05_breit/02_trainierbar_simulierbar.md", aussage="Magie-Budget k als Regler fuer Surrogat-Genauigkeit; Clifford/Magie-Strukturen und Parametereffizienz; Var(dL) vs (n,k); Rang <-> Verschraenkung <-> Trainingsgewinn",
          urteil="nicht_gefunden", begriffe=["klassische-simulierbarkeit", "dequantisierung", "trainierbarkeit", "magie-dosis", "lie-algebra"],
-         arbeiten=["cerezo2025bp_sim", "mcclean2018bp", "schreiber2023surrogat", "shin2024tn_dequant", "gilfuster2025", "bowles2024better", "goh2025gsim", "rudolph2023lowesa", "angrisani2025pauli", "heyraud2023", "zhang2024lernbarkeit_clifford", "wang2026lernbar_nicht_simulierbar", "mbl_hea2024", "mbl_variational2024", "larocca2025uebersicht", "schuld_killoran2022", "tang2019", "chia2022sampling", "cotler2021revisiting", "ghosh_kopplung_ct2025", "bravyi2016gosset"],
+         arbeiten=["cerezo2025bp_sim", "mcclean2018bp", "schreiber2023surrogat", "shin2024tn_dequant", "gilfuster2025", "bowles2024better", "goh2025gsim", "rudolph2023lowesa", "angrisani2025pauli", "heyraud2023", "zhang2024lernbarkeit_clifford", "wang2026lernbar_nicht_simulierbar", "mbl_hea2024", "mbl_variational2024", "larocca2025uebersicht", "schuld_killoran2022", "tang2019", "chia2022sampling", "cotler2021revisiting", "entanglement_geometry_2607_17872", "bravyi2016gosset"],
          hinweis="Kein anerkanntes Beispiel 'trainierbar + beweisbar nicht simulierbar + nuetzlich auf klassischen Daten' bekannt. Fourier-Surrogate und Pauli-Propagation bekannt; Magie-Budget als Regler, Var(dL) vs (n,k), Rang<->Verschraenkung<->Trainingsgewinn: nicht gefunden.",
          grenzen="Websuche-Budget erschoepft; fast alles nur Auszuege."),
     dict(id="N-BREIT03", datum="2026-10-05", datei="INSTITUT/recherche/2026-10-05_breit/03_datenladen.md", aussage="Datensatz-optimierter Clifford am Lader (T-Zahl des Ladens), T-Budget als Trainingsgrenze am Lader, Walsh-Raum-Laden",
          urteil="teilweise_bekannt", begriffe=["zustandspraeparation", "approximatives-laden", "hadamard-walsh", "t-zaehlung", "clifford-orakel"],
-         arbeiten=["boosari_walsh2026", "stab_qram2025", "cmps2024", "west2023approx", "gosset_kothari", "optimal_t_sparsity2026", "luo_li_sparse", "shende2006", "zustandspraep_cnot_unter2021", "dilip2022mps", "holmes_matsuura", "fourier_mps2024", "jaques_rattew_qram", "perezsalinas2020reupload"],
+         arbeiten=["boosari_walsh2026", "walsh_2307_08384", "stab_qram2025", "cmps2024", "west2023approx", "gosset_kothari", "optimal_t_sparsity2026", "luo_li_sparse", "shende2006", "zustandspraep_cnot_unter2021", "dilip2022mps", "holmes_matsuura", "fourier_mps2024", "jaques_rattew_qram", "perezsalinas2020reupload"],
          hinweis="Walsh-Raum als Laderaum NICHT neu (Boosari 2609.28760, Zylberman-Debbasch). Neu hoechstens: Kopplung mit Winkelrundung aufs Clifford-Gitter / T-Budget-Rechnung eines Klassifikators. West 2023 optimiert Tiefe, nicht T.",
          grenzen="Snippet-basiert; Gosset-Kothari/Luo-Li-Volltext offen."),
     dict(id="N-BREIT04", datum="2026-10-05", datei="INSTITUT/recherche/2026-10-05_breit/04_magie.md", aussage="Magie-Konzentration (M50/M90), Magiebedarf vs Anzahl Klassen, Accuracy vs T-Count Pareto, Clifford-Rang vs Nicht-Clifford-Zahl",
@@ -616,11 +618,11 @@ PRUEFUNGEN = [
     dict(id="N-BREIT09", datum="2026-10-05", datei="INSTITUT/recherche/2026-10-05_breit/09_graphzustaende.md", aussage="Graphzustands-Kernel, MBQC-QML, Bent-Phase vor WHT, Quadratform-Rang als ML-Praediktor",
          urteil="offen", begriffe=["graphzustaende", "mbqc", "clifford-quadratform", "schmidt-rang"],
          arbeiten=["mbqml2024", "mbqcnn2024", "resource_kernel2025", "hein2003schmidt", "schmidt_mass2000", "dehaene2003clifford", "graph_0812_4625"],
-         hinweis="Neuheit NICHT bestaetigt, nur 'nicht gefunden bei Suche' (Suche dag duenn); Bent-Phase vor WHT als Merkmalsschicht nicht gefunden; Rang als ML-Praediktor: nur Hein et al. als Theorie.",
+         hinweis="Neuheit NICHT bestaetigt, nur 'nicht gefunden bei Suche' (Suche duenn); Bent-Phase vor WHT als Merkmalsschicht nicht gefunden; Rang als ML-Praediktor: nur Hein et al. als Theorie.",
          grenzen="6 Anfragen, einige vom Budget abgewiesen."),
     dict(id="N-BREIT10", datum="2026-10-05", datei="INSTITUT/recherche/2026-10-05_breit/10_red_team.md", aussage="Red-Team: Benchmarking, Dequantisierung, Etikett quantum-inspired, klassische Nachbarn von Projekt A",
          urteil="gegenbefund", begriffe=["benchmark-qml", "dequantisierung", "quanteninspiriert", "adapter-peft", "kronecker"],
-         arbeiten=["bowles2024better", "tang2019", "chia2022sampling", "cotler2021revisiting", "quantum_inspired_survey2023", "quantum_inspired_label2026", "krona2022", "boft2023", "redteam_2604_18837", "redteam_2608_15617_dummy" if False else "saade_cluster_2008_15617", "redteam_2304_04932", "redteam_2111_09079", "redteam_2508_00230"],
+         arbeiten=["bowles2024better", "tang2019", "chia2022sampling", "cotler2021revisiting", "quantum_inspired_survey2023", "quantum_inspired_label2026", "krona2022", "boft2023", "redteam_2604_18837", "redteam_2608_15617", "redteam_2304_04932", "redteam_2111_09079", "redteam_2508_00230"],
          hinweis="KronA und BOFT sind direkte klassische Konkurrenten zur 'QIRE-Kronecker-Drehung mit log2(Breite) Winkeln'. Dequantisierungsrahmen und Benchmarks stuetzen 'Wirkung klassisch'.",
          grenzen="Nur Auszuege ueber Sekundaerseiten."),
     dict(id="N-BREIT11", datum="2026-10-05", datei="INSTITUT/recherche/2026-10-05_breit/11_hardware_effizienz_klassisch.md", aussage="Klassische Effizienz-Nachbarn: Fastfood, Deep Fried, ACDC, QuaRot, SpinQuant",
@@ -683,8 +685,7 @@ TITEL_AUS_WISSEN = {
     "dao2019butterfly", "kaleidoscope2020", "sindhwani2015structured", "so2021primer", "ba2022onestep",
     "perezsalinas2020reupload", "caro2022generalisierung", "boft2023", "saade2016opu", "ohana2020opu_kerne",
     "hu2023eigentasks", "banchi2021qib", "chen2022speicher", "dehaene2003clifford", "hein2003schmidt", "shende2006",
-    "cdr2021", "huang2020shadows", "aaronson2018shadow", "brassard2000amplitude", "buhrman2001fingerprint",
+    "cdr2021", "huang2020shadows", "aaronson2017shadow", "brassard2000amplitude", "buhrman2001fingerprint",
     "audenaert2007chernoff", "gu2024pseudomagie", "bravyi2016gosset", "schreiber2023surrogat", "shin2024tn_dequant",
-    "cotler2021revisiting", "schuld_killoran2022", "stoudenmire2016", "xu2025butterflyquant", "landman2023rff",
-    "cheng2022clifford_init", "ravi2022cafqa",
+    "cotler2021revisiting", "schuld_killoran2022", "stoudenmire2016", "landman2023rff",
 }

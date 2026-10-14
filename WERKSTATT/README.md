@@ -93,3 +93,11 @@ Hinweis: Unter Windows gibt es keine echte Sandbox. Die Grenze setzt
    in eigenen Fenstern).
 2. Der Cloud-Session Bescheid sagen. Sie verteilt Aufträge selbst.
 3. Abends schließt `ruhezeit.ps1` alles.
+
+## Routine-Worker (R5.1)
+
+Für Routine ohne Claude-Kontingent: `WERKSTATT/routine/routine.py` fasst Lauf-Logs zusammen (`log`), baut Status-Berichte aus
+`agenda.json` und `laeufe/*.status.json` (`bericht`) und stößt `direktor.py vortest` an (`vortest`). Das Modell kommt vom
+llama.cpp-Server der Ideen-KI (OpenAI-kompatibel, Port aus `IDEEN_KI/config.yaml`); die GPU wird nur unter der gemeinsamen Sperre
+`WERKSTATT/gpu.lock` genutzt, die Ideen-KI pausiert dann. Ruhezeit 00:00–06:00 gilt für den Worker weiter. Kein Git durch den Worker.
+Details: `routine/GPU_SPERRE.md`. Tests: `python -m pytest WERKSTATT/routine -q`.

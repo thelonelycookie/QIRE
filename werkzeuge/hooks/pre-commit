@@ -1,0 +1,18 @@
+#!/bin/sh
+# QIRE pre-commit (R3.3): Vorregistrierung + Rauchtest-Seeds.
+# Blockiert Commits von INSTITUT/ergebnisse/<ID>__*.json, wenn Modul/Kriterien der ID nicht schon in einem
+# frueheren Commit lagen, und Rauchtest-Ergebnisse auf Mess-Seeds. Details: werkzeuge/hooks/vorregistrierung_pruefen.py
+#
+# UMGEHEN (bewusst, z.B. Aufraeumen, Nachtragen alter Laeufe, Notfall):
+#     git commit --no-verify          oder      QIRE_HOOK_UEBERSPRINGEN=1 git commit ...
+# Das Umgehen gehoert in die Commit-Nachricht (Grund), sonst ist die Vorregistrierung nichts wert.
+[ -n "$QIRE_HOOK_UEBERSPRINGEN" ] && exit 0
+SKRIPT="$(cd "$(dirname "$0")" && pwd)/vorregistrierung_pruefen.py"
+[ -f "$SKRIPT" ] || exit 0
+for PY in python3 python "py -3"; do
+    if command -v ${PY%% *} >/dev/null 2>&1; then
+        exec $PY "$SKRIPT"
+    fi
+done
+echo "pre-commit: kein Python gefunden - Pruefung uebersprungen." >&2
+exit 0

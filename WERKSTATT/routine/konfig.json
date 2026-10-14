@@ -1,0 +1,23 @@
+{
+  "hinweis": "Routine-Worker (R5.1). Nur lesen/schreiben unter WERKSTATT/ergebnisse/. Kein Commit/Push.",
+  "llm": {
+    "url": "auto",
+    "modell": "lokal",
+    "timeout_s": 90,
+    "max_tokens": 700,
+    "temperatur": 0.2,
+    "eingabe_zeichen": 9000,
+    "ideen_ki_konfig": "../../IDEEN_KI/config.yaml"
+  },
+  "gpu_sperre": {
+    "datei": "../gpu.lock",
+    "modus": "geteilter_server",
+    "tot_nach_s": 180,
+    "max_halten_s": 600,
+    "warte_max_s": 900
+  },
+  "ruhezeit": {"von": 0, "bis": 6},
+  "python": "auto",
+  "vortest_timeout_s": 1800,
+  "laeufe_tot_nach_s": 600
+}

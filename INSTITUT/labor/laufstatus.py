@@ -63,6 +63,7 @@ def herzschlag(pid: str, seed: int | None = None, gesamt: int | None = None, tex
         start(pid, gesamt, text or "")
         d = _roh(pid) or {}
     d["herzschlag"] = time.time()
+    d["meldet_herzschlag"] = True
     d["pid"], d["rechner"] = os.getpid(), _rechner()
     if seed is not None:
         d["seed"] = seed
@@ -91,7 +92,9 @@ def lese(pid: str):
         return None
     d["alter_s"] = time.time() - d.get("herzschlag", 0)
     if d.get("zustand") == "laeuft" and d["alter_s"] > TOT_NACH:
-        d["zustand"] = "tot"
+        # Altmodule rufen herzschlag() nie auf: ohne je gemeldeten Herzschlag
+        # ist Stille kein Todeszeichen, also nicht als "tot" melden.
+        d["zustand"] = "tot" if d.get("meldet_herzschlag") else "laeuft_ohne_herzschlag"
     return d
 
 

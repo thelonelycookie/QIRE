@@ -259,11 +259,25 @@ class Betrieb:
     # ---------- LLM-Aufruf mit Stopp-Pruefung ----------
     def frage(self, rolle: str, system: str, user: str) -> str:
         self.pruefe_stopp()
+        self.warte_auf_gpu()
         t = self.cfg["temperaturen"][rolle]
         mt = self.cfg["max_tokens"][rolle]
         antwort = self.llm.chat(system, user, t, mt, self.cfg["server"]["llm_timeout_s"])
         self._letzte_aktivitaet = self.uhr()
         return antwort
+
+    def warte_auf_gpu(self) -> None:
+        """GPU-Sperre der Routine-Worker respektieren (WERKSTATT/routine/GPU_SPERRE.md):
+        solange eine fremde gpu.anfrage offen ist, pausieren; Stopp wird weiter geprueft."""
+        datei = self.repo / "WERKSTATT" / "gpu.lock"
+        try:
+            sys.path.insert(0, str(self.repo / "WERKSTATT" / "routine"))
+            from gpu_sperre import anfrage_offen
+        except Exception:
+            return
+        while anfrage_offen(datei):
+            self.pruefe_stopp()
+            time.sleep(1)
 
     # ---------- Kontext & Index ----------
     def baue_kontext(self) -> None:

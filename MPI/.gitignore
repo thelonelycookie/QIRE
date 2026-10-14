@@ -1,0 +1,24 @@
+# Zugangsdaten und lokale Einstellungen NIEMALS einchecken
+lokal.env
+*.key
+*.pem
+*.ppk
+id_rsa*
+id_ed25519*
+*.token
+*token*.txt
+*secret*
+.netrc
+known_hosts
+ssh_config_lokal
+
+# Laufzeit-Artefakte
+logs/
+slurm-*.out
+*.out
+checkpoints/
+modelle/
+adapter/
+*.safetensors
+*.gguf
+__pycache__/
