@@ -43,7 +43,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install numpy scipy scikit-learn qiskit pytest ruff
+          pip install numpy scipy scikit-learn qiskit pytest ruff pyyaml requests matplotlib psutil
 
       - name: Lint - Syntax und undefinierte Namen (neue Werkzeuge und Tests, hart)
         run: ruff check --select E9,F63,F7,F82 werkzeuge tests
@@ -82,7 +82,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install torch --index-url https://download.pytorch.org/whl/cpu
-          pip install numpy scipy scikit-learn qiskit pytest
+          pip install numpy scipy scikit-learn qiskit pytest pyyaml requests matplotlib psutil
 
       - name: Langsame Vortests
         run: python -m pytest -m langsam --durations=15 -q
