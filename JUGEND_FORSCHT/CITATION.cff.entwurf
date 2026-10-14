@@ -6,7 +6,7 @@ title: "PLATZHALTER: Titel der Arbeit (Varianten in INSTITUT/KERNAUSSAGE_2026-10
 type: software
 authors:
   - given-names: "Malte"
-    family-names: "<Nachname>"   # PLATZHALTER: nicht raten. Maltes Nachnamen selbst eintragen.
+    family-names: "Liebscher"
     # orcid: "https://orcid.org/0000-0000-0000-0000"   # optional
     # affiliation: "PLATZHALTER: Schule, Ort"            # optional, nur wenn Malte es will
 abstract: >-
