@@ -579,6 +579,245 @@ def check_randlagen() -> List[Tuple[str, bool, str]]:
     return out
 
 
+def check_q020() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '28. September -- Q-020 gerechnet'. Eine Datei
+    (die neueste Q-020-Datei, 435 Zeilen, alle drei Abschnitte)."""
+    rec = load("Q-020")["records"]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(abschnitt: str, arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["abschnitt"] == abschnitt
+                       and r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["balanced_accuracy"] for r in rows])
+
+    def cmp(label: str, claimed: float, actual: float, tol: float = TOL):
+        out.append((label, abs(claimed - actual) <= tol,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {actual:+.4f}"))
+
+    # --- Familie ---
+    q1, mlp = m("mnist", "q1"), m("mnist", "mlp")
+    cmp("PRIMAER q1, MNIST (offizieller Test)", 0.9347, float(q1.mean()))
+    cmp("PRIMAER mlp, MNIST", 0.9234, float(mlp.mean()))
+    cmp("PRIMAER q1 - mlp", 0.0113, float((q1 - mlp).mean()))
+    out.append(("PRIMAER: q1 in 15/15 Seeds vor mlp", bool((q1 > mlp).all()),
+                f"{int((q1 > mlp).sum())}/{len(q1)}"))
+    q5, q5o, q1b = m("haufen128", "q5"), m("haufen128", "q5_ohne"), m("haufen128", "q1")
+    cmp("P2 q5 - q5_ohne, 128 Haufen", 0.3414, float((q5 - q5o).mean()))
+    cmp("P3 q5 - q1, 128 Haufen", 0.3319, float((q5 - q1b).mean()))
+    # --- Kontrollen ---
+    cmp("Aufloesung MNIST mlp - linear", 0.0416,
+        float((mlp - m("mnist", "linear")).mean()))
+    cmp("Aufloesung Haufen mlp - linear", 0.0960,
+        float((m("haufen128", "mlp") - m("haufen128", "linear")).mean()))
+    cmp("Aequivalenz MNIST kron - q1_ohne", 0.0001,
+        float((m("mnist", "kron") - m("mnist", "q1_ohne")).mean()))
+    # --- beschreibend ---
+    cmp("MNIST q1 - quad_free", 0.0109, float((q1 - m("mnist", "quad_free")).mean()))
+    cmp("MNIST mlp - norm_deep (Strohmann)", 0.0803,
+        float((mlp - m("mnist", "norm_deep")).mean()))
+    cmp("Fashion q1 - mlp (Wiederholung)", 0.0047,
+        float((m("fashion_mnist", "q1") - m("fashion_mnist", "mlp")).mean()))
+    cmp("Haufen q5 - mlp (Schaltung klar unterlegen)", -0.3133,
+        float((q5 - m("haufen128", "mlp")).mean()))
+    out.append(("15 Seeds je Zelle, 435 Zeilen", len(q1) == 15 and len(rec) == 435,
+                f"Rohdaten {len(q1)} Seeds, {len(rec)} Zeilen"))
+    return out
+
+
+def check_q019w() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '28. September -- Q-019W gerechnet'. Eine Datei
+    (die neueste Q-019W-Datei, 795 Zeilen, alle Abschnitte)."""
+    rec = load("Q-019W")["records"]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(basis: str, n: int, arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["basis"] == basis and int(r["n_train"]) == n
+                       and r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["balanced_accuracy"] for r in rows])
+
+    def cmp(label: str, claimed: float, actual: float, tol: float = TOL):
+        out.append((label, abs(claimed - actual) <= tol,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {actual:+.4f}"))
+
+    wb, wd, wg = m("walsh", 200, "butterfly"), m("walsh", 200, "dense"), m("walsh", 200, "givens_zufall")
+    zb, zd = m("zufall", 200, "butterfly"), m("zufall", 200, "dense")
+    cmp("PRIMAER butterfly, walsh N=200", 0.8472, float(wb.mean()))
+    cmp("PRIMAER dense, walsh N=200", 0.5390, float(wd.mean()))
+    cmp("PRIMAER butterfly - dense", 0.3082, float((wb - wd).mean()))
+    cmp("P2 Wechselwirkung walsh - zufall", 0.6933, float(((wb - wd) - (zb - zd)).mean()))
+    cmp("P3 butterfly - givens_zufall", 0.6781, float((wb - wg).mean()))
+    cmp("N=6000 dense (walsh)", 0.9504, float(m("walsh", 6000, "dense").mean()))
+    cmp("N=6000 butterfly (walsh)", 0.9077, float(m("walsh", 6000, "butterfly").mean()))
+    cmp("Aufloesung dense - narrow, N=6000", 0.1010,
+        float((m("walsh", 6000, "dense") - m("walsh", 6000, "narrow")).mean()))
+    cmp("butterfly - wht_fest, walsh N=200", 0.0006,
+        float((wb - m("walsh", 200, "wht_fest")).mean()))
+    cmp("untied - butterfly, walsh N=200", -0.3523,
+        float((m("walsh", 200, "untied") - wb).mean()))
+    out.append(("15 Seeds, 795 Zeilen", len(wb) == 15 and len(rec) == 795,
+                f"Rohdaten {len(wb)} Seeds, {len(rec)} Zeilen"))
+    return out
+
+
+def check_t004() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '29. September -- T-004 gerechnet' (neueste
+    T-004-Datei, 32 Zeilen). Messgroesse val_verlust in nats/Token."""
+    rec = load("T-004")["records"]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    def cmp(label: str, claimed: float, actual: float, tol: float = 0.0005):
+        out.append((label, abs(claimed - actual) <= tol,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {actual:+.4f}"))
+
+    b, k, q5, lo = m("basis"), m("qire_kron"), m("qire_5"), m("lora_r1")
+    cmp("basis", 2.5616, float(b.mean()))
+    cmp("qire_kron", 2.5172, float(k.mean()))
+    cmp("qire_5", 2.4437, float(q5.mean()))
+    cmp("lora_r1", 2.2893, float(lo.mean()))
+    cmp("PRIMAER qire_kron - basis", -0.0444, float((k - b).mean()))
+    cmp("P2 qire_kron - lora_r1", 0.2280, float((k - lo).mean()))
+    cmp("P3 qire_5 - qire_kron", -0.0735, float((q5 - k).mean()))
+    cmp("Aufloesung lora_r1 - basis", -0.2724, float((lo - b).mean()))
+    for arm, n in (("qire_kron", 192), ("qire_5", 960), ("lora_r1", 30720)):
+        t = int(next(r["trainierbar"] for r in rec if r["arm"] == arm))
+        out.append((f"trainierbar {arm}", t == n, f"Tagebuch {n} | Rohdaten {t}"))
+    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, k, q5, lo)),
+                f"{[len(x) for x in (b, k, q5, lo)]}"))
+    return out
+
+
+def check_t005() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '30. September -- T-005 gerechnet' (neueste
+    T-005-Datei, 56 Zeilen). Messgroesse val_verlust in nats/Token."""
+    rec = load("T-005")["records"]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    def cmp(label: str, claimed: float, actual: float, tol: float = 0.0005):
+        out.append((label, abs(claimed - actual) <= tol,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {actual:+.4f}"))
+
+    b, l1, l2, l5, l10, lo, ko = (m(a) for a in (
+        "basis", "qire_L1", "qire_L2", "qire_L5", "qire_L10", "lora_r1", "kombi"))
+    for name, claimed, x in (("basis", 2.5616, b), ("qire_L1", 2.5174, l1),
+                             ("qire_L2", 2.4964, l2), ("qire_L5", 2.4442, l5),
+                             ("qire_L10", 2.4115, l10), ("lora_r1", 2.2875, lo),
+                             ("kombi", 2.2910, ko)):
+        cmp(name, claimed, float(x.mean()))
+    cmp("Stufe L1->L2", -0.0210, float((l2 - l1).mean()))
+    cmp("Stufe L2->L5", -0.0522, float((l5 - l2).mean()))
+    cmp("Stufe L5->L10", -0.0327, float((l10 - l5).mean()))
+    out.append(("K1 jede Stufe 8/8 Seeds", all(int((b_ < a_).sum()) == 8 for a_, b_ in
+                ((l1, l2), (l2, l5), (l5, l10))), "8/8 je Stufe"))
+    cmp("K2 qire_L10 - lora_r1", 0.1240, float((l10 - lo).mean()))
+    cmp("K3 kombi - lora_r1", 0.0035, float((ko - lo).mean()))
+    cmp("Aufloesung lora_r1 - basis", -0.2741, float((lo - b).mean()))
+    for arm, n in (("qire_L1", 192), ("qire_L2", 384), ("qire_L5", 960),
+                   ("qire_L10", 1920), ("lora_r1", 30720), ("kombi", 31680)):
+        t = int(next(r["trainierbar"] for r in rec if r["arm"] == arm))
+        out.append((f"trainierbar {arm}", t == n, f"Tagebuch {n} | Rohdaten {t}"))
+    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, l1, l2, l5, l10, lo, ko)),
+                f"{[len(x) for x in (b, l1, l2, l5, l10, lo, ko)]}"))
+    return out
+
+
+def check_t006() -> List[Tuple[str, bool, str]]:
+    """Zahlen aus dem Eintrag '7. Oktober -- T-006 Kernauswertung' (neueste T-006-Datei,
+    Kern: basis, qire_L10/L20/L40, lora_r1 je 8 Seeds; optionaler Arm qire_L10_600 ausstehend).
+    Messgroesse val_verlust in nats/Token. Positivkontrolle qire_L10 = 2,4115 +- 0,003."""
+    try:
+        rec = load("T-006")["records"]
+    except Exception:                                  # noqa: BLE001 -- keine Rohdaten
+        return [("T-006 noch nicht gerechnet", True, "keine Rohdaten, nichts zu pruefen")]
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    b, l10, l20, l40, lo = (m(a) for a in ("basis", "qire_L10", "qire_L20", "qire_L40", "lora_r1"))
+    out.append(("Positivkontrolle qire_L10 = 2,4115 +- 0,003",
+                abs(float(l10.mean()) - 2.4115) <= 0.003, f"Rohdaten {l10.mean():.4f}"))
+    for name, claimed, x in (("basis", 2.5616, b), ("qire_L10", 2.4111, l10), ("qire_L20", 2.4061, l20),
+                             ("qire_L40", 2.3931, l40), ("lora_r1", 2.2886, lo)):
+        out.append((name, abs(claimed - float(x.mean())) <= 0.0005,
+                    f"Tagebuch {claimed:+.4f} | Rohdaten {x.mean():+.4f}"))
+    out.append(("K1 Stufen L10->L20, L20->L40 je 8/8 Seeds",
+                int((l20 < l10).sum()) == 8 and int((l40 < l20).sum()) == 8, "8/8 je Stufe"))
+    out.append(("K2 qire_L40 - lora_r1 = +0,1045, 0/8 Seeds besser",
+                abs(float((l40 - lo).mean()) - 0.1045) <= 0.0005 and int((l40 < lo).sum()) == 0,
+                f"Rohdaten {(l40 - lo).mean():+.4f}, {int((l40 < lo).sum())}/8"))
+    g10, g20, g40 = (float(b.mean() - x.mean()) for x in (l10, l20, l40))
+    bexp = float(np.log(g40 / g10) / np.log(4))
+    out.append(("K3 Exponent b = 0,081", abs(bexp - 0.081) <= 0.0005, f"Rohdaten {bexp:.4f}"))
+    out.append(("K3 G20/G10 = 1,033 | G40/G20 = 1,083",
+                abs(g20 / g10 - 1.033) <= 0.0005 and abs(g40 / g20 - 1.083) <= 0.0005,
+                f"Rohdaten {g20 / g10:.3f} | {g40 / g20:.3f}"))
+    out.append(("Aufloesung lora_r1 - basis = -0,2730",
+                abs(float((lo - b).mean()) + 0.2730) <= 0.0005, f"Rohdaten {(lo - b).mean():+.4f}"))
+    for arm, n in (("qire_L10", 1920), ("qire_L20", 3840), ("qire_L40", 7680), ("lora_r1", 30720)):
+        t = int(next(r["trainierbar"] for r in rec if r["arm"] == arm))
+        out.append((f"trainierbar {arm}", t == n, f"Tagebuch {n} | Rohdaten {t}"))
+    out.append(("8 Seeds je Kernarm", all(len(x) == 8 for x in (b, l10, l20, l40, lo)),
+                f"{[len(x) for x in (b, l10, l20, l40, lo)]}"))
+    return out
+
+
+def check_t007() -> List[Tuple[str, bool, str]]:
+    """T-007 (I-043, Fastfood-Adapter). VOR dem Lauf: 'noch nicht gerechnet'. NACH dem Lauf prueft dies die
+    Struktur der Rohdaten (Positivkontrolle, Parameterzahlen, 8 Seeds, Parametergleichheit ff_adapter == lora_r1,
+    Tuning-Rohdaten vorhanden, Randvermerk unabhaengig nachgerechnet); die Tagebuchzahlen (Mittel je Arm,
+    H1/H2/H4/H5-Urteile) sind beim Eintrag der Ergebnisse HIER zu ergaenzen (Platzhalter TAGEBUCH_T007)."""
+    try:
+        payload = load("T-007")
+    except Exception:                                  # noqa: BLE001 -- keine Rohdaten
+        return [("T-007 noch nicht gerechnet", True, "keine Rohdaten, nichts zu pruefen")]
+    rec, cfg = payload["records"], payload["config"]
+    from .chatbot_fastfood import POS_SOLL, POS_TOL, rand_aus_tuning
+    out: List[Tuple[str, bool, str]] = []
+
+    def m(arm: str) -> np.ndarray:
+        rows = sorted((r for r in rec if r["arm"] == arm), key=lambda r: r["seed"])
+        return np.array([r["val_verlust"] for r in rows])
+
+    arme = ("basis", "qire_L10", "lora_r1", "ff_adapter", "ff_born", "ff_gelu")
+    b, q, lo, ff, fb, fg = (m(a) for a in arme)
+    r2 = m("lora_r2")                                  # nur beschreibend (Rate nicht getunt); darf fehlen
+    out.append((f"Positivkontrolle qire_L10 = {POS_SOLL} +- {POS_TOL}",
+                bool(len(q)) and abs(float(q.mean()) - POS_SOLL) <= POS_TOL, f"Rohdaten {q.mean() if len(q) else float('nan'):.4f}"))
+    for arm, n in (("qire_L10", 1920), ("lora_r1", 30720), ("ff_adapter", 30720), ("ff_born", 43008),
+                   ("ff_gelu", 43008), ("lora_r2", 61440)):
+        if arm == "lora_r2" and not len(r2):
+            continue
+        t = next((int(r["trainierbar"]) for r in rec if r["arm"] == arm), -1)
+        out.append((f"trainierbar {arm}", t == n, f"Vorregistrierung {n} | Rohdaten {t}"))
+    out.append(("Parametergleichheit ff_adapter == lora_r1",
+                next((r["trainierbar"] for r in rec if r["arm"] == "ff_adapter"), -1)
+                == next((r["trainierbar"] for r in rec if r["arm"] == "lora_r1"), -2), "30.720 == 30.720"))
+    out.append(("ff_born == ff_gelu Parameter (43.008, 1,40 x lora_r1)",
+                next((r["trainierbar"] for r in rec if r["arm"] == "ff_born"), -1)
+                == next((r["trainierbar"] for r in rec if r["arm"] == "ff_gelu"), -2), "43.008 == 43.008"))
+    out.append(("8 Seeds je Arm", all(len(x) == 8 for x in (b, q, lo, ff, fb, fg)), f"{[len(x) for x in (b, q, lo, ff, fb, fg)]}"))
+    out.append(("alle Werte endlich", all(np.isfinite(x).all() for x in (b, q, lo, ff, fb, fg)), "keine NaN/inf"))
+    out.append(("Tuning-Rohdaten in config['tuning'] (Lehre T-006)", len(cfg.get("tuning", {})) >= 30,
+                f"{len(cfg.get('tuning', {}))} Zellen"))
+    for arm in ("ff_adapter", "ff_born", "ff_gelu"):
+        best, rand, _ = rand_aus_tuning(cfg.get("tuning", {}), arm)
+        gesp = cfg.get("lr", {}).get(arm, {})
+        out.append((f"lr {arm}: Rohdaten-Optimum == gespeichert, Rand '{gesp.get('rand')}' == nachgerechnet '{rand}'",
+                    best is not None and abs(np.log10(best / float(gesp.get("lr", 1e-99)))) < 1e-6
+                    and rand == gesp.get("rand") and rand == "innen", f"Optimum {best}, Rand {rand}"))
+    # TAGEBUCH_T007: Mittel je Arm und H1/H2/H4/H5 nach Eintrag der Ergebnisse hier ergaenzen
+    return out
+
+
 CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-003-replication": check_q003,
     "Q-011 (dritter Anlauf, gerettet)": check_q011,
@@ -586,6 +825,12 @@ CHECKS: Dict[str, Callable[[], List[Tuple[str, bool, str]]]] = {
     "Q-014": check_q014,
     "Q-015": check_q015,
     "Q-018": check_q018,
+    "Q-020": check_q020,
+    "Q-019W": check_q019w,
+    "T-004": check_t004,
+    "T-005": check_t005,
+    "T-006": check_t006,
+    "T-007": check_t007,
     "Randlagen (Regel 1b, Tagebuch 27.08.)": check_randlagen,
     "T-000": check_t000,
     "T-001": check_t001,

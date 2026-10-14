@@ -4620,6 +4620,664 @@ nicht übernommen. `q_summary` meldet die durchgefallene Positivkontrolle
 ausdrücklich, der Code von B-014 hat die alte Zahl weiter ausgegeben. Ein
 Werkzeug hilft nur, wenn ich seine Ausgabe auch in die Dokumente trage.
 
+## 28. September — Vorregistrierung Q-020: die Kernaussage fair neu
+
+Geschrieben **vor** dem Lauf. Der Text ist am 24. September entworfen worden
+(`../BERICHT/experiment.md`); heute gebe ich ihn frei. Bis jetzt gibt es nur
+einen Pilot (`Q-020-pilot`, 24.09.: 3 Seeds, reduzierte Suche, eigene Seeds
+20291–20293). Der ist **kein Befund** und fließt in kein Urteil ein.
+
+**Anlass.** Die Kontrolle aus Q-003 (`classical_norm_deep`, 67.848 Parameter)
+ist schwächer als ein lineares Modell. Stichprobe vom 23.09.: 0,854 gegen 0,887.
+Der Abstand +0,093 misst also vor allem ihre Schwäche. Außerdem stammen die
+Nullbefunde zu Verschränkung und Tiefe aus einem Aufbau mit trainierbarem
+Encoder. Genau diese Konstellation hat Q-018 als Artefakt entlarvt.
+
+**Aufbau.** Es gibt zwei Aufbauten:
+- (a) wie Q-003, mit Encoder, auf dem **offiziellen MNIST-Testsatz** (10.000
+  statt 1.200 Bilder). Allein der Testmengenfehler bei 1.200 Bildern (≈0,007)
+  lag über der Grenze 0,005.
+- (b) wie Q-018 ohne Encoder, 6 Klassen, 128 Haufen.
+
+Die Arme: Schaltung mit 1 und mit 5 Lagen, jeweils mit und ohne CNOT; eine
+klassische Kronecker-Drehung (8 Parameter); quad_free (2.048); ein ReLU-MLP mit
+derselben 8-Kanal-Engstelle (67.848); linear; ohne Engstelle; norm_deep. Code:
+`quantum_sim/kernaussage.py`, bei Widerspruch gilt der Code.
+
+**Vorher nachgerechnet.** Die 1-Lagen-Schaltung hat 16 Winkel, aber nur 8
+davon wirken. `q1_ohne` rechnet exakt dieselbe Funktion wie die klassische
+Kronecker-Drehung, `q1` dieselbe mit vertauschter Auslese (Abweichung
+<4·10⁻⁷). Die Gegenprobe mit 5 Lagen zeigt, dass die Prüfung nicht blind ist.
+
+**Familie, Holm über 3** (Entscheidung heute: P3 bleibt drin):
+- PRIMÄR: q1 gegen mlp auf MNIST
+  (GLEICHWERTIG / SCHALTUNG_BESSER / MLP_BESSER / UNENTSCHIEDEN)
+- P2: Verschränkung in (b), q5 gegen q5_ohne
+- P3: Tiefe in (b), q5 gegen q1
+
+Gemessen wird die balancierte Genauigkeit, mit 15 Seeds (20201–20215) und TOST
+±0,005. TOST wird vor der Signifikanz geprüft.
+- **Auflösungsprüfung:** mlp muss sich von linear trennen.
+- **Bodenprüfung:** der beste Arm liegt mindestens 0,10 über dem Rateniveau.
+- **Äquivalenz-Positivkontrolle:** kron ≈ q1_ohne, nur zur Deutung.
+
+Die Lernrate wird je Arm mit vollem Budget gesucht, das Gitter wird in beide
+Richtungen verlängert. Gespeichert wird nach jeder Zelle, die Wiederaufnahme
+hat eine eigene Datei je Lauf. Fashion-MNIST dient als Wiederholung und wird
+nur beschreibend ausgewertet.
+
+**Erreichbarkeit.** GLEICHWERTIG kann nur feuern, wenn die Streuung der
+gepaarten Differenz unter 0,011 liegt. Liegt sie darüber, wäre „nicht
+eingetreten“ kein Befund.
+
+**Erwartung vorher:**
+- PRIMÄR: SCHALTUNG_BESSER oder UNENTSCHIEDEN.
+- P2 und P3: „trägt bei“, weil ohne CNOT jede Tiefe wieder eine
+  Kronecker-Drehung ist.
+
+**Vortest** bestanden: 21 Szenarien, Zweigtext geprüft, drei absichtlich
+eingebaute Fehler alle gefunden. Vor dem Start läuft er noch einmal
+automatisch mit.
+
+**Rechenzeit:** geschätzt 3–5 h, auf dem Ryzen 5 3600. Während des Laufs läuft
+kein anderer schwerer Lauf.
+
+Ändert sich etwas an dieser Vorregistrierung, steht es hier, bevor eine
+Q-020-Zahl existiert.
+
+## 28. September — T-002: der zentrierte Zusatzarm läuft mit
+
+Entscheidung heute, vor jedem T-002-Messlauf: `butterfly_ffn_zentriert` läuft
+**standardmäßig mit**. Er steht außerhalb der Holm-Familie und wird nur
+beschreibend ausgewertet. PRIMÄR und P2 bleiben unverändert. Im Code (in
+`sprachmodell.py`, `cluster/t002_steuerung.sh`) heißt der Schalter jetzt
+`--ohne-zusatzarm` statt `--mit-zusatzarm`. Selbsttest bestanden.
+
+**Warum:** `ButterflyFFN` gibt |a|²·256·scale aus. Das ist nichtnegativ, hat
+eine feste Summe und nur einen skalaren Gewinn. Ohne den Arm wäre ein T0 nicht
+zu deuten: Liegt es an der Struktur oder nur an der Ausgabeform? Laut Recherche
+(`../BERICHT/RECHERCHE_2026-09-28/03_t002_architektur_gpu.md`) benutzt keine
+der strukturierten Transformer-Arbeiten eine nichtnegative Ausgabe.
+
+**Den Gewinn lasse ich bewusst bei 1** und nicht bei 0, wie die Recherche es
+nahelegt (LayerScale-Praxis). Mit 1 unterscheidet sich der Arm beim Start
+*nur* durch das Abziehen des Mittelwerts. Der Vergleich misst also genau die
+Ausgabeform und nicht zusätzlich eine andere Initialisierung.
+
+**Kosten, neu gerechnet** (`rechenbedarf`, 13.000 Schritte, 0,334 s/Schritt
+auf der RTX 4090, mit Lernratensuche im vollen Budget):
+
+| Arme | GPU-h auf einer Karte |
+|---|---|
+| 4 Arme | 59–74 |
+| 5 Arme (mit Zusatzarm) | 74–93 |
+
+Die Angabe „30–35 GPU-h“ in `HANDOFF_AKTUELL.md` §7 ist damit überholt.
+
+## 28. September — Q-019 wird umgebaut: Walsh statt Fourier, über die Datenmenge
+
+Entscheidung heute: Q-019 wird **nicht** so gerechnet. Entwurf und
+Vorregistrierungstext stehen in `ENTWURF_Q019_WALSH.md`, das neue Modul heißt
+`quantum_sim/walsh.py`. `zeitreihen.py` bleibt als Vorlauf stehen.
+
+**Die Kernidee:** Ohne CNOT ist die geteilte Butterfly ein Kronecker-Produkt
+von Drehungen und enthält die Walsh-Hadamard-Transformation exakt. Die
+Fourier-Transformation enthält sie nicht. Und 40 gegen 65.536 Parameter sollte
+vor allem bei **wenig Daten** zählen.
+
+**Familie** (bei N = 200, Holm über 3):
+- PRIMÄR: butterfly gegen dense in der Walsh-Basis
+- P2: Wechselwirkung mit einer zufälligen Orthobasis (Passung statt bloßer
+  Parameterarmut)
+- P3: butterfly gegen einen Low-Rank-Arm (Struktur statt „irgendwie wenige
+  Parameter“)
+
+Die Klassen liegen auf **Sequency**-Bändern, damit die ⟨Z⟩-Auslese sie nicht
+direkt ablesen kann.
+
+**Noch nicht vorregistriert.** Der Entwurf wird erst gültig, wenn
+`saettigung`, `macht` und `zeit` gelaufen sind und Malte ihn freigibt. Dann
+kommt der endgültige Text hierher, und zwar vor dem Lauf. Gerechnet wird erst
+nach Q-020.
+
+## 28. September — Q-020 gerechnet: alle drei Hypothesen halten
+
+Lauf 08:47–11:12, Ryzen 5 3600, mit Wiederaufnahme ohne Unterbrechung.
+Rohdaten `results/experiments/Q-020__20260928_111219_02.json` (435 Zeilen,
+alle drei Abschnitte). Der MNIST-Zwischenstand liegt zusätzlich in
+`…_092518.json`. Alle Zahlen hier prüft `q_audit` (14/14 OK). Vortest vor dem
+Start bestanden.
+
+**Familie (Holm über 3), jeweils 15/15 Seeds, p = 0,0001, Holm-p = 0,0002:**
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| PRIMÄR (a) MNIST, offizieller Testsatz | **SCHALTUNG_BESSER** | q1 0,9347 gegen mlp 0,9234, **+0,0113** |
+| P2 (b) 128 Haufen | **VERSCHRAENKUNG_TRAEGT** | q5 0,6867 gegen q5_ohne 0,3453, **+0,3414** |
+| P3 (b) 128 Haufen | **TIEFE_TRAEGT** | q5 0,6867 gegen q1 0,3548, **+0,3319** |
+
+**Kontrollen alle bestanden:**
+- Auflösung: mlp − linear +0,0416 (MNIST) bzw. +0,0960 (Haufen)
+- Boden: bestanden
+- Äquivalenz-Positivkontrolle: kron ≈ q1_ohne, +0,0001 bzw. +0,0003, TOST
+  p < 10⁻⁴
+
+Alle MNIST-Lernraten liegen im Inneren des Gitters. q1 ist nach oben auf 0,3
+verlängert worden, bei 0,9 wird es wieder schlechter.
+
+**Was das heißt, ehrlich gelesen:**
+
+1. **Die Kernaussage steht jetzt gegen eine faire Kontrolle.** 16 Winkel (8
+   wirksam) schlagen ein gewöhnliches ReLU-MLP mit 67.848 Parametern und
+   derselben 8-Kanal-Engstelle, auf dem offiziellen Testsatz, in jedem Seed.
+   Das sind rund 8.500-mal weniger wirksame Parameter in der Mittelschicht.
+   Gegen `quad_free` (2.048) sind es +0,0109.
+2. **Der Mechanismus ist klassisch, und das ist gemessen, nicht vermutet:**
+   `kron`, die klassische Kronecker-Drehung mit 8 Parametern, erreicht 0,9350.
+   Das ist dieselbe Zahl wie q1 (0,9347) und q1_ohne (0,9349), bei TOST-
+   Gleichwertigkeit. Die ehrliche Formulierung lautet: *eine aus der
+   Quantenschaltung abgeleitete Architektur, deren Wirkung eine klassische
+   8-Parameter-Kronecker-Drehung mit quadratischer Auslese ist*.
+3. **Die Wiederholung auf Fashion-MNIST** geht in dieselbe Richtung, aber
+   kleiner: q1 − mlp **+0,0047**, p = 0,029, beschreibend und ohne Holm.
+4. **Verschränkung und Tiefe tragen, sobald kein Encoder aushilft.** Mit Encoder
+   (MNIST, beschreibend) sind q5 ≈ q1 und q5 ≈ q5_ohne (TOST gleichwertig):
+   Genau dort übernimmt der Encoder die Arbeit. Damit ist der Q-003-Nullbefund
+   als Encoder-Artefakt erklärt, wie das Review vermutet hatte. Und wie die
+   Theorie vorhersagt, bringt Tiefe ohne CNOT nichts (q5_ohne ≈ q1_ohne, TOST).
+5. **Ungünstig für die Schaltung, und es gehört so berichtet:** In (b) liegt
+   selbst die beste Schaltung (q5, 0,687) weit hinter den klassischen Armen
+   (mlp und quad_free 1,000, linear 0,904). Verschränkung trägt also, aber
+   klassisch geht es dort viel besser. Auf Fashion ist mit Encoder q5 sogar
+   *schlechter* als q1 (−0,0068, p = 0,002).
+6. **Der Strohmann ist bestätigt:** mlp − norm_deep +0,0803 (MNIST). Die alte
+   Kontrolle aus Q-003 war fast so weit hinter dem MLP wie das MLP hinter
+   nichts.
+
+**Für die Kurzfassung:** `[OFFEN: Q-020]` lässt sich jetzt füllen, mit Satz 1,
+Satz 2 und dem Fashion-Vorbehalt (Satz 3). Erledigt am 28.09.
+
+## 28. September — Q-019W: `walsh.py` gebaut, mein Entwurf hatte einen Denkfehler
+
+Stand: vor jeder Q-019W-Zahl. Gelaufen sind nur Vortest und Rauchtest, mit
+Ergebnissen im Scratchpad und nichts unter `results/`.
+
+Der Vortest ist beim ersten Bau **durchgefallen**, und zwar zu Recht. Im
+Entwurf hatte ich behauptet, das Sequency-Band sei als XOR von Hadamard-Bits
+über die ⟨Z⟩-Auslese nicht linear ablesbar. Das ist falsch. Das Band ist eine
+**Bijektion** von drei Hadamard-Bits, und ein Softmax-Kopf über 8 Klassen
+trennt jede solche Bijektion (jede Ecke des Würfels {±1}³ ist als Gewicht
+trennbar). Mein XOR-Argument gilt nur für einen Kopf, der einzelne Bits
+ausgibt. Die Prüfung war nicht blind: Die Positivkontrolle (Bänder direkt auf
+den oberen Bits) kam auf 1,0000.
+
+**Korrekturen, alle vor jeder Zahl:**
+1. Die Prüfung im Vortest ist nur noch ein Hinweis. Ob die echte Aufgabe zu
+   leicht ist, entscheidet allein `saettigung()` vor dem Lauf, dazu der Zweig
+   HU_SAETTIGUNG im Urteil.
+2. `wht_fest` ist H⊗⁸ in **natürlicher** Ordnung. Im Entwurf stand
+   „Sequency-Ordnung“, was dem Arm die Bänder direkt auf die Bits gelegt hätte.
+3. `permutiert` und `fourier` gibt es nur für `butterfly` und `dense` bei
+   N = 6.000.
+4. N\* wird linear in **log N** interpoliert, weil das Gitter logarithmisch ist.
+
+Vortest danach bestanden:
+- Theorie: Butterfly = H⊗⁸, Abweichung 4·10⁻¹⁶
+- 23 Szenarien, Gitterverlängerung 5/5
+- Mutationsprüfung 3/3
+
+**Lehre:** Diesmal hat der Vortest einen Fehler in der **Begründung** gefunden,
+nicht im Code. Eine Behauptung im Entwurf, die der Vortest prüfen kann, gehört
+auch in den Vortest.
+
+**Nächster Schritt:** `saettigung`, `macht` und `zeit` laufen, sobald die CPU
+frei ist (nach I-005). Danach wird der Entwurf endgültig, und der
+Vorregistrierungstext kommt hierher, vor dem Lauf.
+
+### Nachtrag, 28.09. nachmittags — Vorprüfungen: die P3-Kontrolle war ein Strohmann
+
+`saettigung` (2 Seeds, lr 0,01 fest, **kein Befund**), bei N = 200:
+
+| Arm | walsh | zufall |
+|---|---|---|
+| butterfly | 0,86 | 0,14 |
+| dense | 0,53 | 0,52 |
+| **lowrank** | **0,20** | 0,21 |
+| wht_fest | 0,86 | 0,13 |
+| untied | 0,49 | 0,50 |
+
+- Keine Sättigung, der beste Familienarm liegt bei 0,86.
+- **`lowrank` liegt unter dem Boden.** P3 (butterfly − lowrank ≈ +0,64) wäre
+  damit fast per Konstruktion wahr gewesen. Das ist genau die Regel vom 23.09.:
+  eine Kontrolle muss selbst gegen etwas Einfaches bestehen.
+- **Ersetzt, vor jeder Zahl, durch `givens_zufall`:** dieselben 40 geteilten,
+  orthogonalen Winkel wie die Butterfly (5 × 8 Schritte, je Schritt 128
+  disjunkte Paare mit einem Winkel). Nur die Paare sind je Schritt zufällig
+  verdrahtet statt nach Bit q, bei fester Verdrahtung mit Seed 19199.
+  Geprüft: orthogonal (4,8·10⁻⁷), 40 Parameter, gleiche Winkel ergeben eine
+  andere Abbildung (0,62). P3 fragt jetzt: Trägt die **Bitstruktur**, oder
+  reicht die Teilung? `lowrank` bleibt als beschreibender Arm.
+
+`macht` (5 Seeds, lr fest, kein Befund): gepaarte sd 0,012 / 0,028 / 0,025.
+**TOST ±0,005 ist für keinen der drei Tests erreichbar.** GLEICHWERTIG kann
+also nicht feuern, und ein Ausbleiben ist kein Befund. Nachweisbar sind
+Effekte ab etwa 0,011 / 0,025 / 0,022. `zeit`: 3,4 h für den ganzen Lauf.
+
+Vortest und Vorprüfungen laufen mit der neuen Kontrolle noch einmal.
+Beschreibend fällt schon jetzt auf: Bei N = 200 liegen `butterfly` und
+`wht_fest` gleichauf (0,86). Die gelernten Winkel finden also die feste WHT,
+und das Lernen bringt darüber hinaus nichts. `untied` (5.120 Parameter)
+liegt bei N = 200 dagegen auf dem Niveau von `dense`. Für die Dateneffizienz
+entscheidet offenbar die **Teilung** der Winkel.
+
+## 28. September — Vorregistrierung Q-019W (vor dem Lauf)
+
+Freigegeben im Rahmen von Maltes Auftrag vom 28.09. („die Entscheidungen
+durchführen … mach selber weiter“). Der Lauf braucht etwa 5,1 h, die CPU ist
+sonst frei.
+
+Maßgeblich ist der Modulkopf von `quantum_sim/walsh.py`, Stand dieses Commits.
+Kurzfassung:
+
+**Aufgabe:** Walsh-Signale (d = 256, 3 Anteile, Rauschen 0,45). Die Klasse ist
+das Sequency-Band des stärksten Anteils, 8 Klassen. Kontrollbasis ist eine
+feste Haar-zufällige Orthobasis.
+
+**Lernkurve:** N ∈ {50, 200, 1.000, 6.000}, 470 Schritte fest, Test 2.000.
+15 Seeds (19101–19115), Tuning-Seeds 19151–19153. Die Lernrate wird je Arm ×
+Basis × N mit vollem Budget gesucht, das Gitter in beide Richtungen verlängert.
+
+**Familie bei N = 200, Holm über 3, Wilcoxon zweiseitig + TOST ±0,005:**
+- PRIMÄR: walsh, butterfly (40) gegen dense (65.536)
+- P2: Wechselwirkung (butterfly − dense) walsh gegen zufall
+- P3: walsh, butterfly gegen `givens_zufall` (dieselben 40 geteilten Winkel,
+  zufällige Verdrahtung)
+
+**Kontrollen:**
+- Auflösung: dense trennt sich von narrow, walsh, N = 6.000
+- Boden: bester Arm ≥ 0,225
+- Sättigung: kein Familienarm > 0,95
+
+**Vorher angesagt:**
+- TOST ist für keinen Test erreichbar (sd 0,012 / 0,028 / 0,018 > 0,011).
+  GLEICHWERTIG kann nicht feuern.
+- P3 und P2 messen beide die Passung zur Bitstruktur: `givens_zufall` verhält
+  sich in der Vorprüfung wie die Butterfly in der Zufallsbasis. Hält P3, heißt
+  das „die Bitstruktur trägt“, nicht „die Butterfly lernt etwas Besonderes“.
+- Die eigentlich offenen, beschreibenden Fragen sind:
+  - der Übergangspunkt N\* (Vorprüfung: dense bei 6.000 vorn, 0,934 gegen 0,910)
+  - butterfly gegen wht_fest (in der Vorprüfung gleichauf)
+  - untied gegen butterfly (Teilung als Grund der Dateneffizienz)
+
+**Erwartung:** PRIMÄR STRUKTUR_BESSER, P2 PASSUNG_TRAEGT, P3 STRUKTUR_TRAEGT,
+N\* zwischen 1.000 und 6.000.
+
+## 28. September — Q-019W gerechnet: die zweite KI-Art hat einen echten Vorteil, und er ist klassisch
+
+Lauf von 13:0x bis 17:00. Rohdaten `results/experiments/Q-019W__20260928_170030_02.json`
+(795 Zeilen). `q_audit` hat 11/11 Zahlen geprüft, alle OK.
+
+**Familie bei N = 200, Holm über 3:** alle drei in 15/15 Seeds, p = 0,0001,
+Holm-p = 0,0002.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| PRIMÄR | **STRUKTUR_BESSER** | butterfly 0,8472 gegen dense 0,5390, **+0,308** |
+| P2 | **PASSUNG_TRAEGT** | Wechselwirkung walsh − zufall **+0,693** |
+| P3 | **STRUKTUR_TRAEGT** | butterfly − givens_zufall **+0,678** |
+
+Kontrollen alle bestanden: Auflösung dense − narrow +0,101 (p = 0,0007),
+Boden, keine Sättigung.
+
+**Lernkurve, walsh:**
+
+| Arm | N = 50 | 200 | 1.000 | 6.000 |
+|---|---|---|---|---|
+| butterfly (40) | 0,660 | 0,847 | 0,896 | 0,908 |
+| wht_fest (0) | 0,655 | 0,847 | 0,895 | 0,907 |
+| dense (65.536) | 0,276 | 0,539 | 0,824 | **0,950** |
+| untied (5.120) | 0,274 | 0,495 | 0,763 | 0,877 |
+| givens_zufall (40) | 0,151 | 0,169 | 0,187 | 0,208 |
+
+**Was das heißt, ehrlich:**
+1. **Dateneffizienz ist belegt.** Bei 50 bis 1.000 Beispielen liegt die
+   Butterfly weit vor der dichten Schicht (+0,38 bei N = 50). Ab etwa
+   **N\* ≈ 3.100** (zwischen 1.000 und 6.000) holt die dichte Schicht auf, bei
+   6.000 liegt sie um 0,043 vorn. Das ist der erste Befund des Projekts, der
+   über „gleichwertig, aber billiger“ hinausgeht: **bei wenig Daten klar
+   besser**.
+2. **Der Mechanismus ist die feste Walsh-Hadamard-Transformation.** Die
+   gelernte Butterfly ist ab N = 200 per TOST gleichwertig zu `wht_fest` mit
+   **0 Parametern**. Das Lernen der 40 Winkel findet die WHT und bringt darüber
+   hinaus nichts.
+3. **Die Teilung der Winkel ist der Grund für die Dateneffizienz.** Die
+   ungeteilte Variante (5.120) ist bei wenig Daten so schlecht wie `dense`
+   (N = 200: −0,35 gegen die Butterfly).
+4. **Die Bitstruktur ist nötig:** Dieselben 40 geteilten Winkel mit zufälliger
+   Verdrahtung lernen gar nichts (0,17–0,21). In der Zufallsbasis und bei
+   permutierter Zeitachse fällt auch die Butterfly aufs Rateniveau.
+5. **Vorher angesagt und eingetreten:** P2 und P3 messen beide die Passung. Sie
+   sind stark, aber erwartbar. Neu und nicht vorhersehbar waren N\*, die
+   Gleichheit zu `wht_fest` und der Befund zur Teilung.
+6. **Fourier-Anschluss:** Wie in Q-019 verliert die Butterfly auf
+   Sinussignalen (0,677 gegen 0,921 bei N = 6.000). Die richtige Basis ist
+   Walsh, nicht Fourier.
+
+**Für die Arbeit:** Die zweite KI-Art ist ein Signalklassifikator, der mit 40
+Parametern (bzw. 0, als feste WHT) bei wenig Daten eine 65.536-Parameter-
+Schicht deutlich schlägt, solange die Signale Rechteck-/Schaltcharakter haben.
+Das ist klassisch erklärbar (Kronecker-Struktur = WHT), aber es ist genau die
+Struktur, die die Quantenschaltung ohne CNOT hat.
+
+## 28. September, nachts — T-004 (Chatbot-Adapter) gebaut, noch nicht vorregistriert
+
+`quantum_sim/chatbot_adapter.py` baut auf LLäMmlein-120M auf (research-only
+RAIL-M). Der Datensatz ist alpaca-gpt4-deutsch, 54 MB, Apache-2.0,
+aufgeteilt in 5.000 Training / 500 Abstimmung / 1.000 Validierung / 50
+Vorzeigefragen. Vortest bestanden, darunter Theorie, 19 Ausgänge und 5
+Mutationen.
+
+**Arme und trainierbare Parameter:**
+
+| Arm | Parameter |
+|---|---|
+| `qire_kron` | 192 (8 je Matrix × 24) |
+| `qire_5` (mit CNOT-Ring) | 960 |
+| `lora_r1` | 30.720 |
+| `basis` | 0 |
+
+**Korrekturen am Entwurf**, alle vor jeder Zahl:
+- Ohne CNOT sind 5 geteilte Lagen dasselbe wie 1 Lage. P3 misst also nur
+  den CNOT-Ring.
+- `qire_5` braucht eine feste Rückpermutation, damit es bei R = I startet.
+- `v_proj` ist 256×768, weil das Modell nur 4 KV-Köpfe hat.
+- Das Verhältnis ist 160-fach, nicht 372-fach.
+- Die Schritte kosten 1,8–2,8 s, nicht ~1 s, gemessen bei 3 Threads unter
+  Last.
+
+**TOST-Grenze für P2 (Direktor 28.09.):** 20 % des Gewinns von `lora_r1`
+gegenüber `basis`, relativ zum Effekt. Ob die Grenze erreichbar ist, ist
+ohne Vorlauf unbekannt. Ein Ausbleiben von GLEICHWERTIG ist deshalb kein
+Befund.
+
+**Offen, vor dem Lauf:** Die Zeitmessung bei 6 Threads auf freiem Rechner
+legt SCHRITTE fest (vorläufig 200). Danach kommt der Vorregistrierungstext
+hierher, dann der Commit, dann der Lauf.
+
+## 29. September, morgens — Vorregistrierung T-004 (vor dem Lauf)
+
+**Zuerst, was nachts passiert ist:** I-005-v3 (Institut) ist beim
+Herunterfahren des Rechners am 28.09. um 23:04 abgebrochen, in der Messphase,
+nach der Lernratensuche. Ein Ergebnis gibt es nicht, und es wurde keine Zahl
+gesichert. Das Modul hat keine Wiederaufnahme, deshalb wird es nach T-004 neu
+gestartet.
+
+**T-004, festgelegt vor jeder Zahl** (maßgeblich ist der Modulkopf von
+`quantum_sim/chatbot_adapter.py`, Stand dieses Commits):
+
+- **Budget:** `zeit` bei 6 Threads auf freiem Rechner, pro Schritt: qire_kron
+  1,5 s, qire_5 1,5 s, lora_r1 0,9 s. Die Auswertung kostet etwa 0,13 s je
+  Beispiel. Daraus folgt **SCHRITTE = 300**, zusammen etwa 6,6 h.
+- **Familie, Holm über 3, 8 Seeds (40001–40008), Tuning-Seeds 40401/40402:**
+  - PRIMÄR: `qire_kron` (192 Parameter) gegen `basis`, einseitig
+  - P2: `qire_kron` gegen `lora_r1` (30.720), TOST mit einer Grenze von 20 %
+    des LoRA-Gewinns gegenüber basis
+  - P3: `qire_5` (960, mit CNOT-Ring) gegen `qire_kron`
+- **Auflösung:** `lora_r1` muss sich von `basis` trennen.
+- **Vorher angesagt:** Die Erreichbarkeit der TOST-Grenze ist unbekannt.
+  PRIMÄR ist faktisch ein Ein-Stichproben-Test, weil basis deterministisch
+  ist.
+- **Erwartung:** PRIMÄR hält (die Drehung senkt den Verlust ein wenig), P2
+  eher LORA_BESSER oder HU, P3 offen.
+
+Die Wiederaufnahme läuft nach jeder Zelle. Ein erneutes Herunterfahren kostet
+also höchstens eine Zelle.
+
+## 29. September — T-004 gerechnet: der Chatbot-Adapter wirkt, und der CNOT-Ring trägt
+
+Lauf 07:45–13:28, 6 Threads. Rohdaten
+`results/experiments/T-004__20260929_132842_02.json` (32 Zeilen). `q_audit`
+hat 12/12 Zahlen geprüft, alle OK. Vortest vor dem Start bestanden.
+
+| Arm | trainierbar | Val-Verlust (nats/Token, Antwort-Tokens) | gegen basis |
+|---|---|---|---|
+| basis | 0 | 2,5616 | – |
+| qire_kron | 192 | 2,5172 | −0,044 |
+| qire_5 (CNOT-Ring) | 960 | 2,4437 | −0,118 |
+| lora_r1 | 30.720 | 2,2893 | −0,272 |
+
+**Familie (Holm über 3), jeweils 8/8 Seeds:**
+- PRIMÄR **SENKT_VERLUST**: −0,0444, Holm-p = 0,012
+- P2 **LORA_BESSER**: +0,228, Holm-p = 0,016. Die TOST-Grenze lag bei ±0,054,
+  weit entfernt.
+- P3 **VERSCHRAENKUNG_TRAEGT**: −0,0735, Holm-p = 0,016
+
+Auflösung bestanden: LoRA − basis −0,272.
+
+Die Lernraten liegen **innen**. `q_summary` meldet für qire_kron und qire_5
+„unten“ (lr 0,001), das ist aber ein Fehlalarm: Das Gitter wurde nach unten
+bis 0,00033 verlängert, und dort war der Verlust schlechter (qire_kron
+2,5331 gegen 2,5286). `q_summary` kennt nur das Startgitter. Das Tool gehört
+nachgebessert.
+
+**Was das heißt:**
+1. **Der Chatbot mit QIRE-Adapter funktioniert messbar.** 192 Winkel senken
+   den Verlust in jedem Seed. Absolut ist der Gewinn klein: 16 % des
+   LoRA-Gewinns.
+2. **Pro Parameter ist die Drehung weit effizienter:**
+   - qire_kron: 2,3·10⁻⁴ nats je Parameter
+   - qire_5: 1,2·10⁻⁴
+   - LoRA: 8,9·10⁻⁶
+
+   Das ist 13- bis 26-mal mehr Wirkung je Parameter. Es ist aber keine
+   Gleichwertigkeit, und das gehört ehrlich so gesagt.
+3. **Der CNOT-Ring trägt im Sprachmodell:** Die Verschränkung fast
+   verdreifacht den Gewinn (43 % statt 16 % des LoRA-Gewinns), bei 5-mal so
+   vielen Parametern. Das passt zu Q-020 (b). Ohne CNOT wären 5 Lagen nach
+   der Theorie gleich 1 Lage.
+4. Die Seed-Streuung ist winzig (sd 0,0005–0,0024). Die Unterschiede sind klar,
+   gemessen auf 1.000 festen Validierungsbeispielen.
+
+**Nächste Schritte für den Chatbot:**
+- Chat-Demo mit dem gespeicherten qire_5-Adapter (`chat qire_5`)
+- Parameterkurve (mehr Lagen oder Winkel je Block)
+- QIRE + LoRA kombiniert (Recherche 06)
+- blinde Mini-Bewertung durch Menschen
+
+## 29. September, abends — Vorregistrierung T-005 (vor dem Lauf)
+
+`quantum_sim/chatbot_kurve.py`: Parameterkurve des Chatbot-Adapters.
+Maßgeblich ist der Modulkopf, Stand dieses Commits. Vortest bestanden,
+darunter:
+- Theorie für alle L
+- Bitgleichheit mit den T-004-Zellen
+- exakter Page-Test gegen scipy
+- 23 Szenarien und 7 Mutationen
+
+**Arme (trainierbare Parameter):**
+
+| Arm | Parameter | Bemerkung |
+|---|---|---|
+| qire_L1 | 192 | = qire_kron |
+| qire_L2 | 384 | |
+| qire_L5 | 960 | = qire_5 |
+| qire_L10 | 1.920 | |
+| lora_r1 | 30.720 | |
+| kombi | 31.680 | L5 + LoRA gemeinsam |
+| basis | 0 | |
+
+Seeds 50001–50008, Tuning 50401/50402, SCHRITTE 300.
+
+**Familie, Holm über 3:**
+- K1 Trend über L: exakter Page-Test, einseitig. Dazu das Zusatzurteil
+  „streng monoton“ über Nachbarvergleiche.
+- K2 qire_L10 gegen lora_r1: TOST mit ±20 % des LoRA-Gewinns, wie P2 in
+  T-004.
+- K3 kombi gegen lora_r1, einseitig: Ergänzt QIRE LoRA?
+
+Auflösung: lora_r1 trennt sich von basis.
+
+**Zwei Kürzungen, vor jeder Zahl (Budget ≤ 9 h):**
+- L3 gestrichen, die Kurve 1-2-5-10 ist ungefähr log-gleichmäßig.
+- Für qire_L1, qire_L5 und lora_r1 werden die T-004-Lernraten übernommen
+  (alle 1e-3, innen, bei unten verlängertem Gitter). Die Zellen sind
+  bitgleich, das Budget und die Abstimmmenge sind gleich, und die neuen
+  Mess-Seeds sind disjunkt. Regel 1 ist für diese Arme durch T-004 erfüllt.
+  Neu gesucht wird für L2, L10 und kombi.
+
+**Vorher angesagt:**
+- K2 wird fast sicher LORA_BESSER und ist wenig informativ.
+- Bei einer Seed-Streuung um 0,0005 werden auch winzige Stufen signifikant.
+  Deshalb werden die Effektgrößen je Stufe mitberichtet.
+
+Laufzeit 8,2–9,0 h. Die Wiederaufnahme läuft nach jeder Zelle, ein
+Herunterfahren kostet höchstens eine Zelle.
+
+**Vorbehalt (`q_summary`, Randlage):** `wht_fest` sitzt in einer Zelle am
+oberen Gitterrand (lr 0,03). Der Arm hat 0 Mittelschicht-Parameter, die Rate
+wirkt nur auf den Kopf. Ist er dort untertuniert, wäre `wht_fest` eher noch
+besser. Die Aussage „butterfly ≈ wht_fest“ ist beschreibend und trägt dieses
+Fragezeichen.
+
+## 30. September — T-005 gerechnet: mehr Lagen helfen streng monoton, LoRA bleibt vorn, QIRE ergänzt LoRA nicht
+
+Lauf über mehrere Sitzungen mit Wiederaufnahme (29.09. abends bis 30.09.
+morgens, 6 Threads). Rohdaten `results/experiments/T-005__20260930_084358_02.json`
+(56 Zeilen = 7 Arme × 8 Seeds, Seeds 50001–50008). `q_audit` prüft die Zahlen
+dieses Eintrags, alle OK. Vortest vor dem Start bestanden.
+
+| Arm | trainierbar | Val-Verlust (nats/Token) | Gewinn gegen basis | Anteil am LoRA-Gewinn |
+|---|---|---|---|---|
+| basis | 0 | 2,5616 | – | – |
+| qire_L1 | 192 | 2,5174 | 0,044 | 16 % |
+| qire_L2 | 384 | 2,4964 | 0,065 | 24 % |
+| qire_L5 | 960 | 2,4442 | 0,117 | 43 % |
+| qire_L10 | 1.920 | 2,4115 | 0,150 | 55 % |
+| lora_r1 | 30.720 | 2,2875 | 0,274 | 100 % |
+| kombi (L5 + LoRA) | 31.680 | 2,2910 | 0,271 | 99 % |
+
+**Familie (Holm über 3), jeweils 8 Seeds:**
+- K1 **STRENG_MONOTON**: Page L = 240, Holm-p ≈ 3·10⁻¹¹. Jede Stufe senkt den
+  Verlust in 8/8 Seeds (p = 0,0039 je Stufe, Schwelle 0,0167):
+  L1→L2 −0,021, L2→L5 −0,052, L5→L10 −0,033.
+- K2 **LORA_BESSER**: qire_L10 − lora_r1 = +0,124, 0/8 Seeds besser,
+  Holm-p = 0,016. Die TOST-Grenze lag bei ±0,055 (20 % des LoRA-Gewinns),
+  weit entfernt. Vorher angesagt, so eingetreten.
+- K3 **KEIN_NACHWEIS**: kombi − lora_r1 = +0,0035, 0/8 Seeds besser,
+  Holm-p = 1,0. QIRE ergänzt LoRA nach diesem Test nicht.
+
+Auflösung bestanden: lora_r1 − basis = −0,274, p = 0,0078.
+
+**Was das heißt:**
+1. **Die Kurve ist monoton und ohne Sättigung bis L = 10.** Der Gewinn je
+   Lagenstufe wird pro Parameter kleiner (2,3·10⁻⁴ bei L1, 7,8·10⁻⁵ bei L10),
+   steigt in der Summe aber weiter. Wo die Kurve abflacht, zeigt dieser Lauf
+   nicht; L > 10 wurde nicht gemessen.
+2. **Mit 1.920 Parametern erreicht QIRE 55 % des LoRA-Gewinns**, LoRA hat
+   16-mal so viele. Pro Parameter bleibt die Drehung weit effizienter
+   (7,8·10⁻⁵ gegen 8,9·10⁻⁶), aber es ist keine Gleichwertigkeit, und der
+   absolute Abstand ist bei allen Lagenzahlen signifikant.
+3. **K3 ist ein Nichtbeleg, kein Beleg der Gleichheit.** Beschreibend liegt
+   kombi sogar minimal über lora_r1. Die einseitige Frage („ergänzt QIRE?")
+   ist damit beantwortet: nein, nicht messbar. Der Nebenbefund
+   kombi − qire_L5 = −0,153 (p = 0,0078, ohne Holm) sagt nur, dass LoRA das
+   Meiste trägt.
+4. Die Seed-Streuung ist klein (sd 0,0004–0,0029), gemessen auf denselben
+   Validierungsbeispielen wie in T-004.
+
+**Grenzen, ehrlich dazu:**
+- Lernraten: für qire_L1, qire_L5 und lora_r1 aus T-004 übernommen, für
+  qire_L2, qire_L10 und kombi neu gesucht (Gitter 0,0003 / 0,001 / 0,003);
+  alle Raten liegen **innen** (lr 0,001). Die vor dem Lauf angesagte Kürzung
+  (L3 gestrichen) ist eingehalten.
+- `q_summary` meldet für `basis` „lr 0, unten“. Das ist ein Fehlalarm: Der
+  Arm hat 0 trainierbare Parameter, es gibt keine Rate.
+- Die Summe der Messzeiten in den Rohdaten beträgt 13,5 h, die
+  Vorregistrierung nannte 8,2–9,0 h. Ich habe die Ursache nicht geprüft.
+- Ein Verlust ist keine Chatqualität. Die blinde Mini-Bewertung durch
+  Menschen steht weiter aus.
+
+**Nächste Schritte:** L > 10 oder Winkel je Block, um die Sättigung zu
+finden; Chat-Demo mit dem L10-Adapter; blinde Mini-Bewertung (Recherche 06).
+
+## 7. Oktober — T-006 Kernauswertung (optionaler Arm ausstehend): mehr Lagen helfen weiter, aber flach; LoRA bleibt klar vorn
+
+Rohdaten `results/experiments/T-006__20261006_225435.json` (Kern: basis, qire_L10,
+qire_L20, qire_L40, lora_r1 je 8 Seeds 60001–60008; 40 Zeilen). Auswertung mit
+`python3 -m quantum_sim.chatbot_skalierung auswertung T-006` (vorregistrierte Logik,
+`ENTWURF_T006_SKALIERUNG.md`). `q_audit` prüft die Zahlen, alle OK.
+**qire_L10_600 (optional, außerhalb Holm) steht aus**: läuft noch auf dem PC (1/8),
+keine Aussage zu Budget- gegen Strukturgrenze.
+
+| Arm | trainierbar | Val-Verlust (nats/Token) | Gewinn | Anteil LoRA | lr |
+|---|---|---|---|---|---|
+| basis | 0 | 2,5616 | – | – | – |
+| qire_L10 | 1.920 | 2,4111 | 0,1506 | 55 % | 0,001 (T-005) |
+| qire_L20 | 3.840 | 2,4061 | 0,1556 | 57 % | 0,0003 |
+| qire_L40 | 7.680 | 2,3931 | 0,1685 | 62 % | 0,0003 |
+| lora_r1 | 30.720 | 2,2886 | 0,2730 | 100 % | 0,001 (T-005) |
+
+**Positivkontrolle bestanden:** qire_L10 = 2,4111 gegen 2,4115 ± 0,003 (T-005).
+Auflösung bestanden: lora_r1 − basis = −0,2730, p = 0,0078.
+
+**Familie (Holm über 3):**
+- K1 **STRENG_MONOTON**: Page L = 112, Holm-p ≈ 0 (p = 6·10⁻⁷); L10→L20 −0,0050,
+  L20→L40 −0,0129, je 8/8 Seeds, p = 0,0039 (Schwelle 0,0167). Die Stufe L10→L20 ist
+  winzig (vergleichbar der Seed-Streuung 0,001–0,002), aber in jedem Seed gleichgerichtet.
+- K2 **LORA_BESSER**: qire_L40 − lora_r1 = +0,1045, 0/8 Seeds besser, Holm-p = 0,0078;
+  TOST-Grenze ±0,0546 (20 % des LoRA-Gewinns), TOST-p = 1,0. Vervierfachte Drehung
+  (L10→L40) schließt nur 0,018 der 0,124 Lücke aus T-005.
+- K3 **SAETTIGT_UNTER_WURZEL**: b = 0,081 [0,078; 0,084] gegen 0,5, Holm-p = 0,0004;
+  G20/G10 = 1,033, G40/G20 = 1,083 (Wurzelgesetz: 1,414).
+
+**Was das heißt:**
+1. Der Gewinn wächst mit der Lagenzahl nur noch schwach (Potenzgesetz-Exponent ≈ 0,08);
+   L40 erreicht 62 % des LoRA-Gewinns statt 55 % bei L10. Mehr Lagen allein bringen QIRE
+   nicht an LoRA heran.
+2. Pro Parameter bleibt QIRE effizienter (L40 2,2·10⁻⁵ gegen LoRA 8,9·10⁻⁶), der
+   absolute Abstand aber ist signifikant.
+3. Offen, ob die Grenze am Budget (300 Schritte) oder an der Struktur liegt: dazu dient
+   der optionale Arm qire_L10_600, **ausstehend**.
+
+**Grenzen:**
+- Lernrate für L20 und L40 liegt bei 0,0003, dem untersten Gitterwert. Die Rohdaten
+  vermerken Rand „innen“ nach der vorregistrierten Verlängerung (÷3); `q_summary`
+  zeigt trotzdem „unten“ (gleicher Fehlalarmtyp wie bei basis). Nicht nachgeprüft.
+- Das Wurzelgesetz-Urteil hängt an einem Potenzgesetz-Modell mit nur drei Punkten.
+- Ein Verlust ist keine Chatqualität.
+
+## 7. Oktober — T-007 (Institut I-043) „Fastfood-Adapter im Sprachmodell“: VORREGISTRIERUNG (vor jeder Zahl)
+
+Modul `quantum_sim/chatbot_fastfood.py`, Entwurf `ENTWURF_T007_FASTFOOD_ADAPTER.md`. Vortest ohne Modell bestanden
+(Fastfood gegen explizite Matrix, Parametergleichheit, Mini-Llama, 26 Szenarien, 8 Mutationen). **Kein Seed gerechnet;
+der Lauf wartet auf Maltes Freigabe.**
+- **Frage:** Schließt ein Fastfood-Adapter (ΔW = c·H D₂ H D₁, trainierte Diagonalen, O(d), Init ΔW = 0) bei **exakt gleicher
+  Parameterzahl wie LoRA r=1 (30.720)** die Lücke, die der sättigende QIRE-Adapter in T-006 ließ?
+- **Arme:** basis, qire_L10 (Positivkontrolle 2,4111 ± 0,003), lora_r1, ff_adapter (30.720), ff_adapter_breit (61.440, vier Stufen).
+- **Seeds:** Messung 70001–70008, Tuning 70401/70402; 300 Schritte; lr: qire_L10 und lora_r1 aus T-005 (1e-3), ff-Arme getunt
+  mit Gitter 1e-4…1e-2 (5 Punkte) und Verlängerung ×3/÷3, **Tuningzellen kommen in die Rohdaten**, Randvermerk wird aus ihnen nachgerechnet.
+- **Hypothesen (Holm über 3):** H1 ff_adapter − lora_r1 (zweiseitig + TOST ±20 % des LoRA-Gewinns), H2 ff_adapter < qire_L10
+  (einseitig; nicht parametergleich), H3 ff_adapter_breit < ff_adapter (einseitig).
+- **Laufzeit:** ≈ 6,3 h ungestört, 7–9 h mit Störungen (ff-Zeiten sind Annahmen, `zeit` misst sie).
+- **Start (PC):** `.\py.cmd -m quantum_sim.chatbot_fastfood vortest`, dann `... lauf *> results\T-007_run.log`.
+- Ehrlichkeit: Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil.
+
+### 7. Oktober (später) — T-007: ÄNDERUNG der Vorregistrierung (Born-Zweig), weiter vor jeder Zahl
+
+**Grund:** I-045-v2 fand die Wechselwirkung Struktur × z² (Fastfood-FFN + z² besser als dicht + z² um 0,075 bpc, mit GELU
+umgekehrt). **Kein Seed gerechnet**, deshalb zulässig. Einzelheiten: Abschnitt „ÄNDERUNG“ in `ENTWURF_T007_FASTFOOD_ADAPTER.md`.
+- **Neu:** ff_born (ΔW x = c·D3⊙H(D2⊙fold((H(D1⊙x))²)), D3 = 0 am Start) und ff_gelu (GELU statt z²), je **43.008** Parameter
+  (1,40 × lora_r1); lora_r2 (61.440) als obere Klammer, nur beschreibend, Rate von lora_r1 übernommen.
+- **Hypothesen:** H4 ff_born < ff_gelu (einseitig), H5 ff_born vs lora_r1 (zweiseitig + TOST ±20 %); Holm über 4 (H1, H2, H4, H5).
+- **Gestrichen:** ff_adapter_breit und H3 (Kern sonst ≈ 11 h > 10 h). Kern jetzt ≈ 9,0 h (9,7 h mit Verlängerung); misst
+  `zeit` > 10 h, entfällt lora_r2.
+- **Vortest erweitert und im Container bestanden** (`vortest_statistik`: Born gegen explizite Referenz, Mini-Llama, 40 Szenarien,
+  9 Mutationen). Modellteil (Start-Logits, s/Schritt, Bitgleichheit der Brücke) nur auf Maltes PC prüfbar.
+- **Literatur:** Needle-2-„Hadamard MLP“ (D1, D2, D3, H, SiLU) ist der nächste Nachbar, Quadrat-Aktivierung/Adapter nicht gefunden
+  (`INSTITUT/recherche/2026-10-07_literatur_struktur_quadrat.md`). Baustein nicht als neu behaupten.
+- **Start (PC) unverändert:** `.\py.cmd -m quantum_sim.chatbot_fastfood vortest`, dann `... lauf *> results\T-007_run.log`.
+  **Wartet weiter auf Maltes Freigabe.**
+
 ## Zwischenstand
 
 > ⚠ **Dieser Abschnitt ist vom 2. August und stimmt nicht mehr mit der

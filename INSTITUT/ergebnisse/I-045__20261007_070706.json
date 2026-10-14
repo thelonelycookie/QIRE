@@ -1,0 +1,572 @@
+{
+ "abteilung": "Struktur",
+ "modul": "struktur_sprache",
+ "karte": "I-045",
+ "version": 1,
+ "profil": "standard",
+ "hypothesen": {
+  "H1": "Sb <= D + 0,02 bpc (Nichtunterlegenheit, einseitig gepaart t, Holm H1-H3) UND weniger FFN-Parameter als D. NICHT_UNTERLEGEN | H0 (Sb sicher um mehr als 0,02 bpc schlechter) | HU.",
+  "H2": "S < L bei gleichem Budget (kleiner bpc; einseitig gepaart t, Holm). S_BESSER | H0 (L sicher besser) | HU.",
+  "H3": "Sb schneller als D (Inferenzzeit je Token, 1 Thread, gepaart log-Verhaeltnis je Seed, einseitig, Holm). SCHNELLER | H0 (sicher langsamer) | HU.",
+  "NK": "Negativkontrolle (D, Sb mit permutierten Trainingsbytes): mittlerer Test-bpc >= 0.9 x Unigramm-Entropie des Tests. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+  "B": "beschreibend: bpc je Arm, Parameter, Zeiten, Lernraten, Sz gegen S, Sb gegen D, S gegen D, Trainingszeit."
+ },
+ "folgefragen": {
+  "H1 NICHT_UNTERLEGEN": "Struktur-FFN traegt im Sprachmodell: groesseres Modell/laengeres Training, dann Parameter- und Zeitvergleich bei gleicher Qualitaet.",
+  "H1 H0": "FFN im Transformer braucht dichte Matrizen: Struktur nur in Randschichten (Einbettung/Kopf) oder als Zusatz testen.",
+  "H3 SCHNELLER": "Zeitgewinn schon bei d=256: Skalierung auf d=1024 messen.",
+  "H3 H0": "Fastfood ist bei kleinem d auf der CPU langsamer als BLAS: Gewinn nur in Parametern, nicht in Zeit; Zeit erst bei grossem d erwartbar."
+ },
+ "seeds": [
+  2400,
+  2401,
+  2402,
+  2403,
+  2404
+ ],
+ "tuning_seed": 2499,
+ "tuning": {
+  "Sz": {
+   "lr": 0.0005,
+   "am_rand": false,
+   "abgestuft": 1,
+   "gitter": {
+    "0.0005": 0.5793005211051487,
+    "0.0015": 0.5885261349515554,
+    "0.0045": 0.5516764947312307
+   }
+  },
+  "D": {
+   "lr": 0.00016666666666666666,
+   "am_rand": false,
+   "abgestuft": 1,
+   "gitter": {
+    "0.00016666666666666666": 0.5671984196774797,
+    "0.0005": 0.5912824123814011,
+    "0.0015": 0.5622410248147737,
+    "0.0045": 0.550453247091909
+   }
+  },
+  "L": {
+   "lr": 0.0005,
+   "am_rand": false,
+   "abgestuft": 0,
+   "gitter": {
+    "0.00016666666666666666": 0.5528290537988773,
+    "0.0005": 0.5618535307377708,
+    "0.0015": 0.5562911089867925,
+    "0.0045": 0.5385058741808969
+   }
+  },
+  "S": {
+   "lr": 0.00016666666666666666,
+   "am_rand": false,
+   "abgestuft": 1,
+   "gitter": {
+    "0.00016666666666666666": 0.5562897566848528,
+    "0.0005": 0.5773700956141614,
+    "0.0015": 0.5625831403774599,
+    "0.0045": 0.5279206684844229
+   }
+  },
+  "Sb": {
+   "lr": 0.00016666666666666666,
+   "am_rand": false,
+   "abgestuft": 1,
+   "gitter": {
+    "0.00016666666666666666": 0.5571066931238648,
+    "0.0005": 0.5835128595263184,
+    "0.0015": 0.5670364894293879,
+    "0.0045": 0.5401548054694201
+   }
+  }
+ },
+ "einstellungen": {
+  "schritte": 1000,
+  "nk_schritte": 300,
+  "batch": 8,
+  "kontext": 128,
+  "d": 256,
+  "lagen": 4,
+  "breite": {
+   "D": 1024,
+   "S": 1024,
+   "Sb": 4096,
+   "L": 1024,
+   "Sz": 1024
+  },
+  "lr_gitter": [
+   0.0005,
+   0.0015,
+   0.0045
+  ],
+  "daten_bytes": [
+   1614280,
+   73794,
+   99487
+  ]
+ },
+ "zwischendatei": "/home/user/QIRE/INSTITUT/ergebnisse/_zwischen_I-045.json",
+ "zeilen": [
+  {
+   "teil": "mess",
+   "arm": "Sb",
+   "seed": 2403,
+   "bpc": 3.599341925914976,
+   "instabil": false,
+   "sekunden_training": 591.7027082443237,
+   "zeit_je_token": 0.00020617276171863708
+  },
+  {
+   "teil": "mess",
+   "arm": "Sb",
+   "seed": 2401,
+   "bpc": 3.5969989803652704,
+   "instabil": false,
+   "sekunden_training": 590.0542216300964,
+   "zeit_je_token": 0.00022222029980456526
+  },
+  {
+   "teil": "mess",
+   "arm": "Sb",
+   "seed": 2402,
+   "bpc": 3.6040190629425193,
+   "instabil": false,
+   "sekunden_training": 595.5957112312317,
+   "zeit_je_token": 0.00019126310742212382
+  },
+  {
+   "teil": "mess",
+   "arm": "Sb",
+   "seed": 2400,
+   "bpc": 3.5918922917662353,
+   "instabil": false,
+   "sekunden_training": 602.6376991271973,
+   "zeit_je_token": 0.0002151931992191436
+  },
+  {
+   "teil": "nk",
+   "arm": "Sb",
+   "seed": 2400,
+   "bpc": 4.761385421470738,
+   "instabil": false,
+   "sekunden_training": 181.63300585746765
+  },
+  {
+   "teil": "nk",
+   "arm": "Sb",
+   "seed": 2401,
+   "bpc": 4.7607426893245215,
+   "instabil": false,
+   "sekunden_training": 178.77465295791626
+  },
+  {
+   "teil": "mess",
+   "arm": "D",
+   "seed": 2400,
+   "bpc": 3.5043609703752234,
+   "instabil": false,
+   "sekunden_training": 216.9561789035797,
+   "zeit_je_token": 6.1010283203266624e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "D",
+   "seed": 2402,
+   "bpc": 3.5217930632506906,
+   "instabil": false,
+   "sekunden_training": 216.85831308364868,
+   "zeit_je_token": 5.8909150390640264e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "D",
+   "seed": 2401,
+   "bpc": 3.5182639619903187,
+   "instabil": false,
+   "sekunden_training": 217.37358355522156,
+   "zeit_je_token": 5.8630428711126115e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "D",
+   "seed": 2403,
+   "bpc": 3.5244323789548697,
+   "instabil": false,
+   "sekunden_training": 215.38971090316772,
+   "zeit_je_token": 6.0205713867222954e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "Sb",
+   "seed": 2404,
+   "bpc": 3.592141671922191,
+   "instabil": false,
+   "sekunden_training": 582.5216164588928,
+   "zeit_je_token": 0.00018273915136735042
+  },
+  {
+   "teil": "mess",
+   "arm": "S",
+   "seed": 2400,
+   "bpc": 3.591372990926651,
+   "instabil": false,
+   "sekunden_training": 209.38566040992737,
+   "zeit_je_token": 5.3677907226212795e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "D",
+   "seed": 2404,
+   "bpc": 3.5122904914553454,
+   "instabil": false,
+   "sekunden_training": 216.85250210762024,
+   "zeit_je_token": 5.994524999985984e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "S",
+   "seed": 2401,
+   "bpc": 3.6036308881391363,
+   "instabil": false,
+   "sekunden_training": 207.37512397766113,
+   "zeit_je_token": 5.775916406269843e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "S",
+   "seed": 2402,
+   "bpc": 3.5949059506189025,
+   "instabil": false,
+   "sekunden_training": 206.83948397636414,
+   "zeit_je_token": 5.8362248047227894e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "S",
+   "seed": 2403,
+   "bpc": 3.597906502932718,
+   "instabil": false,
+   "sekunden_training": 206.7414219379425,
+   "zeit_je_token": 5.82435839842077e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "S",
+   "seed": 2404,
+   "bpc": 3.5970200622952113,
+   "instabil": false,
+   "sekunden_training": 203.43987679481506,
+   "zeit_je_token": 6.0307365234546495e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "Sz",
+   "seed": 2400,
+   "bpc": 3.343940008820018,
+   "instabil": false,
+   "sekunden_training": 206.1687843799591,
+   "zeit_je_token": 5.7174877929444534e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "Sz",
+   "seed": 2401,
+   "bpc": 3.4620069211438103,
+   "instabil": false,
+   "sekunden_training": 211.83810353279114,
+   "zeit_je_token": 5.706542675731896e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "Sz",
+   "seed": 2402,
+   "bpc": 3.441963152854395,
+   "instabil": false,
+   "sekunden_training": 212.23139119148254,
+   "zeit_je_token": 5.761192285191896e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "Sz",
+   "seed": 2403,
+   "bpc": 3.4295194152178103,
+   "instabil": false,
+   "sekunden_training": 208.27401733398438,
+   "zeit_je_token": 5.849605859342688e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "Sz",
+   "seed": 2404,
+   "bpc": 3.3723669569919825,
+   "instabil": false,
+   "sekunden_training": 209.46337914466858,
+   "zeit_je_token": 6.066246191416269e-05
+  },
+  {
+   "teil": "nk",
+   "arm": "D",
+   "seed": 2400,
+   "bpc": 4.760402383246971,
+   "instabil": false,
+   "sekunden_training": 65.29590344429016
+  },
+  {
+   "teil": "nk",
+   "arm": "D",
+   "seed": 2401,
+   "bpc": 4.759144628746124,
+   "instabil": false,
+   "sekunden_training": 65.52653288841248
+  },
+  {
+   "teil": "mess",
+   "arm": "L",
+   "seed": 2400,
+   "bpc": 3.572737603837742,
+   "instabil": false,
+   "sekunden_training": 125.11667966842651,
+   "zeit_je_token": 3.457911303716976e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "L",
+   "seed": 2401,
+   "bpc": 3.5488398694635426,
+   "instabil": false,
+   "sekunden_training": 126.22006273269653,
+   "zeit_je_token": 3.477373413085516e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "L",
+   "seed": 2402,
+   "bpc": 3.54914242081172,
+   "instabil": false,
+   "sekunden_training": 126.67786407470703,
+   "zeit_je_token": 3.272965722644905e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "L",
+   "seed": 2403,
+   "bpc": 3.5555434331337974,
+   "instabil": false,
+   "sekunden_training": 123.69523024559021,
+   "zeit_je_token": 3.206568847646807e-05
+  },
+  {
+   "teil": "mess",
+   "arm": "L",
+   "seed": 2404,
+   "bpc": 3.565686831764345,
+   "instabil": false,
+   "sekunden_training": 123.2088975906372,
+   "zeit_je_token": 3.236242529314204e-05
+  }
+ ],
+ "sekunden": 4148.067301750183,
+ "auswertung": {
+  "arme": {
+   "D": {
+    "mittel": 3.5162281732052896,
+    "std": 0.008042966954890946,
+    "min": 3.5043609703752234,
+    "max": 3.5244323789548697,
+    "n": 5
+   },
+   "S": {
+    "mittel": 3.596967278982524,
+    "std": 0.004495379521618732,
+    "min": 3.591372990926651,
+    "max": 3.6036308881391363,
+    "n": 5
+   },
+   "Sb": {
+    "mittel": 3.5968787865822387,
+    "std": 0.005108092458824705,
+    "min": 3.5918922917662353,
+    "max": 3.6040190629425193,
+    "n": 5
+   },
+   "L": {
+    "mittel": 3.5583900318022295,
+    "std": 0.010534741889428717,
+    "min": 3.5488398694635426,
+    "max": 3.572737603837742,
+    "n": 5
+   },
+   "Sz": {
+    "mittel": 3.4099592910056034,
+    "std": 0.049718031518576504,
+    "min": 3.343940008820018,
+    "max": 3.4620069211438103,
+    "n": 5
+   }
+  },
+  "kollaps": {
+   "D": [],
+   "S": [],
+   "Sb": [],
+   "L": [],
+   "Sz": []
+  },
+  "negativ": {
+   "mittel": 4.760418780697089,
+   "n": 4
+  },
+  "diff": {
+   "H1": {
+    "mittel": -0.08065061337694886,
+    "sd": 0.004666219712141971,
+    "ki": [
+     -0.08509934463097213,
+     -0.07620188212292558
+    ],
+    "positiv": 0,
+    "n": 5,
+    "p_gr": 0.9999958286041781,
+    "p_kl": 4.1713958218389865e-06,
+    "p_zwei": 2.6773514612794662e-06,
+    "wilcoxon_zweiseitig": 0.0625
+   },
+   "H2": {
+    "mittel": -0.03857724718029454,
+    "sd": 0.013955420614554898,
+    "ki": [
+     -0.05188221773053727,
+     -0.025272276630051806
+    ],
+    "positiv": 0,
+    "n": 5,
+    "p_gr": 0.9982597596423003,
+    "p_kl": 0.0017402403576996922,
+    "p_zwei": 0.0034804807153993845,
+    "wilcoxon_zweiseitig": 0.0625
+   },
+   "H3": {
+    "mittel": -1.2232276142553928,
+    "sd": 0.08252451950673634,
+    "ki": [
+     -1.3019057374045373,
+     -1.1445494911062484
+    ],
+    "positiv": 0,
+    "n": 5,
+    "p_gr": 0.9999975291113495,
+    "p_kl": 2.470888650417759e-06,
+    "p_zwei": 4.941777300835518e-06,
+    "wilcoxon_zweiseitig": 0.0625
+   }
+  },
+  "p_holm": {
+   "H2": 1.0,
+   "H1": 1.0,
+   "H3": 1.0
+  },
+  "parameter": {
+   "D": {
+    "ffn": 2102272,
+    "gesamt": 3257856
+   },
+   "S": {
+    "ffn": 21504,
+    "gesamt": 1177088
+   },
+   "Sb": {
+    "ffn": 82944,
+    "gesamt": 1238528
+   },
+   "L": {
+    "ffn": 25600,
+    "gesamt": 1181184
+   },
+   "Sz": {
+    "ffn": 21504,
+    "gesamt": 1177088
+   }
+  },
+  "beschreibend": {
+   "Sb - D (bpc, negativ = Sb besser)": {
+    "mittel": -0.08065061337694886,
+    "sd": 0.004666219712141971,
+    "ki": [
+     -0.08509934463097213,
+     -0.07620188212292558
+    ],
+    "positiv": 0,
+    "n": 5,
+    "p_gr": 0.9999986613242694,
+    "p_kl": 1.3386757306397331e-06,
+    "p_zwei": 2.6773514612794662e-06,
+    "wilcoxon_zweiseitig": 0.0625
+   },
+   "S - D (bpc, negativ = S besser)": {
+    "mittel": -0.08073910577723434,
+    "sd": 0.00684888969723451,
+    "ki": [
+     -0.0872687746593408,
+     -0.07420943689512788
+    ],
+    "positiv": 0,
+    "n": 5,
+    "p_gr": 0.9999938458098359,
+    "p_kl": 6.154190164194056e-06,
+    "p_zwei": 1.2308380328388112e-05,
+    "wilcoxon_zweiseitig": 0.0625
+   },
+   "Sz - S (bpc, negativ = Sz besser)": {
+    "mittel": 0.18700798797692073,
+    "sd": 0.0464629401924825,
+    "ki": [
+     0.1427106451727973,
+     0.23130533078104415
+    ],
+    "positiv": 5,
+    "n": 5,
+    "p_gr": 0.0004219313350894777,
+    "p_kl": 0.9995780686649105,
+    "p_zwei": 0.0008438626701789554,
+    "wilcoxon_zweiseitig": 0.0625
+   }
+  },
+  "unigramm_bpc": 4.7428453070920025,
+  "zeit_je_token_mittel": {
+   "Sb": 0.00020351770390636403,
+   "D": 5.9740165234423157e-05,
+   "S": 5.7670053710978666e-05,
+   "Sz": 5.8202149609254404e-05,
+   "L": 3.3302123632816814e-05
+  },
+  "training_s_mittel": {
+   "Sb": 592.5023913383484,
+   "D": 216.6860577106476,
+   "S": 206.75631341934204,
+   "Sz": 209.59513511657715,
+   "L": 124.9837468624115
+  }
+ },
+ "zeitmessung_einzelprozess_s_je_token": {
+  "D": 6.910105761726015e-05,
+  "S": 0.00010185390429739982,
+  "Sb": 0.0004150870644528126,
+  "L": 3.403417749026083e-05,
+  "Sz": 5.777462500056174e-05
+ },
+ "zeitverhaeltnis_D_durch_arm": {
+  "D": 1.0,
+  "S": 0.6784330762176213,
+  "Sb": 0.16647364742226411,
+  "L": 2.030343105457272,
+  "Sz": 1.196045108325468
+ },
+ "urteil": {
+  "NK": "BESTANDEN (Mittel permutiert D/Sb: 4.760 bpc; Unigramm 4.743; Schwelle 0.9x)",
+  "H1": "H0 (Sb um mehr als 0.02 bpc schlechter; d -0,0807 bpc, 90-%-KI [-0,0851; -0,0762], n 5, p_Holm 1)",
+  "H2": "H0 (L sicher besser als S; d -0,0386 bpc, 90-%-KI [-0,0519; -0,0253], n 5, p_Holm 1)",
+  "H3": "H0 (Sb sicher langsamer als D; d -1,2232 ln-Zeitverhaeltnis D/Sb, 90-%-KI [-1,3019; -1,1445], n 5, p_Holm 1)",
+  "B": "beschreibend: Test-bpc D 3,5162, S 3,5970, Sb 3,5969, L 3,5584, Sz 3,4100; Rest in auswertung",
+  "B-Zeit": "beschreibend: Zeit/Token Inferenz (Einzelprozess, 1 Thread), Verhaeltnis D/Arm: D 1.00, S 0.68, Sb 0.17, L 2.03, Sz 1.20"
+ }
+}

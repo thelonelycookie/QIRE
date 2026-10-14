@@ -1,0 +1,153 @@
+================================================================================================
+THEORIEPRUEFUNG Q-019W
+  butterfly, Ry(pi/2) ueberall == H^8 bis auf Vorzeichen         4.30e-16 < 1e-06  OK
+  Gegenprobe: zufaellige Winkel sind NICHT H^8                   9.67e-01 > 0.1  OK
+  wht_fest == H^8 / 16                                           0.00e+00 < 1e-06  OK
+  Walsh-Zeile k hat genau k Nulldurchgaenge                      0.00e+00 < 0.5  OK
+  wht_fest-Zeile h hat Sequency SEQ_VON_H[h]                     0.00e+00 < 0.5  OK
+  Gegenprobe: natuerliche Ordnung ist NICHT sequency-geordnet    2.55e+02 > 0.5  OK
+  zufall: orthogonal, Norm 16                                    3.41e-13 < 1e-08  OK
+  Etikett == Sequency-Band des Anteils (walsh)                   0.00e+00 < 0.5  OK
+  Etikett == Sequency-Band des Anteils (zufall)                  0.00e+00 < 0.5  OK
+  Klassenbalance (2000 -> je 250)                                0.00e+00 < 0.5  OK
+  Positivkontrolle: obere 3 Hadamard-Bits linear ablesbar        1.0000  OK
+  HINWEIS: Sequency-Band ueber <Z> ideal linear ablesbar         1.0000  (kein Kriterium -- saettigung() entscheidet)
+  BESTANDEN
+================================================================================================
+TEST GITTERVERLAENGERUNG -- Regel 1(b), beide Richtungen
+  Optimum im Startgitter       -> lr 0.003      Rand innen  OK
+  eine Verlaengerung oben      -> lr 0.09       Rand innen  OK
+  eine Verlaengerung unten     -> lr 0.0003333  Rand innen  OK
+  ausserhalb oben              -> lr 0.81       Rand oben   OK
+  ausserhalb unten             -> lr 3.704e-05  Rand unten  OK
+  BESTANDEN
+================================================================================================
+VORTEST Q-019W -- jeder Ausgang einzeln, ueber mehrere Ziehungen, Marke UND Zweigtext
+  OK     P-S   Butterfly +0,05                                            5/5  {'STRUKTUR_BESSER': 5}
+  OK     P-D   dense +0,05                                                5/5  {'DICHT_BESSER': 5}
+  OK     P-G   gleich, kleines Rauschen                                   5/5  {'GLEICHWERTIG': 5}
+  OK     P-Gs  +0,002 bei winzigem Rauschen: signifikant UND gleichwertig 5/5  {'GLEICHWERTIG': 5}
+  OK     P-U   Nulleffekt, grosses Rauschen                               39/40  {'UNENTSCHIEDEN': 39, 'DICHT_BESSER': 1}
+  OK     P-A   Aufloesung faellt (narrow = dense)                         39/40  {'HU_AUFLOESUNG': 39, 'STRUKTUR_BESSER': 1}
+  OK     P-Ar  narrow BESSER als dense: Trennung zaehlt, nicht Richtung   5/5  {'STRUKTUR_BESSER': 5}
+  OK     P-An  narrow-Zelle fehlt                                         5/5  {'HU_AUFLOESUNG': 5}
+  OK     P-B   Boden unterschritten (walsh)                               5/5  {'HU_BODEN': 5}
+  OK     P-Sa  butterfly gesaettigt (0,98)                                5/5  {'HU_SAETTIGUNG': 5}
+  OK     P-Sw  nur wht_fest ueber 0,95 -- kein Familienarm                5/5  {'STRUKTUR_BESSER': 5}
+  OK     P-X   dense fehlt bei walsh/200                                  5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     V-T   Passung traegt (+0,07)                                     5/5  {'PASSUNG_TRAEGT': 5}
+  OK     V-G   gleicher Vorsprung in beiden Basen                         5/5  {'GLEICHWERTIG': 5}
+  OK     V-S   Vorsprung nur in zufall                                    5/5  {'PASSUNG_SCHADET': 5}
+  OK     V-U   Nulleffekt, grosses Rauschen                               40/40  {'UNENTSCHIEDEN': 40}
+  OK     V-B   Boden unterschritten (zufall)                              5/5  {'HU_BODEN': 5}
+  OK     V-X   zufall fehlt ganz                                          5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     X-P   zufall fehlt -> PRIMAER trotzdem gerechnet                 5/5  {'STRUKTUR_BESSER': 5}
+  OK     T-T   Butterfly vor givens_zufall (+0,08)                        5/5  {'STRUKTUR_TRAEGT': 5}
+  OK     T-G   givens_zufall = butterfly, kleines Rauschen                5/5  {'GLEICHWERTIG': 5}
+  OK     T-L   givens_zufall +0,05 vor butterfly                          5/5  {'ZUFALLSVERDRAHTUNG_BESSER': 5}
+  OK     T-U   Nulleffekt, grosses Rauschen                               39/40  {'UNENTSCHIEDEN': 39, 'ZUFALLSVERDRAHTUNG_BESSER': 1}
+GENERATOR
+  OK     accuracy - balanced_accuracy NICHT konstant (sd je Arm > 0)
+  OK     gepaarte Differenz kippt mit dem Feld
+  OK     eigenes Rauschen: sd(butterfly - dense) 0.0107 ~ 0.0113
+MUTATIONSPRUEFUNG -- jeder absichtliche Fehler MUSS den Vortest durchfallen lassen
+      gefangen von P-S: 0/5 {'DICHT_BESSER': 5}
+      gefangen von P-D: 0/5 {'STRUKTUR_BESSER': 5}
+      gefangen von P-Ar: 0/5 {'DICHT_BESSER': 5}
+      gefangen von P-B: 0/5 {'DICHT_BESSER': 5}
+      gefangen von P-Sw: 0/5 {'DICHT_BESSER': 5}
+      gefangen von V-T: 0/5 {'PASSUNG_SCHADET': 5}
+      gefangen von V-S: 0/5 {'PASSUNG_TRAEGT': 5}
+      gefangen von V-B: 0/5 {'PASSUNG_SCHADET': 5}
+      gefangen von X-P: 0/5 {'DICHT_BESSER': 5}
+      gefangen von T-T: 0/5 {'ZUFALLSVERDRAHTUNG_BESSER': 5}
+      gefangen von T-L: 0/5 {'STRUKTUR_TRAEGT': 5}
+  OK     Mutation 'Metrikfeld accuracy statt balanced_accuracy' faellt durch
+      gefangen von P-G: 4/5 {'GLEICHWERTIG': 4, 'STRUKTUR_BESSER': 1}
+      gefangen von P-Gs: 0/5 {'STRUKTUR_BESSER': 5}
+  OK     Mutation 'Signifikanz VOR TOST' faellt durch
+      gefangen von P-Ar: 0/5 {'HU_AUFLOESUNG': 5}
+  OK     Mutation 'Aufloesung verlangt Richtung statt Trennung' faellt durch
+BESCHREIBENDER TEIL (Durchlauf auf synthetischen Daten) und N*
+
+RESEARCH ID Q-019W | Walsh-Signale, Familie bei N = 200
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), Grenze +-0.005
+  [PRIMAER] STRUKTUR_BESSER -- PRIMAER: die geteilte Butterfly (40 Winkel) schlaegt die dichte Drehung (65.536) bei N = 200 -- Dateneffizienz belegt; walsh: butterfly - dense: +0.0515, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+  [P2] PASSUNG_TRAEGT -- P2: der Vorsprung (butterfly - dense) ist in der Walsh-Basis groesser als in der zufaelligen Orthobasis -- er kommt aus der Passung, nicht nur aus der Parameterarmut; (butterfly - dense) walsh - (butterfly - dense) zufall: +0.0702, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+  [P3] STRUKTUR_TRAEGT -- P3: die Butterfly schlaegt dieselben 40 geteilten Givens-Winkel mit zufaelliger Verdrahtung -- die Kronecker-/Bitstruktur traegt, nicht die Teilung allein; walsh: butterfly - givens_zufall: +0.0841, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+KONTROLLEN  Aufloesung bestanden (dense-narrow +0.0833, p=0.0001) | Boden {'bestanden': True, 'bester': {'walsh': 0.6807169574582266, 'zufall': 0.5474156045722263}} | Saettigung keine
+
+LERNKURVEN (beschreibend) -- Mittel der balancierten Genauigkeit
+  Basis      Arm              N=50     N=200    N=1000    N=6000
+  walsh      butterfly           -    0.6501         -    0.8033
+  walsh      dense               -    0.5986         -    0.8499
+  walsh      givens_zufall         -    0.5659         -    0.7684
+  walsh      lowrank             -    0.4013         -    0.5505
+  walsh      wht_fest            -    0.6807         -    0.8468
+  walsh      untied              -    0.6186         -    0.8278
+  walsh      narrow              -         -         -    0.7666
+  zufall     butterfly           -    0.5287         -         -
+  zufall     dense               -    0.5474         -         -
+  zufall     givens_zufall         -    0.5178         -         -
+  zufall     lowrank             -    0.3480         -         -
+  zufall     wht_fest            -    0.4509         -         -
+  zufall     untied              -    0.5381         -         -
+  Uebergangspunkt N* (walsh): Bereich 200..6000, linear interpoliert ~1193
+  Uebergangspunkt N* (zufall): Bereich <= 200
+
+BESCHREIBEND (ohne Holm, kein Urteil haengt daran)
+  N=200     walsh/butterfly - walsh/wht_fest    -0.0306  p=0.0001  TOST p=1.0000  Unterschied (b besser)     erreicht das Lernen die feste WHT?
+  N=6000    walsh/butterfly - walsh/wht_fest    -0.0435  p=0.0001  TOST p=1.0000  Unterschied (b besser)     erreicht das Lernen die feste WHT?
+  N=200    zufall/butterfly - zufall/wht_fest   +0.0778  p=0.0001  TOST p=1.0000  Unterschied (a besser)     erreicht das Lernen die feste WHT?
+  N=200        walsh/untied - walsh/butterfly   -0.0315  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Preis der Gewichtsteilung
+  N=6000       walsh/untied - walsh/butterfly   +0.0245  p=0.0001  TOST p=1.0000  Unterschied (a besser)     Preis der Gewichtsteilung
+  N=200         walsh/dense - zufall/dense      +0.0511  p=0.0001  TOST p=1.0000  Unterschied (a besser)     Plausibilitaet: dense sieht keine Basis
+  N=6000    walsh/butterfly - walsh/dense       -0.0466  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Anschluss Q-019 (walsh)
+
+BEWERTUNG: STRUKTUR_BESSER | PASSUNG_TRAEGT | STRUKTUR_TRAEGT
+================================================================================================
+  OK     N*-Interpolation {'bereich': '1000..6000', 'gemessen': 6000, 'n_stern': 1565.0845800732868}
+================================================================================================
+VORTEST BESTANDEN
+================================================================================================
+SAETTIGUNG -- 3 Anteile, Rauschen 0.45, Abstand 0.15, lr 0.01
+  walsh   N=200   butterfly  0.8595
+  walsh   N=200   dense      0.5260
+  walsh   N=200   givens_zufall 0.1597  <== unter dem Boden
+  walsh   N=200   lowrank    0.2012  <== unter dem Boden
+  walsh   N=200   wht_fest   0.8603
+  walsh   N=200   untied     0.4932
+  walsh   N=6000  butterfly  0.9103
+  walsh   N=6000  dense      0.9343
+  walsh   N=6000  givens_zufall 0.2035  <== unter dem Boden
+  walsh   N=6000  lowrank    0.3710
+  walsh   N=6000  wht_fest   0.9112
+  walsh   N=6000  untied     0.8735
+  zufall  N=200   butterfly  0.1417  <== unter dem Boden
+  zufall  N=200   dense      0.5210
+  zufall  N=200   givens_zufall 0.1700  <== unter dem Boden
+  zufall  N=200   lowrank    0.2138  <== unter dem Boden
+  zufall  N=200   wht_fest   0.1330  <== unter dem Boden
+  zufall  N=200   untied     0.5027
+  zufall  N=6000  butterfly  0.1810  <== unter dem Boden
+  zufall  N=6000  dense      0.9310
+  zufall  N=6000  givens_zufall 0.2190  <== unter dem Boden
+  zufall  N=6000  lowrank    0.3265
+  zufall  N=6000  wht_fest   0.1663  <== unter dem Boden
+  zufall  N=6000  untied     0.8623
+================================================================================================
+MACHT Q-019W -- 5 Seeds, lr 0.01 fest, N = 200
+  PRIMAER  Mittel +0.3157  sd 0.0121  nachweisbar ab 0.0109  TOST NICHT erreichbar (sd > 0,011)
+  P2       Mittel +0.6798  sd 0.0275  nachweisbar ab 0.0247  TOST NICHT erreichbar (sd > 0,011)
+  P3       Mittel +0.6779  sd 0.0183  nachweisbar ab 0.0164  TOST NICHT erreichbar (sd > 0,011)
+================================================================================================
+ZEITMESSUNG -- 6 Threads, 470 Schritte
+  butterfly     20.6 s
+  dense          2.0 s
+  givens_zufall    25.2 s
+  lowrank        1.9 s
+  wht_fest       1.2 s
+  untied        19.6 s
+  narrow         2.1 s
+  GESAMT geschaetzt 5.1 h

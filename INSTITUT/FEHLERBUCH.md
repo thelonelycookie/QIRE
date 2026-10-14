@@ -176,3 +176,100 @@ die Lehre schreibt ein Mensch (oder Claude) dazu.
 - **P-1**: HU: kein eindeutiges Urteil -- rho = -0.31, Bootstrap-90-%-KI [-0.69; -0.10], Permutations-p = 0.4737 (n = 8 Stufen); Holm ueber {P-1,P-2}: nicht signifikant (p = 0.4737)
 - **P-2**: HU: kein eindeutiges Urteil -- rho = -0.36, Bootstrap-90-%-KI [-0.57; +0.02], Permutations-p = 0.3930 (n = 8 Stufen); Holm ueber {P-1,P-2}: nicht signifikant (p = 0.3930)
 - **Lehre:** Der Rohlauf hatte einen kollabierten Seed (253, Rate 0,32 an der Stabilitaetskante -- exakt das dritte Mal in dieser Nacht nach C-referenz und I-003-struktur). Das verzerrte P-0 zu einem falschen H0 UND liess die population-basierte M50-Rechnung die Stufe 0 % Rauschen (den wichtigsten Ankerpunkt) als undefiniert (gewinn<=0) fallen -- P-1/P-2 liefen nur mit 8 von 10 Stufen. Robuste Nachrechnung (Modul-eigenes Instabilitaets-Kriterium, dieselbe auswertung()-Funktion, nur 2 kollabierte Seeds ausgeschlossen: 253 bei 0 %, 252 bei 85 %) mit allen 10 Stufen: P-0 jetzt richtungsrichtig (+3,9 pp, p=0,0625 -- n=5 kann 0,05 nicht erreichen, aber konsistent mit C-mnist/C-referenz), P-1 rho=-0,44 (KI [-0,70;-0,30], durchgehend negativ, aber Permutations-p=0,196 -- HU bleibt), P-2 sauberes H0 (rho=-0,14, TOST): Generalisierungsluecke sagt M50 NICHT voraus. Lehre (generalisiert, dritte Wiederholung): Die 'einfache Ratensuche ohne Stabilitaetsabstand aus Zeitgruenden' ist ein wiederkehrendes Muster mit vorhersagbarem Fehler -- ab sofort soll JEDES Modul mit dieser Vereinfachung eine automatische, im urteil() eingebaute Ausreisser-Erkennung (Modul-eigenes Instabilitaets-Kriterium) VOR der Urteilsbildung anwenden, nicht nur deskriptiv mitzaehlen. Inhaltlich bemerkenswert (nicht signifikant, aber gegenlaeufig zur I-003-Vermutung): der Punktschaetzer zeigt eher WENIGER Magiebedarf bei MEHR Label-Rauschen, nicht mehr -- passt nicht zur exploративen I-003-Beobachtung (Memorieren M50=8). Beide Datenpunkte (I-003 zwei Extreme, I-035 zehn Stufen) sind einzeln nicht belastbar; der Widerspruch selbst ist die eigentliche Erkenntnis: die Beziehung ist nicht so einfach monoton wie I-003 nahelegte.
+
+### 25.09.2026 17:22 — I-004-mnist (automatisch)
+- **R-2**: H0: nachtraeglich nachweislich nicht um >= 0.15 G besser (-0.112 G, KI oben +0.019) -- ein Training reicht
+- **R-3**: H0 (Gegenrichtung): auch im Geruest traegt Magie bei wenig Daten WENIGER (-0.222 G, p = 0.0029; 90-%-KI -0.300 .. -0.145)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 25.09.2026 23:00 — I-004-mnist (automatisch)
+- **R-2**: H0: nachtraeglich nachweislich nicht um >= 0.15 G besser (-0.112 G, KI oben +0.019) -- ein Training reicht
+- **R-3**: H0 (Gegenrichtung): auch im Geruest traegt Magie bei wenig Daten WENIGER (-0.222 G, p = 0.0029; 90-%-KI -0.300 .. -0.145)
+- *Identischer Wiederholungslauf des 17:22-Laufs (gleiche Seeds) — keine neue Stichprobe.*
+- **Lehre (28.09., fuer beide Eintraege):** R-2 ist ein *gutes* H0: Das teure
+  nachtraegliche Runden lohnt sich nicht, ein Training im zufaelligen
+  Clifford-Geruest reicht (R-1 H1, G = 0,69). R-3 widerlegt zum zweiten Mal
+  (nach I-024) die Erwartung „Magie hilft bei wenig Daten mehr“. Die Richtung
+  ist stabil: weniger Daten, weniger genutzte Magie. Diese Hypothese in keinem
+  neuen Modul mehr als Erwartung einsetzen. Prozess-Lehre: Der Lauf lag drei
+  Tage ausgewertet, aber uncommittet und ohne Laborbuch-Eintrag herum. Nach
+  jedem Lauf gilt deshalb: Laborbuch + Commit **im selben Zug**.
+
+### 28.09.2026 — I-005 (kein Fehlschlag, aber eine Lehre ueber fruehere Befunde)
+- Alle vier Tests H1. Diskrete Clifford-Suche 0,9352 gegen volles
+  Gradiententraining 0,9344 (beschreibend).
+- **Lehre:** Fast die ganze Magie-Linie hat die Magie gemessen, die der
+  **Gradient** braucht. Dass die Aufgabe sie braucht, war nie gezeigt. I-003
+  hatte es schon angedeutet (der Gradient findet die Lehrerloesung nicht).
+  Jede Kennzahl, die an einem Lernverfahren haengt (G(k), M50/M90), muss
+  kuenftig mit **zwei** Lernverfahren gemessen werden, bevor sie als
+  Eigenschaft der Aufgabe beschrieben wird. Der Kernsatz in `UEBERGABE.md` §4
+  („Nutzen sitzt in wenigen Magiewinkeln“) gilt nur noch mit dem Zusatz „beim
+  Gradiententraining“.
+- **Korrektur am selben Abend (I-005-v2):** Auf Fashion trägt die Magie
+  vorregistriert +1,31 pp (VOLL_BESSER, 20/20). Die Lehre oben war aus
+  **einem** Datensatz verallgemeinert, also genau der Fehler aus I-034-fashion.
+  Richtig ist: Auf MNIST braucht die Aufgabe keine Magie, auf Fashion schon.
+  Lehre dazu: Eine Deutung, die einen früheren Befund „auf den Kopf stellt“,
+  vor dem Aufschreiben auf dem zweiten Datensatz prüfen, nicht danach.
+
+## 05.10.2026 — I-036 im Container abgebrochen (kein Ergebnis, kein Befund)
+
+Der erste Container-Lauf von I-036 (gestartet 30.09. ~07:00) ist ohne
+Ergebnisdatei verschwunden: Der Cloud-Container wurde neu gestartet, der
+Prozess war weg. `walsh_kontrolle.py` hat keine Wiederaufnahme, also sind
+keine Zahlen entstanden — die Vorregistrierung bleibt unberührt. Neustart
+05.10. mit unveränderter Fassung.
+**Lehre (dieselbe Klasse wie Q-011):** Ein mehrstündiger Lauf ohne
+Zwischenstand ist im Cloud-Container genauso gefährdet wie auf dem PC mit
+Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
+(Muster `sprachmodell.py`, `weiter=True`), bevor sie im Container laufen.
+
+### 05.10.2026 16:42 — I-036 (automatisch)
+- **W-3**: H0 (Gegenrichtung): globale Walsh-Merkmale sind schlechter als die Pixelquadrate -- MNIST: d = -2.03 pp, 90-%-KI [-2.22; -1.83], TOST(+-0.5 pp) p = 1.0000, Holm-p_TOST = 1.0000, Wilcoxon p = 0.0000, Holm-p = 0.0000, 0/20 Seeds positiv; Sensitivitaet suche - id +3.57 pp (p = 0.0000)
+- **Lehre (Claude, 05.10.):** Vorhergesagt (Karte: „W-3 H0 Gegenrichtung“), also kein Fehlschlag des Verfahrens. Die globale Walsh-Transformation (k = 8, mischt alle Pixel) zerstört die Lokalität, die der lineare Kopf braucht; die feste Dosis-Kurve ist nicht monoton in k (block2x2 0,928 > block8x8 0,926 > block4x4 0,911 > walsh 0,881 auf MNIST). Folge: „Clifford = Walsh“ ist als globale Aussage widerlegt; die Frage verschiebt sich auf *lokale* Blockstruktur + Maske (I-036-v2).
+
+### 06.10.2026 06:50 — I-038 (automatisch)
+- **H-F-MNIST**: HU (d -0,04 pp, 90-%-KI [-0,39; +0,31], n 10, p_Holm 0.461)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 07:07 — I-040 (automatisch)
+- **PK-1**: HU PK_VERSAGT (Identitaet exakt 0.868 < 0.88) [0.868]
+- **H2**: HU PK_VERSAGT: Vorbedingung nicht erfuellt
+- **H3**: HU PK_VERSAGT: Vorbedingung nicht erfuellt
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 09:55 — I-040-v2 (automatisch)
+- **H3**: H0 ETA_NICHT_PROGNOSTISCH: rho 0.7, p 0.9333, Holm-p 0.9333, zensiert ['id']
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 10:09 — I-041 (automatisch)
+- **H3-MNIST**: HU (d -0,07 pp, 90-%-KI [-0,35; +0,21], n 10, p_Holm 0.652)
+- **H2-Fashion**: HU (d +0,44 pp, 90-%-KI [+0,07; +0,81], n 10, p_Holm 0.084)
+- **H3-Fashion**: H0 (Born-Vorsprung schrumpft, p_zweiseitig 0.0137; d -0,57 pp, 90-%-KI [-0,91; -0,24], n 10, p_Holm 0.993)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 13:37 — I-042 (automatisch)
+- **H1-CIFAR**: H0 (beide unterlegen um mehr als 1 pp; H1B: d -6,26 pp, 90-%-KI [-6,74; -5,77], n 5, p_Holm 1; H1E: d -6,18 pp, 90-%-KI [-6,69; -5,68], n 5, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 06.10.2026 15:54 — I-044 (automatisch)
+- **H1**: H0 (unterlegen um mehr als 1 pp; d -5,63 pp, 90-%-KI [-6,02; -5,23], n 5, p_Holm 1)
+- **H2**: H0 (S3 sicher schlechter als S1; d -1,50 pp, 90-%-KI [-1,88; -1,12], n 5, p_Holm 1)
+- **H4**: HU (d -0,67 pp, 90-%-KI [-1,13; -0,21], n 5, p_Holm 0.102)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 07.10.2026 07:07 — I-045 (automatisch)
+- **H1**: H0 (Sb um mehr als 0.02 bpc schlechter; d -0,0807 bpc, 90-%-KI [-0,0851; -0,0762], n 5, p_Holm 1)
+- **H2**: H0 (L sicher besser als S; d -0,0386 bpc, 90-%-KI [-0,0519; -0,0253], n 5, p_Holm 1)
+- **H3**: H0 (Sb sicher langsamer als D; d -1,2232 ln-Zeitverhaeltnis D/Sb, 90-%-KI [-1,3019; -1,1445], n 5, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 07.10.2026 09:56 — I-042-r (automatisch)
+- **H1-CIFAR**: H0 (beide unterlegen um mehr als 1 pp; H1B: d -6,33 pp, 90-%-KI [-6,50; -6,17], n 15, p_Holm 1; H1E: d -6,30 pp, 90-%-KI [-6,47; -6,14], n 15, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 07.10.2026 15:31 — I-044-v3 (automatisch)
+- **H1**: H0 (d -0,51 pp, 90-%-KI [-0,78; -0,23], n 8, p_Holm 1)
+- **H2**: HU (d -0,20 pp, 90-%-KI [-0,50; +0,10], n 8, p_Holm 1)
+- *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*

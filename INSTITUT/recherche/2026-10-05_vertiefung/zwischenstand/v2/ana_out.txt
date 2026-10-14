@@ -1,0 +1,106 @@
+
+### mnist Seeds 20 Identität 90.23 ± 0.31
+-- block2x2 (k=2)
+   keine Maske            92.74 ± 0.31
+   Rang 2: Mittel 91.81 ± 0.31 | Streuung zw. Formen (gleicher Seed) 0.00 pp | Spanne 91.4-92.6
+   Zufall, Rang gleichverteilt 0..k 92.28 ± 0.27
+   Bent kanon (i<->i+k/2) 91.81 ± 0.31 | Bent adj (i<->i+1) 91.81 ± 0.31 | Zufalls-Bent 91.81 ± 0.31
+     bent_kanon - keine             -0.94 pp ± 0.07 (se), 0/20 positiv
+     bent_kanon - Zufalls-Bent      +0.00 pp ± 0.00 (se), 0/20 positiv
+     bent_kanon - Zufall(Rang gl.)  -0.47 pp ± 0.04 (se), 0/20 positiv
+     Zufalls-Bent - keine           -0.94 pp ± 0.07 (se), 0/20 positiv
+     bent_adj - keine               -0.94 pp ± 0.07 (se), 0/20 positiv
+     bent_kanon - bent_adj          +0.00 pp ± 0.00 (se), 0/20 positiv
+-- block4x4 (k=4)
+   keine Maske            91.04 ± 0.34
+   Rang 2: Mittel 91.38 ± 0.48 | Streuung zw. Formen (gleicher Seed) 1.00 pp | Spanne 89.0-94.0
+   Rang 4: Mittel 91.76 ± 0.38 | Streuung zw. Formen (gleicher Seed) 0.60 pp | Spanne 89.7-93.3
+   Zufall, Rang gleichverteilt 0..k 91.39 ± 0.34
+   Bent kanon (i<->i+k/2) 92.63 ± 0.32 | Bent adj (i<->i+1) 90.30 ± 0.29 | Zufalls-Bent 91.76 ± 0.38
+     bent_kanon - keine             +1.59 pp ± 0.06 (se), 20/20 positiv
+     bent_kanon - Zufalls-Bent      +0.87 pp ± 0.07 (se), 20/20 positiv
+     bent_kanon - Zufall(Rang gl.)  +1.24 pp ± 0.06 (se), 20/20 positiv
+     Zufalls-Bent - keine           +0.73 pp ± 0.08 (se), 20/20 positiv
+     bent_adj - keine               -0.74 pp ± 0.06 (se), 0/20 positiv
+     bent_kanon - bent_adj          +2.33 pp ± 0.07 (se), 20/20 positiv
+-- block8x8 (k=6)
+   keine Maske            92.65 ± 0.35
+   Rang 2: Mittel 92.97 ± 0.32 | Streuung zw. Formen (gleicher Seed) 0.75 pp | Spanne 91.0-94.7
+   Rang 4: Mittel 92.81 ± 0.36 | Streuung zw. Formen (gleicher Seed) 0.71 pp | Spanne 90.5-94.5
+   Rang 6: Mittel 92.85 ± 0.39 | Streuung zw. Formen (gleicher Seed) 0.69 pp | Spanne 91.1-95.3
+   Zufall, Rang gleichverteilt 0..k 92.82 ± 0.28
+   Bent kanon (i<->i+k/2) 92.62 ± 0.33 | Bent adj (i<->i+1) 92.08 ± 0.39 | Zufalls-Bent 92.85 ± 0.39
+     bent_kanon - keine             -0.03 pp ± 0.05 (se), 8/20 positiv
+     bent_kanon - Zufalls-Bent      -0.23 pp ± 0.07 (se), 4/20 positiv
+     bent_kanon - Zufall(Rang gl.)  -0.20 pp ± 0.04 (se), 2/20 positiv
+     Zufalls-Bent - keine           +0.20 pp ± 0.08 (se), 15/20 positiv
+     bent_adj - keine               -0.57 pp ± 0.09 (se), 2/20 positiv
+     bent_kanon - bent_adj          +0.54 pp ± 0.08 (se), 19/20 positiv
+-- global8 (k=8)
+   keine Maske            88.23 ± 0.47
+   Rang 2: Mittel 89.95 ± 0.46 | Streuung zw. Formen (gleicher Seed) 1.13 pp | Spanne 86.3-92.2
+   Rang 4: Mittel 91.10 ± 0.39 | Streuung zw. Formen (gleicher Seed) 1.01 pp | Spanne 87.4-92.8
+   Rang 6: Mittel 91.57 ± 0.30 | Streuung zw. Formen (gleicher Seed) 0.71 pp | Spanne 88.5-93.5
+   Rang 8: Mittel 91.86 ± 0.29 | Streuung zw. Formen (gleicher Seed) 0.54 pp | Spanne 90.0-93.1
+   Zufall, Rang gleichverteilt 0..k 90.54 ± 0.25
+   Bent kanon (i<->i+k/2) 91.53 ± 0.38 | Bent adj (i<->i+1) 90.17 ± 0.41 | Zufalls-Bent 91.86 ± 0.29
+     bent_kanon - keine             +3.29 pp ± 0.11 (se), 20/20 positiv
+     bent_kanon - Zufalls-Bent      -0.33 pp ± 0.08 (se), 4/20 positiv
+     bent_kanon - Zufall(Rang gl.)  +0.99 pp ± 0.07 (se), 20/20 positiv
+     Zufalls-Bent - keine           +3.62 pp ± 0.11 (se), 20/20 positiv
+     bent_adj - keine               +1.94 pp ± 0.11 (se), 20/20 positiv
+     bent_kanon - bent_adj          +1.36 pp ± 0.12 (se), 20/20 positiv
+
+
+### fashion_mnist Seeds 14 Identität 79.93 ± 0.33
+-- block2x2 (k=2)
+   keine Maske            82.30 ± 0.35
+   Rang 2: Mittel 80.59 ± 0.28 | Streuung zw. Formen (gleicher Seed) 0.00 pp | Spanne 80.0-81.1
+   Zufall, Rang gleichverteilt 0..k 81.45 ± 0.29
+   Bent kanon (i<->i+k/2) 80.59 ± 0.28 | Bent adj (i<->i+1) 80.59 ± 0.28 | Zufalls-Bent 80.59 ± 0.28
+     bent_kanon - keine             -1.71 pp ± 0.07 (se), 0/14 positiv
+     bent_kanon - Zufalls-Bent      +0.00 pp ± 0.00 (se), 0/14 positiv
+     bent_kanon - Zufall(Rang gl.)  -0.86 pp ± 0.03 (se), 0/14 positiv
+     Zufalls-Bent - keine           -1.71 pp ± 0.07 (se), 0/14 positiv
+     bent_adj - keine               -1.71 pp ± 0.07 (se), 0/14 positiv
+     bent_kanon - bent_adj          +0.00 pp ± 0.00 (se), 0/14 positiv
+-- block4x4 (k=4)
+   keine Maske            80.74 ± 0.40
+   Rang 2: Mittel 81.47 ± 0.39 | Streuung zw. Formen (gleicher Seed) 0.36 pp | Spanne 80.0-82.8
+   Rang 4: Mittel 81.08 ± 0.24 | Streuung zw. Formen (gleicher Seed) 0.27 pp | Spanne 80.4-81.9
+   Zufall, Rang gleichverteilt 0..k 81.09 ± 0.30
+   Bent kanon (i<->i+k/2) 81.07 ± 0.34 | Bent adj (i<->i+1) 80.78 ± 0.33 | Zufalls-Bent 81.08 ± 0.24
+     bent_kanon - keine             +0.33 pp ± 0.08 (se), 12/14 positiv
+     bent_kanon - Zufalls-Bent      -0.01 pp ± 0.04 (se), 6/14 positiv
+     bent_kanon - Zufall(Rang gl.)  -0.03 pp ± 0.04 (se), 8/14 positiv
+     Zufalls-Bent - keine           +0.34 pp ± 0.09 (se), 11/14 positiv
+     bent_adj - keine               +0.04 pp ± 0.14 (se), 7/14 positiv
+     bent_kanon - bent_adj          +0.28 pp ± 0.08 (se), 10/14 positiv
+-- block8x8 (k=6)
+   keine Maske            81.53 ± 0.45
+   Rang 2: Mittel 81.71 ± 0.35 | Streuung zw. Formen (gleicher Seed) 0.39 pp | Spanne 80.2-82.7
+   Rang 4: Mittel 81.86 ± 0.33 | Streuung zw. Formen (gleicher Seed) 0.47 pp | Spanne 80.2-83.1
+   Rang 6: Mittel 81.82 ± 0.36 | Streuung zw. Formen (gleicher Seed) 0.40 pp | Spanne 80.6-82.8
+   Zufall, Rang gleichverteilt 0..k 81.73 ± 0.33
+   Bent kanon (i<->i+k/2) 81.66 ± 0.51 | Bent adj (i<->i+1) 81.34 ± 0.32 | Zufalls-Bent 81.82 ± 0.36
+     bent_kanon - keine             +0.13 pp ± 0.12 (se), 8/14 positiv
+     bent_kanon - Zufalls-Bent      -0.16 pp ± 0.11 (se), 5/14 positiv
+     bent_kanon - Zufall(Rang gl.)  -0.07 pp ± 0.10 (se), 5/14 positiv
+     Zufalls-Bent - keine           +0.29 pp ± 0.11 (se), 11/14 positiv
+     bent_adj - keine               -0.18 pp ± 0.13 (se), 4/14 positiv
+     bent_kanon - bent_adj          +0.31 pp ± 0.13 (se), 9/14 positiv
+-- global8 (k=8)
+   keine Maske            79.53 ± 0.36
+   Rang 2: Mittel 80.43 ± 0.32 | Streuung zw. Formen (gleicher Seed) 0.51 pp | Spanne 78.8-82.0
+   Rang 4: Mittel 81.14 ± 0.32 | Streuung zw. Formen (gleicher Seed) 0.59 pp | Spanne 79.4-82.9
+   Rang 6: Mittel 81.81 ± 0.31 | Streuung zw. Formen (gleicher Seed) 0.50 pp | Spanne 80.1-82.9
+   Rang 8: Mittel 82.08 ± 0.36 | Streuung zw. Formen (gleicher Seed) 0.36 pp | Spanne 80.7-83.0
+   Zufall, Rang gleichverteilt 0..k 81.00 ± 0.28
+   Bent kanon (i<->i+k/2) 81.49 ± 0.42 | Bent adj (i<->i+1) 81.25 ± 0.34 | Zufalls-Bent 82.08 ± 0.36
+     bent_kanon - keine             +1.96 pp ± 0.14 (se), 14/14 positiv
+     bent_kanon - Zufalls-Bent      -0.59 pp ± 0.09 (se), 1/14 positiv
+     bent_kanon - Zufall(Rang gl.)  +0.49 pp ± 0.10 (se), 12/14 positiv
+     Zufalls-Bent - keine           +2.55 pp ± 0.10 (se), 14/14 positiv
+     bent_adj - keine               +1.72 pp ± 0.11 (se), 14/14 positiv
+     bent_kanon - bent_adj          +0.24 pp ± 0.09 (se), 11/14 positiv
+

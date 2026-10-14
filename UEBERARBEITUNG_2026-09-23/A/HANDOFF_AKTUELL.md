@@ -9,6 +9,42 @@ bleibt für den Verlauf bis dahin gültig.
 
 ---
 
+## 000. Stand 28. September (neuester Abschnitt, zuerst lesen)
+
+- **Q-020 ist gerechnet.** Alle drei Hypothesen halten, jeweils 15/15 Seeds,
+  und `q_audit` ist grün:
+  - PRIMÄR: 16 Winkel schlagen das faire ReLU-MLP, +0,0113 auf dem
+    offiziellen MNIST-Testsatz. Der Mechanismus ist die klassische
+    Kronecker-Drehung (`kron` ist gleichwertig).
+  - Verschränkung und Tiefe tragen ohne Encoder: +0,34 bzw. +0,33. Klassisch
+    geht es dort aber besser (1,000).
+  - Die Kurzfassung ist gefüllt. Details im Tagebuch, 28.09.
+- **T-002:** Der Zusatzarm `butterfly_ffn_zentriert` läuft standardmäßig mit.
+  Der Bedarf liegt bei 74–93 GPU-h (die alte Angabe „30–35 h“ war falsch).
+- **Q-019W gerechnet, alle H1:**
+  - Butterfly (40) schlägt dense (65.536) bei N = 200 um +0,31.
+  - N\* ≈ 3.100.
+  - Butterfly ≈ feste WHT (0 Parameter).
+  - Die Teilung der Winkel ist der Grund.
+  - Die P3-Kontrolle `lowrank` war ein Strohmann und wurde vor dem Lauf durch
+    `givens_zufall` ersetzt.
+  - Details im Tagebuch, 28.09. Die Kurzfassung ist ergänzt (zweite KI-Art).
+- **Institut:** I-005-v2 (Clifford-Suche gegen volles Training, MNIST +
+  Fashion, TOST, 20 Seeds) läuft seit dem 28.09. abends.
+- **Neuer Chatbot-Weg T-004**, Entwurf `ENTWURF_T004_CHATBOT_ADAPTER.md`:
+  QIRE-Kronecker-Drehung mit 11 Winkeln je Matrix als Adapter auf
+  LLäMmlein-1B (Breite 2048 = 2¹¹), im Vergleich mit LoRA/BOFT, auf Kaggle.
+  Offen: `transformers`/`peft` installieren und das Modell herunterladen
+  (Freigabe Malte).
+- **Recherchen:** `../BERICHT/RECHERCHE_2026-09-28/` (01–05) und
+  `../../INSTITUT/recherche/`. Malte will **keine Abgrenzung** von fremden
+  Arbeiten. Fremde Ideen mitbenutzen ist erwünscht, nur im
+  Quellenverzeichnis nennen.
+- **Jugend forscht:** höchstens 15 Seiten, kein Anhang, KI-Nutzung angeben
+  (Recherche 04).
+- **Institut:** I-004-mnist ist ausgewertet (R-1 H1: ein Training im
+  Clifford-Gerüst genügt). I-005 lief am 28.09.
+
 ## 00. Das Erste (23. September): der Gesamtreview und was daraus folgt
 
 Zwischen dem 30. August und dem 23. September ist **kein Lauf** gerechnet

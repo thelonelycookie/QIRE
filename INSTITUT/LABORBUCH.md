@@ -817,3 +817,714 @@ in einer Nacht (C-referenz, I-003-Struktur, jetzt I-035) — immer dieselbe
 Ursache: Ratensuche ohne Stabilitätsabstand aus Zeitgründen. Ab sofort
 gehört eine automatische Ausreißer-Erkennung vor die Urteilsbildung, nicht
 nur als deskriptiver Zähler danach.
+
+## 25.09.2026, 17:22 (nachgetragen 28.09.) — I-004-mnist: **ein Training genügt** ✔
+
+MNIST, n = 500 und n = 10.000. Rohdaten `ergebnisse/I-004-mnist__20260925_172251.json`.
+Der Lauf wurde um 23:00 ein zweites Mal gestartet und lieferte **identische**
+Urteile und Zahlen (`…_230020.json`). Das ist keine zweite Stichprobe, zeigt
+aber, dass die Pipeline deterministisch reproduziert. Nachgetragen am 28.09.,
+weil der Lauf nie ausgewertet und committet worden war.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| R-0 (Nachtraining schlägt Identität, n = 10.000) | H1 | +3,98 pp, p = 0,002 |
+| R-P (Gradient erreicht im bekannten Gerüst die Nachtrain-Lösung) | H1 | fest2 − nach2 = −0,12 G, KI −0,19 … −0,06 |
+| **R-1 (zufälliges Clifford-Gerüst + 4 Magiewinkel, EIN Training)** | **H1** | **G = 0,69**, Holm-p = 0,0059 |
+| R-2 (nachträgliches Runden schlägt das Gerüst um ≥ 0,15 G) | H0 | −0,11 G, KI oben +0,02 |
+| R-3 (Gerüst regularisiert bei wenig Daten) | H0, Gegenrichtung | −0,22 G, p = 0,003 |
+
+- **R-1 + R-2 zusammen sind praktisch wichtig.** Man braucht weder ein volles
+  Training noch ein nachträgliches Runden. Ein **zufälliges** Clifford-Gerüst,
+  in dem von Anfang an nur 4 Winkel magisch und trainierbar sind, holt mit
+  **einem** Training 69 % des Nutzens. Das nachträgliche Runden (zwei
+  Trainings) ist nachweislich nicht um 0,15 G besser. Für Hardware heißt das:
+  Die Schaltung braucht höchstens 4 Nicht-Clifford-Winkel, und das steht
+  schon *vor* dem Training fest.
+- **R-3 repliziert I-024 in der Gegenrichtung:** Auch im Gerüst trägt die Magie
+  bei wenig Daten **weniger** bei (G sinkt von n = 10.000 auf 500). Die Idee
+  „Clifford-Gerüst als Regularisierer für Datenknappheit“ ist damit zweimal
+  widerlegt.
+- Beschreibend: Bei n = 10.000 liegt das volle Training 1,24 pp über gz4
+  (p = 0,002). Der Rest des Nutzens sitzt also in mehr als 4 Winkeln. Der
+  I-001-Vorblick zeigt eine hohe Übereinstimmung der Rangfolgen „nach
+  Verlust“ und „nach Abstand“ (Spearman +0,97/+0,98).
+- Offen, und der natürliche nächste Schritt: R-1 auf **Fashion** (I-034-fashion
+  hat gezeigt, dass MNIST-Befunde dort nicht automatisch halten).
+
+## 28.09.2026, 12:09 — I-005: **Diskrete Suche findet reine Clifford-Schaltungen auf dem Niveau des vollen Trainings** ✔✔
+
+MNIST 16×16, 10 Mess-Seeds (190–199), Strukturaufgabe mit Seeds 200–209.
+Simulated Annealing über 2^(nL) Clifford-Wahlen, 6.000 Schritte. Auswahl nur
+nach Ridge-LOO auf Nicht-Testdaten, ein gemeinsamer L-BFGS-Kopf für alle Arme.
+Rohdaten `ergebnisse/I-005__20260928_120905.json`, 49 min. Vorregistriert und
+committet vor dem Lauf.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| Q-0 Positivkontrolle (Lehrer-Lösung finden) | **H1** | G_L = 0,96, Lehrer-äquivalent in 8/10 Seeds (Zufallssuche gleichen Aufwands: 2/10) |
+| Q-1 Suche gegen Median von 100 Zufalls-Cliffords | **H1** | +2,56 pp, KI [+2,25; +2,87], 10/10, Holm-p = 0,006 |
+| Q-2 Suche gegen k0 (gerundetes Gradientenmodell) | **H1** | +3,38 pp, KI [+2,56; +4,19], 10/10, Holm-p = 0,006 |
+| Q-4 Suche gegen Zufallssuche gleicher Bewertungszahl | **H1** | +1,09 pp, KI [+0,63; +1,55], 9/10, Holm-p = 0,006 |
+
+**Beschreibend (Q-3), Test:**
+
+| Arm | Genauigkeit |
+|---|---|
+| Suche (**0 Magiewinkel**) | **0,9352** |
+| voll trainiert (alle Winkel frei) | 0,9344 |
+| beste von 100 Zufalls-Cliffords | 0,9230 |
+| k0 (gerundet) | 0,9014 |
+| Identität | 0,8969 |
+
+- G_voll der Suche ist **1,02**, der von k0 nur 0,12.
+- Siegerfluch: Kriterium minus Test liegt bei +0,46 pp. Die Auswahl
+  überschätzt sich leicht.
+- Aufwand: 5.242 Bewertungen, also 544 s Suche gegen 133 s Gradiententraining
+  je Seed.
+
+**Was das heißt:**
+1. **Die Positivkontrolle, an der I-003 gescheitert ist, feuert jetzt.** Das
+   Lernverfahren war das Problem, nicht die Aufgabe. Eine diskrete Suche findet
+   die Clifford-Lösung, der Gradient nicht.
+2. **Das stellt die Magie-Linie auf den Kopf:** Auf MNIST braucht die Zelle
+   **gar keine Magie**, wenn man sie nicht per Gradient, sondern diskret
+   trainiert. Suche und volles Training liegen gleich auf (0,9352 gegen
+   0,9344). Das ist nur beschreibend, ohne TOST, und gehört als nächste
+   vorregistrierte Frage auf die Agenda. Die „Magie-Konzentration“ aus
+   C-mnist/C-referenz misst also vermutlich vor allem, **wie viel Magie der
+   Gradient braucht**, nicht wie viel die Aufgabe braucht.
+3. **Ehrlich dazu gehört:** Reine Clifford-Schaltungen sind nach
+   Gottesman-Knill klassisch effizient simulierbar. Eine gute Clifford-Zelle
+   ist damit ein Befund über **Hardware-Kosten** (0 T-Gatter, kein
+   Magic-State-Distilling), nicht über einen Quantenvorteil. Für
+   Q3-Hardware ist sie ideal, für „Quantenvorteil“ ist sie das Gegenteil.
+4. Kaskade: Die Suche ist bei 61,6 % der Bilder sehr sicher (Konfidenz > 0,9),
+   k0 nur bei 48,2 %. Eine Clifford-Stufe 0 aus der Suche würde die
+   Hybrid-Kaskade (I-015-hybrid) noch billiger machen.
+
+**Folgefragen (Stand 12:09, beantwortet in I-005-v2, siehe unten):** Repliziert das auf Fashion (I-005-fashion)? Suche gegen voll
+per TOST, vorregistriert. Braucht Fashion (G(4) ≈ 1,0 aus C-fashion) dann
+ebenfalls keine Magie? Und: Suche plus k Magiewinkel, also ein diskretes
+Gerüst mit Politur, statt eines zufälligen Gerüsts wie in I-004.
+
+## 28.09.2026, 20:34 — I-005-v2: **MNIST braucht keine Magie, Fashion schon** ✔
+
+MNIST und Fashion-MNIST 16×16, **je 20 Seeds** (300–309 + 330–339 bzw.
+310–319 + 340–349). Strukturaufgabe 360–369. Die Lernrate von `voll` wurde je
+Datensatz mit Stabilitätsabstand gesucht (Ergebnis 0,08 bzw. 0,16), die
+Kopf-L2 je Datensatz auf eigenen Tuning-Seeds (beide 0,003).
+Rohdaten `ergebnisse/I-005-v2__20260928_203403.json`, etwa 3,3 h. Vortest und
+Rauchtest bestanden, committet vor dem Lauf.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| Q-0 Positivkontrolle | H1 | G_L = 0,94, Lehrer-äquivalent 6/10 (Zufallssuche 1/10) |
+| **V-1 MNIST: Suche gegen voll** | **GLEICHWERTIG** | d = −0,14 pp, KI [−0,39; +0,11], Holm-p_TOST = 0,032, Sensitivität voll − id +3,91 pp |
+| **V-2 Fashion: Suche gegen voll** | **VOLL_BESSER** | d = **−1,31 pp**, KI [−1,40; −1,21], 0/20 Seeds positiv, Holm-p < 10⁻⁴ |
+| V-3 Fashion: Suche gegen Median Zufall | H1 | +0,73 pp, 20/20 |
+
+**Beschreibend:**
+
+| | Suche | voll | k0 | Median Zufall | Identität | G_voll(Suche) |
+|---|---|---|---|---|---|---|
+| MNIST | 0,9391 | 0,9405 | 0,9094 | 0,9135 | 0,9013 | 0,96 |
+| Fashion | 0,8238 | 0,8368 | 0,8161 | 0,8165 | 0,7995 | 0,65 |
+
+**Was das heißt:**
+1. **Auf MNIST ist „keine Magie nötig“ jetzt vorregistriert belegt**, gegen
+   einen fair getunten Gegenarm: 0 T-Gatter bei gleicher Genauigkeit
+   (±0,5 pp). Das erste GLEICHWERTIG der Magie-Linie.
+2. **Auf Fashion trägt die Magie wirklich etwas bei:** Die beste Clifford-
+   Schaltung holt nur 65 % des Schaltungsgewinns. Das passt zu C-fashion
+   (dort brauchte es mehr Magiewinkel). Der Magiebedarf ist also eine
+   **Eigenschaft der Aufgabe**, nicht nur des Gradienten. Das korrigiert die
+   Deutung von I-005 (12:09): Dort war die Vermutung „misst nur den Gradienten“
+   aus MNIST allein zu weit gegriffen.
+3. **Zwei `voll`-Seeds sind auf Fashion kollabiert** (314, 315, eigener Kopf
+   mehr als 5 pp unter dem Median). Der Kollaps macht `voll` schlechter,
+   VOLL_BESSER ist also konservativ. Das Urteil hält auch ohne die beiden
+   Seeds (0/20 positiv). Der Zweig VOLL_BESSER prüft den Kollaps nicht; das ist
+   hier unschädlich, gehört aber in den nächsten Modulbau.
+4. Ehrlich dazu: Clifford-Schaltungen sind klassisch effizient simulierbar.
+   „Gleichwertig auf MNIST“ ist ein Befund über **Hardware-Kosten**
+   (0 T-Gatter), kein Quantenvorteil. Der Quantenanteil liegt genau in den
+   1,3 pp, die Fashion zusätzlich braucht.
+
+**Nächste Frage (natürliche Folge):** Wie viele Magiewinkel **auf der
+gesuchten Clifford-Schaltung** schließen die Fashion-Lücke? Das hieße
+Suche + k polierte Nicht-Clifford-Winkel, k ∈ {1, 2, 4, 8}. Damit würde
+„M50/M90 einer Aufgabe“ zum ersten Mal unabhängig vom Gradienten-Startpunkt
+gemessen.
+
+## 29.09.2026, 16:20 — I-005-v3: 4 Magiewinkel schließen die halbe Fashion-Lücke, 8 nicht die ganze ✔
+
+Fashion-MNIST 16×16, 20 Seeds (420–439), Tuning 960–962. Rohdaten
+`ergebnisse/I-005-v3__20260929_162054.json`. Vorregistriert und committet am
+28.09. Der erste Lauf ging am 28.09. um 23:04 beim Herunterfahren des
+Rechners verloren; er hatte keine Messzahl gesichert. Am 29.09. um 13:30 neu
+gestartet, mit unverändertem Code.
+
+| Test | Urteil | Zahl |
+|---|---|---|
+| **M-1** k8 (Verlust-Auswahl) gegen voll | **VOLL_BESSER** | −0,43 pp, KI [−0,63; −0,24], 3/20 positiv, Holm-p = 0,002 |
+| **M-2** k2 nach Verlust gegen k2 zufällig | **H1** | +0,30 pp, KI [+0,10; +0,49], 15/20, Holm-p = 0,024 |
+| **M-3** voll gegen suche (Replikation I-005-v2 V-2) | **H1** | +1,38 pp, 20/20 |
+
+Kein Kollaps bei den Urteilsarmen. Nur `k32_alle` ist auf Seed 420
+kollabiert (beschreibender Arm).
+
+**Dosis-Wirkung (beschreibend):** G_S(k) ist der Anteil der Lücke
+suche → voll, der geschlossen wird.
+
+| k | 0 | 1 | 2 | 4 | 8 | 32 (alle ab Suche) |
+|---|---|---|---|---|---|---|
+| nach Verlust | 0 | 0,21 | 0,43 | **0,57** | 0,69 | 0,42 |
+| zufällig | 0 | 0,13 | 0,22 | 0,36 | 0,51 | – |
+
+→ **M50_S = 4 Magiewinkel (≈ 123 T-Gatter)**, M90_S > 8.
+
+**Was das heißt:**
+1. **Der Magiebedarf von Fashion ist jetzt unabhängig vom Gradienten-Start
+   gemessen:** Auf der besten Clifford-Schaltung schließen 4 gezielt
+   gewählte Nicht-Clifford-Winkel die halbe Lücke. Die volle Lücke schließen
+   auch 8 nicht (Restlücke 0,43 pp).
+2. **Die Auswahl nach Verlust trägt** (M-2), besonders bei kleinem k. Die
+   Magie-Konzentration gibt es also auch über der Clifford-Suche.
+3. **Die Überraschung: `k32_alle` (alle 32 Winkel ab der Suche-Schaltung
+   nachtrainiert) erreicht nur 0,42**, also *weniger* als k = 8 und 0,80 pp
+   hinter voll aus dem Zufallsstart. Die Suche liegt in einem anderen Becken
+   der Verlustlandschaft als das Gradiententraining, und der Gradient kommt
+   von dort nicht zur besseren Lösung. Das ist die in der Karte vorab
+   genannte Folgefrage („sonst sitzt die Suche in einem anderen Becken“), jetzt
+   beantwortet. Einschränkung: nur beschreibend, und ein Seed ist kollabiert.
+4. **Einordnung:** Die Rz-Drehungen sind auf heutiger Hardware virtuell
+   (Recherche 29.09. Hardware). Die T-Gatter-Zahl zählt erst bei
+   fehlertoleranten Rechnern. Auf NISQ ist „0 bzw. 4 Magiewinkel“ vor allem ein
+   Befund über klassische Simulierbarkeit.
+
+**Folgen:**
+- Gierige Auswahl oder k = 12/16, um die Restlücke zu schließen.
+- Die Klassische Kontrolle aus der Recherche 29.09.: quadrierte
+  Walsh-Hadamard-Merkmale ohne Suche. Erreichen sie die Suche, ist die
+  Clifford-Zelle auf MNIST ein Walsh-Klassifikator, was Q-019W und die
+  Institutslinie verbinden würde.
+- Die Becken-Frage: Suche + k32 mit kleinerer Rate oder mehr Schritten.
+
+## 05.10.2026, 16:42 — I-036: Die Clifford-Suche ist kein Walsh-Klassifikator — weder global noch als fester 2×2-Block ✔
+
+`ergebnisse/I-036__20261005_164224.json`, vorregistriert und committet am
+29.09. (`f1a669a`), gerechnet im Cloud-Container (4 Prozesse, zweiter
+Anlauf; der erste ging mit einem Container-Neustart verloren, siehe
+FEHLERBUCH). 20 Mess-Seeds je Datensatz, gleicher L-BFGS-Kopf (L2 0,003),
+TOST ±0,5 pp, Holm über W-1…W-4.
+
+| Arm (Testgenauigkeit, Mittel 20 Seeds) | MNIST | Fashion |
+|---|---|---|
+| Suche (0 Magiewinkel) | **0,9371** | **0,8268** |
+| fester block2x2 (k=2) | 0,9278 | 0,8234 |
+| fester block8x8 (k=6) | 0,9256 | 0,8148 |
+| fester block4x4 (k=4) | 0,9107 | 0,8081 |
+| Zufalls-Clifford, bestes von 100 | 0,9280 | 0,8233 |
+| Zufalls-Clifford, Median | 0,9138 | 0,8180 |
+| Identität (Pixelquadrate) | 0,9015 | 0,8001 |
+| walsh_fest (global, k=8) | 0,8812 | 0,7968 |
+
+**Urteile (vorregistriert):**
+- Q-0 **H1**: Positivkontrolle — die Suche findet die Lehrer-Lösung
+  (lehrer-äquivalent in 6/10, Zufallssuche gleichen Aufwands 0/10).
+- W-1 **SUCHE_BESSER** (MNIST): Suche − walsh_fest = +5,59 pp,
+  KI [+5,30; +5,89], 20/20 Seeds, Holm-p < 10⁻⁴.
+- W-2 **SUCHE_BESSER** (Fashion): +3,00 pp, KI [+2,82; +3,18], 20/20.
+- W-3 **H0 (Gegenrichtung)**, wie vorhergesagt: walsh_fest − Identität =
+  −2,03 pp (MNIST), 0/20.
+- W-4 **SUCHE_BESSER** (MNIST): Suche − block2x2 = +0,93 pp,
+  KI [+0,67; +1,20], 19/20, Holm-p = 0,0001; TOST verfehlt (p = 0,99).
+  block2x2 war nur auf den Rauchtest-Seeds 942–947 gewählt (kein Siegerfluch
+  auf den Mess-Seeds).
+
+**Beschreibend:** Alle 20 + 20 Suchergebnisse haben Bruhat-Form, alle
+brauchen eine Vorzeichenmaske, keins ist Walsh-äquivalent. Blockdimension
+k der Suche: MNIST Mittel 5,7 (4–7), Fashion 6,45 (5–8). Auf Fashion liegt
+Suche − block2x2 nur bei +0,34 pp (14/20, außerhalb der Familie).
+
+**Was das heißt:**
+1. **„Die Clifford-Zelle ist ein verkappter Walsh-Klassifikator“ ist
+   widerlegt** — global klar (−5,6 pp), als fester lokaler 2×2-Block knapp
+   aber signifikant (−0,9 pp MNIST). Der 0-T-Befund aus I-005-v2 lässt sich
+   also *nicht* auf eine feste klassische Transformation zurückführen; die
+   gesuchte Maske/Blockwahl trägt.
+2. **Ehrliche Relativierung:** Ein fester 2×2-Block-Walsh *ohne jede Suche*
+   holt auf MNIST 72 % des Abstands Identität → Suche (0,9278 von 0,9371) und
+   liegt gleichauf mit dem besten von 100 Zufalls-Clifford-Schaltungen. Auf
+   Fashion ist der Rest-Vorsprung der Suche klein (+0,34 pp). Der größte Teil
+   des Clifford-Nutzens ist *lokale* Hadamard-Mischung; die Suche liefert den
+   letzten Prozentpunkt.
+3. Die feste Dosis-Kurve ist nicht monoton in k: lokal schlägt global. Das
+   passt zu Q-019W (Walsh trägt dort über Gewichtsteilung, nicht über
+   Globalität) und ist eine Brücke zur Hauptlinie A.
+
+**Folge (vorregistriert für W-4 SUCHE_BESSER):** Gesuchte Blockform mit
+fester Maske vs. volle Suche → trägt die Maske oder die Blockwahl? In der
+Agenda als **I-036-v2** (Status *idee*), vor dem Bauen Literatursuche
+(Vorgabe 7).
+
+## 05.10.2026, 18:24 — I-036-v2: Maske und Blöcke tragen nur **gemeinsam** — starke Wechselwirkung ✔
+
+`ergebnisse/I-036-v2__20261005_182417.json`, vorregistriert und committet vor
+dem Lauf (`2c669c9`), 66 min im Container (4 Prozesse, Wiederaufnahme je
+Seed, Zwischenstände committet). Modul `abteilungen/maske_block.py`
+(Forscher-Agent, Vortest vom Direktor wiederholt). Je Seed wird die gefundene
+Suchschaltung in Bruhat-Form (V_s, m_s) zerlegt und in vier Varianten mit
+demselben Kopf gemessen. 20/20 Seeds je Datensatz gültig.
+
+| Testgenauigkeit (Mittel 20) | MNIST | Fashion |
+|---|---|---|
+| suche (V_s + Maske m_s) | **0,9396** | **0,8247** |
+| block2x2 (fest, ohne Maske) | 0,9285 | 0,8226 |
+| block2x2_maske (fester Block + m_s) | 0,9266 | 0,8192 |
+| ohne_maske (V_s, Maske weg) | 0,9204 | 0,8012 |
+| Identität | 0,9014 | 0,8004 |
+
+**Urteile (vorregistriert):**
+- Q-0 **H1** (Lehrer-Lösung in 8/10), **P-0 bestanden**: suche − block2x2 =
+  +1,11 pp MNIST, 20/20 — I-036 W-4 repliziert auf frischen Seeds.
+- P-0F (Fashion) **durchgefallen**, wie vorhergesagt: +0,21 pp (< 0,5 pp).
+  → Keine Gleichwertigkeitsaussage aus dem Fashion-Teil (Regel 6); M-3 ist
+  eine Richtungsaussage.
+- **M-1 SUCHE_BESSER** (MNIST): suche − ohne_maske = +1,93 pp,
+  KI [+1,28; +2,57], 17/20, p < 10⁻⁴.
+- **M-3 SUCHE_BESSER** (Fashion): +2,36 pp, KI [+2,10; +2,62], 20/20.
+- M-2/M-4 beschreibend: Die Maske der Suche ist auf 2×2-Blöcken nur in 4/20
+  Seeds wirksam; dort *schadet* sie dem festen Block (−0,96 / −1,73 pp, 0/4).
+
+**Der eigentliche Befund (beschreibend, 2×2-Zerlegung):**
+Wechselwirkung **+2,12 pp** (MNIST, 17/20) und **+2,70 pp** (Fashion, 20/20).
+Die gesuchten Blöcke *ohne* ihre Maske sind schlechter als der einfache
+2×2-Block (MNIST −0,82 pp, Fashion −2,14 pp, 0/20), und die Maske *ohne* ihre
+Blöcke hilft auch nicht. Erst das Paar (V_s, m_s) liegt vorn.
+
+**Was das heißt:**
+1. Die Suche findet weder „gute Blöcke“ noch „eine gute Maske“ getrennt,
+   sondern **aufeinander abgestimmte Paare** aus Walsh-Unterraum und
+   quadratischer Vorzeichenmaske. Für eine Clifford-Schaltung ist das
+   natürlich: Die Bruhat-Form ist *eine* Gruppenoperation, deren Teile nur
+   zusammen eine sinnvolle Basis bilden. Die quadratische Phase (S-/CZ-Anteil)
+   ist also nicht schmückendes Beiwerk, sondern trägt die Hälfte des Nutzens.
+2. Damit ist die naheliegende klassische Abkürzung („nimm feste Block-Walsh-
+   Merkmale“) zweimal widerlegt (I-036 W-4, I-036-v2 M-1/M-3). Der 0-T-Befund
+   ist eine Leistung der **Suche im Clifford-Raum**, nicht einer festen
+   Transformation.
+3. Einschränkung: Alles ist exakt klassisch simulierbar (Gottesman-Knill);
+   die Aussage ist eine über die *Struktur* des Clifford-Raums als
+   Modellklasse, nicht über Quantenvorteil.
+
+**Folge (vorregistriert für M-1 SUCHE_BESSER):** Welche Maskeneigenschaft
+trägt — Rang der quadratischen Form, Transfer einer Maske zwischen Seeds?
+In der Agenda als **I-036-v3** (Idee).
+
+## 05.10.2026, 20:05 — I-036-v3: Der **Rang** der Maske trägt gut die Hälfte, die **konkrete Form** den Rest — und gute Formen sind übertragbar ✔
+
+`ergebnisse/I-036-v3__20261005_200505.json`, vorregistriert und committet vor
+dem Lauf (`db0a336`), 73 min im Container (4 Prozesse, Wiederaufnahme,
+Zwischenstände committet). Modul `abteilungen/maske_eigenschaft.py`
+(Forscher-Agent, Vortest vom Direktor wiederholt). Je Seed: gefundene
+Bruhat-Form (V_s, B_s); `zufall_gleicher_rang` = Median über 20 Formen
+B_r = PᵀB_sP mit P gleichverteilt in GL(k,2) (gleicher Rang der
+alternierenden Form, der vollen Invariante des merkmalswirksamen Teils).
+20/20 Seeds je Datensatz analysierbar, kein Rang-0-Seed.
+
+| Testgenauigkeit (Mittel 20) | MNIST | Fashion |
+|---|---|---|
+| suche (V_s, B_s) | **0,9359** | **0,8233** |
+| zufall_gleicher_rang (V_s, B_r) | 0,9238 | 0,8184 |
+| ohne_maske (V_s, 0) | 0,9105 | 0,8009 |
+| Identität | 0,9017 | 0,7993 |
+
+**Urteile (vorregistriert):**
+- Q-0 **H1** (Lehrer-Lösung 7/10). **P-0 und P-0F bestanden**: suche −
+  ohne_maske = +2,54 pp (MNIST, 20/20), +2,24 pp (Fashion, 20/20) — I-036-v2
+  M-1/M-3 auf frischen Seeds repliziert.
+- **R-1 SUCHE_BESSER** (MNIST): suche − zufall_gleicher_rang = +1,22 pp,
+  KI [+1,01; +1,42], 20/20, Holm-p < 10⁻⁴.
+- **R-2 ZUFALL_BESSER** (MNIST): zufall_gleicher_rang − ohne_maske = +1,32 pp,
+  KI [+0,67; +1,98], 14/20, Holm-p = 0,008.
+- **R-3 SUCHE_BESSER** (Fashion): +0,49 pp, KI [+0,37; +0,62], 19/20.
+- **R-4 ZUFALL_BESSER** (Fashion): +1,75 pp, KI [+1,53; +1,96], 20/20.
+- Zusammen (R-Z, beschreibend): **RANG_UND_FORM** auf beiden Datensätzen;
+  Anteil des Rangs am Maskengewinn **52 %** (MNIST), **78 %** (Fashion).
+  Genau die vor dem Lauf angesagte Vorhersage (RANG_UND_FORM, ~60 %).
+
+**Beschreibend:**
+- Rang ↔ Maskengewinn über Seeds: Spearman +0,79 (MNIST), +0,49 (Fashion);
+  Rang ↔ Zufallsmasken-Gewinn +0,90 (MNIST). Höherer Rang = mehr Nutzen.
+  Ränge MNIST {2: 4, 4: 6, 6: 10}, Fashion {2: 1, 4: 5, 6: 14}.
+- **Fremde Maske** (Form eines anderen Seeds, wo V_s ⊆ V_t; 16/20 MNIST):
+  fremde − ohne +2,19 pp, fremde − zufall +0,84 pp (16/16), suche − fremde nur
+  +0,29 pp. → **Gute Formen sind zwischen Seeds übertragbar**: Die Form ist
+  eher eine Eigenschaft der *Aufgabe* als des einzelnen Suchlaufs.
+- Siegerfluch der Formwahl (Vorsprung im LOO-Kriterium minus im Test):
+  +0,55 pp (MNIST), +0,99 pp (Fashion). Die Suche überschätzt ihren Vorsprung
+  im eigenen Kriterium; die Urteile oben sind aber auf dem Testsatz gemessen.
+  Auf Fashion ist der verbleibende Formvorteil (+0,49 pp) klein — knapp an der
+  TOST-Grenze, aber 19/20 positiv.
+
+**Was das heißt:**
+1. Der CZ/S-Anteil der Clifford-Schaltung (die quadratische Phase) wirkt auf
+   zwei Ebenen: Schon **wie viel** Verschränkungsphase (Rang der Form) zählt —
+   eine zufällige Form gleichen Rangs holt gut die Hälfte (MNIST) bis drei
+   Viertel (Fashion) des Gewinns. **Welche** Form, entscheidet den Rest.
+2. Der Rang einer quadratischen Form über GF(2) ist eine echte
+   Quanteneigenschaft der Schaltung (er bestimmt z. B. die Verschränkung des
+   zugehörigen Graphzustands). „Mehr Verschränkungsphase → bessere Merkmale“
+   ist damit über Seeds gemessen, nicht nur behauptet — innerhalb einer
+   klassisch simulierbaren Modellklasse.
+3. Übertragbarkeit legt eine billigere Methode nahe: eine gute Form einmal
+   suchen und für neue Seeds bzw. Blöcke wiederverwenden.
+
+**Folgen (vorregistriert):** R-1 SUCHE_BESSER → Form-Suche bei festem V_s und
+Rang (nur CZ/S-Lage); R-2 ZUFALL_BESSER → Dosis-Kurve über den Rang 0…k.
+Neu aus dem Beschreibenden: Übertragung einer festen „Aufgabenform“ auf neue
+Seeds als eigene Karte (Methode statt Suche je Seed).
+
+## 06.10.2026 — I-039 „MNIST mit ~100 Parametern“ vorregistriert (Modul `abteilungen/mnist100.py`)
+Vorregistrierung steht im Modulkopf (Arme a–f, Zählregel reell/Strukturbit/Bit-pro-pp, Hypothesen H1–H3, Holm, Kriterien
+und Urteilsstrings im Code). Seeds 2020–2039, Tuning-Seeds 2090–2092. Vortest (jeder Urteilszweig erzwungen) bestanden,
+Rauchtest 1 Seed (2095) gelaufen. **Offenlegung:** ein früher Rauchtest sah die Testzeile von Seed 2020 (150 Schritte);
+Kriterien blieben unverändert. Lauf nicht gestartet (wartet auf Freigabe E2).
+
+## 06.10.2026 — I-038 „Struktur-Äquivalenz“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Modul `abteilungen/struktur_aequivalenz.py`, Plan `PLAN_2026-10-06_gesamt.md` §2 P1, Vorlage `recherche/2026-10-05_vertiefung/v3_kontrollen.md`. Vortest (alle Urteilszweige erzwungen) und Rauchtest (1 Seed, kleine Daten) bestanden; der Volllauf ist **nicht** gestartet.
+
+- **Daten/Seeds:** MNIST und Fashion, 16×16, 6.000 Training / 5.000 Test je Seed; Seeds 2000–2019; Clifford-Suche gepaart nur auf 2000–2009; Tuning-Seed 2099 (Validierung 1.000 aus 6.000, nie Test).
+- **Arme (gleicher Kopf, Softmax-Regression, L2 3e-3, 2.570 P.):** Pixel-Softmax, Identität², Haar², Haar linear, Fastfood-2 (H·D₂·H·D₁)², QIRE L=4 Zufallswinkel / gelernt / ohne CNOT gelernt, Clifford-Suche, Cayley gelernt; Erweiterung: Haar-Mischung mit ReLU, tanh(a·z) (a auf Tuning-Seed), |z|, z² ohne Normierung von x, ReLU-MLP 256→9→10; Negativkontrolle Zufallslabel (Haar², permutierte Trainingslabels).
+- **Lernraten** (QIRE, QIRE ohne CNOT, Cayley, MLP) je Arm und Datensatz mit `gittersuche_stabil` auf Tuning-Seed 2099, 300 Adam-Schritte wie v3.
+- **Hypothesen, Holm x7 je Datensatz:** H-A QIRE ≡ Haar² (TOST ±0,5 pp); H-B QIRE ≡ QIRE-Zufallswinkel (TOST); H-C Fastfood-2 ≡ Haar² (TOST); H-D Haar² − Pixel-Softmax > 0; H-E Haar² − Haar linear > 0; H-F Suche < Haar² (einseitig, 10 Seeds); H-G Haar² ≥ bester klassischer Nichtlinearitäts-Arm (auf Tuning-Seed bestimmt; Superiorität einseitig, TOST zusätzlich mit Bonferroni x2). Cayley − QIRE nur berichtet, mit Parameterzählung.
+- **Kontrollen:** NK Zufallslabel-Mittel in [0,09; 0,115], sonst alle Urteile HU/UNKLAR. PK je Datensatz: H-D und H-E je Holm-signifikant mit ≥ 0,5 pp, sonst kein GLEICHWERTIG. Kollaps-Prüfung (Seed < Median − 5 pp) macht betroffene Urteile HU/UNKLAR.
+- **Urteile (Strings):** GLEICHWERTIG / X_BESSER / HU (A–C), HAAR_BESSER / H0 / HU (D), QUADRAT_TRAEGT / H0 / HU (E), SUCHE_NICHT_BESSER / H0 / HU (F), BORN_BESSER / GLEICHWERTIG / KLASSISCH_BESSER / UNKLAR (G). Kriterien: `urteil()` im Modul.
+- **Erwartung (v3):** H-A/B/C GLEICHWERTIG, H-D und H-E ja (+2,9/+1,6 bzw. +2,5/+1,2 pp), H-F SUCHE_NICHT_BESSER auf Fashion; H-G offen (Quadrat gegen |z| nur +0,5/+0,3 pp in v3, daher KLASSISCH_BESSER/GLEICHWERTIG möglich).
+- **Start:** `INSTITUT_PROZESSE=4 python direktor.py lauf I-038` (Wiederaufnahme je Seed über `ergebnisse/_zwischen_I-038.json`). Laufzeit ≈ 40–55 min bei 4 Prozessen.
+
+## 06.10.2026 — I-040 „Holevo-Wirkungsgrad“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Modul `abteilungen/holevo_wirkungsgrad.py`, Plan `PLAN_2026-10-06_gesamt.md` §2 P4, Vorlage `recherche/2026-10-05_vertiefung/v4_holevo_schuesse.md` (Erkundung, Seeds 960–969). Vortest (alle Urteilszweige auf synthetischen Daten erzwungen) bestanden; Rauchtest NUR auf dem Tuning-Seed 2098 (kleine Daten, Mini-Suche) gelaufen, **kein Mess-Seed 2050–2059 wurde berührt**. Volllauf **nicht** gestartet (wartet auf Freigabe E2).
+
+- **Frage:** Wie viel der Holevo-Größe χ_C nutzt eine Born-Auslese pro Schuss, und was kostet das an Genauigkeit unter Schussrauschen?
+- **Daten/Seeds:** MNIST 16×16 (6.000 Training / 5.000 offizielle Test), Mess-Seeds 2050–2059, Tuning-Seed 2098 (Validierung 1.200 der 6.000, nie Test). Fashion optional (`fashion=True`), nur beschreibend.
+- **Arme:** Identität, Haar-Orthogonale, Fastfood-2, feste Bent-4×4 (Rang 4, Kreuzkopplung), Clifford-Suche **seed-eigen** (wie I-038); Negativkontrolle (Identität, permutierte Labels).
+- **Köpfe** (Softmax-Regression, 2.570 P., L2 je Kopftyp auf Tuning-Seed 2098 aus {1e-3, 3e-3, 1e-2}, Gitter beidseitig verlängert): *exakt* (auf exakten Wahrscheinlichkeiten trainiert, auf Schusshäufigkeiten getestet) und *schussbewusst* (auf Häufigkeiten gleicher Schusszahl trainiert). S ∈ {10, 30, 100, 300, 1000}; 3 Schussrealisierungen je Testbild, beide Köpfe gepaart auf denselben Ziehungen.
+- **Maße:** I(Klasse; 1 Schuss) aus Test-Klassenmitteln (Prior = Trainingsanteile), χ_C aus Trainings-Zustandsmatrizen, η = I/χ_C; Schussbedarf S90 = log-lineare Kreuzung von 0,90 auf der seedgemittelten schussbewussten Kurve, nicht erreicht → zensiert (S90 := 2000).
+- **Hypothesen, Holm über 3:** H1 I(Identität) > I(Haar) und > I(Suche) (einseitiger exakter Wilcoxon, p = max beider, zusätzlich beide Mittel > 0). H2 schussbewusst − exakt > 0 bei S = 10, 30 und 100 (Mittel über die 5 Arme, je S einseitiger exakter Wilcoxon, p = max). H3 Spearman η ~ S90 über die 5 Arme, einseitig ρ < 0, exakter Permutationstest (5! Anordnungen, kleinster p = 1/120).
+- **Kontrollen:** PK-1 Identität exakter Kopf, S→∞ ≥ 0,88; PK-2 exakter Kopf S = 10 mindestens 10 pp unter S = 1000; NK Information < 0,03 Bit und Genauigkeit ≤ 0,15. NK fällt → alle Urteile HU; PK fällt → H2/H3 HU. Instabilität (≥ 2 Seeds unter Median − 5 pp, bewusster Kopf S = 100) → H2/H3 HU INSTABIL.
+- **Urteile (Strings):** H1 IDENTITAET_BESTE / H0 NICHT_UEBERLEGEN / HU NICHT_ENTSCHIEDEN; H2 SCHUSSBEWUSST_BESSER / H0 EXAKT_BESSER / H0 KEIN_VORTEIL / HU NICHT_ENTSCHIEDEN / HU INSTABIL / HU PK_VERSAGT; H3 ETA_SAGT_VORAUS / H0 ETA_NICHT_PROGNOSTISCH / HU ZENSIERT / HU NICHT_ENTSCHIEDEN / HU INSTABIL / HU PK_VERSAGT. Kriterien: `urteil()` im Modul.
+- **Erwartung (v4):** H1 ja (≈ 0,36 gegen ≈ 0,16 Bit, praktisch deterministisch). H2 bei S = 10/30 ja, bei S = 100 knapp; der Schnitt-Vereinigungs-Test ist streng. **H3 eher nein oder unentschieden**: In v4 hat die Identität das höchste η, erreicht aber 90 % nicht (zensiert), Bent/Suche haben weniger η und erreichen 90 % — das wäre die Gegenrichtung.
+- **Grenzen/Offenlegung:** Testbilder stammen aus denselben 10.000 offiziellen Bildern (sd über Seeds unterschätzt die Genauigkeitsunsicherheit); eine Schussziehung je Trainingsbild; Bent-Form fest; η-Neuheit nicht geprüft (Plan E4) — bis dahin nicht als neu formulieren. Beim Rauchtest wurden Zeitwerte gemessen (4 s je Kopf-Aufgabe, 0,06 s je Suchbewertung), keine Mess-Seed-Zahlen.
+- **Start:** `INSTITUT_PROZESSE=4 python direktor.py lauf I-040` (Wiederaufnahme je (Seed, Arm) in `ergebnisse/_zwischen_I-040/`). Laufzeit ≈ 20–25 min bei 4 Prozessen (Suche ≈ 6 min je Seed dominiert; Fashion +≈ 20 min).
+
+## 06.10.2026 – I-039 ERGEBNIS (MNIST mit ~100 Parametern, 20 Seeds 2020–2039, Container)
+Rohdaten: `ergebnisse/I-039__20261006_051108.json`. Offenlegung (siehe Vorregistrierung): Rauchtest einmal auf Seed 2020 mit 150 Schritten; die Kriterien waren da schon fixiert.
+- PK-1 OK (Voll-Kopf Haar² 92,1 %), PK-2 OK (klassisch d 74,8 %), NK OK (Zufallslabel 9,95 %).
+- **H1 BESTÄTIGT:** b_ff (Fastfood-Mischung → Born-Quadrat → Gruppensummen + 10×10-Kopf) **80,46 ± 0,81 %** bei **110 reellen Parametern** (Strukturbits: 882 formal / 3.046 streng).
+- **H2 ÜBERLEGEN:** b_ff − klassisch 5×5→3 tanh→10 (118 P.) = **+5,61 pp** (Holm-p < 10⁻⁴).
+- **H3 MISCHUNG_TRÄGT:** b_ff − quadrierte Pixel ohne Mischung = **+2,74 pp**.
+- Beschreibend: (a) nur 10 Bias 74,1/74,3 %; (e) Fisher-Top-9 63,4 %; (f) kopffreie Klassenregister-Auslese, 0 reelle Parameter: 71,7/72,7 %.
+- Einordnung: Das ist besser als die v1-Erkundung (76,4 %), weil Fastfood statt Bent verwendet und die Lernrate je Arm stabil gesucht wurde. Ein Vorteil gegenüber der klassischen Referenz bei gleicher Zahl reeller Parameter, aber mit ~900 Strukturbits. Der faire Vergleich nach Bits steht in H2 nicht und ist eine Folgefrage (klassische Arme mit gleichem Bitbudget).
+
+## 06.10.2026 – I-038 ERGEBNIS (Struktur-Äquivalenz, 20 Seeds 2000–2019, Suche gepaart 2000–2009, Container)
+Rohdaten: `ergebnisse/I-038__20261006_065007.json`. Kontrollen: Die NK ist bestanden (Zufallslabel 10,0 / 10,2 %), die PK (H-D/H-E) auf beiden Datensätzen ebenfalls.
+
+| Hypothese | MNIST | Fashion |
+|---|---|---|
+| H-A QIRE gelernt ≡ Haar² | GLEICHWERTIG (+0,18 pp) | GLEICHWERTIG (+0,10) |
+| H-B QIRE gelernt ≡ Zufallswinkel | GLEICHWERTIG (+0,22) | GLEICHWERTIG (+0,07) |
+| H-C Fastfood-2 ≡ Haar² | GLEICHWERTIG (+0,09) | GLEICHWERTIG (+0,01) |
+| H-D Haar² − Pixel-Softmax | **+2,84 pp** | **+1,43 pp** |
+| H-E Quadrat − linear | **+2,21 pp** | **+1,27 pp** |
+| H-F Suche < Haar² | HU (−0,04) | SUCHE_NICHT_BESSER (−1,11) |
+| **H-G Born² − beste klassische Nichtlinearität (|z|)** | **BORN_BESSER +0,35 pp** [0,27; 0,43] | GLEICHWERTIG (0,00) |
+
+Beschreibend: Cayley − QIRE +1,61 / +1,35 pp bei 35.210 gegen 2.602 Parametern.
+
+**Deutung:** v3 ist bestätigt. Die Zelle ist gleichwertig zu einer festen dichten Mischung (Haar oder Fastfood); gelernte Winkel tragen nichts Messbares. Die Born-Nichtlinearität (Quadrat) schlägt auf MNIST die beste klassische Alternative knapp (+0,35 pp), auf Fashion ist sie gleichwertig. Der Effekt ist klein, aber signifikant.
+
+Technik: `direktor.py` brach nach dem Sichern ab, weil die Folgen-Schlüssel in agenda.json „H-A GLEICHWERTIG“ statt „H-A:GLEICHWERTIG“ lauteten. Ich habe den Eintrag von Hand nachgetragen und die Schlüssel korrigiert.
+
+## 06.10.2026 – I-040 ERGEBNIS (Holevo-Wirkungsgrad, 10 Seeds 2050–2059, Container)
+Rohdaten: `ergebnisse/I-040__20261006_070724.json`.
+- **PK-1 VERSAGT:** Die Identität mit exaktem Kopf erreicht 0,868 < 0,88 (vorregistrierte Schwelle). Damit sind **H2 und H3 HU**, weil ihre Vorbedingung fehlt.
+- PK-2 OK, NK OK (I 0,004 Bit, acc 0,099).
+- **H1 IDENTITÄT_BESTE:** I(Klasse; 1 Schuss): Identität − Haar **+0,197 Bit**, Identität − Suche **+0,193 Bit** (Holm-p 0,003, 10/10 Seeds). **Dichte Mischung verschlechtert die Information pro Schuss**, obwohl sie die Genauigkeit bei exakter Auslese verbessert.
+- Vermutung zu PK-1: Die Schwelle 0,88 wurde aus v4 (andere Kopfregularisierung) übernommen und lag zu knapp. Kein nachträgliches Umdeuten; eine Wiederholung braucht eine neue Vorregistrierung (I-040-v2).
+
+## 06.10.2026 — I-040-v2 „Holevo-Wirkungsgrad, Wiederholung“: VORREGISTRIERUNG (vor jeder Zahl auf Mess-Seeds)
+
+Modul `abteilungen/holevo_wirkungsgrad_v2.py` (Docstring enthält alle Kriterien), Folge von I-040 (PK-1 versagt: Identität exakt 0,868 < 0,88; H2/H3 HU; H1 bestätigt). Vortest (jeder Urteilszweig erzwungen, inkl. PK-1-Grenze, H4-Zweige, Wiederaufnahme) bestanden; Rauchtest nur auf dem Tuning-Seed 2198 (kleine Daten). **Volllauf nicht gestartet** (wartet auf Maltes Zustimmung).
+
+- **Ursache der 0,868 (aus Dateien/Tuning-Seed, nicht aus Mess-Seeds):** I-038 hat Identität² = 0,9005 (MNIST) mit gleichem Datenumfang (6.000/5.000, 16×16), Kopf L2 = 3e-3, max_iter = 500. I-040 wählte L2 des exakten Kopfs auf Validierung **unter Schussrauschen** (0,09, 30× stärker) und max_iter = 200 → schlechtere Genauigkeit bei exakter Auslese. Bestätigung auf dem Tuning-Seed 2198 (Volldaten, nur Kopf): I-038-Kopf 0,904, I-040-Kopf 0,874, Pixel-Softmax 0,915 (Abstand −1,1 pp). Die absolute Schwelle 0,88 kam aus v4 ohne Bezug zu I-038.
+- **Änderungen:** (i) Kopf „exakt“ = I-038-Kopf (L2 3e-3 fest, 500 Iterationen). (ii) **PK-1 relativ:** Identität exakt ≥ Pixel-Softmax − 2 pp (Mittel über Seeds; Pixel-Softmax = I-038-Kopf auf Rohpixeln, gleiche Seeds). Begründung der 2 pp: I-038-Abstand MNIST −0,9 pp (Fashion −2,3), Tuning-Seed −1,1 pp; 2 pp lässt gut 1 pp Luft, fängt aber einen kaputten oder überregularisierten Kopf. (iii) **H2 strenger:** Gegner je (Seed, Arm, S) der bessere von „exakt“ und „exakt_rob“ (exakt trainiert, L2 auf Tuning-Seed unter Schussrauschen gewählt wie I-040); schussbewusster Kopf L2 auf Tuning-Seed 2198 (Gitter {1e-3 … 1e-1}, beidseitig verlängerbar).
+- **Seeds:** Mess 2150–2159, Tuning 2198 (disjunkt zu I-040 und allen früheren). MNIST 16×16, 6.000/5.000; Fashion optional, nur beschreibend.
+- **Hypothesen, Holm über 4, α = 0,05:** H1 I(Identität) > I(Haar) und > I(Suche) (Wilcoxon einseitig exakt, p = max). H2 schussbewusst − bester exakter Kopf > 0 bei S = 10, 30, 100 (Mittel über 5 Arme, p = max). H3 Spearman η ~ S90 über 5 Arme, ρ < 0, exakter Permutationstest. **H4 Zielkonflikt:** Haar² exakt > Identität exakt (acc_inf) UND I(Identität) > I(Haar), beide gepaart einseitig, Schnitt-Vereinigungs-Test (p = max, beide Mittel > 0). Der Informationsteil von H4 ist dieselbe Differenz wie H1-Haar (offengelegt; Holm bleibt gültig, nur konservativ).
+- **Kontrollen:** PK-1 relativ (s. o.), PK-2 (id, exakter Kopf, S=10 mind. 10 pp unter S=1000), NK (I < 0,03 Bit, Genauigkeit ≤ 0,15). NK fällt: alle HU. PK-1/PK-2 fällt: H2, H3 HU; H4 HU bei NK- oder PK-1-Versagen. Instabilität (≥ 2 Seeds < Median − 5 pp, bewusst S=100): H2/H3 HU.
+- **Urteile (Strings):** H1 IDENTITAET_BESTE / H0 NICHT_UEBERLEGEN / HU NICHT_ENTSCHIEDEN; H2 SCHUSSBEWUSST_BESSER / H0 EXAKT_BESSER / H0 KEIN_VORTEIL / HU NICHT_ENTSCHIEDEN / INSTABIL / PK_VERSAGT; H3 ETA_SAGT_VORAUS / H0 ETA_NICHT_PROGNOSTISCH / HU ZENSIERT / NICHT_ENTSCHIEDEN / INSTABIL / PK_VERSAGT; H4 ZIELKONFLIKT / H0 KEIN_KONFLIKT_GENAUIGKEIT / H0 KEIN_KONFLIKT_INFORMATION / HU NICHT_ENTSCHIEDEN / PK_VERSAGT. Kriterien: `urteil()`.
+- **Erwartung:** PK-1 besteht (≈ 0,90 gegen ≈ 0,91). H1 ja, H4 ja (Haar² ≈ +3,7 pp nach I-038, I ≈ −0,2 Bit nach I-040). H2 bei S = 10/30 wahrscheinlich, bei S = 100 knapp, gegen den stärkeren Gegner schwerer als in I-040. H3 offen bis eher nein.
+- **Grenzen:** wie I-040; η-Neuheit ungeprüft (E4); die 2-pp-Schwelle ist eine begründete Setzung.
+- **Start:** `INSTITUT_PROZESSE=4 python direktor.py lauf I-040-v2` (Wiederaufnahme je (Seed, Arm) in `ergebnisse/_zwischen_I-040-v2/`). Laufzeit ≈ 25 min bei 4 Prozessen.
+
+## 06.10.2026 — I-039-v2 „fairer Bit-Vergleich“ vorregistriert (Modul `abteilungen/mnist100_fair.py`)
+- **Frage:** Bleibt der Vorsprung von b_ff (80,46 %, 110 reelle Parameter + 882 Strukturbits formal) gegenüber klassischen Modellen mit **demselben Strukturbit-Budget** (≤ 900 Bit formal)? In I-039 hatte der klassische Arm (d, 74,84 %) 0 Bit.
+- **Arme (alle Kopf 10×10 + 10 Bias = 110 reell):** b_ff (exakt I-039, Code wiederverwendet); k1_lin (Pixel in 10 datengewählte Gruppen, 850 Bit), k1_quad (= Arm c, 850 Bit), k1_fisher (Fisher-Top-79 + Gruppen, 894 Bit); k2_relu/k2_abs (±1-Projektion, Seed 32 Bit, ReLU bzw. |z|, Gruppierung 850 Bit); k3_relu/k3_abs (gleiche Fastfood-Mischung und gleiche Gruppierung wie b_ff, aber ohne Quadrat); d (klassisch 118 reell, 0 Bit). Mutual Information wird nicht verwendet.
+- **Kontrollen:** PK-1 Voll-Kopf Haar ≥ 85 %, PK-2 d ≥ 70 %, NK Zufallslabel (b_ff) ≤ 15 %. Instabilität: > 1 Seed unter Median − 5 pp → HU.
+- **H1:** b_ff − bester klassischer Arm > 0 (einseitiger exakter Wilcoxon, Mittel > 0). **H2:** b_ff − bester k3-Arm > 0. Holm über {H1, H2}, α = 0,05. TOST ±1 pp für beide berichtet; Urteil „GLEICHWERTIG“, wenn TOST gilt und kein Vorsprung gezeigt ist. Der beste klassische Arm und der beste k3-Arm werden nach der Validierung der Tuning-Seeds festgelegt (Gleichstand: weniger reell, weniger Bit, Name), nie auf Test.
+- **Bitzählung:** reell, Bit formal und Bit streng getrennt (Zufallsmatrix formal nur Seed; streng Informationsgehalt: Fastfood ~2.196, Rademacher 65.536).
+- **Seeds:** Mess 2100–2119, Tuning 2190–2192 (Lernrate je Arm, Validierung 1.200 der 6.000, wie I-039).
+- **Erwartung vorab:** k3 (|z|) lag in I-038 nur ~0,35 pp unter dem Quadrat, H2 ist daher knapp bis gleichwertig zu erwarten; der Vorsprung kann gegen k1/k2 verschwinden. Das ist ausdrücklich ein möglicher Ausgang.
+- **Offenlegung:** Rauchtest einmal auf Tuning-Seed 2190 (150 Schritte, 1 Prozess); kein Mess-Seed berührt, Kriterien davor fixiert. Beim Rauchtest sahen wir auf diesem Tuning-Seed, dass einzelne klassische Arme nahe an b_ff liegen; die Hypothesen blieben unverändert.
+- **Status:** Modul gebaut, Vortest bestanden (erzwingt jeden Urteilszweig, Budget-, Zähl- und Gruppierungsgleichheit k3 = b_ff). Lauf (~8–12 min, `INSTITUT_PROZESSE=4`) wartet auf Freigabe.
+
+## 06.10.2026 — I-041 „Skalierung n = 8 → 10“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Modul `abteilungen/skalierung_n10.py`, Plan `PLAN_2026-10-06_gesamt.md` §2 P5. Vortest (jeder Urteilszweig auf synthetischen Daten erzwungen, Bausteine, Wiederaufnahme) bestanden. Rauchtest NUR auf dem Tuning-Seed 2097 (kleine Daten); Zeitnahme eines vollen Seeds ebenfalls nur auf 2097. **Kein Mess-Seed 2060–2069 berührt, Volllauf nicht gestartet** (wartet auf Freigabe E2).
+
+- **Frage:** Bleibt „Haar² > Pixel“ bei 32×32 (n = 10, 1.024 Merkmale) bestehen, wächst der Vorsprung gegenüber 16×16 (n = 8), wächst der Born-Vorsprung gegen |z|, und ist Fastfood² noch gleichwertig zu Haar²?
+- **Daten (festgeschrieben):** MNIST und Fashion, 6.000 Training / 5.000 offizielle Test je Seed, je Seed dieselben Bilder bei beiden Auflösungen (gepaart). 16×16: Flächenmittel aus 28×28 (`labor.gemeinsam.bilder`, wie I-038). 32×32: bilineares Hochskalieren aus 28×28 (`interpolate`, bilinear, `align_corners=False`), auf [0,1] geklemmt. **Ehrlich:** 32×32 ist Resampling ohne neuen Bildinhalt; skaliert wird die Merkmalszahl, nicht die Information.
+- **Arme je Auflösung:** Pixel-Softmax, Haar², Fastfood-2² ((H D2 H D1)²), Haar|z| (bester klassischer Gegner aus I-038, fest), Identität²; Negativkontrolle Haar² mit Zufallslabeln. Gleicher Kopf (Softmax-Regression, standardisierte Merkmale, L-BFGS); L2 je (Datensatz, Auflösung, Arm) auf Tuning-Seed 2097 aus {1e-4 … 3e-2}, Gitter bei Randoptimum verlängert, Validierung 1/6 der Trainingsbilder, nie Test.
+- **Seeds:** 2060–2069 (10, gepaart), Tuning 2097.
+- **Hypothesen je Datensatz, einseitiger exakter Wilcoxon, Holm über H1–H3:** H1 Haar² − Pixel bei 32×32 > 0. H2 (Haar² − Pixel)₃₂ − (Haar² − Pixel)₁₆ > 0. H3 (Haar² − |z|)₃₂ − (Haar² − |z|)₁₆ > 0. **H4** Fastfood² ≡ Haar² bei 32×32 (TOST ±0,5 pp, eigene Familie, nicht in Holm).
+- **Kontrollen:** NK Zufallslabel-Mittel (16 und 32) in (0,09; 0,115), sonst alles HU. PK: Haar² − Pixel bei 16×16 einseitig p < 0,05 und ≥ 0,5 pp (Replikation I-038 H-D), sonst H4 HU. Kollaps (Arm-Seed < Median − 5 pp in einem beteiligten Arm) → HU.
+- **Urteile (Strings):** H1 HAAR_BESSER / H0 (Gegenrichtung) / HU; H2 VORSPRUNG_WAECHST / H0 (Vorsprung schrumpft) / HU; H3 BORN_VORSPRUNG_WAECHST / H0 (Born-Vorsprung schrumpft) / HU; H4 GLEICHWERTIG / FASTFOOD_BESSER / HAAR_BESSER / HU. Kriterien: `urteil()` im Modul.
+- **Beschreibend (kein Urteil):** Zeitmessung numpy float32, 1 BLAS-Thread (frischer Prozess), FWHT-Fastfood (H D2 H D1) gegen dichte Matmul, N = 256 … 16.384, Batch 1 und 64, Minimum über 7 Wiederholungen; Zählmodell je Vektor: dicht 2N² − N, Fastfood 2N·log₂N + 3N; Parameter N² gegen 2N Bits. Berichtet wird das kleinste N, ab dem FWHT durchgehend schneller ist.
+- **Erwartung:** H1 ja (I-038: +2,8 / +1,4 pp bei 16×16). H2/H3 offen; Resampling kann den Vorsprung auch schmälern. H4 ja. Zeit: laut Plan kein Gewinn unter N ≈ 4k bei Batch 64; Batch 1 früher. Pilotwerte auf dem Tuning-Seed (kein Befund): Haar² 0,938 → 0,955, Pixel 0,910 → 0,910.
+- **Start:** `INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-041` (Wiederaufnahme je (Datensatz, Seed) in `ergebnisse/_zwischen_I-041.json`). **Laufzeit ≈ 6–10 min** bei 4 Prozessen (Tuning ≈ 2–3 min seriell, 20 Seed-Aufgaben je ≈ 15–30 s, Zeitmessung ≈ 1–2 min).
+
+## 06.10.2026 – I-040-v2 ERGEBNIS (Holevo-Wirkungsgrad, Seeds 2150–2159)
+Rohdaten `ergebnisse/I-040-v2__20261006_095500.json`. PK-1 OK (Identität 0,904, Pixel 0,910, Schwelle 0,890), PK-2 OK, NK OK.
+- **H1 IDENTITÄT_BESTE:** I(Klasse; 1 Schuss) Identität − Haar +0,201 Bit, − Suche +0,195 Bit (10/10 Seeds).
+- **H2 SCHUSSBEWUSST_BESSER:** Ein auf Schüssen trainierter Kopf schlägt den besten exakten Kopf bei S = 10/30/100 um +1,5 / +1,2 / +0,3 pp.
+- **H3 H0:** η = I/χ sagt den Schussbedarf nicht voraus (ρ 0,7, p 0,93; nur 5 Arme).
+- **H4 ZIELKONFLIKT bestätigt:** Haar-Mischung +3,5 pp Genauigkeit bei exakter Auslese, aber −0,20 Bit Information pro Schuss (10/10 Seeds).
+**Deutung:** Die dichte Mischung verbessert die Rechnung mit exakten Wahrscheinlichkeiten und verschlechtert die einzelne Messung. Auf echter Hardware entscheidet die Schusszahl, welche Auslese gewinnt. Training mit Schussrauschen hilft bei wenigen Schüssen.
+
+## 06.10.2026 – I-039-v2 ERGEBNIS (fairer Bit-Vergleich, Seeds 2100–2119)
+Rohdaten `ergebnisse/I-039-v2__20261006_100331.json`. PK-1, PK-2 und NK OK.
+- **H1/H2 GLEICHWERTIG:** Born b_ff 80,26 % gegen die klassische Variante mit gleicher Fastfood-Mischung und Gruppierung, aber |z| statt Quadrat (k3_abs): 80,65 %. Differenz −0,39 pp, TOST ±1 pp bestanden; ein Vorsprung ist nicht gezeigt.
+- Beschreibend: k2_relu (±1-Projektion + ReLU, 32 Bit) 79,8; k1_lin 79,4; k1_fisher 77,9; k3_relu 75,3; d 75,0.
+**Deutung:** Der Vorsprung von I-039 (+5,6 pp gegen d) kommt aus **Mischung + Gruppierung (Struktur)**, nicht aus dem Born-Quadrat. Mit gleichem Bitbudget und |z| erreicht ein klassisches Modell dasselbe. Das passt zu I-038 (Fashion: Born ≡ |z|; MNIST nur +0,35 pp).
+
+## 06.10.2026 – I-041 ERGEBNIS (Skalierung 16×16 → 32×32, Seeds 2060–2069)
+Rohdaten `ergebnisse/I-041__20261006_100927.json`. NK und PK bestanden.
+| | MNIST | Fashion |
+|---|---|---|
+| H1 Haar² − Pixel @32 | **+4,33 pp** | **+1,93 pp** |
+| H2 Vorsprung wächst (32 vs. 16) | **+1,64 pp, wächst** | +0,44 pp, HU |
+| H3 Born-Vorsprung gegen \|z\| wächst | HU (−0,07) | H0, schrumpft (−0,57) |
+| H4 Fastfood² ≡ Haar² @32 | GLEICHWERTIG | GLEICHWERTIG |
+Zeit (beschreibend): FWHT-Fastfood ist schneller als eine dichte Matrixmultiplikation ab N = 1.024 (Batch 1) bzw. 2.048 (Batch 64); Operationsverhältnis bei N = 1.024: 89×.
+**Deutung:** Der **Struktur**-Vorsprung (Mischung + Nichtlinearität gegen Pixel) wächst mit der Größe, auf MNIST signifikant. Der Born-Quadrat-Vorsprung gegen \|z\| wächst **nicht** (auf Fashion schrumpft er). Fastfood (O(N log N), 0 trainierte Mischparameter) ersetzt Haar vollständig und ist ab N ≈ 1–2k auch messbar schneller.
+
+## 06.10.2026 — I-042 „Strukturschicht in groß“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Modul `abteilungen/struktur_gross.py`. Vortest (Bausteine, Wiederaufnahme, jeder Urteilszweig erzwungen) bestanden. Rauchtest nur auf dem Tuning-Seed 2299 (kleine Daten, N = 1024). **Kein Messseed gerechnet. Volllauf wartet auf Maltes Freigabe.**
+
+- **Frage:** Ersetzt eine strukturierte Mischung + Nichtlinearität die dichte erste Schicht eines 2-Schicht-MLP auf Rohpixeln, wenn die Breite wächst? Die Wirkung ist klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil.
+- **Daten:** CIFAR-10 (50.000/10.000, 3.072 Eingänge, kanalweise standardisiert; Quelle: fast.ai-Spiegel `cifar10.tgz`, weil der Originalserver gesperrt war; PNG-Ordner einmal fest gemischt) und Fashion-MNIST 32×32 (60.000/10.000, bilinear aus 28×28 wie I-041). Keine Augmentierung. Test nur am Ende (letzte Epoche).
+- **Modell:** Schicht(Arm) → Nichtlinearität → LayerNorm ohne Parameter → linearer Kopf N→10 (bei allen Armen gleich). N ∈ {1024, 4096, 16384}. Strukturierte Arme arbeiten auf D = Eingang auf Zweierpotenz aufgefüllt (CIFAR 4096, Fashion 1024); N > D: N/D unabhängige Blöcke, N < D: feste Zufallsauswahl.
+- **Arme:** A dicht (ReLU, Standardbaseline) · B Fastfood-2 fest + z² (0 trainierte Mischparameter) · C Fastfood-2 fest + |z| · D Fastfood-2 fest + ReLU · E Fastfood, Diagonalen trainiert + z² (2·N Parameter) · F Monarch (g = √D) + z² · G niedriger Rang mit Parameterzahl ≈ F + z² · **K** (Zusatz) niedriger Rang mit Budget ≥ E (aufgerundet) + z², Budgetkontrolle für H3, weil Rang 1 bei G-Budget nicht E-Budget trifft.
+- **Training:** Adam, Batch 256, Kosinus-Abfall, **5 Epochen** (festgelegt). Lernrate je (Datensatz, N, Arm) auf Tuning-Seed 2299 (`gittersuche_stabil`, Gitter 3e-4…1e-2, Faktor 3, beidseitig verlängerbar; Validierung = letzte 10 % der Trainingsbilder, nie Test). Seeds 2200–2204 (5).
+- **Laufzeitregel (vorab, aus Messung):** Volles Protokoll (8 Epochen, alle Arme bei 16384) ≈ 3 h bei 4 Prozessen, also zu lang. Festgelegt: Profil „gekuerzt“ = 5 Epochen; bei N = 16384 laufen nur A, B, C, D, E, K (F und G sind nur beschreibend/Pareto und entfallen dort). Abweichung von „nur A, B, E“: C, D, K bleiben, sonst wären H2/H3 nicht prüfbar. Geschätzt ≈ 1,6 h.
+- **Hypothesen je Datensatz bei N = 16384, gepaart, Holm über 5 Tests (H1B, H1E, H2B-C, H2B-D, H3):** Konfirmatorisch gepaarter t-Test (n = 5; exakter Wilcoxon käme nie unter p = 1/32 und Holm würde alles verwerfen; Wilcoxon steht beschreibend daneben). **H1** B oder E ≥ A − 1 pp (einseitig, Versatz 1 pp) UND ≥ 100× weniger Schichtparameter: NICHT_UNTERLEGEN / H0 (beide unterlegen) / HU. **H2** B − C und B − D zweiseitig: BORN_BESSER / KLASSISCH_BESSER / HU. **H3** E − K einseitig (K hat mindestens E's Budget): E_DOMINIERT / H0 / HU. **H4** beschreibend: Inferenzzeit B gegen A bei N ≥ 4096 (1 Thread, Batch 1 und 64, Median 7 Wiederholungen, ganzes Netz): B_SCHNELLER / A_SCHNELLER / GEMISCHT. FLOPs (Vorwärts je Bild, algorithmisch und wie implementiert) und Parameter beschreibend.
+- **Kontrollen:** NK: A und B mit permutierten Trainingslabels (N = 1024, je Arm eigene Permutation), je Datensatz über Arme und Seeds gepoolt Mittel in (0,05; 0,15), sonst alles HU. Band breit, weil ein Netz auf permutierten Labels Cluster auf feste Labels abbildet: Testgenauigkeit = Fixpunkte/10, Einzelläufe 0,05–0,20 (auf Tuning-Seeds gemessen), Mittel ≈ 0,10; ein Testleck (> 0,15) wird weiter gefangen. Kollaps (Arm-Seed < Median − 5 pp in einem beteiligten Arm) → HU.
+- **Erwartung vorab (Pilot auf Tuning-Seed 2299, N = 1024, 5 Epochen, Validierung, kein Befund):** CIFAR A 54,5 %, B 39,5 %, E 41,4 %; Fashion A 89,3 %, B 87,7 %, E 88,1 %. H1 ist daher auf CIFAR unwahrscheinlich (feste Mischung verliert ~15 pp bei N = 1024; ob Breite das schließt, ist die Frage), auf Fashion knapp. H2 offen, nach I-041 eher gleichwertig. H3 offen. H4: Fastfood schneller bei N ≥ 4096 laut I-041.
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-042` (Wiederaufnahme je (Datensatz, N, Seed) in `ergebnisse/_zwischen_I-042.json`; Tuning je (Datensatz, N) ebenfalls dort).
+
+## 06.10.2026 – I-042 ERGEBNIS (Strukturschicht in groß, N bis 16.384, Seeds 2200–2204)
+Rohdaten `ergebnisse/I-042__20261006_133726.json`. NK bestanden. Der Lauf brach einmal an einem Zeitlimit des Containers ab und wurde per Wiederaufnahme fortgesetzt; die Ergebnisse sind davon nicht betroffen.
+| | CIFAR-10 | Fashion 32×32 |
+|---|---|---|
+| H1 Struktur (B fest/E Diagonalen) ≥ dicht − 1 pp bei N=16k | **H0: −6,3 pp** (A 55,3 / B 49,1 / E 49,2) | **NICHT_UNTERLEGEN: +0,1 pp** (A 89,0 / B 89,1 / E 89,1), dichte Schicht 16,8 Mio Parameter |
+| H2 Born z² gegen \|z\| | BORN_BESSER +0,34 | KLASSISCH_BESSER −0,36 |
+| H2 Born z² gegen ReLU | KLASSISCH_BESSER −3,18 | BORN_BESSER +0,57 |
+| H3 E dominiert niedrigen Rang (gleiches Budget) | +29,7 pp | +21,6 pp |
+| H4 Struktur schneller (N ≥ 4096) | 7–54× | 4–19× |
+**Deutung:** Auf leichteren Aufgaben (Fashion) ersetzt eine feste Strukturschicht eine dichte 16,8-Mio-Parameter-Schicht ohne Verlust und ist 4–19× schneller. Auf CIFAR-10 kostet sie 6 pp. Im Vergleich der Nichtlinearitäten gibt es keinen Gewinner (z², \|z\| und ReLU wechseln je nach Aufgabe). Struktur mit trainierten Diagonalen schlägt niedrigen Rang bei gleichem Budget deutlich.
+
+## 06.10.2026 — I-044 „Strukturschicht auf CIFAR-10: tiefer und im CNN“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Modul `abteilungen/struktur_tief.py`. Vortest (Bausteine, Parameterzählung, Wiederaufnahme, jeder Urteilszweig erzwungen) bestanden. Rauchtest nur auf dem Tuning-Seed 2399 (kleine Daten, 1 Epoche, ganze Pipeline bis Urteil). **Kein Messseed gerechnet. Volllauf wartet auf Maltes Freigabe.**
+
+- **Frage:** Die Lücke aus I-042 (CIFAR-10, N=16k: dicht 55,3 gegen Struktur 49,1, −6 pp) — schließen (a) mehrere Strukturschichten hintereinander oder (b) Struktur in einem kleinen CNN? Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil.
+- **Daten:** CIFAR-10 wie I-042 (`struktur_gross.daten`, 50.000/10.000, kanalweise standardisiert, keine Augmentierung, Test nur am Ende).
+- **Teil 1 (MLP, Rohpixel, N=4096):** A dicht 1 Schicht (ReLU) · A2 dicht 2 Schichten (Referenz, nur beschreibend) · S1/S2/S3 = 1/2/3 Fastfood-Schichten (H D2 H D1, Diagonalen trainiert, 2·4096 Parameter je Schicht), je Nichtlinearität + LayerNorm ohne Parameter, linearer Kopf. Nichtlinearität je Schicht aus {z², |z|, ReLU} **greedy auf dem Tuning-Seed** (Schicht k mit Schichten 1…k−1 aus der Vorstufe fest, feste Rate 3e-3, 2 Epochen, Validierung = letzte 10 % Training, Gleichstand: z² vor |z| vor ReLU).
+- **Teil 2 (CNN):** 3 Conv-Blöcke 3×3 (16/32/64 Kanäle, BatchNorm, ReLU, Pooling) → 1.024 Merkmale. **Kd** Kopf = dichte Schicht 1024→4096 (ReLU) · **Ks** Kopf = Fastfood-Strukturschicht 1024→4096 (4 Blöcke, trainierte Diagonalen, 8.192 Parameter; Nichtlinearität aus {z², |z|, ReLU} auf dem Tuning-Seed gewählt), je + LayerNorm + Klassifikator 4096→10. **Kcd / Kcs** Kanalmischung hinter Block 3 (64 Kanäle, 8×8): dicht = 1×1-Conv 64→64, strukturiert = Hadamard·Diagonal über Kanäle als Fastfood-2 (H D2 H D1, 128 Parameter; zwei Hadamard·Diagonal-Stufen statt einer, weil eine einzelne H·D fast nichts mischt), je + ReLU, Kopf direkt linear 1024→10.
+- **Training:** Adam, Batch 256, Kosinus-Abfall. **Epochen vorab fest: Profil „standard“ = 4 Epochen (beide Teile), Auswahl der Nichtlinearität 2 Epochen, Negativkontrolle 2 Epochen.** **Fallback-Profil (vorab festgelegt, nur bei Zeitnot, Umgebung `I044_PROFIL=fallback`): 3 Epochen, Auswahl 1, NK 1;** die Profil-Kennung steht in der Zwischendatei (kein Mischen). Lernrate je Arm auf Tuning-Seed 2399 (`gittersuche_stabil`, Gitter 1e-3/3e-3/1e-2, Faktor 3, beidseitig verlängerbar). Seeds 2300–2304 (5).
+- **Hypothesen (gepaarter t-Test n=5 wie I-042, Wilcoxon beschreibend; Holm je Teil):** Teil 1: **H1** S3 ≥ A − 1 pp (Nichtunterlegenheit, einseitig mit Versatz 1 pp): NICHT_UNTERLEGEN / H0 / HU · **H2** S3 − S1 > 0 (einseitig): TIEFE_HILFT / H0 (sicher schlechter) / HU. Teil 2: **H3** Ks ≥ Kd − 1 pp UND ≥ 10× weniger Kopfparameter (breite Schicht + Klassifikator): NICHT_UNTERLEGEN / H0 / HU · **H4** Kcs ≥ Kcd − 1 pp: NICHT_UNTERLEGEN / H0 / HU. Kollaps (Seed < Median − 5 pp in einem beteiligten Arm) → HU.
+- **Messung beschreibend:** Genauigkeit, trainierte Parameter (Schicht, Kopf, gesamt), Inferenzzeit (1 Thread, Batch 1 und 64, Median 7 Wdh., ganzes Netz), gewählte Nichtlinearitäten, S3−A2, A2−A, S2−S1, S3−S2.
+- **Negativkontrolle:** S1 und Ks auf permutierten Trainingslabels (je Arm eigene Permutation), über Arme und Seeds gepoolt Mittel in (0,05; 0,15), sonst alles HU.
+- **Erwartung vorab (Rauchtest nur Pipeline, keine Befunde):** Nach I-042 ist H1 unsicher (feste/trainierte Mischung verlor 6 pp bei einer Schicht); Tiefe könnte helfen, weil ReLU/LayerNorm zwischen Hadamard-Stufen Nichtlinearität nachlegt. H3/H4 offen; im CNN trägt die Faltung die Merkmale, daher ist Gleichstand eher plausibel als auf Rohpixeln.
+- **Laufzeit (gemessen, 4 Prozesse parallel, 1 Thread je Prozess; 1 Epoche je Arm: A 49 s, A2 140 s, S1 6 s, S2 14 s, S3 16 s, Kd 51 s, Ks 44 s, Kcd 41 s, Kcs 48 s):** Mess-Läufe ≈ 8.200 + 440 (NK) Kernsekunden, Tuning ≈ 5.200, Auswahl ≈ 500, also ≈ 14.300 Kernsekunden / 4 ≈ **1,0–1,3 h** (Standard); Fallback ≈ 0,8 h.
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044` (Wiederaufnahme je (Teil, Arm, Seed) in `ergebnisse/_zwischen_I-044.json`; Auswahl und Tuning ebenfalls dort).
+
+## 06.10.2026 – I-044 ERGEBNIS (Struktur auf CIFAR-10: Tiefe und CNN, Seeds 2300–2304)
+Rohdaten `ergebnisse/I-044__20261006_155444.json`. NK bestanden.
+- **H1 H0:** MLP mit 3 Strukturschichten (S3) 48,4 % gegen dicht (A) 54,0 %, also −5,6 pp.
+- **H2 H0:** Mehr Strukturschichten helfen nicht; S3 ist 1,5 pp schlechter als S1.
+- **H3 NICHT_UNTERLEGEN:** Im CNN ist der **strukturierte Kopf (Ks) 73,9 % gegen den dichten Kopf (Kd) 72,1 %**, also **+1,8 pp**. Kopfparameter ≈ 49 k gegen 4,2 Mio (≈ 85× weniger), dazu 3× schneller bei Batch 1.
+- **H4 HU:** strukturierte Kanalmischung 72,6 gegen dicht 73,3 (−0,7 pp), unentschieden.
+**Deutung:** Die Struktur ersetzt rohe Pixel-Schichten auf CIFAR nicht; sie ersetzt aber die **große dichte Schicht hinter gelernten Merkmalen** (CNN-Kopf) mit 85× weniger Parametern und leichtem Gewinn. Muster mit I-042: Struktur trägt dort, wo die Eingabe schon gute Merkmale hat. Für Sprachmodelle (FFN hinter Attention) ist das der relevante Fall.
+
+## 07.10.2026 — I-045 „Strukturschicht im kleinen Sprachmodell (Container)“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Modul `abteilungen/struktur_sprache.py`. Vortest (Bausteine inkl. Kausalitätsprüfung und Parameterzählung, Wiederaufnahme, jeder Urteilszweig erzwungen) bestanden. Rauchtest nur auf dem Tuning-Seed 2499 (kleine Daten, 20 Schritte, ganze Pipeline bis Urteil; dabei nur Pipeline geprüft, keine Befunde gelesen). **Kein Messseed gerechnet. Volllauf wartet auf Maltes Freigabe.**
+
+- **Frage:** Ersetzt eine Fastfood-Strukturschicht (trainierte Diagonalen, O(N)) die dichten FFN-Matrizen eines kleinen Decoder-Transformers, also die Schicht „hinter gelernten Merkmalen“ (I-044: CNN-Kopf +1,8 pp mit 85× weniger Parametern)? Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil.
+- **Daten:** Im Repo liegt kein deutscher Text (gesucht: `UEBERARBEITUNG_2026-09-23/A`, Korpus laut `DATEN_EXTERN.md` nur im Archivordner auf Maltes PC, 2,9 GB). Verwendet: UD_German-GSD (Universal Dependencies, CC BY-SA 4.0; Sätze der Zeilen `# text =`, Download ≈ 22 MB von raw.githubusercontent.com nach `INSTITUT/daten/de_gsd_{train,dev,test}.conllu`, gitignored). **Fester Split der Treebank:** train 1,61 Mio Bytes / dev 74 k (nur Tuning) / test 99 k (nur am Ende). Byte-Ebene (UTF-8, Vokabular 256), Sätze mit `\n` getrennt. Klein (rund 1,7 MB Text): Verlust ist damit Verlust auf **Nachrichten-/Rezensionssätzen**, kein Allgemeintext. Unigramm-Entropie des Tests: 4,74 bpc.
+- **Modell:** Pre-LN-Decoder, 4 Lagen, d = 256, 4 Köpfe, Kontext 128, gelernte Positionen, gebundene Ausgabematrix.
+- **Arme (nur FFN verschieden, alle mit Bias):** **D** dicht 256→1024→256, GELU · **S** Fastfood 256→1024 (4 Blöcke) und 1024→256 (1 Block, 256 von 1024 Ausgängen), je H D2 H D1, trainierte Diagonalen, GELU, 4.096 Gewichte je Lage · **Sb** wie S mit Breite 4096 (16 Blöcke), 16.384 Gewichte je Lage · **L** niedriger Rang r = 2 je Matrix (5.120 Gewichte je Lage, also 25 % **mehr** als S, großzügig zu L) · **Sz** Nebenarm: S mit z² (nur beschreibend, nicht in Holm).
+- **Training:** Adam, Batch 8 × 128 Tokens, 5 % Aufwärmen, Kosinus, Gradientenbegrenzung 1,0, **Profil „standard“ = 1000 Schritte (≈ 1 Mio Tokens), NK 300 Schritte; Fallback (nur Zeitnot, `I045_PROFIL=fallback`): 600 / 200** (Kennung in der Zwischendatei, kein Mischen). Lernrate je Arm auf Tuning-Seed 2499, Validierung = erste 64 kB dev (`gittersuche_stabil`, Gitter 5e-4/1,5e-3/4,5e-3, Faktor 3, beidseitig verlängerbar, Score 1 − bpc/8). Seeds 2400–2404. Batch klein, weil Sb bei Batch ≥ 16 aus dem Cache fällt (Messung: Batch 32 → 8 s/Schritt, Batch 8 → 0,86 s).
+- **Hypothesen (gepaarter t-Test n = 5, einseitig, Holm über H1–H3; Wilcoxon beschreibend):** **H1** Sb ≤ D + 0,02 bpc UND weniger FFN-Parameter als D: NICHT_UNTERLEGEN / H0 / HU · **H2** S < L (kleinerer bpc): S_BESSER / H0 (L sicher besser) / HU · **H3** Sb schneller als D (Inferenzzeit/Token, 1 Thread, je Seed im Arbeiter gemessen, gepaart über ln-Verhältnis): SCHNELLER / H0 (sicher langsamer) / HU. Kollaps (Seed > Median + 0,2 bpc in einem beteiligten Arm) → HU.
+- **Negativkontrolle:** D und Sb mit permutierten Trainingsbytes (Seeds 2400, 2401), Test auf echtem Test; bestanden, wenn mittlerer bpc ≥ 0,9 × Unigramm-Entropie; sonst alles HU.
+- **Messung beschreibend:** bpc je Arm, FFN-/Gesamtparameter, Zeit/Token (Seed-gepaart und saubere Einzelmessung), Trainingszeit, Lernraten, Sb−D, S−D, Sz−S.
+- **Erwartung vorab (keine Befunde):** H1 unsicher: FFN speichert Wissen, dichte Matrizen haben 30–130× mehr Parameter; mit nur 1 Mio Tokens ist das Modell datenarm, Struktur könnte dadurch weniger verlieren als bei langem Training. H2 plausibel (I-042: Struktur schlägt niedrigen Rang). **H3 vermutlich H0:** im Rauchtest war Fastfood bei d = 256 auf der CPU nicht schneller (Inferenz je Token, Einzelprozess: S 1,6× und Sb ≈ 6× langsamer als D, L 2× schneller; Speicherbandbreite statt Rechenaufwand). Zeitgewinn erst bei großem d erwartbar; die Hypothese bleibt trotzdem angemeldet, weil sie ehrlich zu prüfen ist.
+- **Laufzeit (gemessen, 1 Thread, Schritt 8×128): D 0,22 s, S 0,23 s, Sb 0,86 s, L 0,12 s, Sz ≈ 0,22 s; alle Arme zusammen 1,65 s je Schritt.** Mess-Läufe 5 Seeds × 1000 Schritte ≈ 8.300, Tuning (≈ 4 Raten je Arm) ≈ 6.600, NK ≈ 700, Auswertung/Zeit/Daten ≈ 300 Kernsekunden, ≈ 16.000 / 4 = **≈ 1,1 h**, mit Parallel-Aufschlag **1,2–1,5 h**; Fallback ≈ 0,8 h.
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045` (Wiederaufnahme je (Teil, Arm, Seed) in `ergebnisse/_zwischen_I-045.json`; Tuning ebenfalls dort; Zwischenstände committen).
+
+## 07.10.2026 — I-042-r und I-044-r: Replikationen mit mehr Seeds: VORREGISTRIERUNG (vor jeder Zahl der Volläufe)
+
+Anlass: Die Befunde aus I-042 und I-044 beruhen auf n = 5. Beide Replikationen sind **Profile der bestehenden Module** (`struktur_gross.lauf_r`, `struktur_tief.lauf_r`, Agenda-Kennungen `I-042-r`, `I-044-r`, Status „offen“), keine Kopien. Vortest (zusätzlich `_vortest_r`: Seeds frisch, Tuning stimmt mit dem Original überein, jeder Urteilszweig erzwungen, gemeinsames Holm, gepoolte Auswertung) bestanden. Rauchtest nur auf den Tuning-Seeds 2299 bzw. 2399 (kleine Daten, 1 Epoche, 1 Prozess, `nice -n 19`). **Kein Messseed gerechnet. Volläufe warten auf Maltes Zustimmung.** Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil.
+
+**I-042-r**
+- **Übernommen (nur tragende Vergleiche, N = 16384):** Fashion32 **H1** (B oder E ≥ A − 1 pp UND ≥ 100× weniger Schichtparameter) und **H3** (E − K einseitig, K mit mindestens E's Budget); CIFAR-10 **H1**. Wortlaut, Kriterien, Urteilsvokabular, Kollaps (< Median − 5 pp), 1-pp-Versatz, gepaarter einseitiger t-Test (Wilcoxon beschreibend) **unverändert aus I-042**. H2 und H4 entfallen.
+- **Arme:** A, B, E; K nur auf Fashion (H3). **Seeds 2210–2224 (15 neue)**, frisch gegen alle früheren Seeds und Tuning-Seed 2299. 5 Epochen, Batch 256, Kosinus, Daten wie I-042.
+- **Tuning wird ÜBERNOMMEN, keine neue Suche** (vorab festgeschrieben; Werte aus `_zwischen_I-042.json`, Tuning-Seed 2299, im Code fest): CIFAR N=16384 A 1e-4, B 3e-4, E 3e-4; Fashion N=16384 A 1e-4, B 1e-3, E 1e-3, K 1e-3; NK bei N=1024: CIFAR A 1e-3, B 1e-3; Fashion A 1e-3, B 1e-2.
+- **Holm gemeinsam über die 5 übernommenen Tests** (Fashion H1B, H1E, H3; CIFAR H1B, H1E), α = 0,05. (Im Original lief Holm je Datensatz über 5 Tests inkl. H2; die gemeinsame Familie ist strenger.) **Negativkontrolle** wie im Original (A, B permutiert, N = 1024, je Datensatz gepoolt Mittel in (0,05; 0,15), sonst alles HU).
+- **Gepoolt (Original 2200–2204 + Replikation, n = 20), nur beschreibend:** Mittel und 90-%-KI der Differenzen B−A, E−A (E−K auf Fashion), ohne p-Werte und ohne Urteil; das Urteil kommt ausschließlich aus den 15 Replikationsseeds.
+- **Laufzeit (aus I-042-Messung und Armverhältnissen, 4 Prozesse):** je Seed ≈ 1.065 s (CIFAR A,B,E bei 16384) + 575 s (Fashion A,B,E,K) + NK ≈ 85 s ≈ 1.725 Kernsekunden; × 15 / 4 ≈ **1,8 h**. **Fallback nur bei Zeitnot, vorab festgelegt:** `I042R_PROFIL=zehn` (Seeds 2210–2219, ≈ 1,2 h). Kennung steht in der Zwischendatei (kein Mischen).
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-042-r` (Wiederaufnahme je (Datensatz, N, Seed) in `ergebnisse/_zwischen_I-042-r.json`).
+
+**I-044-r**
+- **Übernommen (nur Teil 2, CIFAR-10-CNN):** **H3** (Ks ≥ Kd − 1 pp UND ≥ 10× weniger Kopfparameter) und **H4** (Kcs ≥ Kcd − 1 pp), Kriterien und Vokabular **unverändert aus I-044**. Teil 1 (H1, H2) entfällt.
+- **Arme Kd, Ks, Kcd, Kcs; Seeds 2310–2324 (15 neue)**, 4 Epochen (Profil „standard“ von I-044), Batch 256.
+- **Tuning und Auswahl ÜBERNOMMEN, keine neue Suche, keine neue Auswahl:** Lernrate 3e-3 für alle vier Arme; Nichtlinearität von Ks = z² (aus I-044, im Code fest).
+- **Holm über H3 und H4** (wie im Original die Teil-2-Familie). **Negativkontrolle** nur mit Ks (S1 gehört zu Teil 1), Ks auf permutierten Labels, 2 Epochen, über Seeds gepoolt Mittel in (0,05; 0,15), sonst alles HU. Das ist die einzige Abweichung vom Original (Wegfall von S1).
+- **Gepoolt (2300–2304 + Replikation, n = 20), nur beschreibend:** Ks−Kd, Kcs−Kcd mit Mittel und 90-%-KI, ohne p und Urteil.
+- **Laufzeit (aus I-044-Messung, 4 Prozesse):** je Seed Kd 168 + Ks 118 + Kcd 109 + Kcs 120 + NK 60 ≈ 575 s; × 15 / 4 ≈ **0,6 h**. Fallback nur bei Zeitnot: `I044R_PROFIL=zehn` (Seeds 2310–2319).
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-r` (Wiederaufnahme je (Teil, Arm, Seed) in `ergebnisse/_zwischen_I-044-r.json`).
+
+## 07.10.2026 – I-045 ERGEBNIS (Strukturschicht im kleinen Sprachmodell, Seeds 2400–2404)
+Rohdaten `ergebnisse/I-045__20261007_070706.json`. NK bestanden.
+- **H1 H0:** Sb (Fastfood-FFN, 4× breit, GELU) 3,597 gegen dicht D 3,516 bpc, also +0,081 bpc schlechter.
+- **H2 H0:** Niedriger Rang L (3,558) ist besser als S (3,597).
+- **H3 H0:** Sb ist bei d = 256 auf der CPU langsamer (Zeitverhältnis D/Sb 0,17).
+- **Auffällig, nur beschreibend (Nebenarm, nicht konfirmatorisch):** **Sz = Fastfood-FFN mit z² statt GELU: 3,410 bpc, also 0,106 bpc besser als dicht D**, dazu etwas schneller (1,2×). Das ist ein unerwarteter Hinweis. Mögliche Erklärung: Das Quadrat als Aktivierung wirkt allgemein (vgl. Primer/„squared ReLU“), nicht die Struktur. Nötige Kontrolle: dichte FFN mit z² (D_z²). Folgelauf I-045-v2 vorregistrieren, bevor das als Befund gilt.
+
+## 07.10.2026 — I-045-v2 „Sz-Bestätigung: Struktur- oder Aktivierungseffekt?“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Anlass: Nebenbefund aus I-045 (nicht konfirmatorisch): Sz (Fastfood-FFN mit z²) 3,410 bpc gegen dicht D (GELU) 3,516 bpc. Dieser Lauf ist ein **Profil/eine Erweiterung von `abteilungen/struktur_sprache.py`** (`lauf_v2`, Agenda-Kennung `I-045-v2`, Status „offen“), keine Kopie: gleiches Modell, gleiche Daten (UD_German-GSD, Byte-Ebene), gleiches Training (1000 Schritte, Batch 8 × 128, Adam, Kosinus), gleiche Bausteine. Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil. Vortest (alle Arme: Form, Kausalität, Parameterzählung, Aktivierungen, Trainierbarkeit, Divergenz-Pfad, jeder Urteilszweig erzwungen, Wiederaufnahme) bestanden. Rauchtest nur Tuning-Seed 2498 (kleine Daten, 20 Schritte, 1 Prozess, `nice -n 19`; nur Pipeline geprüft). **Kein Messseed gerechnet. Volllauf wartet auf Maltes Zustimmung.**
+
+- **Arme (alle FFN-Breite 1024, nur FFN verschieden):** **D_gelu** dicht, GELU (= D aus I-045) · **D_z2** dicht, z² · **Sz** Fastfood, z² (= Sz aus I-045) · **S_gelu** Fastfood, GELU (= S aus I-045) · **L_z2** niedriger Rang 2, z² · **D_relu2** dicht, squared ReLU relu(z)² (Primer-Referenz).
+- **Seeds 2410–2419 (10, frisch), Tuning-Seed 2498 (neu).** Lernrate je Arm per `gittersuche_stabil` (Gitter 5e-4/1,5e-3/4,5e-3, Faktor 3, beidseitig verlängerbar, Score 1 − bpc/8, Kollaps-Score 0,01), Validierung = erste 64 kB dev. Instabil (nicht endlicher Verlust) zählt dort als Kollaps. Kein Tuning auf Mess-Seeds.
+- **Hypothesen (gepaarter t-Test n = 10 über bpc, Holm über H1–H3, α = 0,05; Wilcoxon beschreibend):**
+  - **H1** Sz < D_gelu (einseitig): SZ_BESSER / H0 (D_gelu sicher besser) / HU.
+  - **H2** Sz gegen D_z2, trennt Struktur- von Aktivierungseffekt: **TOST ±0,02 bpc** (p_TOST = Maximum der zwei einseitigen Tests) **und zweiseitiger** t-Test. In Holm geht p_H2 = min(1, 2·min(p_TOST, p_zweiseitig)) (Bonferroni innerhalb H2). AEQUIVALENT (p_H2 Holm < α und p_TOST ≤ p_zweiseitig; kein Struktureffekt jenseits ±0,02 bpc) / UNTERSCHIED (p_H2 Holm < α, sonst; Richtung im Text) / HU.
+  - **H3** D_z2 < D_gelu (einseitig, Aktivierungseffekt): AKTIVIERUNG / H0 (D_gelu sicher besser) / HU.
+  - Deutung (nur Lesehilfe, kein Urteil): H1 und H3 positiv und H2 AEQUIVALENT → Aktivierungseffekt, nicht Struktur. H1 positiv, H3 nicht, H2 UNTERSCHIED (Sz besser) → Struktur+z² wirkt zusammen. Etc. Beschreibend bleibt: Das gilt nur für diesen Aufbau (kleines Byte-Modell, 1000 Schritte, Gesamt-Verlust auf Satzdaten).
+- **Divergenz (vorab):** Seed divergiert, wenn der Trainingsverlust nicht endlich wird (bpc := 8, `instabil`) **oder** der End-Test-bpc ≥ Unigramm-Entropie des Tests. Divergierte Seeds bleiben in allen Zahlen (kein Verwerfen); jede Hypothese mit einem Arm, der in mindestens einem Seed divergiert oder kollabiert (Median + 0,2 bpc), ist **HU**. Divergenzrate je Arm und bpc ohne divergierte Seeds werden beschreibend berichtet.
+- **Negativkontrolle wie I-045:** D_gelu und Sz mit permutierten Trainingsbytes (Seeds 2410, 2411, 300 Schritte); bestanden, wenn mittlerer bpc ≥ 0,9 × Unigramm-Entropie, sonst alles HU.
+- **Beschreibend (ohne Urteil):** Sz vs L_z2, Sz vs D_relu2, D_z2 vs D_relu2, S_gelu vs Sz, bpc je Arm, FFN-/Gesamtparameter, Trainingszeit, Inferenzzeit je Token (Einzelprozess, 1 Thread), Divergenzrate, Lernraten.
+- **Erwartung vorab (keine Befunde):** Aktivierungseffekt plausibel (Primer: squared ReLU), also H3 und H1 eher positiv, H2 eher AEQUIVALENT; z² ist unbeschränkt und kann bei hoher Lernrate divergieren (daher Divergenzregel und Tuning mit Stabilitätsabstand).
+- **Laufzeit (Messwerte I-045, 1 Thread, Schritt 8×128): D-Arme 0,22 s, Fastfood 0,23 s, L 0,12 s; sechs Arme zusammen ≈ 1,2 s je Schritt.** Mess-Läufe 10 Seeds × 1000 × 1,2 ≈ 12.300, Tuning (≈ 4–5 Raten je Arm) ≈ 5.000–6.200, NK ≈ 300, Zeit/Daten/Auswertung ≈ 300 Kernsekunden, ≈ 18.000–19.000 / 4 ≈ **1,3 h**, mit Parallel-Aufschlag (I-045: 1,2–1,5×) **1,6–2,0 h, also ≤ 2,5 h: 10 Seeds bleiben.** Fallback nur bei Zeitnot (vorab): `I045V2_PROFIL=acht` (Seeds 2410–2417, ≈ 1,4–1,7 h); Kennung steht in der Zwischendatei, kein Mischen.
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v2` (Wiederaufnahme je (Teil, Arm, Seed) in `ergebnisse/_zwischen_I-045-v2.json`; Tuning ebenfalls dort; Zwischenstände committen).
+
+## 07.10.2026 – I-044-r ERGEBNIS (Replikation CNN-Kopf, 15 neue Seeds 2310–2324)
+Rohdaten `ergebnisse/I-044-r__20261007_075727.json`. NK bestanden.
+- **H3 repliziert:** strukturierter Kopf Ks 74,33 % gegen dichten Kopf Kd 72,44 %, **+1,89 pp** [1,69; 2,09], n = 15. Das bestätigt I-044 (+1,8 pp, n = 5), mit ≈ 85× weniger Kopfparametern.
+- **H4 jetzt NICHT_UNTERLEGEN:** strukturierte Kanalmischung −0,63 pp [−0,85; −0,41] gegen dicht. Das liegt innerhalb der 1-pp-Grenze, ist aber ein kleiner Verlust.
+
+## 07.10.2026 – I-042-r ERGEBNIS (Replikation Strukturschicht in groß, 15 neue Seeds 2210–2224)
+Rohdaten `ergebnisse/I-042-r__20261007_095606.json`. NK bestanden. **Alle Befunde repliziert:**
+- Fashion H1: feste Struktur B 89,16 % / E 89,18 % gegen dicht A 88,93 % (16,8 Mio Parameter), also **+0,23 / +0,26 pp, nicht unterlegen** (n = 15).
+- Fashion H3: E gegen niedrigen Rang K, **+22,8 pp**.
+- CIFAR H1: −6,3 pp (H0, wie im Original).
+
+## 07.10.2026 – I-045-v2 ERGEBNIS (Struktur × Quadrat im Sprachmodell, 10 Seeds 2410–2419)
+Rohdaten `ergebnisse/I-045-v2__20261007_112736.json`. NK bestanden, keine Divergenz.
+| Arm | Test-bpc |
+|---|---|
+| D_gelu (dicht, Standard) | 3,520 |
+| D_relu2 (squared ReLU, Primer) | 3,485 |
+| D_z2 (dicht + z²) | 3,478 |
+| **Sz (Fastfood-Struktur + z²)** | **3,403** |
+| L_z2 (niedriger Rang + z²) | 3,563 |
+| S_gelu (Struktur + GELU) | 3,599 |
+- **H1 SZ_BESSER:** Sz besser als D_gelu um **0,118 bpc** (Holm-p ≈ 10⁻⁴).
+- **H3 AKTIVIERUNG:** z² hilft schon dicht (D_z2 besser als D_gelu um 0,043 bpc); das ist der bekannte Primer-Effekt.
+- **H2 UNTERSCHIED:** **Sz ist besser als D_z2 um 0,075 bpc** [0,043; 0,107]. Die Struktur trägt also **zusätzlich** zum Quadrat bei.
+**Deutung:** Es gibt eine **Wechselwirkung Struktur × Quadrat**. Mit GELU schadet die Struktur (S_gelu schlechter als D_gelu um 0,08 bpc), mit z² nützt sie (Sz besser als D_z2 um 0,075 bpc), bei viel weniger FFN-Parametern. Die Kombination „unitäre/Hadamard-Mischung → Born-Quadrat“ ist genau die QIRE-Born-Auslese. **Das ist der erste Befund, in dem die quanten-inspirierte Kombination mehr bringt als ihre Teile.** Grenzen: kleines Modell (4 Lagen, d = 256), ein Datensatz, Byte-Ebene. Replikation in größerem Modell (T-007/PC, MPI) und eine Literaturprüfung („structured FFN squared activation“) sind nötig.
+## 07.10.2026 — I-044-v2 „Strukturkopf gegen faire Köpfe“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+Anlass (`recherche/2026-10-07_durchsicht_kernaussage.md`): In I-044-r schlug Ks (74,33 %) den dichten Kopf Kd (72,44 %). Kd war aber unregularisiert, und schon ein linearer Kopf hinter einer 1×1-Conv (Kcd) erreichte 73,70 %. Die Idee selbst ist bekannt (Deep Fried Convnets 2015). Modul `abteilungen/struktur_kopf_fair.py`, Wirkung klassisch (I-038).
+- **Arme:** Ks (Fastfood 1024→4096 + z², wie I-044) · Kd (wie I-044, Brücke) · **Klin** (kein breiter Kopf, LayerNorm + linear, ≈ 10 k) · **Kreg** (Kd + Dropout 0,5 + AdamW-WD 5e-4) · **Kklein** (dicht 1024→48→10, ≈ 49,7 k = Kopfbudget von Ks). CNN-Rumpf identisch, gleicher Startzustand je Seed (im Vortest geprüft).
+- **Hypothesen (Holm über H1a, H1b, H1c, H2; gepaarter einseitiger t, n = 15):** H1a/b/c Ks ≥ Klin/Kreg/Kklein − 0,5 pp (NICHT_UNTERLEGEN | H0 | HU); **H2 Ks − Klin > 0** (STRUKTUR_HILFT | H0 | HU). NK: Ks mit permutierten Labels, Band (0,05; 0,15). Kollaps → HU. Beschreibend: Ks − Kd, alle Arme gegen Klin, Kopfparameter.
+- **Seeds 2330–2344 (15, frisch), Tuning 2399.** Raten Ks/Kd aus I-044 übernommen (3e-3); Klin/Kreg/Kklein neu mit demselben Verfahren (gittersuche_stabil, Gitter 1e-3/3e-3/1e-2, Faktor 3). 4 Epochen, Batch 256, Kosinus.
+- **Ehrliche Erwartung vorab:** H1a/H1c eher NICHT_UNTERLEGEN, H2 klein oder HU. Der Vorsprung gegen faire Köpfe liegt eher bei 0–1 pp als bei 1,9 pp.
+- Vortest bestanden (jeder Urteilszweig erzwungen). Rauchtest nur auf Tuning-Seed 2399 (kleine Daten, 1 Epoche), verworfen. **Freigabe Malte 07.10.**
+- **Start:** `cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v2` (Wiederaufnahme in `ergebnisse/_zwischen_I-044-v2.json`).
+
+## 07.10.2026 – I-044-v2 ERGEBNIS (Strukturkopf gegen faire Köpfe, Seeds 2330–2344)
+Rohdaten `ergebnisse/I-044-v2__20261007_112259.json`. NK bestanden (0,099). Raten: Ks/Kd/Klin/Kreg 3e-3, Kklein 3e-2 (keine am Gitterrand).
+| Arm | Genauigkeit | Kopfparameter |
+|---|---|---|
+| Ks Fastfood + z² | **74,27 %** | 49 k |
+| Klin linear | 73,44 % | 10 k |
+| Kklein dicht 1024→48→10 | 72,60 % | 50 k |
+| Kd dicht 1024→4096 | 72,26 % | 4,2 Mio |
+| Kreg Kd + Dropout + WD | 71,55 % | 4,2 Mio |
+- **H1a–c NICHT_UNTERLEGEN, H2 STRUKTUR_HILFT:** Ks schlägt alle fairen Köpfe: Klin **+0,83 pp** [0,60; 1,06], Kklein +1,66, Kreg +2,72 (n = 15, Holm p < 10⁻⁵).
+- **Deutung:** Der ehrliche Vorsprung ist **+0,8 pp gegen den linearen Kopf**, nicht +1,9 pp. Jede dichte versteckte Schicht ist bei 4 Epochen *schlechter* als gar keine (Kd −1,2, Kklein −0,8 gegen Klin), und Regularisierung verschlechtert weiter. Der Engpass ist also Untertraining, nicht Überanpassung. Nur die Fastfood-Schicht verbessert den linearen Kopf.
+- **Vorbehalt:** nur 4 Epochen. Ob der Vorsprung bei längerem Training hält, ist offen (Folgefrage: Epochenreihe 4/16/32 für Ks, Klin, Kklein).
+- **Literatur** (`recherche/2026-10-07_volltext_arxiv.md`): Deep Fried Convnets verglichen nur gegen den vollen dichten Kopf. Der Vergleich gegen linearen und budgetgleichen Kopf ist dort nicht gemacht.
+
+## 07.10.2026 — I-044-v3 „Epochenreihe Strukturkopf“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+Anlass: I-044-v2 (Ks − Klin +0,83 pp) lief nur 4 Epochen. Die Literatur (`recherche/2026-10-07_volltext_2.md`, Teil A: Qiu 2024/2025, Ba 2022) lässt erwarten, dass der Abstand mit längerem Training schrumpft. Hält er, ist das ein Kapazitätseffekt (Grad-2-Merkmale), kein reiner Trainingsvorteil. Profil `lauf_v3` in `abteilungen/struktur_kopf_fair.py`.
+- **Arme:** Ks, Klin, Kklein (wie I-044-v2). **Epochen 4, 12, 24.** Lernraten fest aus I-044-v2 (Ks/Klin 3e-3, Kklein 3e-2). **Vorbehalt:** keine neue Ratensuche je Epochenzahl; der Kosinus-Abfall skaliert mit.
+- **Hypothesen (Holm über H1, H2; gepaarter einseitiger t, n = 8):** H1 Ks − Klin > 0 bei 24 Epochen; H2 Ks − Kklein > 0 bei 24 Epochen (STRUKTUR_HAELT | H0 | HU). H3 (nicht in Holm, zweiseitig): Trend (Ks − Klin)₂₄ − (Ks − Klin)₄ (SCHRUMPFT | WAECHST | HU). NK: Ks permutiert, 4 Epochen, Band (0,05; 0,15).
+- **Seeds 2350–2357 (8, frisch).** Erwartung vorab: H3 SCHRUMPFT, H1 offen.
+- Vortest bestanden, Rauchtest nur auf Tuning-Seed 2399 (kleine Daten). **Freigabe Malte 07.10.**
+
+## 07.10.2026 — I-046 „Pareto-Front Genauigkeit × Information pro Schuss“: VORREGISTRIERUNG (vor jeder Zahl auf Mess-Seeds)
+Anlass: I-040-v2 H4 (feste Mischung: Genauigkeit gegen Information pro Schuss) und `recherche/2026-10-07_volltext_2.md` Teil B. Sbaiz u. a. 2021 trainieren nur auf ein Ziel, Hu u. a. 2023 trainieren die Schaltung nicht. Eine Pareto-Front mit λ-Reihe wurde nicht gefunden (Urteil: neue Verbindung). Modul `abteilungen/pareto_schuss.py`, Quantenstufe Q2, Wirkung klassisch erklärbar.
+- **Arme:** id, haar (fest) · L0, L25, L50, L75, L90, L100: gelernte Orthogonale U = exp(A − Aᵀ), Start Identität, Verlust (1 − λ)·CE(Kopf) − λ·I_C/log₂10, 400 Adam-Schritte Vollbatch. Lernrate je λ auf Tuning-Seed 2479 (gittersuche_stabil, Kriterium (1 − λ)·acc + λ·I_C/log₂10 auf Validierung).
+- **Messung:** acc_inf mit dem I-038-Kopf (L2 3e-3, L-BFGS 500), I_C aus Test-Klassenmitteln (wie I-040-v2), beschreibend acc bei S = 30/100.
+- **Hypothesen (Holm über H1, H2a, H2b; exakter Wilcoxon einseitig, 10 Seeds):** H1 I_C(L100) > I_C(L0) UND acc(L0) > acc(L100) (ZIELKONFLIKT_TRAINIERBAR) · H2a I_C(L100) > I_C(id) (INFO_UEBER_FEST) · H2b acc(L0) > acc(haar) (GENAUIGKEIT_UEBER_FEST). Je Ja | H0 | HU. Beschreibend: Front, Anteil Seeds, in denen ein gelernter Arm BEIDE festen dominiert.
+- **Kontrollen:** PK acc(id) ≥ 0,85 (sonst H2b HU). NK: L50 mit permutierten Labels in Training, Kopf und I_C-Messung: I_C < 0,03 Bit und acc ≤ 0,15 (sonst alles HU). Die NK war in der ersten Fassung falsch gebaut: I_C wurde mit echten Testlabels gemessen und ist dann auch für eine nutzlose U > 0. Korrigiert vor jeder Messzahl.
+- **Seeds 2460–2469, Tuning 2479.**
+- **Offenlegung Rauchtest (nur Tuning-Seed 2479, 1.500 Bilder):** Alle gelernten Arme lagen bei 92–94 % mit I_C 0,21–0,62 Bit, L100 sogar am genauesten. Ein Zielkonflikt zwischen den gelernten Armen war dort nicht zu sehen, alle λ > 0 dominierten beide festen. Daher die ehrliche Erwartung: **H1 eher H0 oder HU, H2a/H2b eher ja.** Der mögliche Befund wäre dann „der Zielkonflikt der festen Mischungen ist durch Lernen auflösbar“. Kriterien bleiben unverändert.
+- **Freigabe Malte 07.10.** Start nach I-044-v3.
+
+## 07.10.2026 – I-044-v3 ERGEBNIS (Epochenreihe Strukturkopf, Seeds 2350–2357)
+Rohdaten `ergebnisse/I-044-v3__20261007_153149.json`. NK bestanden (0,102).
+| Epochen | Ks | Klin | Kklein | Ks − Klin |
+|---|---|---|---|---|
+| 4 | 74,29 | 73,92 | 72,64 | +0,37 |
+| 12 | 74,74 | **75,52** | **75,52** | −0,77 |
+| 24 | 74,01 | 74,52 | 74,21 | −0,51 |
+- **H1 H0:** Bei 24 Epochen ist der Strukturkopf dem linearen Kopf **unterlegen** (−0,51 pp [−0,78; −0,23]). **H2 HU** (−0,20 pp gegen Kklein). **H3 SCHRUMPFT** (−0,87 pp, p = 0,0003).
+- **Deutung:** Der Vorsprung aus I-044/I-044-r/I-044-v2 ist ein **Effekt des knappen Trainingsbudgets**, kein Kapazitätseffekt. Mit genug Training holen lineare und kleine dichte Köpfe auf und überholen. Die Vorhersage aus der Literatur (`recherche/2026-10-07_volltext_2.md`, Teil A) hat sich bestätigt.
+- **Folge für die Kernaussage:** „Strukturkopf schlägt dichten Kopf“ nur noch als „bei sehr knappem Trainingsbudget (4 Epochen) besser, sonst gleichwertig bis leicht schlechter, mit 85× weniger Parametern als der große dichte Kopf“. Ehrlich ist: **gleich gut wie ein linearer Kopf**. Die Parameterersparnis gilt nur gegen den unnötig großen dichten Kopf.
+- Vorbehalt: Die Raten wurden aus I-044-v2 übernommen und nicht je Epochenzahl neu gesucht. Die Abnahme aller Arme von 12 auf 24 Epochen deutet auf beginnende Überanpassung (ohne Augmentierung).
+
+## 07.10.2026 – I-046 ERGEBNIS (Pareto-Front Genauigkeit × Information pro Schuss, Seeds 2460–2469)
+Rohdaten `ergebnisse/I-046__20261007_155333.json`. NK bestanden (I_C 0,002 Bit, acc 0,104), PK bestanden (id 90,11 %). Raten am Gitter innen.
+| Arm | acc_inf % | I_C Bit | dominiert id UND haar (Anteil Seeds) |
+|---|---|---|---|
+| id (fest) | 90,11 | 0,361 | — |
+| haar (fest) | 93,80 | 0,161 | — |
+| L0 | **96,28** | 0,202 | 0,0 |
+| L25 | 95,19 | 0,568 | 1,0 |
+| L50 | 94,94 | 0,486 | 0,7 |
+| L75 | 95,06 | 0,560 | 0,9 |
+| L90 | 95,34 | 0,588 | 1,0 |
+| L100 | 95,10 | **0,614** | 1,0 |
+- **H1 ZIELKONFLIKT_TRAINIERBAR:** L100 gegen L0: +0,41 Bit, −1,18 pp (p_Holm 0,003). **H2a INFO_UEBER_FEST:** L100 +0,25 Bit über id. **H2b GENAUIGKEIT_UEBER_FEST:** L0 +2,48 pp über haar (alle 10/10 Seeds, p_Holm 0,003).
+- **Deutung:** Der Zielkonflikt existiert, ist aber **flach**. Schon λ = 0,25 holt 92 % der maximalen Information (0,568 von 0,614 Bit) für nur −1,1 pp Genauigkeit. Alle gelernten Arme mit λ ≥ 0,25 schlagen **beide** festen Mischungen gleichzeitig: genauer als Haar UND informativer pro Schuss als die Identität. Der in I-040-v2 gemessene Zielkonflikt fester Mischungen ist also **kein Naturgesetz, sondern eine Folge der festen Wahl**.
+- **Ehrliche Einordnung:** Die gelernte U hat 32.640 freie Parameter (Haar/id: 0). Ein Teil des Vorteils ist schlicht „mehr Parameter“. Auf welchen Anteil die Information pro Schuss bei gleichem Budget (z. B. Fastfood mit trainierten Diagonalen) kommt, ist offen. Die Rauchtest-Beobachtung vor dem Lauf (kein Konflikt zwischen den gelernten Armen) hat sich teilweise bestätigt: Die Front ist flach, aber messbar.
+- **Neuheit** (`recherche/2026-10-07_volltext_2.md`, B): Eine λ-Front gegen feste Arme wurde in der Literatur nicht gefunden. Nächste Verwandte sind Sbaiz 2021 (nur Einzelschuss-Ziel) und Hu 2023 (Schaltung nicht trainiert). **Kandidat für den eigenen Befund der Arbeit.** Folgefragen: (1) budgetgleiche Front mit Fastfood-Diagonalen (512 Parameter); (2) Fashion; (3) Schussgenauigkeit S = 30/100 als Hauptgröße.

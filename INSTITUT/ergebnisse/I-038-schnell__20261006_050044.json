@@ -1,0 +1,1253 @@
+{
+ "abteilung": "Struktur",
+ "modul": "struktur_aequivalenz",
+ "karte": "I-038",
+ "version": 1,
+ "hypothesen": {
+  "H-A": "QIRE gelernt ≡ Haar² (TOST ±0,5 pp, Holm x7). GLEICHWERTIG | QIRE_BESSER | HAAR_BESSER | HU.",
+  "H-B": "QIRE gelernt ≡ QIRE mit Zufallswinkeln (TOST). GLEICHWERTIG | GELERNT_BESSER | ZUFALL_BESSER | HU.",
+  "H-C": "Fastfood-2 ≡ Haar² (TOST). GLEICHWERTIG | FASTFOOD_BESSER | HAAR_BESSER | HU.",
+  "H-D": "Haar² − Pixel-Softmax > 0 (einseitig exakter Wilcoxon, Holm x7). HAAR_BESSER | H0 (Gegenrichtung) | HU.",
+  "H-E": "Haar² − Haar linear > 0 (einseitig). QUADRAT_TRAEGT | H0 (Gegenrichtung) | HU.",
+  "H-F": "Suche ≤ Haar² (suche − haar < 0, einseitig, 10 gepaarte Seeds). SUCHE_NICHT_BESSER | H0 (Suche besser) | HU.",
+  "H-G": "Haar² ≥ bester klassischer Nichtlinearitaets-Arm (auf Tuning-Seed 2099 bestimmt): Superioritaet einseitig; TOST ±0,5 pp zusaetzlich (Bonferroni x2). BORN_BESSER | GLEICHWERTIG | KLASSISCH_BESSER | UNKLAR.",
+  "NK": "Negativkontrolle Zufallslabel (Haar², permutierte Trainingslabels): Mittel der Testgenauigkeit in (0.09, 0.115). BESTANDEN | DURCHGEFALLEN. Faellt sie durch, sind alle Urteile HU/UNKLAR.",
+  "PK": "Positivkontrolle je Datensatz: H-D UND H-E je Holm-signifikant mit Mittel >= 0,5 pp. Sonst kein GLEICHWERTIG (H-A/B/C/G): die Messkette haette einen Unterschied nicht gezeigt.",
+  "B": "beschreibend: Mittel/sd aller Arme, Cayley − QIRE (mit Parameterzaehlung), weitere Differenzen, Kollaps-Pruefung, Tuning-Ergebnisse, bester klassischer Arm."
+ },
+ "folgefragen": {
+  "H-A GLEICHWERTIG": "QIRE-Struktur traegt nichts Messbares: Kernaussage 'quanten-inspiriert' (Plan §1.2) belegt.",
+  "H-A QIRE_BESSER": "Struktur traegt doch: welche (Winkel, CNOT)? I-041 / Skalierung n=10 pruefen.",
+  "H-G KLASSISCH_BESSER": "Quadrat (Born) ist nicht die beste Nichtlinearitaet: Kernaussage auf 'Mischung' kuerzen.",
+  "H-G BORN_BESSER": "Born-Quadrat ist unter klassischen Nichtlinearitaeten ausgezeichnet: Erklaerung suchen."
+ },
+ "seeds": {
+  "mnist": [
+   2090
+  ],
+  "fashion_mnist": [
+   2091
+  ]
+ },
+ "seeds_suche": [
+  2090,
+  2091
+ ],
+ "tuning_seed": 2098,
+ "tuning": {
+  "mnist": {
+   "lr": {
+    "qire": 0.16,
+    "qire_nocnot": 0.32,
+    "cayley": 0.005,
+    "mlp9": 0.03
+   },
+   "tuning": {
+    "qire": {
+     "lr": 0.16,
+     "argmax": 0.16,
+     "argmax_mittel": 0.16,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 1,
+     "gitter": {
+      "0.02": {
+       "min": 0.91,
+       "mittel": 0.91,
+       "je_seed": [
+        0.91
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.04": {
+       "min": 0.91,
+       "mittel": 0.91,
+       "je_seed": [
+        0.91
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.08": {
+       "min": 0.91,
+       "mittel": 0.91,
+       "je_seed": [
+        0.91
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.16": {
+       "min": 0.92,
+       "mittel": 0.92,
+       "je_seed": [
+        0.92
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.32": {
+       "min": 0.91,
+       "mittel": 0.91,
+       "je_seed": [
+        0.91
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    },
+    "qire_nocnot": {
+     "lr": 0.32,
+     "argmax": 0.32,
+     "argmax_mittel": 0.32,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 2,
+     "gitter": {
+      "0.02": {
+       "min": 0.83,
+       "mittel": 0.83,
+       "je_seed": [
+        0.83
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.04": {
+       "min": 0.84,
+       "mittel": 0.84,
+       "je_seed": [
+        0.84
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.08": {
+       "min": 0.86,
+       "mittel": 0.86,
+       "je_seed": [
+        0.86
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.16": {
+       "min": 0.89,
+       "mittel": 0.89,
+       "je_seed": [
+        0.89
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.32": {
+       "min": 0.92,
+       "mittel": 0.92,
+       "je_seed": [
+        0.92
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.64": {
+       "min": 0.88,
+       "mittel": 0.88,
+       "je_seed": [
+        0.88
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    },
+    "cayley": {
+     "lr": 0.005,
+     "argmax": 0.005,
+     "argmax_mittel": 0.005,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 1,
+     "gitter": {
+      "0.0025": {
+       "min": 0.87,
+       "mittel": 0.87,
+       "je_seed": [
+        0.87
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.005": {
+       "min": 0.92,
+       "mittel": 0.92,
+       "je_seed": [
+        0.92
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.01": {
+       "min": 0.9,
+       "mittel": 0.9,
+       "je_seed": [
+        0.9
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.02": {
+       "min": 0.91,
+       "mittel": 0.91,
+       "je_seed": [
+        0.91
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.04": {
+       "min": 0.91,
+       "mittel": 0.91,
+       "je_seed": [
+        0.91
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    },
+    "mlp9": {
+     "lr": 0.03,
+     "argmax": 0.03,
+     "argmax_mittel": 0.03,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 2,
+     "gitter": {
+      "0.001": {
+       "min": 0.30000001192092896,
+       "mittel": 0.30000001192092896,
+       "je_seed": [
+        0.30000001192092896
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.003": {
+       "min": 0.6000000238418579,
+       "mittel": 0.6000000238418579,
+       "je_seed": [
+        0.6000000238418579
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.01": {
+       "min": 0.7599999904632568,
+       "mittel": 0.7599999904632568,
+       "je_seed": [
+        0.7599999904632568
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.03": {
+       "min": 0.8299999833106995,
+       "mittel": 0.8299999833106995,
+       "je_seed": [
+        0.8299999833106995
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.06": {
+       "min": 0.7900000214576721,
+       "mittel": 0.7900000214576721,
+       "je_seed": [
+        0.7900000214576721
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    }
+   },
+   "tanh_a": 16.0,
+   "tanh_val": {
+    "4.0": 0.9,
+    "8.0": 0.89,
+    "16.0": 0.91,
+    "32.0": 0.91,
+    "64.0": 0.91,
+    "128.0": 0.9
+   },
+   "val": {
+    "haar_sq": 0.92,
+    "haar_relu": 0.92,
+    "haar_abs": 0.93,
+    "haar_sq_ohnenorm": 0.9,
+    "haar_tanh": 0.91,
+    "mlp9": 0.8299999833106995
+   },
+   "bester_klassisch": "haar_abs"
+  },
+  "fashion_mnist": {
+   "lr": {
+    "qire": 0.32,
+    "qire_nocnot": 0.01,
+    "cayley": 0.0025,
+    "mlp9": 0.03
+   },
+   "tuning": {
+    "qire": {
+     "lr": 0.32,
+     "argmax": 0.32,
+     "argmax_mittel": 0.32,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 2,
+     "gitter": {
+      "0.02": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.04": {
+       "min": 0.77,
+       "mittel": 0.77,
+       "je_seed": [
+        0.77
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.08": {
+       "min": 0.76,
+       "mittel": 0.76,
+       "je_seed": [
+        0.76
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.16": {
+       "min": 0.79,
+       "mittel": 0.79,
+       "je_seed": [
+        0.79
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.32": {
+       "min": 0.8,
+       "mittel": 0.8,
+       "je_seed": [
+        0.8
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.64": {
+       "min": 0.77,
+       "mittel": 0.77,
+       "je_seed": [
+        0.77
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    },
+    "qire_nocnot": {
+     "lr": 0.01,
+     "argmax": 0.01,
+     "argmax_mittel": 0.01,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 3,
+     "gitter": {
+      "0.005": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.01": {
+       "min": 0.79,
+       "mittel": 0.79,
+       "je_seed": [
+        0.79
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.02": {
+       "min": 0.79,
+       "mittel": 0.79,
+       "je_seed": [
+        0.79
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.04": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.08": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.16": {
+       "min": 0.77,
+       "mittel": 0.77,
+       "je_seed": [
+        0.77
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.32": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    },
+    "cayley": {
+     "lr": 0.0025,
+     "argmax": 0.0025,
+     "argmax_mittel": 0.0025,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 2,
+     "gitter": {
+      "0.00125": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.0025": {
+       "min": 0.8,
+       "mittel": 0.8,
+       "je_seed": [
+        0.8
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.005": {
+       "min": 0.77,
+       "mittel": 0.77,
+       "je_seed": [
+        0.77
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.01": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.02": {
+       "min": 0.8,
+       "mittel": 0.8,
+       "je_seed": [
+        0.8
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.04": {
+       "min": 0.78,
+       "mittel": 0.78,
+       "je_seed": [
+        0.78
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    },
+    "mlp9": {
+     "lr": 0.03,
+     "argmax": 0.03,
+     "argmax_mittel": 0.03,
+     "abgestuft": 0,
+     "am_rand": false,
+     "runden": 2,
+     "gitter": {
+      "0.001": {
+       "min": 0.3799999952316284,
+       "mittel": 0.3799999952316284,
+       "je_seed": [
+        0.3799999952316284
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.003": {
+       "min": 0.5099999904632568,
+       "mittel": 0.5099999904632568,
+       "je_seed": [
+        0.5099999904632568
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.01": {
+       "min": 0.6700000166893005,
+       "mittel": 0.6700000166893005,
+       "je_seed": [
+        0.6700000166893005
+       ],
+       "kollabiert_seeds": [
+        2098
+       ]
+      },
+      "0.03": {
+       "min": 0.7300000190734863,
+       "mittel": 0.7300000190734863,
+       "je_seed": [
+        0.7300000190734863
+       ],
+       "kollabiert_seeds": []
+      },
+      "0.06": {
+       "min": 0.699999988079071,
+       "mittel": 0.699999988079071,
+       "je_seed": [
+        0.699999988079071
+       ],
+       "kollabiert_seeds": []
+      }
+     }
+    }
+   },
+   "tanh_a": 32.0,
+   "tanh_val": {
+    "4.0": 0.79,
+    "8.0": 0.81,
+    "16.0": 0.81,
+    "32.0": 0.85,
+    "64.0": 0.83,
+    "128.0": 0.77
+   },
+   "val": {
+    "haar_sq": 0.78,
+    "haar_relu": 0.78,
+    "haar_abs": 0.75,
+    "haar_sq_ohnenorm": 0.82,
+    "haar_tanh": 0.85,
+    "mlp9": 0.7300000190734863
+   },
+   "bester_klassisch": "haar_tanh"
+  }
+ },
+ "parameter": {
+  "pix_softmax": 2570,
+  "ident_sq": 2570,
+  "haar_sq": 2570,
+  "haar_lin": 2570,
+  "fastfood2": 2570,
+  "qire_zufall": 2570,
+  "qire": 2602,
+  "qire_nocnot": 2602,
+  "suche": 2570,
+  "cayley": 35210,
+  "haar_relu": 2570,
+  "haar_tanh": 2570,
+  "haar_abs": 2570,
+  "haar_sq_ohnenorm": 2570,
+  "mlp9": 2413
+ },
+ "feste_wahl": {
+  "haar_sq": "65.536 feste Zufallszahlen (Seed nicht ausgewaehlt)",
+  "fastfood2": "512 Vorzeichenbits",
+  "qire_zufall": "32 feste Zufallswinkel",
+  "suche": "32 Gatterbits (kanonisch), Auswahl per LOO-Suche",
+  "haar_tanh": "Skala a (1 Zahl, Tuning-Seed)"
+ },
+ "einstellungen": {
+  "schritte": 30,
+  "sa": 80,
+  "politur": 20,
+  "n_zufall": 5,
+  "l2": 0.003,
+  "tost": 0.005,
+  "klein": true
+ },
+ "zwischendatei": "/home/user/QIRE/INSTITUT/ergebnisse/_zwischen_I-038-schnell.json",
+ "zeilen": {
+  "mnist": [
+   {
+    "seed": 2090,
+    "datensatz": "mnist",
+    "n_train": 600,
+    "n_test": 500,
+    "pix_softmax": 0.854,
+    "ident_sq": 0.824,
+    "haar_sq": 0.882,
+    "haar_lin": 0.858,
+    "haar_relu": 0.864,
+    "haar_abs": 0.874,
+    "haar_tanh": 0.874,
+    "haar_sq_ohnenorm": 0.878,
+    "mlp9": 0.8159999847412109,
+    "fastfood2": 0.888,
+    "qire_zufall": 0.872,
+    "haar_zufallslabel": 0.09,
+    "qire": 0.866,
+    "qire_orth_fehler": 7.748603820800781e-07,
+    "qire_nocnot": 0.824,
+    "qire_nocnot_orth_fehler": 1.1920928955078125e-06,
+    "cayley": 0.856,
+    "cayley_orth_fehler": 7.152557373046875e-07,
+    "sekunden": 6.1446287631988525,
+    "suche": 0.834
+   }
+  ],
+  "fashion_mnist": [
+   {
+    "seed": 2091,
+    "datensatz": "fashion_mnist",
+    "n_train": 600,
+    "n_test": 500,
+    "pix_softmax": 0.78,
+    "ident_sq": 0.752,
+    "haar_sq": 0.778,
+    "haar_lin": 0.79,
+    "haar_relu": 0.776,
+    "haar_abs": 0.766,
+    "haar_tanh": 0.764,
+    "haar_sq_ohnenorm": 0.774,
+    "mlp9": 0.7279999852180481,
+    "fastfood2": 0.786,
+    "qire_zufall": 0.784,
+    "haar_zufallslabel": 0.06,
+    "qire": 0.782,
+    "qire_orth_fehler": 1.0132789611816406e-06,
+    "qire_nocnot": 0.762,
+    "qire_nocnot_orth_fehler": 9.806443586057867e-07,
+    "cayley": 0.774,
+    "cayley_orth_fehler": 8.940696716308594e-07,
+    "sekunden": 7.488030433654785,
+    "suche": 0.766
+   }
+  ]
+ },
+ "suche_codes": {
+  "suche|mnist|2091": [
+   [
+    0,
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1
+   ]
+  ],
+  "suche|mnist|2090": [
+   [
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1
+   ],
+   [
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    1
+   ],
+   [
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  ],
+  "suche|fashion_mnist|2090": [
+   [
+    0,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    1,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    0
+   ],
+   [
+    0,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1,
+    0
+   ],
+   [
+    1,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  ],
+  "suche|fashion_mnist|2091": [
+   [
+    0,
+    1,
+    0,
+    1,
+    1,
+    1,
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    0,
+    1,
+    1,
+    0,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    1,
+    0,
+    1,
+    1,
+    0,
+    1
+   ],
+   [
+    1,
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    1
+   ]
+  ]
+ },
+ "sekunden": 0.0006139278411865234,
+ "auswertung": {
+  "datensaetze": {
+   "mnist": {
+    "n": 1,
+    "bester_klassisch": "haar_abs",
+    "arme": {
+     "pix_softmax": {
+      "mittel": 0.854,
+      "std": 0.0,
+      "min": 0.854,
+      "max": 0.854,
+      "n": 1
+     },
+     "ident_sq": {
+      "mittel": 0.824,
+      "std": 0.0,
+      "min": 0.824,
+      "max": 0.824,
+      "n": 1
+     },
+     "haar_sq": {
+      "mittel": 0.882,
+      "std": 0.0,
+      "min": 0.882,
+      "max": 0.882,
+      "n": 1
+     },
+     "haar_lin": {
+      "mittel": 0.858,
+      "std": 0.0,
+      "min": 0.858,
+      "max": 0.858,
+      "n": 1
+     },
+     "fastfood2": {
+      "mittel": 0.888,
+      "std": 0.0,
+      "min": 0.888,
+      "max": 0.888,
+      "n": 1
+     },
+     "qire_zufall": {
+      "mittel": 0.872,
+      "std": 0.0,
+      "min": 0.872,
+      "max": 0.872,
+      "n": 1
+     },
+     "qire": {
+      "mittel": 0.866,
+      "std": 0.0,
+      "min": 0.866,
+      "max": 0.866,
+      "n": 1
+     },
+     "qire_nocnot": {
+      "mittel": 0.824,
+      "std": 0.0,
+      "min": 0.824,
+      "max": 0.824,
+      "n": 1
+     },
+     "suche": {
+      "mittel": 0.834,
+      "std": 0.0,
+      "min": 0.834,
+      "max": 0.834,
+      "n": 1
+     },
+     "cayley": {
+      "mittel": 0.856,
+      "std": 0.0,
+      "min": 0.856,
+      "max": 0.856,
+      "n": 1
+     },
+     "haar_relu": {
+      "mittel": 0.864,
+      "std": 0.0,
+      "min": 0.864,
+      "max": 0.864,
+      "n": 1
+     },
+     "haar_tanh": {
+      "mittel": 0.874,
+      "std": 0.0,
+      "min": 0.874,
+      "max": 0.874,
+      "n": 1
+     },
+     "haar_abs": {
+      "mittel": 0.874,
+      "std": 0.0,
+      "min": 0.874,
+      "max": 0.874,
+      "n": 1
+     },
+     "haar_sq_ohnenorm": {
+      "mittel": 0.878,
+      "std": 0.0,
+      "min": 0.878,
+      "max": 0.878,
+      "n": 1
+     },
+     "mlp9": {
+      "mittel": 0.8159999847412109,
+      "std": 0.0,
+      "min": 0.8159999847412109,
+      "max": 0.8159999847412109,
+      "n": 1
+     },
+     "haar_zufallslabel": {
+      "mittel": 0.09,
+      "std": 0.0,
+      "min": 0.09,
+      "max": 0.09,
+      "n": 1
+     }
+    },
+    "diff": {
+     "H-A": {
+      "paar": [
+       "qire",
+       "haar_sq"
+      ]
+     },
+     "H-B": {
+      "paar": [
+       "qire",
+       "qire_zufall"
+      ]
+     },
+     "H-C": {
+      "paar": [
+       "fastfood2",
+       "haar_sq"
+      ]
+     },
+     "H-D": {
+      "paar": [
+       "haar_sq",
+       "pix_softmax"
+      ]
+     },
+     "H-E": {
+      "paar": [
+       "haar_sq",
+       "haar_lin"
+      ]
+     },
+     "H-F": {
+      "paar": [
+       "suche",
+       "haar_sq"
+      ]
+     },
+     "H-G": {
+      "paar": [
+       "haar_sq",
+       "haar_abs"
+      ]
+     }
+    },
+    "beschreibend": {
+     "cayley - qire": null,
+     "haar_sq - ident_sq": null,
+     "qire - qire_nocnot": null,
+     "fastfood2 - haar_sq": null,
+     "qire - pix_softmax": null,
+     "haar_sq - haar_relu": null,
+     "haar_sq - haar_tanh": null,
+     "haar_sq - haar_abs": null,
+     "haar_sq - haar_sq_ohnenorm": null,
+     "haar_sq - mlp9": null,
+     "suche - pix_softmax": null
+    },
+    "kollaps": {
+     "qire": [],
+     "qire_nocnot": [],
+     "cayley": [],
+     "mlp9": []
+    },
+    "p_primaer": {
+     "H-A": 1.0,
+     "H-B": 1.0,
+     "H-C": 1.0,
+     "H-D": 1.0,
+     "H-E": 1.0,
+     "H-F": 1.0,
+     "H-G": 1.0
+    },
+    "p_holm": {
+     "H-A": 1.0,
+     "H-B": 1.0,
+     "H-C": 1.0,
+     "H-D": 1.0,
+     "H-E": 1.0,
+     "H-F": 1.0,
+     "H-G": 1.0
+    },
+    "p_holm_zweiseitig": {
+     "H-A": 1.0,
+     "H-B": 1.0,
+     "H-C": 1.0,
+     "H-G": 1.0
+    },
+    "negativ": 0.09
+   },
+   "fashion_mnist": {
+    "n": 1,
+    "bester_klassisch": "haar_tanh",
+    "arme": {
+     "pix_softmax": {
+      "mittel": 0.78,
+      "std": 0.0,
+      "min": 0.78,
+      "max": 0.78,
+      "n": 1
+     },
+     "ident_sq": {
+      "mittel": 0.752,
+      "std": 0.0,
+      "min": 0.752,
+      "max": 0.752,
+      "n": 1
+     },
+     "haar_sq": {
+      "mittel": 0.778,
+      "std": 0.0,
+      "min": 0.778,
+      "max": 0.778,
+      "n": 1
+     },
+     "haar_lin": {
+      "mittel": 0.79,
+      "std": 0.0,
+      "min": 0.79,
+      "max": 0.79,
+      "n": 1
+     },
+     "fastfood2": {
+      "mittel": 0.786,
+      "std": 0.0,
+      "min": 0.786,
+      "max": 0.786,
+      "n": 1
+     },
+     "qire_zufall": {
+      "mittel": 0.784,
+      "std": 0.0,
+      "min": 0.784,
+      "max": 0.784,
+      "n": 1
+     },
+     "qire": {
+      "mittel": 0.782,
+      "std": 0.0,
+      "min": 0.782,
+      "max": 0.782,
+      "n": 1
+     },
+     "qire_nocnot": {
+      "mittel": 0.762,
+      "std": 0.0,
+      "min": 0.762,
+      "max": 0.762,
+      "n": 1
+     },
+     "suche": {
+      "mittel": 0.766,
+      "std": 0.0,
+      "min": 0.766,
+      "max": 0.766,
+      "n": 1
+     },
+     "cayley": {
+      "mittel": 0.774,
+      "std": 0.0,
+      "min": 0.774,
+      "max": 0.774,
+      "n": 1
+     },
+     "haar_relu": {
+      "mittel": 0.776,
+      "std": 0.0,
+      "min": 0.776,
+      "max": 0.776,
+      "n": 1
+     },
+     "haar_tanh": {
+      "mittel": 0.764,
+      "std": 0.0,
+      "min": 0.764,
+      "max": 0.764,
+      "n": 1
+     },
+     "haar_abs": {
+      "mittel": 0.766,
+      "std": 0.0,
+      "min": 0.766,
+      "max": 0.766,
+      "n": 1
+     },
+     "haar_sq_ohnenorm": {
+      "mittel": 0.774,
+      "std": 0.0,
+      "min": 0.774,
+      "max": 0.774,
+      "n": 1
+     },
+     "mlp9": {
+      "mittel": 0.7279999852180481,
+      "std": 0.0,
+      "min": 0.7279999852180481,
+      "max": 0.7279999852180481,
+      "n": 1
+     },
+     "haar_zufallslabel": {
+      "mittel": 0.06,
+      "std": 0.0,
+      "min": 0.06,
+      "max": 0.06,
+      "n": 1
+     }
+    },
+    "diff": {
+     "H-A": {
+      "paar": [
+       "qire",
+       "haar_sq"
+      ]
+     },
+     "H-B": {
+      "paar": [
+       "qire",
+       "qire_zufall"
+      ]
+     },
+     "H-C": {
+      "paar": [
+       "fastfood2",
+       "haar_sq"
+      ]
+     },
+     "H-D": {
+      "paar": [
+       "haar_sq",
+       "pix_softmax"
+      ]
+     },
+     "H-E": {
+      "paar": [
+       "haar_sq",
+       "haar_lin"
+      ]
+     },
+     "H-F": {
+      "paar": [
+       "suche",
+       "haar_sq"
+      ]
+     },
+     "H-G": {
+      "paar": [
+       "haar_sq",
+       "haar_tanh"
+      ]
+     }
+    },
+    "beschreibend": {
+     "cayley - qire": null,
+     "haar_sq - ident_sq": null,
+     "qire - qire_nocnot": null,
+     "fastfood2 - haar_sq": null,
+     "qire - pix_softmax": null,
+     "haar_sq - haar_relu": null,
+     "haar_sq - haar_tanh": null,
+     "haar_sq - haar_abs": null,
+     "haar_sq - haar_sq_ohnenorm": null,
+     "haar_sq - mlp9": null,
+     "suche - pix_softmax": null
+    },
+    "kollaps": {
+     "qire": [],
+     "qire_nocnot": [],
+     "cayley": [],
+     "mlp9": []
+    },
+    "p_primaer": {
+     "H-A": 1.0,
+     "H-B": 1.0,
+     "H-C": 1.0,
+     "H-D": 1.0,
+     "H-E": 1.0,
+     "H-F": 1.0,
+     "H-G": 1.0
+    },
+    "p_holm": {
+     "H-A": 1.0,
+     "H-B": 1.0,
+     "H-C": 1.0,
+     "H-D": 1.0,
+     "H-E": 1.0,
+     "H-F": 1.0,
+     "H-G": 1.0
+    },
+    "p_holm_zweiseitig": {
+     "H-A": 1.0,
+     "H-B": 1.0,
+     "H-C": 1.0,
+     "H-G": 1.0
+    },
+    "negativ": 0.06
+   }
+  }
+ },
+ "urteil": {
+  "NK": "DURCHGEFALLEN (Zufallslabel-Mittel: MNIST 0.0900, Fashion 0.0600; Band (0.09, 0.115))",
+  "PK-MNIST": "DURCHGEFALLEN (H-D p_Holm 1, H-E p_Holm 1)",
+  "H-A-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H-B-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H-C-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H-D-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H-E-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H-F-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "H-G-MNIST": "HU (zu wenige gepaarte Seeds)",
+  "B-MNIST": "beschreibend: bester klassischer Arm haar_abs; Cayley − QIRE +nan pp bei 35210 vs 2602 Parametern; Rest in auswertung.beschreibend",
+  "PK-Fashion": "DURCHGEFALLEN (H-D p_Holm 1, H-E p_Holm 1)",
+  "H-A-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H-B-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H-C-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H-D-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H-E-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H-F-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "H-G-Fashion": "HU (zu wenige gepaarte Seeds)",
+  "B-Fashion": "beschreibend: bester klassischer Arm haar_tanh; Cayley − QIRE +nan pp bei 35210 vs 2602 Parametern; Rest in auswertung.beschreibend"
+ }
+}

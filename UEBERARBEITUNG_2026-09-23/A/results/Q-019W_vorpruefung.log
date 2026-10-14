@@ -1,0 +1,36 @@
+================================================================================================
+SAETTIGUNG -- 3 Anteile, Rauschen 0.45, Abstand 0.15, lr 0.01
+  walsh   N=200   butterfly  0.8595
+  walsh   N=200   dense      0.5260
+  walsh   N=200   lowrank    0.2012  <== unter dem Boden
+  walsh   N=200   wht_fest   0.8603
+  walsh   N=200   untied     0.4932
+  walsh   N=6000  butterfly  0.9103
+  walsh   N=6000  dense      0.9343
+  walsh   N=6000  lowrank    0.3710
+  walsh   N=6000  wht_fest   0.9112
+  walsh   N=6000  untied     0.8735
+  zufall  N=200   butterfly  0.1417  <== unter dem Boden
+  zufall  N=200   dense      0.5210
+  zufall  N=200   lowrank    0.2138  <== unter dem Boden
+  zufall  N=200   wht_fest   0.1330  <== unter dem Boden
+  zufall  N=200   untied     0.5027
+  zufall  N=6000  butterfly  0.1810  <== unter dem Boden
+  zufall  N=6000  dense      0.9310
+  zufall  N=6000  lowrank    0.3265
+  zufall  N=6000  wht_fest   0.1663  <== unter dem Boden
+  zufall  N=6000  untied     0.8623
+================================================================================================
+MACHT Q-019W -- 5 Seeds, lr 0.01 fest, N = 200
+  PRIMAER  Mittel +0.3157  sd 0.0121  nachweisbar ab 0.0109  TOST NICHT erreichbar (sd > 0,011)
+  P2       Mittel +0.6798  sd 0.0275  nachweisbar ab 0.0247  TOST NICHT erreichbar (sd > 0,011)
+  P3       Mittel +0.6400  sd 0.0248  nachweisbar ab 0.0223  TOST NICHT erreichbar (sd > 0,011)
+================================================================================================
+ZEITMESSUNG -- 6 Threads, 470 Schritte
+  butterfly     20.2 s
+  dense          2.0 s
+  lowrank        1.9 s
+  wht_fest       1.2 s
+  untied        19.4 s
+  narrow         2.1 s
+  GESAMT geschaetzt 3.4 h

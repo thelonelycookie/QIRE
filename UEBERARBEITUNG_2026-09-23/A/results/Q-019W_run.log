@@ -1,0 +1,312 @@
+================================================================================================
+THEORIEPRUEFUNG Q-019W
+  butterfly, Ry(pi/2) ueberall == H^8 bis auf Vorzeichen         4.30e-16 < 1e-06  OK
+  Gegenprobe: zufaellige Winkel sind NICHT H^8                   6.73e-01 > 0.1  OK
+  wht_fest == H^8 / 16                                           0.00e+00 < 1e-06  OK
+  Walsh-Zeile k hat genau k Nulldurchgaenge                      0.00e+00 < 0.5  OK
+  wht_fest-Zeile h hat Sequency SEQ_VON_H[h]                     0.00e+00 < 0.5  OK
+  Gegenprobe: natuerliche Ordnung ist NICHT sequency-geordnet    2.55e+02 > 0.5  OK
+  zufall: orthogonal, Norm 16                                    3.41e-13 < 1e-08  OK
+  Etikett == Sequency-Band des Anteils (walsh)                   0.00e+00 < 0.5  OK
+  Etikett == Sequency-Band des Anteils (zufall)                  0.00e+00 < 0.5  OK
+  Klassenbalance (2000 -> je 250)                                0.00e+00 < 0.5  OK
+  Positivkontrolle: obere 3 Hadamard-Bits linear ablesbar        1.0000  OK
+  HINWEIS: Sequency-Band ueber <Z> ideal linear ablesbar         1.0000  (kein Kriterium -- saettigung() entscheidet)
+  BESTANDEN
+================================================================================================
+TEST GITTERVERLAENGERUNG -- Regel 1(b), beide Richtungen
+  Optimum im Startgitter       -> lr 0.003      Rand innen  OK
+  eine Verlaengerung oben      -> lr 0.09       Rand innen  OK
+  eine Verlaengerung unten     -> lr 0.0003333  Rand innen  OK
+  ausserhalb oben              -> lr 0.81       Rand oben   OK
+  ausserhalb unten             -> lr 3.704e-05  Rand unten  OK
+  BESTANDEN
+================================================================================================
+VORTEST Q-019W -- jeder Ausgang einzeln, ueber mehrere Ziehungen, Marke UND Zweigtext
+  OK     P-S   Butterfly +0,05                                            5/5  {'STRUKTUR_BESSER': 5}
+  OK     P-D   dense +0,05                                                5/5  {'DICHT_BESSER': 5}
+  OK     P-G   gleich, kleines Rauschen                                   5/5  {'GLEICHWERTIG': 5}
+  OK     P-Gs  +0,002 bei winzigem Rauschen: signifikant UND gleichwertig 5/5  {'GLEICHWERTIG': 5}
+  OK     P-U   Nulleffekt, grosses Rauschen                               39/40  {'UNENTSCHIEDEN': 39, 'DICHT_BESSER': 1}
+  OK     P-A   Aufloesung faellt (narrow = dense)                         39/40  {'HU_AUFLOESUNG': 39, 'STRUKTUR_BESSER': 1}
+  OK     P-Ar  narrow BESSER als dense: Trennung zaehlt, nicht Richtung   5/5  {'STRUKTUR_BESSER': 5}
+  OK     P-An  narrow-Zelle fehlt                                         5/5  {'HU_AUFLOESUNG': 5}
+  OK     P-B   Boden unterschritten (walsh)                               5/5  {'HU_BODEN': 5}
+  OK     P-Sa  butterfly gesaettigt (0,98)                                5/5  {'HU_SAETTIGUNG': 5}
+  OK     P-Sw  nur wht_fest ueber 0,95 -- kein Familienarm                5/5  {'STRUKTUR_BESSER': 5}
+  OK     P-X   dense fehlt bei walsh/200                                  5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     V-T   Passung traegt (+0,07)                                     5/5  {'PASSUNG_TRAEGT': 5}
+  OK     V-G   gleicher Vorsprung in beiden Basen                         5/5  {'GLEICHWERTIG': 5}
+  OK     V-S   Vorsprung nur in zufall                                    5/5  {'PASSUNG_SCHADET': 5}
+  OK     V-U   Nulleffekt, grosses Rauschen                               40/40  {'UNENTSCHIEDEN': 40}
+  OK     V-B   Boden unterschritten (zufall)                              5/5  {'HU_BODEN': 5}
+  OK     V-X   zufall fehlt ganz                                          5/5  {'HU_UNVOLLSTAENDIG': 5}
+  OK     X-P   zufall fehlt -> PRIMAER trotzdem gerechnet                 5/5  {'STRUKTUR_BESSER': 5}
+  OK     T-T   Butterfly vor givens_zufall (+0,08)                        5/5  {'STRUKTUR_TRAEGT': 5}
+  OK     T-G   givens_zufall = butterfly, kleines Rauschen                5/5  {'GLEICHWERTIG': 5}
+  OK     T-L   givens_zufall +0,05 vor butterfly                          5/5  {'ZUFALLSVERDRAHTUNG_BESSER': 5}
+  OK     T-U   Nulleffekt, grosses Rauschen                               39/40  {'UNENTSCHIEDEN': 39, 'ZUFALLSVERDRAHTUNG_BESSER': 1}
+GENERATOR
+  OK     accuracy - balanced_accuracy NICHT konstant (sd je Arm > 0)
+  OK     gepaarte Differenz kippt mit dem Feld
+  OK     eigenes Rauschen: sd(butterfly - dense) 0.0107 ~ 0.0113
+MUTATIONSPRUEFUNG -- jeder absichtliche Fehler MUSS den Vortest durchfallen lassen
+      gefangen von P-S: 0/5 {'DICHT_BESSER': 5}
+      gefangen von P-D: 0/5 {'STRUKTUR_BESSER': 5}
+      gefangen von P-Ar: 0/5 {'DICHT_BESSER': 5}
+      gefangen von P-B: 0/5 {'DICHT_BESSER': 5}
+      gefangen von P-Sw: 0/5 {'DICHT_BESSER': 5}
+      gefangen von V-T: 0/5 {'PASSUNG_SCHADET': 5}
+      gefangen von V-S: 0/5 {'PASSUNG_TRAEGT': 5}
+      gefangen von V-B: 0/5 {'PASSUNG_SCHADET': 5}
+      gefangen von X-P: 0/5 {'DICHT_BESSER': 5}
+      gefangen von T-T: 0/5 {'ZUFALLSVERDRAHTUNG_BESSER': 5}
+      gefangen von T-L: 0/5 {'STRUKTUR_TRAEGT': 5}
+  OK     Mutation 'Metrikfeld accuracy statt balanced_accuracy' faellt durch
+      gefangen von P-G: 4/5 {'GLEICHWERTIG': 4, 'STRUKTUR_BESSER': 1}
+      gefangen von P-Gs: 0/5 {'STRUKTUR_BESSER': 5}
+  OK     Mutation 'Signifikanz VOR TOST' faellt durch
+      gefangen von P-Ar: 0/5 {'HU_AUFLOESUNG': 5}
+  OK     Mutation 'Aufloesung verlangt Richtung statt Trennung' faellt durch
+BESCHREIBENDER TEIL (Durchlauf auf synthetischen Daten) und N*
+
+RESEARCH ID Q-019W | Walsh-Signale, Familie bei N = 200
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), Grenze +-0.005
+  [PRIMAER] STRUKTUR_BESSER -- PRIMAER: die geteilte Butterfly (40 Winkel) schlaegt die dichte Drehung (65.536) bei N = 200 -- Dateneffizienz belegt; walsh: butterfly - dense: +0.0515, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+  [P2] PASSUNG_TRAEGT -- P2: der Vorsprung (butterfly - dense) ist in der Walsh-Basis groesser als in der zufaelligen Orthobasis -- er kommt aus der Passung, nicht nur aus der Parameterarmut; (butterfly - dense) walsh - (butterfly - dense) zufall: +0.0702, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+  [P3] STRUKTUR_TRAEGT -- P3: die Butterfly schlaegt dieselben 40 geteilten Givens-Winkel mit zufaelliger Verdrahtung -- die Kronecker-/Bitstruktur traegt, nicht die Teilung allein; walsh: butterfly - givens_zufall: +0.0841, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+KONTROLLEN  Aufloesung bestanden (dense-narrow +0.0833, p=0.0001) | Boden {'bestanden': True, 'bester': {'walsh': 0.6807169574582266, 'zufall': 0.5474156045722263}} | Saettigung keine
+
+LERNKURVEN (beschreibend) -- Mittel der balancierten Genauigkeit
+  Basis      Arm              N=50     N=200    N=1000    N=6000
+  walsh      butterfly           -    0.6501         -    0.8033
+  walsh      dense               -    0.5986         -    0.8499
+  walsh      givens_zufall         -    0.5659         -    0.7684
+  walsh      lowrank             -    0.4013         -    0.5505
+  walsh      wht_fest            -    0.6807         -    0.8468
+  walsh      untied              -    0.6186         -    0.8278
+  walsh      narrow              -         -         -    0.7666
+  zufall     butterfly           -    0.5287         -         -
+  zufall     dense               -    0.5474         -         -
+  zufall     givens_zufall         -    0.5178         -         -
+  zufall     lowrank             -    0.3480         -         -
+  zufall     wht_fest            -    0.4509         -         -
+  zufall     untied              -    0.5381         -         -
+  Uebergangspunkt N* (walsh): Bereich 200..6000, linear interpoliert ~1193
+  Uebergangspunkt N* (zufall): Bereich <= 200
+
+BESCHREIBEND (ohne Holm, kein Urteil haengt daran)
+  N=200     walsh/butterfly - walsh/wht_fest    -0.0306  p=0.0001  TOST p=1.0000  Unterschied (b besser)     erreicht das Lernen die feste WHT?
+  N=6000    walsh/butterfly - walsh/wht_fest    -0.0435  p=0.0001  TOST p=1.0000  Unterschied (b besser)     erreicht das Lernen die feste WHT?
+  N=200    zufall/butterfly - zufall/wht_fest   +0.0778  p=0.0001  TOST p=1.0000  Unterschied (a besser)     erreicht das Lernen die feste WHT?
+  N=200        walsh/untied - walsh/butterfly   -0.0315  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Preis der Gewichtsteilung
+  N=6000       walsh/untied - walsh/butterfly   +0.0245  p=0.0001  TOST p=1.0000  Unterschied (a besser)     Preis der Gewichtsteilung
+  N=200         walsh/dense - zufall/dense      +0.0511  p=0.0001  TOST p=1.0000  Unterschied (a besser)     Plausibilitaet: dense sieht keine Basis
+  N=6000    walsh/butterfly - walsh/dense       -0.0466  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Anschluss Q-019 (walsh)
+
+BEWERTUNG: STRUKTUR_BESSER | PASSUNG_TRAEGT | STRUKTUR_TRAEGT
+================================================================================================
+  OK     N*-Interpolation {'bereich': '1000..6000', 'gemessen': 6000, 'n_stern': 1565.0845800732868}
+================================================================================================
+VORTEST BESTANDEN
+
+  walsh N=200 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.03   0.001:0.5975  0.003:0.7772  0.01:0.8467  0.03:0.8542  0.09:0.8468
+    dense      -> lr 0.003   0.001:0.5297  0.003:0.5345  0.01:0.5257  0.03:0.5120
+    givens_zufall -> lr 0.09   0.001:0.1485  0.003:0.1632  0.01:0.1627  0.03:0.1688  0.09:0.1690  0.27:0.1490
+    lowrank    -> lr 0.003   0.001:0.1992  0.003:0.2132  0.01:0.2087  0.03:0.1912
+    wht_fest   -> lr 0.03   0.001:0.5805  0.003:0.7650  0.01:0.8462  0.03:0.8592  0.09:0.8497
+    untied     -> lr 0.09   0.001:0.4162  0.003:0.4785  0.01:0.5017  0.03:0.5047  0.09:0.5070  0.27:0.3800
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_132003.json
+  Messzeilen (90): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_132003.csv
+
+  zufall N=200 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.03   0.001:0.1388  0.003:0.1462  0.01:0.1467  0.03:0.1477  0.09:0.1453
+    dense      -> lr 0.003   0.001:0.5357  0.003:0.5372  0.01:0.5287  0.03:0.5172
+    givens_zufall -> lr 0.01   0.001:0.1427  0.003:0.1645  0.01:0.1747  0.03:0.1715
+    lowrank    -> lr 0.003   0.001:0.1972  0.003:0.2168  0.01:0.2118  0.03:0.2000
+    wht_fest   -> lr 0.09   0.001:0.1370  0.003:0.1393  0.01:0.1415  0.03:0.1468  0.09:0.1472  0.27:0.1455
+    untied     -> lr 0.09   0.001:0.3940  0.003:0.4705  0.01:0.4987  0.03:0.5013  0.09:0.5017  0.27:0.3628
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_134920.json
+  Messzeilen (180): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_134920.csv
+
+  walsh N=6000 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.03   0.001:0.7615  0.003:0.8843  0.01:0.9110  0.03:0.9113  0.09:0.9037
+    dense      -> lr 0.003   0.001:0.9508  0.003:0.9575  0.01:0.9508  0.03:0.8240
+    givens_zufall -> lr 0.03   0.001:0.1745  0.003:0.2030  0.01:0.2130  0.03:0.2228  0.09:0.1877
+    lowrank    -> lr 0.03   0.001:0.2228  0.003:0.2890  0.01:0.3300  0.03:0.3945  0.09:0.3177
+    wht_fest   -> lr 0.01   0.001:0.6898  0.003:0.8820  0.01:0.9112  0.03:0.9110
+    untied     -> lr 0.01   0.001:0.6310  0.003:0.8168  0.01:0.8843  0.03:0.8242
+    narrow     -> lr 0.003   0.001:0.8440  0.003:0.8508  0.01:0.8100  0.03:0.7308
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_142319.json
+  Messzeilen (285): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_142319.csv
+
+  zufall N=6000 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.01   0.001:0.1533  0.003:0.1745  0.01:0.1768  0.03:0.1747
+    dense      -> lr 0.003   0.001:0.9488  0.003:0.9515  0.01:0.9477  0.03:0.8345
+    givens_zufall -> lr 0.03   0.001:0.1717  0.003:0.2052  0.01:0.2133  0.03:0.2162  0.09:0.1925
+    lowrank    -> lr 0.01   0.001:0.2335  0.003:0.2947  0.01:0.3227  0.03:0.3223
+    wht_fest   -> lr 0.003   0.001:0.1453  0.003:0.1663  0.01:0.1660  0.03:0.1642
+    untied     -> lr 0.01   0.001:0.6218  0.003:0.8092  0.01:0.8807  0.03:0.8198
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_145523.json
+  Messzeilen (375): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_145523.csv
+
+  walsh N=1000 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.03   0.001:0.7140  0.003:0.8570  0.01:0.8945  0.03:0.8973  0.09:0.8923
+    dense      -> lr 0.003   0.001:0.8228  0.003:0.8347  0.01:0.8227  0.03:0.6633
+    givens_zufall -> lr 0.003   0.001:0.1725  0.003:0.1957  0.01:0.1905  0.03:0.1935
+    lowrank    -> lr 0.03   0.001:0.2188  0.003:0.2477  0.01:0.2725  0.03:0.2738  0.09:0.2718
+    wht_fest   -> lr 0.03   0.001:0.6380  0.003:0.8490  0.01:0.8955  0.03:0.8978  0.09:0.8940
+    untied     -> lr 0.03   0.001:0.5582  0.003:0.6880  0.01:0.7545  0.03:0.7683  0.09:0.7267
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_152909.json
+  Messzeilen (465): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_152909.csv
+
+  zufall N=1000 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.01   0.001:0.1480  0.003:0.1685  0.01:0.1722  0.03:0.1692
+    dense      -> lr 0.003   0.001:0.8173  0.003:0.8268  0.01:0.8157  0.03:0.7130
+    givens_zufall -> lr 0.01   0.001:0.1680  0.003:0.1932  0.01:0.2038  0.03:0.2035
+    lowrank    -> lr 0.003   0.001:0.2305  0.003:0.2558  0.01:0.2515  0.03:0.2508
+    wht_fest   -> lr 0.03   0.001:0.1367  0.003:0.1397  0.01:0.1448  0.03:0.1475  0.09:0.1472
+    untied     -> lr 0.03   0.001:0.5480  0.003:0.6935  0.01:0.7592  0.03:0.7737  0.09:0.7167
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_160037.json
+  Messzeilen (555): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_160037.csv
+
+  walsh N=50 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.03   0.001:0.4903  0.003:0.5807  0.01:0.6585  0.03:0.6685  0.09:0.6625
+    dense      -> lr 0.01   0.001:0.2813  0.003:0.2835  0.01:0.2863  0.03:0.2857
+    givens_zufall -> lr 0.01   0.001:0.1390  0.003:0.1473  0.01:0.1498  0.03:0.1430
+    lowrank    -> lr 0.003   0.001:0.1743  0.003:0.1798  0.01:0.1770  0.03:0.1657
+    wht_fest   -> lr 0.03   0.001:0.4690  0.003:0.5785  0.01:0.6633  0.03:0.6772  0.09:0.6752
+    untied     -> lr 0.03   0.001:0.2703  0.003:0.2780  0.01:0.2705  0.03:0.2830  0.09:0.2798
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_162107.json
+  Messzeilen (645): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_162107.csv
+
+  zufall N=50 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.003   0.001:0.1270  0.003:0.1383  0.01:0.1322  0.03:0.1298
+    dense      -> lr 0.000333333   0.000111111:0.2737  0.000333333:0.2818  0.001:0.2815  0.003:0.2815  0.01:0.2778  0.03:0.2782
+    givens_zufall -> lr 0.003   0.001:0.1528  0.003:0.1562  0.01:0.1487  0.03:0.1538
+    lowrank    -> lr 0.01   0.001:0.1822  0.003:0.1920  0.01:0.1963  0.03:0.1830
+    wht_fest   -> lr 0.03   0.001:0.1253  0.003:0.1285  0.01:0.1280  0.03:0.1317  0.09:0.1275
+    untied     -> lr 0.01   0.001:0.2603  0.003:0.2722  0.01:0.2807  0.03:0.2750
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_164036.json
+  Messzeilen (735): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_164036.csv
+
+  fourier N=6000 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.03   0.001:0.5610  0.003:0.6625  0.01:0.6808  0.03:0.6853  0.09:0.6758
+    dense      -> lr 0.003   0.001:0.9220  0.003:0.9275  0.01:0.9147  0.03:0.7588
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_165103.json
+  Messzeilen (765): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_165103.csv
+
+  permutiert N=6000 -- Lernratensuche (volles Budget 470 Schritte)
+    butterfly  -> lr 0.01   0.001:0.1402  0.003:0.1533  0.01:0.1545  0.03:0.1508
+    dense      -> lr 0.003   0.001:0.9500  0.003:0.9545  0.01:0.9463  0.03:0.8338
+    seed 19105 fertig (5/15)
+    seed 19110 fertig (10/15)
+    seed 19115 fertig (15/15)
+    Zwischenstand gesichert (Regel 5):
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_170030.json
+  Messzeilen (795): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_170030.csv
+
+RESEARCH ID Q-019W | Walsh-Signale, Familie bei N = 200
+================================================================================================
+VORREGISTRIERTE FAMILIE (Holm ueber 3), Grenze +-0.005
+  [PRIMAER] STRUKTUR_BESSER -- PRIMAER: die geteilte Butterfly (40 Winkel) schlaegt die dichte Drehung (65.536) bei N = 200 -- Dateneffizienz belegt; walsh: butterfly - dense: +0.3082, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+  [P2] PASSUNG_TRAEGT -- P2: der Vorsprung (butterfly - dense) ist in der Walsh-Basis groesser als in der zufaelligen Orthobasis -- er kommt aus der Passung, nicht nur aus der Parameterarmut; (butterfly - dense) walsh - (butterfly - dense) zufall: +0.6933, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+  [P3] STRUKTUR_TRAEGT -- P3: die Butterfly schlaegt dieselben 40 geteilten Givens-Winkel mit zufaelliger Verdrahtung -- die Kronecker-/Bitstruktur traegt, nicht die Teilung allein; walsh: butterfly - givens_zufall: +0.6781, 15/15 Seeds, p=0.0001, Holm=0.0002, TOST p=1.0000.
+KONTROLLEN  Aufloesung bestanden (dense-narrow +0.1010, p=0.0007) | Boden {'bestanden': True, 'bester': {'walsh': 0.847199999789397, 'zufall': 0.5332666677733262}} | Saettigung keine
+
+LERNKURVEN (beschreibend) -- Mittel der balancierten Genauigkeit
+  Basis      Arm              N=50     N=200    N=1000    N=6000
+  walsh      butterfly      0.6604    0.8472    0.8957    0.9077
+  walsh      dense          0.2757    0.5390    0.8236    0.9504
+  walsh      givens_zufall    0.1514    0.1691    0.1872    0.2079
+  walsh      lowrank        0.1803    0.2159    0.2830    0.3929
+  walsh      wht_fest       0.6549    0.8466    0.8952    0.9066
+  walsh      untied         0.2742    0.4949    0.7631    0.8767
+  walsh      narrow              -         -         -    0.8494
+  zufall     butterfly      0.1383    0.1482    0.1684    0.1781
+  zufall     dense          0.2731    0.5333    0.8220    0.9507
+  zufall     givens_zufall    0.1415    0.1629    0.1896    0.2165
+  zufall     lowrank        0.1807    0.2090    0.2574    0.3257
+  zufall     wht_fest       0.1339    0.1409    0.1557    0.1566
+  zufall     untied         0.2697    0.4993    0.7639    0.8751
+  permutiert butterfly           -         -         -    0.1574
+  permutiert dense               -         -         -    0.9513
+  fourier    butterfly           -         -         -    0.6767
+  fourier    dense               -         -         -    0.9209
+  Uebergangspunkt N* (walsh): Bereich 1000..6000, linear interpoliert ~3080
+  Uebergangspunkt N* (zufall): Bereich <= 50
+
+BESCHREIBEND (ohne Holm, kein Urteil haengt daran)
+  N=50      walsh/butterfly - walsh/wht_fest    +0.0055  p=0.0637  TOST p=0.5742  unentschieden (+-0.0105)   erreicht das Lernen die feste WHT?
+  N=200     walsh/butterfly - walsh/wht_fest    +0.0006  p=0.6602  TOST p=0.0000  gleichwertig (+-0.005)     erreicht das Lernen die feste WHT?
+  N=1000    walsh/butterfly - walsh/wht_fest    +0.0004  p=0.8201  TOST p=0.0000  gleichwertig (+-0.005)     erreicht das Lernen die feste WHT?
+  N=6000    walsh/butterfly - walsh/wht_fest    +0.0010  p=0.1397  TOST p=0.0000  gleichwertig (+-0.005)     erreicht das Lernen die feste WHT?
+  N=50     zufall/butterfly - zufall/wht_fest   +0.0043  p=0.1475  TOST p=0.4203  unentschieden (+-0.0101)   erreicht das Lernen die feste WHT?
+  N=200    zufall/butterfly - zufall/wht_fest   +0.0072  p=0.0151  TOST p=0.8114  Unterschied (a besser)     erreicht das Lernen die feste WHT?
+  N=1000   zufall/butterfly - zufall/wht_fest   +0.0128  p=0.0026  TOST p=0.9954  Unterschied (a besser)     erreicht das Lernen die feste WHT?
+  N=6000   zufall/butterfly - zufall/wht_fest   +0.0214  p=0.0001  TOST p=0.9999  Unterschied (a besser)     erreicht das Lernen die feste WHT?
+  N=50         walsh/untied - walsh/butterfly   -0.3862  p=0.0007  TOST p=1.0000  Unterschied (b besser)     Preis der Gewichtsteilung
+  N=200        walsh/untied - walsh/butterfly   -0.3523  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Preis der Gewichtsteilung
+  N=1000       walsh/untied - walsh/butterfly   -0.1326  p=0.0007  TOST p=1.0000  Unterschied (b besser)     Preis der Gewichtsteilung
+  N=6000       walsh/untied - walsh/butterfly   -0.0310  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Preis der Gewichtsteilung
+  N=50          walsh/dense - zufall/dense      +0.0025  p=0.3634  TOST p=0.2093  unentschieden (+-0.0077)   Plausibilitaet: dense sieht keine Basis
+  N=200         walsh/dense - zufall/dense      +0.0057  p=0.0064  TOST p=0.6510  Unterschied (a besser)     Plausibilitaet: dense sieht keine Basis
+  N=1000        walsh/dense - zufall/dense      +0.0016  p=0.4543  TOST p=0.0629  unentschieden (+-0.0053)   Plausibilitaet: dense sieht keine Basis
+  N=6000        walsh/dense - zufall/dense      -0.0003  p=0.8469  TOST p=0.0037  gleichwertig (+-0.005)     Plausibilitaet: dense sieht keine Basis
+  N=6000  fourier/butterfly - fourier/dense     -0.2442  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Anschluss Q-019 (fourier)
+  N=6000  permutiert/butterfly - permutiert/dense  -0.7939  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Anschluss Q-019 (permutiert)
+  N=6000    walsh/butterfly - walsh/dense       -0.0427  p=0.0001  TOST p=1.0000  Unterschied (b besser)     Anschluss Q-019 (walsh)
+
+BEWERTUNG: STRUKTUR_BESSER | PASSUNG_TRAEGT | STRUKTUR_TRAEGT
+================================================================================================
+
+  Rohdaten gespeichert: C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_170030_02.json
+  Messzeilen (795): C:\Users\Malte\Downloads\claude\projects\QIRE AI\UEBERARBEITUNG_2026-09-23\A\results\experiments\Q-019W__20260928_170030_02.csv

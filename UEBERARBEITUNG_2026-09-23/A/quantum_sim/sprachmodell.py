@@ -28,8 +28,9 @@ ZUSATZARM (NICHT vorregistriert, standardmaessig AUS, nur beschreibend)
                   nichtnegativ, feste Summe, EIN skalarer Gewinn. Der FFN-Block
                   kann damit nichts vom Residualstrom abziehen. Der Arm steht
                   AUSSERHALB der Holm-Familie; sein Ergebnis bestaetigt nichts,
-                  es beschreibt nur. Zuschalten mit `--mit-zusatzarm`. Ob er
-                  mitlaeuft, entscheidet Malte VOR dem Lauf (Tagebuch).
+                  es beschreibt nur. ENTSCHIEDEN am 28. September (Malte,
+                  Tagebuch): er laeuft STANDARDMAESSIG mit (40 statt 32
+                  Messzellen); abschalten mit `--ohne-zusatzarm`.
 
 VORREGISTRIERUNG
   Gemessen wird die Kreuzentropie auf der Validierungsmenge in nats je Token,
@@ -1886,9 +1887,13 @@ def _cli(argv: Optional[Sequence[str]] = None) -> int:
     sub = p.add_subparsers(dest="befehl")
 
     def zusatz(sp):
+        # Seit 28. September Standard (Entscheidung Malte, Tagebuch):
+        # der Zusatzarm laeuft mit. --mit-zusatzarm bleibt fuer alte Skripte.
         sp.add_argument("--mit-zusatzarm", action="store_true",
-                        help="butterfly_ffn_zentriert mitrechnen (nicht "
-                             "vorregistriert, nur beschreibend)")
+                        help="(Standard seit 28.09.) butterfly_ffn_zentriert "
+                             "mitrechnen -- nicht vorregistriert, beschreibend")
+        sp.add_argument("--ohne-zusatzarm", action="store_true",
+                        help="nur die vier vorregistrierten Arme")
 
     def schritte_opt(sp):
         sp.add_argument("--schritte", type=int, default=SCHRITTE)
@@ -1938,7 +1943,7 @@ def _cli(argv: Optional[Sequence[str]] = None) -> int:
 
     a = p.parse_args(argv)
     befehl = a.befehl or "durchsatz"
-    arme = ALLE_ARME if getattr(a, "mit_zusatzarm", False) else ARME
+    arme = ARME if getattr(a, "ohne_zusatzarm", False) else ALLE_ARME
 
     if befehl == "durchsatz":
         durchsatz_alle_arme(arme=arme)

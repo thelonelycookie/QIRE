@@ -64,12 +64,17 @@ bisher den größten Abstand berichtet habe (67.848 Parameter, 0,8407), war zu
 schwach: Eine Stichprobe zeigte, dass sie sogar hinter einem rein linearen
 Modell liegt. Der faire Vergleich gegen ein gewöhnliches ReLU-Netz mit
 derselben Engstelle läuft deshalb als eigener, vorregistrierter Lauf Q-020.
-**[OFFEN: Q-020 (a) — Abstand der Schaltung (16 bzw. 80 Winkel) zum
-ReLU-Netz mit ~68.000 Mittelschicht-Parametern; gleichwertig (TOST ±0,005)
-oder nicht, auf MNIST und Fashion-MNIST.]** Hält die Gleichwertigkeit, ist das
-die Kernaussage: gleiche Genauigkeit bei 128-fach (gegen 2.048) bzw. rund
-4.200-fach (gegen ~68.000) weniger Parametern in der Mittelschicht — nicht im
-Gesamtmodell, denn der Encoder 784→256 steckt in jedem Arm.
+Das Ergebnis (Q-020, vorregistriert, 15 Seeds, offizieller MNIST-Testsatz mit
+10.000 Bildern): Die Schaltung mit 16 Winkeln **schlägt** das ReLU-Netz mit
+67.848 Mittelschicht-Parametern. Sie erreicht 0,9347 gegen 0,9234, also
+**+0,0113**, und liegt in allen 15 Seeds vorn (p = 0,0001, nach Holm 0,0002).
+Auf Fashion-MNIST zeigt sie in dieselbe Richtung, aber kleiner: +0,0047,
+p = 0,03, nur beschreibend. Die Einsparung betrifft die Mittelschicht, nicht
+das Gesamtmodell, denn der Encoder 784→256 steckt in jedem Arm.
+**Woher der Vorteil kommt, ist ebenfalls gemessen:** Von den 16 Winkeln wirken
+nur 8. Eine rein klassische Kronecker-Drehung aus acht 2×2-Drehungen
+erreicht dieselbe Genauigkeit (0,9350; gleichwertig, TOST). Die Architektur
+stammt also aus der Quantenschaltung, der Mechanismus ist klassisch.
 
 **Mechanismus.** Die Auslese ⟨Z⟩ summiert |Amplitude|² — sie **ist die
 Born-Regel** und wirkt hier als Nichtlinearität. Dieselbe Operation als Gate im
@@ -77,12 +82,17 @@ ersten Abgrenzungstest brachte nichts, weil ihr Ergebnis danach wieder auf
 Summe 1 normiert wurde. Die **Position im Netz** entscheidet, nicht die
 Operation. Ohne Verschränkungsgatter ist die Schaltung ein Kronecker-Produkt
 U₁⊗…⊗U₈ aus Ein-Qubit-Drehungen; zusätzliche Lagen bringen dann nichts Neues.
-Ob Verschränkung und Tiefe *mit* Verschränkung etwas beitragen, ist offen — die
-bisherigen Gleichwertigkeitsaussagen wurden mit trainierbarem Encoder gemessen,
-und die Positivkontrolle dieses Laufs ist durchgefallen. **[OFFEN: Q-020 (b) —
-Verschränkung × Tiefe ohne Encoder.]** Dass die Winkel selbst tragen, sobald
-kein Encoder aushilft, ist belegt: trainiert gegen eingefroren +0,4077 (15/15
-Seeds, Q-018).
+Mit Verschränkung ändert sich das, aber nur, wenn kein trainierbarer Encoder
+die Arbeit übernimmt. Ohne Encoder, auf einer Aufgabe mit 128 Haufen (Q-020 b),
+gilt:
+- Der CNOT-Ring bringt **+0,34**: 0,687 gegen 0,345.
+- 5 Lagen mit CNOT bringen gegenüber einer Lage **+0,33**.
+
+Beides gilt in 15 von 15 Seeds. Mit Encoder sind beide Effekte nachweislich
+null (TOST), und daher kam der frühere Nullbefund. Ehrlich dazu gehört: Auf
+dieser Aufgabe liegen klassische Netze bei 1,000, die beste Schaltung bei
+0,687. Dass die Winkel selbst tragen, sobald kein Encoder aushilft, war schon
+belegt: trainiert gegen eingefroren +0,4077 (15/15 Seeds, Q-018).
 
 **Effizienz — getrennt von der Qualität.** Klassisch umgesetzt ist die
 Schaltung ein Butterfly-Netz mit O(d log d) Operationen und über jede
@@ -95,7 +105,23 @@ Butterfly-Struktur. Trainierbar ist auf meiner Hardware nur Breite 256 —
 Qualität und Effizienz sind deshalb an verschiedenen Breiten gemessen und
 werden getrennt berichtet.
 
-**Zweite Anwendung: ein Sprachmodell.** In einem kleinen Transformer (d_model
+**Zweite KI-Art: Signalklassifikation mit wenig Daten (Q-019W).** Ohne
+Verschränkungsgatter ist die Schaltung ein Kronecker-Produkt von Drehungen und
+enthält damit exakt die Walsh-Hadamard-Transformation. Auf Rechteck- und
+Schaltsignalen, 8 Klassen, vorregistriert mit 15 Seeds, gilt:
+- **Bei 200 Trainingsbeispielen** schlägt die Schicht mit 40 Winkeln eine
+  dichte Schicht mit 65.536 Parametern deutlich: 0,847 gegen 0,539.
+- **Erst ab rund 3.000 Beispielen** holt die dichte Schicht auf.
+- **Dieselben 40 Winkel mit zufälliger Verdrahtung** lernen nichts (0,17).
+  Auch in einer zufälligen Basis verschwindet der Vorteil.
+- **Die gelernte Schicht entspricht der festen Walsh-Hadamard-Transformation**
+  (gleichwertig, TOST). Die Ersparnis kommt aus der Teilung der Winkel: Die
+  ungeteilte Variante ist bei wenig Daten so schwach wie die dichte Schicht.
+
+Das ist Ressourceneffizienz beim **Datenbedarf**, klassisch erklärt, aus der
+Struktur der Quantenschaltung abgeleitet.
+
+**Weitere Anwendung: ein Sprachmodell.** In einem kleinen Transformer (d_model
 256, 5,3 Mio. Parameter, deutsche Wikipedia) ersetze ich die FFN- bzw.
 Q/K/V-Schichten durch die Butterfly-Struktur (Strukturteil im FFN-Arm 324 statt
 2,1 Mio. Parameter). **[OFFEN: T-002 — Validierungsverlust dense gegen
@@ -186,14 +212,14 @@ klassisches Quadratmodell“.)*
    und Vorhersagen (5/8/10 Qubits).
 5. **Die Quantenschaltung als Schicht**
    - 5.1 Q-003-replication — und warum die Kontrolle zu schwach war
-   - 5.2 Q-020 (a): faire klassische Referenz **[OFFEN]**
+   - 5.2 Q-020 (a): faire klassische Referenz: 16 Winkel schlagen das ReLU-MLP (+0,0113), Mechanismus = Kronecker-Drehung
    - 5.3 Mechanismus: Rayleigh-Quotient, Born-Regel als Nichtlinearität,
      überlappende Auslese
    - 5.4 Q-015 (MNIST): Schaltung gegen volle Drehung, Trainierbarkeit statt
      Ausdruckskraft; Fashion-Zahl zurückgezogen
    - 5.5 Q-018: das Training trägt, sobald kein Encoder aushilft; Q-014 als
      Lehrstück
-   - 5.6 Q-020 (b): Verschränkung × Tiefe ohne Encoder **[OFFEN]**
+   - 5.6 Q-020 (b): Verschränkung × Tiefe ohne Encoder: beide tragen (+0,34 / +0,33), klassisch aber besser
 6. **Effizienz auf klassischer Hardware** — Übergangspunkt, Cache-Kante,
    T-001, Inferenz gegen Training, Machbarkeitsgrenze.
 7. **Zweite KI-Art: Sprachmodell (T-002)** **[OFFEN]** — optional Zeitreihen

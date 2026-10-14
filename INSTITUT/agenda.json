@@ -189,12 +189,54 @@
   {
    "id": "I-005",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.clifford_suche",
    "frage": "Nur diskrete Clifford-Wahl trainiert (2 Bit je Gatter), Magie kommt allein aus den Daten",
    "notiz": "Aus der Ideenschmiede. Abbruch: Beste gefundene Clifford nicht besser als Median von 100 zufaelligen Clifford-Schaltungen. Test: 100 zufaellige + simulated annealing ueber 4^24 Clifford-Wahlen, nur Kopf trainieren (konvex): ~30 min. | Aufgewertet nach I-003: Gradientenabstieg findet eine bekannte Clifford-Loesung nicht (voll unter Identitaet) -- diskrete Suche ist ein eigener, noetiger Lerner. | Modul gebaut (Forscher-Agent): simulated annealing ueber 2^(nL) Clifford-Wahlen (c ~ c+2 aequivalent), Ridge-LOO-Kriterium, gemeinsamer L-BFGS-Kopf fuer alle Arme. Q-0 Positivkontrolle Strukturaufgabe (G_L >= 0,8), Q-1 Suche vs Median 100 Zufall, Q-2 Suche vs k0, Q-4 Suche vs Zufallssuche gleicher Bewertungszahl (Holm Q-1/2/4). Mess-Seeds MNIST 190-199, Struktur 200-209 (Direktor: urspruengliche Seeds im Rauchtest beruehrt -> ersetzt). ~35-50 min.",
    "prioritaet": 1,
    "folgen": {}
+  },
+  {
+   "id": "I-005-v2",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.clifford_suche_v2",
+   "prioritaet": 1,
+   "frage": "Ist eine reine Clifford-Schaltung aus der diskreten Suche (0 Magiewinkel) auf MNIST UND Fashion-MNIST 16x16 gleichwertig zum vollen Training (Rate je Datensatz mit Stabilitaetsabstand)? TOST +-0,5 pp, Holm ueber V-1..V-3.",
+   "notiz": "Folge aus I-005 (alle H1; suche 0,9352 ~ voll 0,9344 nur beschreibend, voll mit fester Rate 0,08 = Verstoss Regel 1). Modul von Forscher-Agent, Vortest bestanden, Rauchtest 28.09. (160 s). N_SEEDS = 20 (Direktor 28.09.: bei 10 Macht fuer GLEICHWERTIG nur ~10-20 %). Mess-Seeds MNIST 300-309+330-339, Fashion 310-319+340-349, Struktur 360-369, Tuning 950-955. V-1/V-2 suche vs voll GLEICHWERTIG/VOLL_BESSER/SUCHE_BESSER/HU (GLEICHWERTIG braucht Q-0 H1, voll-id >= 1 pp, kein Kollaps), V-3 Fashion suche vs Median 100 Zufall. ~3,3 h.",
+   "folgen": {}
+  },
+  {
+   "id": "I-005-v3",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.clifford_suche_v3",
+   "prioritaet": 1,
+   "frage": "Wie viele Nicht-Clifford-Winkel AUF der gesuchten Clifford-Schaltung schliessen die Fashion-Luecke zu voll (I-005-v2 V-2: 1,31 pp)? Suche + k in {1,2,4,8} nachtrainierte Winkel (Auswahl nach Verlustanstieg vs. zufaellig), G_S(k), M50_S/M90_S. Holm ueber M-1..M-3.",
+   "notiz": "Folge aus I-005-v2 (MNIST GLEICHWERTIG, Fashion VOLL_BESSER, G_voll 0,65). Modul von Forscher-Agent, Vortest bestanden (auch vom Direktor wiederholt), Rauchtest 28.09. (447 s). N_SEEDS = 20. Mess-Seeds Fashion 420-439, Tuning 960-962, Entwurf 963-966. M-1 k8_verlust vs voll TOST +-0,5 pp (GLEICHWERTIG/VOLL_BESSER/K8_BESSER/HU; braucht voll - suche >= 1 pp), M-2 k2 verlust vs zufall, M-3 voll vs suche. Kollaps in jedem Zweig. ~3 h 10 min - 3 h 40 min.",
+   "folgen": {
+    "M-1 GLEICHWERTIG": "M50_S/M90_S als Magiebedarf ueber der besten Clifford-Schaltung; auf MNIST pruefen, ob M50_S = 0 ist; T-Gatter-Budget mit Hybrid-Kaskade neu rechnen",
+    "M-1 VOLL_BESSER": "k = 12/16 oder gierige Auswahl; pruefen, ob k32_alle voll erreicht -- sonst sitzt die Suche in einem anderen Becken als der Gradient",
+    "M-2 H0": "Einzelwinkel-Naeherung der Verlust-Rangfolge reicht auf dem Suche-Geruest nicht -> gierige Auswahl"
+   }
+  },
+  {
+   "id": "I-036",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.walsh_kontrolle",
+   "prioritaet": 1,
+   "frage": "Ist die gesuchte Clifford-Zelle im Kern ein klassischer Walsh-Klassifikator? Suche (0 Magiewinkel) vs. FESTE quadrierte Walsh-Hadamard-Merkmale (walsh_fest = H^8, im Suchraum) auf MNIST und Fashion, walsh_fest vs. Identitaet (MNIST), Suche vs. FESTER lokaler 2x2-Block-Walsh (block2x2, MNIST); gleicher L-BFGS-Kopf, TOST +-0,5 pp, Holm ueber W-1..W-4.",
+   "notiz": "Folge aus I-005-v3 / Recherche 29.09. Modul von Forscher-Agent, Vortest bestanden (29.09., auch nach Aufnahme von W-4; vom Direktor wiederholt), Rauchtest 29.09. (101 s). Theorie im Modulkopf: Clifford-Zelle = quadrierter Block-Walsh (Blockdim. k) von vorzeichenmaskierten Pixeln (Bruhat-Form, 70/70 alte Suchergebnisse; 0/70 Walsh-aequivalent; MNIST k 4-7, Fashion 5-8). W-4 nach dem Rauchtest aufgenommen (Direktor 29.09.): Wahl von block2x2 nur aus Rauchtest-Seeds 942-947. Vorhersage: W-1 SUCHE_BESSER, W-3 H0 (Gegenrichtung). N_SEEDS = 20. Mess-Seeds MNIST 640-659, Fashion 660-679, Struktur 680-689, Entwurf 942-947. Kopf-L2 0,003 aus I-005-v2. ~1,5-1,75 h bei 5 Prozessen. | Gerechnet 05.10. im Container (4 Prozesse, zweiter Anlauf): W-1/W-2/W-4 SUCHE_BESSER, W-3 H0 (Gegenrichtung), Q-0 H1. Laborbuch 05.10.",
+   "folgen": {
+    "W-1 SUCHE_BESSER": "Die Suche ist mehr als der globale Walsh-Klassifikator; Einordnung ueber W-4 und die beschreibende Dosis-Kurve fester Block-Walsh",
+    "W-1 GLEICHWERTIG": "Die Suche ist auf MNIST ersetzbar durch feste Walsh-Merkmale: I-005-Befund als klassische Transformation einordnen (Q-019W verbinden), Hybrid-Kaskade mit walsh_fest als Stufe 0",
+    "W-1 WALSH_BESSER": "Suchdefizit oder Siegerfluch: walsh_val vs. suche_val auswerten, Suche mit walsh_fest als Start",
+    "W-2 SUCHE_BESSER": "Fashion-Rueckstand zu voll (1,31 pp) gegen feste Block-Walsh-Merkmale setzen: Magie vs. Maske/Blockstruktur",
+    "W-4 GLEICHWERTIG": "Die Clifford-Suche ist auf MNIST ein fester lokaler 2x2-Block-Walsh-Klassifikator: 0-T-Befund aus I-005-v2 klassisch einordnen; auf Fashion vorregistriert wiederholen; Hybrid-Kaskade mit block2x2 als Stufe 0",
+    "W-4 SUCHE_BESSER": "Maske/Blockwahl der Suche traegt ueber den festen Block hinaus: gesuchte Blockform mit fester Maske vs. Suche",
+    "W-4 BLOCK_BESSER": "Suchdefizit: Suche mit block2x2 als Start, Siegerfluch pruefen"
+   }
   },
   {
    "id": "C-hardware",
@@ -293,7 +335,7 @@
   {
    "id": "I-004-mnist",
    "abteilung": "Clifford",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.geruest_mnist",
    "prioritaet": 1,
    "frage": "Clifford-Geruest + k Magiewinkel von Anfang an (EIN Training) gegen nachtraegliches Runden -- auf MNIST mit ausreichender Aufloesung, zusammen mit I-001 auf MNIST.",
@@ -378,6 +420,214 @@
    "frage": "Sagt die Aufgaben-Schwierigkeit (abgestufte Label-Rausch-Skala) den Magiebedarf M50 voraus, und gibt es einen billigen Kennwert (Generalisierungsluecke) dafuer statt des teuren Rundungs-Sweeps?",
    "prioritaet": 1,
    "notiz": "Direktor 25.09. (Vorgabe 7, echte Neuheit, Literatur geprueft: 2403.00919/2409.13008 stellen andere Fragen). Modul gebaut (Forscher-Agent, nachgebessert auf 10 Rausch-Stufen fuer Teststaerke): 10 Stufen 0-100% x 6 Seeds (250-255), K_STUFEN=(0,2,8), eigene Rate je (Stufe,Arm). P-0 Vorbedingung, P-1 M50~Rauschen (Spearman, Bootstrap, TOST +-0.3, Holm), P-2 Generalisierungsluecke~M50, P-3 Born-Entropie beschreibend, P-4 Kontrolle (Kopf ohne Schaltung). ~65-95 min. Teststaerke bei nur 10 Punkten weiterhin begrenzt -- HU realistischer Ausgang bei mittlerem Effekt (im Modul-Docstring benannt).",
+   "folgen": {}
+  },
+  {
+   "id": "I-036-v2",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "prioritaet": 1,
+   "frage": "Traegt die gesuchte Vorzeichenmaske den Vorsprung der Clifford-Suche? Je Seed aus der gefundenen Bruhat-Form (V_s, m_s): suche vs. ohne_maske = W(V_s,1) (M-1 MNIST, M-3 Fashion; TOST +-0,5 pp, je eigene Familie); suche vs. block2x2_maske (M-2/M-4) nur beschreibend; Positivkontrolle P-0: suche - block2x2 reproduziert I-036 W-4.",
+   "notiz": "Aus I-036 (05.10.): suche - block2x2 +0,93 pp MNIST (19/20), +0,34 pp Fashion (14/20, beschreibend). Fester block2x2 ohne Suche liegt auf MNIST bei 0,9278 = Niveau 'bestes von 100 Zufalls-Clifford'. Vor dem Bauen: Literatursuche (Vorgabe 7) zu 'Clifford circuits as Walsh/Hadamard feature maps'. | Modul von Forscher-Agent 05.10., Vortest (18 s, vom Direktor wiederholt) und Rauchtest (67 s) bestanden. M-2 vor jeder Zahl aus der Familie genommen (in ~60 % der Seeds block2x2_maske = block2x2 exakt -> nur W-4-Wiederholung). Seeds MNIST 700-719, Fashion 720-739, Struktur 740-749. Wiederaufnahme je Seed (ergebnisse/_zwischen_I-036-v2.json). ~1,1-1,3 h bei 4 Prozessen. Vorhersage: P-0 besteht, M-1 SUCHE_BESSER (+1-2 pp). | Gerechnet 05.10. (66 min, Container): P-0 bestanden, P-0F durchgefallen (vorhergesagt), M-1/M-3 SUCHE_BESSER, Wechselwirkung +2,1/+2,7 pp. Laborbuch 05.10. 18:24.",
+   "neuheit": "05.10.: Literatursuche (3 Anfragen) ohne Vergleichbares, Details recherche/2026-10-05_neuheit_I-036-v2.md; Neuheit plausibel",
+   "modul": "abteilungen.maske_block",
+   "folgen": {
+    "M-1 SUCHE_BESSER": "Welche Maskeneigenschaft traegt (Rang der quadratischen Form, Masken-Transfer zwischen Seeds)?",
+    "M-1 GLEICHWERTIG": "Reicht eine Suche nur ueber Unterraeume V ohne Maske?",
+    "M-1 OHNE_BESSER": "Suchdefizit: W(V_s,1) als Start/Politur der Suche",
+    "M-1 HU": "Wiederholung mit 40 Seeds",
+    "M-3 *": "wie M-1, auf Fashion",
+    "M-2 beschreibend Blockwahl": "eigene Karte: Suche nur ueber V bei fester (kanonischer) Maske",
+    "P-0 DURCHGEFALLEN": "I-036 W-4 repliziert nicht: Siegerfluch/Seed-Satz pruefen"
+   }
+  },
+  {
+   "id": "I-036-v3",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "prioritaet": 1,
+   "frage": "Welche Eigenschaft der gesuchten quadratischen Maske traegt? Je Seed aus (V_s, B_s): suche vs. zufall_gleicher_rang (Median 20 Formen B_r = P^T B_s P, P in GL(k,2)) = R-1; zufall_gleicher_rang vs. ohne_maske = R-2 (Holm x2, MNIST); Fashion R-3/R-4 als Replikation; TOST +-0,5 pp; fremde_maske (V_s Teilraum V_t) und Rang-Gewinn-Spearman ueber Seeds beschreibend. Positivkontrolle P-0/P-0F: suche - ohne_maske >= 0,5 pp einseitig.",
+   "notiz": "Aus I-036-v2 (05.10.): Maske und Bloecke tragen nur gemeinsam (Wechselwirkung +2,1 pp MNIST, +2,7 pp Fashion). Vor dem Bauen Literatursuche (Vorgabe 7). Klassisch rechenbar aus gespeicherten Suchschaltungen -> billig. | Modul von Forscher-Agent 05.10., Vortest (8 s, vom Direktor wiederholt; 6 eingebaute Fehler erkannt) und Rauchtest (143 s) bestanden. Invariante = Rang der alternierenden Form (volle GL(V)-Invariante des merkmalswirksamen Teils). Rang-0-Seeds vorab ausgeschlossen. Seeds MNIST 760-779, Fashion 780-799, Struktur 800-809. Wiederaufnahme je Seed. ~1,2-1,4 h bei 4 Prozessen. GLEICHWERTIG erreichbar nur bei sd < 1,07 pp. Vorhersage: R-1 SUCHE_BESSER (+0,7), R-2 ZUFALL_BESSER (+1,2) -> RANG_UND_FORM. | Gerechnet 05.10. (73 min, Container): P-0/P-0F bestanden, R-1/R-3 SUCHE_BESSER, R-2/R-4 ZUFALL_BESSER -> RANG_UND_FORM (Rang 52 % MNIST, 78 % Fashion), fremde Maske fast so gut wie eigene. Laborbuch 05.10. 20:05.",
+   "neuheit": "05.10.: 2 Anfragen, nichts Vergleichbares; naechster Nachbar 2604.25480 (optische gelernte Phasenmaske + Hadamard, kontinuierlich) -- zitieren. recherche/2026-10-05_neuheit_I-036-v3.md",
+   "modul": "abteilungen.maske_eigenschaft",
+   "folgen": {
+    "R-1 SUCHE_BESSER": "Form-Suche bei festem V_s und Rang (nur CZ/S-Lage)",
+    "R-1 GLEICHWERTIG": "Zweistufensuche (V, Rang) mit Zufallsform",
+    "R-1 ZUFALL_BESSER": "Siegerfluch: Hold-out-Kriterium",
+    "R-1 HU": "40 Seeds / 10.000 Testbilder",
+    "R-2 ZUFALL_BESSER": "Dosis-Kurve ueber den Rang 0..k",
+    "R-2 GLEICHWERTIG": "Lage der Form zu den Bildachsen",
+    "R-2 OHNE_BESSER": "Paarbindung Maske-V_s",
+    "R-2 HU": "wie R-1",
+    "P-0 DURCHGEFALLEN": "Seed-Satz/Siegerfluch pruefen"
+   }
+  },
+  {
+   "id": "I-037",
+   "abteilung": "Clifford",
+   "status": "idee",
+   "prioritaet": 1,
+   "frage": "Dosis-Kurve ueber den Rang (Folge R-2 ZUFALL_BESSER) + Aufgabenform: Genauigkeit von W(V, B) fuer Rang 0,2,4,6 (zufaellige Formen) bei festen V aus der Suche; und eine EINMAL gesuchte Form auf neue Seeds/Bloecke uebertragen vs. Suche je Seed (Methode statt Suche).",
+   "notiz": "Aus I-036-v3 (05.10.): Rang traegt 52/78 %, Spearman Rang~Gewinn +0,79; fremde Maske nur 0,29 pp hinter eigener. Vor dem Bauen: Literatursuche (Vorgabe 7) zu Graphzustand-Rang/Verschraenkung als Merkmalsqualitaet."
+  },
+  {
+   "id": "I-038",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "prioritaet": 1,
+   "frage": "Ist QIRE gleichwertig zu klassischer dichter Mischung plus Quadrat? Arme: Pixel-Softmax, Identitaet², Haar², Haar linear, Fastfood-2², QIRE Zufallswinkel/gelernt/ohne CNOT, Clifford-Suche (gepaart, Seeds 2000-2009), Cayley; klassische Nichtlinearitaeten (ReLU, tanh, |z|, z² ohne Normierung, MLP 256-9-10). H-A..H-G (Holm x7 je Datensatz), TOST ±0,5 pp, Zufallslabel-Negativkontrolle, Seeds 2000-2019, Tuning-Seed 2099, MNIST+Fashion.",
+   "notiz": "Plan PLAN_2026-10-06_gesamt.md §2 P1, Vorlage v3_kontrollen.md. Vorregistrierung: LABORBUCH.md 06.10.2026 (I-038). Modul abteilungen/struktur_aequivalenz.py, Wiederaufnahme je Seed (ergebnisse/_zwischen_I-038.json). Start: INSTITUT_PROZESSE=4 python direktor.py lauf I-038 (erst nach Freigabe; vorher Status auf 'offen'/'laeuft (Container)'). | ERGEBNIS 06.10.: H-A/B/C GLEICHWERTIG (MNIST+Fashion); H-D HAAR_BESSER +2,84/+1,43 pp; H-E QUADRAT_TRAEGT +2,21/+1,27; H-F MNIST HU, Fashion SUCHE_NICHT_BESSER -1,11; H-G MNIST BORN_BESSER +0,35 pp (gegen |z|), Fashion GLEICHWERTIG.",
+   "modul": "abteilungen.struktur_aequivalenz",
+   "folgen": {
+    "H-A:GLEICHWERTIG": "Kernaussage 'quanten-inspiriert' belegt",
+    "H-A:QIRE_BESSER": "welche Struktur traegt? Skalierung n=10",
+    "H-G:KLASSISCH_BESSER": "Kernaussage auf 'Mischung' kuerzen"
+   }
+  },
+  {
+   "id": "I-039",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.mnist100",
+   "prioritaet": 1,
+   "frage": "MNIST mit ~100 Parametern: erreicht eine Born-Zelle (Haar/Fastfood-Mischung, Gruppierung) >= 70 % bei <= 110 trainierten reellen Parametern, gleichwertig zur klassischen 5x5->3 tanh->10 (H2) und traegt die Mischung (H3)?",
+   "notiz": "PLAN_2026-10-06_gesamt.md P2. Arme a-f (a Gruppierung+10 Bias, b +10x10, c quadrierte Pixel ohne Mischung, d klassisch 118 P., e Fisher-Top-9, f Klassenregister ohne Kopf), Kontrollen PK-1 Voll-Kopf, PK-2 (d), NK Zufallslabel. Seeds 2020-2039, Tuning-Seeds 2090-2092 (gittersuche_stabil, nie Test). Zaehlung: reell + Strukturbits (formal/streng) getrennt, Bit/pp. Vorregistriert vor jeder Testzahl; Rauchtest auf Mess-Seed 2020 im Modulkopf offengelegt. Freigabe E2 steht aus (nicht gestartet). ~10-15 min bei INSTITUT_PROZESSE=4. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-039 (Status vorher auf offen setzen) oder python abteilungen/mnist100.py",
+   "folgen": {}
+  },
+  {
+   "id": "I-039-v2",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.mnist100_fair",
+   "prioritaet": 1,
+   "frage": "Fairer Bit-Vergleich: bleibt der Vorsprung von b_ff (110 reelle Parameter + 882 Strukturbits formal) gegenueber klassischen Armen mit gleichem Strukturbit-Budget (<= ~900 Bit; k1 Pixelgruppen/Fisher, k2 +-1-Projektion+ReLU/|z|, k3 gleiche Struktur ohne Quadrat, d)? H1 b_ff - bester klassischer Arm > 0, H2 b_ff - bester k3-Arm > 0 (Holm), TOST +-1 pp berichtet.",
+   "notiz": "Folge von I-039 (LABORBUCH I-039 ERGEBNIS). Seeds 2100-2119, Tuning-Seeds 2190-2192 (Validierung, nie Test; Wahl des besten klassischen Arms/k3 vor jeder Testzahl). Kontrollen PK-1 Voll-Kopf, PK-2 (d), NK Zufallslabel. Bits formal und streng getrennt. Rauchtest nur auf Tuning-Seed 2190. Wiederaufnahme je Seed in ergebnisse/_zwischen_I-039-v2/. ~8-12 min bei INSTITUT_PROZESSE=4. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-039-v2 (oder python abteilungen/mnist100_fair.py). Freigabe steht aus.",
+   "folgen": {}
+  },
+  {
+   "id": "I-040",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.holevo_wirkungsgrad",
+   "prioritaet": 2,
+   "frage": "Holevo-Wirkungsgrad: wie viel der Holevo-Groesse chi_C nutzt eine Born-Auslese pro Schuss (Identitaet, Haar, Fastfood-2, Bent-4x4, Clifford-Suche), schlaegt ein schussbewusster Kopf den exakt trainierten bei S<=100 (H2), und sagt eta=I/chi den Schussbedarf fuer 90 % voraus (H3)?",
+   "notiz": "PLAN_2026-10-06_gesamt.md P4, Vorlage recherche/2026-10-05_vertiefung/v4_holevo_schuesse.md. H1 I(Klasse;1 Schuss) Identitaet > Haar und > Suche (Wilcoxon, p=max); H2 schussbewusst > exakt bei S in {10,30,100}; H3 Spearman eta~S90 ueber 5 Arme (exakter Permutationstest). Holm ueber H1-H3. Koepfe auf S in {10,30,100,300,1000}, L2 auf Tuning-Seed 2098. Seeds 2050-2059, MNIST (Fashion optional beschreibend: argumente {\"fashion\": true}). Neuheitspruefung des Wirkungsgrad-Masses steht aus (E4). Vorregistrierung LABORBUCH.md 06.10.2026 (I-040). Wiederaufnahme je (Seed, Arm) in ergebnisse/_zwischen_I-040/. Laufzeit ~20-25 min bei INSTITUT_PROZESSE=4 (Suche 6 min je Seed dominiert). Freigabe E2 steht aus. Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-040 (Status vorher auf offen setzen).",
+   "folgen": {}
+  },
+  {
+   "id": "I-040-v2",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.holevo_wirkungsgrad_v2",
+   "prioritaet": 2,
+   "frage": "Holevo-Wirkungsgrad v2 (Folge von I-040, PK-1 versagt): bei I-038-Kopf und relativer PK-1 (Identitaet exakt >= Pixel-Softmax - 2 pp): H1 Identitaet beste I/Schuss, H2 schussbewusst > bester exakter Kopf bei S<=100, H3 eta sagt S90 voraus, H4 Zielkonflikt (Haar^2 exakt > Identitaet exakt UND I(id) > I(Haar)).",
+   "notiz": "Ursache PK-1-Versagen: I-040 wählte L2 des exakten Kopfs unter Schussrauschen (0,09) + max_iter 200; I-038 Kopf L2 3e-3, iter 500 gibt Identitaet 0,9005 (Tuning-Seed 2198: 0,904 gegen 0,874). Seeds 2150-2159, Tuning 2198. Holm ueber H1-H4. Vorregistrierung LABORBUCH 06.10.2026 (I-040-v2). Wiederaufnahme je (Seed, Arm) in ergebnisse/_zwischen_I-040-v2/. Laufzeit ~25 min bei INSTITUT_PROZESSE=4. Freigabe von Malte steht aus (nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 python direktor.py lauf I-040-v2; Fashion optional (argumente {\"fashion\": true}), nur beschreibend.",
+   "folgen": {}
+  },
+  {
+   "id": "I-041",
+   "abteilung": "Skalierung",
+   "status": "erledigt",
+   "modul": "abteilungen.skalierung_n10",
+   "prioritaet": 2,
+   "frage": "Skalierung n=8 -> 10: bleibt der Vorsprung Haar² - Pixel-Softmax bei 32x32 (1.024 Merkmale) bestehen und waechst er (Differenz-in-Differenz), waechst der Born-Vorsprung gegen |z|, ist Fastfood² bei 32x32 gleichwertig zu Haar², und wie verhalten sich Operationen und Zeit FWHT-Fastfood gegen dichte Matmul (N=256..16.384)?",
+   "notiz": "PLAN_2026-10-06_gesamt.md P5. MNIST+Fashion, 16x16 (Flaechenmittel) gegen 32x32 (bilinear aus 28x28, Resampling, kein neuer Inhalt). Arme je Aufloesung: Pixel-Softmax, Haar², Fastfood-2², Haar|z|, Identitaet². H1 Haar²-Pixel@32>0; H2 (Haar²-Pixel)_32-(..)_16>0; H3 (Haar²-|z|)_32-(..)_16>0; Holm x3 je Datensatz; H4 Fastfood²≡Haar²@32 TOST ±0,5 pp. Seeds 2060-2069, Tuning 2097 (L2). Zeitmessung beschreibend. Vorregistrierung LABORBUCH.md 06.10.2026 (I-041). Wiederaufnahme je (Datensatz, Seed) in ergebnisse/_zwischen_I-041.json. Freigabe E2 steht aus. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-041.",
+   "folgen": {}
+  },
+  {
+   "id": "I-042",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_gross",
+   "prioritaet": 1,
+   "frage": "Strukturschicht in gross: ersetzt Fastfood-2 (fest oder mit trainierten Diagonalen) + z² eine dichte erste Schicht in einem 2-Schicht-MLP auf Rohpixeln (CIFAR-10, Fashion 32x32) bei N=1024/4096/16384 (H1 Nichtunterlegenheit 1 pp mit >=100x weniger Parametern; H2 Born-Quadrat gegen |z|/ReLU; H3 Pareto E gegen Rang-K bei gleichem Budget; H4 Inferenzzeit B gegen A)?",
+   "notiz": "Vorregistrierung LABORBUCH.md 06.10.2026 (I-042). 8 Arme A-G + K (Budgetkontrolle), Seeds 2200-2204, Tuning 2299. Profil gekuerzt (5 Epochen, N=16384 nur A,B,C,D,E,K) fest, Schaetzung ca. 1,6 h bei 4 Prozessen. Wiederaufnahme je (Datensatz,N,Seed) in ergebnisse/_zwischen_I-042.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python direktor.py lauf I-042.",
+   "folgen": {}
+  },
+  {
+   "id": "I-044",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_tief",
+   "prioritaet": 1,
+   "frage": "Strukturschicht auf CIFAR-10: tiefer und im CNN. Schliesst man die -6 pp Luecke (I-042: dicht 55,3 vs. Struktur 49,1 bei N=16k) durch (a) mehrere Fastfood-Schichten hintereinander (Teil 1, MLP N=4096: A, A2, S1/S2/S3 mit trainierten Diagonalen; H1 S3 >= A-1pp, H2 S3-S1>0) oder (b) Struktur in einem kleinen CNN (Teil 2: Kd/Ks Kopfschicht, H3 Ks >= Kd-1pp bei >=10x weniger Kopfparametern; Kcd/Kcs Kanalmischung, H4 Kcs >= Kcd-1pp)?",
+   "notiz": "Vorregistrierung LABORBUCH.md 06.10.2026 (I-044). Seeds 2300-2304, Tuning 2399. Profil standard (4 Epochen) fest, Fallback (3 Epochen) per I044_PROFIL=fallback. Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-044.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044.",
+   "folgen": {}
+  },
+  {
+   "id": "I-045",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_sprache",
+   "prioritaet": 1,
+   "frage": "Strukturschicht im kleinen Sprachmodell (Container): ersetzt eine Fastfood-FFN (trainierte Diagonalen, O(N)) die dichten FFN-Matrizen eines 4-lagigen Decoder-Transformers (d=256, Byte-Ebene, deutscher Text UD_German-GSD)? Arme D dicht, S Fastfood gleicher Breite, Sb Fastfood 4x breit, L niedriger Rang (Budget wie S), Sz (S mit z^2, Nebenarm). H1 Sb <= D + 0,02 bpc bei weniger FFN-Parametern; H2 S < L; H3 Sb schneller als D (Inferenz je Token).",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-045). Seeds 2400-2404, Tuning 2499. Profil standard (1000 Schritte, Batch 8x128) fest, Fallback (600) per I045_PROFIL=fallback. Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-045.json. Geschaetzt ca. 1,4 h bei 4 Prozessen. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045.",
+   "folgen": {}
+  },
+  {
+   "id": "I-042-r",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_gross",
+   "funktion": "lauf_r",
+   "prioritaet": 2,
+   "frage": "Replikation von I-042 mit mehr Seeds (15 neue, 2210-2224): tragende Vergleiche bei N=16384: Fashion32 H1 (B, E >= A - 1 pp, >=100x weniger Parameter) und H3 (E - K), CIFAR H1. Arme A, B, E (+K nur Fashion). Kriterien woertlich wie I-042; Holm ueber die 5 uebernommenen Tests; Tuning aus I-042 uebernommen; gepoolt (Original+Replikation) nur beschreibend.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-042-r). Seeds 2210-2224, Tuning-Lernraten fest aus I-042 (keine Suche), 5 Epochen. Schaetzung ca. 1,8 h bei 4 Prozessen; Fallback nur bei Zeitnot: I042R_PROFIL=zehn (Seeds 2210-2219, ca. 1,2 h). Wiederaufnahme je (Datensatz,N,Seed) in ergebnisse/_zwischen_I-042-r.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-042-r.",
+   "folgen": {}
+  },
+  {
+   "id": "I-044-r",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_tief",
+   "funktion": "lauf_r",
+   "prioritaet": 2,
+   "frage": "Replikation von I-044 Teil 2 mit mehr Seeds (15 neue, 2310-2324): H3 (Ks >= Kd - 1 pp bei >=10x weniger Kopfparametern) und H4 (Kcs >= Kcd - 1 pp). Kriterien woertlich wie I-044; Holm ueber H3, H4; Tuning und Nichtlinearitaet aus I-044 uebernommen; gepoolt nur beschreibend.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-044-r). Seeds 2310-2324, Lernraten und Nichtlinearitaet (Ks: z2) fest aus I-044, 4 Epochen, NK nur Ks (2 Epochen). Schaetzung ca. 0,6 h bei 4 Prozessen; Fallback nur bei Zeitnot: I044R_PROFIL=zehn (Seeds 2310-2319). Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-044-r.json. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-r.",
+   "folgen": {}
+  },
+  {
+   "id": "I-045-v2",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_sprache",
+   "funktion": "lauf_v2",
+   "prioritaet": 2,
+   "frage": "Bestaetigung des I-045-Nebenbefunds (Sz 3,410 gegen D 3,516 bpc): Arme D_gelu, D_z2, Sz, S_gelu, L_z2, D_relu2 (FFN-Breite 1024). H1 Sz < D_gelu; H2 Sz vs D_z2 (TOST +-0,02 bpc ODER zweiseitig); H3 D_z2 < D_gelu (Aktivierungseffekt). Holm ueber H1-H3, 10 Seeds, Divergenz = HU.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-045-v2). Seeds 2410-2419, Tuning 2498 (gittersuche_stabil, verlaengerbar), Profil standard 1000 Schritte. Fallback nur Zeitnot: I045V2_PROFIL=acht (Seeds 2410-2417). Wiederaufnahme je (Teil,Arm,Seed) in ergebnisse/_zwischen_I-045-v2.json. Geschaetzt ca. 1,6-2,0 h bei 4 Prozessen. Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v2.",
+   "folgen": {}
+  },
+  {
+   "id": "I-044-v2",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_kopf_fair",
+   "funktion": "lauf",
+   "prioritaet": 1,
+   "frage": "Faire Gegner fuer den Strukturkopf (I-044-r +1,9 pp gegen schwachen dichten Kopf): Ks gegen Klin (kein breiter Kopf), Kreg (dicht + Dropout 0,5 + WD 5e-4), Kklein (dicht gleichen Budgets 1024->48->10). H1a-c Ks >= Gegner - 0,5 pp; H2 Ks > Klin. Holm ueber H1a-c, H2.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-044-v2), Recherche recherche/2026-10-07_durchsicht_kernaussage.md. Seeds 2330-2344, Tuning 2399 (Ks/Kd-Raten aus I-044 uebernommen, Klin/Kreg/Kklein neu getunt), 4 Epochen, NK Ks permutiert. Freigabe Malte 07.10. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v2.",
+   "folgen": {}
+  },
+  {
+   "id": "I-044-v3",
+   "abteilung": "Struktur",
+   "status": "erledigt",
+   "modul": "abteilungen.struktur_kopf_fair",
+   "funktion": "lauf_v3",
+   "prioritaet": 1,
+   "frage": "Epochenreihe 4/12/24 fuer Ks, Klin, Kklein: haelt der Strukturkopf-Vorsprung (I-044-v2 +0,83 pp gegen linear) bei laengerem Training? H1 Ks>Klin @24, H2 Ks>Kklein @24 (Holm), H3 Trend d24-d4 zweiseitig.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-044-v3). Seeds 2350-2357, Raten fest aus I-044-v2 (Ks/Klin 3e-3, Kklein 3e-2), NK Ks permutiert 4 Ep. Freigabe Malte 07.10. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v3.",
+   "folgen": {}
+  },
+  {
+   "id": "I-046",
+   "abteilung": "Information",
+   "status": "erledigt",
+   "modul": "abteilungen.pareto_schuss",
+   "funktion": "lauf",
+   "prioritaet": 1,
+   "frage": "Pareto-Front Genauigkeit x Information pro Schuss: gelernte Orthogonale U mit L = (1-l)CE - l I_C/log2(10), l in {0,.25,.5,.75,.9,1}, gegen fest id/haar. H1 Zielkonflikt trainierbar, H2a I(L100)>I(id), H2b acc(L0)>acc(haar). Holm.",
+   "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-046). Seeds 2460-2469, Tuning 2479, 400 Adam-Schritte, I-038-Kopf fuer acc_inf. Freigabe Malte 07.10. Startet nach I-044-v3. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-046.",
    "folgen": {}
   }
  ]
