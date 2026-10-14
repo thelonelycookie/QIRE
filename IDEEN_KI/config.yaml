@@ -1,0 +1,98 @@
+# Konfiguration der lokalen QIRE-Ideen-KI (Stufe S1)
+# Alle Modellnamen/Groessen sind UNBESTAETIGT -> bei Schritt M0 pruefen.
+
+modelle:
+  # Erfinder-Kandidaten (Reihenfolge = M0-Messreihenfolge)
+  kandidaten:
+    - name: gpt-oss-20b
+      datei: modelle/gpt-oss-20b-mxfp4.gguf        # bei M0 pruefen
+      art: moe
+      n_cpu_moe: 24          # Experten-Schichten im RAM; bei M0 anpassen (VRAM 8 GB)
+      ngl: 99
+      ctx: 8192
+    - name: qwen3-30b-a3b
+      datei: modelle/Qwen3-30B-A3B-Q4_K_M.gguf     # bei M0 pruefen
+      art: moe
+      n_cpu_moe: 40
+      ngl: 99
+      ctx: 8192
+    - name: dicht-8b-fallback                       # Ausweichloesung, dichtes ~8B Q4
+      datei: modelle/dicht-8b-Q4_K_M.gguf           # bei M0 pruefen
+      art: dicht
+      n_cpu_moe: 0
+      ngl: 99
+      ctx: 8192
+  aktiv: gpt-oss-20b          # Sieger aus M0 hier eintragen
+  embedding:
+    modus: tfidf              # "server" = zweiter llama.cpp-Server, "tfidf" = lokaler Fallback, "haupt" = /embedding des Hauptservers
+    datei: modelle/embedding-klein.gguf             # bei M0 pruefen
+    port: 8081
+
+server:
+  exe_windows: llama-server.exe
+  exe_linux: llama-server
+  exe_pfad: ""                # leer = im PATH bzw. in ./llama.cpp/ suchen
+  host: 127.0.0.1
+  port: 8080
+  kv_cache_typ: q8_0          # -ctk / -ctv
+  flash_attn_args: ["-fa", "on"]   # je nach llama.cpp-Version "-fa" oder "-fa on"
+  zusatz_args: []
+  start_timeout_s: 240
+  llm_timeout_s: 90           # harte Obergrenze je LLM-Aufruf (Stopp < 5 min)
+
+temperaturen:
+  erfinder: 1.0
+  pruefer: 0.2
+  bewerter: 0.2
+  ausarbeiter: 0.6
+
+max_tokens:
+  erfinder: 160               # Ideen sind kurz (1-2 Saetze)
+  pruefer: 300
+  bewerter: 300
+  ausarbeiter: 900
+
+kanaele:
+  anteil_neuland: 0.6         # Rest = QIRE-nah
+
+rubrik:
+  gewichte:
+    neuheit: 1.0
+    pruefbarkeit: 1.0
+    erkenntniswert: 1.0
+    ehrlichkeit: 1.0
+  neuland_neuheit_faktor: 2.0   # Neuland: Neuheit x2
+  quantenstufe_bonus: {Q1: 0.0, Q2: 0.5, Q3: 1.0}
+  mindest_score: 0.45         # unter dieser Schwelle keine Ausarbeitung (0..1)
+
+betrieb:
+  ideen_pro_runde: 20
+  ausarbeiten_anteil: 0.10
+  duplikat_schwelle: 0.88     # Kosinus-Aehnlichkeit (Embedding)
+  duplikat_schwelle_tfidf: 0.70
+  kontext_token_budget: 1200
+  schritt_pause_s: 0.0        # Ruhezeit ausgesetzt: Dauerbetrieb
+  checkpoint_alle_ideen: 1
+  backup_intervall_s: 3600    # stuendlich
+  backup_anzahl: 24
+  herzschlag_intervall_s: 300 # alle 5 min
+  fehler_pause_s: 20
+  max_fehler_in_folge: 8
+
+waechter:
+  intervall_s: 30
+  gpu_temp_drosseln_c: 78
+  gpu_temp_pause_c: 85
+  vram_anteil_pause: 0.97
+  ram_anteil_drosseln: 0.90
+  ram_anteil_pause: 0.95
+  drossel_pause_s: 15
+  pause_pruefschritt_s: 10
+
+pfade:
+  daten: daten
+  ausgabe: ausgabe
+  backup: backup
+  stop_datei: STOP
+  status: status.json
+  repo_wurzel: ..             # QIRE-Repo (relativ zu IDEEN_KI)
