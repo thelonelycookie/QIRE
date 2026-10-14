@@ -142,9 +142,9 @@ def quellen(repo: Path, ki_ordner: Path) -> list[Path]:
     kand = [inst / "UEBERGABE.md", repo / "START.md", inst / "START.md", inst / "FEHLERBUCH.md",
             inst / "agenda.json", inst / "ideen.json"]
     kand += sorted((inst / "recherche").glob("*.md")) if (inst / "recherche").exists() else []
-    lit = ki_ordner / "literatur"
-    if lit.exists():
-        kand += sorted(lit.rglob("*.md")) + sorted(lit.rglob("*.txt"))
+    for lit in (ki_ordner / "literatur", repo / "LITERATUR"):
+        if lit.exists():
+            kand += sorted(lit.rglob("*.md")) + sorted(lit.rglob("*.txt"))
     return [p for p in kand if p.exists()]
 
 
