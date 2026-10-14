@@ -272,4 +272,7 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 ### 07.10.2026 15:31 — I-044-v3 (automatisch)
 - **H1**: H0 (d -0,51 pp, 90-%-KI [-0,78; -0,23], n 8, p_Holm 1)
 - **H2**: HU (d -0,20 pp, 90-%-KI [-0,50; +0,10], n 8, p_Holm 1)
+### 07.10.2026 11:22 — T-ternaer (automatisch)
+- **T-1**: H0: cliff0 nachweislich um mehr als 1 pp schlechter als ternaer_quad -- cliff0 - ternaer_quad = -0.0437, einseitiges 95-%-KI [-0.0470, -0.0405], Grenze -0.01, p_NI = 1.0000, p_Unterleg. = 0.0000 (Holm ueber T-1/T-2)
+- **T-2**: H0: cliff4 nachweislich um mehr als 1 pp schlechter als ternaer_quad -- cliff4 - ternaer_quad = -0.0259, einseitiges 95-%-KI [-0.0285, -0.0233], Grenze -0.01, p_NI = 1.0000, p_Unterleg. = 0.0000 (Holm ueber T-1/T-2)
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*

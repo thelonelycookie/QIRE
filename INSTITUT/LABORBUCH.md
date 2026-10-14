@@ -1528,3 +1528,12 @@ Rohdaten `ergebnisse/I-046__20261007_155333.json`. NK bestanden (I_C 0,002 Bit, 
 - **Deutung:** Der Zielkonflikt existiert, ist aber **flach**. Schon λ = 0,25 holt 92 % der maximalen Information (0,568 von 0,614 Bit) für nur −1,1 pp Genauigkeit. Alle gelernten Arme mit λ ≥ 0,25 schlagen **beide** festen Mischungen gleichzeitig: genauer als Haar UND informativer pro Schuss als die Identität. Der in I-040-v2 gemessene Zielkonflikt fester Mischungen ist also **kein Naturgesetz, sondern eine Folge der festen Wahl**.
 - **Ehrliche Einordnung:** Die gelernte U hat 32.640 freie Parameter (Haar/id: 0). Ein Teil des Vorteils ist schlicht „mehr Parameter“. Auf welchen Anteil die Information pro Schuss bei gleichem Budget (z. B. Fastfood mit trainierten Diagonalen) kommt, ist offen. Die Rauchtest-Beobachtung vor dem Lauf (kein Konflikt zwischen den gelernten Armen) hat sich teilweise bestätigt: Die Front ist flach, aber messbar.
 - **Neuheit** (`recherche/2026-10-07_volltext_2.md`, B): Eine λ-Front gegen feste Arme wurde in der Literatur nicht gefunden. Nächste Verwandte sind Sbaiz 2021 (nur Einzelschuss-Ziel) und Hu 2023 (Schaltung nicht trainiert). **Kandidat für den eigenen Befund der Arbeit.** Folgefragen: (1) budgetgleiche Front mit Fastfood-Diagonalen (512 Parameter); (2) Fashion; (3) Schussgenauigkeit S = 30/100 als Hauptgröße.
+## 07.10.2026 — T-ternaer ausgewertet (Opus)
+
+Gerechnet in der Cloud (4 Kerne), Seeds 310–319. Vorbedingungen V-1/V-2 H1.
+- **T-1 H0, T-2 H0:** Clifford-Zelle (cliff0) 4,4 pp, mit 4 Magiewinkeln (cliff4) 2,6 pp unter der ternären 256x256-Schicht (ternaer_quad). Erwartung war genau das.
+- **Ternärisierung ist praktisch kostenlos:** ternaer_quad − dicht_quad = +0,07 pp. BitNet-Gewichte verlieren hier nichts gegen Gleitkomma.
+- **Die Quadrierung trägt:** ternaer_quad − ternaer = +6,2 pp. Gleiche Richtung wie die Born-Frage P4 in Q-020.
+- **Pareto (eigentlicher Befund):** cliff0 (64 Bit Mitte) schlägt ternaer8_quad (3.278 Bit) um +6,5 pp und ternaer ohne Quadrat (103.904 Bit) um +1,8 pp. Im Bereich *sehr kleiner Speicher* ist die quantenabgeleitete Zelle die beste gemessene Option; bei viel Speicher gewinnt die ternäre Matrix.
+- Die volle Zelle liegt 1,7 pp unter dicht_quad: die 32 Winkel begrenzen die Genauigkeit, nicht die Quantisierung.
+Nächste Frage (freigeschaltet): T-ternaer-butterfly — ternäre Einträge in derselben Butterfly-Struktur, um Geometrie von Parameterzahl zu trennen.

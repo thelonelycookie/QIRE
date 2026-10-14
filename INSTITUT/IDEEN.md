@@ -95,6 +95,25 @@ Wortvektoren“), mit 10–100× weniger Parametern. **Bekannt**, aber für T-00
 direkt nutzbar und klar quanteninspiriert. Gegen eine gewöhnliche
 Low-Rank-Einbettung gleicher Größe prüfen.
 
+## 7. Clifford-Zelle gegen ternäre Schicht (`T-ternaer`, 07.10.2026)
+
+**Quantenwurzel.** Clifford-Winkel (k·π/2) machen die Butterfly-Schicht
+multiplikationsfrei (Gottesman–Knill-Nähe). Klassisches Gegenstück:
+BitNet b1.58 (Ma u. a. 2024, arXiv:2402.17764) — ternäre Gewichte {−1,0,+1}·γ,
+ebenfalls ohne Multiplikation in der Schicht.
+
+**Frage.** Ist die quantenabgeleitete Clifford-Zelle (32 Winkel à 2 Bit,
+nur die Born-Quadrierung multipliziert) bei gleichem Budget mindestens so
+genau wie eine ternäre 256×256-Schicht (ternäre 256×256-Matrix, 65.536 Gewichte, ~104.000 Bit)? Primär
+Nichtunterlegenheit (1 pp), dazu Pareto-Front Genauigkeit gegen
+Multiplikationen und Bit. Ehrliche Erwartung: ternär genauer, Clifford viel
+kleiner im Speicher — der Befund ist die Pareto-Lage.
+
+**Neuheit.** Ternäre Netze und Clifford-/Stabilisator-QNN sind je einzeln
+bekannt; der direkte Vergleich Clifford-Butterfly-Zelle gegen ternäre Schicht
+wurde in der Suche nicht gefunden (Neuheit: mittel, Aussicht auf H1: niedrig).
+Kein Quantenvorteil-Anspruch (Q2).
+
 ---
 
 ## Geprüft und bewusst nicht aufgenommen

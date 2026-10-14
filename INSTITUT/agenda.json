@@ -629,6 +629,66 @@
    "frage": "Pareto-Front Genauigkeit x Information pro Schuss: gelernte Orthogonale U mit L = (1-l)CE - l I_C/log2(10), l in {0,.25,.5,.75,.9,1}, gegen fest id/haar. H1 Zielkonflikt trainierbar, H2a I(L100)>I(id), H2b acc(L0)>acc(haar). Holm.",
    "notiz": "Vorregistrierung LABORBUCH.md 07.10.2026 (I-046). Seeds 2460-2469, Tuning 2479, 400 Adam-Schritte, I-038-Kopf fuer acc_inf. Freigabe Malte 07.10. Startet nach I-044-v3. Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf I-046.",
    "folgen": {}
+  },
+  {
+   "id": "T-ternaer",
+   "abteilung": "Clifford",
+   "status": "erledigt",
+   "modul": "abteilungen.ternaer",
+   "prioritaet": 1,
+   "frage": "Ist die Clifford-gerundete QIRE-Zelle (multiplikationsfrei in der Schaltung) bei gleichem Budget mindestens gleich gut wie eine ternaere 256x256-Schicht (BitNet b1.58, arXiv:2402.17764, Gewichte {-1,0,+1}·gamma)? MNIST 16x16, 8 Qubits.",
+   "notiz": "Direktor 07.10.2026 (Opus plant, Sonnet fuehrt aus). Vorregistrierung im Modulkopf: T-1 (primaer, cliff0 vs ternaer_quad = ternaere 256x256 + Quadrierung + Kopf 256->10, Nichtunterlegenheit 1 pp), T-2 (cliff4), Holm ueber T-1/T-2, T-3 Pareto-Front (beschreibend), Vorbedingungen V-1 (voll>identitaet) und V-2 (dicht_quad trennt sich zweiseitig von identitaet). Ehrliche Erwartung: ternaer_quad genauer (65.536 Gewichte gegen 32 Winkel), Clifford ~1.600x kleiner im Speicher, ~8x weniger Additionen -- Befund ist die Pareto-Lage. Seeds Mess 310-319, Tuning 960-962. Ca. 1,5 h auf 6 Kernen. Quantenstufe Q2 (exakte QM im Simulator, Vergleich klassisch gerechnet). KORREKTUR 07.10. vor jeder Messzahl: Design 256->8->10 (unfairer Flaschenhals) durch 256x256 ersetzt; T-ternaer-breit damit erledigt und gestrichen; 256->8-Varianten laufen als ternaer8/ternaer8_quad beschreibend mit.",
+   "folgen": {
+    "T-1:H0": [
+     "T-ternaer-butterfly"
+    ],
+    "T-1:HU": [
+     "T-ternaer-mehr"
+    ],
+    "V-1:HU": [
+     "T-ternaer-mehr"
+    ],
+    "V-2:HU": [
+     "T-ternaer-mehr"
+    ]
+   },
+   "argumente": {
+    "seeds": [
+     310,
+     311,
+     312,
+     313,
+     314,
+     315,
+     316,
+     317,
+     318,
+     319
+    ],
+    "tuning_seeds": [
+     960,
+     961,
+     962
+    ]
+   }
+  },
+  {
+   "id": "T-ternaer-butterfly",
+   "abteilung": "Clifford",
+   "status": "offen",
+   "prioritaet": 1,
+   "frage": "Gleiche Struktur, ternaere Parameter: Zelle mit Butterfly-Struktur (8 Qubits x 4 Lagen, 2x2-Bloecke) deren Eintraege ternaer {-1,0,+1}·gamma statt Ry-Winkel sind. Liegt der Unterschied an der Clifford-/Rotationsgeometrie oder an der Parameterzahl?",
+   "notiz": "Freigeschaltet bei T-1:H0. Modul noch nicht gebaut; Vergleich bei GLEICHER Parameterzahl (32 Bloecke).",
+   "folgen": {}
+  },
+  {
+   "id": "T-ternaer-mehr",
+   "abteilung": "Clifford",
+   "status": "wartet",
+   "prioritaet": 1,
+   "frage": "Wiederholung von T-ternaer mit 20 frischen Seeds (und ggf. n_train 10.000), damit das Nichtunterlegenheits-KI die 1-pp-Grenze aufloest.",
+   "notiz": "Freigeschaltet bei T-1:HU oder V-1:HU. Modul noch nicht gebaut.",
+   "folgen": {}
   }
  ]
 }
