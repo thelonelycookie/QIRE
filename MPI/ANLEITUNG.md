@@ -2,6 +2,35 @@
 
 *Stand 14.10.2026. **Der Zugang ist zugesagt (HANDOVER 06.10.: „Malte bekommt einen Zugang zum MPI in München, Details folgen“), alles Weitere ist unbekannt.** Jede Angabe, die nicht aus dem Repo stammt, ist mit **ANNAHME** gekennzeichnet und vor dem ersten Lauf an die Cluster-Dokumentation anzupassen. Nichts hier wurde auf dem Cluster getestet; getestet sind nur Skript-Syntax, `starte.sh --trocken` und die Datenprüfung (`python -m pytest MPI -q`).*
 
+## MPCDF Garching: Schnellstart erster Test (Stand 22.10.2026)
+Quelle: docs.mpcdf.mpg.de (Connecting-FAQ, Viper-GPU-Guide). Was nicht dort steht, ist **ANNAHME**.
+- **Systeme:** Raven (CPU + A100), Viper (CPU + MI300A-APUs). Scheduler Slurm.
+- **Zeitlimit:** 24 h je Job (Viper-GPU belegt; Raven ANNAHME gleich). PhD-/Postdoc-Status ändert das nicht. Längere Läufe: `starte.sh cpu <ID> --kette N` (Wiederaufnahme je Seed), kein eigener Worker nötig. Prüfen: `sinfo -o "%P %l"`.
+- **Login:** nur SSH mit 2FA (Pflicht, OTP-App). Von außen über `gate1`/`gate2.mpcdf.mpg.de` als Jump-Host. Claude kann sich deshalb nicht selbst einloggen; einreichen macht Malte.
+  ```
+  Host mpcdf-gate
+      HostName gate1.mpcdf.mpg.de
+      User <mpcdf-name>
+      ControlMaster auto
+      ControlPath ~/.ssh/cm-%r@%h
+      ControlPersist 12h          # 2FA nur einmal je 12 h
+  Host raven
+      HostName raven.mpcdf.mpg.de
+      User <mpcdf-name>
+      ProxyJump mpcdf-gate
+  ```
+- **Rechenknoten ohne Internet (ANNAHME):** Daten (`INSTITUT/daten/*.npz`) mit `uebertragen.sh` hochladen. Große Dateien nach `/ptmp/$USER` (ANNAHME: wird nach Wochen ohne Zugriff gelöscht).
+- **GitLab (gitlab.mpcdf.mpg.de):** nicht nötig. Code per `git clone`/`git pull` von GitHub auf dem Login-Knoten (nur lesen), Ergebnisse per rsync zurück, Commit vom PC.
+
+**Erster Test, Schritt für Schritt (ca. 30 min):**
+1. `ssh raven` (2FA eingeben).
+2. `git clone https://github.com/thelonelycookie/QIRE.git ~/qire && cd ~/qire && mkdir -p logs`
+3. `bash MPI/pruefe_cluster.sh | tee logs/cluster_info.txt` → Partition, Limits, Python-Modul ablesen.
+4. `module load <python-modul>; python3 -m venv ~/venvs/qire && . ~/venvs/qire/bin/activate && pip install -r MPI/requirements_cpu.txt`
+5. `cp MPI/lokal.env.beispiel MPI/lokal.env`, Werte aus Schritt 3 eintragen. Daten: `cd INSTITUT && python -c "from labor import gemeinsam as g; g.bilder('mnist', 0)" && cd ..`
+6. `MPI/slurm/starte.sh test` → `squeue -u $USER`, danach `cat logs/qire-test-*.out`.
+7. `logs/cluster_info.txt` und das Test-Log ins Repo kopieren (vom PC committen) oder Claude in den Chat geben → Claude stellt `lokal.env`-Werte und Sbatch-Zeiten fest ein.
+
 ## 0. Wofür
 | Zweck | Quelle im Repo | Vorlage |
 |---|---|---|

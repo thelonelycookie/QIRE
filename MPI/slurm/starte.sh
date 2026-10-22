@@ -1,6 +1,7 @@
 #!/bin/bash
 # Reicht QIRE-Jobs ein und setzt Partition/Account/GPU-Angabe aus MPI/lokal.env (ohne die .sbatch-Dateien zu aendern).
 #   MPI/slurm/starte.sh cpu <ID> [--schnell] [--kette N] [--trocken]
+#   MPI/slurm/starte.sh test                            (erster Test: vortest, 30 min)
 #   MPI/slurm/starte.sh gpu <s3|s4> [--trocken]        (BASIS_MODELL, TRAIN_DATEN ... als Umgebungsvariablen)
 # --kette N : N Glieder hintereinander (Slurm --dependency=afterany); noetig, wenn `scontrol requeue` verboten ist.
 #             Glieder, die ihren Lauf fertig vorfinden, beenden sich sofort.
@@ -27,6 +28,9 @@ case "$ART" in
         [ "${#REST[@]}" -ge 1 ] || { echo "Lauf-ID fehlt" >&2; exit 2; }
         [ -n "${SLURM_PARTITION_CPU:-}" ] && SB+=(--partition="$SLURM_PARTITION_CPU")
         SKRIPT="MPI/slurm/cpu_lauf.sbatch" ;;
+    test)
+        [ -n "${SLURM_PARTITION_CPU:-}" ] && SB+=(--partition="$SLURM_PARTITION_CPU")
+        SKRIPT="MPI/slurm/erster_test.sbatch" ;;
     gpu)
         [ "${#REST[@]}" -ge 1 ] || { echo "Stufe s3|s4 fehlt" >&2; exit 2; }
         export QLORA_STUFE="${REST[0]}"; REST=()
