@@ -5,6 +5,7 @@
 #   MPI/slurm/starte.sh gpu <s3|s4> [--trocken]        (BASIS_MODELL, TRAIN_DATEN ... als Umgebungsvariablen)
 # --kette N : N Glieder hintereinander (Slurm --dependency=afterany); noetig, wenn `scontrol requeue` verboten ist.
 #             Glieder, die ihren Lauf fertig vorfinden, beenden sich sofort.
+# QIRE_KERNE / QIRE_SPEICHER / QIRE_ZEIT (Umgebung oder lokal.env): ueberschreiben --cpus-per-task / --mem / --time.
 # --trocken : nur den sbatch-Befehl anzeigen.
 set -euo pipefail
 HIER="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -27,6 +28,9 @@ case "$ART" in
     cpu)
         [ "${#REST[@]}" -ge 1 ] || { echo "Lauf-ID fehlt" >&2; exit 2; }
         [ -n "${SLURM_PARTITION_CPU:-}" ] && SB+=(--partition="$SLURM_PARTITION_CPU")
+        [ -n "${QIRE_KERNE:-}" ] && SB+=(--cpus-per-task="$QIRE_KERNE")
+        [ -n "${QIRE_SPEICHER:-}" ] && SB+=(--mem="$QIRE_SPEICHER")
+        [ -n "${QIRE_ZEIT:-}" ] && SB+=(--time="$QIRE_ZEIT")
         SKRIPT="MPI/slurm/cpu_lauf.sbatch" ;;
     test)
         [ -n "${SLURM_PARTITION_CPU:-}" ] && SB+=(--partition="$SLURM_PARTITION_CPU")
