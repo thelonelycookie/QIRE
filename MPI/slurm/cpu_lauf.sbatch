@@ -46,6 +46,9 @@ case "${QIRE_ENV_ART:-venv}" in
     *)     . "${QIRE_ENV:?QIRE_ENV fehlt}/bin/activate" ;;
 esac
 
+# libgomp von torch beim Start vorladen: sonst auf MPCDF Raven "cannot allocate memory in static TLS block"
+GOMP="$(ls "${VIRTUAL_ENV:-${CONDA_PREFIX:-}}"/lib/python3*/site-packages/torch/lib/libgomp*.so* 2>/dev/null | head -1)"
+[ -n "$GOMP" ] && export LD_PRELOAD="$GOMP${LD_PRELOAD:+:$LD_PRELOAD}"
 # --- Umgebung wie CLAUDE.md "Technik": ein Thread je Prozess, Prozesse = Kerne ---
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 export INSTITUT_PROZESSE="${SLURM_CPUS_PER_TASK:-4}"

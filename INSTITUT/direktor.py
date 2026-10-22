@@ -26,14 +26,6 @@ Umgebungsvariable INSTITUT_PROZESSE=5 setzt die Zahl paralleler Prozesse.
 from __future__ import annotations
 
 import importlib
-
-# Bibliotheken mit eigener libgomp/TLS (sklearn, qiskit) vor torch laden:
-# sonst auf MPCDF Raven "cannot allocate memory in static TLS block".
-for _frueh in ("sklearn", "qiskit"):
-    try:
-        importlib.import_module(_frueh)
-    except ImportError:
-        pass
 import json
 import re
 import sys

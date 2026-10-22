@@ -17,6 +17,9 @@ case "${QIRE_ENV_ART:-venv}" in
     conda) eval "$(conda shell.bash hook)"; conda activate "${QIRE_ENV:?QIRE_ENV fehlt}" ;;
     *)     . "${QIRE_ENV:?QIRE_ENV fehlt}/bin/activate" ;;
 esac
+# libgomp von torch beim Start vorladen: sonst auf MPCDF Raven "cannot allocate memory in static TLS block"
+GOMP="$(ls "${VIRTUAL_ENV:-${CONDA_PREFIX:-}}"/lib/python3*/site-packages/torch/lib/libgomp*.so* 2>/dev/null | head -1)"
+[ -n "$GOMP" ] && export LD_PRELOAD="$GOMP${LD_PRELOAD:+:$LD_PRELOAD}"
 export OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 export INSTITUT_PROZESSE="${SLURM_CPUS_PER_TASK:-4}" INSTITUT_ORT="mpi-${SLURMD_NODENAME:-knoten}"
 export QIRE_DATEN="${QIRE_DATEN:-$WURZEL/INSTITUT/daten}"
