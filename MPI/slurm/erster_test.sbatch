@@ -23,5 +23,6 @@ export QIRE_DATEN="${QIRE_DATEN:-$WURZEL/INSTITUT/daten}"
 echo "[$(date +%F_%T)] Knoten ${SLURMD_NODENAME:-?}, Job ${SLURM_JOB_ID:-?}, $(python --version 2>&1)"
 python -c "import torch, numpy; print('torch', torch.__version__, 'numpy', numpy.__version__, 'Threads', torch.get_num_threads())"
 cd "$WURZEL/INSTITUT" || exit 2
-time python direktor.py vortest
-echo "[$(date +%F_%T)] Fertig, Code $?"
+time python direktor.py vortest; RC=$?
+echo "[$(date +%F_%T)] Fertig, Code $RC"
+exit $RC
