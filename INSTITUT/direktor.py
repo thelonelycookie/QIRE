@@ -26,6 +26,11 @@ Umgebungsvariable INSTITUT_PROZESSE=5 setzt die Zahl paralleler Prozesse.
 from __future__ import annotations
 
 import importlib
+
+try:  # qiskit vor torch laden: sonst auf MPCDF Raven "cannot allocate memory in static TLS block"
+    import qiskit  # noqa: F401
+except ImportError:
+    pass
 import json
 import re
 import sys
