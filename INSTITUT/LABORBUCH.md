@@ -1537,3 +1537,43 @@ Gerechnet in der Cloud (4 Kerne), Seeds 310–319. Vorbedingungen V-1/V-2 H1.
 - **Pareto (eigentlicher Befund):** cliff0 (64 Bit Mitte) schlägt ternaer8_quad (3.278 Bit) um +6,5 pp und ternaer ohne Quadrat (103.904 Bit) um +1,8 pp. Im Bereich *sehr kleiner Speicher* ist die quantenabgeleitete Zelle die beste gemessene Option; bei viel Speicher gewinnt die ternäre Matrix.
 - Die volle Zelle liegt 1,7 pp unter dicht_quad: die 32 Winkel begrenzen die Genauigkeit, nicht die Quantisierung.
 Nächste Frage (freigeschaltet): T-ternaer-butterfly — ternäre Einträge in derselben Butterfly-Struktur, um Geometrie von Parameterzahl zu trennen.
+
+## 22.10.2026 — I-045-v3 „Skalierung Struktur × Quadrat im Sprachmodell“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Anlass: I-045-v2 fand eine Wechselwirkung Struktur × Quadrat (Sz besser als D_z2 um 0,075 bpc, bei viel weniger FFN-Parametern), aber nur bei d = 256 und 1000 Schritten. Offen ist, ob der Vorsprung mit mehr Training und breiterem Modell hält oder schrumpft (vgl. I-044-v3: dort war der Kopfvorsprung ein Effekt des knappen Trainingsbudgets). Dieser Lauf ist ein **Profil/eine Erweiterung von `abteilungen/struktur_sprache.py`** (`lauf_v3`, Agenda-Kennung `I-045-v3`), keine Kopie: gleiche Daten (UD_German-GSD, Byte-Ebene, gleicher Split), gleiche Bausteine, gleiche Messung (Test-bpc). Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil. **Freigabe Malte 22.10.** Gerechnet wird auf dem MPCDF-Cluster Raven. **Kein Messseed gerechnet.**
+
+- **Arme (FFN-Breite 4·d, nur die FFN verschieden):** **Sz** Fastfood + z² · **D_z2** dicht + z² · **D_gelu** dicht, GELU · **D_relu2** dicht, squared ReLU (Primer-Referenz).
+- **Faktoren:** Trainingsschritte **T ∈ {1000, 4000, 16000}** (jeder T ist ein eigener Lauf mit eigenem Kosinus-Plan, 5 % Aufwärmen), Modellbreite **d ∈ {256, 512}** (Köpfe d/64, sonst wie v2: 4 Lagen, Kontext 128, Batch 8 × 128, Adam, Gradientenbegrenzung 1,0). Bei d = 256 sind alle Arme identisch zu I-045-v2 (FFN-Breite 1024).
+- **Seeds:** **8 frische Mess-Seeds 2600–2607**, **2 eigene NK-Seeds 2608–2609**, **Tuning-Seed 2698** (mit `werkzeuge/seeds_pruefen.py --neu` geprüft, in `seeds.json` eingetragen).
+- **Lernrate** je (Arm, d) auf dem Tuning-Seed bei **T = 4000** (`gittersuche_stabil`, Gitter 5e-4/1,5e-3/4,5e-3, Faktor 3, beidseitig verlängerbar, Score 1 − bpc/8, Kollaps-Score 0,01, Validierung = erste 64 kB dev); **diese Rate gilt für alle T. Vorbehalt:** keine Neusuche bei T = 1000 und T = 16000; ob die 4000-Schritt-Rate bei 16000 Schritten optimal ist, bleibt offen (eher zu hoch als zu niedrig). Die Divergenzregel fängt Instabilität ab, aber keine bloße Unteroptimierung.
+- **Hypothesen (gepaarter einseitiger t-Test, n = 8, Differenz D_z2 − Sz je Seed in bpc, Holm über H1a, H1b, α = 0,05; Wilcoxon beschreibend):**
+  - **H1a** Sz < D_z2 bei T = 16000, d = 256: SZ_BESSER | H0 (D_z2 sicher besser) | HU.
+  - **H1b** dasselbe bei d = 512: SZ_BESSER | H0 | HU.
+  - **H2** (zweiseitig, **nicht** in Holm, α = 0,05): Trend des Vorsprungs V = D_z2 − Sz von T = 1000 nach T = 16000. Je Seed Δ = Mittel über beide d von [V(16000, d) − V(1000, d)]; gepaarter zweiseitiger t-Test auf Δ. SCHRUMPFT (Δ < 0, p < α) | WAECHST (Δ > 0, p < α) | HU. Beschreibend zusätzlich der Trend je d einzeln.
+  - **Beschreibend (ohne Urteil):** alle Arme × T × d (bpc, Differenzen D_z2/D_gelu/D_relu2 gegen Sz), FFN- und Gesamtparameter, Inferenzzeit je Token (Einzelprozess, 1 Thread), Trainingszeit, Divergenzrate, Lernraten.
+- **Divergenz (vorab, wie v2, je Zelle Arm × T × d):** Seed divergiert bei nicht endlichem Verlust (bpc := 8, `instabil`) **oder** End-bpc ≥ Unigramm-Entropie; Kollaps = Median + 0,2 bpc. Divergierte Seeds bleiben in allen Zahlen (kein Verwerfen); jede Hypothese mit einer beteiligten Zelle mit Divergenz oder Kollaps ist **HU**.
+- **Negativkontrolle wie v2:** D_z2 und Sz mit permutierten Trainingsbytes, d = 256, 1000 Schritte, Seeds 2608 und 2609 (Lernraten der jeweiligen Arme bei d = 256); bestanden, wenn der mittlere Test-bpc ≥ 0,9 × Unigramm-Entropie, sonst alles HU.
+- **Ehrliche Erwartung vorab (keine Befunde):** Der Vorsprung **schrumpft** mit mehr Training (H2 eher SCHRUMPFT; Primer-Effekt und Fastfood-Struktur werden vom knappen Budget begünstigt). **Sz bleibt mindestens gleichwertig** zu D_z2 (H1a/H1b eher SZ_BESSER oder HU, nicht H0). Beim breiteren Modell (d = 512) ist der Vorsprung eher kleiner als bei d = 256, weil die Fastfood-Mischung relativ weniger Kapazität hat.
+- **Wiederaufnahme (Pflicht):** je Aufgabe (Arm, d, T, Seed) in `ergebnisse/_zwischen_I-045-v3.json` (inklusive Tuning-Aufgaben `lr|…`, jede einzeln); zusätzlich **Checkpoint innerhalb einer Aufgabe alle 2000 Schritte** (Modell, Optimierer, Lernraten-Plan, Schritt, Zufallszustände) in `ergebnisse/_ckpt_I-045-v3/`, nach Ende der Aufgabe gelöscht. Ein Checkpoint wird nur verwendet, wenn Arm, d, Lernrate, Seed und Schrittzahl passen. Vortest: Fortsetzung nach simuliertem Abbruch ergibt exakt denselben bpc wie der ungestörte Lauf. Aufgaben sind so geordnet, dass die langen (d = 512, T = 16000) zuerst starten. Prozesspool über `INSTITUT_PROZESSE` (Vorgabe 72, je 1 Thread).
+- **Aufgabenzahl:** 4 Arme × 3 T × 2 d × 8 Seeds = **192** Messaufgaben + **4** NK = **196**; Tuning: mindestens 4 Arme × 2 d × 3 Raten = 24 Aufgaben à 4000 Schritte (plus Gitter-Erweiterungen).
+- **Laufzeit (Messung im Container, 22.10., 1 Thread, Schritt 8 × 128, Vorwärts + Rückwärts + Clip + Adam, Median, Maximum zweier Messungen):**
+
+| Arm | d = 256 s/Schritt | d = 512 s/Schritt |
+|---|---|---|
+| Sz | 0,32 | 0,79 |
+| D_z2 | 0,32 | 1,03 |
+| D_gelu | 0,30 | 0,99 |
+| D_relu2 | 0,32 | 0,97 |
+
+  Schätzung mit `kosten_schaetzung()` (LPT-Planung auf 72 Prozessen; Tuning im Mittel 4,5 Raten je (Arm, d) in 2 Runden; Parallel-Aufschlag auf vollem Knoten, I-045 beobachtete 1,2–1,5):
+
+| Aufschlag | Kernstunden gesamt (Mess + Tuning) | längste Einzelaufgabe (d = 512, T = 16000, D_z2) | Wandzeit bei 72 Prozessen (Tuning + Messung) |
+|---|---|---|---|
+| 1,0 | 263 (237 + 26) | 4,6 h | 6,9 h (2,3 + 4,6) |
+| **1,3** | **341 (308 + 33)** | **6,0 h** | **9,0 h (3,0 + 6,0)** |
+| 1,5 | 393 (355 + 38) | 6,9 h | 10,3 h (3,5 + 6,9) |
+
+  Das passt in ein 24-h-Joblimit (Wandzeit ≤ 11 h, jede Aufgabe < 7 h); der Checkpoint schützt trotzdem gegen Abbruch. Nicht eingerechnet: Warten auf Rechenknoten, Datenladen je Prozess (~10 s), Auswertung der Testdaten (je Aufgabe < 1 min). Die Tuning-Phase nutzt nur ~24–32 der 72 Kerne; das ist bewusst so, weil die Messaufgaben die getunte Rate brauchen.
+- **Vortest bestanden** (Form, Kausalität, Köpfe d/64, FFN-Parameter dicht 4·(8d² + 5d) und Sz 4·21d bei beiden d, Aktivierungen, Trainierbarkeit, Divergenz-Pfad, Aufgabenzahl/Reihenfolge, Wiederaufnahme je Aufgabe, Checkpoint-in-Aufgabe mit exakt gleichem Ergebnis, fremder Checkpoint wird ignoriert, Tuning-Wiederaufnahme, **jeder Urteilszweig erzwungen**: H1a/H1b SZ_BESSER, H0, HU; H2 SCHRUMPFT, WAECHST, HU; NK, Divergenz, Kollaps, fehlende Zellen). **Rauchtest nur auf Tuning-Seed 2698** (kleine Daten, T = 10/20/40, Checkpoint alle 15 Schritte, 1 Prozess, `nice -n 19`; nur Pipeline geprüft), Ergebnis verworfen.
+- **Status:** `agenda.json` „offen, wartet auf Lauf (MPCDF Raven)“.
+- **Start (auf Raven):** `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v3` (bei Abbruch dasselbe Kommando erneut; `ergebnisse/` samt `_zwischen_*` und `_ckpt_*` vorher per `MPI/uebertragen.sh hin` hochladen). Zwischenstände committen.

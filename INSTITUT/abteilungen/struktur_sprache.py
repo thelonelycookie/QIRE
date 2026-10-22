@@ -172,7 +172,7 @@ BREITE.update({a: 1024 for a in ARME_V2})
 
 
 def baue_ffn(arm, d, gen):
-    F_ = BREITE[arm]
+    F_ = BREITE[arm] if d == D_MODELL else 4 * d       # I-045-v3: bei anderer Modellbreite FFN-Breite 4·d (d = 256: unveraendert)
     if arm in ARME_V2 and arm != "Sz":
         art, akt = ARME_V2[arm]
         return FFNDicht(d, F_, akt) if art == "dicht" else FFNStruktur(d, F_, art, akt, gen)
@@ -583,6 +583,7 @@ def vortest() -> bool:
     ok &= _vortest_wiederaufnahme()
     ok &= _vortest_urteile()
     ok &= _vortest_v2()
+    ok &= _vortest_v3()
     return bool(ok)
 
 
@@ -923,4 +924,596 @@ def _vortest_v2() -> bool:
         pruefe(f"Zweige {fehlt} fuer {h} erzwungen", not fehlt)
     # Wiederaufnahme (generisch, gleiche Maschinerie)
     ok &= _vortest_wiederaufnahme()
+    return bool(ok)
+
+
+# ================================================================== I-045-v3: Skalierung Struktur × Quadrat (Trainingsschritte × Modellbreite)
+# Profil/Erweiterung von I-045/-v2 (gleiche Daten UD_German-GSD Byte-Ebene, gleicher Split, gleiche Bausteine und Messung bpc), keine Kopie.
+# Wirkung klassisch (I-038): „quanten-inspirierter Vorteil“, kein Quantenvorteil. Gerechnet wird auf dem MPCDF-Cluster Raven (bis 72 Prozesse, je 1 Thread,
+# 24-h-Joblimit): Wiederaufnahme je Aufgabe (Arm, d, T, Seed) UND Checkpoint innerhalb einer Aufgabe alle 2000 Schritte.
+# ARME (FFN-Breite 4·d, nur FFN verschieden): Sz (Fastfood + z²) | D_z2 (dicht + z²) | D_gelu (dicht, GELU) | D_relu2 (dicht, squared ReLU).
+# FAKTOREN: Trainingsschritte T ∈ {1000, 4000, 16000} (je eigener Lauf, eigener Kosinus-Plan, 5 % Aufwaermen), Modellbreite d ∈ {256, 512} (Koepfe d/64;
+#   sonst wie v2: 4 Lagen, Kontext 128, Batch 8×128, Adam, Gradientenbegrenzung 1,0).
+# SEEDS: 8 frische Mess-Seeds 2600-2607, 2 eigene NK-Seeds 2608/2609, Tuning-Seed 2698.
+# LERNRATE je (Arm, d) auf dem Tuning-Seed bei T = 4000 (Validierung = erste 64 kB dev, gittersuche_stabil wie v2); diese Rate gilt fuer ALLE T.
+#   VORBEHALT: bei T = 1000 und T = 16000 ist die Rate nicht neu gesucht; der Kosinus-Plan skaliert mit, ob 4000-Schritt-Raten bei 16000 Schritten
+#   optimal sind, ist offen (eher zu hoch als zu niedrig). Divergenzregel (unten) faengt Instabilitaet ab.
+# HYPOTHESEN (gepaarter einseitiger t-Test, n = 8, Differenz D_z2 − Sz je Seed in bpc, Holm ueber H1a, H1b, alpha 0,05):
+#   H1a Sz < D_z2 bei T = 16000, d = 256 : SZ_BESSER | H0 (D_z2 sicher besser) | HU
+#   H1b dasselbe bei d = 512             : SZ_BESSER | H0 | HU
+#   H2 (zweiseitig, NICHT in Holm, alpha 0,05): Trend des Vorsprungs V = D_z2 − Sz von T = 1000 nach T = 16000, je Seed gemittelt ueber beide d:
+#      Δ = mean_d[V(16000, d) − V(1000, d)]; SCHRUMPFT (Δ < 0, p < alpha) | WAECHST (Δ > 0, p < alpha) | HU
+# DIVERGENZ (vorab, wie v2, je Zelle Arm × T × d): Seed divergiert bei nicht endlichem Verlust (bpc := 8) ODER End-bpc >= Unigramm-Entropie;
+#   Kollaps = Median + 0,2 bpc. Divergierte Seeds bleiben in allen Zahlen; jede Hypothese mit einer beteiligten Zelle mit Divergenz/Kollaps ist HU.
+# NEGATIVKONTROLLE wie v2: D_z2 und Sz mit permutierten Trainingsbytes, d = 256, 1000 Schritte, Seeds 2608/2609; mittlerer Test-bpc >= 0,9 × Unigramm.
+# BESCHREIBEND: alle Arme × T × d (bpc, Differenzen), FFN-/Gesamtparameter, Inferenzzeit je Token (Einzelprozess, 1 Thread), Trainingszeit, Divergenzrate, Lernraten.
+# ERWARTUNG VORAB (kein Befund): Der Vorsprung schrumpft mit T (H2 eher SCHRUMPFT); Sz bleibt mindestens gleichwertig zu D_z2 (H1a/H1b eher SZ_BESSER oder HU, nicht H0).
+KARTE_V3 = "I-045-v3"
+SEEDS_V3 = tuple(range(2600, 2608))
+NK_SEEDS_V3 = (2608, 2609)
+TUNING_SEED_V3 = 2698
+ARME_V3 = ("Sz", "D_z2", "D_gelu", "D_relu2")
+NK_ARME_V3 = ("D_z2", "Sz")
+T_WERTE = (1000, 4000, 16000)
+D_WERTE = (256, 512)
+CKPT_ALLE = 2000
+PROFILE_V3 = {"standard": {"T": T_WERTE, "d": D_WERTE, "tuning_T": 4000, "nk_T": 1000, "nk_d": 256, "ckpt_alle": CKPT_ALLE,
+                           "seeds": SEEDS_V3, "nk_seeds": NK_SEEDS_V3}}
+_BELEGT_V3 = (_BELEGT_V2 | set(range(2410, 2420)) | {2498} | set(range(2330, 2345)) | set(range(2350, 2358)) | set(range(2460, 2470)) | {2479, 2399, 2299})
+HYPOTHESEN_V3 = {
+    "H1a": "Sz < D_z2 (bpc) bei T=16000, d=256 (einseitig gepaart t, n=8, Holm H1a-H1b). SZ_BESSER | H0 (D_z2 sicher besser) | HU.",
+    "H1b": "Sz < D_z2 (bpc) bei T=16000, d=512 (einseitig gepaart t, n=8, Holm H1a-H1b). SZ_BESSER | H0 (D_z2 sicher besser) | HU.",
+    "H2": "Trend des Vorsprungs V = D_z2 - Sz von T=1000 nach T=16000 (je Seed gemittelt ueber d=256 und 512; zweiseitig gepaart t, nicht in Holm). SCHRUMPFT | WAECHST | HU.",
+    "DIVERGENZ": "Seed divergiert: Verlust nicht endlich ODER End-bpc >= Unigramm-Entropie; Kollaps: Median + 0,2 bpc (je Zelle Arm x T x d). Bleibt in den Zahlen, beteiligte Hypothese = HU.",
+    "NK": f"Negativkontrolle (D_z2, Sz, d=256, 1000 Schritte, permutierte Trainingsbytes, Seeds 2608/2609): mittlerer Test-bpc >= {NK_FAKTOR} x Unigramm-Entropie. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+    "B": "beschreibend: bpc aller Arme x T x d, Differenzen gegen Sz, FFN-/Gesamtparameter, Inferenzzeit/Token, Trainingszeit, Divergenzrate, Lernraten.",
+}
+
+# ---- Kostenmodell (Messung im Container: 1 Thread, Schritt 8×128 = Vorwaerts + Rueckwaerts + Adam; siehe schritt_zeiten) ----
+# Gemessen 22.10.2026 im Container (4 Kerne, 1 Thread, Median ueber 15 bzw. 25 Schritte; Maximum zweier Messungen): Sekunden je Schritt.
+S_JE_SCHRITT = {("Sz", 256): 0.32, ("D_z2", 256): 0.32, ("D_gelu", 256): 0.30, ("D_relu2", 256): 0.32,
+                ("Sz", 512): 0.79, ("D_z2", 512): 1.03, ("D_gelu", 512): 0.99, ("D_relu2", 512): 0.97}
+
+
+class _Abbruch(Exception):
+    """Nur fuer den Vortest: simuliert einen harten Abbruch (24-h-Limit) mitten in einer Aufgabe."""
+
+
+def _json_sicher(x):
+    if isinstance(x, dict):
+        return {k: _json_sicher(v) for k, v in x.items()}
+    if isinstance(x, (list, tuple)):
+        return [_json_sicher(v) for v in x]
+    return x
+
+
+def _ckpt_pfad(ordner, key) -> str:
+    return str(Path(ordner) / (key.replace("|", "_").replace("/", "-") + ".pt"))
+
+
+def trainiere_v3(arm, lr, seed, schritte, d=D_MODELL, klein=False, val=False, permutiert=False, ckpt=None, ckpt_alle=CKPT_ALLE, _stopp_bei=None):
+    """Wie `trainiere`, aber mit Modellbreite d (Koepfe d/64) und Checkpoint in der Aufgabe (alle `ckpt_alle` Schritte):
+    Modell, Optimierer, Lernraten-Plan, Schritt, Zufallszustaende. Wiederaufnahme nur, wenn die Metadaten (Arm, d, lr, Seed, Schritte, ...) passen."""
+    torch.set_num_threads(1)
+    tr, va, te = daten(klein)
+    g = torch.Generator().manual_seed(seed + 5)
+    if permutiert:
+        tr = tr[torch.randperm(len(tr), generator=torch.Generator().manual_seed(seed + 77))]
+    torch.manual_seed(seed)
+    netz = Sprachmodell(arm, seed, d=d, h=d // 64)
+    opt = torch.optim.Adam(netz.parameters(), lr=lr)
+    warm = max(1, schritte // 20)
+    sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: (s + 1) / warm if s < warm else
+                                              0.5 * (1 + math.cos(math.pi * (s - warm) / max(1, schritte - warm))))
+    meta = {"arm": arm, "d": int(d), "lr": float(lr), "seed": int(seed), "schritte": int(schritte), "klein": bool(klein), "perm": bool(permutiert)}
+    start, t_vor = 0, 0.0
+    if ckpt and Path(ckpt).exists():
+        try:
+            z = torch.load(ckpt, weights_only=True)
+        except Exception:
+            z = None
+        if z is not None and z.get("meta") == meta:
+            netz.load_state_dict(z["modell"])
+            opt.load_state_dict(z["opt"])
+            sched.load_state_dict(z["sched"])
+            g.set_state(z["g"])
+            torch.set_rng_state(z["rng"])
+            start, t_vor = int(z["schritt"]), float(z["sekunden"])
+    offs = torch.arange(KONTEXT)
+    t0 = time.time()
+    netz.train()
+    for s in range(start, schritte):
+        i = torch.randint(0, len(tr) - KONTEXT - 1, (BATCH,), generator=g)
+        x = tr[i[:, None] + offs].long()
+        y = tr[i[:, None] + offs + 1].long()
+        l = F.cross_entropy(netz(x).reshape(-1, 256), y.reshape(-1))
+        if not torch.isfinite(l):
+            if ckpt and Path(ckpt).exists():
+                Path(ckpt).unlink()
+            return {"bpc": 8.0, "instabil": True, "fortgesetzt_ab": start}
+        opt.zero_grad(set_to_none=True)
+        l.backward()
+        torch.nn.utils.clip_grad_norm_(netz.parameters(), 1.0)
+        opt.step()
+        sched.step()
+        if ckpt and (s + 1) % ckpt_alle == 0 and s + 1 < schritte:
+            Path(ckpt).parent.mkdir(parents=True, exist_ok=True)
+            tmp = ckpt + ".tmp"
+            torch.save({"meta": meta, "modell": netz.state_dict(), "opt": opt.state_dict(), "sched": sched.state_dict(), "g": g.get_state(),
+                        "rng": torch.get_rng_state(), "schritt": s + 1, "sekunden": t_vor + time.time() - t0}, tmp)
+            os.replace(tmp, ckpt)
+        if _stopp_bei is not None and s + 1 == _stopp_bei:
+            raise _Abbruch(f"simulierter Abbruch bei Schritt {s + 1}")
+    t_train = t_vor + time.time() - t0
+    out = {"bpc": bpc_auswerten(netz, va[:VAL_BYTES] if val else te), "instabil": False, "sekunden_training": t_train, "fortgesetzt_ab": start}
+    if ckpt and Path(ckpt).exists():
+        Path(ckpt).unlink()
+    return out
+
+
+def schritt_zeiten(arme=ARME_V3, ds=D_WERTE, n=20, warm=3):
+    """Messung: Sekunden je Trainingsschritt (1 Thread, Batch 8×128, Vorwaerts + Rueckwaerts + Clip + Adam), Median ueber n Schritte."""
+    torch.set_num_threads(1)
+    tr, _, _ = daten(True)
+    offs = torch.arange(KONTEXT)
+    g = torch.Generator().manual_seed(1)
+    aus = {}
+    for d in ds:
+        for a in arme:
+            netz = Sprachmodell(a, 0, d=d, h=d // 64)
+            opt = torch.optim.Adam(netz.parameters(), lr=1e-4)
+            ts = []
+            for k in range(warm + n):
+                i = torch.randint(0, len(tr) - KONTEXT - 1, (BATCH,), generator=g)
+                t0 = time.perf_counter()
+                l = F.cross_entropy(netz(tr[i[:, None] + offs].long()).reshape(-1, 256), tr[i[:, None] + offs + 1].long().reshape(-1))
+                opt.zero_grad()
+                l.backward()
+                torch.nn.utils.clip_grad_norm_(netz.parameters(), 1.0)
+                opt.step()
+                if k >= warm:
+                    ts.append(time.perf_counter() - t0)
+            aus[(a, d)] = float(np.median(ts))
+    return aus
+
+
+# ---- Aufgabenliste ----
+def _schl_v3(a):
+    """Aufgabe (teil, arm, d, T, seed, lr, klein, ckpt_alle, ckordner) -> Schluessel der Zwischendatei."""
+    return f"einheit|{a[0]}|{a[1]}|d{a[2]}|T{a[3]}|{a[4]}"
+
+
+def _schl_lr(a):
+    """Tuning-Aufgabe (schl, seed, lr, d, T, klein, ckpt_alle, ckordner, arm)."""
+    return f"lr|{a[0]}|{a[2]!r}|{a[1]}"
+
+
+def _kosten_aufgabe(arm, d, T):
+    return T * S_JE_SCHRITT.get((arm, d), 1.0) if S_JE_SCHRITT else T * d
+
+
+def aufgaben_v3(hp, P, klein, ckordner):
+    """Mess- und NK-Aufgaben, die langen (d = 512, T = 16000) zuerst."""
+    aufg = [("mess", a, d, T, s, hp[f"{a}|{d}"]["lr"], klein, P["ckpt_alle"], str(ckordner))
+            for a in ARME_V3 for d in P["d"] for T in P["T"] for s in P["seeds"]]
+    aufg += [("nk", a, P["nk_d"], P["nk_T"], s, hp[f"{a}|{P['nk_d']}"]["lr"], klein, P["ckpt_alle"], str(ckordner))
+             for a in NK_ARME_V3 for s in P["nk_seeds"]]
+    aufg.sort(key=lambda a: -_kosten_aufgabe(a[1], a[2], a[3]))
+    return aufg
+
+
+def kosten_schaetzung(s_je_schritt=None, prozesse=72, aufschlag=1.3, tuning_raten=4.5, tuning_runden=2, ueberhang=30.0):
+    """Kernstunden und Wandzeit (LPT-Planung der Aufgaben auf `prozesse` Kerne). aufschlag: Parallel-Aufschlag (Cache/Speicherbandbreite bei vollem Knoten,
+    I-045 beobachtete 1,2-1,5). Tuning: im Mittel `tuning_raten` Raten je (Arm, d) in `tuning_runden` Runden (3 + Erweiterung); ueberhang: Auswertung/Laden je Aufgabe (s)."""
+    z = s_je_schritt or S_JE_SCHRITT
+    P = PROFILE_V3["standard"]
+    dauer = lambda a, d, T: T * z[(a, d)] * aufschlag + ueberhang
+    # Tuning: Runde 1 = 3 Raten je (Arm, d); weitere Runden nur Erweiterungen (tuning_raten − 3 im Mittel je Paar)
+    t_aufg = [dauer(a, d, P["tuning_T"]) for a in ARME_V3 for d in P["d"]]
+    kern_tuning = sum(t_aufg) * tuning_raten
+    wand_tuning = tuning_runden * max(t_aufg)
+    m_aufg = [dauer(a, d, T) for a in ARME_V3 for d in P["d"] for T in P["T"] for _ in P["seeds"]]
+    m_aufg += [dauer(a, P["nk_d"], P["nk_T"]) for a in NK_ARME_V3 for _ in P["nk_seeds"]]
+    last = [0.0] * prozesse
+    import heapq
+    heapq.heapify(last)
+    for t in sorted(m_aufg, reverse=True):
+        heapq.heappush(last, heapq.heappop(last) + t)
+    wand_mess = max(last)
+    return {"aufgaben_mess": len(m_aufg), "kernstunden_mess": sum(m_aufg) / 3600, "kernstunden_tuning": kern_tuning / 3600,
+            "kernstunden_gesamt": (sum(m_aufg) + kern_tuning) / 3600, "laengste_aufgabe_h": max(m_aufg) / 3600,
+            "wand_tuning_h": wand_tuning / 3600, "wand_mess_h": wand_mess / 3600, "wand_gesamt_h": (wand_tuning + wand_mess) / 3600,
+            "prozesse": prozesse, "aufschlag": aufschlag}
+
+
+# ---- Arbeiter ----
+def _arbeiter_v3(a):
+    teil, arm, d, T, seed, lr, klein, ck_alle, ckordner = a
+    key = _schl_v3(a)
+    r = trainiere_v3(arm, lr, seed, T, d=d, klein=klein, permutiert=(teil == "nk"), ckpt=_ckpt_pfad(ckordner, key), ckpt_alle=ck_alle)
+    return key, {"teil": teil, "arm": arm, "d": d, "T": T, "seed": seed, "lr": lr, **r}
+
+
+_ZAEHLER = {"lr": 0}
+
+
+def _lr_arbeiter_v3(a):
+    schl, seed, lr, d, T, klein, ck_alle, ckordner, arm = a
+    _ZAEHLER["lr"] += 1
+    key = _schl_lr(a)
+    r = trainiere_v3(arm, lr, seed, T, d=d, klein=klein, val=True, ckpt=_ckpt_pfad(ckordner, key), ckpt_alle=ck_alle)
+    return key, {"acc": 1 - r["bpc"] / 8, "bpc": r["bpc"], "instabil": r["instabil"]}      # 'acc' = Score (hoeher besser) fuer gittersuche_stabil
+
+
+def tuning_v3(P, klein, tseed, pfad, kennung, prozesse, ckordner):
+    """Lernrate je (Arm, d) bei T = tuning_T auf dem Tuning-Seed; alle Raten aller Paare einer Runde laufen gemeinsam parallel; jede Aufgabe einzeln wiederaufnehmbar."""
+    schl = [f"{a}|{d}" for a in ARME_V3 for d in P["d"]]
+
+    def aufgaben_fuer(s, lr):
+        a, d = s.split("|")
+        return [(s, tseed, lr, int(d), P["tuning_T"], klein, P["ckpt_alle"], str(ckordner), a)]
+
+    def auswerten(aufg):
+        lang = sorted(aufg, key=lambda a: -a[3])
+        res = _rechne(lang, pfad, kennung, fn=_lr_arbeiter_v3, schluessel=_schl_lr, prozesse=prozesse)
+        return [res[_schl_lr(a)] for a in aufg]
+
+    info, _ = gittersuche_stabil(schl, aufgaben_fuer, auswerten, gitter=LR_GITTER, faktor=LR_FAKTOR, kollaps=KOLLAPS_SCORE)
+    return {k: {"lr": v["lr"], "am_rand": v["am_rand"], "abgestuft": v["abgestuft"],
+                "gitter": {lr: g["je_seed"][0] for lr, g in v["gitter"].items()}} for k, v in info.items()}
+
+
+def _zeit_arbeiter_v3(paare):
+    torch.set_num_threads(1)
+    return {f"{a}|{d}": zeit_je_token(Sprachmodell(a, 0, d=d, h=d // 64)) for a, d in paare}
+
+
+def zeit_im_ein_thread_v3(paare):
+    import multiprocessing as mp
+    for var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[var] = "1"
+    with mp.get_context("spawn").Pool(1) as pool:
+        return pool.apply(_zeit_arbeiter_v3, (tuple(paare),))
+
+
+# ---- Auswertung (bpc: kleiner ist besser; V = D_z2 − Sz, positiv = Sz besser) ----
+def _zname(a, T, d):
+    return f"{a}|T{T}|d{d}"
+
+
+def auswertung_v3(zeilen: list, params: dict, unigramm: float, t_lo=T_WERTE[0], t_hi=T_WERTE[-1], ds=D_WERTE) -> dict:
+    bpc, inst, tt = {}, {}, {}
+    for z in zeilen:
+        if z["teil"] == "mess":
+            k = (z["arm"], z["T"], z["d"])
+            bpc.setdefault(k, {})[z["seed"]] = z["bpc"]
+            inst.setdefault(k, {})[z["seed"]] = bool(z.get("instabil"))
+            tt.setdefault(k, {})[z["seed"]] = z.get("sekunden_training", float("nan"))
+    r = {"t_lo": t_lo, "t_hi": t_hi, "zellen": {}, "kollaps": {}, "divergiert": {}, "divergenzrate": {}, "bpc_ohne_divergente": {}, "negativ": {},
+         "diff": {}, "p_holm": {}, "beschreibend": {}, "parameter": params, "unigramm_bpc": unigramm, "training_s_mittel": {}}
+    for k, v in bpc.items():
+        seeds = sorted(v)
+        w = np.array([v[s] for s in seeds])
+        n = _zname(*k)
+        r["zellen"][n] = zusammenfassung(w)
+        med = float(np.median(w))
+        r["kollaps"][n] = [s for s in seeds if not (v[s] <= med + KOLLAPS_BPC)]
+        r["divergiert"][n] = [s for s in seeds if inst[k][s] or not (v[s] < unigramm)]
+        r["divergenzrate"][n] = len(r["divergiert"][n]) / len(seeds)
+        ok = [v[s] for s in seeds if s not in r["divergiert"][n]]
+        r["bpc_ohne_divergente"][n] = float(np.mean(ok)) if ok else None
+        r["training_s_mittel"][n] = float(np.nanmean(list(tt[k].values())))
+    nk = [z["bpc"] for z in zeilen if z["teil"] == "nk"]
+    r["negativ"] = {"mittel": float(np.mean(nk)), "n": len(nk)} if nk else {}
+
+    def vorsprung(T, d, ref="D_z2", pruef="Sz"):
+        """Je Seed: bpc(ref) − bpc(pruef); positiv = pruef besser. {} wenn eine Zelle fehlt."""
+        a, b = bpc.get((ref, T, d)), bpc.get((pruef, T, d))
+        if not a or not b:
+            return {}
+        return {s: a[s] - b[s] for s in sorted(set(a) & set(b))}
+
+    for h, d in (("H1a", ds[0]), ("H1b", ds[-1])):
+        v = vorsprung(t_hi, d)
+        if v:
+            r["diff"][h] = _stat(np.array(list(v.values())))
+    r["beschreibend"]["V_T_d"] = {}
+    for d in ds:
+        for T in sorted({k[1] for k in bpc}):
+            v = vorsprung(T, d)
+            if v:
+                r["beschreibend"]["V_T_d"][f"T{T}|d{d}"] = _stat(np.array(list(v.values())))
+    # H2: Trend des Vorsprungs, je Seed ueber d gemittelt (gleiche Seeds in allen vier Zellen noetig)
+    zeit = [(T, d) for d in ds for T in (t_lo, t_hi)]
+    vs = {(T, d): vorsprung(T, d) for T, d in zeit}
+    if all(vs[x] for x in zeit):
+        gem = sorted(set.intersection(*(set(vs[x]) for x in zeit)))
+        dl = np.array([np.mean([vs[(t_hi, d)][s] - vs[(t_lo, d)][s] for d in ds]) for s in gem])
+        r["diff"]["H2"] = _stat(dl)
+        for d in ds:
+            dd = np.array([vs[(t_hi, d)][s] - vs[(t_lo, d)][s] for s in gem])
+            r["beschreibend"][f"Trend_V_d{d}"] = _stat(dd)
+    for ref in ("D_gelu", "D_relu2"):
+        for d in ds:
+            for T in sorted({k[1] for k in bpc}):
+                v = vorsprung(T, d, ref=ref)
+                if v:
+                    r["beschreibend"].setdefault(f"{ref}-Sz", {})[f"T{T}|d{d}"] = _stat(np.array(list(v.values())))
+    prim = {h: r["diff"][h]["p_gr"] for h in ("H1a", "H1b") if h in r["diff"] and "p_gr" in r["diff"][h]}
+    if prim:
+        r["p_holm"] = holm(prim)
+    return r
+
+
+def _vorab_v3(r, nk, h, zellen):
+    if h not in r["diff"] or "mittel" not in r["diff"][h] or (h in ("H1a", "H1b") and h not in r["p_holm"]):
+        return "HU (Zellen fehlen oder zu wenige Seeds)"
+    if nk != "BESTANDEN":
+        return "HU (Negativkontrolle durchgefallen)"
+    dv = {z: r["divergiert"][z] for z in zellen if r["divergiert"].get(z)}
+    if dv:
+        return f"HU (Divergenz in {dv})"
+    k = {z: r["kollaps"][z] for z in zellen if r["kollaps"].get(z)}
+    if k:
+        return f"HU (Kollaps in {k})"
+    return None
+
+
+def urteil_v3(r: dict, ds=D_WERTE) -> dict:
+    nk = _nk(r)
+    u = {"NK": f"{nk} (Mittel permutiert D_z2/Sz: {r['negativ'].get('mittel', float('nan')):.3f} bpc; Unigramm {r['unigramm_bpc']:.3f}; Schwelle {NK_FAKTOR}x)"}
+    t_lo, t_hi = r["t_lo"], r["t_hi"]
+    for h, d in (("H1a", ds[0]), ("H1b", ds[-1])):
+        v = _vorab_v3(r, nk, h, [_zname(a, t_hi, d) for a in ("D_z2", "Sz")])
+        if v:
+            u[h] = v
+            continue
+        z = _zahlen(r, h)
+        if r["p_holm"][h] < ALPHA:
+            u[h] = f"SZ_BESSER (D_z2-Sz bei T={t_hi}, d={d}: {z})"
+        elif r["diff"][h]["p_kl"] < ALPHA / 2:
+            u[h] = f"H0 (D_z2 sicher besser als Sz bei T={t_hi}, d={d}; {z})"
+        else:
+            u[h] = f"HU ({z})"
+    v = _vorab_v3(r, nk, "H2", [_zname(a, T, d) for a in ("D_z2", "Sz") for T in (t_lo, t_hi) for d in ds])
+    if v:
+        u["H2"] = v
+    else:
+        s = r["diff"]["H2"]
+        z = (f"Δ(V{t_hi} − V{t_lo}) {s['mittel']:+.4f} bpc, 90-%-KI [{s['ki'][0]:+.4f}; {s['ki'][1]:+.4f}], n {s['n']}, p_zweiseitig {s['p_zwei']:.3g}").replace(".", ",")
+        if s["p_zwei"] < ALPHA:
+            u["H2"] = f"{'SCHRUMPFT' if s['mittel'] < 0 else 'WAECHST'} ({z})"
+        else:
+            u["H2"] = f"HU ({z})"
+    teile = []
+    for d in ds:
+        for T in sorted({int(k.split("|T")[1].split("|")[0]) for k in r["zellen"]}):
+            ze = ", ".join(f"{a} {r['zellen'][_zname(a, T, d)]['mittel']:.3f}".replace(".", ",") for a in ARME_V3 if _zname(a, T, d) in r["zellen"])
+            teile.append(f"d{d} T{T}: {ze}")
+    u["B"] = "beschreibend: Test-bpc " + "; ".join(teile) + "; Rest in auswertung"
+    return u
+
+
+# ---- Lauf ----
+def lauf_v3(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None, **_):
+    profil = profil or os.environ.get("I045V3_PROFIL", "standard")
+    P = dict(PROFILE_V3[profil])
+    if schnell:      # Rauchtest NUR Tuning-Seed, kleine Daten, wenige Schritte (Checkpoint alle 15 Schritte)
+        P.update({"T": (10, 20, 40), "tuning_T": 20, "nk_T": 10, "ckpt_alle": 15, "seeds": (TUNING_SEED_V3,), "nk_seeds": (TUNING_SEED_V3,)})
+        klein = True
+    else:
+        klein = False
+        if set(P["seeds"]) & _BELEGT_V3 or set(P["nk_seeds"]) & _BELEGT_V3 or TUNING_SEED_V3 in P["seeds"] or TUNING_SEED_V3 in _BELEGT_V3:
+            raise ValueError("Seeds nicht frisch/vorregistriert")
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_V3}{'-schnell' if schnell else ''}.json"
+    ckordner = pfad.parent / f"_ckpt_{KARTE_V3}{'-schnell' if schnell else ''}"
+    kennung = {"karte": KARTE_V3, "version": 1, "profil": "rauch" if schnell else profil, "profil_werte": _json_sicher(P),
+               "lr_gitter": list(LR_GITTER), "tuning_seed": TUNING_SEED_V3, "klein": klein}
+    t0 = time.time()
+    zw = _lade_zwischen(pfad, kennung)
+    if "tuning" not in zw:
+        hp0 = tuning_v3(P, klein, TUNING_SEED_V3, pfad, kennung, prozesse, ckordner)
+        zw = _lade_zwischen(pfad, kennung)
+        zw["tuning"] = hp0
+        _schreibe_zwischen(pfad, kennung, zw)
+        print(f"  Tuning fertig: {({a: v['lr'] for a, v in zw['tuning'].items()})}", flush=True)
+    hp = zw["tuning"]
+    aufg = aufgaben_v3(hp, P, klein, ckordner)
+    alle = _rechne(aufg, pfad, kennung, fn=_arbeiter_v3, schluessel=_schl_v3, prozesse=prozesse)
+    zeilen = [z for k, z in alle.items() if k.startswith("einheit|")]
+    paare = [(a, d) for a in ARME_V3 for d in P["d"]]
+    zm = None
+    if zeit:
+        if "zeit" in alle:
+            zm = alle["zeit"]
+        else:
+            zm = zeit_im_ein_thread_v3(paare)
+            alle["zeit"] = zm
+            _schreibe_zwischen(pfad, kennung, alle)
+    params = {f"{a}|{d}": {"ffn": param_ffn(n), "gesamt": param_gesamt(n)}
+              for a, d in paare for n in [Sprachmodell(a, 0, d=d, h=d // 64)]}
+    tr, _, te = daten(klein)
+    e = {"abteilung": "Struktur", "modul": "struktur_sprache", "karte": KARTE_V3, "version": 1, "profil": profil, "hypothesen": HYPOTHESEN_V3,
+         "seeds": list(P["seeds"]), "nk_seeds": list(P["nk_seeds"]), "tuning_seed": TUNING_SEED_V3, "tuning": hp,
+         "einstellungen": {"T": list(P["T"]), "d": list(P["d"]), "tuning_T": P["tuning_T"], "nk_T": P["nk_T"], "nk_d": P["nk_d"], "ckpt_alle": P["ckpt_alle"],
+                           "batch": BATCH, "kontext": KONTEXT, "lagen": LAGEN, "ffn_breite": "4*d", "lr_gitter": list(LR_GITTER),
+                           "daten_bytes": [len(x) for x in daten(klein)]},
+         "zwischendatei": str(pfad), "zeilen": zeilen, "sekunden": time.time() - t0}
+    e["auswertung"] = auswertung_v3(zeilen, params, unigramm_entropie(tr, te), t_lo=min(P["T"]), t_hi=max(P["T"]), ds=tuple(P["d"]))
+    if zm is not None:
+        e["zeitmessung_einzelprozess_s_je_token"] = zm
+    e["urteil"] = urteil_v3(e["auswertung"], ds=tuple(P["d"]))
+    return e
+
+
+# ---- Vortest ----
+def _synth_v3(rng, adv_lo=0.08, adv_hi=0.04, sd=0.004, n=8, koll=None, nk=5.0, div=None, fehlt=None):
+    """Synthetische Zeilen: V = D_z2 − Sz = adv_lo bei T=1000, adv_hi bei T=16000 (T=4000 mittig), in beiden d."""
+    zl = []
+    for i in range(n):
+        gem = rng.normal(0, 0.01)
+        for d in D_WERTE:
+            for T in T_WERTE:
+                adv = adv_lo + (adv_hi - adv_lo) * {1000: 0.0, 4000: 0.5, 16000: 1.0}[T]
+                basis = {"Sz": 3.40 - 0.1 * (d == 512), "D_z2": 3.40 + adv - 0.1 * (d == 512), "D_gelu": 3.50, "D_relu2": 3.45}
+                for a, v in basis.items():
+                    if fehlt == (a, T, d):
+                        continue
+                    x, ist = v + gem + rng.normal(0, sd), False
+                    if koll == (a, T, d) and i == 0:
+                        x += 1.0
+                    if div == (a, T, d) and i == 1:
+                        x, ist = 8.0, True
+                    zl.append({"teil": "mess", "arm": a, "d": d, "T": T, "seed": 2600 + i, "bpc": x, "instabil": ist, "sekunden_training": 10.0})
+        if i < 2:
+            for a in NK_ARME_V3:
+                zl.append({"teil": "nk", "arm": a, "d": 256, "T": 1000, "seed": 2608 + i, "bpc": nk + rng.normal(0, 0.02)})
+    return zl
+
+
+def _u3(rng, **kw):
+    p = {f"{a}|{d}": {"ffn": 1, "gesamt": 2} for a in ARME_V3 for d in D_WERTE}
+    return urteil_v3(auswertung_v3(_synth_v3(rng, **kw), p, 5.0))
+
+
+def _fn_test_v3(a):
+    return _schl_v3(a), {"v": a[4] * 2}
+
+
+def _vortest_v3() -> bool:
+    import tempfile
+    ok = True
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-045-v3): {name}", flush=True)
+            ok = False
+
+    torch.manual_seed(0)
+    # Form, Kausalitaet, Koepfe, Parameter, Aktivierungen bei beiden Breiten
+    for d in D_WERTE:
+        x = torch.randint(0, 256, (2, KONTEXT))
+        nz = {a: Sprachmodell(a, 0, d=d, h=d // 64) for a in ARME_V3}
+        for a, m in nz.items():
+            m.eval()
+            x2 = x.clone()
+            x2[:, 60] = (x2[:, 60] + 1) % 256
+            pruefe(f"Form/Kausalitaet {a} d={d}", m(x).shape == (2, KONTEXT, 256) and torch.allclose(m(x)[:, :60], m(x2)[:, :60], atol=1e-5)
+                   and not torch.allclose(m(x)[:, 60:], m(x2)[:, 60:]))
+            pruefe(f"Koepfe d/64 {a} d={d}", m.bl[0].h == d // 64)
+        pf = {a: param_ffn(n) for a, n in nz.items()}
+        dicht = 4 * (2 * d * 4 * d + 4 * d + d)
+        pruefe(f"Parameter dicht = 4·(8d²+5d), d={d}", pf["D_gelu"] == pf["D_z2"] == pf["D_relu2"] == dicht)
+        pruefe(f"Parameter Sz = 4·21d (Fastfood 8d + 8d Diagonalen + Bias 5d), d={d}", pf["Sz"] == 4 * 21 * d)
+        pruefe(f"FFN-Breite 4·d, d={d}", nz["D_gelu"].bl[0].ffn.a.out_features == 4 * d and nz["Sz"].bl[0].ffn.a.m.N == 4 * d
+               and nz["Sz"].bl[0].ffn.b.m.N == d)
+        pruefe(f"Aktivierungen d={d}", nz["D_gelu"].bl[0].ffn.akt is F.gelu and nz["D_z2"].bl[0].ffn.akt is torch.square
+               and nz["Sz"].bl[0].ffn.akt is torch.square and nz["D_relu2"].bl[0].ffn.akt is _relu2)
+    pruefe("d = 256 unveraendert zu v2 (Sz, D_z2 gleiche Parameterzahl und Breite 1024)",
+           param_ffn(Sprachmodell("Sz", 0)) == param_ffn(Sprachmodell("Sz", 0, d=256, h=4)) and BREITE["Sz"] == 1024)
+    # Trainierbarkeit
+    unit = torch.arange(32).repeat(8)[None].repeat(16, 1)[:, :KONTEXT + 1]
+    for a in ARME_V3:
+        m = Sprachmodell(a, 0, d=512, h=8)
+        opt = torch.optim.Adam(m.parameters(), lr=2e-3)
+        l0 = None
+        for _ in range(25):
+            opt.zero_grad()
+            l = F.cross_entropy(m(unit[:, :-1]).reshape(-1, 256), unit[:, 1:].reshape(-1))
+            l0 = l0 or float(l.detach())
+            l.backward()
+            opt.step()
+        pruefe(f"Trainierbar {a} d=512", float(l.detach()) < 0.7 * l0)
+    # Seeds, Profil, Aufgaben
+    pruefe("Seeds frisch (8 Mess, 2 NK, Tuning 2698 neu)", len(SEEDS_V3) == 8 and len(NK_SEEDS_V3) == 2 and not ((set(SEEDS_V3) | set(NK_SEEDS_V3)) & _BELEGT_V3)
+           and TUNING_SEED_V3 not in _BELEGT_V3 and TUNING_SEED_V3 not in SEEDS_V3 and not (set(SEEDS_V3) & set(NK_SEEDS_V3)))
+    hp = {f"{a}|{d}": {"lr": 1e-3} for a in ARME_V3 for d in D_WERTE}
+    P = PROFILE_V3["standard"]
+    aufg = aufgaben_v3(hp, P, False, "x")
+    schl = [_schl_v3(a) for a in aufg]
+    pruefe("Aufgabenzahl 4·3·2·8 + 4 NK = 196, Schluessel eindeutig", len(aufg) == 196 and len(set(schl)) == 196 and sum(a[0] == "nk" for a in aufg) == 4)
+    pruefe("Lange zuerst (d=512, T=16000), NK d=256 T=1000", aufg[0][2] == 512 and aufg[0][3] == 16000 and all(a[2] == 512 and a[3] == 16000 for a in aufg[:32])
+           and all(a[2] == 256 and a[3] == 1000 for a in aufg if a[0] == "nk"))
+    # Laufzeitplan (24-h-Joblimit, Messwerte aus dem Container)
+    if S_JE_SCHRITT:
+        k = kosten_schaetzung()
+        pruefe("Laufzeitplan: Wandzeit bei 72 Prozessen < 24 h (mit Aufschlag)", k["wand_gesamt_h"] < 24 and k["laengste_aufgabe_h"] < 24)
+    # Divergenz-Pfad
+    t = trainiere_v3("Sz", 1e9, 0, 5, d=256, klein=True, val=True)
+    pruefe("Divergenz-Pfad liefert instabil oder schlechten bpc", t["instabil"] or t["bpc"] > 5.0)
+    # Checkpoint in der Aufgabe: Abbruch bei Schritt 15 (Checkpoint bei 10) -> Fortsetzung ergibt DASSELBE Ergebnis wie ungestoerter Lauf
+    with tempfile.TemporaryDirectory() as tmp:
+        ck = str(Path(tmp) / "a.pt")
+        ref = trainiere_v3("Sz", 2e-3, 3, 30, d=256, klein=True, val=True)
+        try:
+            trainiere_v3("Sz", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10, _stopp_bei=15)
+            pruefe("Abbruch wurde ausgeloest", False)
+        except _Abbruch:
+            pass
+        pruefe("Checkpoint nach Abbruch vorhanden", Path(ck).exists())
+        fort = trainiere_v3("Sz", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10)
+        pruefe("Fortsetzung ab Schritt 10", fort["fortgesetzt_ab"] == 10)
+        pruefe("Fortsetzung = ungestoerter Lauf (bpc identisch)", abs(fort["bpc"] - ref["bpc"]) < 1e-9)
+        pruefe("Checkpoint nach Ende geloescht", not Path(ck).exists())
+        # fremder Checkpoint (andere Lernrate) wird ignoriert
+        try:
+            trainiere_v3("D_z2", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10, _stopp_bei=12)
+        except _Abbruch:
+            pass
+        anders = trainiere_v3("D_z2", 1e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10)
+        pruefe("Checkpoint mit anderer Lernrate wird nicht verwendet", anders["fortgesetzt_ab"] == 0)
+        # Wiederaufnahme je Aufgabe (Zwischendatei) und Tuning-Wiederaufnahme
+        pfad = Path(tmp) / "z.json"
+        kennung = {"k": 1}
+        a4 = [("mess", a, d, 10, s, 1e-3, True, 5, tmp) for a in ("Sz", "D_z2") for d in (256, 512) for s in (1, 2)]
+        z1 = _rechne(a4[:3], pfad, kennung, fn=_fn_test_v3, prozesse=1, schluessel=_schl_v3)
+        z2 = _rechne(a4, pfad, kennung, fn=_fn_test_v3, prozesse=1, schluessel=_schl_v3)
+        pruefe("Wiederaufnahme je Aufgabe (Arm, d, T, Seed)", len(z1) == 3 and len(z2) == 8 and all(z2[k] == z1[k] for k in z1))
+        try:
+            _rechne(a4, pfad, {"k": 2}, fn=_fn_test_v3, prozesse=1, schluessel=_schl_v3)
+            pruefe("Fremde Zwischendatei wird abgelehnt", False)
+        except ValueError:
+            pass
+        Pk = {**PROFILE_V3["standard"], "d": (256,), "tuning_T": 3, "ckpt_alle": 2}
+        pt = Path(tmp) / "t.json"
+        kt = {"karte": "t"}
+        n0 = _ZAEHLER["lr"]
+        t1 = tuning_v3(Pk, True, TUNING_SEED_V3, pt, kt, 1, Path(tmp) / "ck")
+        n1 = _ZAEHLER["lr"]
+        t2 = tuning_v3(Pk, True, TUNING_SEED_V3, pt, kt, 1, Path(tmp) / "ck")
+        pruefe("Tuning: Raten je (Arm, d) gewaehlt", set(t1) == {f"{a}|256" for a in ARME_V3} and all(v["lr"] > 0 for v in t1.values()))
+        pruefe("Tuning-Wiederaufnahme rechnet nichts neu und liefert dasselbe", n1 > n0 and _ZAEHLER["lr"] == n1 and t1 == t2)
+    # Urteilszweige
+    rng = np.random.default_rng(11)
+    gesehen = set()
+
+    def erwarte(name, u, **soll):
+        nonlocal ok
+        for k, w in soll.items():
+            gesehen.add((k, w.split(" (")[0]))
+            if not u[k].startswith(w):
+                print(f"  Vortest FEHLER (I-045-v3) {name}: {k} soll {w}, ist {u[k]}", flush=True)
+                ok = False
+
+    erwarte("Vorsprung schrumpft", _u3(rng), **{"NK": "BESTANDEN", "H1a": "SZ_BESSER", "H1b": "SZ_BESSER", "H2": "SCHRUMPFT"})
+    erwarte("Vorsprung waechst", _u3(rng, adv_lo=0.02, adv_hi=0.08), **{"H2": "WAECHST", "H1a": "SZ_BESSER"})
+    erwarte("D_z2 besser", _u3(rng, adv_lo=-0.07, adv_hi=-0.07), **{"H1a": "H0", "H1b": "H0", "H2": "HU"})
+    erwarte("Kein Unterschied", _u3(rng, adv_lo=0.0, adv_hi=0.0, sd=0.03), **{"H1a": "HU", "H1b": "HU", "H2": "HU"})
+    erwarte("NK faellt", _u3(rng, nk=2.5), **{"NK": "DURCHGEFALLEN", "H1a": "HU (Negativkontrolle", "H1b": "HU (Negativkontrolle", "H2": "HU (Negativkontrolle"})
+    erwarte("Divergenz Sz d=512 T=16000", _u3(rng, div=("Sz", 16000, 512)), **{"H1a": "SZ_BESSER", "H1b": "HU (Divergenz", "H2": "HU (Divergenz"})
+    erwarte("Kollaps D_z2 d=256 T=16000", _u3(rng, koll=("D_z2", 16000, 256)), **{"H1a": "HU (Kollaps", "H1b": "SZ_BESSER", "H2": "HU (Kollaps"})
+    erwarte("Divergenz in T=4000 stoert die Hypothesen nicht", _u3(rng, div=("Sz", 4000, 256)), **{"H1a": "SZ_BESSER", "H2": "SCHRUMPFT"})
+    erwarte("Zelle fehlt", _u3(rng, fehlt=("Sz", 16000, 512)), **{"H1a": "SZ_BESSER", "H1b": "HU (Zellen fehlen", "H2": "HU (Zellen fehlen"})
+    p = {f"{a}|{d}": {"ffn": 1, "gesamt": 2} for a in ARME_V3 for d in D_WERTE}
+    a_ = auswertung_v3(_synth_v3(rng, div=("Sz", 16000, 256)), p, 5.0)
+    pruefe("Divergenzrate 1/8, Seed bleibt in den Zahlen (n = 8)", abs(a_["divergenzrate"]["Sz|T16000|d256"] - 0.125) < 1e-9
+           and a_["zellen"]["Sz|T16000|d256"]["n"] == 8 and a_["diff"]["H1a"]["n"] == 8)
+    pruefe("Holm nur ueber H1a, H1b (H2 nicht)", set(a_["p_holm"]) == {"H1a", "H1b"})
+    erlaubt = ("SZ_BESSER", "SCHRUMPFT", "WAECHST", "HU", "H0", "BESTANDEN", "DURCHGEFALLEN", "beschreibend")
+    pruefe("Vokabular", all(v.startswith(erlaubt) for v in _u3(rng).values()))
+    soll = {"H1a": {"SZ_BESSER", "H0", "HU"}, "H1b": {"SZ_BESSER", "H0", "HU"}, "H2": {"SCHRUMPFT", "WAECHST", "HU"}}
+    for h, ws in soll.items():
+        fehlt = ws - {w for k, w in gesehen if k == h}
+        pruefe(f"Zweige {fehlt} fuer {h} erzwungen", not fehlt)
     return bool(ok)
