@@ -1596,6 +1596,8 @@ Gerechnet auf MPCDF Raven (Job 31514726, 1 Knoten, 8 h 29 min, 52 GB). Rohdaten 
 
 ## 26.10.2026 — I-045-v4 „Budgetgleich: Struktur gegen kleine dichte FFN“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
 
+> **ÜBERHOLT (26.10., vor dem Start, keine Messzahl existiert):** Arme, Hypothesen, Aufgabenzahl, Laufzeit und Erwartung dieses Abschnitts werden durch den Abschnitt „I-045-v4 ÄNDERUNG“ am Ende des Laborbuchs ersetzt. Grund: Dk mit h = 10 ist ein Strohmann; H1 gegen ihn wäre wertlos. Der ursprüngliche Text bleibt zur Nachvollziehbarkeit stehen.
+
 Anlass: I-045-v3 zeigte, dass Sz (Fastfood + z²) bei langem Training schlechter ist als die dichte FFN gleicher Breite (d = 512, T = 16000: Sz 2,177, D_z2 2,153, D_gelu 2,106 bpc), aber nur etwa 0,5 % der FFN-Parameter hat (43.008 gegen 8.398.848). Fair ist der Vergleich bei **gleichem Budget**: Ist Sz besser als eine dichte (oder niedrigrangige) FFN, die auf dieselbe Parameterzahl verkleinert ist? Dieser Lauf ist ein **Profil/eine Erweiterung von `abteilungen/struktur_sprache.py`** (`lauf_v4`, Agenda-Kennung `I-045-v4`), keine Kopie: gleiche Daten (UD_German-GSD, Byte-Ebene, gleicher Split), gleiches Modell, gleiche Messung (Test-bpc), gleiche Checkpoint-/Wiederaufnahme-Mechanik wie v3. Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil. Gerechnet wird auf dem MPCDF-Cluster Raven. **Kein Messseed gerechnet. Der Lauf wartet auf Maltes Freigabe.**
 
 - **Modell:** d = 512 (8 Köpfe), 4 Lagen, Kontext 128, Batch 8 × 128, Adam, Kosinus, 5 % Aufwärmen, Gradientenbegrenzung 1,0. **T = 16000 (Hauptpunkt, konfirmatorisch)** und **T = 4000 (beschreibend)**; jedes T ein eigener Lauf mit eigenem Plan.
@@ -1639,3 +1641,39 @@ Anlass: I-045-v3 zeigte, dass Sz (Fastfood + z²) bei langem Training schlechter
 - **Vortest bestanden** (`_vortest_v4`, läuft in `vortest()` mit): Form und Kausalität aller 5 Arme, Köpfe d/64, Parameterzählung gegen Formel (Sz 4·21·d, Dk, Lk), **Budgetgleichheit innerhalb ±2 %**, Breiten (h = 10 und 1638 exakt aus der Zählung), Aktivierungen, FLOPs-Zählung, Trainierbarkeit, Seeds frisch, Aufgabenzahl/Reihenfolge, Divergenz-Pfad, Checkpoint-Wiederaufnahme mit exakt gleichem Ergebnis (Lk_z2), fremder Checkpoint wird ignoriert, Wiederaufnahme je Aufgabe, Tuning-Wiederaufnahme, Pareto-Hilfsfunktion, **jeder Urteilszweig erzwungen** (H1/H2: STRUKTUR_BESSER, H0, HU; NK durchgefallen; Divergenz, Kollaps, fehlende Zelle; Divergenz bei T = 4000 stört nicht; Holm nur über H1, H2). **Rauchtest nur auf Tuning-Seed 2699** (kleine Daten, T = 20/40, 1 Prozess, `nice -n 19`; nur Pipeline geprüft), Ergebnis verworfen.
 - **Status:** `agenda.json` „offen, wartet auf Maltes Freigabe (MPCDF Raven)“.
 - **Start (auf Raven, erst nach Freigabe):** `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v4` (bei Abbruch dasselbe Kommando erneut; `ergebnisse/` samt `_zwischen_*` und `_ckpt_*` vorher per `MPI/uebertragen.sh hin` hochladen). Zwischenstände committen.
+
+## 26.10.2026 — I-045-v4 ÄNDERUNG vor dem Start (ersetzt die Vorregistrierung oben; keine Messzahl existiert)
+
+Grund: Eine dichte FFN mit h = 10 (parametergleich zu Sz) ist ein Strohmann. Hauptgegner ist deshalb eine dichte FFN mit **gleichem Rechenaufwand** (FFN-FLOPs/Token as implemented, `flops_je_token`, Fastfood = zwei kleine Matmuls je Walsh-Transformation). Alles andere (Daten, Modell d = 512, 4 Lagen, T = 16000 Haupt / 4000 beschreibend, Seeds 2620–2627, NK-Seeds 2628–2629, Tuning-Seed 2699, Lernrate bei T = 4000, Divergenzregel, Checkpoint alle 2000 Schritte, 72 Prozesse) bleibt. **Kein Messseed gerechnet, Lauf nicht gestartet, wartet auf Maltes Freigabe.**
+
+- **Arme (nur die FFN verschieden):**
+
+| Arm | Form | FFN-FLOPs/Token (4 Lagen) | FFN-Parameter | Rolle |
+|---|---|---|---|---|
+| Sz | Fastfood + z², Breite 2048 | 4.751.360 | 43.008 | geprüfter Arm |
+| **Df_z2** | dicht + z², **h = 580** | 4.751.360 (±0 %) | 2.380.048 | **Hauptgegner (H1)** |
+| Df_gelu | dicht + GELU, h = 580 | 4.751.360 | 2.380.048 | beschreibend |
+| **Lk_z2** | Niedrigrang + z², Breite 2048, **Rang 116** | 4.751.360 (±0 %) | 2.385.920 | **Gegner H2** |
+| Dk_z2 | dicht + z², h = 10 (parametergleich) | 81.920 | 43.048 (+0,09 %) | nur beschreibend |
+| D_z2 | dicht + z², Breite 2048 | 16.777.216 | 8.398.848 | Referenz, Obergrenze |
+
+  h und Rang aus `form_v4()` gelöst: dicht 4·d·h = FLOPs von Sz je Lage (1.187.840), also h = 580 genau; Niedrigrang 4·r·(d + 4d) = 1.187.840, also r = 116 genau (Rang 116 < 512 passt, daher bleibt Lk Hauptgegner von H2, kein Rückfall auf Df_gelu). Toleranz ±3 % im Vortest. **Dk_gelu gestrichen.**
+- **Wichtiger Vorbehalt:** Df und Lk haben bei gleichen FLOPs etwa 55-mal mehr Parameter als Sz. Der Lauf beantwortet „gleicher Rechenaufwand“, nicht „gleicher Speicher“. Der parametergleiche Vergleich (Dk, h = 10) bleibt als beschreibender Punkt der Pareto-Auswertung (bpc × FFN-Parameter × FLOPs × Zeit).
+- **Hypothesen (gepaarter einseitiger t-Test, n = 8, T = 16000, d = 512, Differenz Referenz − Sz je Seed in bpc, Holm über H1, H2, α = 0,05):**
+  - **H1** Sz < Df_z2 (gleiche FFN-FLOPs): STRUKTUR_BESSER | H0 (Df_z2 sicher besser) | HU.
+  - **H2** Sz < Lk_z2 (gleiche FFN-FLOPs): STRUKTUR_BESSER | H0 (Lk_z2 sicher besser) | HU.
+  - Beschreibend: Abstand jedes Arms zu D_z2, Vorsprung von Sz gegen alle Arme bei T = 4000 und 16000, Pareto, FLOPs, Inferenzzeit, Trainingszeit, Divergenzrate, Lernraten.
+- **Negativkontrolle:** Sz und Df_z2 (permutierte Bytes, d = 512, 1000 Schritte, Seeds 2628/2629), Schwelle 0,9 × Unigramm.
+- **Ehrliche Erwartung vorab (neu, keine Befunde):** Offen. I-045-v3 spricht eher gegen Sz (dort verlor Sz bei d = 512, T = 16000 gegen dichte Arme gleicher Breite), und bei gleichen FLOPs hat Df_z2 etwa 55-mal mehr Parameter, also eher **H1 H0 oder HU**. Dagegen ist Df mit h = 580 schmaler als D_z2, so dass ein Abstand zu Sz kleiner sein könnte als in v3. H2 ist offen; der Rang 116 ist ein echter Flaschenhals, daher ist Lk nicht klar stärker als Sz. Ein STRUKTUR_BESSER wäre ein Effekt bei gleichem Rechenaufwand, nicht bei gleichem Speicher, und kein Beleg gegen volle dichte FFN.
+- **Aufgabenzahl:** 6 Arme × 2 T × 8 Seeds = **96** Messaufgaben + **4** NK = **100**; Tuning mindestens 6 Arme × 3 Raten = 18 Aufgaben à 4000 Schritte (plus Erweiterungen).
+- **Laufzeit (Container, 1 Thread, s je Schritt, Median über 25 Schritte, zwei Messungen):** Df_z2 0,48/0,49, Lk_z2 0,63/0,63 (neu); Sz 0,64–0,67, Dk_z2 0,36–0,37, D_z2 0,88–0,89 (Messung vom selben Tag). Für die Schätzung konservativ: Sz 0,79, D_z2 1,03 (v3), Df 0,49, Lk 0,63, Dk 0,37. `kosten_schaetzung_v4()` (LPT auf 72 Prozessen, Tuning 4,5 Raten je Arm in 2 Runden):
+
+| Aufschlag | Kernstunden gesamt (Mess + Tuning) | längste Aufgabe (D_z2, T = 16000) | Wandzeit bei 72 Prozessen |
+|---|---|---|---|
+| 1,0 | 190 (170 + 19) | 4,6 h | 6,9 h |
+| **1,3** | **246 (221 + 25)** | **6,0 h** | **9,0 h** |
+| 1,5 | 284 (255 + 29) | 6,9 h | 10,3 h |
+
+  Passt in das 24-h-Limit; der Checkpoint schützt trotzdem.
+- **Vortest bestanden (`_vortest_v4`, neu gefasst):** Form, Kausalität, Köpfe; h = 10/580 und Rang 116 exakt aus der Zählung; Parameterformeln gleich echter Zählung; **FLOP-Gleichheit ±3 % (Df_z2, Df_gelu, Lk_z2 jeweils exakt gleich Sz)**; FLOP-Formeln gleich Zählung; Dk parametergleich ±2 %; Aktivierungen; Trainierbarkeit aller 6 Arme; Seeds frisch; Aufgabenzahl 100 und Reihenfolge; Laufzeitplan; Divergenz-Pfad; Checkpoint-Fortsetzung (Lk_z2) mit exakt gleichem bpc, fremder Checkpoint ignoriert, Wiederaufnahme je Aufgabe und im Tuning; **alle Urteilszweige von H1 und H2 neu erzwungen** (STRUKTUR_BESSER, H0, HU; NK durchgefallen, Divergenz, Kollaps, fehlende Zelle). Der Rauchtest der ersten Fassung (Tuning-Seed 2699) hat die Pipeline geprüft; die Änderung betrifft nur Armdefinition und Auswertung (vom Vortest abgedeckt), ein zweiter Rauchtest wurde nicht gerechnet.
+- **Status:** `agenda.json` „offen, wartet auf Maltes Freigabe (MPCDF Raven)“. Start: `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v4`.

@@ -171,14 +171,19 @@ ARME_V2 = {"D_gelu": ("dicht", F.gelu), "D_z2": ("dicht", torch.square), "Sz": (
 BREITE.update({a: 1024 for a in ARME_V2})
 
 
-# I-045-v4: budgetgleiche kleine FFN. Struktur "dicht" | "lr" (niedriger Rang RANG_V4); Breite h = breite_budget(...) aus der Parameterzaehlung.
-ARME_V4 = {"Dk_z2": ("dicht", torch.square), "Dk_gelu": ("dicht", F.gelu), "Lk_z2": ("lr", torch.square)}
-RANG_V4 = 2
+# I-045-v4: budgetgleiche FFN. Struktur "dicht" | "lr" (niedriger Rang); Budget "param" (Parameterzahl wie Sz) | "flops" (FFN-FLOPs/Token wie Sz).
+ARME_V4 = {"Dk_z2": ("dicht", torch.square, "param"), "Df_z2": ("dicht", torch.square, "flops"),
+           "Df_gelu": ("dicht", F.gelu, "flops"), "Lk_z2": ("lr", torch.square, "flops")}
 
 
-def ffn_param_lage(art, d, h, r=RANG_V4) -> int:
+def ffn_param_lage(art, d, h, r=2) -> int:
     """FFN-Parameter je Lage (mit Bias): dicht 2·d·h + h + d; niedriger Rang 2·r·(d+h) + h + d."""
     return 2 * d * h + h + d if art == "dicht" else 2 * r * (d + h) + h + d
+
+
+def ffn_flops_lage(art, d, h, r=2) -> int:
+    """FFN-FLOPs je Token und Lage (Matmuls, 1 Multiplikation = 1 Addition = 1 Flop): dicht 4·d·h; niedriger Rang 4·r·(d+h)."""
+    return 4 * d * h if art == "dicht" else 4 * r * (d + h)
 
 
 def sz_param_lage(d) -> int:
@@ -186,17 +191,49 @@ def sz_param_lage(d) -> int:
     return 21 * d
 
 
-def breite_budget(art, d, r=RANG_V4) -> int:
-    """Ganzzahlige Breite h, deren FFN-Parameterzahl je Lage der von Sz am naechsten kommt."""
+_SZ_FLOPS = {}
+
+
+def sz_flops_lage(d) -> int:
+    """FFN-FLOPs je Token und Lage von Sz (as implemented, aus der Modellstruktur gezaehlt)."""
+    if d not in _SZ_FLOPS:
+        _SZ_FLOPS[d] = _ffn_flops_modul(FFNStruktur(d, 4 * d, "ff", torch.square, torch.Generator().manual_seed(0)))
+    return _SZ_FLOPS[d]
+
+
+def _ffn_flops_modul(ffn) -> int:
+    """FLOPs einer FFN je Token (Linear: 2·ein·aus; Fastfood: m Bloecke mit zwei Walsh-Transformationen als Matmuls plus Diagonalen)."""
+    n = 0
+    for m in ffn.modules():
+        if isinstance(m, nn.Linear):
+            n += 2 * m.in_features * m.out_features
+        elif isinstance(m, Fastfood):
+            n += m.m * (2 * (2 * m.D * (m.a + m.b)) + 2 * m.D)
+    return int(n)
+
+
+def breite_budget(art, d, r=2) -> int:
+    """Ganzzahlige Breite h, deren FFN-Parameterzahl je Lage der von Sz am naechsten kommt (Budget "param")."""
     ziel = sz_param_lage(d)
     return min(range(1, 8 * d), key=lambda h: (abs(ffn_param_lage(art, d, h, r) - ziel), h))
 
 
+def form_v4(arm, d):
+    """(Struktur, Breite h, Rang r) eines v4-Arms. Dk: Breite aus dem Parameterbudget. Df: Breite aus dem FLOP-Budget. Lk: Breite 4d, Rang aus dem FLOP-Budget."""
+    art, _, budget = ARME_V4[arm]
+    if budget == "param":
+        return art, breite_budget(art, d), None
+    ziel = sz_flops_lage(d)
+    if art == "dicht":
+        return art, min(range(1, 8 * d), key=lambda h: (abs(ffn_flops_lage(art, d, h) - ziel), h)), None
+    return art, 4 * d, min(range(1, d), key=lambda r: (abs(ffn_flops_lage(art, d, 4 * d, r) - ziel), r))
+
+
 def baue_ffn(arm, d, gen):
     if arm in ARME_V4:                                 # I-045-v4: budgetgleiche kleine FFN (Breite aus der Parameterzaehlung)
-        art, akt = ARME_V4[arm]
-        h = breite_budget(art, d)
-        return FFNDicht(d, h, akt) if art == "dicht" else FFNStruktur(d, h, "lr", akt, gen, r=RANG_V4)
+        art, h, r = form_v4(arm, d)
+        akt = ARME_V4[arm][1]
+        return FFNDicht(d, h, akt) if art == "dicht" else FFNStruktur(d, h, "lr", akt, gen, r=r)
     F_ = BREITE[arm] if d == D_MODELL else 4 * d       # I-045-v3: bei anderer Modellbreite FFN-Breite 4·d (d = 256: unveraendert)
     if arm in ARME_V2 and arm != "Sz":
         art, akt = ARME_V2[arm]
@@ -1546,50 +1583,45 @@ def _vortest_v3() -> bool:
 
 
 # ================================================================== I-045-v4 „Budgetgleich: Struktur gegen kleine dichte FFN“
-# VORREGISTRIERUNG: INSTITUT/LABORBUCH.md (Eintrag I-045-v4). Profil von `struktur_sprache`, gleiche Daten/Modell/Messung/Checkpoint-Mechanik wie v3.
-# FRAGE: Ist Sz (Fastfood + z², Breite 4d) bei GLEICHEM FFN-Parameterbudget besser als eine auf dieses Budget verkleinerte dichte bzw. niedrigrangige FFN?
+# VORREGISTRIERUNG: INSTITUT/LABORBUCH.md (Eintrag I-045-v4, geaendert 26.10. vor dem Start: Hauptgegner FLOP-gleich statt parametergleich).
+# FRAGE: Ist Sz (Fastfood + z², Breite 4d) bei GLEICHEM FFN-Rechenaufwand (FLOPs/Token) besser als eine dichte bzw. niedrigrangige FFN?
 # MODELL: d = 512 (8 Koepfe), 4 Lagen, Kontext 128, Batch 8x128, Adam, Kosinus, 5 % Aufwaermen, Clip 1,0. T = 16000 (Hauptpunkt), T = 4000 (beschreibend).
-# ARME (nur die FFN verschieden): Sz Fastfood+z² (4d) | Dk_z2 dicht+z², Breite h=10 | Dk_gelu dicht+GELU, h=10 | Lk_z2 Rang 2 + z², h=1638 | D_z2 dicht+z² Breite 4d (Referenz, Obergrenze).
-#   h = breite_budget(): ganzzahlig, FFN-Parameter je Lage am naechsten an Sz (21·d = 10752): Dk 10762 (+0,09 %), Lk 10750 (-0,02 %); Toleranz +-2 % im Vortest.
+# ARME (nur die FFN verschieden): Sz Fastfood+z² (4d) | Df_z2 dicht+z², h=580 (FLOP-gleich) | Df_gelu dicht+GELU, h=580 | Lk_z2 Rang 116 + z², Breite 4d (FLOP-gleich)
+#   | Dk_z2 dicht+z², h=10 (parametergleich, nur beschreibend) | D_z2 dicht+z² Breite 4d (Referenz, Obergrenze). h/Rang aus form_v4() (FLOP-Zaehlung), Toleranz +-3 % im Vortest.
 # HYPOTHESEN (Holm ueber H1, H2; gepaarter einseitiger t, n = 8, T = 16000, Differenz Referenz − Sz je Seed in bpc, positiv = Sz besser):
-#   H1 Sz < Dk_z2 | H2 Sz < Lk_z2: STRUKTUR_BESSER | H0 (Referenz sicher besser) | HU.
+#   H1 Sz < Df_z2 | H2 Sz < Lk_z2: STRUKTUR_BESSER | H0 (Referenz sicher besser) | HU.
 # DIVERGENZ wie v3 (je Zelle Arm x T): nicht endlicher Verlust oder End-bpc >= Unigramm-Entropie; Kollaps = Median + 0,2 bpc; beteiligte Hypothese = HU.
-# NK wie v3: Sz und Dk_z2, d = 512, 1000 Schritte, permutierte Trainingsbytes, Seeds 2628/2629; mittlerer Test-bpc >= 0,9 x Unigramm.
+# NK wie v3: Sz und Df_z2, d = 512, 1000 Schritte, permutierte Trainingsbytes, Seeds 2628/2629; mittlerer Test-bpc >= 0,9 x Unigramm.
 # BESCHREIBEND: Abstand jedes Arms zu D_z2, Vorsprung gegen alle Arme (T = 4000 und 16000), Pareto bpc x FFN-Parameter x Zeit/Token, FLOPs/Token, Inferenzzeit/Token.
-# ERWARTUNG VORAB (kein Befund): H1 eher H0 oder HU (nach v3 ist Sz bei viel Training hinter dichten Armen; die Breite h=10 ist aber extrem schmal, deshalb offen); H2 offen.
+# ERWARTUNG VORAB (kein Befund): offen; v3 spricht eher gegen Sz (H1 eher H0 oder HU), Sz hat aber etwa 55-mal weniger Parameter als Df_z2.
 KARTE_V4 = "I-045-v4"
 SEEDS_V4 = tuple(range(2620, 2628))
 NK_SEEDS_V4 = (2628, 2629)
 TUNING_SEED_V4 = 2699
-ARME_MESS_V4 = ("Sz", "Dk_z2", "Dk_gelu", "Lk_z2", "D_z2")
-NK_ARME_V4 = ("Sz", "Dk_z2")
+ARME_MESS_V4 = ("Sz", "Df_z2", "Df_gelu", "Lk_z2", "Dk_z2", "D_z2")
+NK_ARME_V4 = ("Sz", "Df_z2")
 T_WERTE_V4 = (4000, 16000)
 D_V4 = 512
-BUDGET_TOLERANZ = 0.02
+BUDGET_TOLERANZ = 0.03
 PROFILE_V4 = {"standard": {"T": T_WERTE_V4, "d": (D_V4,), "tuning_T": 4000, "nk_T": 1000, "nk_d": D_V4, "ckpt_alle": CKPT_ALLE,
                            "seeds": SEEDS_V4, "nk_seeds": NK_SEEDS_V4}}
 _BELEGT_V4 = _BELEGT_V3 | set(range(2600, 2610)) | {2698}
 HYPOTHESEN_V4 = {
-    "H1": "Sz < Dk_z2 (bpc, gleiches FFN-Parameterbudget) bei T=16000, d=512 (einseitig gepaart t, n=8, Holm H1-H2). STRUKTUR_BESSER | H0 (Dk_z2 sicher besser) | HU.",
-    "H2": "Sz < Lk_z2 (bpc, gleiches FFN-Parameterbudget) bei T=16000, d=512 (einseitig gepaart t, n=8, Holm H1-H2). STRUKTUR_BESSER | H0 (Lk_z2 sicher besser) | HU.",
+    "H1": "Sz < Df_z2 (bpc, gleiche FFN-FLOPs/Token) bei T=16000, d=512 (einseitig gepaart t, n=8, Holm H1-H2). STRUKTUR_BESSER | H0 (Df_z2 sicher besser) | HU.",
+    "H2": "Sz < Lk_z2 (bpc, gleiche FFN-FLOPs/Token, Rang aus dem FLOP-Budget) bei T=16000, d=512 (einseitig gepaart t, n=8, Holm H1-H2). STRUKTUR_BESSER | H0 (Lk_z2 sicher besser) | HU.",
     "DIVERGENZ": HYPOTHESEN_V3["DIVERGENZ"],
-    "NK": f"Negativkontrolle (Sz, Dk_z2, d=512, 1000 Schritte, permutierte Trainingsbytes, Seeds 2628/2629): mittlerer Test-bpc >= {NK_FAKTOR} x Unigramm-Entropie. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+    "NK": f"Negativkontrolle (Sz, Df_z2, d=512, 1000 Schritte, permutierte Trainingsbytes, Seeds 2628/2629): mittlerer Test-bpc >= {NK_FAKTOR} x Unigramm-Entropie. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
     "B": "beschreibend: bpc aller Arme x T, Abstand zu D_z2, Vorsprung gegen alle Arme, Pareto bpc x FFN-Parameter x Zeit/Token, FLOPs/Token, Inferenzzeit/Token, Trainingszeit, Divergenzrate, Lernraten.",
 }
 # Sekunden je Trainingsschritt (1 Thread, Batch 8x128), Messung im Container (Datum im LABORBUCH); wird nach Messung gefuellt.
-S_JE_SCHRITT_V4 = {"Sz": 0.79, "Dk_z2": 0.37, "Dk_gelu": 0.37, "Lk_z2": 0.42, "D_z2": 1.03}   # Sz/D_z2 konservativ aus v3 (0,79/1,03; v4-Messung 0,67/0,89)
+S_JE_SCHRITT_V4 = {"Sz": 0.79, "Df_z2": 0.49, "Df_gelu": 0.49, "Lk_z2": 0.63, "Dk_z2": 0.37, "D_z2": 1.03}   # Sz/D_z2 konservativ aus v3 (0,79/1,03; v4-Messung 0,67/0,89)
 
 
 def flops_je_token(arm, d=D_V4, lagen=LAGEN, ctx=KONTEXT) -> dict:
     """Rechenaufwand der Inferenz je Token (Vorwaerts, 1 Flop = 1 Multiplikation oder Addition) AS IMPLEMENTED (Fastfood = zwei kleine Matmuls je Walsh-Transformation).
     ffn: alle Lagen; gesamt: zusaetzlich Attention (qkv, Ausgabe, im Mittel ctx/2 Schluessel) und Ausgabekopf 256·d."""
     netz = Sprachmodell(arm, 0, d=d, h=d // 64, lagen=1)
-    ffn = 0
-    for m in netz.bl[0].ffn.modules():
-        if isinstance(m, nn.Linear):
-            ffn += 2 * m.in_features * m.out_features
-        elif isinstance(m, Fastfood):
-            ffn += m.m * (2 * (2 * m.D * (m.a + m.b)) + 2 * m.D)
+    ffn = _ffn_flops_modul(netz.bl[0].ffn)
     ffn *= lagen
     att = lagen * (2 * d * 3 * d + 2 * d * d + 2 * ctx * d)
     return {"ffn": int(ffn), "gesamt": int(ffn + att + 2 * 256 * d)}
@@ -1670,11 +1702,11 @@ def auswertung_v4(zeilen: list, params: dict, unigramm: float, t_lo=T_WERTE_V4[0
             return {}
         return {s: a[s] - b[s] for s in sorted(set(a) & set(b))}
 
-    for h, ref in (("H1", "Dk_z2"), ("H2", "Lk_z2")):
+    for h, ref in (("H1", "Df_z2"), ("H2", "Lk_z2")):
         v = vorsprung(t_hi, ref)
         if v:
             r["diff"][h] = _stat(np.array(list(v.values())))
-    for ref in ("Dk_z2", "Dk_gelu", "Lk_z2", "D_z2"):
+    for ref in ("Df_z2", "Df_gelu", "Lk_z2", "Dk_z2", "D_z2"):
         for T in (t_lo, t_hi):
             v = vorsprung(T, ref)
             if v:
@@ -1721,9 +1753,9 @@ def _vorab_v4(r, nk, h, zellen):
 
 def urteil_v4(r: dict) -> dict:
     nk = _nk(r)
-    u = {"NK": f"{nk} (Mittel permutiert Sz/Dk_z2: {r['negativ'].get('mittel', float('nan')):.3f} bpc; Unigramm {r['unigramm_bpc']:.3f}; Schwelle {NK_FAKTOR}x)"}
+    u = {"NK": f"{nk} (Mittel permutiert Sz/Df_z2: {r['negativ'].get('mittel', float('nan')):.3f} bpc; Unigramm {r['unigramm_bpc']:.3f}; Schwelle {NK_FAKTOR}x)"}
     t_hi, d = r["t_hi"], r["d"]
-    for h, ref in (("H1", "Dk_z2"), ("H2", "Lk_z2")):
+    for h, ref in (("H1", "Df_z2"), ("H2", "Lk_z2")):
         v = _vorab_v4(r, nk, h, [_zname(a, t_hi, d) for a in (ref, "Sz")])
         if v:
             u[h] = v
@@ -1779,14 +1811,14 @@ def lauf_v4(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None,
             zm = zeit_im_ein_thread_v3(paare)
             alle["zeit"] = zm
             _schreibe_zwischen(pfad, kennung, alle)
-    params = {f"{a}|{d}": {"ffn": param_ffn(n), "gesamt": param_gesamt(n), "breite": (breite_budget(ARME_V4[a][0], d) if a in ARME_V4 else 4 * d)}
+    params = {f"{a}|{d}": {"ffn": param_ffn(n), "gesamt": param_gesamt(n), "form": (form_v4(a, d) if a in ARME_V4 else ("sz" if a == "Sz" else "dicht", 4 * d, None))}
               for a, d in paare for n in [Sprachmodell(a, 0, d=d, h=d // 64)]}
     fl = {f"{a}|{d}": flops_je_token(a, d) for a, d in paare}
     tr, _, te = daten(klein)
     e = {"abteilung": "Struktur", "modul": "struktur_sprache", "karte": KARTE_V4, "version": 1, "profil": profil, "hypothesen": HYPOTHESEN_V4,
          "seeds": list(P["seeds"]), "nk_seeds": list(P["nk_seeds"]), "tuning_seed": TUNING_SEED_V4, "tuning": hp,
          "einstellungen": {"T": list(P["T"]), "d": d, "tuning_T": P["tuning_T"], "nk_T": P["nk_T"], "nk_d": P["nk_d"], "ckpt_alle": P["ckpt_alle"],
-                           "batch": BATCH, "kontext": KONTEXT, "lagen": LAGEN, "budget_breiten": {a: params[f"{a}|{d}"]["breite"] for a in ARME_MESS_V4},
+                           "batch": BATCH, "kontext": KONTEXT, "lagen": LAGEN, "form": {a: params[f"{a}|{d}"]["form"] for a in ARME_MESS_V4},
                            "lr_gitter": list(LR_GITTER), "daten_bytes": [len(x) for x in daten(klein)]},
          "zwischendatei": str(pfad), "zeilen": zeilen, "sekunden": time.time() - t0}
     e["auswertung"] = auswertung_v4(zeilen, params, unigramm_entropie(tr, te), t_lo=min(P["T"]), t_hi=max(P["T"]), d=d, flops=fl, zeit=zm)
@@ -1798,12 +1830,12 @@ def lauf_v4(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None,
 
 # ---- Vortest v4 ----
 def _synth_v4(rng, adv1=0.10, adv2=0.10, sd=0.004, n=8, koll=None, nk=5.0, div=None, fehlt=None):
-    """Synthetische Zeilen: Dk_z2 = Sz + adv1, Lk_z2 = Sz + adv2 (positiv = Sz besser), bei T = 4000 und 16000."""
+    """Synthetische Zeilen: Df_z2 = Sz + adv1, Lk_z2 = Sz + adv2 (positiv = Sz besser), bei T = 4000 und 16000."""
     zl = []
     for i in range(n):
         gem = rng.normal(0, 0.01)
         for T in T_WERTE_V4:
-            basis = {"Sz": 2.4, "Dk_z2": 2.4 + adv1, "Dk_gelu": 2.6, "Lk_z2": 2.4 + adv2, "D_z2": 2.2}
+            basis = {"Sz": 2.4, "Df_z2": 2.4 + adv1, "Df_gelu": 2.6, "Lk_z2": 2.4 + adv2, "Dk_z2": 2.9, "D_z2": 2.2}
             for a, v in basis.items():
                 if fehlt == (a, T):
                     continue
@@ -1847,16 +1879,21 @@ def _vortest_v4() -> bool:
         pruefe(f"Koepfe d/64 {a}", m.bl[0].h == d // 64)
     pf = {a: param_ffn(n) for a, n in nz.items()}
     pruefe("Sz-Parameter = 4·21·d (Zaehlung = Formel)", pf["Sz"] == LAGEN * sz_param_lage(d))
-    hD, hL = breite_budget("dicht", d), breite_budget("lr", d)
-    pruefe("Breite h exakt aus Parameterzaehlung: Dk h=10, Lk h=1638", (hD, hL) == (10, 1638))
-    pruefe("Formel = echte Zaehlung (Dk, Lk)", pf["Dk_z2"] == LAGEN * ffn_param_lage("dicht", d, hD) and pf["Lk_z2"] == LAGEN * ffn_param_lage("lr", d, hL, RANG_V4))
-    pruefe("Dk_gelu und Dk_z2 gleiche Parameterzahl", pf["Dk_gelu"] == pf["Dk_z2"])
-    for a in ("Dk_z2", "Dk_gelu", "Lk_z2"):
-        pruefe(f"Budgetgleichheit +-2 % {a} ({pf[a]} gegen Sz {pf['Sz']})", abs(pf[a] / pf["Sz"] - 1) <= BUDGET_TOLERANZ)
+    pruefe("Formen exakt aus der Zaehlung: Dk h=10 (Parameter), Df h=580 (FLOPs), Lk Rang 116 bei Breite 2048 (FLOPs)",
+           form_v4("Dk_z2", d) == ("dicht", 10, None) and form_v4("Df_z2", d) == ("dicht", 580, None) and form_v4("Lk_z2", d) == ("lr", 4 * d, 116))
+    pruefe("Parameterformel = echte Zaehlung (Dk, Df, Lk)", pf["Dk_z2"] == LAGEN * ffn_param_lage("dicht", d, 10)
+           and pf["Df_z2"] == LAGEN * ffn_param_lage("dicht", d, 580) and pf["Lk_z2"] == LAGEN * ffn_param_lage("lr", d, 4 * d, 116))
+    pruefe("Df_gelu und Df_z2 gleiche Parameterzahl", pf["Df_gelu"] == pf["Df_z2"])
+    pruefe("Dk parametergleich zu Sz (+-2 %)", abs(pf["Dk_z2"] / pf["Sz"] - 1) <= 0.02)
+    fl0 = {a: flops_je_token(a, d) for a in ARME_MESS_V4}
+    for a in ("Df_z2", "Df_gelu", "Lk_z2"):
+        pruefe(f"FLOP-Gleichheit +-3 % {a} ({fl0[a]['ffn']} gegen Sz {fl0['Sz']['ffn']})", abs(fl0[a]["ffn"] / fl0["Sz"]["ffn"] - 1) <= BUDGET_TOLERANZ)
+    pruefe("FLOPs Formel = Zaehlung (Df: 4·d·h, Lk: 4·r·(d+4d))", fl0["Df_z2"]["ffn"] == LAGEN * ffn_flops_lage("dicht", d, 580)
+           and fl0["Lk_z2"]["ffn"] == LAGEN * ffn_flops_lage("lr", d, 4 * d, 116))
     pruefe("D_z2 voll = 4·(8d²+5d), Breite 4d", pf["D_z2"] == 4 * (2 * d * 4 * d + 4 * d + d) and nz["D_z2"].bl[0].ffn.a.out_features == 4 * d)
-    pruefe("Breiten: Dk dicht h, Lk Rang 2 mit Breite hL", nz["Dk_z2"].bl[0].ffn.a.out_features == hD
-           and nz["Lk_z2"].bl[0].ffn.a.m[0].out_features == RANG_V4 and nz["Lk_z2"].bl[0].ffn.a.m[1].out_features == hL)
-    pruefe("Aktivierungen", nz["Dk_z2"].bl[0].ffn.akt is torch.square and nz["Dk_gelu"].bl[0].ffn.akt is F.gelu
+    pruefe("Breiten: Df dicht 580, Lk Rang 116 mit Breite 2048",
+           nz["Df_z2"].bl[0].ffn.a.out_features == 580 and nz["Lk_z2"].bl[0].ffn.a.m[0].out_features == 116 and nz["Lk_z2"].bl[0].ffn.a.m[1].out_features == 4 * d)
+    pruefe("Aktivierungen", nz["Df_z2"].bl[0].ffn.akt is torch.square and nz["Df_gelu"].bl[0].ffn.akt is F.gelu and nz["Dk_z2"].bl[0].ffn.akt is torch.square
            and nz["Lk_z2"].bl[0].ffn.akt is torch.square and nz["Sz"].bl[0].ffn.akt is torch.square and nz["D_z2"].bl[0].ffn.akt is torch.square)
     pruefe("v3-Arme unveraendert (Sz/D_z2 bei d=256: Breite 1024)", param_ffn(Sprachmodell("D_z2", 0)) == 4 * (2 * 256 * 1024 + 1024 + 256))
     fl = {a: flops_je_token(a, d) for a in ARME_MESS_V4}
@@ -1879,13 +1916,13 @@ def _vortest_v4() -> bool:
     P = PROFILE_V4["standard"]
     aufg = aufgaben_v4(hp, P, False, "x")
     schl = [_schl_v3(a) for a in aufg]
-    pruefe("Aufgabenzahl 5·2·8 + 4 NK = 84, Schluessel eindeutig", len(aufg) == 84 and len(set(schl)) == 84 and sum(a[0] == "nk" for a in aufg) == 4)
-    pruefe("Lange zuerst (T=16000), NK d=512 T=1000", aufg[0][3] == 16000 and all(a[3] == 16000 for a in aufg[:40]) and all(a[2] == 512 and a[3] == 1000 for a in aufg if a[0] == "nk"))
+    pruefe("Aufgabenzahl 6·2·8 + 4 NK = 100, Schluessel eindeutig", len(aufg) == 100 and len(set(schl)) == 100 and sum(a[0] == "nk" for a in aufg) == 4)
+    pruefe("Lange zuerst (T=16000), NK d=512 T=1000", aufg[0][3] == 16000 and all(a[3] == 16000 for a in aufg[:48]) and all(a[2] == 512 and a[3] == 1000 for a in aufg if a[0] == "nk"))
     if S_JE_SCHRITT_V4:
         k = kosten_schaetzung_v4()
         pruefe("Laufzeitplan: Wandzeit bei 72 Prozessen < 24 h (mit Aufschlag)", k["wand_gesamt_h"] < 24 and k["laengste_aufgabe_h"] < 24)
     pruefe("Pareto: dominierter Arm wird erkannt", pareto_nicht_dominiert({"a": (1, 1, 1), "b": (2, 2, 2), "c": (0.5, 5, 1)}) == ["a", "c"])
-    t = trainiere_v3("Dk_z2", 1e9, 0, 5, d=256, klein=True, val=True)
+    t = trainiere_v3("Df_z2", 1e9, 0, 5, d=256, klein=True, val=True)
     pruefe("Divergenz-Pfad liefert instabil oder schlechten bpc", t["instabil"] or t["bpc"] > 5.0)
     with tempfile.TemporaryDirectory() as tmp:
         ck = str(Path(tmp) / "a.pt")
@@ -1901,21 +1938,21 @@ def _vortest_v4() -> bool:
         pruefe("Fortsetzung = ungestoerter Lauf (bpc identisch)", abs(fort["bpc"] - ref["bpc"]) < 1e-9)
         pruefe("Checkpoint nach Ende geloescht", not Path(ck).exists())
         try:
-            trainiere_v3("Dk_z2", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10, _stopp_bei=12)
+            trainiere_v3("Df_z2", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10, _stopp_bei=12)
         except _Abbruch:
             pass
-        anders = trainiere_v3("Dk_z2", 1e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10)
+        anders = trainiere_v3("Df_z2", 1e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10)
         pruefe("Checkpoint mit anderer Lernrate wird nicht verwendet", anders["fortgesetzt_ab"] == 0)
         pfad = Path(tmp) / "z.json"
         kennung = {"k": 1}
-        a4 = [("mess", a, 512, 10, s, 1e-3, True, 5, tmp) for a in ("Sz", "Dk_z2", "Lk_z2") for s in (1, 2, 3)]
+        a4 = [("mess", a, 512, 10, s, 1e-3, True, 5, tmp) for a in ("Sz", "Df_z2", "Lk_z2") for s in (1, 2, 3)]
         z1 = _rechne(a4[:4], pfad, kennung, fn=_fn_test_v3, prozesse=1, schluessel=_schl_v3)
         z2 = _rechne(a4, pfad, kennung, fn=_fn_test_v3, prozesse=1, schluessel=_schl_v3)
         pruefe("Wiederaufnahme je Aufgabe (Arm, d, T, Seed)", len(z1) == 4 and len(z2) == 9 and all(z2[k] == z1[k] for k in z1))
         Pk = {**P, "d": (256,), "tuning_T": 3, "ckpt_alle": 2}
         pt = Path(tmp) / "t.json"
         kt = {"karte": "t4"}
-        arme_k = ("Dk_z2", "Lk_z2")
+        arme_k = ("Df_z2", "Lk_z2")
         n0 = _ZAEHLER["lr"]
         t1 = tuning_v3(Pk, True, TUNING_SEED_V4, pt, kt, 1, Path(tmp) / "ck", arme=arme_k)
         n1 = _ZAEHLER["lr"]
@@ -1938,7 +1975,7 @@ def _vortest_v4() -> bool:
     erwarte("H1 gemischt", _u4(rng, adv1=0.10, adv2=-0.08), **{"H1": "STRUKTUR_BESSER", "H2": "H0"})
     erwarte("Kein Unterschied", _u4(rng, adv1=0.0, adv2=0.0, sd=0.03), **{"H1": "HU", "H2": "HU"})
     erwarte("NK faellt", _u4(rng, nk=2.5), **{"NK": "DURCHGEFALLEN", "H1": "HU (Negativkontrolle", "H2": "HU (Negativkontrolle"})
-    erwarte("Divergenz Dk_z2 T=16000", _u4(rng, div=("Dk_z2", 16000)), **{"H1": "HU (Divergenz", "H2": "STRUKTUR_BESSER"})
+    erwarte("Divergenz Df_z2 T=16000", _u4(rng, div=("Df_z2", 16000)), **{"H1": "HU (Divergenz", "H2": "STRUKTUR_BESSER"})
     erwarte("Kollaps Lk_z2 T=16000", _u4(rng, koll=("Lk_z2", 16000)), **{"H1": "STRUKTUR_BESSER", "H2": "HU (Kollaps"})
     erwarte("Divergenz bei T=4000 stoert nicht", _u4(rng, div=("Sz", 4000)), **{"H1": "STRUKTUR_BESSER", "H2": "STRUKTUR_BESSER"})
     erwarte("Zelle fehlt", _u4(rng, fehlt=("Lk_z2", 16000)), **{"H1": "STRUKTUR_BESSER", "H2": "HU (Zellen fehlen"})
@@ -1947,7 +1984,7 @@ def _vortest_v4() -> bool:
     pruefe("Divergenzrate 1/8, Seed bleibt in den Zahlen (n = 8)", abs(a_["divergenzrate"]["Sz|T16000|d512"] - 0.125) < 1e-9
            and a_["zellen"]["Sz|T16000|d512"]["n"] == 8 and a_["diff"]["H1"]["n"] == 8)
     pruefe("Holm ueber H1, H2", set(a_["p_holm"]) == {"H1", "H2"})
-    pruefe("Beschreibend: Abstand zu D_z2 und Pareto vorhanden", "Abstand_Dk_z2_zu_D_z2" in a_["beschreibend"] and "pareto_T_hi" in a_["beschreibend"])
+    pruefe("Beschreibend: Abstand zu D_z2 und Pareto vorhanden", "Abstand_Df_z2_zu_D_z2" in a_["beschreibend"] and "pareto_T_hi" in a_["beschreibend"])
     erlaubt = ("STRUKTUR_BESSER", "HU", "H0", "BESTANDEN", "DURCHGEFALLEN", "beschreibend")
     pruefe("Vokabular", all(v.startswith(erlaubt) for v in _u4(rng).values()))
     soll = {"H1": {"STRUKTUR_BESSER", "H0", "HU"}, "H2": {"STRUKTUR_BESSER", "H0", "HU"}}
