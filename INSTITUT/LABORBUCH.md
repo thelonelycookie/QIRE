@@ -1593,3 +1593,49 @@ Gerechnet auf MPCDF Raven (Job 31514726, 1 Knoten, 8 h 29 min, 52 GB). Rohdaten 
 - **Deutung:** Der I-045-v2-Befund (Sz besser als dicht) ist wie bei I-044-v3 ein **Effekt des knappen Trainingsbudgets** (1000 Schritte, d=256). Mit genug Training gewinnen die dichten Arme. Schon bei d=512 und nur 1000 Schritten ist Sz am schlechtesten. Bei d=512, T=16000 liegt Sz nur 0,07 bpc hinter dem besten Arm (D_gelu) bei deutlich weniger FFN-Parametern: Effizienz bleibt als beschreibende Aussage, ein Genauigkeitsvorteil nicht.
 - **Folge für die Kernaussage:** „Struktur + Born-Quadrat schlägt dicht im Sprachmodell“ gilt nur bei sehr knappem Training. Ehrlich: kompakter, aber nicht besser. Konsistent mit I-044-v3. Wirkung klassisch (I-038).
 - Vorbehalt: Lernrate je (Arm, d) nur bei T=4000 gesucht und für alle T übernommen.
+
+## 26.10.2026 — I-045-v4 „Budgetgleich: Struktur gegen kleine dichte FFN“: VORREGISTRIERUNG (vor jeder Zahl des Volllaufs)
+
+Anlass: I-045-v3 zeigte, dass Sz (Fastfood + z²) bei langem Training schlechter ist als die dichte FFN gleicher Breite (d = 512, T = 16000: Sz 2,177, D_z2 2,153, D_gelu 2,106 bpc), aber nur etwa 0,5 % der FFN-Parameter hat (43.008 gegen 8.398.848). Fair ist der Vergleich bei **gleichem Budget**: Ist Sz besser als eine dichte (oder niedrigrangige) FFN, die auf dieselbe Parameterzahl verkleinert ist? Dieser Lauf ist ein **Profil/eine Erweiterung von `abteilungen/struktur_sprache.py`** (`lauf_v4`, Agenda-Kennung `I-045-v4`), keine Kopie: gleiche Daten (UD_German-GSD, Byte-Ebene, gleicher Split), gleiches Modell, gleiche Messung (Test-bpc), gleiche Checkpoint-/Wiederaufnahme-Mechanik wie v3. Wirkung klassisch (I-038); „quanten-inspirierter Vorteil“, kein Quantenvorteil. Gerechnet wird auf dem MPCDF-Cluster Raven. **Kein Messseed gerechnet. Der Lauf wartet auf Maltes Freigabe.**
+
+- **Modell:** d = 512 (8 Köpfe), 4 Lagen, Kontext 128, Batch 8 × 128, Adam, Kosinus, 5 % Aufwärmen, Gradientenbegrenzung 1,0. **T = 16000 (Hauptpunkt, konfirmatorisch)** und **T = 4000 (beschreibend)**; jedes T ein eigener Lauf mit eigenem Plan.
+- **Arme (nur die FFN verschieden; alle FFN-Matrizen mit Bias):**
+  - **Sz** Fastfood + z², Breite 4d = 2048 (wie v3).
+  - **Dk_z2** dichte FFN + z², Breite **h = 10**.
+  - **Dk_gelu** dasselbe mit GELU (h = 10).
+  - **Lk_z2** Niedrigrang-FFN + z², Rang 2 (wie L in v2), Breite **h = 1638**.
+  - **D_z2** dicht + z², volle Breite 4d (beschreibend, Obergrenze).
+- **Budget (Parameterzählung, `breite_budget()`, ganzzahliges h mit kleinster Abweichung; im Vortest gegen die echte Zählung geprüft, Toleranz ±2 %):** FFN-Parameter je Lage Sz = 21·d = 10.752. Dicht: 2·d·h + h + d (h = 10: 10.762, +0,09 %). Niedriger Rang: 2·r·(d+h) + h + d (r = 2, h = 1638: 10.750, −0,02 %). Über 4 Lagen:
+
+| Arm | Breite h | FFN-Parameter | gegen Sz | Gesamtparameter |
+|---|---|---|---|---|
+| Sz | 2048 | 43.008 | – | 4.451.328 |
+| Dk_z2 / Dk_gelu | 10 | 43.048 | +0,09 % | 4.451.368 |
+| Lk_z2 | 1638 | 43.000 | −0,02 % | 4.451.320 |
+| D_z2 (Referenz) | 2048 | 8.398.848 | +19.428 % | 12.807.168 |
+
+  Vorbehalt (ehrlich): Bei diesem Budget ist die dichte FFN mit h = 10 extrem schmal (ein Flaschenhals aus 10 Einheiten). Der Vergleich ist budgetgleich, aber die Kapazitätsverteilung ist grundverschieden (Sz: breit und strukturiert, Dk: schmal und dicht). Bei Lk wird der Rang bewusst bei 2 gehalten (wie v2) und die Breite aus dem Budget gelöst; ein anderes (r, h)-Paar mit gleichem Budget (z. B. r = 4, h = 683) ist nicht Teil dieses Laufs.
+- **Rechenaufwand (beschreibend, kein Urteil):** FLOPs/Token der Inferenz as implemented (`flops_je_token`; Fastfood = zwei kleine Matmuls je Walsh-Transformation, also **nicht** die theoretische O(n·log n)-Zahl): FFN Sz 4,75 Mio., Dk 0,082 Mio., Lk 0,069 Mio., D_z2 16,78 Mio.; Modell gesamt Sz 13,9 Mio., Dk 9,26 Mio., Lk 9,24 Mio., D_z2 25,95 Mio. **Sz hat also bei gleicher Parameterzahl etwa 58-mal mehr FFN-FLOPs als Dk**; ein „gleiche FLOPs“-Vergleich wäre ein anderes Budget und gehört nicht zu diesem Lauf. Zusätzlich gemessene Inferenzzeit je Token je Arm (Einzelprozess, 1 Thread, Batch 8 × 128, Median) und Trainingszeit.
+- **Seeds:** **8 frische Mess-Seeds 2620–2627**, **2 eigene NK-Seeds 2628–2629**, **Tuning-Seed 2699** (mit `werkzeuge/seeds_pruefen.py --neu` geprüft, in `seeds.json` eingetragen; `seeds_pruefen.py --still` OK).
+- **Lernrate** je Arm auf dem Tuning-Seed bei **T = 4000**, d = 512 (`gittersuche_stabil`, Gitter 5e-4/1,5e-3/4,5e-3, Faktor 3, beidseitig verlängerbar, Score 1 − bpc/8, Kollaps-Score 0,01, Validierung = erste 64 kB dev); die Rate gilt für beide T. Vorbehalt wie v3: keine Neusuche bei T = 16000 (Rate eher zu hoch als zu niedrig). Die kleinen Dk-Arme brauchen womöglich höhere Raten; das Gitter wird nach oben verlängert.
+- **Hypothesen (gepaarter einseitiger t-Test, n = 8, Differenz Referenz − Sz je Seed in bpc bei T = 16000, d = 512, Holm über H1, H2, α = 0,05; Wilcoxon beschreibend):**
+  - **H1** Sz < Dk_z2: STRUKTUR_BESSER | H0 (Dk_z2 sicher besser) | HU.
+  - **H2** Sz < Lk_z2: STRUKTUR_BESSER | H0 (Lk_z2 sicher besser) | HU.
+  - **Beschreibend (ohne Urteil):** Abstand jedes Arms zu D_z2 (bpc, T = 4000 und 16000), Vorsprung von Sz gegen alle Arme (auch Dk_gelu, D_z2), Pareto bpc × FFN-Parameter × Zeit/Token (nicht dominierte Arme bei T = 16000), FLOPs/Token, Inferenzzeit/Token, Trainingszeit, Divergenzrate, Lernraten.
+- **Divergenz (vorab, wie v3, je Zelle Arm × T):** Seed divergiert bei nicht endlichem Verlust (bpc := 8, `instabil`) oder End-bpc ≥ Unigramm-Entropie; Kollaps = Median + 0,2 bpc. Divergierte Seeds bleiben in allen Zahlen; jede Hypothese mit einer beteiligten Zelle mit Divergenz oder Kollaps ist **HU**.
+- **Negativkontrolle wie v3:** Sz und Dk_z2 mit permutierten Trainingsbytes, d = 512, 1000 Schritte, Seeds 2628, 2629 (Lernraten der Arme bei d = 512); bestanden, wenn der mittlere Test-bpc ≥ 0,9 × Unigramm-Entropie, sonst alles HU.
+- **Ehrliche Erwartung vorab (keine Befunde):** Nach v3 ist Sz bei viel Training nicht besser als dicht gleicher Breite; ob die Struktur bei **gleichem Budget** gewinnt, ist offen. Da Dk mit h = 10 sehr schmal ist, erwarte ich eher **H1 STRUKTUR_BESSER** (Sz hat 2048 Einheiten gegen 10) als H0; **H2 ist offen** (Lk hat Breite 1638, aber nur Rang 2; Sz könnte hier gleichwertig oder besser sein, HU wahrscheinlich). Falls H1 STRUKTUR_BESSER ausfällt, ist das vor allem ein Hinweis, dass bei winzigem Budget eine breite strukturierte FFN besser ist als eine schmale dichte, kein Beleg für einen Vorteil gegenüber dichten Netzen gleicher Breite (v3: dort verliert Sz). Der Rechenaufwand (FLOPs) von Sz liegt weit über dem von Dk; das wird beschreibend berichtet und nicht verschwiegen.
+- **Wiederaufnahme (Pflicht):** je Aufgabe (Arm, d, T, Seed) in `ergebnisse/_zwischen_I-045-v4.json` (inklusive Tuning-Aufgaben `lr|…`, jede einzeln); Checkpoint innerhalb einer Aufgabe alle 2000 Schritte in `ergebnisse/_ckpt_I-045-v4/` (Modell, Optimierer, Plan, Schritt, Zufallszustände; nur bei passenden Metadaten verwendet, nach Ende gelöscht). Lange Aufgaben (T = 16000) zuerst. Prozesspool über `INSTITUT_PROZESSE` (bis 72, je 1 Thread).
+- **Aufgabenzahl:** 5 Arme × 2 T × 8 Seeds = **80** Messaufgaben + **4** NK = **84**; Tuning: mindestens 5 Arme × 3 Raten = 15 Aufgaben à 4000 Schritte (plus Gitter-Erweiterungen).
+- **Laufzeit (Messung im Container, 26.10., 1 Thread, Schritt 8 × 128, Vorwärts + Rückwärts + Clip + Adam, Median über 25 Schritte, zwei Messungen):** Sz 0,67/0,64, Dk_z2 0,36/0,37, Dk_gelu 0,36/0,36, Lk_z2 0,42/0,41, D_z2 0,88/0,89 s je Schritt. Für die Schätzung konservativ: Sz 0,79 und D_z2 1,03 (Werte aus v3), Dk 0,37, Lk 0,42. Schätzung mit `kosten_schaetzung_v4()` (LPT auf 72 Prozessen; Tuning im Mittel 4,5 Raten je Arm in 2 Runden; ~30 s Überhang je Aufgabe):
+
+| Aufschlag | Kernstunden gesamt (Mess + Tuning) | längste Einzelaufgabe (T = 16000, D_z2) | Wandzeit bei 72 Prozessen (Tuning + Messung) |
+|---|---|---|---|
+| 1,0 | 149 (134 + 15) | 4,6 h | 6,9 h (2,3 + 4,6) |
+| **1,3** | **193 (174 + 20)** | **6,0 h** | **9,0 h (3,0 + 6,0)** |
+| 1,5 | 223 (200 + 23) | 6,9 h | 10,3 h (3,5 + 6,9) |
+
+  Das passt in ein 24-h-Joblimit (Wandzeit ≤ 11 h, jede Aufgabe < 7 h); der Checkpoint schützt trotzdem. Nicht eingerechnet: Warten auf Knoten, Datenladen je Prozess (~10 s).
+- **Vortest bestanden** (`_vortest_v4`, läuft in `vortest()` mit): Form und Kausalität aller 5 Arme, Köpfe d/64, Parameterzählung gegen Formel (Sz 4·21·d, Dk, Lk), **Budgetgleichheit innerhalb ±2 %**, Breiten (h = 10 und 1638 exakt aus der Zählung), Aktivierungen, FLOPs-Zählung, Trainierbarkeit, Seeds frisch, Aufgabenzahl/Reihenfolge, Divergenz-Pfad, Checkpoint-Wiederaufnahme mit exakt gleichem Ergebnis (Lk_z2), fremder Checkpoint wird ignoriert, Wiederaufnahme je Aufgabe, Tuning-Wiederaufnahme, Pareto-Hilfsfunktion, **jeder Urteilszweig erzwungen** (H1/H2: STRUKTUR_BESSER, H0, HU; NK durchgefallen; Divergenz, Kollaps, fehlende Zelle; Divergenz bei T = 4000 stört nicht; Holm nur über H1, H2). **Rauchtest nur auf Tuning-Seed 2699** (kleine Daten, T = 20/40, 1 Prozess, `nice -n 19`; nur Pipeline geprüft), Ergebnis verworfen.
+- **Status:** `agenda.json` „offen, wartet auf Maltes Freigabe (MPCDF Raven)“.
+- **Start (auf Raven, erst nach Freigabe):** `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v4` (bei Abbruch dasselbe Kommando erneut; `ergebnisse/` samt `_zwischen_*` und `_ckpt_*` vorher per `MPI/uebertragen.sh hin` hochladen). Zwischenstände committen.

@@ -150,9 +150,9 @@ def rang_L(d, F_):
 
 
 class FFNStruktur(nn.Module):
-    def __init__(self, d, F_, art, akt, gen):
+    def __init__(self, d, F_, art, akt, gen, r=None):
         super().__init__()
-        r = rang_L(d, 1024)
+        r = r or rang_L(d, 1024)
         self.a, self.b = Matrix(d, F_, art, gen, r), Matrix(F_, d, art, gen, r)
         self.akt = akt
 
@@ -171,7 +171,32 @@ ARME_V2 = {"D_gelu": ("dicht", F.gelu), "D_z2": ("dicht", torch.square), "Sz": (
 BREITE.update({a: 1024 for a in ARME_V2})
 
 
+# I-045-v4: budgetgleiche kleine FFN. Struktur "dicht" | "lr" (niedriger Rang RANG_V4); Breite h = breite_budget(...) aus der Parameterzaehlung.
+ARME_V4 = {"Dk_z2": ("dicht", torch.square), "Dk_gelu": ("dicht", F.gelu), "Lk_z2": ("lr", torch.square)}
+RANG_V4 = 2
+
+
+def ffn_param_lage(art, d, h, r=RANG_V4) -> int:
+    """FFN-Parameter je Lage (mit Bias): dicht 2·d·h + h + d; niedriger Rang 2·r·(d+h) + h + d."""
+    return 2 * d * h + h + d if art == "dicht" else 2 * r * (d + h) + h + d
+
+
+def sz_param_lage(d) -> int:
+    """Sz (Fastfood, Breite 4d) je Lage: 21·d (Diagonalen 16d, Bias 5d); in den Vortests gegen die echte Zaehlung geprueft."""
+    return 21 * d
+
+
+def breite_budget(art, d, r=RANG_V4) -> int:
+    """Ganzzahlige Breite h, deren FFN-Parameterzahl je Lage der von Sz am naechsten kommt."""
+    ziel = sz_param_lage(d)
+    return min(range(1, 8 * d), key=lambda h: (abs(ffn_param_lage(art, d, h, r) - ziel), h))
+
+
 def baue_ffn(arm, d, gen):
+    if arm in ARME_V4:                                 # I-045-v4: budgetgleiche kleine FFN (Breite aus der Parameterzaehlung)
+        art, akt = ARME_V4[arm]
+        h = breite_budget(art, d)
+        return FFNDicht(d, h, akt) if art == "dicht" else FFNStruktur(d, h, "lr", akt, gen, r=RANG_V4)
     F_ = BREITE[arm] if d == D_MODELL else 4 * d       # I-045-v3: bei anderer Modellbreite FFN-Breite 4·d (d = 256: unveraendert)
     if arm in ARME_V2 and arm != "Sz":
         art, akt = ARME_V2[arm]
@@ -584,6 +609,7 @@ def vortest() -> bool:
     ok &= _vortest_urteile()
     ok &= _vortest_v2()
     ok &= _vortest_v3()
+    ok &= _vortest_v4()
     return bool(ok)
 
 
@@ -1145,9 +1171,9 @@ def _lr_arbeiter_v3(a):
     return key, {"acc": 1 - r["bpc"] / 8, "bpc": r["bpc"], "instabil": r["instabil"]}      # 'acc' = Score (hoeher besser) fuer gittersuche_stabil
 
 
-def tuning_v3(P, klein, tseed, pfad, kennung, prozesse, ckordner):
+def tuning_v3(P, klein, tseed, pfad, kennung, prozesse, ckordner, arme=None):
     """Lernrate je (Arm, d) bei T = tuning_T auf dem Tuning-Seed; alle Raten aller Paare einer Runde laufen gemeinsam parallel; jede Aufgabe einzeln wiederaufnehmbar."""
-    schl = [f"{a}|{d}" for a in ARME_V3 for d in P["d"]]
+    schl = [f"{a}|{d}" for a in (arme or ARME_V3) for d in P["d"]]
 
     def aufgaben_fuer(s, lr):
         a, d = s.split("|")
@@ -1513,6 +1539,418 @@ def _vortest_v3() -> bool:
     erlaubt = ("SZ_BESSER", "SCHRUMPFT", "WAECHST", "HU", "H0", "BESTANDEN", "DURCHGEFALLEN", "beschreibend")
     pruefe("Vokabular", all(v.startswith(erlaubt) for v in _u3(rng).values()))
     soll = {"H1a": {"SZ_BESSER", "H0", "HU"}, "H1b": {"SZ_BESSER", "H0", "HU"}, "H2": {"SCHRUMPFT", "WAECHST", "HU"}}
+    for h, ws in soll.items():
+        fehlt = ws - {w for k, w in gesehen if k == h}
+        pruefe(f"Zweige {fehlt} fuer {h} erzwungen", not fehlt)
+    return bool(ok)
+
+
+# ================================================================== I-045-v4 „Budgetgleich: Struktur gegen kleine dichte FFN“
+# VORREGISTRIERUNG: INSTITUT/LABORBUCH.md (Eintrag I-045-v4). Profil von `struktur_sprache`, gleiche Daten/Modell/Messung/Checkpoint-Mechanik wie v3.
+# FRAGE: Ist Sz (Fastfood + z², Breite 4d) bei GLEICHEM FFN-Parameterbudget besser als eine auf dieses Budget verkleinerte dichte bzw. niedrigrangige FFN?
+# MODELL: d = 512 (8 Koepfe), 4 Lagen, Kontext 128, Batch 8x128, Adam, Kosinus, 5 % Aufwaermen, Clip 1,0. T = 16000 (Hauptpunkt), T = 4000 (beschreibend).
+# ARME (nur die FFN verschieden): Sz Fastfood+z² (4d) | Dk_z2 dicht+z², Breite h=10 | Dk_gelu dicht+GELU, h=10 | Lk_z2 Rang 2 + z², h=1638 | D_z2 dicht+z² Breite 4d (Referenz, Obergrenze).
+#   h = breite_budget(): ganzzahlig, FFN-Parameter je Lage am naechsten an Sz (21·d = 10752): Dk 10762 (+0,09 %), Lk 10750 (-0,02 %); Toleranz +-2 % im Vortest.
+# HYPOTHESEN (Holm ueber H1, H2; gepaarter einseitiger t, n = 8, T = 16000, Differenz Referenz − Sz je Seed in bpc, positiv = Sz besser):
+#   H1 Sz < Dk_z2 | H2 Sz < Lk_z2: STRUKTUR_BESSER | H0 (Referenz sicher besser) | HU.
+# DIVERGENZ wie v3 (je Zelle Arm x T): nicht endlicher Verlust oder End-bpc >= Unigramm-Entropie; Kollaps = Median + 0,2 bpc; beteiligte Hypothese = HU.
+# NK wie v3: Sz und Dk_z2, d = 512, 1000 Schritte, permutierte Trainingsbytes, Seeds 2628/2629; mittlerer Test-bpc >= 0,9 x Unigramm.
+# BESCHREIBEND: Abstand jedes Arms zu D_z2, Vorsprung gegen alle Arme (T = 4000 und 16000), Pareto bpc x FFN-Parameter x Zeit/Token, FLOPs/Token, Inferenzzeit/Token.
+# ERWARTUNG VORAB (kein Befund): H1 eher H0 oder HU (nach v3 ist Sz bei viel Training hinter dichten Armen; die Breite h=10 ist aber extrem schmal, deshalb offen); H2 offen.
+KARTE_V4 = "I-045-v4"
+SEEDS_V4 = tuple(range(2620, 2628))
+NK_SEEDS_V4 = (2628, 2629)
+TUNING_SEED_V4 = 2699
+ARME_MESS_V4 = ("Sz", "Dk_z2", "Dk_gelu", "Lk_z2", "D_z2")
+NK_ARME_V4 = ("Sz", "Dk_z2")
+T_WERTE_V4 = (4000, 16000)
+D_V4 = 512
+BUDGET_TOLERANZ = 0.02
+PROFILE_V4 = {"standard": {"T": T_WERTE_V4, "d": (D_V4,), "tuning_T": 4000, "nk_T": 1000, "nk_d": D_V4, "ckpt_alle": CKPT_ALLE,
+                           "seeds": SEEDS_V4, "nk_seeds": NK_SEEDS_V4}}
+_BELEGT_V4 = _BELEGT_V3 | set(range(2600, 2610)) | {2698}
+HYPOTHESEN_V4 = {
+    "H1": "Sz < Dk_z2 (bpc, gleiches FFN-Parameterbudget) bei T=16000, d=512 (einseitig gepaart t, n=8, Holm H1-H2). STRUKTUR_BESSER | H0 (Dk_z2 sicher besser) | HU.",
+    "H2": "Sz < Lk_z2 (bpc, gleiches FFN-Parameterbudget) bei T=16000, d=512 (einseitig gepaart t, n=8, Holm H1-H2). STRUKTUR_BESSER | H0 (Lk_z2 sicher besser) | HU.",
+    "DIVERGENZ": HYPOTHESEN_V3["DIVERGENZ"],
+    "NK": f"Negativkontrolle (Sz, Dk_z2, d=512, 1000 Schritte, permutierte Trainingsbytes, Seeds 2628/2629): mittlerer Test-bpc >= {NK_FAKTOR} x Unigramm-Entropie. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+    "B": "beschreibend: bpc aller Arme x T, Abstand zu D_z2, Vorsprung gegen alle Arme, Pareto bpc x FFN-Parameter x Zeit/Token, FLOPs/Token, Inferenzzeit/Token, Trainingszeit, Divergenzrate, Lernraten.",
+}
+# Sekunden je Trainingsschritt (1 Thread, Batch 8x128), Messung im Container (Datum im LABORBUCH); wird nach Messung gefuellt.
+S_JE_SCHRITT_V4 = {"Sz": 0.79, "Dk_z2": 0.37, "Dk_gelu": 0.37, "Lk_z2": 0.42, "D_z2": 1.03}   # Sz/D_z2 konservativ aus v3 (0,79/1,03; v4-Messung 0,67/0,89)
+
+
+def flops_je_token(arm, d=D_V4, lagen=LAGEN, ctx=KONTEXT) -> dict:
+    """Rechenaufwand der Inferenz je Token (Vorwaerts, 1 Flop = 1 Multiplikation oder Addition) AS IMPLEMENTED (Fastfood = zwei kleine Matmuls je Walsh-Transformation).
+    ffn: alle Lagen; gesamt: zusaetzlich Attention (qkv, Ausgabe, im Mittel ctx/2 Schluessel) und Ausgabekopf 256·d."""
+    netz = Sprachmodell(arm, 0, d=d, h=d // 64, lagen=1)
+    ffn = 0
+    for m in netz.bl[0].ffn.modules():
+        if isinstance(m, nn.Linear):
+            ffn += 2 * m.in_features * m.out_features
+        elif isinstance(m, Fastfood):
+            ffn += m.m * (2 * (2 * m.D * (m.a + m.b)) + 2 * m.D)
+    ffn *= lagen
+    att = lagen * (2 * d * 3 * d + 2 * d * d + 2 * ctx * d)
+    return {"ffn": int(ffn), "gesamt": int(ffn + att + 2 * 256 * d)}
+
+
+def kosten_schaetzung_v4(s_je_schritt=None, prozesse=72, aufschlag=1.3, tuning_raten=4.5, tuning_runden=2, ueberhang=30.0):
+    """Wie kosten_schaetzung (v3), fuer das v4-Profil."""
+    import heapq
+    z = s_je_schritt or S_JE_SCHRITT_V4
+    P = PROFILE_V4["standard"]
+    dauer = lambda a, T: T * z[a] * aufschlag + ueberhang
+    t_aufg = [dauer(a, P["tuning_T"]) for a in ARME_MESS_V4]
+    kern_tuning = sum(t_aufg) * tuning_raten
+    wand_tuning = tuning_runden * max(t_aufg)
+    m_aufg = [dauer(a, T) for a in ARME_MESS_V4 for T in P["T"] for _ in P["seeds"]]
+    m_aufg += [dauer(a, P["nk_T"]) for a in NK_ARME_V4 for _ in P["nk_seeds"]]
+    last = [0.0] * prozesse
+    heapq.heapify(last)
+    for t in sorted(m_aufg, reverse=True):
+        heapq.heappush(last, heapq.heappop(last) + t)
+    wand_mess = max(last)
+    return {"aufgaben_mess": len(m_aufg), "kernstunden_mess": sum(m_aufg) / 3600, "kernstunden_tuning": kern_tuning / 3600,
+            "kernstunden_gesamt": (sum(m_aufg) + kern_tuning) / 3600, "laengste_aufgabe_h": max(m_aufg) / 3600,
+            "wand_tuning_h": wand_tuning / 3600, "wand_mess_h": wand_mess / 3600, "wand_gesamt_h": (wand_tuning + wand_mess) / 3600,
+            "prozesse": prozesse, "aufschlag": aufschlag}
+
+
+def aufgaben_v4(hp, P, klein, ckordner):
+    """Mess- und NK-Aufgaben, die langen (T = 16000, teuerste Arme) zuerst."""
+    d = P["d"][0]
+    aufg = [("mess", a, d, T, s, hp[f"{a}|{d}"]["lr"], klein, P["ckpt_alle"], str(ckordner))
+            for a in ARME_MESS_V4 for T in P["T"] for s in P["seeds"]]
+    aufg += [("nk", a, P["nk_d"], P["nk_T"], s, hp[f"{a}|{P['nk_d']}"]["lr"], klein, P["ckpt_alle"], str(ckordner))
+             for a in NK_ARME_V4 for s in P["nk_seeds"]]
+    kost = lambda a: a[3] * (S_JE_SCHRITT_V4.get(a[1], 1.0) if S_JE_SCHRITT_V4 else 1.0)
+    aufg.sort(key=lambda a: -kost(a))
+    return aufg
+
+
+def pareto_nicht_dominiert(punkte: dict) -> list:
+    """punkte: Arm -> (bpc, ffn_parameter, zeit_je_token); nicht dominiert = kein anderer Arm ist in allen drei <= und in mindestens einem <."""
+    aus = []
+    for a, p in punkte.items():
+        if not any(b != a and all(x <= y for x, y in zip(q, p)) and any(x < y for x, y in zip(q, p)) for b, q in punkte.items()):
+            aus.append(a)
+    return sorted(aus)
+
+
+def auswertung_v4(zeilen: list, params: dict, unigramm: float, t_lo=T_WERTE_V4[0], t_hi=T_WERTE_V4[-1], d=D_V4, flops=None, zeit=None) -> dict:
+    bpc, inst, tt = {}, {}, {}
+    for z in zeilen:
+        if z["teil"] == "mess":
+            k = (z["arm"], z["T"], z["d"])
+            bpc.setdefault(k, {})[z["seed"]] = z["bpc"]
+            inst.setdefault(k, {})[z["seed"]] = bool(z.get("instabil"))
+            tt.setdefault(k, {})[z["seed"]] = z.get("sekunden_training", float("nan"))
+    r = {"t_lo": t_lo, "t_hi": t_hi, "d": d, "zellen": {}, "kollaps": {}, "divergiert": {}, "divergenzrate": {}, "bpc_ohne_divergente": {}, "negativ": {},
+         "diff": {}, "p_holm": {}, "beschreibend": {}, "parameter": params, "unigramm_bpc": unigramm, "training_s_mittel": {}}
+    for k, v in bpc.items():
+        seeds = sorted(v)
+        w = np.array([v[s] for s in seeds])
+        n = _zname(*k)
+        r["zellen"][n] = zusammenfassung(w)
+        med = float(np.median(w))
+        r["kollaps"][n] = [s for s in seeds if not (v[s] <= med + KOLLAPS_BPC)]
+        r["divergiert"][n] = [s for s in seeds if inst[k][s] or not (v[s] < unigramm)]
+        r["divergenzrate"][n] = len(r["divergiert"][n]) / len(seeds)
+        ok = [v[s] for s in seeds if s not in r["divergiert"][n]]
+        r["bpc_ohne_divergente"][n] = float(np.mean(ok)) if ok else None
+        r["training_s_mittel"][n] = float(np.nanmean(list(tt[k].values())))
+    nk = [z["bpc"] for z in zeilen if z["teil"] == "nk"]
+    r["negativ"] = {"mittel": float(np.mean(nk)), "n": len(nk)} if nk else {}
+
+    def vorsprung(T, ref, pruef="Sz"):
+        """Je Seed: bpc(ref) − bpc(pruef); positiv = pruef besser. {} wenn eine Zelle fehlt."""
+        a, b = bpc.get((ref, T, d)), bpc.get((pruef, T, d))
+        if not a or not b:
+            return {}
+        return {s: a[s] - b[s] for s in sorted(set(a) & set(b))}
+
+    for h, ref in (("H1", "Dk_z2"), ("H2", "Lk_z2")):
+        v = vorsprung(t_hi, ref)
+        if v:
+            r["diff"][h] = _stat(np.array(list(v.values())))
+    for ref in ("Dk_z2", "Dk_gelu", "Lk_z2", "D_z2"):
+        for T in (t_lo, t_hi):
+            v = vorsprung(T, ref)
+            if v:
+                r["beschreibend"].setdefault(f"Vorsprung_Sz_gegen_{ref}", {})[f"T{T}"] = _stat(np.array(list(v.values())))
+    for a in ARME_MESS_V4:               # Abstand zur Obergrenze: bpc(Arm) − bpc(D_z2), positiv = Arm schlechter als volle dichte FFN
+        if a == "D_z2":
+            continue
+        for T in (t_lo, t_hi):
+            v = vorsprung(T, a, pruef="D_z2")
+            if v:
+                r["beschreibend"].setdefault(f"Abstand_{a}_zu_D_z2", {})[f"T{T}"] = _stat(np.array(list(v.values())))
+    # Pareto (T = t_hi): bpc x FFN-Parameter x Zeit/Token (Zeit nur, wenn gemessen)
+    pt = {}
+    for a in ARME_MESS_V4:
+        n = _zname(a, t_hi, d)
+        pk = f"{a}|{d}"
+        if n in r["zellen"] and pk in params and (zeit is None or pk in zeit):
+            pt[a] = (r["zellen"][n]["mittel"], params[pk]["ffn"], (zeit or {}).get(pk, 0.0))
+    r["beschreibend"]["pareto_T_hi"] = {"punkte": {a: list(p) for a, p in pt.items()}, "nicht_dominiert": pareto_nicht_dominiert(pt),
+                                        "achsen": ["bpc", "ffn_parameter", "s_je_token" if zeit else "(Zeit nicht gemessen: 0)"]}
+    if flops:
+        r["beschreibend"]["flops_je_token"] = flops
+    if zeit:
+        r["beschreibend"]["zeit_s_je_token"] = zeit
+    prim = {h: r["diff"][h]["p_gr"] for h in ("H1", "H2") if h in r["diff"] and "p_gr" in r["diff"][h]}
+    if prim:
+        r["p_holm"] = holm(prim)
+    return r
+
+
+def _vorab_v4(r, nk, h, zellen):
+    if h not in r["diff"] or "mittel" not in r["diff"][h] or h not in r["p_holm"]:
+        return "HU (Zellen fehlen oder zu wenige Seeds)"
+    if nk != "BESTANDEN":
+        return "HU (Negativkontrolle durchgefallen)"
+    dv = {z: r["divergiert"][z] for z in zellen if r["divergiert"].get(z)}
+    if dv:
+        return f"HU (Divergenz in {dv})"
+    k = {z: r["kollaps"][z] for z in zellen if r["kollaps"].get(z)}
+    if k:
+        return f"HU (Kollaps in {k})"
+    return None
+
+
+def urteil_v4(r: dict) -> dict:
+    nk = _nk(r)
+    u = {"NK": f"{nk} (Mittel permutiert Sz/Dk_z2: {r['negativ'].get('mittel', float('nan')):.3f} bpc; Unigramm {r['unigramm_bpc']:.3f}; Schwelle {NK_FAKTOR}x)"}
+    t_hi, d = r["t_hi"], r["d"]
+    for h, ref in (("H1", "Dk_z2"), ("H2", "Lk_z2")):
+        v = _vorab_v4(r, nk, h, [_zname(a, t_hi, d) for a in (ref, "Sz")])
+        if v:
+            u[h] = v
+            continue
+        z = _zahlen(r, h)
+        if r["p_holm"][h] < ALPHA:
+            u[h] = f"STRUKTUR_BESSER ({ref}-Sz bei T={t_hi}, d={d}, gleiches Budget: {z})"
+        elif r["diff"][h]["p_kl"] < ALPHA / 2:
+            u[h] = f"H0 ({ref} sicher besser als Sz bei T={t_hi}, d={d}; {z})"
+        else:
+            u[h] = f"HU ({z})"
+    teile = []
+    for T in sorted({int(k.split("|T")[1].split("|")[0]) for k in r["zellen"]}):
+        ze = ", ".join(f"{a} {r['zellen'][_zname(a, T, d)]['mittel']:.3f}".replace(".", ",") for a in ARME_MESS_V4 if _zname(a, T, d) in r["zellen"])
+        teile.append(f"T{T}: {ze}")
+    u["B"] = "beschreibend: Test-bpc " + "; ".join(teile) + "; Rest in auswertung"
+    return u
+
+
+def lauf_v4(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None, **_):
+    profil = profil or os.environ.get("I045V4_PROFIL", "standard")
+    P = dict(PROFILE_V4[profil])
+    if schnell:      # Rauchtest NUR Tuning-Seed, kleine Daten, wenige Schritte (Checkpoint alle 15 Schritte)
+        P.update({"T": (20, 40), "tuning_T": 20, "nk_T": 10, "ckpt_alle": 15, "seeds": (TUNING_SEED_V4,), "nk_seeds": (TUNING_SEED_V4,)})
+        klein = True
+    else:
+        klein = False
+        if set(P["seeds"]) & _BELEGT_V4 or set(P["nk_seeds"]) & _BELEGT_V4 or TUNING_SEED_V4 in P["seeds"] or TUNING_SEED_V4 in _BELEGT_V4:
+            raise ValueError("Seeds nicht frisch/vorregistriert")
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_V4}{'-schnell' if schnell else ''}.json"
+    ckordner = pfad.parent / f"_ckpt_{KARTE_V4}{'-schnell' if schnell else ''}"
+    kennung = {"karte": KARTE_V4, "version": 1, "profil": "rauch" if schnell else profil, "profil_werte": _json_sicher(P),
+               "lr_gitter": list(LR_GITTER), "tuning_seed": TUNING_SEED_V4, "klein": klein}
+    t0 = time.time()
+    zw = _lade_zwischen(pfad, kennung)
+    if "tuning" not in zw:
+        hp0 = tuning_v3(P, klein, TUNING_SEED_V4, pfad, kennung, prozesse, ckordner, arme=ARME_MESS_V4)
+        zw = _lade_zwischen(pfad, kennung)
+        zw["tuning"] = hp0
+        _schreibe_zwischen(pfad, kennung, zw)
+        print(f"  Tuning fertig: {({a: v['lr'] for a, v in zw['tuning'].items()})}", flush=True)
+    hp = zw["tuning"]
+    aufg = aufgaben_v4(hp, P, klein, ckordner)
+    alle = _rechne(aufg, pfad, kennung, fn=_arbeiter_v3, schluessel=_schl_v3, prozesse=prozesse)
+    zeilen = [z for k, z in alle.items() if k.startswith("einheit|")]
+    d = P["d"][0]
+    paare = [(a, d) for a in ARME_MESS_V4]
+    zm = None
+    if zeit:
+        if "zeit" in alle:
+            zm = alle["zeit"]
+        else:
+            zm = zeit_im_ein_thread_v3(paare)
+            alle["zeit"] = zm
+            _schreibe_zwischen(pfad, kennung, alle)
+    params = {f"{a}|{d}": {"ffn": param_ffn(n), "gesamt": param_gesamt(n), "breite": (breite_budget(ARME_V4[a][0], d) if a in ARME_V4 else 4 * d)}
+              for a, d in paare for n in [Sprachmodell(a, 0, d=d, h=d // 64)]}
+    fl = {f"{a}|{d}": flops_je_token(a, d) for a, d in paare}
+    tr, _, te = daten(klein)
+    e = {"abteilung": "Struktur", "modul": "struktur_sprache", "karte": KARTE_V4, "version": 1, "profil": profil, "hypothesen": HYPOTHESEN_V4,
+         "seeds": list(P["seeds"]), "nk_seeds": list(P["nk_seeds"]), "tuning_seed": TUNING_SEED_V4, "tuning": hp,
+         "einstellungen": {"T": list(P["T"]), "d": d, "tuning_T": P["tuning_T"], "nk_T": P["nk_T"], "nk_d": P["nk_d"], "ckpt_alle": P["ckpt_alle"],
+                           "batch": BATCH, "kontext": KONTEXT, "lagen": LAGEN, "budget_breiten": {a: params[f"{a}|{d}"]["breite"] for a in ARME_MESS_V4},
+                           "lr_gitter": list(LR_GITTER), "daten_bytes": [len(x) for x in daten(klein)]},
+         "zwischendatei": str(pfad), "zeilen": zeilen, "sekunden": time.time() - t0}
+    e["auswertung"] = auswertung_v4(zeilen, params, unigramm_entropie(tr, te), t_lo=min(P["T"]), t_hi=max(P["T"]), d=d, flops=fl, zeit=zm)
+    if zm is not None:
+        e["zeitmessung_einzelprozess_s_je_token"] = zm
+    e["urteil"] = urteil_v4(e["auswertung"])
+    return e
+
+
+# ---- Vortest v4 ----
+def _synth_v4(rng, adv1=0.10, adv2=0.10, sd=0.004, n=8, koll=None, nk=5.0, div=None, fehlt=None):
+    """Synthetische Zeilen: Dk_z2 = Sz + adv1, Lk_z2 = Sz + adv2 (positiv = Sz besser), bei T = 4000 und 16000."""
+    zl = []
+    for i in range(n):
+        gem = rng.normal(0, 0.01)
+        for T in T_WERTE_V4:
+            basis = {"Sz": 2.4, "Dk_z2": 2.4 + adv1, "Dk_gelu": 2.6, "Lk_z2": 2.4 + adv2, "D_z2": 2.2}
+            for a, v in basis.items():
+                if fehlt == (a, T):
+                    continue
+                x, ist = v + gem + rng.normal(0, sd), False
+                if koll == (a, T) and i == 0:
+                    x += 1.0
+                if div == (a, T) and i == 1:
+                    x, ist = 8.0, True
+                zl.append({"teil": "mess", "arm": a, "d": D_V4, "T": T, "seed": 2620 + i, "bpc": x, "instabil": ist, "sekunden_training": 10.0})
+        if i < 2:
+            for a in NK_ARME_V4:
+                zl.append({"teil": "nk", "arm": a, "d": D_V4, "T": 1000, "seed": 2628 + i, "bpc": nk + rng.normal(0, 0.02)})
+    return zl
+
+
+def _u4(rng, **kw):
+    p = {f"{a}|{D_V4}": {"ffn": 1, "gesamt": 2} for a in ARME_MESS_V4}
+    return urteil_v4(auswertung_v4(_synth_v4(rng, **kw), p, 5.0))
+
+
+def _vortest_v4() -> bool:
+    import tempfile
+    ok = True
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-045-v4): {name}", flush=True)
+            ok = False
+
+    torch.manual_seed(0)
+    d = D_V4
+    nz = {a: Sprachmodell(a, 0, d=d, h=d // 64) for a in ARME_MESS_V4}
+    x = torch.randint(0, 256, (2, KONTEXT))
+    for a, m in nz.items():
+        m.eval()
+        x2 = x.clone()
+        x2[:, 60] = (x2[:, 60] + 1) % 256
+        pruefe(f"Form/Kausalitaet {a}", m(x).shape == (2, KONTEXT, 256) and torch.allclose(m(x)[:, :60], m(x2)[:, :60], atol=1e-5)
+               and not torch.allclose(m(x)[:, 60:], m(x2)[:, 60:]))
+        pruefe(f"Koepfe d/64 {a}", m.bl[0].h == d // 64)
+    pf = {a: param_ffn(n) for a, n in nz.items()}
+    pruefe("Sz-Parameter = 4·21·d (Zaehlung = Formel)", pf["Sz"] == LAGEN * sz_param_lage(d))
+    hD, hL = breite_budget("dicht", d), breite_budget("lr", d)
+    pruefe("Breite h exakt aus Parameterzaehlung: Dk h=10, Lk h=1638", (hD, hL) == (10, 1638))
+    pruefe("Formel = echte Zaehlung (Dk, Lk)", pf["Dk_z2"] == LAGEN * ffn_param_lage("dicht", d, hD) and pf["Lk_z2"] == LAGEN * ffn_param_lage("lr", d, hL, RANG_V4))
+    pruefe("Dk_gelu und Dk_z2 gleiche Parameterzahl", pf["Dk_gelu"] == pf["Dk_z2"])
+    for a in ("Dk_z2", "Dk_gelu", "Lk_z2"):
+        pruefe(f"Budgetgleichheit +-2 % {a} ({pf[a]} gegen Sz {pf['Sz']})", abs(pf[a] / pf["Sz"] - 1) <= BUDGET_TOLERANZ)
+    pruefe("D_z2 voll = 4·(8d²+5d), Breite 4d", pf["D_z2"] == 4 * (2 * d * 4 * d + 4 * d + d) and nz["D_z2"].bl[0].ffn.a.out_features == 4 * d)
+    pruefe("Breiten: Dk dicht h, Lk Rang 2 mit Breite hL", nz["Dk_z2"].bl[0].ffn.a.out_features == hD
+           and nz["Lk_z2"].bl[0].ffn.a.m[0].out_features == RANG_V4 and nz["Lk_z2"].bl[0].ffn.a.m[1].out_features == hL)
+    pruefe("Aktivierungen", nz["Dk_z2"].bl[0].ffn.akt is torch.square and nz["Dk_gelu"].bl[0].ffn.akt is F.gelu
+           and nz["Lk_z2"].bl[0].ffn.akt is torch.square and nz["Sz"].bl[0].ffn.akt is torch.square and nz["D_z2"].bl[0].ffn.akt is torch.square)
+    pruefe("v3-Arme unveraendert (Sz/D_z2 bei d=256: Breite 1024)", param_ffn(Sprachmodell("D_z2", 0)) == 4 * (2 * 256 * 1024 + 1024 + 256))
+    fl = {a: flops_je_token(a, d) for a in ARME_MESS_V4}
+    pruefe("FLOPs: D_z2 FFN = 4·2·2·d·4d", fl["D_z2"]["ffn"] == LAGEN * 4 * d * 4 * d and all(f["gesamt"] > f["ffn"] > 0 for f in fl.values()))
+    unit = torch.arange(32).repeat(8)[None].repeat(16, 1)[:, :KONTEXT + 1]
+    for a in ARME_MESS_V4:
+        m = Sprachmodell(a, 0, d=d, h=8)
+        opt = torch.optim.Adam(m.parameters(), lr=2e-3)
+        l0 = None
+        for _ in range(25):
+            opt.zero_grad()
+            l = F.cross_entropy(m(unit[:, :-1]).reshape(-1, 256), unit[:, 1:].reshape(-1))
+            l0 = l0 or float(l.detach())
+            l.backward()
+            opt.step()
+        pruefe(f"Trainierbar {a}", float(l.detach()) < 0.7 * l0)
+    pruefe("Seeds frisch (8 Mess, 2 NK, Tuning 2699)", len(SEEDS_V4) == 8 and len(NK_SEEDS_V4) == 2 and not ((set(SEEDS_V4) | set(NK_SEEDS_V4)) & _BELEGT_V4)
+           and TUNING_SEED_V4 not in _BELEGT_V4 and TUNING_SEED_V4 not in SEEDS_V4 and not (set(SEEDS_V4) & set(NK_SEEDS_V4)))
+    hp = {f"{a}|{d}": {"lr": 1e-3} for a in ARME_MESS_V4}
+    P = PROFILE_V4["standard"]
+    aufg = aufgaben_v4(hp, P, False, "x")
+    schl = [_schl_v3(a) for a in aufg]
+    pruefe("Aufgabenzahl 5·2·8 + 4 NK = 84, Schluessel eindeutig", len(aufg) == 84 and len(set(schl)) == 84 and sum(a[0] == "nk" for a in aufg) == 4)
+    pruefe("Lange zuerst (T=16000), NK d=512 T=1000", aufg[0][3] == 16000 and all(a[3] == 16000 for a in aufg[:40]) and all(a[2] == 512 and a[3] == 1000 for a in aufg if a[0] == "nk"))
+    if S_JE_SCHRITT_V4:
+        k = kosten_schaetzung_v4()
+        pruefe("Laufzeitplan: Wandzeit bei 72 Prozessen < 24 h (mit Aufschlag)", k["wand_gesamt_h"] < 24 and k["laengste_aufgabe_h"] < 24)
+    pruefe("Pareto: dominierter Arm wird erkannt", pareto_nicht_dominiert({"a": (1, 1, 1), "b": (2, 2, 2), "c": (0.5, 5, 1)}) == ["a", "c"])
+    t = trainiere_v3("Dk_z2", 1e9, 0, 5, d=256, klein=True, val=True)
+    pruefe("Divergenz-Pfad liefert instabil oder schlechten bpc", t["instabil"] or t["bpc"] > 5.0)
+    with tempfile.TemporaryDirectory() as tmp:
+        ck = str(Path(tmp) / "a.pt")
+        ref = trainiere_v3("Lk_z2", 2e-3, 3, 30, d=256, klein=True, val=True)
+        try:
+            trainiere_v3("Lk_z2", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10, _stopp_bei=15)
+            pruefe("Abbruch wurde ausgeloest", False)
+        except _Abbruch:
+            pass
+        pruefe("Checkpoint nach Abbruch vorhanden", Path(ck).exists())
+        fort = trainiere_v3("Lk_z2", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10)
+        pruefe("Fortsetzung ab Schritt 10", fort["fortgesetzt_ab"] == 10)
+        pruefe("Fortsetzung = ungestoerter Lauf (bpc identisch)", abs(fort["bpc"] - ref["bpc"]) < 1e-9)
+        pruefe("Checkpoint nach Ende geloescht", not Path(ck).exists())
+        try:
+            trainiere_v3("Dk_z2", 2e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10, _stopp_bei=12)
+        except _Abbruch:
+            pass
+        anders = trainiere_v3("Dk_z2", 1e-3, 3, 30, d=256, klein=True, val=True, ckpt=ck, ckpt_alle=10)
+        pruefe("Checkpoint mit anderer Lernrate wird nicht verwendet", anders["fortgesetzt_ab"] == 0)
+        pfad = Path(tmp) / "z.json"
+        kennung = {"k": 1}
+        a4 = [("mess", a, 512, 10, s, 1e-3, True, 5, tmp) for a in ("Sz", "Dk_z2", "Lk_z2") for s in (1, 2, 3)]
+        z1 = _rechne(a4[:4], pfad, kennung, fn=_fn_test_v3, prozesse=1, schluessel=_schl_v3)
+        z2 = _rechne(a4, pfad, kennung, fn=_fn_test_v3, prozesse=1, schluessel=_schl_v3)
+        pruefe("Wiederaufnahme je Aufgabe (Arm, d, T, Seed)", len(z1) == 4 and len(z2) == 9 and all(z2[k] == z1[k] for k in z1))
+        Pk = {**P, "d": (256,), "tuning_T": 3, "ckpt_alle": 2}
+        pt = Path(tmp) / "t.json"
+        kt = {"karte": "t4"}
+        arme_k = ("Dk_z2", "Lk_z2")
+        n0 = _ZAEHLER["lr"]
+        t1 = tuning_v3(Pk, True, TUNING_SEED_V4, pt, kt, 1, Path(tmp) / "ck", arme=arme_k)
+        n1 = _ZAEHLER["lr"]
+        t2 = tuning_v3(Pk, True, TUNING_SEED_V4, pt, kt, 1, Path(tmp) / "ck", arme=arme_k)
+        pruefe("Tuning: Raten je Arm gewaehlt", set(t1) == {f"{a}|256" for a in arme_k} and all(v["lr"] > 0 for v in t1.values()))
+        pruefe("Tuning-Wiederaufnahme rechnet nichts neu und liefert dasselbe", n1 > n0 and _ZAEHLER["lr"] == n1 and t1 == t2)
+    rng = np.random.default_rng(13)
+    gesehen = set()
+
+    def erwarte(name, u, **soll):
+        nonlocal ok
+        for k, w in soll.items():
+            gesehen.add((k, w.split(" (")[0]))
+            if not u[k].startswith(w):
+                print(f"  Vortest FEHLER (I-045-v4) {name}: {k} soll {w}, ist {u[k]}", flush=True)
+                ok = False
+
+    erwarte("Sz besser", _u4(rng), **{"NK": "BESTANDEN", "H1": "STRUKTUR_BESSER", "H2": "STRUKTUR_BESSER"})
+    erwarte("Referenzen besser", _u4(rng, adv1=-0.08, adv2=-0.08), **{"H1": "H0", "H2": "H0"})
+    erwarte("H1 gemischt", _u4(rng, adv1=0.10, adv2=-0.08), **{"H1": "STRUKTUR_BESSER", "H2": "H0"})
+    erwarte("Kein Unterschied", _u4(rng, adv1=0.0, adv2=0.0, sd=0.03), **{"H1": "HU", "H2": "HU"})
+    erwarte("NK faellt", _u4(rng, nk=2.5), **{"NK": "DURCHGEFALLEN", "H1": "HU (Negativkontrolle", "H2": "HU (Negativkontrolle"})
+    erwarte("Divergenz Dk_z2 T=16000", _u4(rng, div=("Dk_z2", 16000)), **{"H1": "HU (Divergenz", "H2": "STRUKTUR_BESSER"})
+    erwarte("Kollaps Lk_z2 T=16000", _u4(rng, koll=("Lk_z2", 16000)), **{"H1": "STRUKTUR_BESSER", "H2": "HU (Kollaps"})
+    erwarte("Divergenz bei T=4000 stoert nicht", _u4(rng, div=("Sz", 4000)), **{"H1": "STRUKTUR_BESSER", "H2": "STRUKTUR_BESSER"})
+    erwarte("Zelle fehlt", _u4(rng, fehlt=("Lk_z2", 16000)), **{"H1": "STRUKTUR_BESSER", "H2": "HU (Zellen fehlen"})
+    p = {f"{a}|{D_V4}": {"ffn": 1, "gesamt": 2} for a in ARME_MESS_V4}
+    a_ = auswertung_v4(_synth_v4(rng, div=("Sz", 16000)), p, 5.0)
+    pruefe("Divergenzrate 1/8, Seed bleibt in den Zahlen (n = 8)", abs(a_["divergenzrate"]["Sz|T16000|d512"] - 0.125) < 1e-9
+           and a_["zellen"]["Sz|T16000|d512"]["n"] == 8 and a_["diff"]["H1"]["n"] == 8)
+    pruefe("Holm ueber H1, H2", set(a_["p_holm"]) == {"H1", "H2"})
+    pruefe("Beschreibend: Abstand zu D_z2 und Pareto vorhanden", "Abstand_Dk_z2_zu_D_z2" in a_["beschreibend"] and "pareto_T_hi" in a_["beschreibend"])
+    erlaubt = ("STRUKTUR_BESSER", "HU", "H0", "BESTANDEN", "DURCHGEFALLEN", "beschreibend")
+    pruefe("Vokabular", all(v.startswith(erlaubt) for v in _u4(rng).values()))
+    soll = {"H1": {"STRUKTUR_BESSER", "H0", "HU"}, "H2": {"STRUKTUR_BESSER", "H0", "HU"}}
     for h, ws in soll.items():
         fehlt = ws - {w for k, w in gesehen if k == h}
         pruefe(f"Zweige {fehlt} fuer {h} erzwungen", not fehlt)
