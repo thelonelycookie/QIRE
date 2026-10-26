@@ -1499,3 +1499,32 @@ Anlass: I-040-v2 H4 (feste Mischung: Genauigkeit gegen Information pro Schuss) u
 - **Seeds 2460–2469, Tuning 2479.**
 - **Offenlegung Rauchtest (nur Tuning-Seed 2479, 1.500 Bilder):** Alle gelernten Arme lagen bei 92–94 % mit I_C 0,21–0,62 Bit, L100 sogar am genauesten. Ein Zielkonflikt zwischen den gelernten Armen war dort nicht zu sehen, alle λ > 0 dominierten beide festen. Daher die ehrliche Erwartung: **H1 eher H0 oder HU, H2a/H2b eher ja.** Der mögliche Befund wäre dann „der Zielkonflikt der festen Mischungen ist durch Lernen auflösbar“. Kriterien bleiben unverändert.
 - **Freigabe Malte 07.10.** Start nach I-044-v3.
+
+## 07.10.2026 – I-044-v3 ERGEBNIS (Epochenreihe Strukturkopf, Seeds 2350–2357)
+Rohdaten `ergebnisse/I-044-v3__20261007_153149.json`. NK bestanden (0,102).
+| Epochen | Ks | Klin | Kklein | Ks − Klin |
+|---|---|---|---|---|
+| 4 | 74,29 | 73,92 | 72,64 | +0,37 |
+| 12 | 74,74 | **75,52** | **75,52** | −0,77 |
+| 24 | 74,01 | 74,52 | 74,21 | −0,51 |
+- **H1 H0:** Bei 24 Epochen ist der Strukturkopf dem linearen Kopf **unterlegen** (−0,51 pp [−0,78; −0,23]). **H2 HU** (−0,20 pp gegen Kklein). **H3 SCHRUMPFT** (−0,87 pp, p = 0,0003).
+- **Deutung:** Der Vorsprung aus I-044/I-044-r/I-044-v2 ist ein **Effekt des knappen Trainingsbudgets**, kein Kapazitätseffekt. Mit genug Training holen lineare und kleine dichte Köpfe auf und überholen. Die Vorhersage aus der Literatur (`recherche/2026-10-07_volltext_2.md`, Teil A) hat sich bestätigt.
+- **Folge für die Kernaussage:** „Strukturkopf schlägt dichten Kopf“ nur noch als „bei sehr knappem Trainingsbudget (4 Epochen) besser, sonst gleichwertig bis leicht schlechter, mit 85× weniger Parametern als der große dichte Kopf“. Ehrlich ist: **gleich gut wie ein linearer Kopf**. Die Parameterersparnis gilt nur gegen den unnötig großen dichten Kopf.
+- Vorbehalt: Die Raten wurden aus I-044-v2 übernommen und nicht je Epochenzahl neu gesucht. Die Abnahme aller Arme von 12 auf 24 Epochen deutet auf beginnende Überanpassung (ohne Augmentierung).
+
+## 07.10.2026 – I-046 ERGEBNIS (Pareto-Front Genauigkeit × Information pro Schuss, Seeds 2460–2469)
+Rohdaten `ergebnisse/I-046__20261007_155333.json`. NK bestanden (I_C 0,002 Bit, acc 0,104), PK bestanden (id 90,11 %). Raten am Gitter innen.
+| Arm | acc_inf % | I_C Bit | dominiert id UND haar (Anteil Seeds) |
+|---|---|---|---|
+| id (fest) | 90,11 | 0,361 | — |
+| haar (fest) | 93,80 | 0,161 | — |
+| L0 | **96,28** | 0,202 | 0,0 |
+| L25 | 95,19 | 0,568 | 1,0 |
+| L50 | 94,94 | 0,486 | 0,7 |
+| L75 | 95,06 | 0,560 | 0,9 |
+| L90 | 95,34 | 0,588 | 1,0 |
+| L100 | 95,10 | **0,614** | 1,0 |
+- **H1 ZIELKONFLIKT_TRAINIERBAR:** L100 gegen L0: +0,41 Bit, −1,18 pp (p_Holm 0,003). **H2a INFO_UEBER_FEST:** L100 +0,25 Bit über id. **H2b GENAUIGKEIT_UEBER_FEST:** L0 +2,48 pp über haar (alle 10/10 Seeds, p_Holm 0,003).
+- **Deutung:** Der Zielkonflikt existiert, ist aber **flach**. Schon λ = 0,25 holt 92 % der maximalen Information (0,568 von 0,614 Bit) für nur −1,1 pp Genauigkeit. Alle gelernten Arme mit λ ≥ 0,25 schlagen **beide** festen Mischungen gleichzeitig: genauer als Haar UND informativer pro Schuss als die Identität. Der in I-040-v2 gemessene Zielkonflikt fester Mischungen ist also **kein Naturgesetz, sondern eine Folge der festen Wahl**.
+- **Ehrliche Einordnung:** Die gelernte U hat 32.640 freie Parameter (Haar/id: 0). Ein Teil des Vorteils ist schlicht „mehr Parameter“. Auf welchen Anteil die Information pro Schuss bei gleichem Budget (z. B. Fastfood mit trainierten Diagonalen) kommt, ist offen. Die Rauchtest-Beobachtung vor dem Lauf (kein Konflikt zwischen den gelernten Armen) hat sich teilweise bestätigt: Die Front ist flach, aber messbar.
+- **Neuheit** (`recherche/2026-10-07_volltext_2.md`, B): Eine λ-Front gegen feste Arme wurde in der Literatur nicht gefunden. Nächste Verwandte sind Sbaiz 2021 (nur Einzelschuss-Ziel) und Hu 2023 (Schaltung nicht trainiert). **Kandidat für den eigenen Befund der Arbeit.** Folgefragen: (1) budgetgleiche Front mit Fastfood-Diagonalen (512 Parameter); (2) Fashion; (3) Schussgenauigkeit S = 30/100 als Hauptgröße.

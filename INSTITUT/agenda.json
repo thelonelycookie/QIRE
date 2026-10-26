@@ -611,7 +611,7 @@
   {
    "id": "I-044-v3",
    "abteilung": "Struktur",
-   "status": "läuft (Container)",
+   "status": "erledigt",
    "modul": "abteilungen.struktur_kopf_fair",
    "funktion": "lauf_v3",
    "prioritaet": 1,
@@ -622,7 +622,7 @@
   {
    "id": "I-046",
    "abteilung": "Information",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.pareto_schuss",
    "funktion": "lauf",
    "prioritaet": 1,
