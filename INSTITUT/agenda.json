@@ -698,7 +698,7 @@
   {
    "id": "I-045-v3",
    "abteilung": "Struktur",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.struktur_sprache",
    "funktion": "lauf_v3",
    "prioritaet": 2,
@@ -706,7 +706,8 @@
    "notiz": "Vorregistrierung LABORBUCH.md 22.10.2026 (I-045-v3). Seeds 2600-2607 (Messung), 2608-2609 (NK), Tuning 2698 (Lernrate je Arm und d bei T=4000, gilt fuer alle T). 196 Aufgaben, laengste d=512/T=16000 (ca. 4,6 h bei 1,0 / 6,0 h bei 1,3 Aufschlag). Rechnen auf MPCDF Raven (bis 72 Prozesse, je 1 Thread, 24-h-Limit): Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-045-v3.json, Checkpoint in der Aufgabe alle 2000 Schritte in ergebnisse/_ckpt_I-045-v3/. Schaetzung ca. 340 Kernstunden, ca. 9 h Wandzeit bei 72 Prozessen. Freigabe Malte 22.10. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v3.",
    "folgen": {},
    "wartet_auf": "Lauf auf MPCDF Raven",
-   "ort": "MPCDF Raven"
+   "ort": "MPCDF Raven",
+   "ergebnis": "Raven 26.10.: NK bestanden; H1a H0 (D_z2 besser, d=256, -0,106 bpc); H1b H0 (d=512, -0,024 bpc); H2 WAECHST (+0,073 bpc, p 8e-05). Siehe LABORBUCH 26.10."
   },
   {
    "id": "I-045-v4",
