@@ -1577,3 +1577,19 @@ Anlass: I-045-v2 fand eine Wechselwirkung Struktur × Quadrat (Sz besser als D_z
 - **Vortest bestanden** (Form, Kausalität, Köpfe d/64, FFN-Parameter dicht 4·(8d² + 5d) und Sz 4·21d bei beiden d, Aktivierungen, Trainierbarkeit, Divergenz-Pfad, Aufgabenzahl/Reihenfolge, Wiederaufnahme je Aufgabe, Checkpoint-in-Aufgabe mit exakt gleichem Ergebnis, fremder Checkpoint wird ignoriert, Tuning-Wiederaufnahme, **jeder Urteilszweig erzwungen**: H1a/H1b SZ_BESSER, H0, HU; H2 SCHRUMPFT, WAECHST, HU; NK, Divergenz, Kollaps, fehlende Zellen). **Rauchtest nur auf Tuning-Seed 2698** (kleine Daten, T = 10/20/40, Checkpoint alle 15 Schritte, 1 Prozess, `nice -n 19`; nur Pipeline geprüft), Ergebnis verworfen.
 - **Status:** `agenda.json` „offen, wartet auf Lauf (MPCDF Raven)“.
 - **Start (auf Raven):** `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v3` (bei Abbruch dasselbe Kommando erneut; `ergebnisse/` samt `_zwischen_*` und `_ckpt_*` vorher per `MPI/uebertragen.sh hin` hochladen). Zwischenstände committen.
+
+## 26.10.2026 – I-045-v3 ERGEBNIS (Skalierung Struktur × Quadrat im Sprachmodell, Seeds 2600–2607)
+Gerechnet auf MPCDF Raven (Job 31514726, 1 Knoten, 8 h 29 min, 52 GB). Rohdaten `ergebnisse/I-045-v3__20261026_052958.json` (liegt auf Raven, Übertrag ins Repo steht aus). NK bestanden (4,745 bpc, Unigramm 4,743).
+| d | T | Sz | D_z2 | D_gelu | D_relu2 |
+|---|---|---|---|---|---|
+| 256 | 1000 | **3,404** | 3,471 | 3,516 | 3,482 |
+| 256 | 4000 | 2,558 | **2,507** | 2,625 | 2,541 |
+| 256 | 16000 | 2,209 | 2,103 | 2,116 | **2,096** |
+| 512 | 1000 | 3,482 | **3,140** | 3,328 | 3,175 |
+| 512 | 4000 | 2,593 | **2,217** | 2,298 | 2,239 |
+| 512 | 16000 | 2,177 | 2,153 | **2,106** | 2,113 |
+- **H1a H0:** bei d=256, T=16000 ist D_z2 sicher besser als Sz (−0,106 bpc [−0,111; −0,101]). **H1b H0:** bei d=512 ebenso (−0,024 bpc [−0,030; −0,018]).
+- **H2 WAECHST** (zweiseitig, p = 8e-05): Der Vorsprung von D_z2 gegenüber Sz wächst von T=1000 zu T=16000 um +0,073 bpc. Die vorab notierte Erwartung (Vorsprung schrumpft, Sz bleibt gleichwertig) trat nicht ein; Sz wurde überholt.
+- **Deutung:** Der I-045-v2-Befund (Sz besser als dicht) ist wie bei I-044-v3 ein **Effekt des knappen Trainingsbudgets** (1000 Schritte, d=256). Mit genug Training gewinnen die dichten Arme. Schon bei d=512 und nur 1000 Schritten ist Sz am schlechtesten. Bei d=512, T=16000 liegt Sz nur 0,07 bpc hinter dem besten Arm (D_gelu) bei deutlich weniger FFN-Parametern: Effizienz bleibt als beschreibende Aussage, ein Genauigkeitsvorteil nicht.
+- **Folge für die Kernaussage:** „Struktur + Born-Quadrat schlägt dicht im Sprachmodell“ gilt nur bei sehr knappem Training. Ehrlich: kompakter, aber nicht besser. Konsistent mit I-044-v3. Wirkung klassisch (I-038).
+- Vorbehalt: Lernrate je (Arm, d) nur bei T=4000 gesucht und für alle T übernommen.
