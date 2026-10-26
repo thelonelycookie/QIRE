@@ -31,7 +31,9 @@ case "$ART" in
         [ -n "${QIRE_KERNE:-}" ] && SB+=(--cpus-per-task="$QIRE_KERNE")
         [ -n "${QIRE_SPEICHER:-}" ] && SB+=(--mem="$QIRE_SPEICHER")
         [ -n "${QIRE_ZEIT:-}" ] && SB+=(--time="$QIRE_ZEIT")
-        SKRIPT="MPI/slurm/cpu_lauf.sbatch" ;;
+        SKRIPT="MPI/slurm/cpu_lauf.sbatch"
+        # Lauf-ID muss in der Agenda stehen (sonst ist der Code veraltet, z. B. git pull an lokalen Aenderungen gescheitert)
+        grep -q "\"${REST[0]}\"" INSTITUT/agenda.json || { echo "FEHLER: ${REST[0]} fehlt in INSTITUT/agenda.json. Erst 'git stash && git pull'." >&2; exit 2; } ;;
     test)
         [ -n "${SLURM_PARTITION_CPU:-}" ] && SB+=(--partition="$SLURM_PARTITION_CPU")
         SKRIPT="MPI/slurm/erster_test.sbatch" ;;
@@ -44,6 +46,11 @@ case "$ART" in
     *) echo "Unbekannte Art: $ART" >&2; exit 2 ;;
 esac
 [ -n "${SLURM_ACCOUNT:-}" ] && SB+=(--account="$SLURM_ACCOUNT")
+# Code aktuell? (nur Warnung; Rechenknoten brauchen das nicht)
+if [ "$TROCKEN" = 0 ] && git fetch -q origin main 2>/dev/null; then
+    HINTER=$(git rev-list --count HEAD..origin/main 2>/dev/null || echo 0)
+    [ "$HINTER" -gt 0 ] && echo "WARNUNG: lokaler Code liegt $HINTER Commit(s) hinter origin/main. 'git stash && git pull' ausfuehren?" >&2
+fi
 VORHER=""
 for i in $(seq 1 "$KETTE"); do
     BEF=("${SB[@]}")
