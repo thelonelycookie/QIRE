@@ -926,6 +926,19 @@
    "folgen": {},
    "wartet_auf": "Lauf auf MPCDF Raven",
    "ort": "MPCDF Raven"
+  },
+  {
+   "id": "I-045-v5",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_sprache",
+   "funktion": "lauf_v5",
+   "prioritaet": 2,
+   "frage": "Nachpruefung I-045-v3/v4: Faktoren Datenmenge (voll vs. Haelfte), T in {4000, 16000}, d in {256, 512}, Lernrate je (Arm, d, T) neu. Arme Sz, Df_z2 (Matmul-FLOP-gleich, h=388/580), Di_z2 (ideal gleiche Operationen, h=42/46), Dk_z2 (parametergleich), D_gelu (volle Breite). H1a/b Sz < Di_z2 (T=16000, voll); H2a/b Vorsprung der schmalen dichten FFN (D_gelu - Df_z2) bleibt oder verschwindet (Holm ueber H1a-H2b); H3 Ueberanpassungsluecke, H4 Wechselwirkung mit der Datenmenge (nicht in Holm). Train- und Test-bpc, beide FLOP-Zaehlungen.",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (Entwurf INSTITUT/vorreg_entwurf/I-045-v5.md). Seeds 2840-2847 (Messung), 2848-2849 (NK), Tuning 2891. 324 Aufgaben (320 Mess + 4 NK), Tuning 20 Schluessel (Gitter 1e-4/3e-4/9e-4, hoechstens 2 Runden). Laengste Aufgabe D_gelu d=512 T=16000 (ca. 4,6 h bei 1,0 / 6,0 h bei 1,3 Aufschlag). Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit): Wiederaufnahme in ergebnisse/_zwischen_I-045-v5.json, Checkpoint alle 2000 Schritte in ergebnisse/_ckpt_I-045-v5/. Schaetzung ca. 606 Kernstunden, ca. 19 h Wandzeit (Aufschlag 1,3; bei 1,5 ca. 22 h, dann ggf. zweiter Job mit demselben Kommando). Wartet auf Maltes Freigabe. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v5.",
+   "folgen": {},
+   "wartet_auf": "malte",
+   "ort": "MPCDF Raven"
   }
  ]
 }
