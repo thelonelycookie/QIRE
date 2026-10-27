@@ -473,10 +473,342 @@ def lauf_v3(schnell=False, prozesse=None, zwischen=None, **_):
     return e
 
 
+# ================================================================== I-044-v4: Epochenreihe mit Lernratensuche je Epochenzahl und Augmentierung
+# (vorregistriert 27.10.2026, vor jeder Zahl; Rechnen auf MPCDF Raven)
+# Anlass: I-044-v3 (Ks verliert bei 24 Epochen gegen Klin) hatte zwei Vorbehalte: (1) Lernraten aus I-044-v2 übernommen, nicht je
+# Epochenzahl gesucht; (2) Abfall ALLER Arme von 12 auf 24 Epochen (Überanpassung, keine Augmentierung). Beides wird geschlossen.
+# Arme Ks, Klin, Kklein (wie v3). Epochen 4, 12, 24, 48. Lernrate je (Arm, Epochenzahl) auf dem Tuning-Seed 2399
+# (gittersuche_stabil, Gitter 1e-3/3e-3/1e-2, Faktor 3, beidseitig verlängerbar, Validierung = letzte 10 % Training, Augmentierung
+# im Training wie in der Messung, nie in der Validierung). Standard-Augmentierung CIFAR: zufälliger Ausschnitt 32 nach Auffüllen mit
+# 4 Pixeln (Null im standardisierten Raum = Mittelwertfarbe) + horizontales Spiegeln (p = 0,5), für alle Arme gleich: derselbe
+# Augmentierungsstrom je Seed und Epochenzahl (eigener Generator seed + 9, unabhängig von Arm, Rate und Reihenfolge der Bilder).
+# AUSWAHL der Epochenzahl je Arm: die Epochenzahl mit der höchsten Validierungsgenauigkeit (bei der gewählten Rate, Tuning-Seed),
+# Gleichstand -> kleinere Epochenzahl. Sie fällt im Tuning, VOR jeder Test-Messung, und steht in der Zwischendatei fest.
+# Seeds 2710-2719 (10, frisch), Tuning 2399. NK: Ks mit permutierten Labels, 4 Epochen, mit Augmentierung, Rate Ks@4.
+# Hypothesen (Holm über H1, H2; gepaarter einseitiger t, n = 10; Urteile STRUKTUR_HAELT | H0 | HU):
+#   H1 Ks - Klin > 0, jeder Arm bei SEINER gewählten Epochenzahl     H2 Ks - Kklein > 0, ebenso
+#   H3 (nicht in Holm, zweiseitig, alpha 0,05) Trend (Ks - Klin)@48 - (Ks - Klin)@4 (SCHRUMPFT | WAECHST | HU)
+#   B: alle Mittel je (Arm, Epochenzahl), Ks - Klin und Ks - Kklein je Epochenzahl, gewählte Epochenzahlen und Raten.
+KARTE_V4 = "I-044-v4"
+SEEDS_V4 = tuple(range(2710, 2720))
+ARME_V4 = ("Ks", "Klin", "Kklein")
+EPOCHEN_V4 = (4, 12, 24, 48)
+NK_EPOCHEN_V4 = 4
+PAD = 4
+AUG_OFFSET = 9
+KOSTEN_V4 = {"Ks": 1.0, "Klin": 0.9, "Kklein": 0.9}      # grobe relative Kosten je Epoche (nur Sortierung)
+HYPOTHESEN_V4 = {
+    "H1": "Ks - Klin > 0, jeder Arm bei seiner auf Validierung gewählten Epochenzahl (einseitig gepaart t, Holm über H1, H2). STRUKTUR_HAELT | H0 | HU.",
+    "H2": "Ks - Kklein > 0, ebenso. STRUKTUR_HAELT | H0 | HU.",
+    "H3": "Trend (Ks - Klin)(48) - (Ks - Klin)(4), zweiseitig, nicht in Holm. SCHRUMPFT | WAECHST | HU.",
+    "NK": f"Ks permutiert (4 Epochen, mit Augmentierung), Mittel in {NK_BAND}. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+}
+
+
+def _augmentiere(x, ga, pad=PAD):
+    """Standard-CIFAR-Augmentierung für einen Stapel x (B, 3072, standardisiert): zufälliger Ausschnitt nach Null-Auffüllung + Spiegeln.
+    Zufall NUR aus dem Generator ga (deterministisch je Seed)."""
+    b = x.shape[0]
+    off = torch.randint(0, 2 * pad + 1, (b, 2), generator=ga)
+    flip = torch.rand(b, generator=ga) < 0.5
+    return _ausschnitt(x, off[:, 0], off[:, 1], flip, pad)
+
+
+def _ausschnitt(x, oy, ox, flip, pad=PAD):
+    b = x.shape[0]
+    xp = F.pad(x.reshape(b, 3, 32, 32), (pad, pad, pad, pad))
+    r = torch.arange(32)
+    zeilen = oy[:, None] + r
+    spalten = torch.where(flip[:, None], ox[:, None] + 31 - r, ox[:, None] + r)
+    out = xp[torch.arange(b)[:, None, None, None], torch.arange(3)[None, :, None, None], zeilen[:, None, :, None], spalten[:, None, None, :]]
+    return out.reshape(b, 3072)
+
+
+def trainiere_v4(arm, lr, seed, epochen, klein=False, val=False, permutiert=False):
+    """Wie trainiere (I-044-v2), aber MIT Augmentierung im Training. Test/Validierung ohne Augmentierung."""
+    torch.set_num_threads(1)
+    xtr, ytr, xte, yte = daten("cifar10", klein)
+    if val:
+        nv = len(ytr) // 10
+        xtr, ytr, xte, yte = xtr[:-nv], ytr[:-nv], xtr[-nv:], ytr[-nv:]
+    g = torch.Generator().manual_seed(seed + 5)
+    ga = torch.Generator().manual_seed(seed + AUG_OFFSET)
+    if permutiert:
+        ytr = ytr[torch.randperm(len(ytr), generator=torch.Generator().manual_seed(seed + 5 + 100 * ord(arm[0]) + ord(arm[-1])))]
+    torch.manual_seed(seed)
+    netz = KopfNetz(arm, seed)
+    ps = [p for p in netz.parameters() if p.requires_grad]
+    opt = torch.optim.Adam(ps, lr=lr)
+    n = len(ytr)
+    sched = torch.optim.lr_scheduler.CosineAnnealingLR(opt, epochen * -(-n // st.BATCH))
+    netz.train()
+    for _ in range(epochen):
+        perm = torch.randperm(n, generator=g)
+        for i in range(0, n, st.BATCH):
+            j = perm[i:i + st.BATCH]
+            l = F.cross_entropy(netz(_augmentiere(xtr[j], ga)), ytr[j])
+            if not torch.isfinite(l):
+                return {"acc": 0.1, "instabil": True}
+            opt.zero_grad(set_to_none=True)
+            l.backward()
+            opt.step()
+            sched.step()
+    netz.eval()
+    with torch.no_grad():
+        richtig = sum(int((netz(xte[i:i + 1000]).argmax(1) == yte[i:i + 1000]).sum()) for i in range(0, len(yte), 1000))
+    return {"acc": richtig / len(yte), "instabil": False}
+
+
+def _arbeiter_v4(a):
+    teil, arm, s, lr, ep, klein = a
+    t0 = time.time()
+    r = trainiere_v4(arm, lr, s, ep, klein=klein, val=(teil == "tune"), permutiert=(teil == "nk"))
+    return _schl_v4(a), {"teil": teil, "arm": arm, "seed": s, "lr": lr, "epochen": ep, "acc": r["acc"], "instabil": r["instabil"],
+                         "sekunden": time.time() - t0}
+
+
+def _schl_v4(a):
+    return f"einheit|{a[0]}|{a[1]}|{a[4]}|{a[2]}|{a[3]!r}"
+
+
+def tuning_v4(eps, klein, tseed, pfad, kennung, prozesse=None, fn=_arbeiter_v4):
+    """Rate je (Arm, Epochenzahl) auf dem Tuning-Seed; jede einzelne Rechnung steht in der Zwischendatei (Wiederaufnahme je Aufgabe).
+    Rückgabe: (info, auswahl). auswahl = {'epochen': {arm: gewählte Epochenzahl (Etikett)}, 'val': {arm: {ep: Validierungsgenauigkeit}}}."""
+    from abteilungen.struktur_gross import _rechne
+    etikett = dict(zip(EPOCHEN_V4, eps))
+
+    def aufgaben_fuer(k, lr):
+        return [(k, tseed, lr)]
+
+    def auswerten(aufg):
+        a2 = [("tune", k.split("@")[0], s, lr, etikett[int(k.split("@")[1])], klein) for k, s, lr in aufg]
+        a2.sort(key=lambda a: -a[4] * KOSTEN_V4[a[1]])
+        zeilen = _rechne(a2, pfad, kennung, fn=fn, schluessel=_schl_v4, prozesse=prozesse)
+        return [zeilen[_schl_v4(("tune", k.split("@")[0], s, lr, etikett[int(k.split("@")[1])], klein))] for k, s, lr in aufg]
+
+    schl = [f"{a}@{e}" for a in ARME_V4 for e in EPOCHEN_V4]
+    info, _ = gittersuche_stabil(schl, aufgaben_fuer, auswerten, gitter=st.LR_GITTER, faktor=st.LR_FAKTOR, kollaps=KOLLAPS)
+    res = {k: {"lr": v["lr"], "am_rand": v["am_rand"], "abgestuft": v["abgestuft"], "runden": v["runden"],
+               "val": v["gitter"][str(v["lr"])]["mittel"], "gitter": {lr: g["je_seed"][0] for lr, g in v["gitter"].items()}}
+           for k, v in info.items()}
+    return res, auswahl_epochen(res)
+
+
+def auswahl_epochen(res):
+    """Gewählte Epochenzahl je Arm: höchste Validierungsgenauigkeit bei der gewählten Rate, Gleichstand -> kleinere Epochenzahl."""
+    val = {a: {e: res[f"{a}@{e}"]["val"] for e in EPOCHEN_V4} for a in ARME_V4}
+    return {"epochen": {a: max(EPOCHEN_V4, key=lambda e: (round(val[a][e], 12), -e)) for a in ARME_V4}, "val": val}
+
+
+def auswertung_v4(zeilen: list, auswahl: dict) -> dict:
+    acc = {}
+    for z in zeilen:
+        if z["teil"] != "tune":
+            acc.setdefault((z["teil"], z["arm"]), {})[z["seed"]] = z["acc"]
+    seeds = sorted({z["seed"] for z in zeilen if z["teil"] not in ("nk", "tune")})
+    best = auswahl["epochen"]
+    r = {"arme": {}, "kollaps": {}, "diff": {}, "p_holm": {}, "negativ": {}, "auswahl": best}
+    zl = {}
+    for ep in EPOCHEN_V4:
+        t = f"e{ep}"
+        zl[ep] = [{"seed": s, **{a: acc[(t, a)][s] for a in ARME_V4 if (t, a) in acc and s in acc[(t, a)]}} for s in seeds]
+        for a in ARME_V4:
+            if zl[ep] and all(a in z for z in zl[ep]):
+                r["arme"][f"{a}@{ep}"] = zusammenfassung(_arr(zl[ep], a))
+                r["kollaps"][f"{a}@{ep}"] = kollaps_seeds(zl[ep], a)
+    perm = [v for (t, a), d in acc.items() if t == "nk" for v in d.values()]
+    r["negativ"] = {"mittel": float(np.mean(perm)), "n": len(perm)} if perm else {}
+    ok = lambda ep, *a: bool(zl[ep]) and all(all(x in z for x in a) for z in zl[ep])
+    v = lambda a, ep: _arr(zl[ep], a)
+    for h, g in (("H1", "Klin"), ("H2", "Kklein")):
+        if ok(best["Ks"], "Ks") and ok(best[g], g):
+            r["diff"][h] = _stat(v("Ks", best["Ks"]) - v(g, best[g]))
+    if ok(48, "Ks", "Klin") and ok(4, "Ks", "Klin"):
+        r["diff"]["H3"] = _stat((v("Ks", 48) - v("Klin", 48)) - (v("Ks", 4) - v("Klin", 4)))
+    for ep in EPOCHEN_V4:
+        for x, y in (("Ks", "Klin"), ("Ks", "Kklein"), ("Kklein", "Klin")):
+            if ok(ep, x, y):
+                r.setdefault("beschreibend", {})[f"{x} - {y} @{ep}"] = _stat(v(x, ep) - v(y, ep))
+    prim = {h: r["diff"][h].get("p_gr", 1.0) for h in ("H1", "H2") if h in r["diff"]}
+    if prim:
+        r["p_holm"] = holm(prim)
+    return r
+
+
+def urteil_v4(r: dict) -> dict:
+    nk = _nk(r)
+    u = {"NK": f"{nk} (Mittel permutierte Labels Ks: {r['negativ'].get('mittel', float('nan')):.3f}; Band {NK_BAND})"}
+    b = r["auswahl"]
+    for h, g in (("H1", "Klin"), ("H2", "Kklein")):
+        arme = (f"Ks@{b['Ks']}", f"{g}@{b[g]}")
+        u[h] = _urteil(r, nk, h, arme, "STRUKTUR_HAELT") if h in r["diff"] else "HU (Arme fehlen oder zu wenige Seeds)"
+    if "H3" not in r["diff"] or "mittel_pp" not in r["diff"]["H3"]:
+        u["H3"] = "HU (Arme fehlen oder zu wenige Seeds)"
+    elif nk != "BESTANDEN":
+        u["H3"] = "HU (Negativkontrolle durchgefallen)"
+    else:
+        x = r["diff"]["H3"]
+        z = f"d {_f(x['mittel_pp'])} pp, 90-%-KI [{_f(x['ki_pp'][0])}; {_f(x['ki_pp'][1])}], n {x['n']}, p_zwei {x['p_zwei']:.3g}"
+        u["H3"] = (f"SCHRUMPFT ({z})" if x["mittel_pp"] < 0 else f"WAECHST ({z})") if x["p_zwei"] < ALPHA else f"HU ({z})"
+    g = lambda k: f"{r['arme'][k]['mittel'] * 100:.2f}".replace(".", ",") if k in r["arme"] else "n/a"
+    u["B"] = ("beschreibend: gewählte Epochenzahl " + ", ".join(f"{a} {b[a]}" for a in ARME_V4) + "; "
+              + "; ".join(f"{ep} Ep.: " + ", ".join(f"{a} {g(f'{a}@{ep}')}" for a in ARME_V4) for ep in EPOCHEN_V4))
+    return u
+
+
+def lauf_v4(schnell=False, prozesse=None, zwischen=None, **_):
+    """Rauchtest (schnell=True): NUR Tuning-Seed, kleine Daten, Epochen 1-4; Ergebnis verwerfen (eigene Zwischendatei -schnell)."""
+    from abteilungen.struktur_gross import _rechne
+    if schnell:
+        seeds, klein, eps, epnk = (TUNING_SEED,), True, (1, 2, 3, 4), 1
+    else:
+        seeds, klein, eps, epnk = SEEDS_V4, False, EPOCHEN_V4, NK_EPOCHEN_V4
+        if set(seeds) & (_BELEGT | set(SEEDS) | set(SEEDS_V3)):
+            raise ValueError("Seeds nicht frisch")
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_V4}{'-schnell' if schnell else ''}.json"
+    kennung = {"karte": KARTE_V4, "version": 1, "seeds": list(seeds), "epochen": list(eps), "nk": epnk, "klein": klein,
+               "lr_gitter": list(st.LR_GITTER), "tuning_seed": TUNING_SEED, "pad": PAD}
+    t0 = time.time()
+    from abteilungen.struktur_gross import _lade_zwischen, _schreibe_zwischen
+    # Tuning: jede Rechnung in der Zwischendatei (Wiederaufnahme je Aufgabe); Rate und Epochenauswahl danach fest unter "auswahl|..."
+    tun, auswahl = tuning_v4(eps, klein, TUNING_SEED, pfad, kennung, prozesse=prozesse)
+    z = _lade_zwischen(pfad, kennung)
+    if "tuning_fest" not in z:
+        z["tuning_fest"] = {"tuning": tun, "auswahl": auswahl}
+        _schreibe_zwischen(pfad, kennung, z)
+    tun, auswahl = z["tuning_fest"]["tuning"], z["tuning_fest"]["auswahl"]
+    lr = {k: v["lr"] for k, v in tun.items()}
+    etikett = dict(zip(EPOCHEN_V4, eps))
+    aufg = [(f"e{ev}", a, s, lr[f"{a}@{ev}"], etikett[ev], klein) for ev in EPOCHEN_V4 for a in ARME_V4 for s in seeds]
+    aufg += [("nk", "Ks", s, lr[f"Ks@{NK_EPOCHEN_V4}"], epnk, klein) for s in seeds]
+    aufg.sort(key=lambda a: -a[4] * KOSTEN_V4[a[1]])           # lange Aufgaben zuerst
+    alle = _rechne(aufg, pfad, kennung, fn=_arbeiter_v4, schluessel=_schl_v4, prozesse=prozesse)
+    zeilen = [v for k, v in alle.items() if k.startswith("einheit|") and v["teil"] != "tune"]
+    r = auswertung_v4(zeilen, auswahl)
+    e = {"abteilung": "Struktur", "modul": "struktur_kopf_fair", "karte": KARTE_V4, "version": 1, "seeds": list(seeds),
+         "tuning_seed": TUNING_SEED, "lernraten": lr, "tuning": tun, "auswahl": auswahl, "epochen": list(eps),
+         "einstellungen": {"batch": st.BATCH, "pad": PAD, "spiegeln": 0.5, "nk_epochen": epnk},
+         "zwischendatei": str(pfad), "zeilen": zeilen, "sekunden": time.time() - t0, "auswertung": r}
+    e["urteil"] = urteil_v4(r)
+    return e
+
+
+def _synth_v4(rng, sd=0.001, n=10, ks=0.0, kk=0.0, nk=0.10, koll=None):
+    """Synthetische Zeilen. Klin/Kklein: wachsen bis 24 Epochen, dann leicht fallend; Ks = Klin + ks bei 48, Kklein = Klin - 0,002 + kk."""
+    zl = []
+    for i in range(n):
+        gem = rng.normal(0, 0.003)
+        for ep in EPOCHEN_V4:
+            f = {4: 0.0, 12: 0.6, 24: 1.0, 48: 0.9}[ep]
+            klin = 0.74 + 0.02 * f
+            base = {"Klin": klin, "Kklein": klin - 0.002 + kk, "Ks": klin + 0.008 + (ks - 0.008) * (ep - 4) / 44}
+            for a, v in base.items():
+                x = v + gem + rng.normal(0, sd) - (0.2 if koll == (a, ep) and i == 0 else 0)
+                zl.append({"teil": f"e{ep}", "arm": a, "seed": 2710 + i, "acc": x})
+        zl.append({"teil": "nk", "arm": "Ks", "seed": 2710 + i, "acc": nk + rng.normal(0, 0.01)})
+    return zl
+
+
+AUSWAHL_SYNTH = {"epochen": {"Ks": 48, "Klin": 24, "Kklein": 24}, "val": {}}
+
+
+def _vortest_v4() -> bool:
+    import tempfile
+    ok = True
+    rng = np.random.default_rng(444)
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-044-v4): {name}", flush=True)
+            ok = False
+    pruefe("Seeds frisch (10, nicht in v2/v3/Altbestand)", len(SEEDS_V4) == 10 and not (set(SEEDS_V4) & (_BELEGT | set(SEEDS) | set(SEEDS_V3))) and TUNING_SEED not in SEEDS_V4)
+    # ---- Augmentierung
+    x = torch.randn(5, 3072)
+    img = x.reshape(5, 3, 32, 32)
+    nul = torch.full((5,), PAD)
+    aus = _ausschnitt(x, nul, nul, torch.zeros(5, dtype=torch.bool)).reshape(5, 3, 32, 32)
+    pruefe("Ausschnitt ohne Versatz = Identität", torch.equal(aus, img))
+    sp = _ausschnitt(x, nul, nul, torch.ones(5, dtype=torch.bool)).reshape(5, 3, 32, 32)
+    pruefe("Spiegeln = horizontale Umkehr", torch.equal(sp, img.flip(-1)))
+    hoch = _ausschnitt(x, torch.zeros(5, dtype=torch.long), nul, torch.zeros(5, dtype=torch.bool)).reshape(5, 3, 32, 32)
+    pruefe("Versatz nach unten: oben Null, Rest verschoben", bool((hoch[:, :, :PAD] == 0).all()) and torch.equal(hoch[:, :, PAD:], img[:, :, :32 - PAD]))
+    rechts = _ausschnitt(x, nul, torch.full((5,), 2 * PAD), torch.zeros(5, dtype=torch.bool)).reshape(5, 3, 32, 32)
+    pruefe("Versatz nach links: rechts Null", bool((rechts[:, :, :, -PAD:] == 0).all()) and torch.equal(rechts[:, :, :, :32 - PAD], img[:, :, :, PAD:]))
+    g1, g2, g3 = (torch.Generator().manual_seed(s) for s in (2710 + AUG_OFFSET, 2710 + AUG_OFFSET, 2711 + AUG_OFFSET))
+    a1 = [_augmentiere(x, g1) for _ in range(3)]
+    a2 = [_augmentiere(x, g2) for _ in range(3)]
+    a3 = [_augmentiere(x, g3) for _ in range(3)]
+    pruefe("Augmentierung deterministisch je Seed", all(torch.equal(p, q) for p, q in zip(a1, a2)) and not all(torch.equal(p, q) for p, q in zip(a1, a3)))
+    pruefe("Augmentierung verändert Bilder und erhält Form/Betrag", a1[0].shape == x.shape and not torch.equal(a1[0], x)
+           and bool((a1[0].abs().max() <= x.abs().max() + 1e-6)))
+    pruefe("Augmentierungsstrom unabhängig von Arm und Rate (nur Generator seed+9)", "lr" not in _augmentiere.__code__.co_varnames and "arm" not in _augmentiere.__code__.co_varnames)
+    # ---- Tuning (Rate je Epochenzahl), Epochenauswahl, Wiederaufnahme: synthetischer Arbeiter, 1 Prozess
+    aufrufe = []
+
+    def fake(a):
+        teil, arm, s, lr, ep, klein = a
+        aufrufe.append(a)
+        # Optimum der Rate wandert mit der Epochenzahl (3e-3 bei <=12, 1e-3 bei 24, 3e-4 bei 48 -> Gitter muss nach unten wachsen)
+        opt = {4: 3e-3, 12: 3e-3, 24: 1e-3, 48: 3.3333e-4}[{1: 4, 2: 12, 3: 24, 4: 48}[ep]]
+        gipfel = {"Ks": 0.70, "Klin": 0.72, "Kklein": 0.71}[arm] + 0.02 * {1: 0.0, 2: 0.6, 3: 1.0, 4: 1.4}[ep]
+        if arm == "Klin" and ep == 1:
+            gipfel += 0.05          # Klin hat seinen Bestwert bei 48 NICHT: Auswahl muss je Arm verschieden ausfallen können
+        acc = gipfel - 0.03 * abs(np.log10(lr / opt))
+        return _schl_v4(a), {"teil": teil, "arm": arm, "seed": s, "lr": lr, "epochen": ep, "acc": float(acc), "instabil": False, "sekunden": 0.0}
+    with tempfile.TemporaryDirectory() as td:
+        pfad = Path(td) / "z.json"
+        kennung = {"karte": "vortest"}
+        tun, aw = tuning_v4((1, 2, 3, 4), True, TUNING_SEED, pfad, kennung, prozesse=1, fn=fake)
+        n1 = len(aufrufe)
+        pruefe("Rate je (Arm, Epochenzahl) verschieden und Gitter wächst nach unten",
+               all(abs(tun[f"{a}@4"]["lr"] - 3e-3) < 1e-9 for a in ARME_V4) and all(tun[f"{a}@48"]["lr"] < 1e-3 for a in ARME_V4)
+               and all(tun[f"{a}@24"]["lr"] < tun[f"{a}@12"]["lr"] + 1e-12 for a in ARME_V4))
+        pruefe("Epochenauswahl: Ks/Kklein 48, Klin 4 (je Arm eigene Wahl)", aw["epochen"] == {"Ks": 48, "Klin": 4, "Kklein": 48})
+        tun2, aw2 = tuning_v4((1, 2, 3, 4), True, TUNING_SEED, pfad, kennung, prozesse=1, fn=fake)
+        pruefe("Wiederaufnahme: zweiter Tuning-Lauf rechnet nichts neu und liefert dasselbe", len(aufrufe) == n1 and tun2 == tun and aw2 == aw)
+        # Wiederaufnahme mitten im Lauf: Zwischendatei mit der Hälfte der Aufgaben
+        from abteilungen.struktur_gross import _rechne
+        aufg = [(f"e{ev}", "Ks", s, 3e-3, ev, True) for ev in (1, 2) for s in (1, 2, 3)]
+        p2 = Path(td) / "w.json"
+        aufrufe.clear()
+        _rechne(aufg[:3], p2, kennung, fn=fake, schluessel=_schl_v4, prozesse=1)
+        aufrufe.clear()
+        _rechne(aufg, p2, kennung, fn=fake, schluessel=_schl_v4, prozesse=1)
+        pruefe("Wiederaufnahme je Aufgabe (nur 3 offene gerechnet)", len(aufrufe) == 3)
+    # Auswahlregel: Gleichstand -> kleinere Epochenzahl
+    gl = {f"{a}@{e}": {"val": 0.7} for a in ARME_V4 for e in EPOCHEN_V4}
+    pruefe("Gleichstand -> kleinste Epochenzahl", auswahl_epochen(gl)["epochen"] == {a: 4 for a in ARME_V4})
+    # ---- Urteilszweige
+    u = lambda aw=AUSWAHL_SYNTH, **kw: urteil_v4(auswertung_v4(_synth_v4(rng, **kw), aw))
+    a = u(ks=0.012)                                    # Ks vorn
+    pruefe("Haelt", a["H1"].startswith("STRUKTUR_HAELT") and a["H2"].startswith("STRUKTUR_HAELT") and a["NK"].startswith("BESTANDEN"))
+    b = u(ks=-0.012)
+    pruefe("H0", b["H1"].startswith("H0") and b["H2"].startswith("H0"))
+    c = urteil_v4(auswertung_v4(_synth_v4(np.random.default_rng(5), sd=0.05, ks=0.001), AUSWAHL_SYNTH))
+    pruefe("HU", c["H1"].startswith("HU") and c["H2"].startswith("HU") and c["H3"].startswith("HU"))
+    pruefe("SCHRUMPFT", u(ks=0.002)["H3"].startswith("SCHRUMPFT"))
+    pruefe("WAECHST", u(ks=0.02)["H3"].startswith("WAECHST"))
+    n = u(nk=0.3)
+    pruefe("NK fällt -> alles HU", n["NK"].startswith("DURCHGEFALLEN") and all(n[h].startswith("HU (Negativkontrolle") for h in ("H1", "H2", "H3")))
+    pruefe("Arm fehlt", urteil_v4(auswertung_v4([z for z in _synth_v4(rng) if not (z["arm"] == "Kklein" and z["teil"] == "e24")], AUSWAHL_SYNTH))["H2"].startswith("HU (Arme fehlen"))
+    k = urteil_v4(auswertung_v4(_synth_v4(rng, ks=0.012, koll=("Ks", 48)), AUSWAHL_SYNTH))
+    pruefe("Kollaps im gewählten Arm -> HU", k["H1"].startswith("HU (Instabilitaet") and k["H2"].startswith("HU (Instabilitaet"))
+    k2 = urteil_v4(auswertung_v4(_synth_v4(rng, ks=0.012, koll=("Ks", 4)), AUSWAHL_SYNTH))
+    pruefe("Kollaps in nicht gewählter Epochenzahl ändert H1 nicht", k2["H1"].startswith("STRUKTUR_HAELT"))
+    # H1 nutzt WIRKLICH die gewählten Epochenzahlen (Ks@24 gegen Klin@4: Klin@4 schlechter -> hält; Ks@48 gegen Klin@24 -> hält nicht)
+    zl = _synth_v4(rng, ks=-0.012)
+    r1 = auswertung_v4(zl, {"epochen": {"Ks": 48, "Klin": 24, "Kklein": 24}, "val": {}})
+    r2 = auswertung_v4(zl, {"epochen": {"Ks": 4, "Klin": 4, "Kklein": 4}, "val": {}})
+    pruefe("H1 folgt der Auswahl", r1["diff"]["H1"]["mittel_pp"] < -1.0 and r2["diff"]["H1"]["mittel_pp"] > 0.5)
+    return ok
+
+
 _vortest_v2 = vortest
 
 
-def vortest() -> bool:          # noqa: F811  (deckt I-044-v2 und I-044-v3 ab)
+def vortest() -> bool:          # noqa: F811  (deckt I-044-v2, -v3 und -v4 ab)
     a = _vortest_v2()
     b = _vortest_v3()
-    return a and b
+    c = _vortest_v4()
+    return a and b and c
