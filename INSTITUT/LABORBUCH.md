@@ -1579,7 +1579,7 @@ Anlass: I-045-v2 fand eine Wechselwirkung Struktur × Quadrat (Sz besser als D_z
 - **Start (auf Raven):** `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v3` (bei Abbruch dasselbe Kommando erneut; `ergebnisse/` samt `_zwischen_*` und `_ckpt_*` vorher per `MPI/uebertragen.sh hin` hochladen). Zwischenstände committen.
 
 ## 26.10.2026 – I-045-v3 ERGEBNIS (Skalierung Struktur × Quadrat im Sprachmodell, Seeds 2600–2607)
-Gerechnet auf MPCDF Raven (Job 31514726, 1 Knoten, 8 h 29 min, 52 GB). Rohdaten `ergebnisse/I-045-v3__20261026_052958.json` (liegt auf Raven, Übertrag ins Repo steht aus). NK bestanden (4,745 bpc, Unigramm 4,743).
+Gerechnet auf MPCDF Raven (Job 31514726, 1 Knoten, 8 h 29 min, 52 GB). Rohdaten `ergebnisse/I-045-v3__20261026_052958.json`. NK bestanden (4,745 bpc, Unigramm 4,743).
 | d | T | Sz | D_z2 | D_gelu | D_relu2 |
 |---|---|---|---|---|---|
 | 256 | 1000 | **3,404** | 3,471 | 3,516 | 3,482 |
@@ -1679,7 +1679,7 @@ Grund: Eine dichte FFN mit h = 10 (parametergleich zu Sz) ist ein Strohmann. Hau
 - **Status:** `agenda.json` „offen, wartet auf Maltes Freigabe (MPCDF Raven)“. Start: `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v4`.
 
 ## 27.10.2026 – I-045-v4 ERGEBNIS (FLOP-gleich: Struktur gegen schmale dichte und Niedrigrang-FFN, Seeds 2620–2627)
-Gerechnet auf MPCDF Raven (Job 31551007, 8 h 04 min). Rohdaten `ergebnisse/I-045-v4__20261027_033627.json` (auf Raven, Übertrag ins Repo steht aus). NK bestanden (4,744 bpc, Unigramm 4,743).
+Gerechnet auf MPCDF Raven (Job 31551007, 8 h 04 min). Rohdaten `ergebnisse/I-045-v4__20261027_033627.json`. NK bestanden (4,744 bpc, Unigramm 4,743).
 | Arm | FFN-Param. | FFN-FLOPs | T=4000 | T=16000 |
 |---|---|---|---|---|
 | Sz (Fastfood + z²) | 43 k | 4,75 M | 2,595 | 2,178 |
