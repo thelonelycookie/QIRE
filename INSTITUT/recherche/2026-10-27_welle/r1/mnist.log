@@ -1,3 +1,13 @@
 970 {'gross_fp': 0.9857, 'b3': None, 'b2': None, 'zeit': None} 178
 b3 {'roh_clip': (0.9826, None), 'had_clip': (0.9844, None), 'orth_clip': (0.9856, None), 'klein_dicht_fp16': (0.9826, 157), 'niedrigrang_fp16': (0.9812, 62)}
 b2 {'roh_clip': (0.9653, None), 'had_clip': (0.9833, None), 'orth_clip': (0.9828, None), 'klein_dicht_fp16': (0.9788, 111), 'niedrigrang_fp16': (0.9808, 40)}
+971 {'gross_fp': 0.9866, 'b3': None, 'b2': None, 'zeit': None} 151
+b3 {'roh_clip': (0.9848, None), 'had_clip': (0.9867, None), 'orth_clip': (0.9862, None), 'klein_dicht_fp16': (0.9819, 157), 'niedrigrang_fp16': (0.982, 62)}
+b2 {'roh_clip': (0.9705, None), 'had_clip': (0.9839, None), 'orth_clip': (0.9838, None), 'klein_dicht_fp16': (0.9802, 111), 'niedrigrang_fp16': (0.98, 40)}
+972 {'gross_fp': 0.9847, 'b3': None, 'b2': None, 'zeit': None} 159
+b3 {'roh_clip': (0.9806, None), 'had_clip': (0.9833, None), 'orth_clip': (0.9836, None), 'klein_dicht_fp16': (0.9812, 157), 'niedrigrang_fp16': (0.9823, 62)}
+b2 {'roh_clip': (0.9773, None), 'had_clip': (0.9817, None), 'orth_clip': (0.9796, None), 'klein_dicht_fp16': (0.9781, 111), 'niedrigrang_fp16': (0.9786, 40)}
+
+real	8m19.412s
+user	7m31.750s
+sys	0m23.121s

@@ -1,0 +1,7 @@
+mnist 5000 relu H 19 P 5083 F 10108 lr 0.1 42s
+mnist 5000 sq H 19 P 5083 F 10108 lr 0.03 84s
+mnist 5000 sqpaar H 10 P 5250 F 10440 lr 0.1 127s
+mnist 5000 phase H 19 P 5084 F 19836 lr 0.3 173s
+mnist 5000 zufall H 19 P 5083 F 19836 lr 0.03 217s
+mnist 5000 relu_F H 37 P 9889 F 19684 lr 0.01 255s
+mnist 5000 sq_F H 37 P 9889 F 19684 lr 0.03 293s

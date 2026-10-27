@@ -6,3 +6,27 @@ Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pyto
 Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
   return dict(arm=arm, seed=seed, schritte=schritte, lr=lr, val=val, bpc=bpc(netz, va[:32768] if val else te[:32768]), train_bpc_last=float(l) / math.log(2), s_train=tt,
 {"arm": "F3", "seed": 975, "schritte": 190, "lr": 0.003, "val": false, "bpc": 3.713862437464208, "train_bpc_last": 3.77758860724254, "s_train": 42.652098417282104, "param": 660608, "mflops": 1.44256, "us_token": 26.40823925781355}
+/home/user/QIRE/INSTITUT/recherche/2026-10-27_welle/r2/hourglass_lru.py:150: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  return dict(arm=arm, seed=seed, schritte=schritte, lr=lr, val=val, bpc=bpc(netz, va[:32768] if val else te[:32768]), train_bpc_last=float(l) / math.log(2), s_train=tt,
+{"arm": "F6", "seed": 975, "schritte": 190, "lr": 0.003, "val": false, "bpc": 3.9266950792402255, "train_bpc_last": 4.008461901379094, "s_train": 80.49878692626953, "param": 1255424, "mflops": 2.819584, "us_token": 53.99616162110598}
+/home/user/QIRE/INSTITUT/recherche/2026-10-27_welle/r2/hourglass_lru.py:150: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  return dict(arm=arm, seed=seed, schritte=schritte, lr=lr, val=val, bpc=bpc(netz, va[:32768] if val else te[:32768]), train_bpc_last=float(l) / math.log(2), s_train=tt,
+{"arm": "HG", "seed": 975, "schritte": 190, "lr": 0.003, "val": false, "bpc": 3.6561465765320427, "train_bpc_last": 3.7126555255133815, "s_train": 38.36448645591736, "param": 1272192, "mflops": 1.4016, "us_token": 30.484460937507674}
+/home/user/QIRE/INSTITUT/recherche/2026-10-27_welle/r2/hourglass_lru.py:150: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  return dict(arm=arm, seed=seed, schritte=schritte, lr=lr, val=val, bpc=bpc(netz, va[:32768] if val else te[:32768]), train_bpc_last=float(l) / math.log(2), s_train=tt,
+{"arm": "LRU", "seed": 975, "schritte": 190, "lr": 0.003, "val": false, "bpc": 3.443242476641689, "train_bpc_last": 3.5077385409756467, "s_train": 56.36997961997986, "param": 858624, "mflops": 1.8368, "us_token": 36.52093603517814}
+/home/user/QIRE/INSTITUT/recherche/2026-10-27_welle/r2/hourglass_lru.py:150: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  return dict(arm=arm, seed=seed, schritte=schritte, lr=lr, val=val, bpc=bpc(netz, va[:32768] if val else te[:32768]), train_bpc_last=float(l) / math.log(2), s_train=tt,
+{"arm": "HGLRU", "seed": 975, "schritte": 190, "lr": 0.003, "val": false, "bpc": 3.364499058045613, "train_bpc_last": 3.418780514816859, "s_train": 45.32596755027771, "param": 1271936, "mflops": 1.336832, "us_token": 32.59353808593435}
+/home/user/QIRE/INSTITUT/recherche/2026-10-27_welle/r2/hourglass_lru.py:150: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  return dict(arm=arm, seed=seed, schritte=schritte, lr=lr, val=val, bpc=bpc(netz, va[:32768] if val else te[:32768]), train_bpc_last=float(l) / math.log(2), s_train=tt,
+{"arm": "F4", "seed": 976, "schritte": 190, "lr": 0.003, "val": false, "bpc": 3.7645338240157153, "train_bpc_last": 3.8524227301818703, "s_train": 55.334991216659546, "param": 858880, "mflops": 1.901568, "us_token": null}
+/home/user/QIRE/INSTITUT/recherche/2026-10-27_welle/r2/hourglass_lru.py:150: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /__w/pytorch/pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:820.)
+  return dict(arm=arm, seed=seed, schritte=schritte, lr=lr, val=val, bpc=bpc(netz, va[:32768] if val else te[:32768]), train_bpc_last=float(l) / math.log(2), s_train=tt,
+{"arm": "F3", "seed": 976, "schritte": 190, "lr": 0.003, "val": false, "bpc": 3.693547965913374, "train_bpc_last": 3.784257750477698, "s_train": 44.478808879852295, "param": 660608, "mflops": 1.44256, "us_token": null}
