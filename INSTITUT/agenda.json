@@ -633,6 +633,19 @@
    "ort": ""
   },
   {
+   "id": "I-043-1B",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_adapter_1b",
+   "funktion": "lauf",
+   "prioritaet": 2,
+   "frage": "Strukturadapter auf LLaeMmlein-1B gegen LoRA: Ist ein quanten-inspirierter Strukturadapter (Fastfood/Hadamard-Mischung, trainierte Diagonalen, Born-Quadrat z², q_proj/v_proj, 574.464 Parameter) bei GLEICHER Parameterzahl besser als LoRA (r=4, 563.200) beim Feinabstimmen des 1-Mrd.-Modells auf deutschen Text (Wikipedia)? Arme L16 (LoRA r=16, 2,25 Mio, Referenz), L_budget, FF, FF_gelu. H1 FF < L_budget (Test-Verlust), H2 FF < FF_gelu (Born-Quadrat traegt), H3 beschreibend FF vs L16; Holm, gepaart einseitig t, n=5.",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (I-043-1B). Modul gebaut, Vortest (CPU, winziges Llama) bestanden; GPU-Rauchtest steht aus (direktor.py lauf I-043-1B --schnell auf Raven, nur Tuning-Seed 2692). Seeds Messung 2670-2674 (NK auf 2670/2671), Tuning/Rauchtest 2692. Daten: deutsche Wikipedia (wikimedia/wikipedia 20231101.de, CC BY-SA 3.0/GFDL), vorab auf dem Login-Knoten laden: bash MPI/daten_i043.sh. 24,58 Mio Tokens je Lauf (6000 Schritte x 8 x 512). Schaetzung ca. 22 GPU-Stunden (Annahme FF = 60 % des LoRA-Durchsatzes 13.400 Tokens/s), ca. 5-6 h Wandzeit auf 4 A100. Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-043-1B.json, Checkpoint alle 500 Schritte in ergebnisse/_ckpt_I-043-1B/. Start auf Raven (Kette): MPI/slurm/starte.sh gpulauf I-043-1B --kette 3.",
+   "folgen": {},
+   "wartet_auf": "Freigabe Malte 27.10.2026 \"nach Ermessen\" (Start auf Raven durch Malte)",
+   "ort": "MPCDF Raven GPU"
+  },
+  {
    "id": "I-044",
    "abteilung": "Struktur",
    "status": "erledigt",
@@ -750,6 +763,19 @@
    "ort": ""
   },
   {
+   "id": "I-044-v4",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_kopf_fair",
+   "funktion": "lauf_v4",
+   "prioritaet": 1,
+   "frage": "Epochenreihe 4/12/24/48 fuer Ks, Klin, Kklein MIT Lernratensuche je (Arm, Epochenzahl) und Standard-Augmentierung (Crop pad 4 + Spiegeln): schliesst die beiden Vorbehalte von I-044-v3. H1 Ks>Klin und H2 Ks>Kklein je bei der auf Validierung gewaehlten Epochenzahl jedes Arms (Holm, n=10), H3 Trend (Ks-Klin)@48-(Ks-Klin)@4 zweiseitig.",
+   "notiz": "Vorregistrierung LABORBUCH.md (I-044-v4, Ende). Seeds 2710-2719, Tuning 2399 (Ratensuche je Arm und Epochenzahl, Epochenauswahl auf Validierung), NK Ks permutiert 4 Ep. mit Augmentierung. Wiederaufnahme je Aufgabe (auch Tuning) in ergebnisse/_zwischen_I-044-v4.json. Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit; geschaetzt ca. 55 Kernstunden, Wandzeit ca. 3-4 h bei 72 Prozessen). Freigabe Malte 27.10. nach Ermessen. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v4.",
+   "folgen": {},
+   "wartet_auf": "malte",
+   "ort": "MPCDF Raven"
+  },
+  {
    "id": "I-046",
    "abteilung": "Information",
    "status": "erledigt",
@@ -773,6 +799,19 @@
    "notiz": "Vorregistrierung LABORBUCH.md (I-046-v2, Ende). Seeds 2640-2649 (Messung, NK auf denselben Seeds), Tuning 2697. 11 Arme, 400 Adam-Schritte, Wiederaufnahme je Aufgabe (auch Tuning) in ergebnisse/_zwischen_I-046-v2.json. Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit). Wartet auf Maltes Freigabe. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-046-v2.",
    "folgen": {},
    "wartet_auf": "malte",
+   "ort": "MPCDF Raven"
+  },
+  {
+   "id": "I-047",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_tt",
+   "funktion": "lauf",
+   "prioritaet": 2,
+   "frage": "Tensornetz-FFN (MPO/Tensor-Train, Quanten-Vielteilchenphysik) im Sprachmodell bei gleichen FFN-FLOPs: TT_z2 (chi=4, 512=8·8·8, 2048=16·16·8) gegen Df_gelu (dicht h=580, bester v4-Gegner) und Lk_z2 (Rang 116). d=512, T=16000 (Haupt) und 4000. H1 TT_z2 < Df_gelu, H2 TT_z2 < Lk_z2 (Holm, n=8); H3 beschreibend zweiseitig TT_z2 vs TT_gelu (traegt das Born-Quadrat?). Beschreibend: TT_z2_klein (chi=2), Df_z2, Sz.",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (I-047). Seeds 2680-2687 (Messung), 2688-2689 (NK), Tuning 2693 (Lernrate je Arm bei T=4000, gilt fuer alle T). 116 Aufgaben, Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-047.json, Checkpoint alle 2000 Schritte in ergebnisse/_ckpt_I-047/. Freigabe Malte 27.10. nach Ermessen. Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit). Laufzeit und Kernstunden siehe LABORBUCH. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-047.",
+   "folgen": {},
+   "wartet_auf": "Lauf auf MPCDF Raven",
    "ort": "MPCDF Raven"
   },
   {
@@ -861,6 +900,45 @@
    "folgen": {},
    "wartet_auf": "niemand",
    "ort": ""
+  },
+  {
+   "id": "I-049",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.multiskala_lru",
+   "funktion": "lauf",
+   "prioritaet": 2,
+   "frage": "Multiskala (Hourglass, Pooling x4 kausal verschoben) + diagonale komplexe Rekurrenz (LRU) im Byte-Sprachmodell (UD_German-GSD, Kontext 256, d=128) bei gleichen FLOPs: HGLRU gegen flach FLOP-gleich (FF, 3 Lagen d=124). T in {2000, 8000, 16000}, Lernrate je (Arm, T) auf Validierung. H1 V = bpc(FF) - bpc(HGLRU) >= 0,03 bpc bei T=16000 (n=10, einseitig gepaart t); H2 beschreibend zweiseitig: schrumpft der Vorsprung mit T (Fruehregime-Pruefung, V(16000)-V(2000)). Beschreibend: Arme F4, FF4, FP (parametergleich), HG, LRU; FLOPs/Token, Parameter, us/Token.",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (I-049). Seeds 2900-2909 (Messung), 2910-2911 (NK, permutierte Bytes), Tuning/Rauchtest 2990 (Lernrate je Arm und T bei voller Schrittzahl, gittersuche_stabil, hoechstens 3 Runden). 214 Aufgaben (7 Arme x 3 T x 10 Seeds + 4 NK), Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-049.json, Checkpoint alle 2000 Schritte in ergebnisse/_ckpt_I-049/. Freigabe Malte 27.10. (mach alle). Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit); geschaetzt 203 Kernstunden, ca. 8 h Wandzeit bei 72 Prozessen (Aufschlag 1,3). Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-049.",
+   "folgen": {},
+   "wartet_auf": "Lauf auf MPCDF Raven",
+   "ort": "MPCDF Raven"
+  },
+  {
+   "id": "I-048",
+   "abteilung": "Kompression",
+   "status": "offen",
+   "modul": "abteilungen.kompression_bytes",
+   "funktion": "lauf",
+   "prioritaet": 2,
+   "frage": "Kompression bei gleichen Bytes der Linearschichten (MNIST, Fashion-MNIST: MLP 784-512-512-10; Byte-LM d=128, 16000 Schritte): grosses Modell + Hadamard-Rotation + Clip bei 2/3 Bit gegen kleines dichtes fp16 (Form getunt), Niedrigrang fp16 und Entropie-Rang fp16. H1 had2 >= klein + 0,2 pp (Bild) bzw. 0,02 bpc (LM), Holm ueber 3 Datensaetze; H2 had = Zufalls-Orthogonale (TOST ±0,2 pp / ±0,02 bpc, Holm ueber 6 Zellen); H3 Entropie-Rang > gleichmaessiger Rang bei gleichen Parametern (Holm ueber 6 Zellen). n=10. Bytes und MACs werden ausgewiesen (Speicher-, nicht FLOP-Aussage).",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (I-048). Seeds 2800-2809 (Messung), 2810-2811 (NK), Tuning 2890 (Lernrate/Form je Arm auf Validierung bei voller Schrittzahl). 286 Aufgaben in zwei Stufen (Stufe 2 benutzt die Gross-Modelle aus Stufe 1), Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-048.json, Checkpoint im Training alle 1000 (Bild) bzw. 2000 (LM) Schritte in ergebnisse/_ckpt_I-048/. Freigabe Malte 27.10. (mach alle). Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit; geschaetzt 49 Kernstunden, ca. 1,9 h Wandzeit bei Aufschlag 1,3). Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-048.",
+   "folgen": {},
+   "wartet_auf": "Lauf auf MPCDF Raven",
+   "ort": "MPCDF Raven"
+  },
+  {
+   "id": "I-045-v5",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_sprache",
+   "funktion": "lauf_v5",
+   "prioritaet": 2,
+   "frage": "Nachpruefung I-045-v3/v4: Faktoren Datenmenge (voll vs. Haelfte), T in {4000, 16000}, d in {256, 512}, Lernrate je (Arm, d, T) neu. Arme Sz, Df_z2 (Matmul-FLOP-gleich, h=388/580), Di_z2 (ideal gleiche Operationen, h=42/46), Dk_z2 (parametergleich), D_gelu (volle Breite). H1a/b Sz < Di_z2 (T=16000, voll); H2a/b Vorsprung der schmalen dichten FFN (D_gelu - Df_z2) bleibt oder verschwindet (Holm ueber H1a-H2b); H3 Ueberanpassungsluecke, H4 Wechselwirkung mit der Datenmenge (nicht in Holm). Train- und Test-bpc, beide FLOP-Zaehlungen.",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (Entwurf INSTITUT/vorreg_entwurf/I-045-v5.md). Seeds 2840-2847 (Messung), 2848-2849 (NK), Tuning 2891. 324 Aufgaben (320 Mess + 4 NK), Tuning 20 Schluessel (Gitter 1e-4/3e-4/9e-4, hoechstens 2 Runden). Laengste Aufgabe D_gelu d=512 T=16000 (ca. 4,6 h bei 1,0 / 6,0 h bei 1,3 Aufschlag). Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit): Wiederaufnahme in ergebnisse/_zwischen_I-045-v5.json, Checkpoint alle 2000 Schritte in ergebnisse/_ckpt_I-045-v5/. Schaetzung ca. 606 Kernstunden, ca. 19 h Wandzeit (Aufschlag 1,3; bei 1,5 ca. 22 h, dann ggf. zweiter Job mit demselben Kommando). Wartet auf Maltes Freigabe. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v5.",
+   "folgen": {},
+   "wartet_auf": "malte",
+   "ort": "MPCDF Raven"
   }
  ]
 }

@@ -119,6 +119,19 @@ MPI/slurm/starte.sh gpu s3 --trocken ; MPI/slurm/starte.sh gpu s3
 - **Ehrlich in der Arbeit:** „auf QIRE spezialisiertes, feinjustiertes Basismodell (Name, Version)“, nicht „von Grund auf trainiert“ (Plan §7).
 - `qlora_train.py` ist eine **ungetestete Vorlage** (transformers/peft/bitsandbytes-Versionen am Cluster anpassen). Erst mit einem Mini-Datensatz (20 Beispiele, 1 Epoche) trocken fahren.
 
+## 6a. GPU-Institutslauf auf Raven (I-043-1B, Stand 27.10.2026)
+Getestet am 27.10. (`gpu_test.sbatch`): A100-SXM4-40GB, torch 2.14.1+cu126, LLaMmlein_1B offline aus `HF_HOME=/ptmp/$USER/hf`, venv `~/venvs/qire-gpu`, 13.400 Tokens/s (LoRA r=16, Batch 8×512), 10,6 GB. Partition `gpu`, Account `msp_gpu`, `--gres=gpu:a100:N` (bis 4 je Knoten), 24 h.
+```bash
+ssh raven; cd ~/qire && git pull --no-rebase origin main
+bash MPI/daten_i043.sh                                   # einmalig, Login-Knoten (Internet): deutsche Wikipedia -> /ptmp/$USER/i043 (Lizenz CC BY-SA 3.0/GFDL)
+QIRE_ZEIT=01:00:00 MPI/slurm/starte.sh gpulauf I-043-1B --schnell   # Rauchtest NUR Tuning-Seed 2692 (~10-20 min), misst Tokens/s je Arm
+MPI/slurm/starte.sh gpulauf I-043-1B --kette 3           # Volllauf nach Maltes Start-Entscheidung; 4 GPUs, 1 Aufgabe je GPU
+squeue -u $USER ; tail -f logs/qire-gpulauf-<JOBID>.out ; cd INSTITUT && python direktor.py warte I-043-1B --timeout=600
+```
+- `starte.sh gpulauf <ID>`: ganzer Knoten (`QIRE_GPUS`, Standard 4; 18 Kerne und 120 GB je GPU), `SLURM_PARTITION_GPU` / `SLURM_ACCOUNT_GPU` aus `lokal.env` (sonst `gpu` / `msp_gpu` aus der sbatch-Datei); `--kette N` wie bei `cpu`.
+- Wiederaufnahme: jede fertige Aufgabe steht in `INSTITUT/ergebnisse/_zwischen_I-043-1B.json`, innerhalb einer Aufgabe gibt es alle 500 Schritte einen Checkpoint (`_ckpt_I-043-1B/`, nur Adapter + Optimierer, wenige MB, nicht in Git). Nach Zeitlimit/Requeue/Neueinreihen einfach dasselbe Kommando.
+- Danach `MPI/uebertragen.sh zurueck`; Ergebnisdatei und `_zwischen_*` vom PC committen.
+
 ## 7. Fehlerfälle
 | Symptom | Ursache (wahrscheinlich) | Maßnahme |
 |---|---|---|

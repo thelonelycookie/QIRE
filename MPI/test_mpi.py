@@ -77,8 +77,8 @@ def test_letzter_checkpoint(tmp_path):
 @pytest.mark.skipif(not BASH, reason="bash fehlt")
 def test_starte_trocken(tmp_path):
     env = {"PATH": "/usr/bin:/bin", "HOME": str(tmp_path)}
-    r = subprocess.run([BASH, str(MPI / "slurm" / "starte.sh"), "cpu", "I-050", "--schnell", "--kette", "2", "--trocken"],
+    r = subprocess.run([BASH, str(MPI / "slurm" / "starte.sh"), "cpu", "I-045-v3", "--schnell", "--kette", "2", "--trocken"],
                        capture_output=True, text=True, env=env, cwd=str(MPI.parent))
     assert r.returncode == 0, r.stderr
     zeilen = r.stdout.strip().splitlines()
-    assert len(zeilen) == 2 and "cpu_lauf.sbatch I-050 --schnell" in zeilen[0] and "--dependency=afterany:JOB1" in zeilen[1]
+    assert len(zeilen) == 2 and "cpu_lauf.sbatch I-045-v3 --schnell" in zeilen[0] and "--dependency=afterany:JOB1" in zeilen[1]
