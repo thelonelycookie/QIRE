@@ -750,6 +750,19 @@
    "ort": ""
   },
   {
+   "id": "I-044-v4",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_kopf_fair",
+   "funktion": "lauf_v4",
+   "prioritaet": 1,
+   "frage": "Epochenreihe 4/12/24/48 fuer Ks, Klin, Kklein MIT Lernratensuche je (Arm, Epochenzahl) und Standard-Augmentierung (Crop pad 4 + Spiegeln): schliesst die beiden Vorbehalte von I-044-v3. H1 Ks>Klin und H2 Ks>Kklein je bei der auf Validierung gewaehlten Epochenzahl jedes Arms (Holm, n=10), H3 Trend (Ks-Klin)@48-(Ks-Klin)@4 zweiseitig.",
+   "notiz": "Vorregistrierung LABORBUCH.md (I-044-v4, Ende). Seeds 2710-2719, Tuning 2399 (Ratensuche je Arm und Epochenzahl, Epochenauswahl auf Validierung), NK Ks permutiert 4 Ep. mit Augmentierung. Wiederaufnahme je Aufgabe (auch Tuning) in ergebnisse/_zwischen_I-044-v4.json. Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit; geschaetzt ca. 55 Kernstunden, Wandzeit ca. 3-4 h bei 72 Prozessen). Freigabe Malte 27.10. nach Ermessen. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-044-v4.",
+   "folgen": {},
+   "wartet_auf": "malte",
+   "ort": "MPCDF Raven"
+  },
+  {
    "id": "I-046",
    "abteilung": "Information",
    "status": "erledigt",
