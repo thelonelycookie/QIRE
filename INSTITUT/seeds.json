@@ -4,6 +4,7 @@
  "regeln": ["Messung: 0-899 (alt) oder >=2000 mit letzten zwei Ziffern < 90; nie 900-999.", "Tuning/Rauchtest: 900-999 oder >=2000 mit letzten zwei Ziffern >= 90.", "Zwei verschiedene Mess-IDs duerfen keinen Seed auf demselben Datensatz teilen (Ausnahmen unten, mit Grund).", "Rauchtests duerfen keinen Mess-Seed einer anderen ID benutzen.", "Tuning-Seeds duerfen mit Mess-Seeds nie kollidieren; gemeinsame Tuning-Seeds mehrerer IDs sind erlaubt."],
  "eintraege": [
   {"id": "T-ternaer-butterfly", "datensatz": ["mnist"], "zweck": "messung", "seeds": [[2660, 2669]], "modul": "ternaer_butterfly", "notiz": "Messung; Referenzarme (voll, cliff0, ternaer_quad, dicht_quad, identitaet) werden auf denselben Seeds neu gemessen"},
+  {"id": "T-ternaer-butterfly", "datensatz": ["mnist"], "zweck": "messung", "seeds": [[2660, 2669]], "modul": "ternaer_butterfly", "notiz": "Messung; Referenzarme (voll, cliff0, ternaer_quad, dicht_quad, identitaet) werden auf denselben Seeds neu gemessen"},
   {"id": "C-clifford", "datensatz": ["ziffern"], "zweck": "messung", "seeds": [[0, 9]], "modul": "clifford", "notiz": "v1, Design fehlerhaft (FEHLERBUCH 24.09.); Seeds 0-9 durch C-diagnose-kopf (explorativ) verbraucht"},
   {"id": "C-clifford-v2", "datensatz": ["ziffern"], "zweck": "messung", "seeds": [[10, 19]], "modul": "clifford", "notiz": ""},
   {"id": "C-mnist", "datensatz": ["mnist"], "zweck": "messung", "seeds": [[10, 19]], "modul": "clifford", "notiz": "gleiche Seed-Zahlen wie C-clifford-v2, aber anderer Datensatz"},
@@ -62,6 +63,7 @@
   {"id": "I-046", "datensatz": ["mnist"], "zweck": "messung", "seeds": [[2460, 2469]], "modul": "pareto_schuss", "notiz": ""},
   {"id": "I-046-v2", "datensatz": ["mnist"], "zweck": "messung", "seeds": [[2640, 2649]], "modul": "pareto_schuss_v2", "notiz": "Messung; die Negativkontrollen nutzen dieselben Seeds (permutierte Labels)"},
   {"id": "T-ternaer-butterfly", "datensatz": ["mnist"], "zweck": "tuning", "seeds": [[2694, 2696]], "modul": "ternaer_butterfly", "notiz": "Tuning-Block (Endziffern 94-96)"},
+  {"id": "T-ternaer-butterfly", "datensatz": ["mnist"], "zweck": "tuning", "seeds": [[2694, 2696]], "modul": "ternaer_butterfly", "notiz": "Tuning-Block (Endziffern 94-96)"},
   {"id": "C-clifford", "datensatz": ["ziffern"], "zweck": "tuning", "seeds": [[902, 903]], "modul": "clifford", "notiz": ""},
   {"id": "C-bewusst", "datensatz": ["ziffern"], "zweck": "tuning", "seeds": [[904, 905]], "modul": "clifford_bewusst", "notiz": ""},
   {"id": "I-001", "datensatz": ["ziffern"], "zweck": "tuning", "seeds": [[906, 907]], "modul": "magie_pruning", "notiz": ""},
@@ -93,6 +95,7 @@
   {"id": "I-045-v4", "datensatz": ["sprache"], "zweck": "tuning", "seeds": [[2699, 2699]], "modul": "struktur_sprache", "notiz": ""},
   {"id": "I-046", "datensatz": ["mnist"], "zweck": "tuning", "seeds": [[2479, 2479]], "modul": "pareto_schuss", "notiz": "Endziffern 79 statt >=90, siehe ausnahmen"},
   {"id": "I-046-v2", "datensatz": ["mnist"], "zweck": "tuning", "seeds": [[2697, 2697]], "modul": "pareto_schuss_v2", "notiz": "Endziffern 97 (Tuning-Block)"},
+  {"id": "T-ternaer-butterfly", "datensatz": ["mnist"], "zweck": "rauchtest", "seeds": [[2694, 2696]], "modul": "ternaer_butterfly", "notiz": "Rauchtest nur auf Tuning-Seeds"},
   {"id": "T-ternaer-butterfly", "datensatz": ["mnist"], "zweck": "rauchtest", "seeds": [[2694, 2696]], "modul": "ternaer_butterfly", "notiz": "Rauchtest nur auf Tuning-Seeds"},
   {"id": "C-clifford", "datensatz": ["ziffern"], "zweck": "rauchtest", "seeds": [[900, 900]], "modul": "clifford", "notiz": "Rauchtest-Seed 900 (Tuning-Block)"},
   {"id": "I-005", "datensatz": ["mnist"], "zweck": "rauchtest", "seeds": [[970, 971], [980, 981]], "modul": "clifford_suche", "notiz": ""},
