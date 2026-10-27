@@ -802,6 +802,19 @@
    "ort": "MPCDF Raven"
   },
   {
+   "id": "I-047",
+   "abteilung": "Struktur",
+   "status": "offen",
+   "modul": "abteilungen.struktur_tt",
+   "funktion": "lauf",
+   "prioritaet": 2,
+   "frage": "Tensornetz-FFN (MPO/Tensor-Train, Quanten-Vielteilchenphysik) im Sprachmodell bei gleichen FFN-FLOPs: TT_z2 (chi=4, 512=8·8·8, 2048=16·16·8) gegen Df_gelu (dicht h=580, bester v4-Gegner) und Lk_z2 (Rang 116). d=512, T=16000 (Haupt) und 4000. H1 TT_z2 < Df_gelu, H2 TT_z2 < Lk_z2 (Holm, n=8); H3 beschreibend zweiseitig TT_z2 vs TT_gelu (traegt das Born-Quadrat?). Beschreibend: TT_z2_klein (chi=2), Df_z2, Sz.",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (I-047). Seeds 2680-2687 (Messung), 2688-2689 (NK), Tuning 2693 (Lernrate je Arm bei T=4000, gilt fuer alle T). 116 Aufgaben, Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-047.json, Checkpoint alle 2000 Schritte in ergebnisse/_ckpt_I-047/. Freigabe Malte 27.10. nach Ermessen. Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit). Laufzeit und Kernstunden siehe LABORBUCH. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-047.",
+   "folgen": {},
+   "wartet_auf": "Lauf auf MPCDF Raven",
+   "ort": "MPCDF Raven"
+  },
+  {
    "id": "T-ternaer",
    "abteilung": "Clifford",
    "status": "erledigt",
