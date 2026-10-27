@@ -13,7 +13,7 @@
 | 6 | Gelernte Monarch-FFN | w2, w8 | gelb | schlägt Niedrigrang (−0,046 bpc), gleichauf mit schmal dicht | längeres Training |
 | 7 | Diagonale komplexe Rekurrenz (LRU/Lindblad) | w10, w11 | gelb, ungetestet | O(d) je Schritt | Rauchtest |
 | – | Tensor-Train-FFN | w1 | rot | spart nur Parameter, mehr FLOPs | – |
-| – | Born-Attention (q·k)² | w3 | rot | kein bpc-Vorteil, auf CPU nie schneller als Softmax bis N=4096 | – |
+| – | Born-Attention (q·k)² | w3 | rot/gelb (zu kurz trainiert) | kein bpc-Vorteil, auf CPU nie schneller als Softmax bis N=4096 | – |
 | – | Frühes Aussteigen | w6 | rot/gelb | +0,4 ± 0,2 pp MNIST, Fashion nichts | – |
 
 ## Leitlinie für die Arbeit
