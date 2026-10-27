@@ -1677,3 +1677,18 @@ Grund: Eine dichte FFN mit h = 10 (parametergleich zu Sz) ist ein Strohmann. Hau
   Passt in das 24-h-Limit; der Checkpoint schützt trotzdem.
 - **Vortest bestanden (`_vortest_v4`, neu gefasst):** Form, Kausalität, Köpfe; h = 10/580 und Rang 116 exakt aus der Zählung; Parameterformeln gleich echter Zählung; **FLOP-Gleichheit ±3 % (Df_z2, Df_gelu, Lk_z2 jeweils exakt gleich Sz)**; FLOP-Formeln gleich Zählung; Dk parametergleich ±2 %; Aktivierungen; Trainierbarkeit aller 6 Arme; Seeds frisch; Aufgabenzahl 100 und Reihenfolge; Laufzeitplan; Divergenz-Pfad; Checkpoint-Fortsetzung (Lk_z2) mit exakt gleichem bpc, fremder Checkpoint ignoriert, Wiederaufnahme je Aufgabe und im Tuning; **alle Urteilszweige von H1 und H2 neu erzwungen** (STRUKTUR_BESSER, H0, HU; NK durchgefallen, Divergenz, Kollaps, fehlende Zelle). Der Rauchtest der ersten Fassung (Tuning-Seed 2699) hat die Pipeline geprüft; die Änderung betrifft nur Armdefinition und Auswertung (vom Vortest abgedeckt), ein zweiter Rauchtest wurde nicht gerechnet.
 - **Status:** `agenda.json` „offen, wartet auf Maltes Freigabe (MPCDF Raven)“. Start: `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v4`.
+
+## 27.10.2026 – I-045-v4 ERGEBNIS (FLOP-gleich: Struktur gegen schmale dichte und Niedrigrang-FFN, Seeds 2620–2627)
+Gerechnet auf MPCDF Raven (Job 31551007, 8 h 04 min). Rohdaten `ergebnisse/I-045-v4__20261027_033627.json` (auf Raven, Übertrag ins Repo steht aus). NK bestanden (4,744 bpc, Unigramm 4,743).
+| Arm | FFN-Param. | FFN-FLOPs | T=4000 | T=16000 |
+|---|---|---|---|---|
+| Sz (Fastfood + z²) | 43 k | 4,75 M | 2,595 | 2,178 |
+| Df_z2 (dicht, h=580) | 2,38 M | 4,75 M | 2,299 | 2,097 |
+| Df_gelu (dicht, h=580) | 2,38 M | 4,75 M | 2,393 | **2,086** |
+| Lk_z2 (Rang 116) | 2,39 M | 4,75 M | 2,382 | 2,090 |
+| Dk_z2 (dicht, h=10, parametergleich) | 43 k | 0,08 M | 2,838 | 2,270 |
+| D_z2 (volle Breite) | 8,40 M | 16,78 M | **2,222** | 2,163 |
+- **H1 H0:** Df_z2 sicher besser als Sz (−0,081 bpc [−0,087; −0,075]). **H2 H0:** Lk_z2 sicher besser als Sz (−0,088 bpc [−0,093; −0,082]).
+- **Deutung:** Bei gleichem Rechenaufwand verliert die Fastfood-Struktur klar gegen gewöhnliche dichte und Niedrigrang-FFNs. Ihr einziger Vorteil ist Speicher: Bei gleicher Parameterzahl (Dk_z2, 43 k) ist Sz um 0,09 bpc besser, kostet dafür aber 58× mehr FLOPs. Sz tauscht also Rechenzeit gegen Speicher.
+- **Nebenbefund:** Bei T=16000 schlagen die schmalen dichten FFNs (h=580) die volle Breite (h=2048, 2,163). Vermutlich Überanpassung oder eine für T=16000 unpassende Lernrate (bei T=4000 gesucht) – nur beschreibend.
+- **Folge für die Kernaussage:** Die Linie „Fastfood + Born-Quadrat im Sprachmodell“ liefert keinen Effizienzvorteil bei gleichem Rechenaufwand. Was bleibt: parameter-/speicherarm. Linie I-045 damit abgeschlossen. Wirkung klassisch (I-038).
