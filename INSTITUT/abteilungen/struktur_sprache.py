@@ -1992,3 +1992,793 @@ def _vortest_v4() -> bool:
         fehlt = ws - {w for k, w in gesehen if k == h}
         pruefe(f"Zweige {fehlt} fuer {h} erzwungen", not fehlt)
     return bool(ok)
+
+
+# ================================================================== I-045-v5 „Nachpruefung v3/v4: Datenmenge, Schritte, Lernrate je T, beide FLOP-Zaehlungen“
+# VORREGISTRIERUNG: INSTITUT/LABORBUCH.md (Eintrag I-045-v5; Entwurf INSTITUT/vorreg_entwurf/I-045-v5.md). Grundlage: recherche/2026-10-27_welle w9 (Punkte 1, 2, 4), w12.
+# ANLASS: In v3/v4 wurde T = 16000 Schritte auf nur 1,6 MB Text trainiert (10,15 Epochen); die Lernrate wurde nur bei T = 4000 gesucht und fuer alle T benutzt;
+#   „gleiche FLOPs“ zaehlte Fastfood als dichte Matmuls (Ha·x·Hb). Ideal gezaehlt (FWHT) hat Sz 9-12x weniger Operationen; ein ideal gleich teurer dichter Gegner hat h≈42/46.
+#   Der Nebenbefund „schmale dichte FFN schlaegt volle Breite bei T = 16000“ koennte Ueberanpassung oder eine zu hohe Lernrate sein.
+# FAKTOREN: Datenmenge (voll = 1.614.280 Trainingsbytes | Haelfte = die ersten 50 % der Trainingsbytes) x Schritte T in {4000, 16000} x d in {256, 512};
+#   Lernrate je (Arm, d, T) NEU auf dem Tuning-Seed (Validierung = erste 64 kB dev; bei VOLLER Datenmenge gesucht, gilt auch fuer die Haelfte).
+# ARME (nur die FFN verschieden; Attention/Einbettung identisch; 4 Lagen, Kontext 128, Batch 8x128):
+#   Sz    Fastfood + z², Breite 4d (geprueftes Struktur-FFN)
+#   Df_z2 dicht + z², Breite aus gleichen MATMUL-FLOPs wie Sz (d = 256: h = 388, d = 512: h = 580)
+#   Di_z2 dicht + z², Breite aus gleichen IDEALEN Operationen wie Sz (FWHT: 2D(1+log2 D) je Block; d = 256: h = 42, d = 512: h = 46)
+#   Dk_z2 dicht + z², h = 10 (parametergleich zu Sz; beschreibend)
+#   D_gelu dicht + GELU, volle Breite 4d (Referenz fuer H2)
+# BEIDE ZAEHLUNGEN werden fuer alle Arme ausgewiesen: matmul (as implemented, `_ffn_flops_modul`) und ideal (`_ffn_flops_ideal_modul`).
+# HYPOTHESEN (Test-bpc; gepaarter einseitiger t-Test, n = 8; Holm ueber H1a, H1b, H2a, H2b; alpha 0,05; T = 16000, VOLLE Datenmenge):
+#   H1a/H1b  Sz < Di_z2 (bei ideal gleichen Operationen), d = 256 / 512      : SZ_BESSER | H0 (Di_z2 sicher besser) | HU
+#   H2a/H2b  Vorsprung der schmalen dichten FFN W = D_gelu − Df_z2 > 0, d = 256 / 512 (Lernrate je T getunt)
+#            : VORSPRUNG_BLEIBT (W > 0, Holm) | VORSPRUNG_VERSCHWUNDEN (TOST ±0,02 bpc gleichwertig ODER D_gelu sicher besser, p_kl < alpha/2) | HU
+#   Nicht in Holm (explorativ-bestaetigend, zweiseitig, alpha 0,05 ohne Korrektur; T = 16000; je Seed ueber d = 256, 512 gemittelt):
+#   H3  Ueberanpassungsluecke G = Test-bpc − Train-bpc (volle Daten): G(D_gelu) − G(Df_z2) : GROESSERE_LUECKE (D_gelu) | KLEINERE_LUECKE | HU
+#   H4  Wechselwirkung mit der Datenmenge: W(Haelfte) − W(voll)                        : WAECHST_BEI_WENIGER_DATEN | SCHRUMPFT_BEI_WENIGER_DATEN | HU
+# DIVERGENZ (vorab, wie v3; je Zelle Arm x T x d x Datenmenge): nicht endlicher Verlust (bpc := 8) ODER End-bpc >= Unigramm-Entropie; Kollaps = Median + 0,2 bpc.
+#   Divergierte Seeds bleiben in allen Zahlen; jede Hypothese mit einer beteiligten Zelle mit Divergenz/Kollaps ist HU.
+# NEGATIVKONTROLLE: Sz und Di_z2, d = 256, 1000 Schritte, volle Daten, permutierte Trainingsbytes, Seeds 2848/2849; mittlerer Test-bpc >= 0,9 x Unigramm-Entropie.
+# BESCHREIBEND: alle Zellen (Test-/Val-/Train-bpc, Luecke), Vorsprung von Sz gegen jeden Arm, W je Zelle, Lernraten (Rand?), FFN-Parameter, beide FLOP-Zaehlungen, Zeit/Token, Epochen.
+# ERWARTUNG VORAB (kein Befund): H1 offen (Di_z2 hat ~4x mehr Parameter, aber nur ~1/9 der Operationen; Sz koennte hier gleichziehen); H2: der Vorsprung schrumpft bei halber
+#   Datenmenge nicht, sondern waechst (Ueberanpassung der breiten FFN, H4 WAECHST) und verschwindet mit neu getunter Lernrate teilweise.
+KARTE_V5 = "I-045-v5"
+SEEDS_V5 = tuple(range(2840, 2848))
+NK_SEEDS_V5 = (2848, 2849)
+TUNING_SEED_V5 = 2891
+ARME_V5 = ("Sz", "Df_z2", "Di_z2", "Dk_z2", "D_gelu")
+NK_ARME_V5 = ("Sz", "Di_z2")
+T_WERTE_V5 = (4000, 16000)
+D_WERTE_V5 = (256, 512)
+ANTEILE_V5 = (1.0, 0.5)
+LR_GITTER_V5 = (1e-4, 3e-4, 9e-4)      # um die v3/v4-Optima (1,7e-4 .. 5e-4) herum; Gitter in beide Richtungen verlaengerbar
+LR_FAKTOR_V5 = 3
+TUNING_RUNDEN_V5 = 2                    # hoechstens 2 Runden (Wandzeit); danach Notfallwahl unter den gemessenen Raten
+TOST_V5 = 0.02
+PROFILE_V5 = {"standard": {"T": T_WERTE_V5, "d": D_WERTE_V5, "anteile": ANTEILE_V5, "nk_T": 1000, "nk_d": 256, "nk_lr_T": 4000, "ckpt_alle": CKPT_ALLE,
+                           "tuning_runden": TUNING_RUNDEN_V5, "seeds": SEEDS_V5, "nk_seeds": NK_SEEDS_V5}}
+_BELEGT_V5 = _BELEGT_V4 | set(range(2620, 2630)) | {2699}
+HYPOTHESEN_V5 = {
+    "H1a": "Sz < Di_z2 (Test-bpc, ideal gleiche Operationen) bei T=16000, volle Daten, d=256 (einseitig gepaart t, n=8, Holm H1a-H2b). SZ_BESSER | H0 (Di_z2 sicher besser) | HU.",
+    "H1b": "wie H1a bei d=512. SZ_BESSER | H0 | HU.",
+    "H2a": "Vorsprung W = D_gelu − Df_z2 > 0 (Test-bpc, Lernrate je T getunt) bei T=16000, volle Daten, d=256 (einseitig gepaart t, Holm). VORSPRUNG_BLEIBT | VORSPRUNG_VERSCHWUNDEN (TOST ±0,02 bpc oder D_gelu sicher besser) | HU.",
+    "H2b": "wie H2a bei d=512. VORSPRUNG_BLEIBT | VORSPRUNG_VERSCHWUNDEN | HU.",
+    "H3": "Luecke G = Test-bpc − Train-bpc bei T=16000, volle Daten, je Seed ueber d gemittelt: G(D_gelu) − G(Df_z2), zweiseitig gepaart t (nicht in Holm). GROESSERE_LUECKE | KLEINERE_LUECKE | HU.",
+    "H4": "W(Haelfte) − W(voll) bei T=16000, je Seed ueber d gemittelt, zweiseitig gepaart t (nicht in Holm). WAECHST_BEI_WENIGER_DATEN | SCHRUMPFT_BEI_WENIGER_DATEN | HU.",
+    "DIVERGENZ": HYPOTHESEN_V3["DIVERGENZ"],
+    "NK": f"Negativkontrolle (Sz, Di_z2, d=256, 1000 Schritte, volle Daten, permutierte Trainingsbytes, Seeds 2848/2849): mittlerer Test-bpc >= {NK_FAKTOR} x Unigramm-Entropie. BESTANDEN | DURCHGEFALLEN (dann alles HU).",
+    "B": "beschreibend: Test-/Val-/Train-bpc und Luecke aller Zellen, Vorsprung von Sz gegen jeden Arm, W je Zelle, Lernraten, FFN-Parameter, FLOPs (matmul und ideal), Zeit/Token, Epochen, Trainingszeit, Divergenzrate.",
+}
+# Sekunden je Trainingsschritt (1 Thread, Batch 8x128, Container, Median; siehe schritt_zeiten_v5 und LABORBUCH)
+# Gemessen 27.10.2026 im Container (1 Thread, Median ueber 15 Schritte); konservativ aufgerundet bzw. Sz/D_gelu mit den Maxima aus v3 (0,32 / 0,79 / 1,03).
+S_JE_SCHRITT_V5 = {("Sz", 256): 0.32, ("Df_z2", 256): 0.20, ("Di_z2", 256): 0.15, ("Dk_z2", 256): 0.15, ("D_gelu", 256): 0.32,
+                   ("Sz", 512): 0.79, ("Df_z2", 512): 0.52, ("Di_z2", 512): 0.40, ("Dk_z2", 512): 0.40, ("D_gelu", 512): 1.03}
+
+
+# ---- Zaehlungen ----
+_SZ_IDEAL = {}
+
+
+def _ffn_flops_ideal_modul(ffn) -> int:
+    """FFN-FLOPs je Token und Lage IDEAL gezaehlt (1 Addition/Multiplikation = 1 Flop; Auswahl/Permutation kostenlos): Fastfood-Block 2D(1+log2 D) (zwei Diagonalen,
+    zwei schnelle Walsh-Transformationen D·log2 D), dicht 2·ein·aus, niedriger Rang 2·(ein·r + r·aus); dazu Bias (aus) und Aktivierung (Breite)."""
+    n = 0
+    for mat in ((ffn.a, ffn.b) if isinstance(ffn, FFNStruktur) else ()):
+        m = mat.m
+        if isinstance(m, Fastfood):
+            n += m.m * 2 * m.D * (1 + int(math.log2(m.D)))
+        else:
+            n += sum(2 * lin.in_features * lin.out_features for lin in m)
+        n += mat.bias.numel()
+    if isinstance(ffn, FFNStruktur):
+        return int(n + ffn.a.bias.numel())
+    h, d = ffn.a.out_features, ffn.a.in_features
+    return int(4 * d * h + h + d + h)
+
+
+def sz_flops_ideal_lage(d) -> int:
+    """Ideale FFN-FLOPs je Token und Lage von Sz (d = 256: 43.264; d = 512: 94.720)."""
+    if d not in _SZ_IDEAL:
+        _SZ_IDEAL[d] = _ffn_flops_ideal_modul(FFNStruktur(d, 4 * d, "ff", torch.square, torch.Generator().manual_seed(0)))
+    return _SZ_IDEAL[d]
+
+
+def h_ideal(d) -> int:
+    """Breite h der dichten FFN mit ideal gleichen Operationen wie Sz (4·d·h + 2h + d naechst sz_flops_ideal_lage): d = 256 -> 42, d = 512 -> 46."""
+    ziel = sz_flops_ideal_lage(d)
+    return min(range(1, 8 * d), key=lambda h: (abs(4 * d * h + 2 * h + d - ziel), h))
+
+
+def baue_ffn_v5(arm, d, gen):
+    return FFNDicht(d, h_ideal(d), torch.square) if arm == "Di_z2" else baue_ffn(arm, d, gen)
+
+
+class Block5(Block):
+    def __init__(self, arm, d, h, gen):
+        nn.Module.__init__(self)
+        self.h = h
+        self.ln1, self.ln2 = nn.LayerNorm(d), nn.LayerNorm(d)
+        self.qkv, self.proj = nn.Linear(d, 3 * d), nn.Linear(d, d)
+        self.ffn = baue_ffn_v5(arm, d, gen)
+
+
+class Sprachmodell5(Sprachmodell):
+    """Wie `Sprachmodell` (gleiche Initialisierung fuer die alten Arme), zusaetzlich Arm Di_z2."""
+
+    def __init__(self, arm, seed, d=D_MODELL, lagen=LAGEN, h=KOEPFE, ctx=KONTEXT):
+        nn.Module.__init__(self)
+        gen = torch.Generator().manual_seed(seed * 31 + 11)
+        self.emb, self.pos = nn.Embedding(256, d), nn.Embedding(ctx, d)
+        nn.init.normal_(self.emb.weight, std=0.02)
+        nn.init.normal_(self.pos.weight, std=0.02)
+        self.bl = nn.ModuleList([Block5(arm, d, h, gen) for _ in range(lagen)])
+        self.ln = nn.LayerNorm(d)
+
+
+def modell_v5(arm, seed, d):
+    return Sprachmodell5(arm, seed, d=d, h=d // 64)
+
+
+def flops_v5(arm, d, lagen=LAGEN) -> dict:
+    """Beide Zaehlungen, FFN aller Lagen: matmul (as implemented) und ideal; dazu FFN-Parameter."""
+    ffn = modell_v5(arm, 0, d).bl[0].ffn
+    return {"matmul": int(_ffn_flops_modul(ffn) * lagen), "ideal": int(_ffn_flops_ideal_modul(ffn) * lagen),
+            "ffn_parameter": int(sum(p.numel() for p in ffn.parameters()) * lagen)}
+
+
+def daten_anteil(anteil, klein=False):
+    """(train, val, test); train = die ersten `anteil` der Trainingsbytes (1.0 = alle)."""
+    tr, va, te = daten(klein)
+    return (tr if anteil >= 1.0 else tr[:int(len(tr) * anteil)]), va, te
+
+
+# ---- Training mit Train-bpc, Datenanteil, Checkpoint ----
+def trainiere_v5(arm, lr, seed, schritte, d=D_MODELL, anteil=1.0, klein=False, val=False, permutiert=False, ckpt=None, ckpt_alle=CKPT_ALLE, _stopp_bei=None):
+    """Wie `trainiere_v3` (bei anteil = 1,0 und gleichem Arm bit-gleich), aber mit Datenanteil und zusaetzlich Train-/Val-bpc.
+    Train-bpc = bpc auf den ersten 64 kB der tatsaechlich benutzten Trainingsbytes (bei voller und halber Datenmenge dieselben Bytes). val = nur Validierung (Tuning)."""
+    torch.set_num_threads(1)
+    tr, va, te = daten_anteil(anteil, klein)
+    g = torch.Generator().manual_seed(seed + 5)
+    if permutiert:
+        tr = tr[torch.randperm(len(tr), generator=torch.Generator().manual_seed(seed + 77))]
+    torch.manual_seed(seed)
+    netz = modell_v5(arm, seed, d)
+    opt = torch.optim.Adam(netz.parameters(), lr=lr)
+    warm = max(1, schritte // 20)
+    sched = torch.optim.lr_scheduler.LambdaLR(opt, lambda s: (s + 1) / warm if s < warm else
+                                              0.5 * (1 + math.cos(math.pi * (s - warm) / max(1, schritte - warm))))
+    meta = {"arm": arm, "d": int(d), "lr": float(lr), "seed": int(seed), "schritte": int(schritte), "klein": bool(klein), "perm": bool(permutiert),
+            "anteil": float(anteil), "v": 5}
+    start, t_vor = 0, 0.0
+    if ckpt and Path(ckpt).exists():
+        try:
+            z = torch.load(ckpt, weights_only=True)
+        except Exception:
+            z = None
+        if z is not None and z.get("meta") == meta:
+            netz.load_state_dict(z["modell"])
+            opt.load_state_dict(z["opt"])
+            sched.load_state_dict(z["sched"])
+            g.set_state(z["g"])
+            torch.set_rng_state(z["rng"])
+            start, t_vor = int(z["schritt"]), float(z["sekunden"])
+    offs = torch.arange(KONTEXT)
+    t0 = time.time()
+    netz.train()
+    for s in range(start, schritte):
+        i = torch.randint(0, len(tr) - KONTEXT - 1, (BATCH,), generator=g)
+        x = tr[i[:, None] + offs].long()
+        y = tr[i[:, None] + offs + 1].long()
+        l = F.cross_entropy(netz(x).reshape(-1, 256), y.reshape(-1))
+        if not torch.isfinite(l):
+            if ckpt and Path(ckpt).exists():
+                Path(ckpt).unlink()
+            return {"bpc": 8.0, "bpc_train": 8.0, "bpc_val": 8.0, "instabil": True, "fortgesetzt_ab": start, "anteil": float(anteil)}
+        opt.zero_grad(set_to_none=True)
+        l.backward()
+        torch.nn.utils.clip_grad_norm_(netz.parameters(), 1.0)
+        opt.step()
+        sched.step()
+        if ckpt and (s + 1) % ckpt_alle == 0 and s + 1 < schritte:
+            Path(ckpt).parent.mkdir(parents=True, exist_ok=True)
+            tmp = ckpt + ".tmp"
+            torch.save({"meta": meta, "modell": netz.state_dict(), "opt": opt.state_dict(), "sched": sched.state_dict(), "g": g.get_state(),
+                        "rng": torch.get_rng_state(), "schritt": s + 1, "sekunden": t_vor + time.time() - t0}, tmp)
+            os.replace(tmp, ckpt)
+        if _stopp_bei is not None and s + 1 == _stopp_bei:
+            raise _Abbruch(f"simulierter Abbruch bei Schritt {s + 1}")
+    t_train = t_vor + time.time() - t0
+    bval = bpc_auswerten(netz, va[:VAL_BYTES])
+    out = {"instabil": False, "sekunden_training": t_train, "fortgesetzt_ab": start, "anteil": float(anteil), "epochen": schritte * BATCH * KONTEXT / len(tr)}
+    if val:
+        out["bpc"] = bval
+    else:
+        out.update({"bpc": bpc_auswerten(netz, te), "bpc_val": bval, "bpc_train": bpc_auswerten(netz, tr[:VAL_BYTES])})
+    if ckpt and Path(ckpt).exists():
+        Path(ckpt).unlink()
+    return out
+
+
+def schritt_zeiten_v5(arme=ARME_V5, ds=D_WERTE_V5, n=20, warm=3):
+    """Sekunden je Trainingsschritt (1 Thread, Batch 8x128, Vorwaerts + Rueckwaerts + Clip + Adam), Median ueber n Schritte."""
+    torch.set_num_threads(1)
+    tr, _, _ = daten(True)
+    offs = torch.arange(KONTEXT)
+    g = torch.Generator().manual_seed(1)
+    aus = {}
+    for d in ds:
+        for a in arme:
+            netz = modell_v5(a, 0, d)
+            opt = torch.optim.Adam(netz.parameters(), lr=1e-4)
+            ts = []
+            for k in range(warm + n):
+                i = torch.randint(0, len(tr) - KONTEXT - 1, (BATCH,), generator=g)
+                t0 = time.perf_counter()
+                l = F.cross_entropy(netz(tr[i[:, None] + offs].long()).reshape(-1, 256), tr[i[:, None] + offs + 1].long().reshape(-1))
+                opt.zero_grad()
+                l.backward()
+                torch.nn.utils.clip_grad_norm_(netz.parameters(), 1.0)
+                opt.step()
+                if k >= warm:
+                    ts.append(time.perf_counter() - t0)
+            aus[(a, d)] = float(np.median(ts))
+    return aus
+
+
+# ---- Aufgaben ----
+def _pct(anteil) -> int:
+    return int(round(anteil * 100))
+
+
+def _schl_v5(a):
+    """Aufgabe (teil, arm, d, T, seed, lr, klein, ckpt_alle, ckordner, anteil) -> Schluessel der Zwischendatei."""
+    return f"einheit|{a[0]}|{a[1]}|d{a[2]}|T{a[3]}|D{_pct(a[9])}|{a[4]}"
+
+
+def _zname5(a, T, d, anteil) -> str:
+    return f"{a}|T{T}|d{d}|D{_pct(anteil)}"
+
+
+def _kosten_aufgabe_v5(arm, d, T):
+    return T * S_JE_SCHRITT_V5.get((arm, d), 1.0) if S_JE_SCHRITT_V5 else T * d
+
+
+def aufgaben_v5(hp, P, klein, ckordner):
+    """Mess- und NK-Aufgaben; die teuersten (lange T, grosses d) zuerst. Lernrate je (Arm, d, T) aus dem Tuning (hp-Schluessel 'Arm|d|T')."""
+    aufg = [("mess", a, d, T, s, hp[f"{a}|{d}|{T}"]["lr"], klein, P["ckpt_alle"], str(ckordner), an)
+            for a in ARME_V5 for d in P["d"] for T in P["T"] for an in P["anteile"] for s in P["seeds"]]
+    aufg += [("nk", a, P["nk_d"], P["nk_T"], s, hp[f"{a}|{P['nk_d']}|{P['nk_lr_T']}"]["lr"], klein, P["ckpt_alle"], str(ckordner), 1.0)
+             for a in NK_ARME_V5 for s in P["nk_seeds"]]
+    aufg.sort(key=lambda a: -_kosten_aufgabe_v5(a[1], a[2], a[3]))
+    return aufg
+
+
+def kosten_schaetzung_v5(s_je_schritt=None, prozesse=72, aufschlag=1.3, tuning_raten=3.5, ueberhang=30.0):
+    """Kernstunden und Wandzeit (LPT auf `prozesse` Kernen). Tuning: im Mittel `tuning_raten` Raten je (Arm, d, T) in hoechstens TUNING_RUNDEN_V5 Runden
+    (Wandzeit konservativ = Runden x laengste Tuningaufgabe)."""
+    import heapq
+    z = s_je_schritt or S_JE_SCHRITT_V5
+    P = PROFILE_V5["standard"]
+    dauer = lambda a, d, T: T * z[(a, d)] * aufschlag + ueberhang
+    t_aufg = [dauer(a, d, T) for a in ARME_V5 for d in P["d"] for T in P["T"]]
+    kern_tuning = sum(t_aufg) * tuning_raten
+    wand_tuning = P["tuning_runden"] * max(t_aufg)
+    m_aufg = [dauer(a, d, T) for a in ARME_V5 for d in P["d"] for T in P["T"] for _ in P["anteile"] for _ in P["seeds"]]
+    m_aufg += [dauer(a, P["nk_d"], P["nk_T"]) for a in NK_ARME_V5 for _ in P["nk_seeds"]]
+    last = [0.0] * prozesse
+    heapq.heapify(last)
+    for t in sorted(m_aufg, reverse=True):
+        heapq.heappush(last, heapq.heappop(last) + t)
+    wand_mess = max(last)
+    return {"aufgaben_mess": len(m_aufg), "kernstunden_mess": sum(m_aufg) / 3600, "kernstunden_tuning": kern_tuning / 3600,
+            "kernstunden_gesamt": (sum(m_aufg) + kern_tuning) / 3600, "laengste_aufgabe_h": max(m_aufg) / 3600,
+            "wand_tuning_h": wand_tuning / 3600, "wand_mess_h": wand_mess / 3600, "wand_gesamt_h": (wand_tuning + wand_mess) / 3600,
+            "prozesse": prozesse, "aufschlag": aufschlag}
+
+
+def _arbeiter_v5(a):
+    teil, arm, d, T, seed, lr, klein, ck_alle, ckordner, anteil = a
+    key = _schl_v5(a)
+    r = trainiere_v5(arm, lr, seed, T, d=d, anteil=anteil, klein=klein, permutiert=(teil == "nk"), ckpt=_ckpt_pfad(ckordner, key), ckpt_alle=ck_alle)
+    return key, {"teil": teil, "arm": arm, "d": d, "T": T, "seed": seed, "lr": lr, **r}
+
+
+def _lr_arbeiter_v5(a):
+    schl, seed, lr, d, T, klein, ck_alle, ckordner, arm = a
+    _ZAEHLER["lr"] += 1
+    key = _schl_lr(a)
+    r = trainiere_v5(arm, lr, seed, T, d=d, anteil=1.0, klein=klein, val=True, ckpt=_ckpt_pfad(ckordner, key), ckpt_alle=ck_alle)
+    return key, {"acc": 1 - r["bpc"] / 8, "bpc": r["bpc"], "instabil": r["instabil"]}
+
+
+def tuning_v5(P, klein, tseed, pfad, kennung, prozesse, ckordner, arme=None):
+    """Lernrate je (Arm, d, T) auf dem Tuning-Seed bei VOLLER Datenmenge und dem jeweiligen T (Validierung); alle Raten aller Schluessel einer Runde laufen
+    gemeinsam parallel (lange zuerst), jede Aufgabe einzeln wiederaufnehmbar. Hoechstens P['tuning_runden'] Runden."""
+    schl = [f"{a}|{d}|{T}" for a in (arme or ARME_V5) for d in P["d"] for T in P["T"]]
+
+    def aufgaben_fuer(s, lr):
+        a, d, T = s.split("|")
+        return [(s, tseed, lr, int(d), int(T), klein, P["ckpt_alle"], str(ckordner), a)]
+
+    def auswerten(aufg):
+        lang = sorted(aufg, key=lambda a: -(a[4] * (S_JE_SCHRITT_V5.get((a[8], a[3]), 1.0) if S_JE_SCHRITT_V5 else a[3])))
+        res = _rechne(lang, pfad, kennung, fn=_lr_arbeiter_v5, schluessel=_schl_lr, prozesse=prozesse)
+        return [res[_schl_lr(a)] for a in aufg]
+
+    info, _ = gittersuche_stabil(schl, aufgaben_fuer, auswerten, gitter=LR_GITTER_V5, faktor=LR_FAKTOR_V5, kollaps=KOLLAPS_SCORE, runden=P["tuning_runden"])
+    return {k: {"lr": v["lr"], "am_rand": v["am_rand"], "abgestuft": v["abgestuft"], "runden": v["runden"],
+                "gitter": {lr: g["je_seed"][0] for lr, g in v["gitter"].items()}} for k, v in info.items()}
+
+
+def _zeit_arbeiter_v5(paare):
+    torch.set_num_threads(1)
+    return {f"{a}|{d}": zeit_je_token(modell_v5(a, 0, d)) for a, d in paare}
+
+
+def zeit_im_ein_thread_v5(paare):
+    import multiprocessing as mp
+    for var in ("OMP_NUM_THREADS", "OPENBLAS_NUM_THREADS", "MKL_NUM_THREADS"):
+        os.environ[var] = "1"
+    with mp.get_context("spawn").Pool(1) as pool:
+        return pool.apply(_zeit_arbeiter_v5, (tuple(paare),))
+
+
+# ---- Auswertung (bpc: kleiner ist besser) ----
+def _tost_p(v, grenze=TOST_V5) -> float:
+    """TOST auf Gleichwertigkeit |Mittel| < grenze (gepaart): p = max(p(Mittel > −grenze), p(Mittel < grenze))."""
+    v = np.asarray(v, float)
+    if len(v) < 2:
+        return 1.0
+    return float(max(_t_p(v + grenze, "gr"), _t_p(grenze - v, "gr")))
+
+
+def auswertung_v5(zeilen: list, params: dict, unigramm: float, t_lo=T_WERTE_V5[0], t_hi=T_WERTE_V5[-1], ds=D_WERTE_V5, flops=None, zeit=None, tuning=None) -> dict:
+    bpc, trn, val, inst, tt = {}, {}, {}, {}, {}
+    for z in zeilen:
+        if z["teil"] == "mess":
+            k = (z["arm"], z["T"], z["d"], z["anteil"])
+            bpc.setdefault(k, {})[z["seed"]] = z["bpc"]
+            trn.setdefault(k, {})[z["seed"]] = z.get("bpc_train", float("nan"))
+            val.setdefault(k, {})[z["seed"]] = z.get("bpc_val", float("nan"))
+            inst.setdefault(k, {})[z["seed"]] = bool(z.get("instabil"))
+            tt.setdefault(k, {})[z["seed"]] = z.get("sekunden_training", float("nan"))
+    r = {"t_lo": t_lo, "t_hi": t_hi, "ds": list(ds), "zellen": {}, "train": {}, "val": {}, "luecke": {}, "kollaps": {}, "divergiert": {}, "divergenzrate": {},
+         "bpc_ohne_divergente": {}, "negativ": {}, "diff": {}, "tost_p": {}, "p_holm": {}, "beschreibend": {}, "parameter": params, "unigramm_bpc": unigramm,
+         "training_s_mittel": {}}
+    for k, v in bpc.items():
+        seeds = sorted(v)
+        w = np.array([v[s] for s in seeds])
+        n = _zname5(*k)
+        r["zellen"][n] = zusammenfassung(w)
+        r["train"][n] = zusammenfassung([trn[k][s] for s in seeds])
+        r["val"][n] = zusammenfassung([val[k][s] for s in seeds])
+        r["luecke"][n] = zusammenfassung([v[s] - trn[k][s] for s in seeds])
+        med = float(np.median(w))
+        r["kollaps"][n] = [s for s in seeds if not (v[s] <= med + KOLLAPS_BPC)]
+        r["divergiert"][n] = [s for s in seeds if inst[k][s] or not (v[s] < unigramm)]
+        r["divergenzrate"][n] = len(r["divergiert"][n]) / len(seeds)
+        ok = [v[s] for s in seeds if s not in r["divergiert"][n]]
+        r["bpc_ohne_divergente"][n] = float(np.mean(ok)) if ok else None
+        r["training_s_mittel"][n] = float(np.nanmean(list(tt[k].values())))
+    nk = [z["bpc"] for z in zeilen if z["teil"] == "nk"]
+    r["negativ"] = {"mittel": float(np.mean(nk)), "n": len(nk)} if nk else {}
+
+    def vor(T, d, an, ref, pruef):
+        """Je Seed: bpc(ref) − bpc(pruef); positiv = pruef besser. {} wenn eine Zelle fehlt."""
+        a, b = bpc.get((ref, T, d, an)), bpc.get((pruef, T, d, an))
+        if not a or not b:
+            return {}
+        return {s: a[s] - b[s] for s in sorted(set(a) & set(b))}
+
+    def luecke(T, d, an, arm):
+        a, b = bpc.get((arm, T, d, an)), trn.get((arm, T, d, an))
+        return {s: a[s] - b[s] for s in sorted(a)} if a and b else {}
+
+    for h, d in (("H1a", ds[0]), ("H1b", ds[-1])):
+        v = vor(t_hi, d, 1.0, "Di_z2", "Sz")
+        if v:
+            r["diff"][h] = _stat(np.array(list(v.values())))
+    for h, d in (("H2a", ds[0]), ("H2b", ds[-1])):
+        v = vor(t_hi, d, 1.0, "D_gelu", "Df_z2")
+        if v:
+            r["diff"][h] = _stat(np.array(list(v.values())))
+            r["tost_p"][h] = _tost_p(list(v.values()))
+    # H3: Luecken-Differenz, je Seed ueber d gemittelt
+    gl = {d: (luecke(t_hi, d, 1.0, "D_gelu"), luecke(t_hi, d, 1.0, "Df_z2")) for d in ds}
+    if all(a and b for a, b in gl.values()):
+        gem = sorted(set.intersection(*(set(a) & set(b) for a, b in gl.values())))
+        r["diff"]["H3"] = _stat(np.array([np.mean([gl[d][0][s] - gl[d][1][s] for d in ds]) for s in gem]))
+    # H4: W(Haelfte) − W(voll), je Seed ueber d gemittelt
+    wv = {(d, an): vor(t_hi, d, an, "D_gelu", "Df_z2") for d in ds for an in ANTEILE_V5}
+    if all(wv.values()):
+        gem = sorted(set.intersection(*(set(x) for x in wv.values())))
+        r["diff"]["H4"] = _stat(np.array([np.mean([wv[(d, 0.5)][s] - wv[(d, 1.0)][s] for d in ds]) for s in gem]))
+    # beschreibend
+    B = r["beschreibend"]
+    for ref in ARME_V5:
+        if ref == "Sz":
+            continue
+        for d in ds:
+            for T in sorted({k[1] for k in bpc}):
+                for an in ANTEILE_V5:
+                    v = vor(T, d, an, ref, "Sz")
+                    if v:
+                        B.setdefault(f"Vorsprung_Sz_gegen_{ref}", {})[f"T{T}|d{d}|D{_pct(an)}"] = _stat(np.array(list(v.values())))
+    for d in ds:
+        for T in sorted({k[1] for k in bpc}):
+            for an in ANTEILE_V5:
+                v = vor(T, d, an, "D_gelu", "Df_z2")
+                if v:
+                    B.setdefault("W_D_gelu_minus_Df_z2", {})[f"T{T}|d{d}|D{_pct(an)}"] = _stat(np.array(list(v.values())))
+    if flops:
+        B["flops_je_token"] = flops
+    if zeit:
+        B["zeit_s_je_token"] = zeit
+    if tuning:
+        B["lernraten"] = {k: {"lr": v["lr"], "am_rand": v["am_rand"]} for k, v in tuning.items()}
+    prim = {h: r["diff"][h]["p_gr"] for h in ("H1a", "H1b", "H2a", "H2b") if h in r["diff"] and "p_gr" in r["diff"][h]}
+    if prim:
+        r["p_holm"] = holm(prim)
+    return r
+
+
+def _vorab_v5(r, nk, h, zellen, holm_noetig=True):
+    if h not in r["diff"] or "mittel" not in r["diff"][h] or (holm_noetig and h not in r["p_holm"]):
+        return "HU (Zellen fehlen oder zu wenige Seeds)"
+    if nk != "BESTANDEN":
+        return "HU (Negativkontrolle durchgefallen)"
+    dv = {z: r["divergiert"][z] for z in zellen if r["divergiert"].get(z)}
+    if dv:
+        return f"HU (Divergenz in {dv})"
+    k = {z: r["kollaps"][z] for z in zellen if r["kollaps"].get(z)}
+    if k:
+        return f"HU (Kollaps in {k})"
+    return None
+
+
+def _zahlen_zwei(r, h):
+    s = r["diff"][h]
+    return (f"{s['mittel']:+.4f} bpc, 90-%-KI [{s['ki'][0]:+.4f}; {s['ki'][1]:+.4f}], n {s['n']}, p_zweiseitig {s['p_zwei']:.3g}").replace(".", ",")
+
+
+def urteil_v5(r: dict) -> dict:
+    nk = _nk(r)
+    u = {"NK": f"{nk} (Mittel permutiert Sz/Di_z2: {r['negativ'].get('mittel', float('nan')):.3f} bpc; Unigramm {r['unigramm_bpc']:.3f}; Schwelle {NK_FAKTOR}x)"}
+    t_hi, ds = r["t_hi"], tuple(r["ds"])
+    for h, d in (("H1a", ds[0]), ("H1b", ds[-1])):
+        v = _vorab_v5(r, nk, h, [_zname5(a, t_hi, d, 1.0) for a in ("Di_z2", "Sz")])
+        if v:
+            u[h] = v
+            continue
+        z = _zahlen(r, h)
+        if r["p_holm"][h] < ALPHA:
+            u[h] = f"SZ_BESSER (Di_z2−Sz bei T={t_hi}, d={d}, ideal gleiche Operationen: {z})"
+        elif r["diff"][h]["p_kl"] < ALPHA / 2:
+            u[h] = f"H0 (Di_z2 sicher besser als Sz bei T={t_hi}, d={d}; {z})"
+        else:
+            u[h] = f"HU ({z})"
+    for h, d in (("H2a", ds[0]), ("H2b", ds[-1])):
+        v = _vorab_v5(r, nk, h, [_zname5(a, t_hi, d, 1.0) for a in ("D_gelu", "Df_z2")])
+        if v:
+            u[h] = v
+            continue
+        z = _zahlen(r, h)
+        tp = r["tost_p"][h]
+        if r["p_holm"][h] < ALPHA:
+            u[h] = f"VORSPRUNG_BLEIBT (D_gelu−Df_z2 bei T={t_hi}, d={d}: {z}; TOST-p {tp:.3g})".replace(".", ",")
+        elif tp < ALPHA:
+            u[h] = f"VORSPRUNG_VERSCHWUNDEN (gleichwertig innerhalb ±{TOST_V5} bpc, TOST-p {tp:.3g}; {z})".replace(".", ",")
+        elif r["diff"][h]["p_kl"] < ALPHA / 2:
+            u[h] = f"VORSPRUNG_VERSCHWUNDEN (volle Breite D_gelu sicher besser; {z})"
+        else:
+            u[h] = f"HU ({z})"
+    zl_h3 = [_zname5(a, t_hi, d, 1.0) for a in ("D_gelu", "Df_z2") for d in ds]
+    v = _vorab_v5(r, nk, "H3", zl_h3, holm_noetig=False)
+    if v:
+        u["H3"] = v
+    else:
+        z = _zahlen_zwei(r, "H3")
+        s = r["diff"]["H3"]
+        u["H3"] = (f"GROESSERE_LUECKE (G(D_gelu) − G(Df_z2) {z})" if s["p_zwei"] < ALPHA and s["mittel"] > 0 else
+                   f"KLEINERE_LUECKE (G(D_gelu) − G(Df_z2) {z})" if s["p_zwei"] < ALPHA else f"HU ({z})")
+    zl_h4 = [_zname5(a, t_hi, d, an) for a in ("D_gelu", "Df_z2") for d in ds for an in ANTEILE_V5]
+    v = _vorab_v5(r, nk, "H4", zl_h4, holm_noetig=False)
+    if v:
+        u["H4"] = v
+    else:
+        z = _zahlen_zwei(r, "H4")
+        s = r["diff"]["H4"]
+        u["H4"] = (f"WAECHST_BEI_WENIGER_DATEN (W(Haelfte) − W(voll) {z})" if s["p_zwei"] < ALPHA and s["mittel"] > 0 else
+                   f"SCHRUMPFT_BEI_WENIGER_DATEN (W(Haelfte) − W(voll) {z})" if s["p_zwei"] < ALPHA else f"HU ({z})")
+    teile = []
+    for d in ds:
+        for T in sorted({int(k.split("|T")[1].split("|")[0]) for k in r["zellen"]}):
+            for an in ANTEILE_V5:
+                ze = ", ".join(f"{a} {r['zellen'][_zname5(a, T, d, an)]['mittel']:.3f}".replace(".", ",") for a in ARME_V5 if _zname5(a, T, d, an) in r["zellen"])
+                teile.append(f"d{d} T{T} D{_pct(an)}: {ze}")
+    u["B"] = "beschreibend: Test-bpc " + "; ".join(teile) + "; Rest in auswertung"
+    return u
+
+
+# ---- Lauf ----
+def lauf_v5(schnell=False, prozesse=None, zwischen=None, zeit=True, profil=None, **_):
+    profil = profil or os.environ.get("I045V5_PROFIL", "standard")
+    P = dict(PROFILE_V5[profil])
+    if schnell:      # Rauchtest NUR Tuning-Seed, kleine Daten, d = 256, wenige Schritte (Checkpoint alle 3 Schritte); d = 512 deckt der Vortest ab
+        P.update({"T": (6, 12), "d": (256,), "nk_T": 6, "nk_lr_T": 6, "ckpt_alle": 3, "seeds": (TUNING_SEED_V5,), "nk_seeds": (TUNING_SEED_V5,)})
+        klein = True
+    else:
+        klein = False
+        if set(P["seeds"]) & _BELEGT_V5 or set(P["nk_seeds"]) & _BELEGT_V5 or TUNING_SEED_V5 in P["seeds"] or TUNING_SEED_V5 in _BELEGT_V5:
+            raise ValueError("Seeds nicht frisch/vorregistriert")
+    pfad = Path(zwischen) if zwischen else ERGEBNISSE / f"_zwischen_{KARTE_V5}{'-schnell' if schnell else ''}.json"
+    ckordner = pfad.parent / f"_ckpt_{KARTE_V5}{'-schnell' if schnell else ''}"
+    kennung = {"karte": KARTE_V5, "version": 1, "profil": "rauch" if schnell else profil, "profil_werte": _json_sicher(P),
+               "lr_gitter": list(LR_GITTER_V5), "tuning_seed": TUNING_SEED_V5, "klein": klein}
+    t0 = time.time()
+    zw = _lade_zwischen(pfad, kennung)
+    if "tuning" not in zw:
+        hp0 = tuning_v5(P, klein, TUNING_SEED_V5, pfad, kennung, prozesse, ckordner)
+        zw = _lade_zwischen(pfad, kennung)
+        zw["tuning"] = hp0
+        _schreibe_zwischen(pfad, kennung, zw)
+        print(f"  Tuning fertig: {({a: v['lr'] for a, v in zw['tuning'].items()})}", flush=True)
+    hp = zw["tuning"]
+    aufg = aufgaben_v5(hp, P, klein, ckordner)
+    alle = _rechne(aufg, pfad, kennung, fn=_arbeiter_v5, schluessel=_schl_v5, prozesse=prozesse)
+    zeilen = [z for k, z in alle.items() if k.startswith("einheit|")]
+    paare = [(a, d) for a in ARME_V5 for d in P["d"]]
+    zm = None
+    if zeit:
+        if "zeit" in alle:
+            zm = alle["zeit"]
+        else:
+            zm = zeit_im_ein_thread_v5(paare)
+            alle["zeit"] = zm
+            _schreibe_zwischen(pfad, kennung, alle)
+    params = {f"{a}|{d}": {"ffn": param_ffn(n), "gesamt": param_gesamt(n)} for a, d in paare for n in [modell_v5(a, 0, d)]}
+    fl = {f"{a}|{d}": flops_v5(a, d) for a, d in paare}
+    tr, _, te = daten(klein)
+    e = {"abteilung": "Struktur", "modul": "struktur_sprache", "karte": KARTE_V5, "version": 1, "profil": profil, "hypothesen": HYPOTHESEN_V5,
+         "seeds": list(P["seeds"]), "nk_seeds": list(P["nk_seeds"]), "tuning_seed": TUNING_SEED_V5, "tuning": hp,
+         "einstellungen": {"T": list(P["T"]), "d": list(P["d"]), "anteile": list(P["anteile"]), "nk_T": P["nk_T"], "nk_d": P["nk_d"], "ckpt_alle": P["ckpt_alle"],
+                           "tuning_runden": P["tuning_runden"], "batch": BATCH, "kontext": KONTEXT, "lagen": LAGEN, "lr_gitter": list(LR_GITTER_V5),
+                           "h": {a: {d: (h_ideal(d) if a == "Di_z2" else form_v4(a, d)[1] if a in ARME_V4 else 4 * d) for d in P["d"]} for a in ARME_V5},
+                           "daten_bytes": [len(x) for x in daten(klein)], "epochen_T_voll": {str(T): T * BATCH * KONTEXT / len(tr) for T in P["T"]}},
+         "zwischendatei": str(pfad), "zeilen": zeilen, "sekunden": time.time() - t0}
+    e["auswertung"] = auswertung_v5(zeilen, params, unigramm_entropie(tr, te), t_lo=min(P["T"]), t_hi=max(P["T"]), ds=tuple(P["d"]), flops=fl, zeit=zm, tuning=hp)
+    if zm is not None:
+        e["zeitmessung_einzelprozess_s_je_token"] = zm
+    e["urteil"] = urteil_v5(e["auswertung"])
+    return e
+
+
+# ---- Vortest v5 ----
+def _synth_v5(rng, adv1=0.10, adv2=0.08, adv2_half=None, gap_gelu=0.20, gap_df=0.10, sd=0.004, n=8, koll=None, nk=5.0, div=None, fehlt=None):
+    """Synthetische Zeilen: bpc(Di_z2) = bpc(Sz) + adv1 (positiv = Sz besser); bpc(D_gelu) = bpc(Df_z2) + adv2 (voll) bzw. adv2_half (Haelfte);
+    Train-bpc = Test-bpc − Luecke (D_gelu: gap_gelu, alle anderen: gap_df); in allen T, d und beiden Datenanteilen."""
+    adv2_half = adv2 if adv2_half is None else adv2_half
+    zl = []
+    for i in range(n):
+        gem = rng.normal(0, 0.01)
+        for d in D_WERTE_V5:
+            for T in T_WERTE_V5:
+                for an in ANTEILE_V5:
+                    w = adv2 if an == 1.0 else adv2_half
+                    basis = {"Sz": 3.4, "Di_z2": 3.4 + adv1, "Df_z2": 3.3, "Dk_z2": 3.6, "D_gelu": 3.3 + w}
+                    for a, v in basis.items():
+                        if fehlt == (a, T, d, an):
+                            continue
+                        x, ist = v + gem + rng.normal(0, sd), False
+                        if koll == (a, T, d, an) and i == 0:
+                            x += 1.0
+                        if div == (a, T, d, an) and i == 1:
+                            x, ist = 8.0, True
+                        g = gap_gelu if a == "D_gelu" else gap_df
+                        zl.append({"teil": "mess", "arm": a, "d": d, "T": T, "anteil": an, "seed": 2840 + i, "bpc": x, "bpc_train": x - g + rng.normal(0, sd), "bpc_val": x,
+                                   "instabil": ist, "sekunden_training": 10.0})
+        if i < 2:
+            for a in NK_ARME_V5:
+                zl.append({"teil": "nk", "arm": a, "d": 256, "T": 1000, "anteil": 1.0, "seed": 2848 + i, "bpc": nk + rng.normal(0, 0.02)})
+    return zl
+
+
+def _u5(rng, **kw):
+    p = {f"{a}|{d}": {"ffn": 1, "gesamt": 2} for a in ARME_V5 for d in D_WERTE_V5}
+    return urteil_v5(auswertung_v5(_synth_v5(rng, **kw), p, 5.0))
+
+
+def _fn_test_v5(a):
+    return _schl_v5(a), {"v": a[4] * 2}
+
+
+def _vortest_v5() -> bool:
+    import tempfile
+    ok = True
+
+    def pruefe(name, bed):
+        nonlocal ok
+        if not bed:
+            print(f"  Vortest FEHLER (I-045-v5): {name}", flush=True)
+            ok = False
+
+    torch.manual_seed(0)
+    # --- Zaehlungen: beide FLOP-Zaehlungen, Breiten, Parameter
+    pruefe("Sz ideal je Lage = 43.264 (d=256) / 94.720 (d=512) (w12)", sz_flops_ideal_lage(256) == 43264 and sz_flops_ideal_lage(512) == 94720)
+    pruefe("Sz matmul je Lage = 397.312 / 1.187.840 (v4-Zaehlung unveraendert)", sz_flops_lage(256) == 397312 and sz_flops_lage(512) == 1187840)
+    pruefe("Breiten: Di h = 42 / 46 (ideal), Df h = 388 / 580 (matmul), Dk h = 10", h_ideal(256) == 42 and h_ideal(512) == 46
+           and form_v4("Df_z2", 256)[1] == 388 and form_v4("Df_z2", 512)[1] == 580 and form_v4("Dk_z2", 256)[1] == 10 and form_v4("Dk_z2", 512)[1] == 10)
+    fl = {(a, d): flops_v5(a, d) for a in ARME_V5 for d in D_WERTE_V5}
+    for d in D_WERTE_V5:
+        sz = fl[("Sz", d)]
+        pruefe(f"Df_z2: matmul-FLOPs gleich Sz (+-3 %), d={d}", abs(fl[("Df_z2", d)]["matmul"] / sz["matmul"] - 1) <= BUDGET_TOLERANZ)
+        pruefe(f"Di_z2: ideale FLOPs gleich Sz (+-3 %), d={d}", abs(fl[("Di_z2", d)]["ideal"] / sz["ideal"] - 1) <= BUDGET_TOLERANZ)
+        pruefe(f"Sz: ideal deutlich unter matmul (>= 8x), d={d}", sz["matmul"] / sz["ideal"] >= 8)
+        pruefe(f"Dk_z2 parametergleich zu Sz (+-2 %), d={d}", abs(fl[("Dk_z2", d)]["ffn_parameter"] / sz["ffn_parameter"] - 1) <= 0.02)
+        pruefe(f"Sz-Parameter = 4·21·d, d={d}", sz["ffn_parameter"] == LAGEN * sz_param_lage(d))
+        pruefe(f"D_gelu: Breite 4d, Parameter 4·(8d²+5d), d={d}", fl[("D_gelu", d)]["ffn_parameter"] == 4 * (2 * d * 4 * d + 4 * d + d))
+        pruefe(f"Dichte Arme: ideal ~ matmul (Bias/Aktivierung < 1 %), d={d}", all(0 < fl[(a, d)]["ideal"] / fl[(a, d)]["matmul"] - 1 < 0.02 for a in ("Df_z2", "D_gelu")))
+        pruefe(f"Di_z2 hat mehr Parameter als Sz (Vorbehalt, ~4x), d={d}", 3.5 < fl[("Di_z2", d)]["ffn_parameter"] / sz["ffn_parameter"] < 5)
+    # --- Modelle: Form, Kausalitaet, Koepfe, Aktivierungen, Gleichheit mit Sprachmodell fuer alte Arme
+    for d in D_WERTE_V5:
+        nz = {a: modell_v5(a, 0, d) for a in ARME_V5}
+        x = torch.randint(0, 256, (2, KONTEXT))
+        for a, m in nz.items():
+            m.eval()
+            x2 = x.clone()
+            x2[:, 60] = (x2[:, 60] + 1) % 256
+            pruefe(f"Form/Kausalitaet {a} d={d}", m(x).shape == (2, KONTEXT, 256) and torch.allclose(m(x)[:, :60], m(x2)[:, :60], atol=1e-5)
+                   and not torch.allclose(m(x)[:, 60:], m(x2)[:, 60:]))
+            pruefe(f"Koepfe d/64 {a} d={d}", m.bl[0].h == d // 64)
+        pruefe(f"Aktivierungen d={d}", all(nz[a].bl[0].ffn.akt is torch.square for a in ("Sz", "Df_z2", "Di_z2", "Dk_z2")) and nz["D_gelu"].bl[0].ffn.akt is F.gelu)
+        pruefe(f"Di_z2 Breite {h_ideal(d)} d={d}", nz["Di_z2"].bl[0].ffn.a.out_features == h_ideal(d))
+        pruefe(f"FFN-Breite Df {form_v4('Df_z2', d)[1]}, D_gelu 4d, d={d}", nz["Df_z2"].bl[0].ffn.a.out_features == form_v4("Df_z2", d)[1]
+               and nz["D_gelu"].bl[0].ffn.a.out_features == 4 * d)
+        gleich = True
+        for a in ("Sz", "Df_z2", "Dk_z2", "D_gelu"):
+            torch.manual_seed(5)
+            m1 = Sprachmodell(a, 5, d=d, h=d // 64)
+            torch.manual_seed(5)
+            m2 = modell_v5(a, 5, d)
+            s1, s2 = m1.state_dict(), m2.state_dict()
+            gleich &= set(s1) == set(s2) and all(torch.equal(s1[k], s2[k]) for k in s1)
+        pruefe(f"Sprachmodell5 initialisiert die alten Arme bit-gleich zu Sprachmodell, d={d}", gleich)
+    # --- Trainierbarkeit
+    unit = torch.arange(32).repeat(8)[None].repeat(16, 1)[:, :KONTEXT + 1]
+    for a in ARME_V5:
+        m = modell_v5(a, 0, 512)
+        m = Sprachmodell5(a, 0, d=512, h=8)
+        opt = torch.optim.Adam(m.parameters(), lr=2e-3)
+        l0 = None
+        for _ in range(25):
+            opt.zero_grad()
+            l = F.cross_entropy(m(unit[:, :-1]).reshape(-1, 256), unit[:, 1:].reshape(-1))
+            l0 = l0 or float(l.detach())
+            l.backward()
+            opt.step()
+        pruefe(f"Trainierbar {a} d=512", float(l.detach()) < 0.7 * l0)
+    # --- Seeds (auch gegen seeds.json: nur der eigene Eintrag darf sie benutzen)
+    pruefe("Seeds frisch (8 Mess 2840-2847, 2 NK 2848/49, Tuning 2891)", SEEDS_V5 == tuple(range(2840, 2848)) and NK_SEEDS_V5 == (2848, 2849) and TUNING_SEED_V5 == 2891
+           and not ((set(SEEDS_V5) | set(NK_SEEDS_V5)) & _BELEGT_V5) and TUNING_SEED_V5 not in _BELEGT_V5 | set(SEEDS_V5) | set(NK_SEEDS_V5))
+    try:
+        import json as _json
+        sj = _json.loads((WURZEL / "seeds.json").read_text())
+        meine = set(SEEDS_V5) | set(NK_SEEDS_V5) | {TUNING_SEED_V5}
+        fremd = [e["id"] for e in sj["eintraege"] if e["id"] != KARTE_V5 and any(a <= s <= b for a, b in e["seeds"] for s in meine)]
+        pruefe(f"Keine Seed-Ueberschneidung mit anderen Eintraegen in seeds.json ({fremd})", not fremd)
+    except FileNotFoundError:
+        pass
+    # --- Aufgaben, Reihenfolge, Plan
+    P = PROFILE_V5["standard"]
+    hp = {f"{a}|{d}|{T}": {"lr": 1e-3} for a in ARME_V5 for d in P["d"] for T in P["T"]}
+    aufg = aufgaben_v5(hp, P, False, "x")
+    schl = [_schl_v5(a) for a in aufg]
+    pruefe("Aufgabenzahl 5·2·2·2·8 + 4 NK = 324, Schluessel eindeutig", len(aufg) == 324 and len(set(schl)) == 324 and sum(a[0] == "nk" for a in aufg) == 4)
+    pruefe("Lange zuerst (D_gelu, d=512, T=16000), NK d=256 T=1000 volle Daten", aufg[0][1] == "D_gelu" and aufg[0][2] == 512 and aufg[0][3] == 16000
+           and all(a[2] == 256 and a[3] == 1000 and a[9] == 1.0 for a in aufg if a[0] == "nk"))
+    pruefe("Beide Datenanteile je Zelle mit je 8 Seeds", all(sum(1 for a in aufg if a[:4] == ("mess", "Sz", 512, 16000) and a[9] == an) == 8 for an in ANTEILE_V5))
+    pruefe("Lernrate je (Arm, d, T) aus hp", all(a[5] == hp[f"{a[1]}|{a[2]}|{a[3]}"]["lr"] for a in aufg if a[0] == "mess"))
+    k = kosten_schaetzung_v5()
+    pruefe("Laufzeitplan: Wandzeit bei 72 Prozessen < 24 h (Aufschlag 1,3), laengste Aufgabe < 24 h", k["wand_gesamt_h"] < 24 and k["laengste_aufgabe_h"] < 24)
+    # --- Training: bit-gleich zu v3 bei voller Datenmenge; Train-/Val-bpc; Datenanteil
+    a1 = trainiere_v3("Sz", 2e-3, 3, 12, d=256, klein=True)
+    b1 = trainiere_v5("Sz", 2e-3, 3, 12, d=256, anteil=1.0, klein=True)
+    pruefe("trainiere_v5 (anteil 1,0) = trainiere_v3 (Test-bpc identisch)", abs(a1["bpc"] - b1["bpc"]) < 1e-9)
+    b2 = trainiere_v5("Di_z2", 2e-3, 3, 12, d=256, anteil=0.5, klein=True)
+    pruefe("Train-/Val-/Test-bpc vorhanden und endlich", all(np.isfinite(b2[x]) for x in ("bpc", "bpc_train", "bpc_val")) and b2["epochen"] > b1["epochen"])
+    tr1, tr5 = daten_anteil(1.0, True)[0], daten_anteil(0.5, True)[0]
+    pruefe("Haelfte = erste 50 % der Trainingsbytes (Praefix), Val/Test unveraendert", len(tr5) == len(tr1) // 2 and torch.equal(tr5, tr1[:len(tr5)])
+           and torch.equal(daten_anteil(0.5, True)[2], daten(True)[2]))
+    pruefe("Epochen: T=16000 voll ≈ 10,15", abs(16000 * BATCH * KONTEXT / len(daten()[0]) - 10.15) < 0.05)
+    t = trainiere_v5("Di_z2", 1e9, 0, 5, d=256, klein=True)
+    pruefe("Divergenz-Pfad liefert instabil oder schlechten bpc", t["instabil"] or t["bpc"] > 5.0)
+    with tempfile.TemporaryDirectory() as tmp:
+        ck = str(Path(tmp) / "a.pt")
+        ref = trainiere_v5("Di_z2", 2e-3, 3, 30, d=256, anteil=0.5, klein=True)
+        try:
+            trainiere_v5("Di_z2", 2e-3, 3, 30, d=256, anteil=0.5, klein=True, ckpt=ck, ckpt_alle=10, _stopp_bei=15)
+            pruefe("Abbruch wurde ausgeloest", False)
+        except _Abbruch:
+            pass
+        pruefe("Checkpoint nach Abbruch vorhanden", Path(ck).exists())
+        fort = trainiere_v5("Di_z2", 2e-3, 3, 30, d=256, anteil=0.5, klein=True, ckpt=ck, ckpt_alle=10)
+        pruefe("Fortsetzung ab Schritt 10", fort["fortgesetzt_ab"] == 10)
+        pruefe("Fortsetzung = ungestoerter Lauf (Test-/Train-bpc identisch)", abs(fort["bpc"] - ref["bpc"]) < 1e-9 and abs(fort["bpc_train"] - ref["bpc_train"]) < 1e-9)
+        pruefe("Checkpoint nach Ende geloescht", not Path(ck).exists())
+        try:
+            trainiere_v5("Sz", 2e-3, 3, 30, d=256, anteil=0.5, klein=True, ckpt=ck, ckpt_alle=10, _stopp_bei=12)
+        except _Abbruch:
+            pass
+        anders = trainiere_v5("Sz", 2e-3, 3, 30, d=256, anteil=1.0, klein=True, ckpt=ck, ckpt_alle=10)
+        pruefe("Checkpoint mit anderem Datenanteil wird nicht verwendet", anders["fortgesetzt_ab"] == 0)
+        pfad = Path(tmp) / "z.json"
+        kennung = {"k": 1}
+        a4 = [("mess", a, 512, 10, s, 1e-3, True, 5, tmp, an) for a in ("Sz", "Di_z2") for an in (1.0, 0.5) for s in (1, 2)]
+        z1 = _rechne(a4[:3], pfad, kennung, fn=_fn_test_v5, prozesse=1, schluessel=_schl_v5)
+        z2 = _rechne(a4, pfad, kennung, fn=_fn_test_v5, prozesse=1, schluessel=_schl_v5)
+        pruefe("Wiederaufnahme je Aufgabe (Arm, d, T, Datenanteil, Seed)", len(z1) == 3 and len(z2) == 8 and all(z2[k] == z1[k] for k in z1))
+        Pk = {**P, "d": (256,), "T": (3, 6), "tuning_runden": 2, "ckpt_alle": 2}
+        pt = Path(tmp) / "t.json"
+        kt = {"karte": "t5"}
+        arme_k = ("Di_z2", "Sz")
+        n0 = _ZAEHLER["lr"]
+        t1 = tuning_v5(Pk, True, TUNING_SEED_V5, pt, kt, 1, Path(tmp) / "ck", arme=arme_k)
+        n1 = _ZAEHLER["lr"]
+        t2 = tuning_v5(Pk, True, TUNING_SEED_V5, pt, kt, 1, Path(tmp) / "ck", arme=arme_k)
+        pruefe("Tuning: Rate je (Arm, d, T) gewaehlt", set(t1) == {f"{a}|256|{T}" for a in arme_k for T in (3, 6)} and all(v["lr"] > 0 and v["runden"] <= 2 for v in t1.values()))
+        pruefe("Tuning-Wiederaufnahme rechnet nichts neu und liefert dasselbe", n1 > n0 and _ZAEHLER["lr"] == n1 and t1 == t2)
+    # --- Urteilszweige
+    rng = np.random.default_rng(17)
+    gesehen = set()
+
+    def erwarte(name, u, **soll):
+        nonlocal ok
+        for kk, w in soll.items():
+            gesehen.add((kk, w.split(" (")[0]))
+            if not u[kk].startswith(w):
+                print(f"  Vortest FEHLER (I-045-v5) {name}: {kk} soll {w}, ist {u[kk]}", flush=True)
+                ok = False
+
+    erwarte("Standard: Sz besser, Vorsprung bleibt, D_gelu mehr Luecke, Vorsprung waechst bei halben Daten", _u5(rng, adv2_half=0.15),
+            **{"NK": "BESTANDEN", "H1a": "SZ_BESSER", "H1b": "SZ_BESSER", "H2a": "VORSPRUNG_BLEIBT", "H2b": "VORSPRUNG_BLEIBT", "H3": "GROESSERE_LUECKE", "H4": "WAECHST_BEI_WENIGER_DATEN"})
+    erwarte("Di_z2 besser, Vorsprung weg (gleichwertig), Luecke kleiner, Vorsprung schrumpft", _u5(rng, adv1=-0.08, adv2=0.0, adv2_half=-0.05, gap_gelu=0.05, gap_df=0.15),
+            **{"H1a": "H0", "H1b": "H0", "H2a": "VORSPRUNG_VERSCHWUNDEN", "H2b": "VORSPRUNG_VERSCHWUNDEN", "H3": "KLEINERE_LUECKE", "H4": "SCHRUMPFT_BEI_WENIGER_DATEN"})
+    u_gl = _u5(rng, adv2=0.0)
+    pruefe("H2 gleichwertig: Text nennt TOST", u_gl["H2a"].startswith("VORSPRUNG_VERSCHWUNDEN (gleichwertig"))
+    u_um = _u5(rng, adv2=-0.10, adv2_half=-0.10)
+    pruefe("H2 umgekehrt (D_gelu sicher besser): VORSPRUNG_VERSCHWUNDEN mit Begruendung", u_um["H2b"].startswith("VORSPRUNG_VERSCHWUNDEN (volle Breite"))
+    erwarte("Kein Unterschied (grosses Rauschen)", _u5(np.random.default_rng(101), adv1=0.0, adv2=0.0, adv2_half=0.0, gap_gelu=0.1, gap_df=0.1, sd=0.03),
+            **{"H1a": "HU", "H1b": "HU", "H2a": "HU", "H2b": "HU", "H3": "HU", "H4": "HU"})
+    erwarte("NK faellt", _u5(rng, nk=2.5), **{"NK": "DURCHGEFALLEN", "H1a": "HU (Negativkontrolle", "H2b": "HU (Negativkontrolle", "H3": "HU (Negativkontrolle", "H4": "HU (Negativkontrolle"})
+    erwarte("Divergenz Sz d=512 T=16000 voll", _u5(rng, div=("Sz", 16000, 512, 1.0)), **{"H1a": "SZ_BESSER", "H1b": "HU (Divergenz", "H2a": "VORSPRUNG_BLEIBT", "H2b": "VORSPRUNG_BLEIBT"})
+    erwarte("Kollaps Df_z2 d=256 T=16000 voll", _u5(rng, koll=("Df_z2", 16000, 256, 1.0)), **{"H1a": "SZ_BESSER", "H2a": "HU (Kollaps", "H2b": "VORSPRUNG_BLEIBT", "H3": "HU (Kollaps", "H4": "HU (Kollaps"})
+    erwarte("Divergenz D_gelu bei halber Datenmenge stoert nur H4", _u5(rng, div=("D_gelu", 16000, 512, 0.5)), **{"H2b": "VORSPRUNG_BLEIBT", "H3": "GROESSERE_LUECKE", "H4": "HU (Divergenz"})
+    erwarte("Divergenz bei T=4000 stoert nichts", _u5(rng, div=("Sz", 4000, 256, 1.0), adv2_half=0.15), **{"H1a": "SZ_BESSER", "H4": "WAECHST_BEI_WENIGER_DATEN"})
+    erwarte("Zelle fehlt (Di_z2 d=512)", _u5(rng, fehlt=("Di_z2", 16000, 512, 1.0)), **{"H1a": "SZ_BESSER", "H1b": "HU (Zellen fehlen"})
+    p = {f"{a}|{d}": {"ffn": 1, "gesamt": 2} for a in ARME_V5 for d in D_WERTE_V5}
+    a_ = auswertung_v5(_synth_v5(rng, div=("Sz", 16000, 256, 1.0)), p, 5.0)
+    pruefe("Divergenzrate 1/8, Seed bleibt in den Zahlen (n = 8)", abs(a_["divergenzrate"]["Sz|T16000|d256|D100"] - 0.125) < 1e-9
+           and a_["zellen"]["Sz|T16000|d256|D100"]["n"] == 8 and a_["diff"]["H1a"]["n"] == 8)
+    pruefe("Holm nur ueber H1a, H1b, H2a, H2b (H3, H4 nicht)", set(a_["p_holm"]) == {"H1a", "H1b", "H2a", "H2b"})
+    pruefe("Train-bpc und Luecke je Zelle ausgewiesen", "Sz|T16000|d256|D50" in a_["train"] and abs(a_["luecke"]["D_gelu|T16000|d512|D100"]["mittel"] - 0.20) < 0.01)
+    pruefe("Beschreibend: Vorsprung Sz gegen alle Arme, W je Zelle", "Vorsprung_Sz_gegen_Di_z2" in a_["beschreibend"] and "W_D_gelu_minus_Df_z2" in a_["beschreibend"]
+           and "T4000|d256|D50" in a_["beschreibend"]["W_D_gelu_minus_Df_z2"])
+    erlaubt = ("SZ_BESSER", "VORSPRUNG_BLEIBT", "VORSPRUNG_VERSCHWUNDEN", "GROESSERE_LUECKE", "KLEINERE_LUECKE", "WAECHST_BEI_WENIGER_DATEN",
+               "SCHRUMPFT_BEI_WENIGER_DATEN", "HU", "H0", "BESTANDEN", "DURCHGEFALLEN", "beschreibend")
+    pruefe("Vokabular", all(v.startswith(erlaubt) for v in _u5(rng).values()))
+    soll = {"H1a": {"SZ_BESSER", "H0", "HU"}, "H1b": {"SZ_BESSER", "H0", "HU"}, "H2a": {"VORSPRUNG_BLEIBT", "VORSPRUNG_VERSCHWUNDEN", "HU"},
+            "H2b": {"VORSPRUNG_BLEIBT", "VORSPRUNG_VERSCHWUNDEN", "HU"}, "H3": {"GROESSERE_LUECKE", "KLEINERE_LUECKE", "HU"},
+            "H4": {"WAECHST_BEI_WENIGER_DATEN", "SCHRUMPFT_BEI_WENIGER_DATEN", "HU"}}
+    for h, ws in soll.items():
+        fehlt = ws - {w for kk, w in gesehen if kk == h}
+        pruefe(f"Zweige {fehlt} fuer {h} erzwungen", not fehlt)
+    return bool(ok)
+
+
+_vortest_bis_v4 = vortest
+
+
+def vortest() -> bool:
+    """Alle Vortests der Datei (bis v4 unveraendert) plus I-045-v5."""
+    ok = _vortest_bis_v4()
+    ok &= _vortest_v5()
+    return bool(ok)
