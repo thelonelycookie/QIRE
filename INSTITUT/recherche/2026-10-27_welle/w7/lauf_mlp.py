@@ -9,7 +9,7 @@ BUDGETS = [5000, 18000]
 OUT = os.path.join(os.path.dirname(__file__), "mlp_ergebnis.json")
 res = json.load(open(OUT)) if os.path.exists(OUT) else {}
 t0 = time.time()
-for ds in ["mnist", "fashion"]:
+for ds in ["mnist", "fashion_mnist"]:
     for B in BUDGETS:
         # Arme: real (Param=B), kdicht (Param=B), phase (Param=B), phase_flop (FLOPs wie real)
         n = 256
@@ -27,7 +27,7 @@ for ds in ["mnist", "fashion"]:
                 x, y, _, _ = bilder(ds, 960, 10000, 2000)
                 k = 7500
                 best = None
-                for lr in [0.003, 0.01, 0.03, 0.1]:
+                for lr in [0.01, 0.03, 0.1, 0.3]:
                     a, _ = trainiere_mlp(art, h, lr, 960, (x[:k], y[:k]), (x[k:], y[k:]))
                     if best is None or a > best[0]: best = (a, lr)
                 res[key0] = best[1]; json.dump(res, open(OUT, "w"))

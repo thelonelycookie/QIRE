@@ -1,0 +1,2 @@
+mnist 5000 real H 19 P 5083 F 10108 lr 0.01 0s
+mnist 5000 kdicht H 10 P 5240 F 10440 lr 0.03 0s
