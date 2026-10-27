@@ -8,3 +8,17 @@
 {"art": "elu", "N": 128, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.5749921815838483, "val": false, "trainzeit": 36.87065553665161}
 {"art": "elu", "N": 128, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.5625407399759133, "val": false, "trainzeit": 33.09021282196045}
 {"art": "hada", "N": 128, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.5820193859668836, "val": false, "trainzeit": 36.13311982154846}
+{"art": "hada", "N": 128, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.580640476863922, "val": false, "trainzeit": 44.02736735343933}
+{"art": "hada", "N": 128, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.5740819699670956, "val": false, "trainzeit": 44.94408822059631}
+{"art": "soft", "N": 512, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.60603946641221, "val": false, "trainzeit": 47.092217683792114}
+{"art": "soft", "N": 512, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.5938692698562256, "val": false, "trainzeit": 45.095051527023315}
+{"art": "soft", "N": 512, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.590035643857471, "val": false, "trainzeit": 47.791661500930786}
+{"art": "born", "N": 512, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.606747114081776, "val": false, "trainzeit": 128.54766964912415}
+{"art": "born", "N": 512, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.599417565592469, "val": false, "trainzeit": 97.2669095993042}
+{"art": "born", "N": 512, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.5948278659430875, "val": false, "trainzeit": 93.03930044174194}
+{"art": "elu", "N": 512, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.604687049013589, "val": false, "trainzeit": 73.8495090007782}
+{"art": "elu", "N": 512, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.603375474109063, "val": false, "trainzeit": 80.59325337409973}
+{"art": "elu", "N": 512, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.5914116567341132, "val": false, "trainzeit": 78.98798608779907}
+{"art": "hada", "N": 512, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.610760425387441, "val": false, "trainzeit": 77.5338523387909}
+{"art": "hada", "N": 512, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.6009471549137495, "val": false, "trainzeit": 77.41372442245483}
+{"art": "hada", "N": 512, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.5972690337320343, "val": false, "trainzeit": 74.77483797073364}

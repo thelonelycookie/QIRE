@@ -1,2 +1,16 @@
 mnist 5000 real H 19 P 5083 F 10108 lr 0.01 0s
 mnist 5000 kdicht H 10 P 5240 F 10440 lr 0.03 0s
+mnist 5000 phase H 19 P 5084 F 19836 lr 0.3 47s
+mnist 5000 phase_flop H 10 P 2681 F 10440 lr 0.3 90s
+mnist 18000 real H 67 P 17899 F 35644 lr 0.03 90s
+mnist 18000 kdicht H 34 P 17792 F 35496 lr 0.01 90s
+mnist 18000 phase H 67 P 17900 F 69948 lr 0.1 145s
+mnist 18000 phase_flop H 34 P 9089 F 35496 lr 0.1 190s
+fashion_mnist 5000 real H 19 P 5083 F 10108 lr 0.3 226s
+fashion_mnist 5000 kdicht H 10 P 5240 F 10440 lr 0.01 269s
+fashion_mnist 5000 phase H 19 P 5084 F 19836 lr 0.03 320s
+fashion_mnist 5000 phase_flop H 10 P 2681 F 10440 lr 0.3 366s
+fashion_mnist 18000 real H 67 P 17899 F 35644 lr 0.01 412s
+fashion_mnist 18000 kdicht H 34 P 17792 F 35496 lr 0.01 460s
+fashion_mnist 18000 phase H 67 P 17900 F 69948 lr 0.03 517s
+fashion_mnist 18000 phase_flop H 34 P 9089 F 35496 lr 0.1 571s
