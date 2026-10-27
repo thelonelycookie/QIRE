@@ -763,6 +763,19 @@
    "ort": ""
   },
   {
+   "id": "I-046-v2",
+   "abteilung": "Information",
+   "status": "offen",
+   "modul": "abteilungen.pareto_schuss_v2",
+   "funktion": "lauf",
+   "prioritaet": 1,
+   "frage": "Pareto Genauigkeit x Information pro Schuss bei GLEICHEM Parameterbudget: U_voll (32.640), U_ff (Fastfood/Hadamard, trainierte Drehwinkel, 384), U_givens (384 Givens-Rotationen) je l in {0, .25, 1} gegen fest id/haar. H1 U_ff(l=.25) dominiert id UND haar; H2 U_ff nicht unterlegen gegen U_voll (I_C -0,05 Bit, acc -0,5 pp); H3 U_ff besser als U_givens in I_C. Holm, n=10.",
+   "notiz": "Vorregistrierung LABORBUCH.md (I-046-v2, Ende). Seeds 2640-2649 (Messung, NK auf denselben Seeds), Tuning 2697. 11 Arme, 400 Adam-Schritte, Wiederaufnahme je Aufgabe (auch Tuning) in ergebnisse/_zwischen_I-046-v2.json. Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit). Wartet auf Maltes Freigabe. Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-046-v2.",
+   "folgen": {},
+   "wartet_auf": "malte",
+   "ort": "MPCDF Raven"
+  },
+  {
    "id": "T-ternaer",
    "abteilung": "Clifford",
    "status": "erledigt",
@@ -811,11 +824,32 @@
    "abteilung": "Clifford",
    "status": "offen",
    "prioritaet": 1,
-   "frage": "Gleiche Struktur, ternaere Parameter: Zelle mit Butterfly-Struktur (8 Qubits x 4 Lagen, 2x2-Bloecke) deren Eintraege ternaer {-1,0,+1}·gamma statt Ry-Winkel sind. Liegt der Unterschied an der Clifford-/Rotationsgeometrie oder an der Parameterzahl?",
-   "notiz": "Freigeschaltet bei T-1:H0. Modul noch nicht gebaut; Vergleich bei GLEICHER Parameterzahl (32 Bloecke).",
+   "frage": "Gleiche Struktur, ternaere Parameter: Zelle mit Butterfly-Struktur (8 Qubits x 4 Lagen, 32 2x2-Bloecke) deren Eintraege ternaer {-1,0,+1}·gamma statt Ry-Winkel sind. Liegt der Abstand cliff0/voll gegen ternaer_quad an der Clifford-/Rotationsgeometrie oder an der Parameterzahl/dichten Struktur? Arme: voll, cliff0, identitaet, ternaer_quad, dicht_quad, bfly_tern_quad, bfly_tern, bfly_real_quad, bfly_real. B-1 (primaer): bfly_tern_quad >= cliff0 - 1 pp; B-2: bfly_tern_quad >= voll - 1 pp; Holm ueber B-1/B-2; B-3 Pareto/Lueckenanteile beschreibend; Vorbedingungen V-1, V-2 wie T-ternaer.",
+   "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (T-ternaer-butterfly). Modul gebaut, Vortest bestanden (direktor.py vortest). Seeds Mess 2660-2669, Tuning/Rauchtest 2694-2696 (seeds.json). Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_T-ternaer-butterfly.json. Laufzeit (Schaetzung aus Einzelmessung): ca. 7,4 Kernstunden, ca. 1,9 h bei 4 Prozessen (laeuft also auch im Container, grenzwertig), ca. 30 min bei 72 Prozessen (Raven). Freigabe von Malte steht aus (Lauf nicht gestartet). Start: cd INSTITUT; INSTITUT_PROZESSE=4 OMP_NUM_THREADS=1 python3 direktor.py lauf T-ternaer-butterfly.",
    "folgen": {},
    "wartet_auf": "malte",
-   "ort": ""
+   "ort": "MPCDF Raven oder Container",
+   "modul": "abteilungen.ternaer_butterfly",
+   "funktion": "lauf_butterfly",
+   "argumente": {
+    "seeds": [
+     2660,
+     2661,
+     2662,
+     2663,
+     2664,
+     2665,
+     2666,
+     2667,
+     2668,
+     2669
+    ],
+    "tuning_seeds": [
+     2694,
+     2695,
+     2696
+    ]
+   }
   },
   {
    "id": "T-ternaer-mehr",
