@@ -28,6 +28,7 @@ from peft import LoraConfig, get_peft_model
 print("torch", torch.__version__, "cuda", torch.version.cuda, "verfuegbar", torch.cuda.is_available())
 m = "LSX-UniWue/LLaMmlein_1B"
 tok = AutoTokenizer.from_pretrained(m)
+tok.pad_token = tok.pad_token or tok.eos_token
 mod = AutoModelForCausalLM.from_pretrained(m, torch_dtype=torch.bfloat16).cuda()
 print("Parameter (Mio.):", round(sum(p.numel() for p in mod.parameters()) / 1e6, 1))
 mod = get_peft_model(mod, LoraConfig(r=16, lora_alpha=32, target_modules=["q_proj", "v_proj"], task_type="CAUSAL_LM"))
