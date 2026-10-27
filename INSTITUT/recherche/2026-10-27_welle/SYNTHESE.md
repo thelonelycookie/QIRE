@@ -29,3 +29,8 @@ Mit Maltes Freigabe (vorregistriert, Raven):
 - **L1 Kompressionsstudie bei gleichen Bytes** (Rang 1, 4, 5 zusammen): Arme dicht klein fp16, Niedrigrang, Entropie-Rang, Hadamard + 2/3 Bit, Zufalls-Orthogonale + 2/3 Bit (Kontrolle), Nur-Phase; 10 Seeds, ≥ 8000 Schritte.
 - **L2 I-045-Nachprüfung**: Datenmenge × Schritte, Lernrate je T, Sz gegen dicht h≈45 (ideal gleiche Ops).
 - **L3 Hourglass/LRU**, falls R2 positiv.
+
+## Nachtrag: Rauchtests R1–R3 (27.10., Tuning-Seeds 970–984)
+- **R1 (gleiche Bytes, MNIST):** großes Modell + Rotation + 2 Bit 98,30 ± 0,11 gegen klein fp16 97,90 ± 0,11 (+0,4 pp, 3/3 Seeds). Zufalls-Orthogonale = Hadamard (98,21): es zählt die Rotation, Hadamard ist nur billiger. Reine Bytes-Aussage (2,5–6× mehr MACs). → Rang 1 bestätigt (gelb-grün).
+- **R2 (Byte-LM, 190 Schritte):** Hourglass+LRU 3,372 ± 0,008 gegen flach gleicher FLOPs 3,703 ± 0,010, bei weniger FLOPs. Hourglass allein nur −0,037. Vermutlich Frühregime-Effekt. → Rang 2 bleibt, Kandidat L3.
+- **R3 (Phasen-Kontrolle):** reell z² bei gleichen FLOPs (95,83) schlägt Nur-Phase (95,44); Zufallsphasen = gelernte Phasen. → Rang 4 gestrichen; Phase nur als Speicher-Aussage.
