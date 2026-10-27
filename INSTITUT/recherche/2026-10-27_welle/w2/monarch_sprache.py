@@ -128,10 +128,12 @@ if __name__ == "__main__":
             n = LM(a, 0); g, p, f = ffn_zaehlung(n); print(a, "FFN-Gew", g, "FFN-Par", p, "FFN-FLOPs/Tok", f, "gesamt", sum(x.numel() for x in n.parameters()))
     elif modus == "tuning":      # Lernratenwahl auf Val, Seed 913, kurz
         schritte = int(sys.argv[2]); res = {}
-        for a in ARME:
+        for a in ("dicht512", "dicht96", "lr19", "mon"):
             for lr in (1e-3, 3e-3, 6e-3):
                 r = trainiere(a, 913, lr, schritte, kurve_alle=schritte); res[f"{a}|{lr}"] = r["val"]; print(a, lr, round(r["val"], 4), round(r["cpu_s"]), flush=True)
         json.dump(res, open(aus / "tuning.json", "w"))
+        lrs = {a: min((1e-3, 3e-3, 6e-3), key=lambda l: res[f"{a}|{l}"]) for a in ("dicht512", "dicht96", "lr19", "mon")}
+        lrs.update({"mon_z2": lrs["mon"], "dicht96_z2": lrs["dicht96"]}); json.dump(lrs, open(aus / "lr.json", "w")); print(lrs)
     elif modus == "mess":
         schritte = int(sys.argv[2]); lrs = json.load(open(aus / "lr.json")); seeds = [int(s) for s in sys.argv[3].split(",")]
         pf = aus / "mess.json"; res = json.load(open(pf)) if pf.exists() else {}

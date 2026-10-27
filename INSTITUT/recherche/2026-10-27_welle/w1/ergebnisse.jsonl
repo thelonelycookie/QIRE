@@ -12,3 +12,4 @@
 {"arm": "Dn113", "seed": 900, "lr": 0.002, "schritte": 300, "bpc": 3.590542401693322, "kurve_val8k": [3.8712, 3.6104, 3.5599], "param_ffn": 58338, "flops_ffn_token": 116194, "param_ges": 232674, "sek": 13.4, "instabil": false, "val": true}
 {"arm": "D", "seed": 901, "lr": 0.002, "schritte": 300, "bpc": 3.5944849231620775, "kurve_val8k": [3.9074, 3.6172, 3.5731], "param_ffn": 263424, "flops_ffn_token": 525568, "param_ges": 437760, "sek": 18.6, "instabil": false, "val": true}
 {"arm": "TT2", "seed": 901, "lr": 0.002, "schritte": 300, "bpc": 3.5809168325917167, "kurve_val8k": [3.8624, 3.6097, 3.5509], "param_ffn": 2560, "flops_ffn_token": 115968, "param_ges": 176896, "sek": 20.2, "instabil": false, "val": true}
+{"arm": "TT4", "seed": 901, "lr": 0.002, "schritte": 300, "bpc": 3.5575867598089346, "kurve_val8k": [3.8021, 3.5859, 3.5328], "param_ffn": 4864, "flops_ffn_token": 328960, "param_ges": 179200, "sek": 21.0, "instabil": false, "val": true}
