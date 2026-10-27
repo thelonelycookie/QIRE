@@ -4,7 +4,7 @@
 cd "$(dirname "$0")/.."
 echo "== Warteschlange"; squeue -u "$USER"
 echo "== Letzte Jobs"; sacct -u "$USER" -S now-3days --format=JobID,JobName%15,State,Elapsed,ExitCode -X 2>/dev/null | tail -15
-for id in I-046-v2 T-ternaer-butterfly I-044-v4 I-047 I-043-1B; do
+for id in I-046-v2 T-ternaer-butterfly I-044-v4 I-047 I-043-1B I-048 I-049 I-045-v5; do
     f=$(ls -t INSTITUT/ergebnisse/"$id"__2*.json 2>/dev/null | head -1)
     if [ -n "$f" ]; then
         echo "== $id: FERTIG ($f)"

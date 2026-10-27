@@ -29,6 +29,13 @@ cpu I-046-v2            72 100G 02:00:00 1
 cpu T-ternaer-butterfly 72 100G 03:00:00 1
 cpu I-044-v4            72 200G 24:00:00 2
 cpu I-047               72 100G 24:00:00 2
+# Welle 27.10. (andere Sitzung): I-048, I-049, I-045-v5
+for f in mnist.npz fashion_mnist.npz de_gsd_train.conllu de_gsd_dev.conllu de_gsd_test.conllu; do
+    [ -f INSTITUT/daten/$f ] || echo "WARNUNG: INSTITUT/daten/$f fehlt (I-048/I-049/I-045-v5 brauchen es)"
+done
+cpu I-048               72 200G 24:00:00 1
+cpu I-049               72 200G 24:00:00 1
+cpu I-045-v5            72 200G 24:00:00 2
 # GPU: nur wenn Daten da sind und der Rauchtest schon gelaufen ist
 if fertig I-043-1B; then echo "= I-043-1B: fertig"
 elif laeuft I-043-1B; then echo "= I-043-1B: laeuft schon"
