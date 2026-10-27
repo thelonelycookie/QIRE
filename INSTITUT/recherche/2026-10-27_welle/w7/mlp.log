@@ -1,1 +1,19 @@
 mnist 5000 real H 19 P 5083 F 10108 lr 0.01 56s
+mnist 5000 kdicht H 10 P 5240 F 10440 lr 0.03 99s
+mnist 5000 phase H 19 P 5084 F 19836 lr 0.1 147s
+mnist 5000 phase_flop H 10 P 2681 F 10440 lr 0.1 200s
+mnist 18000 real H 67 P 17899 F 35644 lr 0.03 246s
+mnist 18000 kdicht H 34 P 17792 F 35496 lr 0.01 295s
+mnist 18000 phase H 67 P 17900 F 69948 lr 0.1 356s
+mnist 18000 phase_flop H 34 P 9089 F 35496 lr 0.1 430s
+Traceback (most recent call last):
+  File "/home/user/QIRE/INSTITUT/recherche/2026-10-27_welle/w7/lauf_mlp.py", line 27, in <module>
+    x, y, _, _ = bilder(ds, 960, 10000, 2000)
+                 ~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/QIRE/INSTITUT/labor/gemeinsam.py", line 261, in bilder
+    x, y = _roh(name)
+           ~~~~^^^^^^
+  File "/home/user/QIRE/INSTITUT/labor/gemeinsam.py", line 248, in _roh
+    urllib.request.urlretrieve(_QUELLEN[name] + f, ziel)
+                               ~~~~~~~~^^^^^^
+KeyError: 'fashion'

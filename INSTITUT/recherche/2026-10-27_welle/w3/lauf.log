@@ -1,0 +1,9 @@
+{"art": "soft", "N": 128, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.574151258445175, "val": false, "trainzeit": 39.83309602737427}
+{"art": "soft", "N": 128, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.5740174148823662, "val": false, "trainzeit": 36.6865656375885}
+{"art": "soft", "N": 128, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.5686529454990916, "val": false, "trainzeit": 36.5715012550354}
+{"art": "born", "N": 128, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.583602724889797, "val": false, "trainzeit": 56.45569396018982}
+{"art": "born", "N": 128, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.5823212676860963, "val": false, "trainzeit": 52.00585317611694}
+{"art": "born", "N": 128, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.572421825140488, "val": false, "trainzeit": 45.15641713142395}
+{"art": "elu", "N": 128, "seed": 920, "steps": 800, "lr": 0.006, "bpc": 3.5731545210441857, "val": false, "trainzeit": 39.50426506996155}
+{"art": "elu", "N": 128, "seed": 921, "steps": 800, "lr": 0.006, "bpc": 3.5749921815838483, "val": false, "trainzeit": 36.87065553665161}
+{"art": "elu", "N": 128, "seed": 922, "steps": 800, "lr": 0.006, "bpc": 3.5625407399759133, "val": false, "trainzeit": 33.09021282196045}

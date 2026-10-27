@@ -1,0 +1,85 @@
+Seeds 5
+dicht Test 95.88 ± 0.35
+Matrix 0 [512, 256] S/Smax 0.776 ppl 73.9 r90 115.0
+Matrix 1 [256, 512] S/Smax 0.620 ppl 31.1 r90 78.4
+Matrix 2 [128, 256] S/Smax 0.766 ppl 41.1 r90 62.4
+
+== Budget f=0.05 (Param komprimiert 14745)
+Art                       ohne        mit NT    Param     Byte    FLOPs
+lr_gleich         73.53±5.30  90.69±0.58    13440    53760    13440
+lr_entropie       65.81±3.92  92.36±0.69    14592    58368    14592
+lr_wasser         77.09±4.10  90.24±0.81    14438    57753    14438
+lr_global_sv      23.82±10.30  44.17±23.36    14361    57446    14361
+tt                11.80±1.88  86.10±1.37    13360    53440  1214464
+prune_lokal       25.59±3.50  81.67±1.67     9673    58968     9673
+prune_global      24.60±4.58  77.35±2.55     9650    58976     9650
+scratch_gleich    89.10±0.58    nan± nan    13440    53760    13440
+  lr_entropie-lr_gleich [ohne]: -7.72 ± 7.88pp
+  lr_entropie-lr_gleich [mit]: +1.68 ± 0.56pp
+  lr_wasser-lr_gleich [ohne]: +3.56 ± 4.81pp
+  lr_wasser-lr_gleich [mit]: -0.44 ± 0.65pp
+  lr_global_sv-lr_gleich [ohne]: -49.71 ± 14.42pp
+  lr_global_sv-lr_gleich [mit]: -46.52 ± 23.29pp
+  lr_global_sv-tt [ohne]: +12.02 ± 11.12pp
+  lr_global_sv-tt [mit]: -41.92 ± 22.85pp
+  lr_gleich-prune_global [ohne]: +48.92 ± 5.34pp
+  lr_gleich-prune_global [mit]: +13.34 ± 2.65pp
+
+== Budget f=0.1 (Param komprimiert 29491)
+Art                       ohne        mit NT    Param     Byte    FLOPs
+lr_gleich         92.29±1.20  94.52±0.30    28800   115200    28800
+lr_entropie       94.20±0.45  95.09±0.18    29030   116121    29030
+lr_wasser         94.13±0.65  95.09±0.21    29184   116736    29184
+lr_global_sv      90.35±4.85  95.17±0.21    29030   116121    29030
+tt                14.22±4.81  91.93±0.19    27936   111744  2541568
+prune_lokal       41.30±5.03  92.85±0.55    19348   117949    19348
+prune_global      40.12±7.55  92.83±0.55    19320   117960    19320
+scratch_gleich    92.56±0.41    nan± nan    28800   115200    28800
+  lr_entropie-lr_gleich [ohne]: +1.92 ± 0.80pp
+  lr_entropie-lr_gleich [mit]: +0.58 ± 0.24pp
+  lr_wasser-lr_gleich [ohne]: +1.84 ± 0.74pp
+  lr_wasser-lr_gleich [mit]: +0.58 ± 0.13pp
+  lr_global_sv-lr_gleich [ohne]: -1.94 ± 4.79pp
+  lr_global_sv-lr_gleich [mit]: +0.66 ± 0.11pp
+  lr_global_sv-tt [ohne]: +76.13 ± 8.21pp
+  lr_global_sv-tt [mit]: +3.24 ± 0.14pp
+  lr_gleich-prune_global [ohne]: +52.17 ± 7.99pp
+  lr_gleich-prune_global [mit]: +1.69 ± 0.43pp
+
+== Budget f=0.2 (Param komprimiert 58982)
+Art                       ohne        mit NT    Param     Byte    FLOPs
+lr_gleich         95.03±0.39  95.42±0.15    57600   230400    57600
+lr_entropie       95.37±0.52  95.69±0.19    58598   234393    58598
+lr_wasser         95.23±0.49  95.63±0.16    58675   234700    58675
+lr_global_sv      95.51±0.35  95.74±0.12    58444   233779    58444
+tt                33.74±4.65  94.61±0.18    58176   232704  5312512
+prune_lokal       69.66±4.65  95.42±0.20    38699   235916    38699
+prune_global      66.84±3.95  95.53±0.13    38669   235926    38669
+scratch_gleich    93.78±0.16    nan± nan    57600   230400    57600
+  lr_entropie-lr_gleich [ohne]: +0.34 ± 0.27pp
+  lr_entropie-lr_gleich [mit]: +0.26 ± 0.13pp
+  lr_wasser-lr_gleich [ohne]: +0.20 ± 0.31pp
+  lr_wasser-lr_gleich [mit]: +0.21 ± 0.11pp
+  lr_global_sv-lr_gleich [ohne]: +0.48 ± 0.15pp
+  lr_global_sv-lr_gleich [mit]: +0.32 ± 0.17pp
+  lr_global_sv-tt [ohne]: +61.77 ± 4.55pp
+  lr_global_sv-tt [mit]: +1.13 ± 0.07pp
+  lr_gleich-prune_global [ohne]: +28.18 ± 3.91pp
+  lr_gleich-prune_global [mit]: -0.10 ± 0.10pp
+
+Raenge (Seed 0):
+0.05 lr_gleich [7, 7, 7]
+0.05 lr_entropie [11, 5, 6]
+0.05 lr_wasser [7, 8, 8]
+0.05 lr_global_sv [10, 8, 2]
+0.05 tt [[13, 13, 13], [13, 13, 13], [6, 6, 6]]
+0.1 lr_gleich [15, 15, 15]
+0.1 lr_entropie [23, 9, 12]
+0.1 lr_wasser [21, 11, 12]
+0.1 lr_global_sv [23, 11, 7]
+0.1 tt [[16, 20, 20], [16, 20, 20], [10, 10, 8]]
+0.2 lr_gleich [30, 30, 30]
+0.2 lr_entropie [46, 18, 25]
+0.2 lr_wasser [39, 15, 45]
+0.2 lr_global_sv [57, 15, 9]
+0.2 tt [[16, 32, 32], [16, 32, 32], [16, 16, 8]]

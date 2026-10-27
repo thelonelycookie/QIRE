@@ -81,6 +81,12 @@ def quantisiere(netz, bits, rot, clip=False, abits=None, pad_to=None):
                 ersetze(c)
     ersetze(netz); return netz
 
+def erlaubt(bits, clip, ab):
+    if ab and clip: return False
+    if ab and bits < 4: return False
+    if clip and bits == 8: return False
+    return True
+
 def stat(netz):
     q = [m for m in netz.modules() if isinstance(m, QLinear)]
     return sum(m.bytes() for m in q), sum(m.flops()[0] for m in q), sum(m.flops()[1] for m in q)
@@ -89,7 +95,8 @@ def stat(netz):
 def sprache():
     from abteilungen import struktur_sprache as S
     tr, va, te = S.daten(False)
-    D = 128; STEPS = int(sys.argv[2]) if len(sys.argv) > 2 else 2500; BS = 16; LR = 3e-3
+    te100 = te[:100_000]
+    D = 128; STEPS = int(sys.argv[2]) if len(sys.argv) > 2 else 2500; BS = 8; LR = 3e-3
     res = {}
     for seed in SEEDS:
         t0 = time.time()
@@ -104,7 +111,7 @@ def sprache():
             i = torch.randint(0, len(tr) - S.KONTEXT - 1, (BS,), generator=g)
             l = F.cross_entropy(netz(tr[i[:, None] + offs].long()).reshape(-1, 256), tr[i[:, None] + offs + 1].long().reshape(-1))
             opt.zero_grad(); l.backward(); torch.nn.utils.clip_grad_norm_(netz.parameters(), 1.0); opt.step(); sch.step()
-        r = {"train_s": time.time() - t0, "fp_val": S.bpc_auswerten(netz, va), "fp_test": S.bpc_auswerten(netz, te)}
+        r = {"train_s": time.time() - t0, "fp_test": S.bpc_auswerten(netz, te100)}
         nlin = sum(p.numel() for n_, p in netz.bl.named_parameters() if n_.endswith("weight") and p.dim() == 2)
         r["params_total"] = S.param_gesamt(netz); r["params_linear"] = nlin
         r["fp16_bytes_linear"] = nlin * 2
@@ -120,10 +127,10 @@ def sprache():
             for rot in (False, True):
                 for clip in (False, True):
                     for ab in (None, 8):
-                        if ab and clip: continue
+                        if not erlaubt(bits, clip, ab): continue
                         qn = quantisiere(netz, bits, rot, clip, ab)
                         key = f"b{bits}_{'rot' if rot else 'roh'}_{'clip' if clip else 'rtn'}_{'A8' if ab else 'Afp'}"
-                        r[key] = {"val": S.bpc_auswerten(qn, va), "test": S.bpc_auswerten(qn, te)}
+                        r[key] = {"test": S.bpc_auswerten(qn, te100)}
                         r[key]["bytes"], r[key]["mac"], r[key]["add"] = stat(qn)
         res[seed] = r
         print(seed, "fp", round(r["fp_test"], 3), "t", round(r["train_s"]), flush=True)
@@ -155,7 +162,7 @@ def mnist():
             for rot in (False, True):
                 for clip in (False, True):
                     for ab in (None, 8):
-                        if ab and clip: continue
+                        if not erlaubt(bits, clip, ab): continue
                         qn = quantisiere(net, bits, rot, clip, ab, pad_to={784: 1024})
                         key = f"b{bits}_{'rot' if rot else 'roh'}_{'clip' if clip else 'rtn'}_{'A8' if ab else 'Afp'}"
                         r[key] = {"val": acc(qn, xva, yva), "test": acc(qn, xte, yte)}
