@@ -88,7 +88,7 @@ if __name__ == "__main__":
     for arm in FORM:
         key0 = f"{arm}|lr"
         if key0 not in res:
-            best = min((train(arm, lr, 960, tr, dev, 600), lr) for lr in [1e-3, 3e-3, 1e-2])
+            best = min((train(arm, lr, 960, tr, dev, 250), lr) for lr in [1e-3, 3e-3, 1e-2])
             res[key0] = best[1]; json.dump(res, open(OUT, "w"))
         for s in SEEDS:
             k = f"{arm}|{s}"

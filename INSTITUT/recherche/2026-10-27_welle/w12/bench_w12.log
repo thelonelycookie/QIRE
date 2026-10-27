@@ -1,0 +1,12 @@
+d=256 Sz as implemented (Repo, Matmul-WHT): 157.9 us
+  FWHT-Test max.Fehler: 1.9073486328125e-05
+d=256 Sz echte FWHT:            965.2 us
+d=256 dicht h=388:           33.2 us  (0.79 MB Gewichte)
+d=256 dicht h=1024:           121.7 us  (2.10 MB Gewichte)
+d=256 dicht h=2048:           236.1 us  (4.19 MB Gewichte)
+d=512 Sz as implemented (Repo, Matmul-WHT): 273.9 us
+  FWHT-Test max.Fehler: 4.1961669921875e-05
+d=512 Sz echte FWHT:            1192.4 us
+d=512 dicht h=580:           179.2 us  (2.38 MB Gewichte)
+d=512 dicht h=2048:           493.1 us  (8.39 MB Gewichte)
+d=512 dicht h=2048:           444.9 us  (8.39 MB Gewichte)
