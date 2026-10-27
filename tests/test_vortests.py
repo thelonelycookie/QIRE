@@ -29,6 +29,7 @@ LANGSAM = {
     "struktur_sprache": "langsam (Sprachmodell-Vortest)",
     "struktur_tt": "langsam (Sprachmodell-Vortest, ca. 150 s)",
     "multiskala_lru": "langsam (Sprachmodell-Vortest, ca. 60 s)",
+    "kompression_bytes": "20 s",
     "magie_schwierigkeit": "59 s",
     "datenmenge": "33 s",
     "clifford_suche": "28 s",
