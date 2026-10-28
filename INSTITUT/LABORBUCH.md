@@ -1993,3 +1993,63 @@ Anlass: Das Laborbuch (27.10.) nennt die Linie I-045 „abgeschlossen“ (Sz ver
 - **Status:** `agenda.json` „offen, wartet auf Maltes Freigabe (MPCDF Raven)“. **Start (auf Raven):** `cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-045-v5` (bei Abbruch dasselbe Kommando erneut).
 
 ---
+
+## 28.10.2026 – I-046-v2 ERGEBNIS (Pareto Genauigkeit × Information pro Schuss bei gleichem Parameterbudget, Seeds 2640–2649)
+Gerechnet auf MPCDF Raven (Job 31574987, 17 min). Rohdaten `ergebnisse/I-046-v2__20261027_142828.json`. NK bestanden (acc ≈ 10 %), PK bestanden (id 90,27 %).
+| Arm | Parameter | acc_inf % | I_C Bit |
+|---|---|---|---|
+| id / haar (fest) | 0 | 90,27 / 93,89 | 0,360 / 0,162 |
+| voll λ=0 / .25 / 1 | 32 640 | **96,30** / 95,89 / 95,32 | 0,174 / 0,388 / **0,614** |
+| ff λ=0 / .25 / 1 | 384 | 94,79 / 94,57 / 94,06 | 0,168 / 0,236 / 0,335 |
+| givens λ=0 / .25 / 1 | 384 | 93,53 / 93,37 / 90,91 | 0,249 / 0,294 / 0,371 |
+- **H1 H0:** ff(λ=.25) dominiert id nicht (+0,68 pp, aber −0,12 Bit). **H2 H0:** ff gegen voll −1,32 pp und −0,15 Bit, also unterlegen. **H3 H0:** ff gegen givens −0,06 Bit (givens hat mehr I_C, ff mehr Genauigkeit). Alle p_Holm = 1.
+- **Deutung:** Bei 384 Parametern dominiert keine strukturierte Drehung beide festen Basen. Nur voll(λ=.25) dominiert in 7/10 Seeds, voll(λ=1) in 10/10, kostet aber 85× mehr Parameter. Fastfood und Givens liegen auf derselben Front, nur an verschiedenen Stellen.
+- **Folge:** Linie I-046 („strukturierte Messbasis ist günstiger Pareto-Gewinn“) bei diesem Budget nicht belegt. Wirkung klassisch (I-038). Keine Folgefrage ohne Maltes Freigabe.
+
+## 28.10.2026 – T-ternaer-butterfly ERGEBNIS (ternäre Einträge in Butterfly-Struktur, MNIST, Seeds 2660–2669)
+Gerechnet auf MPCDF Raven (Job 31574988, 16 min). Rohdaten `ergebnisse/T-ternaer-butterfly__20261027_142656.json`. V-1 H1 (voll − identitaet +4,4 pp), V-2 H1 (dicht_quad − identitaet +5,7 pp).
+| Arm | acc % (n=10) | Bit Mitte |
+|---|---|---|
+| ternaer_quad / dicht_quad | **95,35** / 95,34 | 103 904 / 2,1 M |
+| voll | 94,03 | 1 024 |
+| bfly_real_quad / bfly_real | 93,40 / 88,62 | 4 096 |
+| cliff0 | 91,60 | 64 |
+| identitaet | 89,65 | 0 |
+| bfly_tern | 82,18 (± 5,8) | 235 |
+| bfly_tern_quad | **33,06** (± 9,6) | 235 |
+- **B-1 H0, B-2 H0:** bfly_tern_quad liegt 58,5 pp unter cliff0 und 61,0 pp unter voll.
+- **Aber kein Geometriebefund:** bfly_tern_quad liegt 56,6 pp **unter identitaet**. Schon im Tuning (Seeds 2694–2696) kollabiert der Arm bei jeder Lernrate (bestes Mittel 31,9 % bei lr 0,01), bfly_tern ist instabil (± 5,8 pp). Das ist ein Optimierungsversagen (ternärer Straight-Through-Gradient durch 4 Butterfly-Lagen + Quadrat), keine Aussage über Clifford- gegen Rotationsgeometrie. Die Frage „Geometrie oder Parameterzahl?“ bleibt für den ternären Arm offen.
+- **Brauchbarer Nebenbefund:** Dieselbe Struktur mit reellen Einträgen (bfly_real_quad, 128 Parameter) erreicht voll bis auf −0,63 pp; ternaer_quad − bfly_real_quad +1,95 pp. Struktur trägt also, die Ternärisierung in tiefer Struktur scheitert am Training.
+- **Folge (Vorschlag, nicht gestartet):** ternärer Butterfly mit Schichtnormierung oder schrittweiser Ternärisierung (reell vortrainieren, dann quantisieren). Neue Vorregistrierung nur mit Maltes Freigabe.
+
+## 28.10.2026 – I-049 ERGEBNIS (Hourglass + LRU im Byte-Sprachmodell bei gleichen FLOPs, Seeds 2900–2909)
+Gerechnet auf MPCDF Raven (Job 31588709, 4 h 48 min). Rohdaten `ergebnisse/I-049__20261028_034057.json`. NK bestanden (4,744 bpc, Unigramm 4,743).
+| Arm | T=2000 | T=8000 | T=16000 |
+|---|---|---|---|
+| FF (flach FLOP-gleich) | 3,351 | 2,154 | 2,077 |
+| F4 | 3,266 | 2,125 | 2,077 |
+| FF4 | 2,898 | 2,207 | **2,073** |
+| FP (parametergleich) | 3,151 | **2,101** | 2,081 |
+| HG | 2,790 | 2,309 | 2,194 |
+| LRU | **2,305** | 2,125 | 2,168 |
+| HGLRU | 2,385 | 2,155 | 2,132 |
+- **H1 H0:** Bei T=16000 ist HGLRU **schlechter** als FF (V = −0,055 bpc [−0,058; −0,053], 0/10 Seeds positiv).
+- **H2 SCHRUMPFT:** Der Vorsprung fällt von ≈ +0,97 bpc (T=2000) auf −0,055 bpc (T=16000), Δ = −1,02 bpc, p = 2·10⁻¹⁴.
+- **Deutung:** Der Rauchtest-Vorteil von r2 war ein reiner Frühregime-Effekt, wie die Berichte vermutet hatten (gleiche Lehre wie I-044/I-045). Rekurrenz lernt schneller, aber bei vollem Training gewinnt der flache Transformer.
+- **Folge:** Linie I-049 abgeschlossen. Methodenlehre bestätigt: Effizienzaussagen nur bei vollem Training.
+
+## 28.10.2026 – I-047 ERGEBNIS (Tensor-Train-FFN im Sprachmodell bei gleichen FLOPs, Seeds 2680–2687)
+Gerechnet auf MPCDF Raven (Job 31588705, 9 h 28 min). Rohdaten `ergebnisse/I-047__20261028_082024.json`. NK bestanden (4,745 bpc, Unigramm 4,743).
+| Arm | T=4000 | T=16000 |
+|---|---|---|
+| TT_z2 (χ=4) | 2,536 | 2,148 |
+| TT_gelu (χ=4) | 2,626 | 2,188 |
+| TT_z2_klein (χ=2) | 2,566 | 2,158 |
+| Df_z2 (dicht, h=580) | **2,296** | 2,100 |
+| Df_gelu (dicht, h=580) | 2,382 | **2,088** |
+| Lk_z2 (Rang 116) | 2,379 | 2,089 |
+| Sz (Fastfood + z²) | 2,592 | 2,176 |
+- **H1 H0:** Df_gelu sicher besser als TT_z2 (−0,061 bpc [−0,065; −0,056]). **H2 H0:** Lk_z2 sicher besser (−0,059 bpc [−0,064; −0,053]).
+- **H3 QUADRAT_TRÄGT:** TT_gelu − TT_z2 = +0,040 bpc [+0,031; +0,048], p = 5·10⁻⁵. Im Tensornetz hilft das Born-Quadrat (z²) gegenüber GELU klar.
+- **Deutung:** Das Tensornetz schlägt Fastfood (Sz, +0,03 bpc besser), verliert aber bei gleichen FLOPs gegen gewöhnliche dichte und Niedrigrang-FFNs. χ=2 statt 4 kostet nur 0,01 bpc.
+- **Folge:** Kein Rechenvorteil bei gleichen FLOPs (wie I-045-v4). Was bleibt: der Born-Quadrat-Befund (H3) als robuster Nebenbefund für die Arbeit. Wirkung klassisch (I-038).
