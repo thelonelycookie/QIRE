@@ -1,4 +1,4 @@
-"""Führt alle Erkundungsskripte K*.py / E*.py über die Tuning-Seeds 950-954 parallel aus (Wiederaufnahme: fertige JSON werden übersprungen).
+"""Führt alle Erkundungsskripte K*.py / E*.py (auch Z1_*.py) über die Tuning-Seeds 950-954 parallel aus (Wiederaufnahme: fertige JSON werden übersprungen).
 Aufruf (Raven, im INSTITUT-Ordner):  OMP_NUM_THREADS=1 python3 erkundung/lauf_alle.py [--seeds 950 951 ...] [--nur K01 K03]"""
 import argparse, glob, json, os, subprocess, sys, time
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -15,7 +15,7 @@ if __name__ == "__main__":
     a = argparse.ArgumentParser(); a.add_argument("--seeds", type=int, nargs="*", default=[950, 951, 952, 953, 954])
     a.add_argument("--nur", nargs="*"); a.add_argument("--prozesse", type=int, default=int(os.environ.get("INSTITUT_PROZESSE", "4")))
     o = a.parse_args(); os.makedirs(os.path.join(HIER, "roh"), exist_ok=True)
-    kids = sorted(os.path.basename(p)[:-3] for p in glob.glob(os.path.join(HIER, "[KE][0-9][0-9]*.py")))
+    kids = sorted(os.path.basename(p)[:-3] for pat in ("[KE][0-9][0-9]*.py", "Z1_*.py") for p in glob.glob(os.path.join(HIER, pat)))
     if o.nur: kids = [k for k in kids if k in o.nur]
     auf = [(k, s) for k in kids for s in o.seeds]
     print(f"{len(auf)} Aufgaben, {o.prozesse} Prozesse", flush=True)
