@@ -12,3 +12,10 @@ Ziel: quanten-inspirierte, ressourceneffiziente KI. Ein Vorteil zählt nur bei g
 7. **Vorregistrieren:** Was im Erkundungslauf grün ist, wird ein vorregistrierter Lauf. Malte hat am 28.10. „alles“ freigegeben; jeder neue Lauf wird ihm trotzdem in einer Zeile gemeldet.
 
 Regeln: Tuning-Seeds 950–989 für Erkundung. Ergebnisse auf diesem Branch, Code auf main. Commits nur unter Maltes Namen.
+
+## Änderungen ab Zyklus Z2 (aus Z1_kreativforschung.md)
+1. **Archiv nach MAP-Elites:** Tabelle Quantenprinzip × Ressource in `zyklus/ARCHIV.md`. Leere Zellen werden zum Pflichtauftrag des nächsten Zyklus.
+2. **Neuheitsprüfung vor dem Turnier:** Jede Idee wird mit Archiv und LABORBUCH abgeglichen. Duplikate fliegen raus, Neues bekommt einen Bonus.
+3. **Evolution mit Prüfer:** Alle Rauchtests nutzen dasselbe Bewertungsmodul (gleiche FLOPs, gleiche Bytes, zwei Trainingslängen). Grüne Ideen werden im nächsten Zyklus mutiert.
+4. **Pflichtfeld „langweiligste Erklärung“** samt passender Kontrolle. Fehlt das Feld, zählt der Rauchtest nicht.
+5. **Kontingente:** mindestens ein Platz der Top 5 für Maltes ++, mindestens eine Fernanalogie aus einem fremden Fach je Zyklus. Mischung nach Uzzi: konventionelle Basis plus eine atypische Verbindung.
