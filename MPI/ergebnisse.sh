@@ -12,7 +12,7 @@ for id in I-046-v2 T-ternaer-butterfly I-044-v4 I-047 I-043-1B I-048 I-049 I-045
     else
         z=$(ls INSTITUT/ergebnisse/_zwischen_"$id".json 2>/dev/null)
         echo "== $id: nicht fertig${z:+ (Zwischenstand vorhanden)}"
-        l=$(grep -l "$id" $(ls -t logs/*.out 2>/dev/null | head -30) 2>/dev/null | head -1)
+        l=$(grep -l "Start $id " $(ls -t logs/*.out 2>/dev/null | head -30) 2>/dev/null | head -1)
         [ -n "$l" ] && { tail -3 "$l"; e="${l%.out}.err"; [ -s "$e" ] && { echo "-- Fehlerlog:"; tail -5 "$e"; }; }
     fi
 done
