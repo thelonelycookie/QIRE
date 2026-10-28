@@ -2071,3 +2071,29 @@ Gerechnet auf MPCDF Raven (Job 31602858, 1 h 24 min, nach zwei Abbrüchen beim D
 - **H3:** Entropie-Rang nirgends gesichert besser; LM b2 sogar H0 (gleichmäßig 0,10 bpc besser).
 - **Deutung:** Rotation vor dem Runden hilft bei 2 Bit stark (MNIST +2,0 pp, Fashion +10,9 pp gegen roh), schlägt aber bei gleichen Bytes ein kleines dichtes fp16-Modell nicht gesichert. Im LM ist das kleine dichte Modell klar die beste Wahl. Ergebnis deckt sich mit QuaRot/QuIP-Literatur (Rotation glättet Ausreißer); kein eigener Vorteil.
 - **Folge:** Linie I-048 abgeschlossen. Wirkung klassisch (I-038).
+
+## 28.10.2026 – I-044-v4 ERGEBNIS (Epochenreihe Strukturkopf mit Ratensuche je Epochenzahl und Augmentierung, CIFAR-10, Seeds 2710–2719)
+Gerechnet auf MPCDF Raven (Job 31602856, 2 h 17 min; zuvor zwei Abbrüche am Start, behoben in d609ff3). Rohdaten `ergebnisse/I-044-v4__20261028_132339.json`. NK bestanden (permutierte Labels 9,6 %).
+| Epochen | Ks | Klin | Kklein | Ks − Klin |
+|---|---|---|---|---|
+| 4 | 70,58 | **72,83** | 71,66 | −2,25 |
+| 12 | **78,61** | 77,63 | 77,94 | +0,98 |
+| 24 | **80,88** | 80,07 | 80,31 | +0,81 |
+| 48 (von allen Armen gewählt) | **82,30** | 81,34 | 81,71 | +0,96 |
+- **H1 STRUKTUR_HÄLT:** Ks − Klin +0,96 pp [+0,71; +1,21], p_Holm 6·10⁻⁵. **H2 STRUKTUR_HÄLT:** Ks − Kklein +0,59 pp [+0,39; +0,78], p_Holm 2·10⁻⁴.
+- **H3 WÄCHST:** (Ks − Klin)@48 − @4 = +3,20 pp [+2,68; +3,72]. Der Strukturkopf braucht längeres Training, dann liegt er vorn.
+- **Deutung:** Entgegen der vorab notierten Erwartung (H1 eher H0) hält der Strukturkopf-Vorsprung mit Augmentierung und Lernrate je Epochenzahl. Der v3-Befund (−0,51 pp bei 24 Epochen) war also ein Raten-/Überanpassungsartefakt. Erster gesicherter positiver Strukturbefund bei vollem Training. Wirkung klassisch (I-038), „quanten-inspirierter Vorteil“.
+- **Vorbehalt:** Alle Arme wählen 48 Epochen, das Maximum des Gitters; ob der Abstand bei noch längerem Training bleibt, ist offen. Replikation auf frischen Seeds oder einem zweiten Datensatz wäre der nächste Schritt (nur mit Maltes Freigabe).
+
+## 28.10.2026 – I-045-v5 ERGEBNIS (Nachprüfung I-045-v3/v4: Datenmenge, Lernrate je T, ideale FLOP-Zählung, Seeds 2840–2847)
+Gerechnet auf MPCDF Raven (Job 31588711, 15 h 18 min). Rohdaten `ergebnisse/I-045-v5__20261028_141022.json`. NK bestanden (4,744 bpc, Unigramm 4,743).
+| Zelle (T=16000) | Sz | Df_z2 | Di_z2 | Dk_z2 | D_gelu |
+|---|---|---|---|---|---|
+| d=256, volle Daten | 2,176 | 2,091 | 2,254 | 2,348 | **2,070** |
+| d=256, halbe Daten | **2,250** | 2,252 | 2,255 | 2,328 | 2,335 |
+| d=512, volle Daten | 2,144 | 2,092 | 2,252 | 2,367 | **2,079** |
+| d=512, halbe Daten | 2,386 | 2,301 | **2,257** | 2,350 | 2,355 |
+- **H1a/H1b SZ_BESSER:** Bei ideal gleichen Operationen schlägt Sz die dichte FFN Di_z2 (d=256 +0,078 bpc [+0,071; +0,085], d=512 +0,108 [+0,103; +0,113]). Sz hat dabei 4,4× weniger Parameter.
+- **H2a/H2b VORSPRUNG_VERSCHWUNDEN:** Mit Lernrate je T ist die volle Breite (D_gelu) nicht mehr schlechter als die schmale dichte FFN (d=256 sogar −0,020 bpc besser; d=512 gleichwertig, TOST). Der v4-Nebenbefund „schmal schlägt breit“ war ein Lernratenartefakt.
+- **H3 GRÖSSERE_LÜCKE:** D_gelu überangepasst stärker (G +0,055 bpc). **H4 WÄCHST_BEI_WENIGER_DATEN:** Bei halben Daten gewinnt die schmale FFN deutlich (+0,085 bpc). Überanpassung erklärt den Rest.
+- **Deutung:** Fastfood + z² ist bei gleicher **Operationszahl** (ideale Zählung, FWHT in O(N log N)) besser als eine gleich teure dichte FFN, bei gleicher **Matmul-Rechenzeit** (v4-Zählung) aber schlechter (Df_z2 −0,05/−0,09 bpc). Der Vorteil ist eine Aussage über Operationen und Speicher, nicht über Zeit in heutiger Software (w12: Torch-FWHT bei Batch 1 6,7–8× langsamer). Für die Arbeit: ehrlich als „operationsarm und parameterarm, mit passendem Kernel“ formulieren. Wirkung klassisch (I-038).
