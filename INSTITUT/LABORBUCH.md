@@ -2053,3 +2053,21 @@ Gerechnet auf MPCDF Raven (Job 31588705, 9 h 28 min). Rohdaten `ergebnisse/I-047
 - **H3 QUADRAT_TRÄGT:** TT_gelu − TT_z2 = +0,040 bpc [+0,031; +0,048], p = 5·10⁻⁵. Im Tensornetz hilft das Born-Quadrat (z²) gegenüber GELU klar.
 - **Deutung:** Das Tensornetz schlägt Fastfood (Sz, +0,03 bpc besser), verliert aber bei gleichen FLOPs gegen gewöhnliche dichte und Niedrigrang-FFNs. χ=2 statt 4 kostet nur 0,01 bpc.
 - **Folge:** Kein Rechenvorteil bei gleichen FLOPs (wie I-045-v4). Was bleibt: der Born-Quadrat-Befund (H3) als robuster Nebenbefund für die Arbeit. Wirkung klassisch (I-038).
+
+## 28.10.2026 – I-048 ERGEBNIS (Kompression bei gleichen Bytes der Linearschichten, Seeds 2800–2809)
+Gerechnet auf MPCDF Raven (Job 31602858, 1 h 24 min, nach zwei Abbrüchen beim Datendownload; Wiederaufnahme aus Zwischendatei). Rohdaten `ergebnisse/I-048__20261028_123048.json`. NK bestanden (MNIST, Fashion, LM).
+| Arm (Bytes-Stufe) | MNIST % | Fashion % | LM bpc |
+|---|---|---|---|
+| fp (unkomprimiert) | 98,51 | 90,18 | 2,094 |
+| had b2 / b3 | 98,24 / 98,46 | 86,50 / 89,44 | 3,969 / 2,360 |
+| orth b2 / b3 | 98,22 / 98,46 | 87,19 / 89,46 | 3,992 / 2,360 |
+| roh b2 / b3 (ohne Rotation) | 96,21 / 98,28 | 75,59 / 88,50 | 3,987 / 2,368 |
+| klein b2 / b3 (dicht fp16) | 98,10 / 98,41 | 89,25 / 89,60 | 2,283 / **2,226** |
+| nr b2 / b3 (Niedrigrang) | 98,42 / 98,28 | 89,39 / 89,46 | 2,613 / 2,367 |
+| svd_entropie b2 / b3 | 98,37 / 98,47 | **89,95 / 90,12** | 2,896 / 2,631 |
+| svd_gleich b2 / b3 | 98,39 / 98,40 | 89,87 / 90,08 | 2,797 / 2,627 |
+- **H1:** MNIST HU (had2 − klein2 +0,15 pp [+0,07; +0,23], Marge 0,2 nicht gesichert); Fashion H0 (−2,76 pp); LM H0 (−1,69 bpc: 2 Bit zerstört das Sprachmodell).
+- **H2:** Hadamard = Zufalls-Orthogonale (ÄQUIVALENT bei MNIST b2/b3 und LM b3; sonst HU). Es kommt auf die Rotation an, nicht auf Hadamard.
+- **H3:** Entropie-Rang nirgends gesichert besser; LM b2 sogar H0 (gleichmäßig 0,10 bpc besser).
+- **Deutung:** Rotation vor dem Runden hilft bei 2 Bit stark (MNIST +2,0 pp, Fashion +10,9 pp gegen roh), schlägt aber bei gleichen Bytes ein kleines dichtes fp16-Modell nicht gesichert. Im LM ist das kleine dichte Modell klar die beste Wahl. Ergebnis deckt sich mit QuaRot/QuIP-Literatur (Rotation glättet Ausreißer); kein eigener Vorteil.
+- **Folge:** Linie I-048 abgeschlossen. Wirkung klassisch (I-038).

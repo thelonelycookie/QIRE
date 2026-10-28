@@ -921,15 +921,16 @@
   {
    "id": "I-048",
    "abteilung": "Kompression",
-   "status": "offen",
+   "status": "erledigt",
    "modul": "abteilungen.kompression_bytes",
    "funktion": "lauf",
    "prioritaet": 2,
    "frage": "Kompression bei gleichen Bytes der Linearschichten (MNIST, Fashion-MNIST: MLP 784-512-512-10; Byte-LM d=128, 16000 Schritte): grosses Modell + Hadamard-Rotation + Clip bei 2/3 Bit gegen kleines dichtes fp16 (Form getunt), Niedrigrang fp16 und Entropie-Rang fp16. H1 had2 >= klein + 0,2 pp (Bild) bzw. 0,02 bpc (LM), Holm ueber 3 Datensaetze; H2 had = Zufalls-Orthogonale (TOST ±0,2 pp / ±0,02 bpc, Holm ueber 6 Zellen); H3 Entropie-Rang > gleichmaessiger Rang bei gleichen Parametern (Holm ueber 6 Zellen). n=10. Bytes und MACs werden ausgewiesen (Speicher-, nicht FLOP-Aussage).",
    "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (I-048). Seeds 2800-2809 (Messung), 2810-2811 (NK), Tuning 2890 (Lernrate/Form je Arm auf Validierung bei voller Schrittzahl). 286 Aufgaben in zwei Stufen (Stufe 2 benutzt die Gross-Modelle aus Stufe 1), Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-048.json, Checkpoint im Training alle 1000 (Bild) bzw. 2000 (LM) Schritte in ergebnisse/_ckpt_I-048/. Freigabe Malte 27.10. (mach alle). Rechnen auf MPCDF Raven (bis 72 Prozesse, 24-h-Limit; geschaetzt 49 Kernstunden, ca. 1,9 h Wandzeit bei Aufschlag 1,3). Start: cd INSTITUT; INSTITUT_PROZESSE=72 OMP_NUM_THREADS=1 python3 direktor.py lauf I-048.",
    "folgen": {},
-   "wartet_auf": "Lauf auf MPCDF Raven",
-   "ort": "MPCDF Raven"
+   "wartet_auf": "malte",
+   "ort": "MPCDF Raven",
+   "ergebnis": "Raven 28.10.: NK bestanden; H1 MNIST HU (+0,15 pp), Fashion H0, LM H0; H2 Hadamard = Zufalls-Orthogonale; H3 Entropie-Rang nicht besser (LM b2 H0). Kleines dichtes fp16 bei gleichen Bytes nicht geschlagen. Siehe LABORBUCH 28.10."
   },
   {
    "id": "I-045-v5",
