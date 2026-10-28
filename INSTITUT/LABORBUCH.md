@@ -2070,6 +2070,7 @@ Gerechnet auf MPCDF Raven (Job 31602858, 1 h 24 min, nach zwei Abbrüchen beim D
 - **H2:** Hadamard = Zufalls-Orthogonale (ÄQUIVALENT bei MNIST b2/b3 und LM b3; sonst HU). Es kommt auf die Rotation an, nicht auf Hadamard.
 - **H3:** Entropie-Rang nirgends gesichert besser; LM b2 sogar H0 (gleichmäßig 0,10 bpc besser).
 - **Deutung:** Rotation vor dem Runden hilft bei 2 Bit stark (MNIST +2,0 pp, Fashion +10,9 pp gegen roh), schlägt aber bei gleichen Bytes ein kleines dichtes fp16-Modell nicht gesichert. Im LM ist das kleine dichte Modell klar die beste Wahl. Ergebnis deckt sich mit QuaRot/QuIP-Literatur (Rotation glättet Ausreißer); kein eigener Vorteil.
+- **Vorbehalt (Nachtrag 28.10.):** `quant_rows(…, bits=2)` nutzt nur 3 Stufen (ternär, 1,58 Bit), gezählt werden 2 Bit; bei 3 Bit 7 statt 8 Stufen. Das benachteiligt die Quantisierungsarme (had, orth, roh) bei gleichen Bytes, ist also konservativ gegen sie. H1 H0 bei Fashion und LM könnte mit vollen Stufen kleiner ausfallen.
 - **Folge:** Linie I-048 abgeschlossen. Wirkung klassisch (I-038).
 
 ## 28.10.2026 – I-044-v4 ERGEBNIS (Epochenreihe Strukturkopf mit Ratensuche je Epochenzahl und Augmentierung, CIFAR-10, Seeds 2710–2719)
