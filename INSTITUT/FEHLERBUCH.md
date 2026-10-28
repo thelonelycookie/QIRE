@@ -276,3 +276,18 @@ Ruhezustand. Neue Module bekommen eine Sicherung je Seed + Wiederaufnahme
 - **T-1**: H0: cliff0 nachweislich um mehr als 1 pp schlechter als ternaer_quad -- cliff0 - ternaer_quad = -0.0437, einseitiges 95-%-KI [-0.0470, -0.0405], Grenze -0.01, p_NI = 1.0000, p_Unterleg. = 0.0000 (Holm ueber T-1/T-2)
 - **T-2**: H0: cliff4 nachweislich um mehr als 1 pp schlechter als ternaer_quad -- cliff4 - ternaer_quad = -0.0259, einseitiges 95-%-KI [-0.0285, -0.0233], Grenze -0.01, p_NI = 1.0000, p_Unterleg. = 0.0000 (Holm ueber T-1/T-2)
 - *Was lernen wir daraus? — vom Menschen/Claude nachzutragen.*
+
+### 28.10.2026 12:30 — I-048 (automatisch)
+- **H1|mnist**: HU (d +0,146 pp, 90-%-KI [+0,065; +0,227], n 10, p_Holm 1)
+- **H3|mnist|b3**: HU (d +0,067 pp, 90-%-KI [+0,005; +0,129], n 10, p_Holm 0,243)
+- **H3|mnist|b2**: HU (d -0,019 pp, 90-%-KI [-0,081; +0,043], n 10, p_Holm 1)
+- **H1|fashion**: H0 (Vorsprung sicher <= 0.2 pp: d -2,758 pp, 90-%-KI [-3,327; -2,189], n 10, p_Holm 1)
+- **H2|fashion|b3**: HU (d -0,025 pp, 90-%-KI [-0,281; +0,231], n 10, p_Holm 0,363)
+- **H3|fashion|b3**: HU (d +0,039 pp, 90-%-KI [-0,014; +0,092], n 10, p_Holm 0,532)
+- **H2|fashion|b2**: HU (d -0,695 pp, 90-%-KI [-1,310; -0,080], n 10, p_Holm 1)
+- **H3|fashion|b2**: HU (d +0,078 pp, 90-%-KI [-0,037; +0,193], n 10, p_Holm 0,532)
+- **H1|lm**: H0 (Vorsprung sicher <= 0.02 bpc: d -1,686 bpc, 90-%-KI [-1,754; -1,618], n 10, p_Holm 1)
+- **H3|lm|b3**: HU (d -0,004 bpc, 90-%-KI [-0,010; +0,002], n 10, p_Holm 1)
+- **H2|lm|b2**: HU (d +0,023 bpc, 90-%-KI [-0,054; +0,100], n 10, p_Holm 1)
+- **H3|lm|b2**: H0 (gleichmaessig sicher besser: d -0,099 bpc, 90-%-KI [-0,104; -0,093], n 10, p_Holm 1)
+- **Lehre:** Rotation vor dem Runden hilft bei 2 Bit stark (wie QuaRot/QuIP), Hadamard ist dabei nicht besser als eine zufällige Orthogonale. Bei gleichen Bytes bleibt ein kleines dichtes fp16-Modell gleich gut oder besser, im LM klar. 2 Bit sind für das Sprachmodell unbrauchbar. Details LABORBUCH 28.10.
