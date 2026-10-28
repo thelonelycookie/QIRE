@@ -8,6 +8,9 @@
     python direktor.py alle            # alle offenen Punkte nacheinander (ueber Nacht)
     python direktor.py ideen neu 8     # Ideenschmiede: 8 Rohlinge ziehen
     python direktor.py ideen leiten I-003   # Karte durchs Tor an ihre Abteilung
+    python direktor.py offen           # nur Punkte, die auf Malte warten
+    python direktor.py neu I-050 [Abteilung]   # Modulgeruest aus vorlagen/ + Agenda-Eintrag (idee)
+    python direktor.py warte I-050 [--timeout=3600]   # liest NUR laeufe/<ID>.status.json
 
 Was er tut: Er liest `agenda.json`, startet die Abteilung, sichert die
 Rohdaten, liest das vorregistrierte Urteil und schaltet danach die
@@ -24,6 +27,7 @@ from __future__ import annotations
 
 import importlib
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -32,6 +36,7 @@ WURZEL = Path(__file__).resolve().parent
 sys.path.insert(0, str(WURZEL))
 AGENDA = WURZEL / "agenda.json"
 
+from labor import laufstatus  # noqa: E402
 from labor.gemeinsam import ERGEBNISSE, speichere  # noqa: E402
 
 
@@ -73,9 +78,72 @@ def status():
             for s in ("roh", "geprueft", "neu", "weitergeleitet", "verworfen"))]
     except Exception:
         pass
+    z += _uebersicht(agenda)
     z += ["", "Naechster offener Punkt: " + ((naechster(agenda) or {}).get("id") or "keiner")]
     (WURZEL / "STAND.md").write_text("\n".join(z) + "\n", encoding="utf-8")
     print("\n".join(z))
+
+
+def _uebersicht(agenda):
+    """R1.1: laeuft wo / wartet auf Malte / fertig. Liest agenda + laeufe/*.status.json (sonst nichts)."""
+    z = ["", "## Uebersicht", ""]
+    laeuft = []
+    for p in agenda["punkte"]:
+        d = laufstatus.lese(p["id"])
+        if d and d["zustand"] in ("laeuft", "tot"):
+            laeuft.append("- " + laufstatus.kurz(d) + (" **(Herzschlag veraltet?)**" if d["zustand"] == "tot" else ""))
+        elif p.get("wartet_auf") == "lauf" and p["status"] == "offen":
+            laeuft.append(f"- {p['id']}: geplant, noch nicht gestartet (Ort: {_ort(p)})")
+    z += ["**Laeuft / geplant:**"] + (laeuft or ["- nichts"])
+    malte = [p for p in agenda["punkte"] if p.get("wartet_auf") == "malte"]
+    z += ["", f"**Wartet auf Malte ({len(malte)}):**"] + ([f"- {p['id']} ({p['status']}): {_kurz(p)}" for p in malte] or ["- nichts"])
+    fertig = [p["id"] for p in agenda["punkte"] if p["status"] == "erledigt"]
+    z += ["", f"**Fertig ({len(fertig)}):** " + ", ".join(fertig)]
+    return z
+
+
+def _ort(p):
+    return {"pc": "Maltes PC", "container": "Container"}.get(p.get("ort", ""), "offen")
+
+
+def _kurz(p, n=110):
+    t = (p.get("notiz") or p.get("frage") or "").replace("\n", " ").strip()
+    return t if len(t) <= n else t[:n - 1] + "…"
+
+
+def offen():
+    """Nur Maltes Entscheidungen (wartet_auf == malte), kompakt."""
+    ps = [p for p in lade()["punkte"] if p.get("wartet_auf") == "malte"]
+    print(f"Wartet auf Malte: {len(ps)}")
+    for p in ps:
+        print(f"- {p['id']} [{p['abteilung']}, {p['status']}] {_kurz(p)}")
+
+
+def neu(pid, abteilung="Neu"):
+    """R1.3: Modulgeruest aus vorlagen/modul_vorlage.py + Agenda-Eintrag (status idee)."""
+    if not re.fullmatch(r"[A-Za-z]+-[0-9A-Za-z]+(-[0-9A-Za-z]+)*", pid):
+        sys.exit(f"Ungueltige ID: {pid!r} (Beispiel: I-050 oder I-050-v2)")
+    agenda = lade()
+    name = pid.lower().replace("-", "_")
+    ziel = WURZEL / "abteilungen" / f"{name}.py"
+    if any(p["id"] == pid for p in agenda["punkte"]) or ziel.exists():
+        sys.exit(f"{pid} existiert schon (Agenda oder {ziel.name}) -- nichts veraendert.")
+    vorlage = (WURZEL / "vorlagen" / "modul_vorlage.py").read_text(encoding="utf-8")
+    ziel.write_text(vorlage.replace("__ID__", pid).replace("__ABTEILUNG__", abteilung), encoding="utf-8")
+    agenda["punkte"].append({
+        "id": pid, "abteilung": abteilung, "status": "idee", "modul": f"abteilungen.{name}",
+        "frage": "TODO (Heilmeier im Modulkopf ausfuellen)", "prioritaet": 1, "folgen": {},
+        "notiz": f"Geruest {time.strftime('%d.%m.%Y')} aus vorlagen/modul_vorlage.py; erst Vorregistrierung + Vortest, dann status offen.",
+        "wartet_auf": "malte", "ort": ""})
+    sichere(agenda)
+    print(f"Angelegt: abteilungen/{name}.py + Agenda-Eintrag {pid} (status idee).")
+
+
+def warte(pid, timeout=3600):
+    z = laufstatus.warte_bis_fertig(pid, timeout)
+    d = laufstatus.lese(pid)
+    print(f"{pid}: {z}" + (f" -- {laufstatus.kurz(d)}" if d else ""))
+    return z == "fertig"
 
 
 def _text(v):
@@ -102,7 +170,13 @@ def lauf(pid, schnell=False):
         print("Vortest DURCHGEFALLEN -- kein Lauf.")
         return
     fn = getattr(mod, p.get("funktion", "lauf"))
-    e = fn(schnell=schnell, **p.get("argumente", {}))
+    laufstatus.start(pid, text="schnell" if schnell else "")      # R1.4: Herzschlag-Datei
+    try:
+        e = fn(schnell=schnell, **p.get("argumente", {}))
+    except BaseException as fehler:
+        laufstatus.fertig(pid, ok=False, text=repr(fehler)[:200])
+        raise
+    laufstatus.fertig(pid, ok=True)
     pfad = speichere(pid + ("-schnell" if schnell else ""), e)
     print("gesichert:", pfad)
     print("Urteil:", e.get("urteil"))
@@ -159,5 +233,16 @@ if __name__ == "__main__":
                 lauf(p["id"])
             except Exception as fehler:          # ein Absturz haelt die Nacht nicht an
                 print("ABSTURZ in", p["id"], ":", repr(fehler))
+    elif arg[0] == "offen":
+        offen()
+    elif arg[0] == "neu":
+        if len(arg) < 2:
+            sys.exit("Aufruf: direktor.py neu I-0xx [abteilung]")
+        neu(arg[1], arg[2] if len(arg) > 2 else "Neu")
+    elif arg[0] == "warte":
+        if len(arg) < 2:
+            sys.exit("Aufruf: direktor.py warte <ID> [--timeout=Sekunden]")
+        t = next((float(a.split("=")[1]) for a in arg if a.startswith("--timeout=")), 3600)
+        sys.exit(0 if warte(arg[1], t) else 1)
     elif arg[0] == "lauf":
         lauf(arg[1], "--schnell" in arg)

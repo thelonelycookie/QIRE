@@ -1,0 +1,98 @@
+# Heimserver für QIRE und spätere Forschungsprojekte
+
+Stand: 12.10.2026. Preise sind **Schätzungen** aus Angebotspreisen; Speicher und
+Grafikkarten sind 2026 wegen Speicherknappheit stark überteuert. Vor dem Kauf
+auf Geizhals/Kleinanzeigen prüfen.
+
+## Rahmen
+- Komplett neues Gerät, der Arbeits-PC bleibt unverändert.
+- Steht am Router, per LAN angebunden, läuft 24/7, kein Spielen.
+- Ubuntu Server ohne Bildschirm, Fernzugriff über SSH/Tailscale.
+  Linux erlaubt eine echte Sandbox für die Worker (Ordnergrenze).
+
+## Stufe 1 — günstig: ca. 1.700–2.300 €
+| Teil | Vorschlag | ca. € |
+|---|---|---|
+| CPU | Ryzen 5 9600 (6 Kerne, 65 W) | 200 |
+| Mainboard | B650 (AM5) | 150 |
+| RAM | 64 GB DDR5 (2×32) | 460–800 |
+| GPU | RTX 5060 Ti 16 GB neu | 680–850 |
+| SSD | 1 TB NVMe | 80–120 |
+| Netzteil | 650 W, 80+ Gold | 90 |
+| Gehäuse + Kühler | gedämmtes Midi-Tower + Tower-Kühler | 130 |
+Modelle bis ~14B. Leise, sparsam.
+
+## Stufe 2 — Preis-Leistung (GEWÄHLT): ca. 2.700–3.350 €
+Konkrete Teile (Preise Okt. 2026, geschätzt):
+| Teil | Modell | ca. € |
+|---|---|---|
+| CPU | AMD Ryzen 7 9700X (8 Kerne, 65 W) | 290–320 |
+| Mainboard | ASUS ProArt B650-Creator (AM5, 2 GPU-Steckplätze, 2,5-GbE-LAN) | 260–340 |
+| RAM | 64 GB DDR5-5600/6000 (2×32 GB), z. B. Kingston Fury Beast; auf 128 GB erweiterbar | 460–800 |
+| GPU | **RTX 3090 24 GB gebraucht** (Kleinanzeigen, mit Rechnung/Restgarantie) | 1.000–1.200 |
+| SSD | 2 TB NVMe, z. B. Samsung 990 / WD SN7100 (1 TB spart ~120 €) | 280–390 |
+| Netzteil | 1000 W, 80+ Gold, ATX 3.x (z. B. be quiet! Pure Power 12 M) | 150 |
+| Gehäuse | Fractal Define 7 (gedämmt, Platz für zwei GPUs) | 180 |
+| Kühler | Thermalright Peerless Assassin 120 o. ä. | 40 |
+Modelle bis 32B mit großem Kontext, Simulationen nebenher.
+
+**Offen vor dem Kauf:** Abstand der beiden PCIe-Steckplätze im Handbuch prüfen.
+Eine RTX 3090 ist meist 3 Slots dick; für eine zweite Karte ggf. Riser-Kabel
+oder anderes Board nötig.
+
+**Gebrauchte 3090 prüfen:** Rechnung, kein Mining-Einsatz, Stresstest
+(z. B. 15 min FurMark/OCCT) mit Temperatur < 85 °C, Speichertemperatur beachten.
+
+## Stufe 3 — darüber
+**3a: Mini-PC Ryzen AI Max+ 395, 128 GB gemeinsamer Speicher — ca. 2.300–2.900 €**
+- Sehr leise, ~10–20 W im Leerlauf (Strom ~40–60 €/Jahr statt ~150–220 €).
+- 128 GB für Modelle **und** Simulationen.
+- Nachteil: Speicherbandbreite ~256 GB/s gegen ~936 GB/s der RTX 3090, also
+  große Modelle grob 2–3× langsamer. AMD statt Nvidia (ROCm/Vulkan statt CUDA),
+  nicht erweiterbar.
+
+**3b: Stufe 2 mit Ryzen 9, 128 GB RAM, zwei RTX 3090 (48 GB VRAM) — ca. 3.800–4.800 €**
+- Modelle bis ~70B. Lauter, stromhungrig (Leerlauf ~80–100 W).
+
+## Laufende Kosten
+24/7 bei 35 ct/kWh: Stufe 1/2 ca. 150–220 €/Jahr im Leerlauf, mehr unter Last.
+
+## Quellen
+- RTX 3090 gebraucht: kleinanzeigen.de (Angebote ~1.000–1.450 €, Okt. 2026)
+- RTX 5060 Ti 16 GB: bestvaluegpu.com, shattered.io (~680–850 €)
+- Ryzen 7 9700X: pcgameshardware.de (~290–313 €)
+- ProArt B650-Creator: hintaseuranta.fi, dateks.lv, ebay.de (~260–340 €)
+- SSD 2 TB: pcwelt.de (Samsung 990, 280 €), coolblue.de (WD SN7100, 389 €)
+- DDR5 64 GB: geizhals.de, guenstiger.de (~460–1.300 €)
+- Ryzen AI Max+ 395 Mini-PCs: borncity.com, ebay.de (~2.270–2.900 €)
+
+---
+
+# Traum-Rack (ganz, ganz später)
+
+27-HE-Schrank, schallgedämmt, im Keller/Abstellraum. Grob geschätzt, Preise Okt. 2026.
+
+| HE | Gerät | Zweck | ca. € |
+|---|---|---|---|
+| 1 | Router/Firewall (OPNsense) | Netz, VPN | 400–800 |
+| 1 | Switch 10/25 GbE | Verbindung der Knoten | 800–1.500 |
+| 1 | Patchpanel + Kabel | Ordnung | 150 |
+| 4 | **KI-Knoten**: AMD EPYC 9005 (32 Kerne), 512 GB DDR5-ECC, **4× RTX PRO 6000 Blackwell 96 GB = 384 GB VRAM** | große Modelle (bis ~400B quantisiert), Training kleiner Modelle | 70.000–95.000 |
+| 2 | **Rechen-Knoten**: EPYC 64 Kerne, 256 GB ECC | Simulationen, parallele Seeds | 12.000–20.000 |
+| 2 | **Speicher-Knoten**: TrueNAS, 6× 20 TB HDD (ZFS), 2× NVMe-Cache | Rohdaten, Backups, Modellarchiv | 4.000–6.000 |
+| 1 | Kleiner Verwaltungsrechner | Monitoring (Grafana), Planer-Brücke | 500–1.000 |
+| 3 | USV 3 kVA | sauberes Herunterfahren bei Stromausfall | 2.000–3.000 |
+| – | Schrank, PDUs mit Strommessung, Lüftung | | 2.000–4.000 |
+| | **Summe** | | **~90.000–130.000** |
+
+**Was ein Traum-Rack wirklich braucht:**
+- **Strom**: Volllast ~3–3,5 kW, das ist eine eigene 16-A-Leitung (Elektriker).
+  Durchschnitt ~1 kW = ~8.800 kWh/Jahr = **~3.000 €/Jahr**.
+- **Wärme**: 3 kW Heizleistung, der Raum braucht Abluft oder Klimagerät.
+- **Lautstärke**: Server-Lüfter sind unter Last 60–70 dB, nur in einem Raum
+  ohne Schlafzimmer daneben.
+- **Ausbaupfad**: Stufe 2 heute → zweite 3090 → Workstation mit 1–2 RTX PRO 6000
+  → Rack. Jede Stufe bleibt als eigener Knoten weiter nutzbar.
+
+Quelle RTX PRO 6000: gpuprix.com (DE-Tiefstpreis 15.490 €, 3.10.2026),
+jacob.de (11.322 €), hardwaredealz.com (12.999 €).

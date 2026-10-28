@@ -164,16 +164,26 @@ class ButterflyQuantumLayer(nn.Module):
         # (d/2, 2, 2) -> (2**q, 2**(n-1-q), 2, 2) fuer diese Ebene
         return gate.reshape(2 ** q, 2 ** (self.n - 1 - q), 2, 2)
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        n, d = self.n, 2 ** self.n
+    def _zustand(self, x: torch.Tensor, normieren: bool = True) -> torch.Tensor:
+        """Zustand nach allen Lagen (komplex, batch x 2**n). Herausgezogen aus
+        `forward`, damit Auslese-Varianten (Q-020: lineare Auslese) die
+        Zustandsentwicklung wiederverwenden. `normieren=False` ist nur fuer
+        Linearitaetspruefungen gedacht."""
+        n = self.n
         state = x.to(torch.complex64)
-        state = state / state.norm(dim=1, keepdim=True).clamp_min(1e-12)
+        if normieren:
+            state = state / state.norm(dim=1, keepdim=True).clamp_min(1e-12)
         step = apply_1q if self.tie_weights else apply_1q_untied
         for layer in range(self.L):
             for q in range(n):
                 state = step(state, self._gate(layer, q), q, n)
             for i in range(self.num_perms):
                 state = state[:, getattr(self, f"perm_{i}")]
+        return state
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        n = self.n
+        state = self._zustand(x)
         prob = state.real ** 2 + state.imag ** 2
         # <Z_q> = Summe der Wahrscheinlichkeiten mit Bit q = 0 minus jene mit 1
         out = []

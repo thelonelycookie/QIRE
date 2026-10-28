@@ -1,0 +1,9 @@
+daten/
+backup/
+ausgabe/*
+!ausgabe/TOP.md
+STOP
+status.json
+modelle/
+__pycache__/
+.pytest_cache/

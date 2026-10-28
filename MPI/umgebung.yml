@@ -1,0 +1,17 @@
+# conda/mamba-Umgebung fuer QIRE auf dem MPI-Cluster (ANNAHME: conda/mamba verfuegbar; sonst venv + requirements_*.txt).
+#   mamba env create -f MPI/umgebung.yml        # CPU-Umgebung "qire"
+#   Fuer QLoRA danach:  pip install -r MPI/requirements_gpu.txt  (CUDA-Versionen am Cluster pruefen)
+name: qire
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - numpy>=1.26
+  - scipy>=1.11
+  - scikit-learn>=1.3
+  - psutil
+  - pytest
+  - pip
+  - pip:
+      - torch>=2.2          # bei Bedarf CUDA-Rad passend zum Cluster
+      - qiskit>=1.0

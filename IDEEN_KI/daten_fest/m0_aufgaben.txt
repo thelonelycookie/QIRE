@@ -1,0 +1,20 @@
+Schlage eine neue Methode vor, wie man die Zahl der Multiplikationen in einer neuronalen Schicht senkt, inspiriert von Stabilisatorcodes.
+Nenne drei Wege, wie man eine Kontrolle fuer ein Experiment mit Zufallsschaltungen so baut, dass sie nicht entartet ist.
+Formuliere eine pruefbare Hypothese zur Magie-Ressource in lernenden Quantenschaltungen (Simulation, unter 2 Stunden).
+Was waere messbar, wenn die Born-Regel |psi|^3 statt |psi|^2 waere? Skizziere ein Simulationsexperiment.
+Kreuze 'Quanten-Zeno-Effekt' mit 'Immunsystem' zu einer pruefbaren Idee fuer maschinelles Lernen.
+Greife die Aussage 'Der Vorteil von QIRE ist rein klassisch' an und schlage einen Test vor, der sie widerlegen koennte.
+Kehre die Idee 'Rundung der Winkel auf Clifford-Gitter' um und beschreibe den Gegenentwurf.
+Kombiniere 'Magie-Konzentration in wenigen Winkeln' mit 'Pruning nach Verlustanstieg' zu einer neuen Frage.
+Was passiert bei extremer Skalierung auf 2 Qubits bzw. 20 Qubits bei einer QIRE-Zelle? Welche Messung zeigt es?
+Mache aus einer Kontrollbedingung die Hauptsache eines Experiments zu Hadamard-Mischschichten.
+Pruefe: Verletzt die Idee 'Signal durch Verschraenkung allein' das No-Signaling? Begruende kurz.
+Pruefe: Ist 'eine nicht-unitaere Schicht, die Norm erhaelt' physikalisch konsistent? Begruende.
+Nenne eine Idee aus der Oekologie (Nahrungsnetze) fuer das Pruning von Netzwerkgewichten.
+Wie koennte man testen, ob ein Befund 'quanten-inspiriert' oder nur 'klassisch erklaerbar' ist?
+Entwirf ein Experiment, das die Rolle der Verschraenkung (CNOT-Ring) in einer Klassifikatorschaltung isoliert.
+Welche Abbruchkriterien sind sinnvoll fuer einen Vortest mit 3 Seeds auf 8x8-Ziffern?
+Erklaere in zwei Saetzen, warum ein Duplikat einer bekannten Idee wertlos ist, und wie man es erkennt.
+Schlage eine Idee vor, die Quanten-Darwinismus fuer Redundanz in neuronalen Repraesentationen nutzt.
+Bewerte die Idee 'Winkel zufaellig einfrieren' nach Neuheit, Pruefbarkeit und Ehrlichkeit (1-5) mit Begruendung.
+Gib eine Idee, die absichtlich ein Axiom bricht (Gedankenexperiment), und markiere sie klar als solche.

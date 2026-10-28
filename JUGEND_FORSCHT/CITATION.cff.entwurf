@@ -1,0 +1,29 @@
+# ENTWURF, nicht veröffentlicht. Vor Verwendung in CITATION.cff umbenennen und alle Platzhalter ersetzen.
+# Format: Citation File Format 1.2.0 (Version zu prüfen auf citation-file-format.github.io).
+cff-version: 1.2.0
+message: "Wenn du diese Arbeit oder Software verwendest, zitiere sie bitte wie folgt."
+title: "PLATZHALTER: Titel der Arbeit (Varianten in INSTITUT/KERNAUSSAGE_2026-10-07.md, Abschnitt 5)"
+type: software
+authors:
+  - given-names: "Malte"
+    family-names: "Liebscher"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"   # optional
+    # affiliation: "PLATZHALTER: Schule, Ort"            # optional, nur wenn Malte es will
+abstract: >-
+  PLATZHALTER, kurz und ehrlich: Kontrollierte, vorregistrierte Vergleiche einer festen
+  strukturierten Mischung (Hadamard/Fastfood) mit Born-artiger Quadrat-Auslese gegen dichte
+  Schichten und die gelernte QIRE-Zelle. Quanten-inspiriert; kein Quantenvorteil.
+  Das Projekt ist ein Jugend-forscht-Beitrag 2027.
+keywords:
+  - "quanten-inspiriert"
+  - "ressourceneffiziente KI"
+  - "strukturierte Mischung"
+  - "Fastfood"
+  - "Vorregistrierung"
+license: MIT              # Code; Text und Daten CC-BY-4.0, siehe LICENSE-DATA.md. Wahl durch Malte (MIT oder Apache-2.0)
+repository-code: "PLATZHALTER: https://github.com/<konto>/<repo>"
+version: "PLATZHALTER: v1.0"
+date-released: "PLATZHALTER: JJJJ-MM-TT"
+# doi: "PLATZHALTER: wird von Zenodo nach dem ersten Release vergeben"
+# references:               # optional: Fastfood (Le, Sarlos, Smola 2013), SORF (Yu et al. 2016) usw.,
+#                           # Quellen siehe INSTITUT/recherche/2026-10-06_literatur_struktur.md

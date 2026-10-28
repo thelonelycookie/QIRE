@@ -4,6 +4,7 @@
 **Ziel:** ressourceneffizientere KI mithilfe von Quantenphysik. Anmeldung 30.11.2026, schriftliche Arbeit Mitte Januar 2027.
 
 ## Zuerst lesen
+0. **`START.md`** (Einstieg, Ordnerübersicht, Offenes). Gearbeitet wird nur auf `main`.
 1. Das neueste `INSTITUT/HANDOVER_*.md`: Stand, laufende Läufe, offene Entscheidungen.
 2. `INSTITUT/UEBERGABE.md` §0–3: Maltes Vorgaben und Protokollregeln (verbindlich).
 3. Das neueste `INSTITUT/PLAN_*_gesamt.md`: der gültige Plan.
@@ -23,4 +24,4 @@
 - Auf einen Prozess nie mit `pgrep -f <name>` warten, wenn der wartende Befehl selbst `<name>` enthält; sonst wartet er auf sich selbst.
 - Rauchtests nur auf Tuning-Seeds, nie auf Mess-Seeds.
 - Lange Läufe (Sprachmodell) auf Maltes PC: Ryzen 5 3600, 6 Kerne, 16 GB. PC wach halten, Energiesparen aus.
-- **Commits und Pushes nur unter Maltes Namen:** keine Co-Authored-By-, Session- oder KI-Zeilen, KI im Repo-Inhalt nicht erwähnen. Auf dem zugewiesenen Branch arbeiten, vor dem Push `git pull --no-rebase`.
+- **Commits und Pushes nur unter Maltes Namen:** keine Co-Authored-By-, Session- oder KI-Zeilen, KI im Repo-Inhalt nicht erwähnen. Nur auf `main` arbeiten (Maltes Entscheidung 14.10.), vor dem Push `git pull --no-rebase`.

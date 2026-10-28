@@ -1,0 +1,8 @@
+# Laufzeitdateien der GPU-Sperre (R5.1) -- nie committen
+gpu.lock
+gpu.lock.*
+gpu.anfrage
+gpu.anfrage.*
+gpu.vram_frei
+*.tmp
+__pycache__/

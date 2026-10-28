@@ -22,3 +22,5 @@ __pycache__/
 *.pem
 INSTITUT/daten/
 INSTITUT/ergebnisse/*.log
+INSTITUT/laeufe/
+INSTITUT/ergebnisse/_ckpt_*/

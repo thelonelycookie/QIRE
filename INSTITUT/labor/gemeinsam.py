@@ -244,14 +244,18 @@ def _roh(name):
     teile = []
     for f in _DATEIEN:
         ziel = ordner / f"{name}_{f}"
-        if not ziel.exists():
-            urllib.request.urlretrieve(_QUELLEN[name] + f, ziel)
+        if not ziel.exists():  # atomar: parallele Prozesse sehen nie eine halbe Datei
+            tmp = ziel.with_suffix(f".{os.getpid()}.tmp")
+            urllib.request.urlretrieve(_QUELLEN[name] + f, tmp)
+            os.replace(tmp, ziel)
         with gzip.open(ziel) as g:
             daten = g.read()
         teile.append(np.frombuffer(daten, np.uint8, offset=16 if "images" in f else 8))
     x = np.concatenate([teile[0], teile[2]]).reshape(-1, 784).astype(np.float32) / 255.0
     y = np.concatenate([teile[1], teile[3]]).astype(np.int64)
-    np.savez_compressed(ordner / f"{name}.npz", x=x, y=y)
+    tmp = ordner / f"{name}.{os.getpid()}.tmp.npz"
+    np.savez_compressed(tmp, x=x, y=y)
+    os.replace(tmp, ordner / f"{name}.npz")
     return x, y
 
 

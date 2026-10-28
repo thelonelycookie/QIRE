@@ -1,0 +1,12 @@
+# QLoRA-Training Stufe S3/S4 (MPI/slurm/gpu_qlora.sbatch, MPI/training/qlora_train.py).
+# UNGETESTET: Versionen auf dem Cluster zusammenpassend waehlen (CUDA-Version des Clusters beachten!).
+-r requirements_cpu.txt
+torch>=2.2            # CUDA-Rad passend zur Cluster-CUDA (z. B. --index-url https://download.pytorch.org/whl/cu121)
+transformers>=4.40
+peft>=0.10
+accelerate>=0.29
+bitsandbytes>=0.43    # 4-Bit (NF4); benoetigt NVIDIA-GPU
+datasets>=2.18
+trl>=0.8              # optional, nur wenn qlora_train.py auf SFTTrainer umgestellt wird
+sentencepiece
+protobuf

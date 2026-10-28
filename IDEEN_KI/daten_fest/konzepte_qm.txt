@@ -1,0 +1,46 @@
+Magie (Nicht-Clifford-Ressource)
+Clifford-Hierarchie
+Stabilisator-Formalismus
+Kontextualitaet
+Bell-Nichtlokalitaet
+Verschraenkungsentropie
+Holevo-Schranke
+Quanten-Zeno-Effekt
+Topologische Phase
+Quanten-Darwinismus
+Dekohaerenz
+Quantenthermodynamik
+Born-Regel
+Interferenz
+Superposition
+Messung und Kollaps
+No-Cloning-Theorem
+Quantenteleportation
+Quantenfehlerkorrektur
+Surface-Code
+T-Gatter-Destillation
+Adiabatisches Theorem
+Quantenannealing
+Quantenwanderung (Quantum Walk)
+Phasenschaetzung
+Fourier-Transformation (QFT)
+Grover-Amplitudenverstaerkung
+Variationsschaltung (VQE)
+Barren Plateaus
+Tensornetzwerke (MPS)
+Dichtematrix
+Reinheit und Mischung
+Quanten-Fisher-Information
+Heisenbergsche Unschaerfe
+Pfadintegral
+Symmetriebrechung
+Quantenphasenuebergang
+Kohaerenzressource
+Quantendiskord
+Zufaelligkeit aus Messung
+Quanten-Zufallsschaltungen (Designs)
+Haar-Zufall und Unitaere t-Designs
+Spin-Gitter (Ising)
+Ladder-Operatoren / Fock-Raum
+Berry-Phase
+Lindblad-Dynamik (offene Systeme)
