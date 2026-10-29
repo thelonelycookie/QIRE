@@ -119,3 +119,24 @@ Themen: strukturierte Matrizen (Monarch/Butterfly) im Training, Ternär-Vortrain
 | 2025-01 | BlockDialect: blockweise Mischformate | arXiv 2501.01144 | 4-Bit-MAC ca. 2,45x leistungseffizienter als INT8 (Selbstangabe) | grober Energiefaktor 4 vs 8 Bit; nicht 2026 |
 
 Lücken Lauf 8: weiterhin keine pJ/MAC-Zahl für INT2 vs INT4 (LightRot: 27,4 TOPS/W bei 4 Bit, ca. 36 pJ/Op laut Snippet-Umrechnung, Systemwert); FIGLUT: Festbreiten-Hardware füllt Sub-4-Bit auf 4 Bit auf (2 Bit spart dort keine Energie, nur Bit-seriell/LUT); keine 2026-Arbeit mit Walsh-Hadamard/Butterfly als trainierte Gewichtsparametrisierung kleiner LMs gefunden.
+
+## 29.10. Lauf 9 (Cloud-Späher, 4 WebSearch, 21:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Aktivierungssparsity + Quantisierung, Mixed-Precision/Bitzuteilung, Optimizer-Zustände niedrigbittig, Weight Sharing/Low-Rank. Nicht aufgenommen (schon da): HARP 2605.29843, QuIP# 2402.04396, ParetoQ.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-06 | SharQ: Aktivierungssparsity + FP4-Quantisierung (Sparse-Dense-Zerlegung, trainingsfrei) | arXiv 2606.26587 | holt 43-63 % der Lücke NVFP4 -> FP16 zurück; 2,2-2,4x Latenz (Zweitquelle Emergent Mind) | Sparsity x Aktivierungsbits (BK/A-Achse); Gegner zum Rotationsarm bei A4 |
+| 2025-02 (ICLR 2025) | TEAL: trainingsfreie Aktivierungssparsity | mlanthology.org/iclr/2025/liu2025iclr-trainingfree | mit Gewichtsquantisierung kombinierbar (Angabe im Snippet) | Basis für Sparsity-Achse, zitieren |
+| 2026-07 | Prox: trainingsfreie FFN-Aktivierungssparsity (SwiGLU) | arXiv 2607.27591 | keine Zahl im Snippet | FFN-Sparsity, Bezug zu Z2c-FFN-Befund |
+| 2026-02 | ScaleBITS: skalierbare Bitbreitensuche, hardwarenah, unterhalb Schichtebene | arXiv 2602.17698 | glatterer Genauigkeit-Kompression-Verlauf als Vorgänger (keine Zahl) | Kritik: schichtweise Bitzuteilung zu grob; Messlatte für gemischte Bits im Byte-Budget |
+| 2026 (DATE 2026) | DAIQUIRI: meist 2 Bit, empfindlichste Schichten 3 Bit | past.date-conference.com/.../2026/DATA/3036.pdf | Llama-3.2-1B, ca. 2,6 Bit/Gewicht, nahe uniform 3 Bit | Gegner: gemischt 2/3 Bit statt uniform 2 Bit |
+| 2026-05 | GAMMA: trainingsfreie modulweise Präzisionswahl für beliebige Bitbudgets | arXiv 2605.18475 | keine Zahl | Bitbudget-Zuteilung ohne Neurechnung je Budget |
+| 2026-03 | Beyond Outliers: datenfreie schichtweise Sensitivität (numerisch + strukturell) | arXiv 2603.17354 | keine Zahl | datenfreie Empfindlichkeit, passt zu Rotationsarmen ohne Kalibrierung |
+| 2026-03 | Topollai & Choromanska: niedrigpräzise EMA-Optimizer-Zustände werden "stale" | arXiv 2603.16731 | Reset-Pläne holen Großteil des Verlusts zurück | TZ: Niedrigbit-Training, Optimizer-Speicher als eigene Byte-Position |
+| 2026-05 | MuonQ: 4-Bit-Muon-Zustände | arXiv 2605.11396 (Zweitquelle chatpaper) | bis 7,3x weniger Optimizer-Speicher, Loss ≈ Voll-Muon | Trainingsspeicher; Muon-Bezug zu Monarch-Muon (Lauf 8) |
+| 2026-04 | STQuant: raumzeitlich adaptive Optimizer-Quantisierung | arXiv 2604.06836 | GPT2-XL/ViT-Base vs. bnb-8-Bit-AdamW (keine Zahl) | Vergleich 8-Bit-AdamW als Standard-Gegner |
+| 2026-08 | Adaptive Log-Space-Quantisierung (AL8) für Optimizer-Zustände | arXiv 2608.22322 (ID aus Snippet, unsicher) | TinyLlama-1.1B, 20K Schritte: PPL 72,90 vs. 72,48 (FP32-AdamW) | kleinster Maßstab, nahe unseren Läufen |
+| 2026-08 | LegoLM: strukturiertes Weight Sharing für LLMs | arXiv 2608.08652 | keine Zahl | geteilte statt zufällig erzeugte Gewichte; Nachbar der Seed-Basis |
+| 2025-06 | LittleBit: Low-Rank-Latent-Faktoren, danach binarisiert | arXiv 2506.13771 | bis 0,1 Bit/Gewicht (Selbstangabe) | Extremkompression unter 1 Bit; Gegner im Byte-Budget (nicht 2026) |
+
+Lücken Lauf 9: keine Gradientenquantisierung für Kleinmodell-Vortraining gefunden (nur Optimizer-Zustände); keine Arbeit, die Weight Sharing + Low-Rank + Hadamard zusammen testet; SharQ-Zahlen nur aus Aggregator.
