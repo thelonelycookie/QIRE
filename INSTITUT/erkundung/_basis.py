@@ -21,13 +21,13 @@ import abteilungen.kompression_bytes as kb
 
 torch.set_num_threads(1)
 KONTEXT, BATCH = ss.KONTEXT, ss.BATCH
-TUNING_SEEDS = tuple(range(950, 960))
+TUNING_SEEDS = tuple(range(950, 990))
 LM_LR = 2e-3
 
 
 def seeds_pruefen(seed: int):
     if seed not in TUNING_SEEDS:
-        raise SystemExit(f"Seed {seed} ist kein Tuning-Seed (950-959). Erkundungen laufen nie auf Mess-Seeds.")
+        raise SystemExit(f"Seed {seed} ist kein Tuning-Seed (950-989). Erkundungen laufen nie auf Mess-Seeds.")
 
 
 def rahmen(kid: str, main, **extra):

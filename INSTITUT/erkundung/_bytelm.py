@@ -29,7 +29,7 @@ KONTEXT, BATCH, LAGEN = 128, 8, 4
 LR_GITTER = (1e-3, 2.5e-3, 6e-3)
 LR_FAKTOR = 2.4
 VAL_BYTES = 65536
-TUNING_SEEDS = tuple(range(950, 960))
+TUNING_SEEDS = tuple(range(950, 990))
 
 
 # ------------------------------------------------------------------ Modell

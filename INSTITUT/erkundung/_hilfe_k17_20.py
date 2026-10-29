@@ -4,12 +4,12 @@ HIER = os.path.dirname(os.path.abspath(__file__))
 INST = os.path.dirname(HIER)
 if INST not in sys.path:
     sys.path.insert(0, INST)
-TUNING_SEEDS = tuple(range(950, 960))
+TUNING_SEEDS = tuple(range(950, 990))
 
 
 def pruefe_seed(seed):
     if seed not in TUNING_SEEDS:
-        raise SystemExit(f"Seed {seed} ist kein Tuning-Seed (950-959); Erkundungen laufen nie auf Mess-Seeds.")
+        raise SystemExit(f"Seed {seed} ist kein Tuning-Seed (950-989); Erkundungen laufen nie auf Mess-Seeds.")
 
 
 def sicher(x):

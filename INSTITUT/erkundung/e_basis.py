@@ -27,7 +27,7 @@ import abteilungen.kompression_bytes as kb
 import abteilungen.struktur_sprache as ss
 
 torch.set_num_threads(1)
-TUNING_SEEDS = tuple(range(950, 960))
+TUNING_SEEDS = tuple(range(950, 990))
 SCHNELL_SEED = 959
 
 
@@ -38,7 +38,7 @@ def cli(kid: str, main):
     a.add_argument("--schnell", action="store_true", help="Rauchtest (<= 2 min im Container), schreibt nach roh/schnell/")
     o = a.parse_args()
     if o.seed not in TUNING_SEEDS:
-        raise SystemExit(f"Seed {o.seed} ist kein Tuning-Seed (950-959).")
+        raise SystemExit(f"Seed {o.seed} ist kein Tuning-Seed (950-989).")
     t = time.time()
     r = main(o.seed, schnell=o.schnell)
     r["_kid"], r["_seed"], r["_schnell"], r["_sekunden"] = kid, o.seed, bool(o.schnell), round(time.time() - t, 1)
