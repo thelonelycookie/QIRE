@@ -642,7 +642,7 @@
    "frage": "Strukturadapter auf LLaeMmlein-1B gegen LoRA: Ist ein quanten-inspirierter Strukturadapter (Fastfood/Hadamard-Mischung, trainierte Diagonalen, Born-Quadrat z², q_proj/v_proj, 574.464 Parameter) bei GLEICHER Parameterzahl besser als LoRA (r=4, 563.200) beim Feinabstimmen des 1-Mrd.-Modells auf deutschen Text (Wikipedia)? Arme L16 (LoRA r=16, 2,25 Mio, Referenz), L_budget, FF, FF_gelu. H1 FF < L_budget (Test-Verlust), H2 FF < FF_gelu (Born-Quadrat traegt), H3 beschreibend FF vs L16; Holm, gepaart einseitig t, n=5.",
    "notiz": "Vorregistrierung LABORBUCH.md 27.10.2026 (I-043-1B). Modul gebaut, Vortest (CPU, winziges Llama) bestanden; GPU-Rauchtest steht aus (direktor.py lauf I-043-1B --schnell auf Raven, nur Tuning-Seed 2692). Seeds Messung 2670-2674 (NK auf 2670/2671), Tuning/Rauchtest 2692. Daten: deutsche Wikipedia (wikimedia/wikipedia 20231101.de, CC BY-SA 3.0/GFDL), vorab auf dem Login-Knoten laden: bash MPI/daten_i043.sh. 24,58 Mio Tokens je Lauf (6000 Schritte x 8 x 512). Schaetzung ca. 22 GPU-Stunden (Annahme FF = 60 % des LoRA-Durchsatzes 13.400 Tokens/s), ca. 5-6 h Wandzeit auf 4 A100. Wiederaufnahme je Aufgabe in ergebnisse/_zwischen_I-043-1B.json, Checkpoint alle 500 Schritte in ergebnisse/_ckpt_I-043-1B/. Start auf Raven (Kette): MPI/slurm/starte.sh gpulauf I-043-1B --kette 3.",
    "folgen": {},
-   "wartet_auf": "Freigabe Malte 27.10.2026 \"nach Ermessen\" (Start auf Raven durch Malte)",
+   "wartet_auf": "Lauf auf MPCDF Raven GPU (Jobs 31632289-31632291, ab 29.10.)",
    "ort": "MPCDF Raven GPU"
   },
   {

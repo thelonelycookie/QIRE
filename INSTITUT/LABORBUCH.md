@@ -1822,7 +1822,8 @@ Modul `abteilungen/struktur_adapter_1b.py` (Docstring enthält alle Kriterien), 
   1. `cd ~/qire && git pull --no-rebase origin main`; `bash MPI/daten_i043.sh` (Login-Knoten, einmalig, ca. 5–15 min, Download 0,8–1,5 GB).
   2. Rauchtest (nur Tuning-Seed 2692, echte Daten/Modell, wenige Schritte; misst Tokens/s je Arm): `QIRE_ZEIT=01:00:00 MPI/slurm/starte.sh gpulauf I-043-1B --schnell`; Ergebnis `ergebnisse/I-043-1B-schnell__*.json` ansehen (nur Pipeline und Durchsatz, keine Befunde lesen).
   3. Volllauf: `MPI/slurm/starte.sh gpulauf I-043-1B --kette 3` (`gpu_lauf.sbatch`: Partition gpu, Account msp_gpu, `gpu:a100:4`, venv `~/venvs/qire-gpu`, `LD_PRELOAD` libgomp, HF offline; Requeue + Wiederaufnahme wie `cpu_lauf.sbatch`). Zwischenstände (`_zwischen_I-043-1B.json`) per `MPI/uebertragen.sh zurueck` holen und committen.
-  **Lauf nicht gestartet, wartet auf Maltes Start auf Raven.**
+  **Rauchtest 29.10.2026 (Raven, Job 31588776, 5 min 32 s, nur Tuning-Seed, keine Befunde gelesen):** Vortest auf der GPU bestanden, alle Arme trainierbar und endlich. Gemessen (A100 40 GB, Batch 8 × 512): L16 ≈ 19.200 Tokens/s, L_budget ≈ 21.100, FF ≈ 10.500, FF_gelu ≈ 10.800 (FF ≈ 55 % von LoRA; Annahme war 60 % von 13.400, die Kostenschätzung von 21,5 GPU-h / 5,4 h Wandzeit ist damit konservativ). Höchster Speicher 8,9 GB je GPU in allen Armen, Rückfall `I043_MIKRO` nicht nötig. Keine Änderung an Modul oder Vorregistrierung.
+  **Volllauf gestartet 29.10.2026 (Freigabe Malte 28.10.):** `MPI/slurm/starte.sh gpulauf I-043-1B --kette 3`, Jobs 31632289–31632291.
 
 ## 27.10.2026 — I-047 „Tensornetz-FFN (MPS/Tensor-Train) im Sprachmodell bei gleichen FLOPs“: VORREGISTRIERUNG (vor jeder Zahl auf Mess-Seeds)
 
