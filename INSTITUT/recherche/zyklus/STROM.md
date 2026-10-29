@@ -104,3 +104,18 @@ Themen: Tensornetze/MPO, Aktivierungs-Ausreißer W4A4, quanten-inspirierte Train
 | 2024-12 | DFRot: ausreißerfreie, Massive-Activation-freie rotierte LLMs mit verfeinerter Rotation | arXiv 2412.00648 | keine Zahl im Snippet; Befund: zufällige Orthogonale erhöhen bei Massive-Activation-Tokens den Fehler | Gegner zu „jede Orthogonale reicht“ (I-048 H2): Hadamard vs. zufällig bei Spezial-Tokens; nicht 2026 |
 
 Lücken Lauf 7: kein 2026-Treffer zu MPO/Tensornetz-Kompression (nur CompactifAI 2024); kein 2026-Paper zu quanten-inspiriertem NN-Training (nur Fan et al., AAAI 2024: Quanten-inspirierte Netze trainieren deutlich langsamer als klassische; MicroAlgo-Pressemitteilung 04/2026 ohne Beleg); kein neues Niedrigbit-Skalengesetz 2026 über die bekannten (Kumar, Spectra, ParetoQ) hinaus.
+
+## 29.10. Lauf 8 (Cloud-Späher, 4 WebSearch, 20:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: strukturierte Matrizen (Monarch/Butterfly) im Training, Ternär-Vortraining, Energie INT2 vs INT4, Kronecker/Hadamard-Parametrisierung. Nicht aufgenommen (schon da): LightRot 2607.27704, GyRot 2607.27694, FIGLUT 2503.06862.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026 (NeurIPS 2026) | Monarch-Muon: strukturbewusstes Muon für schnelles, speichereffizientes Vortraining | neurips.cc/virtual/2026/161502 | -10 % trainierbare Parameter bei +2,3 % Val-Loss ggü. dichtem Muon; Gewichte bleiben vollrangig | strukturierte (Butterfly-artige) Gewichte direkt trainiert: Gegner/Messlatte zur Hadamard-MLP-Linie |
+| 2022-04 | Monarch: Expressive Structured Matrices (Dao et al.) | arXiv 2204.00595 | GPT-2-Vortraining auf OpenWebText ca. 2x schneller ohne Qualitätsverlust | Grundlage, zitieren (nicht 2026) |
+| 2026-02 | TernaryLM: nativ 1,5-Bit mit schichtweiser Skalierung | arXiv 2602.07374 | 132M Parameter, PPL 58,42 (TinyStories), 2,4x weniger Speicher als FP32 | kleines Ternär-Training von Grund auf; Größenordnung nahe unseren Läufen, Vergleich nur grob |
+| 2026 | BitMamba-2: 1,58-Bit-SSM, 255M und 1B von Grund auf | zenodo.org/records/18394665 (kein arXiv) | 1B: +7,8 % ARC-Easy (Selbstangabe) | Ternär x SSM; schwache Quelle (Zenodo) |
+| 2026-06 | TWLA: ternäre Gewichte + Niedrigbit-Aktivierungen per PTQ, Kronecker-Hilfstransformation | arXiv 2606.13054 | Kronecker-Transform ca. 2048x kleiner als dichte 4096x4096 | Kronecker statt volle Rotation: Speicherkosten der Rotation; Gegner zu A-Bit-Arm |
+| 2026-08 | ScaleQ-1.58: PTQ nach 1,58 Bit | ID fehlt (Snippet) | Qwen3-1.7B >90 % der BitNet-Basis mit 4M Kalibrier-Tokens | Gegenstück zu Training von Grund auf (TZ) |
+| 2025-01 | BlockDialect: blockweise Mischformate | arXiv 2501.01144 | 4-Bit-MAC ca. 2,45x leistungseffizienter als INT8 (Selbstangabe) | grober Energiefaktor 4 vs 8 Bit; nicht 2026 |
+
+Lücken Lauf 8: weiterhin keine pJ/MAC-Zahl für INT2 vs INT4 (LightRot: 27,4 TOPS/W bei 4 Bit, ca. 36 pJ/Op laut Snippet-Umrechnung, Systemwert); FIGLUT: Festbreiten-Hardware füllt Sub-4-Bit auf 4 Bit auf (2 Bit spart dort keine Energie, nur Bit-seriell/LUT); keine 2026-Arbeit mit Walsh-Hadamard/Butterfly als trainierte Gewichtsparametrisierung kleiner LMs gefunden.
