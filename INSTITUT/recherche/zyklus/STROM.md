@@ -154,3 +154,15 @@ Themen: Gradienten-/Rückwärtsquantisierung im FP4-Training, Distillation in Ni
 | 2026-09 | Why Gated DeltaNet Survives 4-Bit Quantization: NVFP4 W4A4 für die rekurrente Hälfte eines 27B-Hybrids | arXiv 2609.04098 | alle 496 Linearschichten W4A4, ≈BF16 im Seed-Rauschen, 17,5 GiB, Prefill +14–19 %; globale Skalen-Fehlanpassung durch fusionierte GDN-Projektionen (1,8–2,75x) | schließt Lücke aus Lauf 3 (Hybrid-Quantisierung); widerspricht Community-Praxis (Gates in BF16); Rotation dort nicht getestet |
 
 Lücken Lauf 10: keine Gradientenquantisierung für Kleinmodell-Vortraining unter 4 Bit; keine Hadamard/QuaRot-Arbeit für GatedDeltaNet-Schichten; kein 2026-Skalengesetz speziell für kleine Modelle (<1B) außer Chen et al.
+
+## 29.10. Lauf 11 (Cloud-Späher, 4 WebSearch, 23:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Training ohne Master-Gewichte, Gradientenquantisierung <4 Bit, Skalengesetze kleiner Modelle, LUT/Bit-seriell-Energie. Nicht aufgenommen (schon da): ParetoQ, LC-QAT 2606.10531, FIGLUT, Kumar 2411.04330, 2411.17691.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-01 | ECO: Quantisiertes Training ohne Vollpräzisions-Master-Gewichte (Nikdan, Zandieh, Alistarh, Mirrokni) | arXiv 2601.22101 | Fehlerrückführung in den Momentum-Term, kein Zusatzspeicher; nahe verlustfrei ggü. Master-Gewicht-Basis (Gemma-3 1B, 2,1B-MoE FP8, INT4-Feintuning DeepSeek-MoE-16B) | TZ: Master-Gewichte als eigene Byte-Position im Training; neue Idee/Gegner für Niedrigbit-Training von Grund auf |
+| 2026-02 (ACL-F 2026) | pQuant: QAT von Grund auf für Sub-2-Bit, 1-Bit-Zweig + kleiner Hochpräzisionszweig | arXiv 2602.22592 | Befund: Parameter-Sensitivität wird homogen, begrenzt Ausdrucksstärke; keine Zahl im Snippet | Gegner im Byte-Budget bei <2 Bit; Hinweis passt zu Z2c-FFN-Befund (wenige empfindliche Anteile) |
+| 2026 (EMNLP 2026) | Scaling Laws for Mixed Quantization (Cao et al.) | aclanthology.org/2026.emnlp-main.142 (arXiv-ID fehlt) | Gesetz über Anteil quantisierter Parameter, Blockgröße, Modellgröße; größere Modelle vertragen höheren Anteil | Messlatte für Gruppengröße/gemischte Bits; ergänzt Chen et al. (ICML 2026) |
+| 2024-08 | LUT Tensor Core (Microsoft): Bit-seriell + Tabellensymmetrie für Mixed-Precision-GEMM | arXiv 2408.06003 | >10x Dichte/Energieeffizienz laut Zweitquelle, bis 18,13x Leistungssenkung (Aggregator) | Energiemodell für 2 Bit: LUT statt MAC (vgl. FIGLUT); nicht 2026 |
+
+Lücken Lauf 11: weiterhin keine pJ/MAC-Zahl für INT2 (nur relative TOPS/W); keine Gradientenquantisierung <4 Bit im Kleinmodell-Vortraining; kein Skalengesetz speziell für Modelle <1B.
