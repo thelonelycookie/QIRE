@@ -35,3 +35,19 @@ Themen: Hardware-Energie, MPS-LM, Hadamard im Training, Dequantisierung, Zufalls
 | 2016 | Orthogonal Random Features (SORF) / Fastfood-Verallgemeinerung (1605.09049) | arXiv 1610.09072, 1605.09049 | SORF nahezu linear in d, kaum Fehler vs ORF | 2025–26: kein neuer Treffer; Hadamard ≡ Zufalls-Orthogonale (I-048 H2) ist alt bekannt, zitieren |
 
 Lücken Lauf 2: keine direkte pJ/Op-Zahl INT2 vs INT4 (nur TOPS/W); kein 2026-MPS-Sprachmodell (nur MPO 2603.28534, Entanglement-Feintuning 2601.06788); keine 2025–26-Fastfood-Arbeit.
+
+## 29.10. Lauf 3 (Späher, 6 WebSearch, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: SSM/Hybrid + Quantisierung, Sparsity + Quantisierung, Distillation Niedrigbit, Tensornetz-Attention. Nicht aufgenommen (schon da oder ohne 2026): HARP, ButterflyQuant, RCP. Snippets nennen teils widersprüchliche Jahresangaben (SSDi8: "ICLR 2026" vs. ID 2608), vor Zitat prüfen.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-03 | Sparse-BitNet: 1,58-Bit-LLMs sind natürlich freundlich zu semistrukturierter Sparsity | arXiv 2603.05168 | ~42 % Nullgewichte im Ternärmodell; weniger Verlust als FP bei gleicher N:M-Sparsity; bis 1,30x schneller; Qwen-2.5 0,5-3B | neue Idee/stützt: Ternär-Nullen = Gratis-Sparsity; Sparsity x Bits als Achse (Byte-Budget); Gegner zu 2-Bit-ohne-Sparsity |
+| 2024-10 | SLiM: One-shot Quantisierung + Sparsity + Low-Rank | arXiv 2410.09615 | LLaMA-2-7B, ca. 8x Kompression: 4 Bit + 2:4 PPL 7,2 vs. 2 Bit allein 12,5 | Messlatte bei gleichem Byte-Budget: 4 Bit + Sparsity schlägt 2 Bit (nicht 2026) |
+| 2025-09 | Optimal Brain Restoration (gemeinsame Quantisierung + Sparsifizierung) | arXiv 2509.11177 | bis 4,72x vs. FP16-dense (INT4 + 2:4) | Gegner zur Sparsity-Achse (nicht 2026) |
+| 2026 (ICLR?) | SSDi8: 8-Bit-Quantisierung für Mamba-2 (State Space Duality) | arXiv 2608.21952 (ID unsicher) | W4A8/W8A8 nahe FP16, bis 1,4x; W4A4 ausgeschlossen | SSM-Quantisierung: Rotation/Hadamard für Zustandspfad ungetestet; Abgrenzung Transformer-only |
+| 2025 | Quamba2 (ICML 2025); Q-Mamba (ACL-F 2025) | arXiv 2503.22879; Q-Mamba ID fehlt | Quamba2-8B: 4x Speicher, -1,6 % Genauigkeit; Q-Mamba: 4-Bit-Zustand, -50 % Speicher, -2,13 % | Zustandsquantisierung = KV-Cache-Analogon (Spalte BK) bei SSM |
+| 2025-10 | BitNet Distillation (Logit- + Attention-Destillation in 1,58 Bit) | arXiv 2510.13998 | keine im Snippet | Distillation-Gegner/Weg zu Niedrigbit-Schüler; 2026-Arbeit dazu: kein Treffer |
+| 2025-01 (v7 2026-01) | Tensor Product Attention (TPA) | arXiv 2501.06425 | KV-Cache-Verkleinerung durch Tensorzerlegung von Q,K,V (Faktor ungeprüft) | quanten-inspirierte Tensorzerlegung im Attention-KV; Low-Rank, kein echtes MPS |
+| 2024-08 | Mamba in the Llama (Distillation Transformer -> Hybrid) | arXiv 2408.15237 | Hybrid mit 1/4 Attention-Schichten | Distillation + Hybrid-Architektur; nicht 2026 |
+
+Lücken Lauf 3: keine 2026-Arbeit zu GatedDeltaNet/Hybrid-Quantisierung (nur Community-Hinweis: SSM-Schichten in BF16 belassen); keine 2026-MPS-/Tensor-Train-Attention; keine 2026-Distillation in 2-Bit/ternär-Schüler (jüngster Treffer 2510.13998).
