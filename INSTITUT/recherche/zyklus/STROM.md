@@ -51,3 +51,21 @@ Themen: SSM/Hybrid + Quantisierung, Sparsity + Quantisierung, Distillation Niedr
 | 2024-08 | Mamba in the Llama (Distillation Transformer -> Hybrid) | arXiv 2408.15237 | Hybrid mit 1/4 Attention-Schichten | Distillation + Hybrid-Architektur; nicht 2026 |
 
 Lücken Lauf 3: keine 2026-Arbeit zu GatedDeltaNet/Hybrid-Quantisierung (nur Community-Hinweis: SSM-Schichten in BF16 belassen); keine 2026-MPS-/Tensor-Train-Attention; keine 2026-Distillation in 2-Bit/ternär-Schüler (jüngster Treffer 2510.13998).
+
+## 29.10. Lauf 4 (Späher, 6 WebSearch, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: (a) Rotation vs. Gruppenskalen (Overhead/Hardware), (b) Bitflip-Robustheit, (c) Jugend-forscht-Beispiele. Nicht aufgenommen (schon da): LightRot 2607.27704, HARP, ButterflyQuant.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-07 | GyRot: Synergie zwischen Rotation und feinen Gruppenskalen (KAIST, INT4-Beschleuniger) | arXiv 2607.27694 | bis 3,4x Speed, 3,6x Energie ggü. Basis-Beschleunigern; Autoren: globale Rotation widerspricht lokalen Gruppenskalen | stützt unseren Befund (Rotation ≈ Gruppenskala, kein Gewinn); Hardware-Vorteil nur mit Co-Design (Grobe Rotation + feine Gruppen, CoRFiG); Messlatte für Kombi-Arm |
+| 2026-03 | Rotated Robustness (RoR): trainingsfreie Abwehr gegen Bitflip-Angriffe via Householder-Rotation der Aktivierungen | arXiv 2603.16382 | Kollaps bei Zufalls-Bitflips Qwen2.5-7B 3,15 % -> 0,00 %; +0,31 % Speicher, +9,1 % Latenz (Llama-2-7B) | WICHTIGSTER Vorteil von Rotation außerhalb PPL: Robustheit gegen Bitflips; neue Idee: Bitflip-Test als Zusatzachse (Rotation vs g16/g32/Lloyd) |
+| 2026-03 | Logic/Lookup-Netze unter Parameter-Bitflips (MLPerf Tiny) | arXiv 2603.22770 | geringere Präzision = höhere Resilienz (Herleitung des erwarteten Fehlers) | Gegner/Theorie: 2-Bit-Gitter könnte von sich aus robuster sein; Bitflip-Erwartungsfehler analytisch ableitbar |
+| 2026-02 | TFL: gezielter Bitflip-Angriff auf LLMs | arXiv 2602.17837 | Format-Unterschiede (BF16 Exponent vs INT8) | Abgrenzung: INT-Gewichte ohne Exponentenfeld; Flip = Skala x Zweierpotenz |
+| 2025 (EMNLP) | Bitflip-Fehler in LLMs, Analyse + Abwehr (Chen et al.) | Link nur über EMNLP 2025 Snippet, ID fehlt | BF16-Flips bis 98 % Leistungsverlust (zitiert) | Motivation für Robustheitsachse |
+| 2026-05 | Quantizing with Randomized Hadamard Transforms: Heuristik jetzt bewiesen | arXiv 2605.06014 | Beweis (keine Zahl im Snippet) | Theorie-Zitat: warum Rotation Ausreißer glättet (I-048 H2) |
+| 2026-01 | Any Orthogonal Transform Will Do: Range Reduction erklärt Rotation (Super-Resolution) | arXiv 2601.21069 | Hadamard-Schritt ca. 3x Wallclock; Padding auf 2er-Potenz +0,13-0,27 Bit/Param | stützt "jede Orthogonale reicht" (I-048 H2); Padding-Overhead relevant für Nicht-2er-Potenz-Dimensionen |
+| 2025-12 / 2026-01 | ConvRot (2512.03673); MixQuant (2601.22347): Block-Hadamard | arXiv 2512.03673, 2601.22347 | ConvRot 2,26x Speed, 4,05x Speicher (FLUX); MixQuant: kleinere Blöcke -> mehr Worst-Case-Ausreißer | Blockgröße b als Achse (Kosten linear statt quadratisch), passt zu g16/g32-Vergleich |
+
+(c) Jugend forscht: keine konkrete Quantisierungs-/Effizienz-KI-Arbeit gefunden (nur Chemie-KI-Projekt Berlin, Lenovo-Leitfaden). Archive jugend-forscht.de manuell durchsuchen ("Modellkompression", "Edge-KI"); kein Treffer = Nische, kein Duplikatrisiko.
+
+Lücken Lauf 4: keine Bitflip-Studie für INT4/INT2-Gewichte mit/ohne Rotation (Hadamard speziell, nur Householder in RoR); keine direkte Skalen-Overhead-gegen-Rotation-Messung bei gleichem Durchsatz.
