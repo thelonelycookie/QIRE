@@ -1,0 +1,62 @@
+# Z4 Divergenz: leere Zellen DA/TZ, Fehlerkorrektur, Dekohärenz, RG, Messung/Born (29.10.2026)
+
+Nichts gerechnet, kein git, keine Websuche. Literaturnamen aus dem Gedächtnis bzw. aus REAKTOR/Z3 (vor Zitat im Volltext prüfen). P = Vorab-Schätzung, dass der Test die Idee gegen den stärksten Gegner stützt. Test: Tuning-Seeds 950–989, gleiche Bytes/FLOPs, zwei Längen (T1 ≈ 600 / T2 ≈ 2400 Schritte Byte-LM d=128 bzw. 3/12 Epochen MNIST-MLP), ≤ 30 min CPU. Alles klassisch (I-038), Wortwahl „quanten-inspirierter Vorteil“. Neuheit gegen ARCHIV, Z3_ideen, REAKTOR.
+
+Hinweis zu den Ressourcen: DA und TZ sind schwer „bytegleich“ zu messen. Maß: DA = Zahl der Trainingsbeispiele (feste Menge), TZ = gesamte Trainings-FLOPs inkl. Zusatzpässe (Zusatzkosten mitzählen).
+
+## (a) Leere Zellen, je 1 Idee
+
+| ID | Zelle | Idee | Langweiligste Erklärung + Kontrolle | Billigster Test | P | Neuheit |
+|---|---|---|---|---|---|---|
+| Z4-01 | Messung × DA | **Grobmessung als Datenfilter:** ein 2-Bit-Vorwärtspass (billig, „Messung“) schätzt den Verlust je Beispiel; nur das schwerste Drittel bekommt den vollen Pass samt Rückwärtspass. Rotierte 2-Bit-Aktivierung hält die Schätzung gut (FFN-Mitte 20/20). | Bekannt: verlustbasierte Auswahl / Hard-Example-Mining; bringt oft nichts über Zufall. Kontrolle: Zufallsteilmenge gleicher FLOPs, Auswahl mit fp16-Verlust (Obergrenze), Auswahl mit rohem 2-Bit (ohne Rotation) | MNIST-MLP, 3/12 Epochen; Zusatzpass als ⅓ eines Vorwärtspasses mitzählen; 10 min | 35 % (schlägt Zufall bei gleichen FLOPs); 20 %, dass rot besser als roh | Archiv: DA durchweg LEER (K15 Kand.); Kombination mit Rotation neu, Methode bekannt |
+| Z4-02 | Messung × TZ | **Bit-Curriculum:** Training beginnt mit 2-Bit-Aktivierung (wenige „Schüsse“, I-040-v2: Schussrauschen hilft bei wenig Schüssen) und steigt auf 4 und 8 Bit; Rotation hält den frühen Schritt stabil. | Bekannt (Cyclic/Progressive Precision Training). Gewinn ist nur Energie je Schritt, nicht Genauigkeit. Kontrolle: konstant 8 Bit, konstant 2 Bit, Curriculum rückwärts (8→2) | Byte-LM T1/T2; Zeit pro Schritt per Bit-Op-Zählung (Rechenzeit auf CPU gleich, nur analytisch); 20 min | 45 % (gleiche Güte bei ≥ 30 % weniger Bit-Ops); 20 %, dass roh das gleiche schafft | Archiv: TZ×Messung LEER; Methode bekannt, Rotation-Variante neu; Reserve |
+| Z4-03 | Fehlerkorrektur × DA | **Fehlerkorrigierender Labelcode (ECOC):** statt 10 One-hot-Ausgaben ein 15-Bit-Codewort je Klasse mit Mindest-Hamming-Abstand; Dekodierung nächstes Codewort. Vorteil erwartet bei Labelrauschen (DA-Qualität, nicht Menge). | Dietterich/Bakiri 1995; Wirkung = mehr Ausgabeneuronen + Ensemble-Effekt. Kontrolle: One-hot mit gleich vielen Ausgabeneuronen (zufällige Codes ohne Abstand), Label-Smoothing | MNIST-MLP, 20 % symmetrisches Labelrauschen, 3/12 Epochen; 8 min | 25 % (≥ +0,3 pp gegen Label-Smoothing) | Archiv: K12 Kand. verwandt; ECOC-Idee bekannt, Rauschtest neu; Reserve |
+| Z4-04 | Fehlerkorrektur × TZ | **Mehrheits-Checkpoint (Wiederholungscode über die Zeit):** ein 1-Bit-Gewichtsnetz entsteht als Vorzeichen-Mehrheit aus K=5 späten Schnappschüssen, kein Zusatztraining. | EMA/SWA in anderer Verpackung; die Mehrheit ist ein grober gleitender Mittelwert. Kontrolle: Vorzeichen des EMA-Latents, letzter Schnappschuss, Vorzeichen der Summe (nicht Mehrheit) | MLP binär, T1/T2 mit STE; 10 min | 30 % (> EMA-Vorzeichen um ≥ 0,2 pp) | Archiv: TZ×Fehlerkorrektur LEER; SWA bekannt, Binär-Mehrheit nirgends gefunden; Reserve |
+| Z4-05 | Dekohärenz × DA | **Dephasing-Augmentation:** in der Hadamard-Domäne zufällig Vorzeichen einzelner Koeffizienten kippen (Phasenrauschen) als Datenaugmentation bei kleiner Trainingsmenge (1000 statt 60000 Beispiele). | Ist Rauschaugmentation/Dropout in anderer Basis. Kontrolle: Gauß-Rauschen gleicher Varianz im Pixelraum, Dropout gleicher Rate, ohne Augmentation | MNIST-MLP mit 1000 Beispielen, 3/12 Epochen (Überanpassung sichtbar); 10 min | 30 % (≥ +0,5 pp gegen beste Kontrolle) | Archiv: Dekohärenz×DA nur K15 Kand.; neu als Hadamard-Domänen-Rauschen, mäßig |
+| Z4-07 | RG × DA | **Auflösungs-Curriculum grob→fein:** erste ⅓ der Schritte mit 7×7-Mittelung (hochskaliert), dann 14×14, dann 28×28. RG als Daten-Multiskala. | Bekannt (Progressive Resizing, FFCV) und bei MLP ohne Faltung schwach; Gewinn ist nur Glättung (Tiefpass). Kontrolle: konstant 28×28, konstant Tiefpass, Curriculum rückwärts | MNIST/Fashion-MLP, gleiche Schrittzahl, Kosten gleich (hochskaliert); 8 min | 30 % (≥ +0,3 pp oder gleiche Güte in weniger Schritten) | Archiv: RG×DA LEER; K13/K14 (TZ) verwandt; Methode bekannt, Reserve |
+| Z4-08 | RG × TZ | **Breitenwachstum, funktionserhaltend (Net2Net-Art):** Training mit Breite 64, bei ⅓ der Schritte Verdopplung durch Kopieren plus Rauschen auf 128, bei ⅔ auf 256. Grobe Skala zuerst (Renormierungsfluss). | Bekannt (Net2Net, gestapeltes Wachstum); Gewinn nur weniger FLOPs im Anfang. Kontrolle: durchgehend 256, durchgehend 64, Wachstum ohne Funktionserhalt (Zufallsinit) | MLP/Byte-LM, FLOPs summiert gegen Festbreite gleicher FLOPs; 15 min | 40 % (gleiche Güte bei ≥ 30 % weniger FLOPs) | Archiv: K13/K14 Kand. enthalten Wachstum; Z4-08 nur Konkretisierung, nicht neu; Reserve |
+
+Dekohärenz × TZ: siehe Umkehrung (b), Z4-06. Fehlerkorrektur × BG/BK: siehe (c), (d).
+
+## (b) Umkehrung: „Was wenn Quantisierung beim Training hilft?“
+
+| ID | Zelle | Idee | Langweiligste Erklärung + Kontrolle | Billigster Test | P | Neuheit |
+|---|---|---|---|---|---|---|
+| Z4-06 | Dekohärenz × TZ | **Abkühlplan des Quantisierungsrauschens:** Gewichte im Vorwärtspass stochastisch (gleichverteiltes Rauschen) auf 2–3 Bit gerundet, Rauschstärke fällt mit der Zeit (σ_t = σ₀·exp(−t/τ), „Dekohärenz rückwärts“: von klassisch verrauscht zu scharf). Wirkt als Regularisierer in Überanpassungsregime (kleine Daten, lange Läufe). Modell am Ende fp16 oder 2-Bit. | Ist QAT/Gauß-Rauschen-Injektion/Dropout; Rauschen regularisiert nur wie Weight Noise (Graves). Kontrolle: Gauß-Rauschen gleicher Varianz (gleiche Schedule), Dropout, festes Rauschen, ohne Rauschen, bestes Weight-Decay | MNIST-MLP mit 2000 Beispielen, 20/80 Epochen (zwei Längen), Test-Genauigkeit bei fp16-Ende und 2-Bit-Ende; 12 min | 40 % (schlägt beste Kontrolle ≥ 0,3 pp bei fp16-Ende); 55 % (schlägt ohne Rauschen); 25 %, dass stochastische Rundung besser als Gauß | Archiv: Dekohärenz×TZ LEER, „Quantisierung als Rauschen“ nur als offene BG-Zelle (E9 Kand.); Methode verwandt mit Noisy/Stochastic-Quantization-QAT, Abkühlplan + Kontrolle gegen Gauß neu; **behalten** |
+
+Vergleich zu Z3-A2 (QAT als Gegner): A2 fragt nach der Güte des fertigen Quantisierten Modells, Z4-06 nach der Generalisierung des Hochpräzisions-Endmodells. Dasselbe Skript, anderes Zielmaß.
+
+## (c) Fernanalogie: Quantenfehlerkorrektur (Stabilisatorcodes, Redundanz gegen Bitfehler → robuste 1–2-Bit-Netze)
+
+Kernpunkt der Analogie: Stabilisatorcode = Syndrom messen, ohne die Information zu messen; Redundanz teilt Information über viele physikalische Bits, so dass ein Fehler an einer Stelle nicht zählt. Übersetzt: (i) Bitfehler im Gewichtsspeicher (Niederspannungs-SRAM spart Energie bei höherer Fehlerrate), (ii) überkomplette Darstellung.
+
+| ID | Zelle | Idee | Langweiligste Erklärung + Kontrolle | Billigster Test | P | Neuheit |
+|---|---|---|---|---|---|---|
+| Z4-09 | Fehlerkorrektur × BG | **Hamming-Schutz für 1-/2-Bit-Gewichte gegen Bitflips:** Hamming(7,4)-Paritätsbits je 4 Gewichtsbits (Overhead 75 %) gegen ungeschütztes, um den Overhead breiteres Netz. Bitflip-Rate p ∈ {10⁻³, 10⁻², 5·10⁻²}. | Binärnetze sind von sich aus robust gegen Flips (Rauschen verteilt sich); Schutz lohnt erst bei hohem p. Kontrolle: ungeschütztes Netz mit 1,75-fach breiteren Schichten (gleiche Bytes), Wiederholungscode ×3 | MNIST-MLP, 1-Bit-Gewichte, Flips zur Testzeit in 20 Wiederholungen; 8 min | 25 % (schlägt breiteres Netz bei p = 0,05) | Archiv: Fehlerkorrektur×BG nur Entropiecodierung rot; Bitflip-Robustheit bekannt (BNN-Literatur), ECC-Overhead-gegen-Breite-Bilanz neu; schwach, aber als Kontrolle für Z4-12 nötig |
+| Z4-10 | Fehlerkorrektur × FL | **Überkomplette Rahmen-Quantisierung:** d Werte mit 2d Zufalls-Hadamard-Projektionen zu je 1 Bit (gleiche 2 Bit je Wert wie 4 Stufen), Rekonstruktion über die Pseudoinverse bzw. konsistent. Redundanz soll Fehler gegen 1/r² drücken (Rahmen-Theorie, Goyal/Vetterli/Thao). | Bei fester Bitrate ist skalare Quantisierung ohne Redundanz nicht schlechter; 1-Bit-Vorzeichenprojektionen = 1-Bit Compressed Sensing, hat bekannte Ratenverluste. Kontrolle: 4-Stufen-Lloyd (G1), 2d-Projektionen mit 1 Bit auf iid-Gauß | Rein synthetisch: iid-Gauß und gemessene Aktivierung, MSE in dB; 3 min; Training nur falls Gewinn ≥ 0,3 dB | 15 % | Archiv: Fehlerkorrektur×FL LEER; Verwandt mit R3 (2D-Lloyd, ebenfalls schwach); Rahmen-Quantisierung bekannt, Reserve/Vortest |
+
+## (d) Kombination: Rotation + Fehlerkorrektur/Paritätsbits
+
+Beobachtung: Die Hadamard-Matrix ist die Generatormatrix des Walsh-Hadamard-Codes (Reed-Muller erster Ordnung). Rotation verschmiert Information schon wie ein Code über alle Koordinaten; Koordinate 0 der Rotation ist die Summe, also ein Paritätsbit.
+
+| ID | Zelle | Idee | Langweiligste Erklärung + Kontrolle | Billigster Test | P | Neuheit |
+|---|---|---|---|---|---|---|
+| Z4-12 | Unitarität × BG (Fehlerkorrektur × BG) | **Rotation als Bitfehler-Verteiler:** Gewichte (2 und 4 Bit) und FFN-Aktivierung roh gegen Hadamard-rotiert, dann Bitflips im Speicher (p = 10⁻³ bis 10⁻²). Hypothese: roh zerstört ein Flip im höchsten Bit einen Kanal bei Absmax-Skala, rotiert wird der Schaden gleichmäßig und klein (graceful degradation). Zweiter Arm: Z4-09-Schutz nur auf dem Skalen- und Vorzeichenbit. | Rotation glättet nur Ausreißer; Schaden hängt von der Skala, nicht von der Basis. Kontrolle: roh mit Gruppenskala g=32 (G4), roh mit Kanalskala, Zufallsorthogonale (I-048 H2), 4-Stufen mit und ohne Null (Z3_ffn_fair) | MLP und Byte-LM FFN-Mitte, Flip-Rate als Achse, 20 Wiederholungen, kein Neutraining; 12 min | 55 % (rotiert verliert bei p = 10⁻² mindestens 2× weniger als roh); 35 %, dass Gruppenskala dasselbe leistet | Archiv: Rotation nur auf Quantisierungsschaden, nie auf Speicherfehler; Lit. QuaRot/SpinQuant testen keine Bitflips; Fehlerkorrektur×BG neu besetzt; **behalten, Rang 1** |
+| Z4-11 | Fehlerkorrektur × BK | **Σ-Syndrom nach Rotation:** Koordinate 0 (Summe) und Gruppenparität jeder 2-Bit-Aktivierungsgruppe in 8 Bit mitführen; Syndrom = wahre Summe − Summe der quantisierten Werte; Rest gleichmäßig auf die Gruppe verteilen (korrigiert den Mittelwertfehler). Overhead 8/g Bit je Wert. | Ist Bias-/Zero-Point-Korrektur (Nagel 2019) mit Extra-Bytes. Kontrolle: Zero-Point je Gruppe gleicher Bytes, Mittelwertabzug vor Quantisierung, einfach breitere Skala | FFN-Mitte T2, 5 Seeds, g ∈ {16, 64}; 12 min | 20 % (≥ 0,02 bpc besser als Zero-Point gleicher Bytes) | Archiv: Fehlerkorrektur×BK LEER; verwandt mit B2/R4; Reserve |
+
+## Rangliste Top 3
+
+| Rang | ID | Einzeiler | P | Test |
+|---|---|---|---|---|
+| 1 | **Z4-12 (+Z4-09 als Arm, +Z4-11 Reserve)** | Rotation als Bitfehler-Verteiler: gleiche Bytes, Speicher-Bitflips, rotiert gegen roh, Gruppenskala als fairer Gegner. | 55 % | 12 min |
+| 2 | **Z4-06** | Abkühlplan des Quantisierungsrauschens als Regularisierer in kleinen Datenregime, Kontrolle Gauß-Rauschen/Dropout. | 40 % | 12 min |
+| 3 | **Z4-01** | Grobmessung (2-Bit-Pass, rotiert) als Datenfilter: nur das schwerste Drittel voll trainieren, gegen Zufall bei gleichen FLOPs. | 35 % | 10 min |
+
+Reserve: Z4-02 (Bit-Curriculum, 45 %, aber nur Energie), Z4-08 (Wachstum, 40 %, nur FLOPs), Z4-04, Z4-05, Z4-07, Z4-03, Z4-11. Schwach/Vortest: Z4-10 (15 %), Z4-09 (25 %, Hauptwert als Kontrolle für Z4-12).
+
+## Hinweise für die Umsetzung
+- Z4-12 teilt sich Skript und Gitter-Achse mit B1/R4 (Z2c-FFN-Skript, g als Parameter); Z3_ffn_fair zuerst abwarten (Gitter-Artefakt).
+- Z4-12 braucht als Pflichtgegner G4 (Gruppenskala, Skalenbytes mitzählen), G5 (Kanalvorskala) und Zufallsorthogonale. Ohne diese Kontrollen kein Befund.
+- Z4-06 und Z4-01 sind „Daten/Training“-Zellen und nutzen MNIST-MLP, damit sie ohne den Byte-LM auf CPU in 12 bzw. 10 min laufen.
+- Ehrlichkeit: Z4-06 und Z4-01 sind Methoden aus bekannten Familien (Weight Noise, Hard-Example-Mining). Neu wäre nur die Verbindung zu Rotation und der Abkühlplan; sonst „Grundlage mit Zitat“ (Maltes Vorgabe 07.10.).
+- Läufe nur nach Maltes Zeile; Rauchtests nur auf Tuning-Seeds.

@@ -97,3 +97,94 @@ Neuheitsprüfung gegen ARCHIV und Z3_ideen. Test = Tuning-Seeds 950–989, gleic
 - 2411.17691 und ParetoQ 2502.02631 stützen Z1b, nicht 2026, nachtragen.
 - Zellen: Dekohärenz × BK (R1), Unitarität × BG (R5, R4), Unitarität × TZ (R2) bekommen Kand.-Einträge R1, R2, R4, R5.
 - Reihenfolge: B1 und R4 teilen sich das Z2c-FFN-Skript; Ergebnis Z3_ffn_fair zuerst abwarten. Läufe nur nach Maltes Zeile.
+
+---
+
+# 29.10. Lauf 2
+
+Nichts gerechnet, kein git, keine Websuche. Grundlage: STROM-Abschnitt "29.10. Lauf 2" (nur Snippets, alle Zahlen UNGEPRÜFT), bisheriger REAKTOR, Z2_ergebnisse_raven. ARCHIV nur gelesen/nicht angefasst. P = Vorab-Schätzung, dass der Test die Idee stützt. Alles klassisch (I-038): "quanten-inspirierter Vorteil". Zahlen aus meinem Gedächtnis (Horowitz 2014 usw.) sind als "Gedächtnis, vor Zitat prüfen" markiert.
+
+## L2.1 Fund für Fund
+
+| Fund | Wirkung | Neuer Gegner / Konsequenz |
+|---|---|---|
+| LightRot 2607.27704 | Widerspricht teilweise: Rotation ist nur dann ein Speicher-gegen-Rechnen-Gewinn, wenn ihre Kosten klein bleiben; Hardwarepapier zählt sie als eigenen Posten. Unser FWHT-Zeitbefund (w12) braucht dieselbe Buchführung. | **G8: Rotationskosten ehrlich mitzählen** (d·log2 d Additionen je Vektor, plus Speicherzugriffe). Kein neuer Qualitätsgegner, aber Pflichtspalte "Rotations-Ops". |
+| FIGLUT 2503.06862 | Stützt: Niedrigbit-Gewinn kommt in Hardware real an, aber nur mit LUT-Kern (+59 bis +98 % TOPS/W, ungeprüft). Auf CPU/GPU ohne solchen Kern kommt er nicht an. | Grenze der Aussage: Energie nur als Modell, nicht als Messung auf Standardhardware. |
+| 2508.06753 (INT2xINT8 auf Intel Xe2) | Stützt: 2-Bit-Kerne gibt es, bis 7x schneller als 16 Bit (ungeprüft). Zugleich Widerspruchsrisiko: das Modell dort braucht vermutlich QAT/spezielle Quantisierung, nicht PTQ-Rotation. | **G7 bleibt Pflicht** (Groß-2-Bit-QAT roh gleicher Bytes), jetzt mit Hardwarebeleg, dass der Gegner praxisrelevant ist. |
+| 28-nm-Beschleuniger (INT4 27,4, INT8 22,9 TOPS/W) | Nur Größenordnung: 1 TOPS/W ~ 1 pJ/Op. Bedingungen verschieden, nicht vergleichbar. Zeigt: Rechnen liegt bei ~0,04 pJ/Op, also unter 1 pJ. | Dient nur als Beleg "Rechnen ist billig, Datenbewegung teuer" (siehe L2.2). |
+| Quartet II 2601.22813 und HALO 2501.02625 | Stützen Hadamard im Training als etabliert (Vor- und Rückwärtspfad). Widersprechen unserem Befund nicht. Zahlen (>2x Fehler, 1,41x End-to-End) sind für Kernel/Feintuning, nicht für unsere PTQ-Stufe. | **G9: Hadamard im Training (HALO-Stil) + normales QAT** als Gegner zu A2, siehe L2.4. |
+| QuEST 2502.05003 | Stützt Z1b indirekt (Trainingsbits hängen von Compute ab); Hadamard dort Bestandteil. | Gleicher Gegner wie G9/G2: QuEST-artiges QAT mit Hadamard ist das Rezept, das A2 schlagen oder ehrlich einordnen muss. |
+| 2510.10964 "Not All Bits Are Equal" | Stützt R5, siehe L2.3. | Kippunkt ~8-Bit-4B liegt weit oberhalb unserer Kleinmodelle; Form des Gesetzes nutzbar, Zahl nie. |
+| 2605.01188 Compute Optimal Tokenization (~60 B/Param) | Neutral. Datenachse DA bleibt leer. Für Byte-LM irrelevant (Tokenisierung fest = Bytes). | Nur Fußnote: unser Byte-LM ist der Randfall "Tokenisierung = 1 Byte"; ~60 B/Param nicht übertragbar. |
+| 2605.13979 Lottery Tickets quanten-inspiriert | Zitierbarer Rahmen, siehe L2.5. | kein Gegner |
+| 2307.06937 (VQML = MPS-Unterklasse) | Abgrenzung I-038. Zitat. | keiner |
+| SORF 1610.09072 / 1605.09049 | Stützt, aber alt: Hadamard-Rotation ≡ strukturierte Zufallsorthogonale, kein Neuheitsanspruch. Kein 2025/26-Fastfood-Treffer (Lücke). | Zitatpflicht in der Arbeit (Fastfood, SORF, QuaRot-Linie). |
+
+## L2.2 Energie "Speicher statt Rechenzeit": ehrliche Abschätzung
+
+Grundproblem: Wir haben keine Leistungsmessung (Container, 4 Kerne, kein Zähler) und die Hardwarepapiere gelten für Sonderchips. Daher kein "wir sparen X J", sondern ein **parametrisches Zählmodell mit Bandbreite**, offen als Modell gekennzeichnet.
+
+**Modell (pro Vorwärtsdurchlauf eines Tokens):**
+E = E_Gew + E_Akt + E_Rechnen + E_Rotation
+- E_Gew = Bytes Gewichte, aus Speicher gelesen × e_Speicher(Ebene). Bei Batch 1 / Erzeugung wird jedes Gewicht einmal pro Token gelesen: genau hier gewinnt "weniger Bytes".
+- E_Rechnen = MACs × e_MAC(Bitbreite). Nur INT-/Entpack-Kosten; ohne Spezialkern wird 2-Bit zu INT8 entpackt, also e_MAC = INT8-Wert, **kein** Rechenvorteil (FIGLUT/Xe2 nur mit Kern).
+- E_Rotation = d·log2 d Additionen pro Block je Aktivierungsvektor × e_Add, plus Aktivierungsbytes.
+- Klein-fp16 vs Groß-2-Bit gleicher Bytes: Gewicht-E gleich (per Konstruktion), Rechen-E des Großen höher (mehr MACs), Rotation kommt dazu. Der Vorteil ist also **kein Energievorteil**, sondern ein Qualitätsvorteil bei gleichem Speichertraffic. Das ehrlich so schreiben.
+
+**Konstanten (Größenordnung, aus dem Gedächtnis: Horowitz 2014, 45 nm; vor Zitat prüfen, Spanne ±3x, neuere Knoten kleiner):** DRAM-Zugriff ~100 bis 200 pJ je Byte, On-Chip-SRAM ~1 bis 5 pJ je Byte, INT8-MAC <1 pJ, FP16-MAC ~1 bis 2 pJ. Daraus: Datenbewegung aus DRAM kostet 100x und mehr als eine Rechenoperation. Stützt aus STROM nur grob: 28-nm-Chip ~0,04 pJ/Op bei INT4/INT8 (ungeprüft).
+
+**Vorschlag für die Jugend-forscht-Arbeit (Pflichttabelle, 0 min Rechnung außer Zählen):**
+1. Pro Arm zählen: Gewichtsbytes, Aktivierungsbytes, MACs, Rotations-Additionen (analytisch, aus Architektur, keine Messung).
+2. Energie als **Intervall** [min, max] mit zwei Szenarien: (a) Gewichte im DRAM, Batch 1 (Speicherdominiert, 150 pJ/B ±3x), (b) Gewichte im Cache / Batch groß (Rechen dominiert). Ergebnis ehrlich: im Szenario (a) liegt der Vorteil von Bytegleich bei null (gleiche Bytes) und der Nutzen von 2-Bit nur im Qualitätsgewinn; der echte Energiehebel ist "gleiche Qualität mit weniger Bytes", also die Bytegleich-Achse **nach unten** (Kippunkt-Test R5/C4: wie viele Bytes spart Groß-2-Bit-rot bei gleicher Qualität wie Klein-fp16).
+3. Zusätzlich CPU-Wandzeit der Rotation (FWHT) real messen und neben die Zählung stellen (Messung vs Modell, Abweichung nennen).
+4. Keine "TOPS/W"-Zahlen aus Papieren in die eigene Bilanz mischen; nur als Plausibilitätsbeleg zitieren.
+
+Langweiligste Gegenerklärung: Auf Standardhardware ist LLM-Erzeugung speicherbandbreitengebunden, daher spart jedes Byte fast linear Zeit/Energie; unser "Speicher statt Rechenzeit" ist dann nur die bekannte Bandbreiten-Rechnung, keine Neuheit. Neuheitsprüfung: bekannt (Roofline, Horowitz-Tabelle). Das als solide Grundlage zitieren, nicht als Ergebnis ausgeben.
+
+## L2.3 Byte-Budget-Gesetz (2510.10964) als Messlatte für den Bytegleich-Test
+
+- Aussage laut Snippet: Bei festem Gesamtbyte-Budget lohnt sich unterhalb eines Kippunkts (~8-Bit-4B, ca. 4,2 GB) mehr Gewichtsgenauigkeit/Größe, oberhalb mehr Tokens/KV. Unsere Modelle liegen weit darunter (Byte-LM, kleine MLP): wir sind im "Gewichts-Bit"-Regime, dort ist das Gesetz **Stütze** für Groß-niedrigbit gegen Klein-fp16, aber nur als Richtung.
+- Nutzung als Messlatte: Unser Bytegleich-Test muss die dort getrennten Posten BG (Gewichte) und BK (KV/Aktivierung) getrennt führen. Messlatte = Mittel-4-Bit bei gleichen Bytes (G6/R5): ein Befund "Groß-2-Bit-rot schlägt Klein-fp16" zählt erst, wenn er auch Mittel-4-Bit bzw. die Pareto-Linie (ParetoQ) nicht verliert.
+- **Widerspruchsrisiko:** Wenn das Gesetz für kleine Modelle 3 bis 4 Bit als Optimum liefert, ist 2 Bit unter dem Optimum; rot-2-Bit gewinnt dann nur, wenn Rotation das Optimum nach unten schiebt. Das ist selbst eine testbare, neue Aussage: **R7 (neu) "Rotation verschiebt das optimale Bit pro Gewicht nach unten".**
+- R7: Bitbreiten {2, 3, 4, 6, 8, fp16} bei gleichen Gesamtbytes (Breite variiert), roh vs rot; Optimum-Bit pro Arm ablesen. Langweiligste Erklärung: Optimum liegt bei beiden bei 4 Bit, Rotation hebt nur das 2-Bit-Niveau, ohne es zum Optimum zu machen. Billigster Test: Z2-Skript mit Bit und Breite als Parameter, MLP, Tuning-Seeds 950-989, 5 Seeds, ~15 min (kann mit R5 geteilt werden: R5 ist die Teilmenge {2, 4, fp16}). P 35 %, dass Optimum-Bit rot < roh Optimum-Bit (ganze Stufe); P 60 %, dass die Kurve glatt genug ist, um es überhaupt zu sehen. Neuheit: Verallgemeinerung von R5 auf eine Kurve, eigenes Gesetz-Prüfen auf Rotation. Nicht in ARCHIV/Z3 (C4 variiert Budget, nicht Bitbreite). Gering-mittel neu; ParetoQ-Linie ist die nächste Arbeit, also abgrenzen.
+- Bytegleich-Regeln aus dem Gesetz: Skalen, Codebuch (Lloyd-Gitter), Rotationsparameter (Vorzeichen-Diagonale D: 1 Bit je Koordinate, oder Seed = 0 Bytes) im Budget mitzählen.
+
+## L2.4 Idee A2 (QAT-rot) schärfen: Hadamard im Training (HALO, Quartet II, QuEST)
+
+Stand: A2 = QAT mit Rotation gegen QAT roh. Erkenntnis aus Lauf 2: Hadamard im Training ist Standard (HALO, Quartet II, QuEST), also **A2 darf nicht als "neu" verkauft werden**, sondern als Messung "bringt Rotation im QAT noch etwas, wenn QAT das Ausreißerproblem selbst lernen kann?".
+
+**Schärfung (A2'):**
+- Vier Arme bei gleichen Bytes/FLOPs: (i) PTQ roh, (ii) PTQ rot (bekannt: +0,5 pp), (iii) QAT roh, (iv) QAT rot (Hadamard in Vorwärts und, wie HALO, Rückwärts). Gegner (iii) bekommt ein lernbares nichtuniformes Gitter (G2) und Gruppenskala (G4), sonst ist es ein Strohmann.
+- Kernfrage: **Wird der Rotationsgewinn (ii)-(i) durch QAT aufgefressen ((iv)-(iii) ≈ 0)?** Hypothese Z1b/Chen: Schaden wächst mit T; QAT lernt Gewichte, die ohne Rotation passen. Erwartung: Gewinn schrumpft, bleibt bei Aktivierungen eher (Aktivierungen sind datenabhängig, QAT kann sie schlechter vorab formen).
+- Interessanter Zusatzarm (v): **Rotation nur auf Aktivierungen im Training** (billig, keine Gewichtsänderung), nach RCP-Linie; (vi) Rückwärts ohne Hadamard (nur Vorwärts) als Kostenreduktion (HALO-Variante).
+- Langweiligste Erklärung: QAT mit gelerntem Gitter holt den Rotationsgewinn komplett ein (schon in 1-Bit Wonder/QuEST-Linie gesehen); dann ist der Befund "Rotation ist ein PTQ-Werkzeug", was ehrlich und für die Byte-/Energie-Geschichte (PTQ ohne Training) immer noch nutzbar ist.
+- Billigster Test: Kleinmodell Byte-LM d=128, T1 nur, Tuning-Seeds, 3 Seeds, Arme (iii), (iv) + ein Gitterarm: ~25 min CPU (QAT ist teurer als PTQ; wenn >30 min, MLP statt LM). P 45 %, dass (iv)-(iii) ≥ 0,005 bpc bei Aktivierungen bleibt; P 20 % bei Gewichten. Neuheit: kombiniert mit Z1b-Befund (Schaden-Zeit) und Byte-Gleich, Methode selbst bekannt (HALO/Quartet II/QuEST zitieren). Als Messung wertvoll, nicht als Erfindung.
+
+## L2.5 Quanten-inspirierte Dequantisierung (2605.13979) als Rahmen
+
+- Was zitierbar ist (laut Snippet): quanten-inspirierter *klassischer* Algorithmus mit poly(D) statt exponentiell, nur Simulation. Dequantisierungslinie (Tang 2018, Stichprobenzugriff auf Zeilen/Spalten, Normen-Sampling) ist der etablierte Rahmen für "quanten-inspiriert": klassischer Algorithmus mit quantenähnlicher Datenstruktur (Sampling nach Norm), kein Quanten-Speedup.
+- Nutzen für uns: **Rahmen/Begründung für die Wortwahl.** Wir schreiben: "quanten-inspiriert im Sinn der Dequantisierung: strukturierte unitäre/Hadamard-Transformationen und Norm-/Sampling-Ideen werden klassisch genutzt; Wirkung klassisch (I-038)". Das schützt vor Quantenvorteil-Behauptung und ist zitierbar (nur nach Volltextprüfung: Autoren, Inhalt, Zählung fehlen im Snippet).
+- Widerspruchsrisiko: Hadamard-Rotation ist Fastfood/SORF-Linie (2013/2016), nicht Tang-Dequantisierung. Direkte Verbindung "unsere Rotation = Dequantisierung" wäre **überzogen**. Ehrliche Formulierung: Gemeinsamkeit nur im Muster "Quantenmathematik (unitäre Basiswechsel, Normenverteilung) -> klassisch billig".
+- **R8 (neu, klein): Norm-Sampling als Arm.** Dequantisierungs-Trick: Spalten/Einträge mit Wahrscheinlichkeit ∝ Norm² auswählen. Anwendung: *Sparsifizieren nach Rotation*: nach Hadamard haben alle Koordinaten ähnliche Norm (flach), daher Norm-Sampling = gleichverteiltes Subsampling; ohne Rotation zerfällt Norm-Sampling auf Ausreißer. Test: Aktivierungsmatrix des FFN, Matrix-Produkt-Näherung mit k gesampelten Spalten (CRS/Drineas-Linie) roh (Norm-Sampling) vs rot (gleichverteilt), Fehler bei gleichem k. Langweiligste Erklärung: bekannte "Rotation macht Kohärenz niedrig"-Aussage der Randomized-NLA (Kohärenz/Leverage-Scores); nicht neu, nur als Verbindung nutzbar. Billigster Test: 5 min, nur Messung auf Z2c-Aktivierungen, kein Training. P 70 %, dass rot ≥ roh bei gleichem k; Neuheit gering (Randomized NLA, SRHT/Sketching, Drineas/Mahoney, Tropp); Wert: verknüpft sauber mit der Dequantisierungs-Zitierung und der Byte-Reduktion (weniger Spalten = weniger Bytes). Als Zitat-Brücke nutzen, nicht als Ergebnis.
+
+## L2.6 Neue Pflicht-Gegner (Ergänzung zu Abschnitt 5)
+
+8. **G8** Rotationskosten in Ops und Wandzeit mitzählen (LightRot-Linie); jede Energie-/Byte-Aussage nennt sie.
+9. **G9** QAT roh *und* QAT mit Hadamard (HALO/QuEST-Stil) als Gegner/Referenz zu A2; ohne beides keine Aussage "Rotation im Training".
+10. **G7 (verschärft)**: Groß-2-Bit-QAT roh gleicher Bytes, jetzt mit Hardwarebeleg (2508.06753), dass 2-Bit-Kerne real existieren.
+11. **G6 als Kurve (R7)**: nicht nur 4 Bit, sondern Bitbreiten-Reihe bei gleichen Bytes.
+
+## L2.7 Rangliste Zuwachs
+
+| ID | Einzeiler | P | Test |
+|---|---|---|---|
+| R7 | Rotation verschiebt das optimale Bit pro Gewicht nach unten? (Kurve statt Punkt, Byte-Budget-Gesetz) | 35 % | 15 min (teilt R5-Skript) |
+| A2' | QAT-rot gegen QAT-roh mit lernbarem Gitter: bleibt der Rotationsgewinn im Training? | 45 % Akt. / 20 % Gew. | 25 min |
+| R8 | Norm-Sampling vs Rotation+Gleichsampling (Zitat-Brücke zur Dequantisierung) | 70 % (bekannt) | 5 min, nur Messung |
+| Energie-Tabelle | Zählmodell mit Intervall statt Messung | n/a | 0 min Rechnung |
+
+Gesamtreihenfolge (Gedanke, keine Freigabe): R5/R7 gemeinsames Skript zuerst (prüft den grünen +0,54-pp-Befund am stärksten), dann R4/R1 (Z2c-FFN-Skript), dann R2, A2'. R8 und Energie-Tabelle ohne Lauf, sofort machbar. Läufe nur nach Maltes Zeile.
+
+## Nachträge fürs ARCHIV (nach Volltextprüfung)
+- Neu: LightRot 2607.27704, FIGLUT 2503.06862, 2508.06753, Quartet II 2601.22813, HALO 2501.02625, QuEST 2502.05003, 2510.10964, 2605.13979, 2307.06937 (alle ungeprüft). Zellen: Unitarität x TZ (HALO, Quartet II, QuEST), Unitarität x BG (2510.10964, R7), Energie-Spalte (FIGLUT, Xe2, LightRot).
+- Zahlen im Energieabschnitt (pJ/Byte, pJ/MAC) stammen aus meinem Gedächtnis, nicht aus STROM; vor Aufnahme in die Arbeit mit Primärquelle (Horowitz, ISSCC 2014) belegen.
