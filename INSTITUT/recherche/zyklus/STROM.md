@@ -69,3 +69,18 @@ Themen: (a) Rotation vs. Gruppenskalen (Overhead/Hardware), (b) Bitflip-Robusthe
 (c) Jugend forscht: keine konkrete Quantisierungs-/Effizienz-KI-Arbeit gefunden (nur Chemie-KI-Projekt Berlin, Lenovo-Leitfaden). Archive jugend-forscht.de manuell durchsuchen ("Modellkompression", "Edge-KI"); kein Treffer = Nische, kein Duplikatrisiko.
 
 Lücken Lauf 4: keine Bitflip-Studie für INT4/INT2-Gewichte mit/ohne Rotation (Hadamard speziell, nur Householder in RoR); keine direkte Skalen-Overhead-gegen-Rotation-Messung bei gleichem Durchsatz.
+
+## 29.10. Lauf 5 (Cloud-Späher, 4 WebSearch, 16:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: KV-Cache-Quantisierung, Codebücher/Trellis-VQ, gelernte Rotation, TurboQuant-Kritik. Übernommen aus der Cloud-Sitzung, deren Push scheiterte.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-08 | OptR: INT2-KV mit Rotation, Key-Reparametrisierung und gelernten orthogonalen Korrekturen | arXiv 2608.02691 | INT2-KV bis 8x kleiner als BF16; Kritik: QuaRot/OSCAR optimieren nur den Rekonstruktionsfehler als Proxy | BK: Rotation + 2 Bit im KV; Proxy- gegen Endverlust-Kritik |
+| 2025-01 | RotateKV: 2-Bit-KV mit ausreißer-adaptiven Rotationen | arXiv 2501.16383 | LLaMA-2-13B: PPL-Verlust <0,3 bei 2 Bit; 3,97x weniger Spitzenspeicher | Messlatte 2-Bit-KV |
+| 2025-10 | KVLinC: KV mit Hadamard und linearer Korrektur | arXiv 2510.05373 | Keys kanalweise, rotierte Values tokenweise quantisieren | Achsenwahl der Skalen im KV |
+| 2026-05 | BCJR-QAT: differenzierbare Trellis-Quantisierung | arXiv 2605.10655 | keine Zahl | Gitterachse: QAT mit Trellis |
+| 2026 | Proteus: Trellis-Quantisierung ohne Tabelle für 2-Bit-LLMs (ICML 2026) | icml.cc/virtual/2026/poster/63948 | Llama 2 7B–70B: besser als TCQ | berechneter Code statt gespeichertes Codebuch, verwandt mit Seed-Basis |
+| 2026-06 | LC-QAT: dateneffizientes 2-Bit-QAT mit linear beschränkter VQ | arXiv 2606.10531 | 0,1–10 % der Daten | Gegner für 2-Bit-QAT |
+| 2026-09 | Leech-Gitter-VQ mit Multi-Shell-Decoder | arXiv 2609.02652 | nur Selbstangabe | dichte Gitter, Dekodierkosten |
+| 2026-05 | EVA: VQ-Beschleuniger fürs Decoding | arXiv 2605.24144 | keine | Hardware |
+| 2026-05 | Statistik der KV-Quantisierung nach TurboQuant | arXiv 2605.08114 | feste Rotation macht nicht-isotrope Verteilungen nicht isotrop | Theorie-Gegner zu „Rotation macht Gauß“, passt zu Z3 |
