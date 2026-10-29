@@ -84,3 +84,13 @@ Themen: KV-Cache-Quantisierung, Codebücher/Trellis-VQ, gelernte Rotation, Turbo
 | 2026-09 | Leech-Gitter-VQ mit Multi-Shell-Decoder | arXiv 2609.02652 | nur Selbstangabe | dichte Gitter, Dekodierkosten |
 | 2026-05 | EVA: VQ-Beschleuniger fürs Decoding | arXiv 2605.24144 | keine | Hardware |
 | 2026-05 | Statistik der KV-Quantisierung nach TurboQuant | arXiv 2605.08114 | feste Rotation macht nicht-isotrope Verteilungen nicht isotrop | Theorie-Gegner zu „Rotation macht Gauß“, passt zu Z3 |
+
+## 29.10. Lauf 6 (Späher, 4 WebSearch, 18:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Seed-/Zufallsbasis-Gewichte, FP4-Vortraining, Hypernetz-Gewichte, W2A2. Nicht aufgenommen (schon in Z1/k3/k5/ARCHIV): SeedLM 2410.10714, NVFP4-Pretraining 2509.25149, Quartet 2505.14669, Qift, QAM-W.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-05 | Influence-Inspired Spectral Rotations (BBT-spectral), Gewichts-only W2A16 | arXiv 2605.25203 | wikitext-2-PPL 15-58 % unter Vanilla-AutoRound bei W2A16 | gelernte/spektrale Rotation bei 2 Bit: Gegner zu fester Hadamard im Z3-Rotationsarm |
+| 2026 (ICML 2026) | HyperCompress: Hypernetz-Autoencoder regeneriert Gewichte aus Latentcode | icml.cc/virtual/2026/78330 | 1D-CNN (Lager-Fehler): 512 KB -> 128 B, <0,5 % Genauigkeitsverlust; schmaler Benchmark | erzeugte statt gespeicherte Gewichte, verwandt mit Seed-Basis; Skalierung auf LLMs offen |
+
+Lücken Lauf 6: keine 2026-Folgearbeit zu SeedLM/Zufallsbasis-Gewichten; keine 2026-FP4-Skalengesetz-Arbeit (nur Quartet, NVFP4 v2 03/2026); weiterhin kein W2A2-Treffer.
