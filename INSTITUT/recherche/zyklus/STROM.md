@@ -140,3 +140,17 @@ Themen: Aktivierungssparsity + Quantisierung, Mixed-Precision/Bitzuteilung, Opti
 | 2025-06 | LittleBit: Low-Rank-Latent-Faktoren, danach binarisiert | arXiv 2506.13771 | bis 0,1 Bit/Gewicht (Selbstangabe) | Extremkompression unter 1 Bit; Gegner im Byte-Budget (nicht 2026) |
 
 Lücken Lauf 9: keine Gradientenquantisierung für Kleinmodell-Vortraining gefunden (nur Optimizer-Zustände); keine Arbeit, die Weight Sharing + Low-Rank + Hadamard zusammen testet; SharQ-Zahlen nur aus Aggregator.
+
+## 29.10. Lauf 10 (Cloud-Späher, 4 WebSearch, 22:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Gradienten-/Rückwärtsquantisierung im FP4-Training, Distillation in Niedrigbit, Hybrid/GatedDeltaNet-Quantisierung, QAT-Skalengesetze. Nicht aufgenommen (schon da): Quartet 2505.14669, NVFP4-Pretraining 2509.25149, ParetoQ, 2411.17691, Chen et al. (ICML 2026), BitDistiller-Familie als bekannt.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-02 | Dissecting Outlier Dynamics in LLM NVFP4 Pretraining | arXiv 2602.02047 | Rezept: Hadamard nur im Rückwärtspfad, Vorwärts ohne Rotation (16er-Blockskala reicht); RHT stabilisiert stochastisches Runden der Gradienten | TZ x Unitarität: Rotation nur backward als billigere Zelle; stützt "Rotation ≈ feine Gruppenskala" (vgl. GyRot) |
+| 2025-09 | Elucidating the Design Space of FP4 training (Graphcore) | arXiv 2509.17791 | Simulation vieler Stabilisierer; nur wenige lohnen (Hadamard, Tensorskala, stochastisches Runden auf Rückwärts-Aktivierungen) laut Zweitquelle | Messlatte für TZ-Rezept; nicht 2026 |
+| 2025-09 | Optimal fraction of training compute for QAT (Cooldown+QAT-Fusion) | arXiv 2509.22935 | optimaler QAT-Anteil wächst mit Compute, vorhergesagt aus Tokens pro Parameter-Byte; Verlustgesetz über N, FP-Tokens, QAT-Tokens, Bits | Gegner/Messlatte für Trainingslängen-Achse und Byte-Budget (Tokens/Byte); nicht 2026 |
+| 2026-09 | Train Where the Quantized Model Goes: On-Policy Distillation for Low-Bit Reasoning | alphaxiv.org/abs/2609.26708 (ID ungewöhnlich, vor Zitat prüfen) | Qwen3-0.6B bei ca. 2,79 Bit; 53 % der MATH-500-Antworten laufen ins Budget | Distillation in Sub-3-Bit: Gegner; Schaden zeigt sich bei Reasoning stärker als bei PPL |
+| 2026 (AISTATS 2026) | SQuaT: Self-Supervised KD mit quantisierten Lehrer-Features | virtual.aistats.org/virtual/2026/poster/13757 | größte Gewinne bei 1–2 Bit (Selbstangabe) | Distillation-Gegner bei 2 Bit, vermutlich Vision; Übertragbarkeit offen |
+| 2026-09 | Why Gated DeltaNet Survives 4-Bit Quantization: NVFP4 W4A4 für die rekurrente Hälfte eines 27B-Hybrids | arXiv 2609.04098 | alle 496 Linearschichten W4A4, ≈BF16 im Seed-Rauschen, 17,5 GiB, Prefill +14–19 %; globale Skalen-Fehlanpassung durch fusionierte GDN-Projektionen (1,8–2,75x) | schließt Lücke aus Lauf 3 (Hybrid-Quantisierung); widerspricht Community-Praxis (Gates in BF16); Rotation dort nicht getestet |
+
+Lücken Lauf 10: keine Gradientenquantisierung für Kleinmodell-Vortraining unter 4 Bit; keine Hadamard/QuaRot-Arbeit für GatedDeltaNet-Schichten; kein 2026-Skalengesetz speziell für kleine Modelle (<1B) außer Chen et al.
