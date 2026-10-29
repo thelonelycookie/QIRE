@@ -94,3 +94,13 @@ Themen: Seed-/Zufallsbasis-Gewichte, FP4-Vortraining, Hypernetz-Gewichte, W2A2. 
 | 2026 (ICML 2026) | HyperCompress: Hypernetz-Autoencoder regeneriert Gewichte aus Latentcode | icml.cc/virtual/2026/78330 | 1D-CNN (Lager-Fehler): 512 KB -> 128 B, <0,5 % Genauigkeitsverlust; schmaler Benchmark | erzeugte statt gespeicherte Gewichte, verwandt mit Seed-Basis; Skalierung auf LLMs offen |
 
 Lücken Lauf 6: keine 2026-Folgearbeit zu SeedLM/Zufallsbasis-Gewichten; keine 2026-FP4-Skalengesetz-Arbeit (nur Quartet, NVFP4 v2 03/2026); weiterhin kein W2A2-Treffer.
+
+## 29.10. Lauf 7 (Cloud-Späher, 4 WebSearch, 19:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Tensornetze/MPO, Aktivierungs-Ausreißer W4A4, quanten-inspirierte Trainingsalgorithmen, Niedrigbit-Skalengesetze. Nicht aufgenommen (schon in Z1/Welle/ARCHIV): CompactifAI 2401.14109, Scaling Laws for Precision 2411.04330, Spectra 2407.12327, ParetoQ 2502.02631.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-02 | S2D: Selective Spectral Decay für quantisierungsfreundliche Aktivierungen | arXiv 2602.14432 | ImageNet W4A4: bis +7 % PTQ-Genauigkeit, +4 % mit QAT; Experimente v. a. Vision (SigLIP-2), LLM unklar | neue Idee: Ausreißer an der Quelle (dominante Singulärwerte der Gewichte) dämpfen statt rotieren; Gegner/Ergänzung zum Rotationsarm (Aktivierungsachse) |
+| 2024-12 | DFRot: ausreißerfreie, Massive-Activation-freie rotierte LLMs mit verfeinerter Rotation | arXiv 2412.00648 | keine Zahl im Snippet; Befund: zufällige Orthogonale erhöhen bei Massive-Activation-Tokens den Fehler | Gegner zu „jede Orthogonale reicht“ (I-048 H2): Hadamard vs. zufällig bei Spezial-Tokens; nicht 2026 |
+
+Lücken Lauf 7: kein 2026-Treffer zu MPO/Tensornetz-Kompression (nur CompactifAI 2024); kein 2026-Paper zu quanten-inspiriertem NN-Training (nur Fan et al., AAAI 2024: Quanten-inspirierte Netze trainieren deutlich langsamer als klassische; MicroAlgo-Pressemitteilung 04/2026 ohne Beleg); kein neues Niedrigbit-Skalengesetz 2026 über die bekannten (Kumar, Spectra, ParetoQ) hinaus.
