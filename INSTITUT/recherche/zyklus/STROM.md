@@ -166,3 +166,15 @@ Themen: Training ohne Master-Gewichte, Gradientenquantisierung <4 Bit, Skalenges
 | 2024-08 | LUT Tensor Core (Microsoft): Bit-seriell + Tabellensymmetrie für Mixed-Precision-GEMM | arXiv 2408.06003 | >10x Dichte/Energieeffizienz laut Zweitquelle, bis 18,13x Leistungssenkung (Aggregator) | Energiemodell für 2 Bit: LUT statt MAC (vgl. FIGLUT); nicht 2026 |
 
 Lücken Lauf 11: weiterhin keine pJ/MAC-Zahl für INT2 (nur relative TOPS/W); keine Gradientenquantisierung <4 Bit im Kleinmodell-Vortraining; kein Skalengesetz speziell für Modelle <1B.
+
+## 30.10. Lauf 12 (Cloud-Späher, 4 WebSearch, 00:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: trainierte Walsh-Hadamard-/Butterfly-Gewichte, pJ/MAC INT2 vs INT4, Skalengesetze <1B, Tensor-Train + Quantisierung. Nicht aufgenommen (schon da): Chen et al. ICML 2026 (nur Nachtrag: arXiv-ID 2505.14302, 74M-595M Param., 10-100B Tokens, FC2-Aktivierungsfehler als W4A4-Engpass), CompactifAI, 2411.17691, Monarch.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-09 | Needle 2 (Cactus Compute): Hadamard-MLP statt dichtem FFN, feste Walsh-Hadamard-Transformation + 3 gelernte Diagonalen | github.com/cactus-compute/needle (nur Drittseiten instagit.com, Repo selbst nicht geprüft) | FFN-Parameter O(d²) -> O(n); Beispiel d=768, Padding auf 1024, ca. 590K -> ca. 3K | direkter Nachbar zur Hadamard-MLP-Linie (Fastfood-artig): Gegner/Zitat; Padding auf 2er-Potenz wie bei 2601.21069; Qualität nicht belegt |
+| 2025-07 | Jack Unit: flächen-/energieeffiziente MAC-Einheit für mehrere Formate (INT4/INT8 u. a.) | arXiv 2507.04772 | 1,05-1,84x weniger Leistung; 1,32-5,41x Energieeffizienz auf Systemebene (relativ, nicht pJ) | Energiemodell: nur relative Faktoren; weiterhin keine INT2-pJ/MAC-Zahl |
+| 2026-07 | Surviving Resource-constraint Compression: Capability Retention under Tensor-train Decomposition for Sub-billion Parameter LMs | Springer 10.1007/s11633-026-1653-x | keine im Snippet; trainingsfrei, TT vs. Pruning | einziger 2026-Treffer zu TT bei <1B (Größe wie unsere Läufe); Quantisierung dort unklar |
+| 2021 / 2023 | MPO-Feintuning (Liu et al., ACL 2021); TensorGPT (TT für Embeddings) | aclanthology 2021.acl-long.418; arXiv 2307.00526 | MPO: -91 % Feintuning-Parameter (Selbstangabe) | Grundlagen zum Zitieren (nicht 2026) |
+
+Lücken Lauf 12: kein arXiv-Paper zu trainierten Hadamard-/Butterfly-Gewichten in LMs 2026 (nur Needle 2, Drittquelle); weiterhin keine saubere INT2/INT4/INT8-pJ/MAC-Reihe auf einem Knoten (nur 45 nm: Int8 0,23 pJ vs Int32 3,2 pJ laut Survey-Snippet); kein 2026-Paper TT/MPO + Quantisierung; kein QAT-Skalengesetz <1B über Chen et al. hinaus.
