@@ -245,3 +245,16 @@ Themen: Sparsity+Quantisierung, SSM/Mamba niedrigbit, Distillation in Niedrigbit
 | 2025-10 | TernaryCLIP: ternär + Distillation für Bild-Text | arXiv 2510.21879 | keine Zahl im Snippet | nur Zitat; andere Domäne |
 
 Lücken Lauf 16: weiterhin keine 2026-Arbeit zu Rotation+SSM bei 2 Bit; keine 2026-Skalengesetze mit Aktivierungsbits; Sparsity+2 Bit bei Kleinmodellen unter 100M nicht gefunden.
+
+## 30.10. Lauf 17 (Cloud-Späher, 4 WebSearch, 05:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Skalengesetze mit Gewichts- und Aktivierungsbits, quanten-inspirierte Tensornetz-/MPS-Sprachmodelle, 2-Bit-Training von Grund auf, gelernte Rotationen (Cayley/Givens). Nicht aufgenommen (schon da): ReSpinQuant 2604.11080, pQuant 2602.22592, Chen et al. 2505.14302, PicoGPT 2603.28534, 2601.06788, BitNet v2 (w8/w11), ButterflyQuant, RUQuant.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| (Jahr unklar, wohl 2025) | Compression Scaling Laws: Unifying Sparsity and Quantization (Frantar et al.) | ID fehlt; nur themoonlight.io-Review | Voll-Quantisierung (Gewicht+Aktivierung) mit abnehmendem Ertrag unter 4 Bit; Nur-Gewicht bleibt parametereffizienter; 50 % Sparsity ≈ Parameter-Multiplikator wie 8 Bit | EIN Gesetz für Sparsity und Bits im Vortraining: Messlatte für Byte-Budget und Sparsity-Achse; schließt Teil der Lücke "Skalengesetz mit Aktivierungsbits"; vor Zitat Original suchen |
+| 2026-08 (ID-Datum ungeprüft) | Transforms for LLM Quantization: The Great Inversion and Format Co-Design | arXiv 2608.25188 | keine im Snippet; Überblick über gelernte Transformationen | Überblick zu Rotation x Zahlenformat; Quelle für ReSpinQuant/ParoQuant; Inhalt lesen, bevor zitiert |
+| 2026 | ParoQuant: gelernte Rotation als Produkt paarweiser Givens-Rotationen plus Kanalskalen, für Reasoning-Modelle | ID fehlt (nur über 2608.25188 beschrieben) | keine | Butterfly-/Givens-Struktur wie unsere FWHT-Linie, aber gelernt; Gegner zu fester Hadamard |
+| 2025-11 (AAAI 2026) | SingleQuant: Quantisierung in einem Durchgang mit festen Givens-Rotationen | arXiv 2511.22316 | Kritik: Cayley-SGD mit STE konvergiert unter Quantisierung schlecht | stützt "feste statt gelernte Rotation" (billig); Argument gegen SpinQuant-artiges Training |
+| 2026-01 | LiQSS: quanten-inspiriertes Zustandsraum-Tensornetz statt Selbstaufmerksamkeit (6G-Netze) | arXiv-ID unsicher (2601.12375 laut Suchtreffer) | 10,8-15,8x kleiner, ca. 1,4x schneller ggü. strukturierten SSM-Basismodellen | einziger 2026-Treffer "quanten-inspiriert" + Architektur; Domäne Funknetze, nicht Sprache; Zitat für Abgrenzung |
+
+Lücken Lauf 17: kein 2026-MPS-Sprachmodell (nur van der Poel/Zhao 2403.12969, 2024); kein 2-Bit-Vortraining von Grund auf mit Aktivierungsbits in Kleinmodellen (nur pQuant, BitNet v2 mit ternären Gewichten, 1,58-Bit-Studie 100K-48M Parameter laut Snippet); kein Skalengesetz mit getrennten Bits für Gewicht und Aktivierung außer Frantar (Original nicht gefunden).
