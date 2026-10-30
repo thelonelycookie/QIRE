@@ -193,3 +193,19 @@ Themen: Seed-/PRNG-Gewichte, Sparsity + Quantisierung, quanten-inspirierte Tenso
 | 2025 (PyTorch-Blog) | 4 Bit + 50 % Sparsity schlägt reines 2 Bit (LLaMA-2-7B) | pytorch.org/blog/when-quantization-isnt-enough-why-24-sparsity-matters | Genauigkeit höher bei gleichem Budget (Blogangabe) | Gegner im Byte-Budget bei ca. 2 Bit/Gewicht; Hardware-Kernel 2:4 existiert (cuSPARSELt) |
 
 Lücken Lauf 13: kein 2026-Folgepaper zu SeedLM/PRNG-Gewichten; kein 2026-Paper zu 2:4-Sparsity + 4 Bit im Kleinmodell-Vortraining; kein 2026-Paper zu quanten-inspirierten Tensornetzen + Quantisierung (nur CompactifAI-Linie).
+
+## 30.10. Lauf 14 (Cloud-Späher, 4 WebSearch, 02:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: nichtuniforme Gitter/Lloyd-Max, KV-Quantisierung ohne Rotation, Tensorring/quanten-inspiriert, W2A4/W2A2 von Grund auf. Nicht aufgenommen (schon da): Qift 2606.02823, RCP 2502.15779, OptR 2608.02691, RotateKV 2501.16383, CompactifAI 2401.14109, LeanQuant 2407.10032 (nur Hintergrund).
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-03 | PolarQuant (Lloyd-Max-Zentroiden auf Hadamard-rotierten Gewichtsblöcken, Abgrenzung zu NF4) | arXiv 2603.29078 | keine im Snippet | liefert die fehlende ID zum PolarQuant-Eintrag (Lauf 1, "ID fehlt"); Gegner für Hadamard+Lloyd-Arm |
+| 2026-02 | BPDQ: Bit-Plane-Zerlegung auf variablem Gitter | arXiv 2602.04163 | 2 Bit: Qwen2.5-72B auf einer RTX 3090, GSM8K 83,85 % vs. 90,83 % (16 Bit) | Gitterachse (Z3): gruppenweises variables Gitter statt festem; Messlatte bei 2 Bit |
+| 2026-08 | CubicQuant: parametrische nichtuniforme Codebücher, 1-8 Bit | arXiv 2608.06763 | Snippet ohne Inhalt | Gitterachse, Codebuch als Formel statt Tabelle (verwandt mit Proteus); vor Zitat Inhalt prüfen |
+| 2026-04 | RUQuant: Verfeinerung gleichmäßiger Quantisierung | alphaxiv.org/abs/2604.04013 | keine im Snippet | Gegner "uniform verbessern statt Gitter ändern"; Inhalt unklar |
+| 2026-09 | D-Quant: Entropiekodierung des KV-Caches (driftfähig) | arXiv 2609.19880 | keine im Snippet; Hadamard davor, Rotation entfernt kanalweisen Key-Mittelwert nicht | neue Idee: Bits/Wert unter Bitbreite durch Entropiekodierung; Byte-Budget-Rechnung BK; stützt Mittelwertzentrierung der Keys (wie OptR) |
+| 2026 (ACL 2026) | VecInfer: Glättung + Hadamard + Vektorquantisierung für Low-Bit-Keys | aclanthology.org/2026.acl-long.1454 (aus Snippet, ID/Titel unsicher) | keine | KV mit VQ statt Skalar; Gegner zu Skalar+Rotation |
+| 2025 (NeurIPS 2025) | PolarQuant (Key-Cache, Polarkoordinaten statt Rotation) | neurips.cc/virtual/2025/poster/118745 | keine | Achtung Namensgleichheit mit PolarQuant 2603.29078; KV-Quantisierung ohne Rotation |
+| 2024-07 | Exploring Quantization for Efficient Pre-Training of Transformer LMs | arXiv 2407.11722 | GPT-2 small (124M) von Grund auf auf OpenWebText | einzige gefundene Von-Grund-auf-Studie in unserer Größenordnung, nicht 2026, nur 8 Bit und höher laut Snippet |
+
+Lücken Lauf 14: weiterhin kein W2A2- oder W2A4-Vortraining von Grund auf (nur PTQ/QAT auf fertigen Modellen); kein 2026-Paper zu Tensorring oder quanten-inspirierten Netzen mit Quantisierung (nur CompactifAI); Qift-Zahlen (LLaMA-2-7B W2A4/KV4: Lloyd-Max 9,265, NF2 9,404, symmetrisch 12,118) nur aus Zweitquelle emergentmind.
