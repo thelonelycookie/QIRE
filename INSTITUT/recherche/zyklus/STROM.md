@@ -301,3 +301,20 @@ Themen: Stiefel/orthogonale Gewichte im LM-Vortraining (Lücke Lauf 19), Hadamar
 | 2025-05 | FP4 All the Way: vollständig quantisiertes Training (350M Llama-Stil) | arXiv 2505.19115 | Skalenformat E4M3/E3M4 beste, E1M6 divergiert; Blockgröße kleinerer Effekt als Skalenformat | liefert Teil der Lücke Lauf 18 (Skalenformat im Kleinmodell); Achse Skala vor Blockgröße; nicht 2026 |
 
 Lücken Lauf 20: kein 2026-Paper zu Hadamard/Rotation für Mamba/SSM bei ≤4 Bit (nur MambaQuant 2025); Skalenformat-Vergleich im Kleinmodell nur 350M (2025), nichts unter 100M; Manifold-Muon-Arbeit nur über Aggregator, Maßstab ungeprüft.
+
+## 30.10. Lauf 21 (Cloud-Späher, 4 WebSearch, 09:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: CPU-Kernel/Energie bei 2 Bit (Ryzen-PC), Hashing/Weight Sharing, quantisierte Drafts (Speculative Decoding), lernbare Codebücher. Nicht aufgenommen (schon da): LC-QAT 2606.10531, RCP 2502.15779, FIGLUT, LUT Tensor Core, Proteus.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2024-06 | T-MAC: CPU-Renaissance durch Tabellen-Lookup für Niedrigbit-LLMs | arXiv 2407.00088 | 60-70 % weniger Energie ggü. llama.cpp; Jetson AGX Orin, Llama-2-7B W2: 0,66 J/Token (T-MAC CPU) vs. 2,12 (llama.cpp CPU), 1,54 (GPU) (README, nicht begutachtet) | Joule/Token bei 2 Bit direkt gemessen; schließt Teil der Energielücke (Läufe 8, 11, 12, 15); CPU-Kern passt zu Maltes Ryzen; nicht 2026 |
+| 2024-10 | bitnet.cpp: Ternär-LUT-Kernel (TL) und Int2-mit-Skala (I2_S) | Paper laut Suchtreffer; ID nicht im Snippet | bis 6,25x schneller als FP16, bis 2,32x ggü. Niedrigbit-Basis; Energie -55,4 bis -70,0 % (ARM), -71,9 bis -82,2 % (x86) laut Repo-Angabe | Referenz für echten 2-Bit-Kern auf x86; Messlatte für eigene Zeit-/Energiespalte |
+| 2025-11 | T-SAR: Tabellenerzeugung in CPU-SIMD-Registern für Ternär-LLMs | arXiv 2511.13676 (Zweitquelle quantumzeitgeist) | GEMV bis 86,2x, GEMM bis 24,5x Speedup; Energie/Token 2,5-2,75x unter Jetson | CPU-Ternär-Kern; Zahlen nur aus Zweitquelle, Basislinie unklar |
+| 2025-03 | ML-SpecQD: mehrstufiges Speculative Decoding mit quantisierten Drafts (4 Bit Hauptfall, 1-2 Bit möglich) | arXiv 2503.13565 | keine im Snippet | neue Idee: 2-Bit-QIRE-Modell als Draft für ein größeres Modell (Inferenzgewinn ohne Verlust); nicht 2026 |
+| 2026-03 | Quasar: quantisierte Self-Speculative-Beschleunigung, Quantisierung im Verifier | arXiv 2603.01399 | keine im Snippet | umgekehrter Aufbau (Draft = Layer-Skip); Abgrenzung |
+| 2025-05 | Speculative Decoding Meets Quantization (hierarchisches Verfahren) | arXiv 2505.22179 | 2,78x für 4-Bit-Llama-3-70B (A100) | Baumverifikation verliert bei 4-Bit-Ziel viel Nutzen; Warnung für Draft-Idee |
+| 2026-05 (ICML 2026) | AAAC: aktivierungsbewusste adaptive Codebücher für 4-Bit-Gewichte | arXiv 2605.08692 | zwei kleine Skalar-Codebücher (64 Byte) je Schicht, ohne Gradienten | Gitterachse (Z3): Codebuch winzig, PTQ; Gegner zu Lloyd-Arm |
+| 2026 (ICML 2026) | LO-BCQ: lokal optimale blockgruppierte Quantisierung für W4A4 | icml.cc/virtual/2026/poster/68796 | keine im Snippet | Cluster je Block mit eigenem Codebuch; Gegner zu g16/g32 + Lloyd |
+| 2015 / 2017 | HashedNets (1504.04788); Hash Embeddings (Svenstrup et al., NeurIPS 2017) | arXiv 1504.04788 | Gewichte per Hash auf Eimer verteilt, kein Speicher für die Abbildung | Altbekannter Vorläufer der Seed-/Zufallsbasis-Idee (Abbildung kostenlos, Eimerwerte gelernt); zitieren; 2026 kein LLM-Folgepaper |
+
+Lücken Lauf 21: kein 2026-Paper zu Energie/Token der 2-Bit-Kerne (alles 2024-25, andere Hardware, nicht vergleichbar); kein 2026-LLM-Vortraining mit Hashing-Gewichten; kein Speculative Decoding mit 2-Bit-Draft samt Early-Exit; weiterhin kein lernbares Codebuch-QAT von Grund auf bei Kleinmodellen (nur PTQ/Feintuning).
