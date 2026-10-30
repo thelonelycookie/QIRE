@@ -286,3 +286,18 @@ Themen: unitäre/orthogonale Gewichte (quanten-inspiriert), Embedding/LM-Head-Qu
 | 2025-03 / 2025-02 | Quantum-PEFT (2503.05431, ICLR 2025); QuIC-Adapter (2502.06916) | arXiv 2503.05431, 2502.06916 | QuIC: 98 % relative Leistung ggü. OFT/BOFT mit 25x weniger Parametern (Drittliste) | orthogonale/unitäre Matrizen über Quantenschaltkreis-Einbettung parametrisiert: quanten-inspiriert, aber nur Feintuning; Nachbar zu Hadamard-/Butterfly-Linie; nicht 2026 |
 
 Lücken Lauf 19: keine 2026-Arbeit zu orthogonalen/unitären Gewichten im Vortraining von Sprachmodellen (Suchvorschlag: "Stiefel manifold LLM pretraining", "unitary RNN"); kein Skalengesetz, das <1B isoliert; Embedding-Quantisierung nur über VBQ (Aggregator).
+
+## 30.10. Lauf 20 (Cloud-Späher, 4 WebSearch, 08:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Stiefel/orthogonale Gewichte im LM-Vortraining (Lücke Lauf 19), Hadamard + Mamba/SSM niedrigbit, Aktivierungssparsity + Quantisierung, Skalenformat/Blockgröße im Kleinmodell-FP4-Training. Nicht aufgenommen (schon da): SharQ 2606.26587, Prox 2607.27591, NVFP4-Pretraining 2509.25149, 2601.21069.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-06 | Manifold Muon für GPT-2-Vortraining: Stiefel für Attention, DGram für MLP statt einheitlicher Nebenbedingung | arXiv 2606.13276 (via emergentmind) | DGram auf Attention: explosives Wachstum, instabil; Maßstab/Basislinien unbekannt | schließt Lücke Lauf 19 (orthogonale Gewichte im LM-Vortraining); Unitaritäts-Achse, Modulwahl wichtig |
+| 2026-07 | ManifoldFlow: gelernte Singulärwertspektren statt fester Stiefel-Schichten | arXiv 2607.04535 (via emergentmind) | größte Gewinne bei rekurrenten LMs (Selbstangabe) | gelockerte Orthogonalität; Gegner/Ergänzung zu strikt unitären Schichten |
+| 2025-08 (EMNLP-F 2025) | Riemannian Optimization for LoRA on the Stiefel Manifold | arXiv 2508.17901 | schlägt AdamW über Benchmarks (Selbstangabe) | nur Feintuning; Zitat für Stiefel-Optimierung |
+| 2025-01 (ICLR 2025) | MambaQuant: varianzangeglichene Rotation (KLT-Rotation, Smooth-Fused) für Mamba | arXiv 2501.13484 | W8A8 unter 1 % Verlust; W4A8 (Vim): Smooth-Fused +11,7 % ggü. Online-Hadamard | Befund: reine Hadamard bei Mamba ungleiche Kanalvarianz, bei 4 Bit schwach; Gegner für Rotation+SSM (Lücke Lauf 16) |
+| 2024-10 | Quamba: 8-Bit-PTQ für selektive SSMs, Hadamard auf Ausgabeaktivierungen | arXiv 2410.13229 | 1,72x Latenz (Mamba 2.8B, 8 Bit) | SSM + Hadamard als Praxisfall; nur 8 Bit |
+| 2025-07 (v2 2026-01) | LaRoSA: trainingsfreie Aktivierungssparsity mit schichtweiser Rotation + konsistentem Top-K | arXiv 2507.01299 | keine im Snippet | Rotation x Sparsity der Aktivierungen; Nachbar zu SharQ |
+| 2025-05 | FP4 All the Way: vollständig quantisiertes Training (350M Llama-Stil) | arXiv 2505.19115 | Skalenformat E4M3/E3M4 beste, E1M6 divergiert; Blockgröße kleinerer Effekt als Skalenformat | liefert Teil der Lücke Lauf 18 (Skalenformat im Kleinmodell); Achse Skala vor Blockgröße; nicht 2026 |
+
+Lücken Lauf 20: kein 2026-Paper zu Hadamard/Rotation für Mamba/SSM bei ≤4 Bit (nur MambaQuant 2025); Skalenformat-Vergleich im Kleinmodell nur 350M (2025), nichts unter 100M; Manifold-Muon-Arbeit nur über Aggregator, Maßstab ungeprüft.
