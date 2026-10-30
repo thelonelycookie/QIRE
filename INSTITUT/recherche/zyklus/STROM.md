@@ -258,3 +258,18 @@ Themen: Skalengesetze mit Gewichts- und Aktivierungsbits, quanten-inspirierte Te
 | 2026-01 | LiQSS: quanten-inspiriertes Zustandsraum-Tensornetz statt Selbstaufmerksamkeit (6G-Netze) | arXiv-ID unsicher (2601.12375 laut Suchtreffer) | 10,8-15,8x kleiner, ca. 1,4x schneller ggü. strukturierten SSM-Basismodellen | einziger 2026-Treffer "quanten-inspiriert" + Architektur; Domäne Funknetze, nicht Sprache; Zitat für Abgrenzung |
 
 Lücken Lauf 17: kein 2026-MPS-Sprachmodell (nur van der Poel/Zhao 2403.12969, 2024); kein 2-Bit-Vortraining von Grund auf mit Aktivierungsbits in Kleinmodellen (nur pQuant, BitNet v2 mit ternären Gewichten, 1,58-Bit-Studie 100K-48M Parameter laut Snippet); kein Skalengesetz mit getrennten Bits für Gewicht und Aktivierung außer Frantar (Original nicht gefunden).
+
+## 30.10. Lauf 18 (Cloud-Späher, 4 WebSearch, 06:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Original zu Compression Scaling Laws, KV-Eviction + Quantisierung, Microscaling-Formate im Training, feste Hadamard-Transformation als Ersatz dichter Schichten. Nicht aufgenommen (schon da): Needle 2 (Lauf 12), D-Quant, OptR.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2025-02 | Compression Scaling Laws: Unifying Sparsity and Quantization (Frantar, Evci, Park, Houlsby, Alistarh) | arXiv 2502.16440 | Llama-Stil auf C4; Gewicht+Aktivierung unter 4 Bit abnehmender Ertrag; 50 % Sparsity ≈ 8-Bit-Multiplikator (Zweitquelle themoonlight) | liefert die fehlende ID zu Lauf 17 (Original gefunden, Zahlen noch gegen das Paper prüfen); Messlatte Byte-Budget/Sparsity |
+| 2026-03 | Fester Walsh-Hadamard statt dichter Attention-Ausgabeprojektion + leichte lernbare Affin-Skalierung | arXiv 2603.08343 | ca. 25 % weniger Attention-Parameter pro Block; „kein nennenswerter Genauigkeitsverlust“ (Zweitquelle papers.lunadong.com) | direkter Nachbar der Hadamard-MLP-Linie, jetzt mit arXiv-Paper (Lauf 12 hatte nur Needle 2); Gegner/Zitat; Lücke aus Lauf 12 teilweise geschlossen |
+| 2026-05 | RDKV: Rate-Distortion-Bitzuteilung für gemeinsame Eviction + Quantisierung des KV-Caches | arXiv 2605.08317 | keine im Snippet; Token-Verwerfen = niedrigste Präzisionsstufe (Reverse Water-Filling) | BK: Tokens und Bits als ein Byte-Budget; passt zu „Not All Bits Are Equal“ (Lauf 2) |
+| 2026-05 | ReST-KV: Eviction mit schichtweiser Ausgaberekonstruktion | arXiv 2605.08840 | hält Genauigkeit bei 6,25 % Gesamtkompression mit 4-Bit (Selbstangabe); Eviction schlägt Nur-Quantisierung | Gegenposition: Eviction stärker als Bits; Gegner zur reinen Bitbreiten-Achse im KV |
+| 2026-03 | ARKV: Token je Original/quantisiert/verworfen unter hartem Speicherbudget | arXiv 2603.08727 | ca. 97 % Genauigkeit bei 4x Speicherersparnis (Selbstangabe) | dreistufige Budgetzuteilung im KV, Messlatte |
+| 2026 (ACL-F 2026) | HqeKV: Hybrid aus Quantisierung und Eviction | aclanthology 2026.findings-acl.201 | keine im Snippet | Zitat für Hybrid-KV |
+| 2025-06 | An Empirical Study of Microscaling Formats for Low-Precision LLM Training (Meta/UMass) | arXiv 2506.08027 | OCP-MX: Gruppe 32, Skala E8M0; maßgeschneiderte MX-Konfiguration erreicht FP8/BF16-Verlust (7B-Llama, Zweitquelle) | Gruppengrößen-/Skalenformat-Achse im Training (TZ); Skalen-Overhead 8/32 = 0,25 Bit pro Wert für Byte-Budget; nicht 2026 |
+
+Lücken Lauf 18: kein 2026-Paper zu Skalenformat (E8M0 vs. E4M3) und Blockgröße im Kleinmodell-Training; Hadamard-Attention-Paper 2603.08343 noch nicht gegen Original geprüft (Qualität unbelegt); keine Studie, die Eviction + 2-Bit-KV + Rotation zusammen misst.
