@@ -347,3 +347,22 @@ Themen: Gitter-/Vektorquantisierung (E8, Trellis), KV-Cache-Rotation bei 2 Bit, 
 | (ohne Peer-Review) | GLQ: Open-Source-E8-Gitter-Quantisierer mit Trellis-Codebuch (PyPI glq 0.8.x) | pypi.org/project/glq | 2-3 Bit/Gewicht, "gute Qualität" laut Autor | nur Werkzeug zum Nachbauen eines E8-Gegners im Container; keine zitierfähige Quelle |
 
 Lücken Lauf 23: kein Peer-Review-Paper zu Skalierungsgesetz oder gemessener Energie/Token für Binär/Ternär von Grund auf (nur BitNet b1.58 2B4T mit Blog-Zahl 0,028 J/Token vs. 0,258 J bei LLaMA 3.2, Laptop-CPU, Herstellerangabe, nicht aufgenommen); kein Nachfolger zu AQLM/QTIP gefunden.
+
+## 30.10. Lauf 24 (Cloud-Späher, 4 WebSearch, 14:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Einbettungs-/Vokabular-Quantisierung im Kleinmodell, STE-Alternativen im QAT, strukturierte Zufallsprojektion (Hadamard + Vorzeichen) im Training, Datenauswahl <100M.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-10 | Embeddings Are Overpriced? Frozen 16 MB Vocabulary for Small and Ternary LMs | arXiv 2610.22428 | Gemma 3 270M: Einbettung 168M von 268M Parametern; gelernte Tabelle bringt 0,20 nats für 2,6x trainierbare Parameter | neue Idee: bei Kleinmodellen dominiert die Einbettung das Bit-Budget; eingefrorene 512-Bit-Codes statt gelernter Tabelle; Bytes-Rechnung für QIRE-Modelle prüfen |
+| 2026-10 | Chung/Du: Low-Bit n-Gramm-Einbettungstabellen | arXiv 2610.31646 | 4 Bit spart ~75 % Tabellenspeicher, behält >99 % des Verlustgewinns; kein 2-Bit-Ergebnis im Snippet | Einbettungs-Bits: 4 Bit als sichere Untergrenze |
+| 2026 (Vendor-Blog) | TurboQuant-H (Cactus): Hadamard-Rotation + 2-Bit-Einbettungen (Gemma 4 E2B, Per-Layer-Einbettung ~60 % der Gewichte) | cactuscompute.com/blog/turboquant-h | keine geprüfte Zahl | Rotation auch für Einbettungen; kein Peer-Review, nur Hinweis |
+| (inoffiziell) | TinyStories 1-bit LLM (HF-Modellkarte) | huggingface.co/euclidstellar/tinystories-1bit-llm | Val-Loss 2,3107 (ternäre Einbettung, 2,31 MB) vs. 2,1760 (fp16, 4,61 MB) | Ternäre Einbettung kostet ~0,13 Loss bei halbem Speicher; Hobbyquelle, nicht zitierfähig |
+| 2026-06 | Li/Ma/Cui: Gradienten an quantisierten Gewichten (STE-Bias als Vorteil) | arXiv 2606.09012 | Beweis endlicher Erholung unter lokalen Annahmen | Theorie zum STE im QAT: Bias zieht ins Tal; stützt Beibehalten von STE |
+| 2026 (MLSys 2026) | CAGE: krümmungsbewusste Gradientenschätzung für QAT | proceedings.mlsys.org 2026 c0f1eed3... | keine im Snippet | STE-Korrektur als billiger QAT-Zusatz; Gegner/Ergänzung |
+| 2026-02 | StableQAT: Ersatz-Rückwärtspfad aus diskreter Fourier-Analyse | arXiv-ID im Snippet fehlt | keine | STE-Alternative gegen Gradient-Mismatch; ID vor Zitat prüfen |
+| 2026-08 | Predicting When Random Low-Dimensional Reparameterizations Train NNs | arXiv 2608.12597 | Seeded Hadamard-Basisrichtungen + festes Vorzeichen-Diagonal + FWHT; Vorhersager nur Näherung | nächster Verwandter der Seed-/Zufallsbasis-Idee (Gewichte = feste Zufallsbasis + wenige gelernte Koordinaten); lesen; Lücke aus Lauf 13/21 teils geschlossen |
+| 2025-12 | Element-wise Modulation of Random Matrices (Parametrized Random Projection) | arXiv 2512.13480 | feste Zufallsmatrix + gelernte Skalierung/Bias, deutlich weniger trainierbare Parameter | Seed-Basis-Variante: Zufallsmatrix gratis, nur Modulation lernen; FLOP-Gewinn nur bei struktureller Matrix |
+| 2014-12 | Deep Fried Convnets (Adaptive Fastfood) | arXiv 1412.7149 | keine im Snippet | Vorläufer Hadamard+Vorzeichen-Schicht; zitieren (Fastfood schon bekannt) |
+| 2026-06 | L20-Edu-135M: Single-GPU-Studie zu datensparsamem Kleinmodell | arXiv 2606.22189 | 135M mit kuratierten Daten schlägt ältere 100-160M-Basislinien | Messlatte/Rezept für Daten-Kuration im Kleinmodell; keine Quantisierung |
+
+Lücken Lauf 24: kein 2026-Paper zu 2-Bit gebundener Einbettung im Kleinmodell-Vortraining (nur 4 Bit, ternär inoffiziell); Zufallsbasis-Training von Grund auf als LM nur 2608.12597 (Maßstab unklar); keine Verbindung Datenauswahl x Niedrigbit gefunden.
