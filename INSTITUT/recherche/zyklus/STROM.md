@@ -178,3 +178,18 @@ Themen: trainierte Walsh-Hadamard-/Butterfly-Gewichte, pJ/MAC INT2 vs INT4, Skal
 | 2021 / 2023 | MPO-Feintuning (Liu et al., ACL 2021); TensorGPT (TT für Embeddings) | aclanthology 2021.acl-long.418; arXiv 2307.00526 | MPO: -91 % Feintuning-Parameter (Selbstangabe) | Grundlagen zum Zitieren (nicht 2026) |
 
 Lücken Lauf 12: kein arXiv-Paper zu trainierten Hadamard-/Butterfly-Gewichten in LMs 2026 (nur Needle 2, Drittquelle); weiterhin keine saubere INT2/INT4/INT8-pJ/MAC-Reihe auf einem Knoten (nur 45 nm: Int8 0,23 pJ vs Int32 3,2 pJ laut Survey-Snippet); kein 2026-Paper TT/MPO + Quantisierung; kein QAT-Skalengesetz <1B über Chen et al. hinaus.
+
+## 30.10. Lauf 13 (Cloud-Späher, 4 WebSearch, 01:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Seed-/PRNG-Gewichte, Sparsity + Quantisierung, quanten-inspirierte Tensornetze, gelernte Rotation W4A4. Nicht aufgenommen (schon da): SeedLM 2410.10714, CompactifAI 2401.14109 (Nachtrag: ESANN 2025 kombiniert TN mit FP16-Quantisierung, 88 %/93 % Speicherersparnis laut Snippet).
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-04 (ICML 2026) | ReSpinQuant: schichtweise Quantisierung mit Subraum-Residual-Rotation | arXiv 2604.11080 | W4A4/W3A3 SOTA ggü. globalen Rotationen; gelernte Rotationen bleiben nahe der Hadamard-Initialisierung | stützt Hadamard als gute Startrotation (Gegner zu "gelernt vs. fest"); Rotationskosten pro Schicht |
+| 2026-04 | DuQuant++: MXFP4 W4A4 für LLaMA-3 | arXiv 2604.17789 | keine im Snippet; Argument: datenunabhängige Rotationen (auch lernbare) treffen Ausreißerkanäle nicht | Gegenargument zu fester Hadamard-Rotation; MXFP4-Gitter als Vergleich |
+| 2026-06 | OffQ: Ausreißer als gruppenweise Offsets | arXiv 2606.07116 | PPL-Gewinne auf Llama/Qwen (Zahl fehlt); orthogonal zu Rotation kombinierbar | neue Idee: Offset statt Rotation, kombinierbar mit QIRE-Rotation |
+| 2025-12 | OptRot: datenfreie Rotation gegen Gewichtsausreißer | arXiv 2512.24124 | schlechter bei W4A4 als bei Nur-Gewichten (Selbstangabe laut Snippet) | stützt Aktivierungsachse: Gewichtsrotation allein reicht für A4 nicht |
+| 2026-05 | DiRotQ: PCA-/Rotations-bewusste W4A4 für Diffusion Transformer | arXiv 2605.16732 | hochpräziser Hochvarianz-Unterraum + Rest quantisiert; keine Zahl | nur Bildmodelle; Idee "kleiner Hochpräzisionsunterraum" ähnlich pQuant |
+| 2025-01 | Proximal-Operator für 2:4-Sparsity | arXiv 2501.18015 | besser als Vorgänger bis 13B (nur Nachtraining) | Sparsity-Achse: nur PTQ, nicht 2026 |
+| 2025 (PyTorch-Blog) | 4 Bit + 50 % Sparsity schlägt reines 2 Bit (LLaMA-2-7B) | pytorch.org/blog/when-quantization-isnt-enough-why-24-sparsity-matters | Genauigkeit höher bei gleichem Budget (Blogangabe) | Gegner im Byte-Budget bei ca. 2 Bit/Gewicht; Hardware-Kernel 2:4 existiert (cuSPARSELt) |
+
+Lücken Lauf 13: kein 2026-Folgepaper zu SeedLM/PRNG-Gewichten; kein 2026-Paper zu 2:4-Sparsity + 4 Bit im Kleinmodell-Vortraining; kein 2026-Paper zu quanten-inspirierten Tensornetzen + Quantisierung (nur CompactifAI-Linie).
