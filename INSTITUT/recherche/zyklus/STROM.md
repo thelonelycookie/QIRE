@@ -318,3 +318,21 @@ Themen: CPU-Kernel/Energie bei 2 Bit (Ryzen-PC), Hashing/Weight Sharing, quantis
 | 2015 / 2017 | HashedNets (1504.04788); Hash Embeddings (Svenstrup et al., NeurIPS 2017) | arXiv 1504.04788 | Gewichte per Hash auf Eimer verteilt, kein Speicher für die Abbildung | Altbekannter Vorläufer der Seed-/Zufallsbasis-Idee (Abbildung kostenlos, Eimerwerte gelernt); zitieren; 2026 kein LLM-Folgepaper |
 
 Lücken Lauf 21: kein 2026-Paper zu Energie/Token der 2-Bit-Kerne (alles 2024-25, andere Hardware, nicht vergleichbar); kein 2026-LLM-Vortraining mit Hashing-Gewichten; kein Speculative Decoding mit 2-Bit-Draft samt Early-Exit; weiterhin kein lernbares Codebuch-QAT von Grund auf bei Kleinmodellen (nur PTQ/Feintuning).
+
+## 30.10. Lauf 22 (Cloud-Späher, 4 WebSearch, 10:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Muon/Optimierer im Niedrigbit-QAT, Early-Exit/Layer-Skip bei 2 Bit, Tensornetz-Schichten + Niedrigbit von Grund auf, MoE-Quantisierung. Nicht aufgenommen (schon da): MuonQ 2605.11396, CompactifAI 2401.14109, PicoGPT 2603.28534.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-04 | Bit-by-Bit: progressives QAT mit Outlier-Channel-Splitting für stabile Niedrigbit-LLMs | arXiv 2604.07888 | Muon war dort nicht besser als AdamW (ähnliche oder etwas schlechtere PPL, mehr Oszillation an Schwellen) | Warnung: Optimierer-Wechsel (Muon) bringt im 2-Bit-QAT laut Snippet keinen Gewinn; progressives Absenken der Bitzahl als Trainingsrezept prüfen |
+| 2025-10 (rev. 2026-03) | Convergence Analysis of Adaptive Optimizers under Floating-point Quantization | arXiv 2510.21314 | Theorie: Muon braucht schwächere Fehlerkontrolle als Adam bei Quantisierung von Gewichten/Gradienten/Zuständen | Stützt Muon als Optimierer für Niedrigbit-Training; widerspricht teils Bit-by-Bit (anderer Aufbau), nur Theorie |
+| 2026-01 | PTQ-Studie: Muon-trainierte Modelle verlieren bei 4 Bit weniger als Adam-trainierte | arXiv 2601.09865 (Titel nicht im Snippet) | besser bei 6 von 8 Benchmarks | Idee: Optimierer als Hebel für Quantisierbarkeit; als Nebenachse für Z-Läufe |
+| 2026 (ICLR 2026) | Achieving low-bit Muon through subspace preservation and grid quantization | iclr.cc/virtual/2026/poster/10008183 | 4-Bit-Muon-Zustände, bis 28 % weniger Trainingsspeicher | Optimierer-Speicher beim Training auf dem 16-GB-PC; Abgrenzung zu MuonQ (schon da) |
+| 2025-04 | SpecEE: spekulatives Early Exit | arXiv 2504.08850 | keine im Snippet | Early-Exit mit leichtem Vorhersager; Bezug zu 2-Bit-Draft-Idee (Lauf 21) |
+| 2024-04 | LayerSkip (Meta): Layer-Dropout + Early-Exit-Loss, Self-Speculative Decoding | arXiv 2404.16710 | keine im Snippet | Grundrezept; kein Zusatzmodell nötig, könnte mit 2-Bit-Gewichten kombiniert werden |
+| 2026-09 | LayerRoute: adaptives Layer-Skipping mit LoRA | arXiv 2609.13682 | 10-Seed-Reproduzierbarkeitsstudie, Wall-Clock-Speedup (Zahl fehlt) | Seed-Disziplin wie bei uns; Layer-Skip als Energiehebel |
+| 2026-02 (ICLR 2026) | KBVQ-MoE: Vektorquantisierung für MoE, Redundanzentfernung zwischen Experten | arXiv 2602.11184 | beste 2-Bit-Ergebnisse laut Autoren (Zahl fehlt) | Codebuch über Experten teilen; nur relevant, falls QIRE MoE/geteilte Basen nutzt |
+| 2026-05 | BitsMoE: SVD in gemeinsame Basis + expertenspezifische Faktoren, Bitzuteilung | sotaverified.org/papers/260600079 (arXiv-ID unklar) | Qwen3-30B-A3B 2 Bit: +27,83 Punkte ggü. GPTQ | gemeinsame Basis + kleine Faktoren ähnelt Seed-/Basis-Idee; Gegner |
+| 2023-10 | MoQE: Experten vertragen 2 Bit viel besser als dichte FFN | arXiv 2310.02410 | -79,6 % Größe ggü. fp16 | Hintergrund: Redundanz/Robustheit nach Schichttyp, passt zu unserem FFN-Mitte-Befund |
+
+Lücken Lauf 22: kein 2-Bit-Muon-QAT-Paper; keine Early-Exit-Arbeit mit 2-Bit-Gewichten und Energiemessung; kein 2026-Tensornetz-Vortraining mit Niedrigbit (nur PicoGPT ohne Quantisierung).
