@@ -336,3 +336,14 @@ Themen: Muon/Optimierer im Niedrigbit-QAT, Early-Exit/Layer-Skip bei 2 Bit, Tens
 | 2023-10 | MoQE: Experten vertragen 2 Bit viel besser als dichte FFN | arXiv 2310.02410 | -79,6 % Größe ggü. fp16 | Hintergrund: Redundanz/Robustheit nach Schichttyp, passt zu unserem FFN-Mitte-Befund |
 
 Lücken Lauf 22: kein 2-Bit-Muon-QAT-Paper; keine Early-Exit-Arbeit mit 2-Bit-Gewichten und Energiemessung; kein 2026-Tensornetz-Vortraining mit Niedrigbit (nur PicoGPT ohne Quantisierung).
+
+## 30.10. Lauf 23 (Cloud-Späher, 3 WebSearch, 11:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Gitter-/Vektorquantisierung (E8, Trellis), KV-Cache-Rotation bei 2 Bit, Binär/Ternär von Grund auf. Nicht aufgenommen (schon da): Leech-Gitter 2609.02652, Output-Aware-Rotation 2608.02691, KVLinC 2510.05373, RotateKV 2501.16383, QuIP# 2402.04396.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2025-10 | GLVQ: Grouped Lattice Vector Quantization, lernbare Gittererzeugungsmatrix je Gruppe | arXiv 2510.20984 | 2 Bit/Parameter mit geringem PPL-Anstieg (laut Snippet; Venue und Vergleich mit QuIP#/QTIP/AQLM nicht geprüft) | Gitterachse (Z3): Gitter je Gruppe lernen statt festes E8; Gegner zu Lloyd-Arm, Rotation + gruppeneigenes Gitter |
+| 2026 (PPoPP 2026) | JanusQuant: 2-Bit-KV-Cache-Quantisierung, Algorithmus und Serving gemeinsam entworfen | ppopp26.sigplan.org, Paper 18 | 99 % der FP16-Genauigkeit, bis 5,3x weniger KV-Speicher | Spalte BK: Messlatte für KV-Bytes bei 2 Bit; Methode im Snippet nicht erkennbar, vor Zitat prüfen |
+| (ohne Peer-Review) | GLQ: Open-Source-E8-Gitter-Quantisierer mit Trellis-Codebuch (PyPI glq 0.8.x) | pypi.org/project/glq | 2-3 Bit/Gewicht, "gute Qualität" laut Autor | nur Werkzeug zum Nachbauen eines E8-Gegners im Container; keine zitierfähige Quelle |
+
+Lücken Lauf 23: kein Peer-Review-Paper zu Skalierungsgesetz oder gemessener Energie/Token für Binär/Ternär von Grund auf (nur BitNet b1.58 2B4T mit Blog-Zahl 0,028 J/Token vs. 0,258 J bei LLaMA 3.2, Laptop-CPU, Herstellerangabe, nicht aufgenommen); kein Nachfolger zu AQLM/QTIP gefunden.
