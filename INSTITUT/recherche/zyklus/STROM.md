@@ -273,3 +273,16 @@ Themen: Original zu Compression Scaling Laws, KV-Eviction + Quantisierung, Micro
 | 2025-06 | An Empirical Study of Microscaling Formats for Low-Precision LLM Training (Meta/UMass) | arXiv 2506.08027 | OCP-MX: Gruppe 32, Skala E8M0; maßgeschneiderte MX-Konfiguration erreicht FP8/BF16-Verlust (7B-Llama, Zweitquelle) | Gruppengrößen-/Skalenformat-Achse im Training (TZ); Skalen-Overhead 8/32 = 0,25 Bit pro Wert für Byte-Budget; nicht 2026 |
 
 Lücken Lauf 18: kein 2026-Paper zu Skalenformat (E8M0 vs. E4M3) und Blockgröße im Kleinmodell-Training; Hadamard-Attention-Paper 2603.08343 noch nicht gegen Original geprüft (Qualität unbelegt); keine Studie, die Eviction + 2-Bit-KV + Rotation zusammen misst.
+
+## 30.10. Lauf 19 (Cloud-Späher, 4 WebSearch, 07:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: unitäre/orthogonale Gewichte (quanten-inspiriert), Embedding/LM-Head-Quantisierung, Skalengesetze <1B, quanten-inspirierte Attention/Tensornetze. Nicht aufgenommen (schon da): Chen et al. 2505.14302, ParetoQ, 2411.17691, Kumar 2411.04330, KARIPAP 2510.21844. Nachtrag: LiQSS-ID (Lauf 17) laut Suchtreffer arXiv 2601.12375 bestätigt.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-07 | VBQ: Variable Bit-width Quantization, Bitbreite {1,2,4,8} je 64er-Gruppe beim Training von Grund auf | chatpaper.com/chatpaper/paper/307030 (keine arXiv-ID, nur Aggregator) | LM-Head im Mittel ca. 1,09 Bit, erster MLP-Block ca. 2,5 Bit; 131M-Modell bei 1,82 Bit Mittel schlägt 55M-FP16 auf TinyStories-PPL; Gewinn nur bei Training von Grund auf | Größe wie unser Regime; Gegner im Byte-Budget (gemischte Bits je Gruppe statt uniform 2 Bit); Embedding/Head braucht offenbar wenig Bits; Einzelquelle |
+| 2026 (ACL-F 2026) | LieQ: schichtweise Informationswirksamkeit für PTQ kleiner Modelle (<8B) | preview.aclanthology.org/ingest-acl/2026.findings-acl.771/ | keine im Snippet | gemischte Bits je Schicht bei kleinen Modellen; nur PTQ, Zitat |
+| 2025-11 | SLMQuant: Benchmark der Quantisierung kleiner Sprachmodelle für Edge | alphaxiv.org/abs/2511.13023 | keine im Snippet | Vergleichsbasis für kleine Modelle; Inhalt vor Zitat prüfen |
+| 2026-08 | Q-Interference: speichereffiziente phasenbewusste quanten-inspirierte Attention | arXiv 2608.17288 | Snippet nur Literaturliste, Methode/Zahlen unbekannt | echter quanten-inspirierter Attention-Kandidat 2026; Inhalt lesen, bevor zitiert (I-038: Wirkung klassisch) |
+| 2025-03 / 2025-02 | Quantum-PEFT (2503.05431, ICLR 2025); QuIC-Adapter (2502.06916) | arXiv 2503.05431, 2502.06916 | QuIC: 98 % relative Leistung ggü. OFT/BOFT mit 25x weniger Parametern (Drittliste) | orthogonale/unitäre Matrizen über Quantenschaltkreis-Einbettung parametrisiert: quanten-inspiriert, aber nur Feintuning; Nachbar zu Hadamard-/Butterfly-Linie; nicht 2026 |
+
+Lücken Lauf 19: keine 2026-Arbeit zu orthogonalen/unitären Gewichten im Vortraining von Sprachmodellen (Suchvorschlag: "Stiefel manifold LLM pretraining", "unitary RNN"); kein Skalengesetz, das <1B isoliert; Embedding-Quantisierung nur über VBQ (Aggregator).
