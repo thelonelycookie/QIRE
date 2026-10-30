@@ -228,3 +228,20 @@ Themen: QUBO/Ising-Quantisierung (quanten-inspirierte Optimierung), Tensornetz-K
 | 2026-07 | HiFA4: trainingsfreie 4-Bit-FlashAttention (Ascend NPU) | arXiv 2607.04302 | Softmax-Zustand bleibt FP16 | nur Inferenz, andere Hardware; Abgrenzung |
 
 Lücken Lauf 15: kein 2026-Paper, das Bitbreite je Schicht als QUBO formuliert (nur Gewichtsrundung und Training); keine MPS-Attention (nur Gewichtsmatrizen komprimiert); weiterhin kein Vergleich 2 vs. 4 Bit in Joule/Token auf gleicher Hardware; kein 4-Bit-Attention-Training für Kleinmodelle.
+
+## 30.10. Lauf 16 (Cloud-Späher, 4 WebSearch, 04:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: Sparsity+Quantisierung, SSM/Mamba niedrigbit, Distillation in Niedrigbit-Schüler, Skalengesetze. Nicht aufgenommen (schon da): Sparse-BitNet 2603.05168, SLiM 2410.09615, ParetoQ 2502.02631, 2505.14302. Kein 2026-Treffer in diesen Suchen; alle Funde älter.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2024-12 | GQSA: Gruppen-Quantisierung + Gruppen-Sparsity | arXiv 2412.17560 | besser als 2:4-Pruning und W2 in Genauigkeit und Tempo | Alternative zu festem 50-%-Muster; gleiche Byte-Budget-Frage wie QIRE (Sparsity statt 2. Bit) |
+| 2024-06 | SDQ: strukturierte Sparsity + Quantisierung mit Ausreißerbehandlung | arXiv 2406.13868 | unter ca. 1 % Qualitätsverlust | Ausreißer als Teil des Budgets; Gegner für Sparsity-Arm |
+| 2024-11 | Bi-Mamba: 1-Bit-Zustandsraummodelle | arXiv 2411.11843 | 1 Bit, PPL ähnlich GPTQ-8bit (laut Snippet) | SSM-Niedrigbit-Referenz; QIRE-Rotation dort nicht getestet |
+| 2025 (COLING) | Slender-Mamba: Mamba-2 (170M) komplett ternär, von Grund auf | aclanthology 2025.coling-main.316 | keine Zahl im Snippet | Kleinmodell-Größe wie unser Regime; ternäres Training von Grund auf |
+| 2025-03 | ViM-VQ: Vektorquantisierung für Visual Mamba | arXiv 2503.09509 | Ausreißer in Mamba-Blockgewichten als Hauptfehler | stützt Rotation gegen Ausreißer auch bei SSM (nur Vision) |
+| 2025-03 | Q-MambaIR: quantisiertes Mamba, QAT bis 2 Bit | arXiv 2503.21970 | SSM bei 2–4 Bit stark verlustbehaftet wegen Ausreißern | wie oben; Bildrestauration, nicht Sprache |
+| 2024-06 | TernaryLLM: ternäre Gewichte + Distillation | arXiv 2406.07177 | schlägt PTQ- und QAT-Vorgänger | Distillation als Standardzutat im Niedrigbit-QAT; Vergleichsbasis |
+| 2023-08 | Token-Scaled Logit Distillation (QAT für ternär) | arXiv 2308.06744 | unter 1,0 PPL-Verlust | Distillationsverlust für Niedrigbit-QAT, billig nachbaubar |
+| 2025-10 | TernaryCLIP: ternär + Distillation für Bild-Text | arXiv 2510.21879 | keine Zahl im Snippet | nur Zitat; andere Domäne |
+
+Lücken Lauf 16: weiterhin keine 2026-Arbeit zu Rotation+SSM bei 2 Bit; keine 2026-Skalengesetze mit Aktivierungsbits; Sparsity+2 Bit bei Kleinmodellen unter 100M nicht gefunden.
