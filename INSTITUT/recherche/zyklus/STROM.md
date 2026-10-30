@@ -209,3 +209,22 @@ Themen: nichtuniforme Gitter/Lloyd-Max, KV-Quantisierung ohne Rotation, Tensorri
 | 2024-07 | Exploring Quantization for Efficient Pre-Training of Transformer LMs | arXiv 2407.11722 | GPT-2 small (124M) von Grund auf auf OpenWebText | einzige gefundene Von-Grund-auf-Studie in unserer Größenordnung, nicht 2026, nur 8 Bit und höher laut Snippet |
 
 Lücken Lauf 14: weiterhin kein W2A2- oder W2A4-Vortraining von Grund auf (nur PTQ/QAT auf fertigen Modellen); kein 2026-Paper zu Tensorring oder quanten-inspirierten Netzen mit Quantisierung (nur CompactifAI); Qift-Zahlen (LLaMA-2-7B W2A4/KV4: Lloyd-Max 9,265, NF2 9,404, symmetrisch 12,118) nur aus Zweitquelle emergentmind.
+
+## 30.10. Lauf 15 (Cloud-Späher, 4 WebSearch, 03:30 UTC, nur Snippets, alle Zahlen UNGEPRÜFT)
+Themen: QUBO/Ising-Quantisierung (quanten-inspirierte Optimierung), Tensornetz-Kompression, Energie pro Token, 4-Bit-Attention/Softmax. Nicht aufgenommen (schon da): CompactifAI 2401.14109, PicoGPT 2603.28534, 2508.06753.
+
+| Datum | Titel | ID/Link | Kernzahl (ungeprüft) | Bezug zu QIRE |
+|---|---|---|---|---|
+| 2026-03 | Layer-wise QUBO-Based Training of CNN Classifiers for Quantum Annealing | arXiv 2603.02958 | 5-Bit-Updates zu grob (33 % Test-Genauigkeit), ab 10 Bit konkurrenzfähig; nur simulierte Annealer | quanten-inspirierte Optimierung diskreter Gewichte; Simulation, kein Hardwarebeleg; Abgrenzung (I-038) |
+| 2026-01 | QUBO-Training und Regularisierung binärer neuronaler Netze | arXiv 2601.00449 | Pfad für Ising-Maschinen, kein bewiesenes Ergebnis | Zitat für "quanten-inspiriert" bei binären Gewichten; Variablenzahl wächst mit Netzgröße |
+| 2025-10 | KARIPAP: iPEPS/TRG-Kompression von LLMs (2D-Tensornetze) | arXiv 2510.21844 | LLaMA-2 7B, keine Zahl im Snippet | 2D- statt MPO-Tensornetz; Gegner/Zitat zur MPO-Linie (nicht 2026) |
+| 2026-08 | FluxBin: LUT-basierte Ultra-Niedrigbit-Inferenz (Algorithmus-Kernel-Synergie) | arXiv 2608.15602 | LLaMA-2-13B bei Batch 1: 579 J vs. 5908 J (FP16), ca. 10x | Energiemessung in Joule für Niedrigbit; schließt Teil der pJ/Op-Lücke (Systemwert, Hardware unklar) |
+| 2025-04 | LLMPi: Llama 1B auf Raspberry Pi | arXiv 2504.02118 | 2 Bit: 5,18 Tokens/J, ca. 4,3x ggü. FP16; BitNet 1,58 Bit 4,66 Tokens/J | Edge-Energie bei 2 Bit direkt gemessen; nicht 2026 |
+| 2025-04 | Sustainable LLM Inference for Edge AI (Quantisierung, Energie, Genauigkeit) | arXiv 2504.03360 | Qwen2.5 0,5B: 2,61 J/Token | Größenordnung für Kleinmodell-Energie; nicht 2026 |
+| 2026-05 | Position: Energie pro Token berichten (Joules/Token neben Genauigkeit) | arXiv 2605.11733 (Zweitquelle emergentmind); verwandt 2603.20224 | Forderung, keine Messung | Rechtfertigt Energiespalte neben Byte-Budget |
+| 2026-03 (ICML 2026) | Attn-QAT: 4-Bit-Attention mit QAT | arXiv 2603.00040 | naives FP4-QAT instabil; bis 1,5x Speed (RTX 5090); Diffusion + LM | Aktivierungsachse für Attention (QK, PV); Rotation nicht Teil |
+| 2026-09 | EFQ-Softmax: Niedrigbit-Wahrscheinlichkeiten in einem Schritt | arXiv 2609.09721 | Qwen3-8B, MXFP4: ca. 40 % weniger Latenz Vektorstufe | Softmax als eigene Quantisierungsstelle; nur 8B |
+| 2026-09 | Hardware-Aware FP4 FlashAttention-4 | arXiv 2609.04105 | bis 2,13x Vorwärts-Durchsatz; alle MXFP4-P/V-Trainingsläufe divergierten | stützt: Attention-Wahrscheinlichkeiten sind der harte Teil des Niedrigbit-Trainings; Einzelautor-Bericht |
+| 2026-07 | HiFA4: trainingsfreie 4-Bit-FlashAttention (Ascend NPU) | arXiv 2607.04302 | Softmax-Zustand bleibt FP16 | nur Inferenz, andere Hardware; Abgrenzung |
+
+Lücken Lauf 15: kein 2026-Paper, das Bitbreite je Schicht als QUBO formuliert (nur Gewichtsrundung und Training); keine MPS-Attention (nur Gewichtsmatrizen komprimiert); weiterhin kein Vergleich 2 vs. 4 Bit in Joule/Token auf gleicher Hardware; kein 4-Bit-Attention-Training für Kleinmodelle.
