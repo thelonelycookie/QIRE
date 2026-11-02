@@ -1,0 +1,240 @@
+[
+ {
+  "id": "arXiv:2101.06475",
+  "titel": "Slot Machines: Discovering Winning Combinations of Random Weights in Neural Networks",
+  "jahr": 2021,
+  "autoren": "Aladago, Torresani",
+  "feld": [
+   "N6",
+   "N4"
+  ],
+  "kernaussage": "Pro Verbindung wird aus einem festen Satz Zufallswerte einer gewählt (nur Auswahl gelernt); erreicht Leistung gleich großer trainierter Netze. Gewichte sind aus dem Seed rekonstruierbar.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Seed + Auswahlindizes als Kompressionsformat; Gegner für Seed-Gewicht-Ansätze",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Auswahl aus Zufallsbasis ähnlich SeedLM-Seedsuche"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:2210.16589",
+  "titel": "Strong Lottery Ticket Hypothesis with epsilon-perturbation",
+  "jahr": 2022,
+  "autoren": "Xiong, Liao, Kyrillidis",
+  "feld": [
+   "N6",
+   "N4"
+  ],
+  "kernaussage": "Theorie: Strong-LTH-Garantie auch mit kleiner Störung um die Initialisierung; zufällige Netze enthalten Teilnetze, die ein Zielnetz approximieren.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:2603.08914",
+  "titel": "Uncovering a Winning Lottery Ticket with Continuously Relaxed Bernoulli Gates",
+  "jahr": 2026,
+  "autoren": "Tsayag, Lindenbaum",
+  "feld": [
+   "N6",
+   "N4"
+  ],
+  "kernaussage": "Differenzierbare Bernoulli-Gates statt edge-popup (nicht differenzierbar) zur Extraktion starker Lottery Tickets in Zufallsnetzen.",
+  "zahlen": [
+   {
+    "wert": "ResNet50: edge-popup nur ca. 50 % Sparsity bei guter Genauigkeit, Gates über 90 %",
+    "kontext": "Angabe aus Drittzusammenfassung der Suche, nicht im Paper geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Supermasken-Gegner (Maske auf Zufallsgewichten, Seed-speicherbar)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:2607.20555",
+  "titel": "Double-Scoring: Reliable Extraction of Strong Lottery Tickets",
+  "jahr": 2026,
+  "autoren": "Christopherson, Baretz, Colgrove",
+  "feld": [
+   "N6",
+   "N4"
+  ],
+  "kernaussage": "Schichtweise Sparsity ist Engpass von edge-popup; Double-Scoring verbessert Extraktion starker Tickets gegenüber fester Dichte (kontrollierte Experimente).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:2605.01253",
+  "titel": "Evaluating quantum circuits in the reservoir computing paradigm",
+  "jahr": 2026,
+  "autoren": "Malik, Jaiswal, Aravinda",
+  "feld": [
+   "N6",
+   "K6"
+  ],
+  "kernaussage": "Brickwork-Quantenreservoir aus Haar-zufälligen Zwei-Qubit-Gattern verglichen mit dual-unitären und lösbaren Schaltkreisen; Ergodizität bestimmt Aufgabenleistung.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Haar-Zufall als Reservoir; Bezug zu 2-Design-Vereinfachung"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:0802.1919",
+  "titel": "Random Quantum Circuits are Approximate 2-designs",
+  "jahr": 2008,
+  "autoren": "Harrow, Low",
+  "feld": [
+   "N6",
+   "K6"
+  ],
+  "kernaussage": "Zufallsschaltkreise polynomieller Länge approximieren 1.+2. Moment der Haar-Verteilung (approximative 2-Designs).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "2-Design ist das Quantenanalogon zu strukturierten Pseudozufallsmatrizen (Fastfood/SORF)"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:1502.07514",
+  "titel": "Unitary 2-designs from random X- and Z-diagonal unitaries",
+  "jahr": 2015,
+  "autoren": "Nakata, Hirche, Morgan",
+  "feld": [
+   "N6",
+   "K6"
+  ],
+  "kernaussage": "Abwechselnd zufällige Z- und X-diagonale Unitäre (mit Hadamard-artiger Struktur) ergeben approximatives 2-Design, Fehler Theta(d^-l).",
+  "zahlen": [
+   {
+    "wert": "Fehler Theta(d^-l) nach l Wiederholungen",
+    "kontext": "aus Abstract der Suche, nur Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Struktur diagonal*Hadamard wie Fastfood: billiger Ersatz für Haar"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:2402.16842",
+  "titel": "Asymmetry in Low-Rank Adapters of Foundation Models",
+  "jahr": 2024,
+  "autoren": "Zhu, Greenewald, Nadjahi",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "Bei LoRA ist B wichtiger als A; A fest zufällig-orthogonal reicht ähnlich wie volles LoRA und kann generalisieren.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stützt Zufallsbasis + gelernte Koeffizienten (VeRA/NOLA-Linie)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Zufallsbasis gleichwertig zu gelernter: passt zu Rotation ≈ faire Gegner"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:2506.14530",
+  "titel": "Sharp Generalization Bounds for Foundation Models with Asymmetric Randomized Low-Rank Adapters",
+  "jahr": 2025,
+  "autoren": "Kratsios, Cheng, Lucchi",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "Theorie für asymmetrisches LoRA mit eingefrorenen Zufallsfaktoren: Stichprobenkomplexität oben und unten, Verhalten einzelner Läufe.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:2307.15092",
+  "titel": "A Survey on Reservoir Computing and its Interdisciplinary Applications Beyond Traditional Machine Learning",
+  "jahr": 2023,
+  "autoren": "Zhang, Vargas",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "Übersicht: zufällig verbundenes RNN mit festen Gewichten, nur linearer Readout trainiert; hochdimensionale Abbildung, Gedächtnis, lineare Trennbarkeit.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Übersichtsquelle für Reservoir/ELM-Linie",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ },
+ {
+  "id": "arXiv:1610.09608",
+  "titel": "A Theoretical Study of The Relationship Between Whole An ELM Network and Its Subnetworks",
+  "jahr": 2016,
+  "autoren": "(laut Suchtreffer, Autoren nicht geprüft)",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "ELM: Universelle Approximation bei stetiger nichtlinearer Aktivierung und zufälligen Hidden-Parametern aus kontinuierlicher Verteilung.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c2"
+ }
+]
