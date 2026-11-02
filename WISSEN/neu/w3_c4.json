@@ -1,0 +1,244 @@
+[
+ {
+  "id": "arXiv:1703.08961",
+  "titel": "Scaling the Scattering Transform: Deep Hybrid Networks",
+  "jahr": 2017,
+  "autoren": "Edouard Oyallon, Eugene Belilovsky, Sergey Zagoruyko",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Festes Streunetz als Initialisierung der ersten Schichten eines Hybridnetzes; frühe Schichten müssen nicht gelernt werden (nur Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "ImageNet Top-5-Fehler 11,4 % (Suchauszug, nicht im Abstract)",
+    "kontext": "Hybrid ~ResNet-18, 12,8 M vs 11,7 M Parameter, also nicht kleiner",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Feste Wavelet-Frontend-Schicht als Gegner zu fester Hadamard-Mischung",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2107.09539",
+  "titel": "Parametric Scattering Networks",
+  "jahr": 2021,
+  "autoren": "Shanel Gauthier, Benjamin Thérien, Laurent Alsène-Racicot, Muawiz Chaudhary et al.",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Streunetz mit lernbaren Wavelet-Parametern; Tight-Frame-Initialisierung hilft allen Architekturen, Zufallsinitialisierung braucht mehr Daten (Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "43,60 % vs 38,78 % WRN-16-8 bei 100 CIFAR-10-Proben (Suchauszug)",
+    "kontext": "kleine Datenmenge",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gelernte Wavelet-Parameter als Gegner zu festen Mischern",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2203.03689",
+  "titel": "WaveMix: Resource-efficient Token Mixing for Images",
+  "jahr": 2022,
+  "autoren": "Pranav Jeevan, Amit Sethi",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Feste 2D-Haar-DWT als Token-Mischer für Bilder, ressourcenschonend gegen ViT/CNN (Abstract bestätigt).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Fester Haar-Mehrskalen-Mischer: direkter Gegner zu Hadamard-Mischung in Bildaufgaben",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2607.25234",
+  "titel": "WHTMix: Efficient Stereo Depth Estimation via Walsh-Hadamard Token Mixing",
+  "jahr": 2026,
+  "autoren": "Prathyush Sajith, Emadeldeen Hamdan, Ahmet Enis Cetin",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Fester datenunabhängiger Walsh-Hadamard-Mischer ersetzt globale Selbstaufmerksamkeit in Stereo-Tiefenschätzung (Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "Rechenaufwand 2,46x, Latenz 2,65x geringer bei gleicher Genauigkeit (Suchauszug)",
+    "kontext": "synthetische Daten",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "WHT-Mischer als Gegner/Beleg: feste Hadamard-Mischung reicht auch jenseits Sprache",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2502.06820",
+  "titel": "LoCA: Location-Aware Cosine Adaptation for Parameter-Efficient Fine-Tuning",
+  "jahr": 2025,
+  "autoren": "Zhekai Du, Yinjie Min, Jingjing Li, Ke Lu",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "iDCT-Adaption lernt Koeffizienten und deren Orte im DCT-Spektrum; Ausdrucksstärke über Low-Rank (Abstract bestätigt).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Parametrisierungs-Gegner: feste Kosinusbasis + gelernte Koeffizienten",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2112.15545",
+  "titel": "Training and Generating Neural Networks in Compressed Weight Space",
+  "jahr": 2021,
+  "autoren": "Kazuki Irie, Jürgen Schmidhuber",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "DCT-kodierte Gewichtsmatrizen als indirekte Kodierung; Diskussionsbeitrag, keine LoRA-Baseline (Abstract bestätigt).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2609.06862",
+  "titel": "Feature Superposition in Neural Networks: From Theory to Practice",
+  "jahr": 2026,
+  "autoren": "Dai Shi, Xiaoyu Li, Andi Han, José Miguel Hernández-Lobato",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Für straffen Rahmen (unit-norm tight frame) ist das Verhältnis der Rekonstruktionsrisiken gleich dem Überkomplettheitsverhältnis d/m; gilt nur für lineare Auslese einer Schicht (Abstract bestätigt, Detail aus Suchauszug).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Theorie zur Rahmen-Sicht auf überkomplette Hadamard-Expansion",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2207.00708",
+  "titel": "Parameter efficient dendritic-tree neurons outperform perceptrons",
+  "jahr": 2022,
+  "autoren": "Ziwen Han, Evgeniya Gorobets, Pan Chen",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Dendritenbaum-Neuronen schlagen Perzeptrons bei gleicher Parameterzahl (MNIST); PyTorch-Modul als MLP-Ersatz (Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "~3069 vs 3079 Parameter",
+    "kontext": "Dendritenneuron vs MLP-Kontrolle, MNIST, Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Parametergleiche Dendriten-Schicht als biologischer Gegner",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:2412.06355",
+  "titel": "Scalable Dendritic Modeling Advances Expressive and Robust Deep Spiking Neural Networks",
+  "jahr": 2024,
+  "autoren": "Yifan Huang, Wei Fang, Zhengyu Ma, Guoqi Li",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Dendritische Berechnung in tiefen SNNs (DendSN), skalierbar; mehr Ausdrucksstärke und Robustheit (Abstract bestätigt).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ },
+ {
+  "id": "arXiv:1602.04129",
+  "titel": "Learning may need only a few bits of synaptic precision",
+  "jahr": 2016,
+  "autoren": "Carlo Baldassi, Federica Gerace, Carlo Lucibello, Luca Saglietti et al.",
+  "feld": [
+   "F4",
+   "K8"
+  ],
+  "kernaussage": "Lernen mit diskreten Synapsen braucht nur wenige Bits; Kapazität sättigt schnell mit der Zahl innerer Zustände (Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "1 bis 5 Bit pro Synapse",
+    "kontext": "biologische Schätzung laut Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stützt niedrige Bitbreite als Ziel, kein Beleg für QIRE",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "K1"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c4"
+ }
+]

@@ -32,12 +32,23 @@ Stand Welle 1 (a3, 02.11.2026). Zahlen aus Abstracts/Suchtreffern, nichts im Vol
 - I-038: klassische Erklärung; FlyHash-Linie stützt "feste Mischung + Nichtlinearität trägt".
 - Kein Widerspruch gefunden. 4,7 Bit passt zu 4-Bit-Gewichten (K1), beweist aber nichts für QIRE.
 
+## Runde 2 (Welle 3, c4; nur Abstracts/Suchauszüge, ungeprüft)
+- **Synapsenpräzision:** Baldassi et al.: Lernen mit diskreten Synapsen braucht wenige Bits, Schätzung 1 bis 5 Bit [arXiv:1602.04129]; stimmt mit 4,7 Bit (eLife) überein, die Bandbreite ist aber uneinheitlich.
+- **Dendriten:** parametergleiche Dendritenneuronen schlagen Perzeptrons auf MNIST [arXiv:2207.00708]; dendritische SNNs [arXiv:2412.06355]. Nur kleine Benchmarks.
+- **Energiebudget Kortex (Suchauszug, keine Quelle aufgenommen):** erregende Synapsenströme ca. 57 %, Aktionspotentiale ca. 23 % der elektrischen Signalenergie; Synapsen ca. 41 % des Kortex-ATP; spärliche Codes sparen Energie. Kein belastbarer Bit-pro-ATP-Wert für den ganzen Kortex. Daher keine Zahl für QIRE ableitbar.
+
 ## Lücken/offene Fragen
 - Kein Volltext gelesen; SNN-Zahlen unverifiziert.
 - Kein direkter Test FlyHash vs. Hadamard+Quadrat in der Literatur gefunden.
 - Dendritische Codes nur durch 2404.03708 abgedeckt.
 
+## Sättigung Runde 2
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 3, c4 Runde 2 (F4, 3 Suchen) | 3 neue (F4) | mittel; Energiebudget nur Suchauszug |
+
 ## Schlüsse und neue Wege (Agent)
 1. **FlyHash als Pflicht-Gegner:** Schluss: feste spärliche Zufallsexpansion + Top-k gegen Hadamard·Diagonal + Quadrat testen. Belege: [arXiv:2001.04907], I-038. Langweiligste Erklärung: beide sind nur zufällige Merkmale. Quantenbezug: Analogie (Messung als Auslese).
 2. **Energie nur mit ehrlichem Modell behaupten:** Schluss: QIRE-Effizienz in Parametern/FLOPs und Speicherzugriffen ausweisen, nicht nur Operationen. Belege: [arXiv:2409.08290]. Langweiligste Erklärung: Zählfehler. Quantenbezug: keiner.
 3. **Bit-Budget-Argument:** Schluss: ca. 4-5 Bit als biologisch plausible Zielpräzision für QIRE-Gewichte zitieren (Hinweis, kein Beleg). Belege: [doi:10.7554/eLife.10778] (kleine Probe). Langweiligste Erklärung: Messgrenze statt Kapazität. Quantenbezug: keiner.
+4. **(R2) Bit-Budget mit Spanne zitieren:** 1 bis 5 Bit statt einer Punktzahl. Belege [arXiv:1602.04129, doi:10.7554/eLife.10778]. Langweiligste Erklärung: unterschiedliche Messmodelle. Quantenbezug: keiner.

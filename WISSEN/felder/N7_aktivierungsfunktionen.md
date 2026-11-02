@@ -41,3 +41,12 @@ Stand Welle 1 (a3, 02.11.2026). Zahlen aus Abstracts/Suchtreffern, nichts im Vol
 1. **ReLU² statt z² in QIRE-Auslese testen:** Schluss: einseitiges Quadrat könnte den CIFAR-Verlust (-3,18 pp) erklären und liefert Sparsität. Belege: [arXiv:2109.08668], [arXiv:2503.16672], I-042. Langweiligste Erklärung: Vorzeichenverlust bei z² erzeugt nur Symmetrie-Rauschen. Quantenbezug: Analogie (Born-Regel nur für |z|²; ReLU² bricht sie).
 2. **SwiGLU als fairer Gegner:** Schluss: GLU ist bilinear = quadratisch; Born-Quadrat ist ein Spezialfall dieser Familie. Belege: [arXiv:2002.05202]. Langweiligste Erklärung: gleiche Funktionsklasse, nur andere Parametrisierung. Quantenbezug: Analogie.
 3. **Aktivierungsgleichwertigkeit als Ergebnis behandeln:** Schluss: "gleichwertig" zitieren statt Vorteil behaupten. Belege: [arXiv:2102.11972], I-039-v2. Langweiligste Erklärung: kleine Effekte unter Seed-Rauschen. Quantenbezug: keiner.
+
+## Runde 2 (Welle 3, c5, 02.11.2026): Ergänzungen
+- **Polynom-Linie:** PolyCom (Kompositionen höherer Ordnung, LLM-Vortraining) [arXiv:2411.03884]; Hermite/Fourier/tropische Aktivierungen sind mit varianzerhaltender Init stabil trainierbar, GPT-2-Test [arXiv:2502.01247]. Hinweis: Init könnte den z²-Verlust (I-042) mit erklären (Hypothese, nicht geprüft).
+- **z² gegen ReLU²:** weiterhin kein direkter Vergleich in der Literatur. Schwacher Hinweis: quadratische Aktivierung führt in Modulo-Addition-Netzen oft zu instabilem Training [arXiv:2602.16849] (Suchzusammenfassung, ungeprüft).
+- **Aktivierung und Quantisierbarkeit:** Im SwiGLU-W4A4-Test bleibt das bilineare Produkt (w2-Eingang) die Schwachstelle, volle QuaRot-Rotation schließt die Lücke nicht [arXiv:2604.18128]. Gated Rescaling mindert Ausreißer, W4A4-Verlust 1,2 Punkte [arXiv:2601.22966]; dort (Suchzusammenfassung, ungeprüft) begünstigen ReLU²/PolyNorm Ausreißer. Aktivierungswahl hängt von der Normalisierung ab (ReLU gegen GELU -8,2 % PPL ohne LayerNorm) [arXiv:2410.09637].
+- **Folge für QIRE:** Quadratische/bilineare Aktivierung im Auslesepfad ist ein Quantisierungsrisiko; ein Test "z² vs ReLU² vs |z| unter 4-Bit-Aktivierungen" fehlt in der Literatur (Lücke, auch für Kurtosis-Messung).
+- Querverweis I-039-v2: Gleichwertigkeit bleibt; keine neue Quelle widerspricht.
+
+| Welle 3 c5 (Runde 2) | 6 | 6 neu zu 14 Bestand (ca. 30 %) |

@@ -1,0 +1,249 @@
+[
+ {
+  "id": "arXiv:2403.11106",
+  "titel": "Self-Supervised Quantization-Aware Knowledge Distillation (SQAKD)",
+  "jahr": 2024,
+  "autoren": "Zhao, K.; Zhao, M.",
+  "feld": [
+   "N3",
+   "K8"
+  ],
+  "kernaussage": "QAT mit KD ohne Labels und ohne Gewichtung mehrerer Verlustterme, einphasig. Abstract bestätigt (arXiv-API), Vision-Fokus.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Einfacher KD-QAT-Gegner ohne Hyperparameter-Balance; für QIRE-Kleinmodelle als billige Baseline.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig; KD-QAT ist ein fairer Gegner"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2009.12812",
+  "titel": "TernaryBERT: Distillation-aware Ultra-low Bit BERT",
+  "jahr": 2020,
+  "autoren": "Zhang, W.; Hou, L. u. a.",
+  "feld": [
+   "N3",
+   "K8"
+  ],
+  "kernaussage": "Ternarisierung eines feinabgestimmten BERT mit Distillation; Schüler gleich groß wie Lehrer (Selbst-Distillation-Typ). Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Frühe ternäre KD-Baseline (Encoder); Vorläufer von BitDistiller/TSLD.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-038: Wirkung klassisch"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2410.16215",
+  "titel": "Pre-training Distillation for Large Language Models: A Design Space Exploration",
+  "jahr": 2024,
+  "autoren": "Peng, H.; Lv, X. u. a.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "KD schon im Vortraining; Design-Raum (Logit-Kürzung, Verlust, Skalierung). Logit-Kürzung (top-p/top-100) senkt Speicher um ~4000x (Suchzusammenfassung, nicht im Abstract geprüft).",
+  "zahlen": [
+   {
+    "wert": "~4000x weniger Logit-Speicher, ~15 TB",
+    "kontext": "Suchzusammenfassung, nicht geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Kostenmodell für Logit-KD: Speicher der Lehrer-Logits ist der Engpass, nicht Rechnung.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: KD und Rechenbudget-Fairness können scheinbare Rotationsvorteile erklären"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2503.16870",
+  "titel": "Sparse Logit Sampling: Accelerating Knowledge Distillation in LLMs",
+  "jahr": 2025,
+  "autoren": "Anshumann; Zaidi, M. A. u. a.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Naives Top-K-Caching der Lehrer-Logits ist verzerrt; Random-Sampling-KD ist unverzerrt, <10 % Mehrkosten gegenüber CE, 300M–3B (Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "<10 % Overhead gegen Cross-Entropy-Training",
+    "kontext": "Abstract bestätigt, nicht Volltext",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Billige KD-Variante, die QIRE-Läufe fair gegen CE-Training stellt (Kostenvergleich).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: gleiche Rechenkosten nötig für fairen Vergleich"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2411.03884",
+  "titel": "Polynomial Composition Activations (PolyCom)",
+  "jahr": 2024,
+  "autoren": "Zhuo, Z.; Wang, Y. u. a.",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Polynomiale Kompositionsaktivierungen in dichten und MoE-LLM-Vortrainings, besser als ReLU, ReLU², GELU, SwiGLU laut Abstract (nur Großmodell ~1,3B laut Suchzusammenfassung).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Starker Gegner für ReLU²/z² in QIRE: höhere Polynomgrade statt nur Quadrat.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-042: z² schlechter als ReLU auf CIFAR; PolyCom nutzt Kompositionen, nicht reines z²",
+   "Narang: viele Änderungen übertragen sich nicht"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2502.01247",
+  "titel": "Polynomial, trigonometric, and tropical activations",
+  "jahr": 2025,
+  "autoren": "Khalfaoui-Hassani, I.; Kesselheim, S.",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Hermite-/Fourier-/tropische Aktivierungen mit varianzerhaltender Initialisierung ohne Clamping trainierbar; GPT-2-Test gegen GELU (Abstract bestätigt, Details aus Suchzusammenfassung).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Zeigt, dass Polynomaktivierungen mit richtiger Init stabil sind: Init statt Funktion könnte QIRE-z²-Verlust erklären.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-042: z² schlechter als ReLU; Init nicht untersucht?"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2410.09637",
+  "titel": "ReLU's Revival: Entropic Overload in Normalization-Free LLMs",
+  "jahr": 2024,
+  "autoren": "Jha, N. K.; Reagen, B.",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Ohne LayerNorm schlägt ReLU GELU um 8,2 % Perplexität (Abstract bestätigt). Aktivierungswahl hängt von Normalisierung ab.",
+  "zahlen": [
+   {
+    "wert": "8,2 % Perplexitätsvorteil ReLU gegen GELU, normfreie LLM",
+    "kontext": "Abstract bestätigt, nicht Volltext",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Aktivierungsvergleiche müssen Normalisierung konstant halten.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042: Wechsel je Aufgabe"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2601.22966",
+  "titel": "A Unified View of Attention and Residual Sinks: Outlier-Driven Rescaling",
+  "jahr": 2026,
+  "autoren": "Qiu, Z.; Huang, Z. u. a.",
+  "feld": [
+   "N7",
+   "K2"
+  ],
+  "kernaussage": "Ausreißer wirken mit Normalisierung als Rescaling; gated Rescaling verbessert Training (+2 Punkte) und W4A4-Robustheit (1,2 Punkte Verlust). Abstract bestätigt. Nach Suchzusammenfassung können Aktivierungen höherer Ordnung (ReLU², PolyNorm) Ausreißer begünstigen; das stand nicht im Abstract, ungeprüft.",
+  "zahlen": [
+   {
+    "wert": "1,2 Punkte Verlust unter W4A4 mit Rescaling",
+    "kontext": "Abstract bestätigt",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner/Zusatz: Gating gegen Ausreißer statt Rotation.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: Rotation ≈ faire Gegner; Gating ist ein alternativer Ausreißer-Hebel"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2604.18128",
+  "titel": "Depth Registers Unlock W4A4 on SwiGLU",
+  "jahr": 2026,
+  "autoren": "Liu, Z.",
+  "feld": [
+   "N7",
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "300M-SwiGLU: naives W4A4 PPL 23,6 auf 1727; Depth Registers 119, mit SmoothQuant 39,9. Das bilineare w2-Eingang (SwiGLU-Produkt) bleibt Schwachstelle; volle QuaRot-Rotation schließt die Lücke nicht (Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "W4A4 PPL 23,6 (FP16) / 1727 (RTN) / 119 / 39,9",
+    "kontext": "Abstract bestätigt, nicht Volltext",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt: multiplikative/quadratische Aktivierungsprodukte sind der Quantisierungsengpass; Rotation allein reicht nicht.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation ≈ gleichwertig gegen faire Gegner (stützt)",
+   "QIRE-Quadrataktivierung hätte dasselbe Problem im Auslesepfad"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ },
+ {
+  "id": "arXiv:2602.16849",
+  "titel": "On the Mechanism and Dynamics of Modular Addition: Fourier Features, Lottery Ticket, and Grokking",
+  "jahr": 2026,
+  "autoren": "He, J.; Wang, L. u. a.",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Zweischichtnetze für Modulo-Addition; laut Suchzusammenfassung führt quadratische Aktivierung oft zu instabilem Training mit unausgewogenen Neuronen, ReLU liefert Merkmale konsistenter (Abstract nur teilweise gesehen, ungeprüft).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Nur Spielaufgabe; schwacher Hinweis zur z²-Instabilität.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042: z² schlechter als ReLU (passt, schwach)"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c5"
+ }
+]

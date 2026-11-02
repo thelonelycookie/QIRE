@@ -32,6 +32,12 @@
 - I-038: stützt.
 - Möglicher Widerspruch: keiner gefunden; WHT-Schichten verlieren 2,2 Punkte (Pan) gegen volle Schichten, das ist die Grenze fester Transformationen.
 
+## Runde 2 (Welle 3, c4; nur Abstracts, Zahlen ungeprüft)
+- **Feste Mischer weiter belegt:** WHTMix ersetzt Attention durch festen Walsh-Hadamard-Mischer (2,46x weniger Rechnung, ungeprüft) [arXiv:2607.25234]; WaveMix mit Haar-DWT [arXiv:2203.03689].
+- **FNet-Ablation:** Hartley war stärkste Alternative zu Fourier, Hadamard/DCT-Zahlen nicht aus Suchauszug zu bekommen; Anhang A.3 von [arXiv:2105.03824] müsste gelesen werden (Lücke bleibt).
+- **DCT-Parametrisierung:** LoCA lernt Koeffizienten samt Orten im DCT-Spektrum [arXiv:2502.06820]; frühe DCT-Gewichtskodierung [arXiv:2112.15545]. Kein Vergleich mit Fastfood gefunden.
+- **Rahmen:** Überkomplettheitsverhältnis d/m bestimmt lineare Rekonstruktionsrisiken bei straffem Rahmen [arXiv:2609.06862]; Kohärenz-Korrelation mit Generalisierung schon bekannt [arXiv:2103.05804]. Zur Betragsnichtlinearität nichts gefunden.
+
 ## Lücken/offene Fragen
 - FNet-Ablation (Hadamard vs. Fourier vs. DCT) nicht gelesen; Zahl wäre direkt nützlich.
 - Rahmen-Theorie (überkomplett) nicht mit Hadamard-Mischung verbunden; QIRE-Zelle mit Ausgangsdimension > Eingang könnte ein Rahmen sein.
@@ -40,8 +46,10 @@
 | Runde | neue Quellen | Anteil neu |
 |---|---|---|
 | Welle 1, a2 (F3, 7 Suchen) | 15 (F3) | hoch, nicht gesättigt |
+| Welle 3, c4 Runde 2 (F3, 4 Suchen) | 4 neue (F3) | mittel; FNet-Ablation und Fastfood-Vergleich weiter Lücken |
 
 ## Schlüsse und neue Wege (Agent)
 1. **Hadamard ist austauschbar:** Belege [arXiv:2601.21069, arXiv:2604.04440, arXiv:2307.13304]. Langweiligste Erklärung: jede gut mischende orthogonale Matrix tut es. Quantenbezug: keiner; der Name "Hadamard-Gatter" ist nur die billigste schnelle Wahl.
 2. **Parametrisierungs-Gegner:** feste Basis + K trainierte Koeffizienten (DCT) als zusätzliche Baseline neben Fastfood. Belege [arXiv:2604.04440], [arXiv:1506.04449]. Langweiligste Erklärung: Rangflexibilität, nicht Struktur. Quantenbezug: keiner.
 3. **Rahmen-Sicht:** überkomplette Hadamard-Mischung (Expansion plus Betrag) als Frame mit Rahmengrenzen messen [arXiv:2103.05804, arXiv:1504.05487]. Langweiligste Erklärung: Kohärenzmaß sagt nichts über Genauigkeit voraus. Quantenbezug: Analogie (Born-Quadrat als Phasen-Löschung).
+4. **(R2) Fastfood-vs-DCT-Koeffizienten selbst messen:** Literatur vergleicht nie beide. Belege: [arXiv:2604.04440, arXiv:2502.06820]. Langweiligste Erklärung: bei gleicher Parameterzahl gleich. Quantenbezug: keiner.

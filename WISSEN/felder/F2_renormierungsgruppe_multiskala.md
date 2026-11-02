@@ -29,6 +29,11 @@
 - I-038 (klassische Wirkung): stützt, Streunetz und WaveletGPT erklären Mischung + Betrag ohne Quanten.
 - Z3 (Rotation ≈ gleichwertig): neutral; Mehrskalen-Mischer wurden nicht gegen Hadamard getestet.
 
+## Runde 2 (Welle 3, c4; nur Abstracts, Zahlen ungeprüft)
+- **Hybride Streunetze:** festes Streunetz als Frontend [arXiv:1703.08961]; lernbare Wavelet-Parameter, Tight-Frame-Start hilft [arXiv:2107.09539]. Fest vs. gelernt: gelernte Parameter gewinnen bei wenig Daten (43,6 % vs 38,8 %, ungeprüft).
+- **Haar-DWT als fester Mischer:** WaveMix [arXiv:2203.03689]. Im Suchlauf kein Vergleich Haar-Pyramide gegen Hadamard im selben Modell gefunden (Lücke bleibt). Ein 2026er WNet-Preprint (kein arXiv-Eintrag gefunden, nicht aufgenommen) argumentiert, 2-Tap-Haar-Mischer verbinden Token nie über feste Blöcke hinaus.
+- H-Net/Hourglass: keine neue Quelle; Suche nach Alternativbegriffen lieferte nichts Neues.
+
 ## Lücken/offene Fragen
 - Kein Volltext, kein Vergleich Hadamard vs. Haar-Wavelet-Pyramide bei gleichen Parametern in der Literatur gefunden.
 - HRT/LMWT: Aussagekraft unklar (kleine Gruppen, wenige Belege).
@@ -37,8 +42,10 @@
 | Runde | neue Quellen | Anteil neu |
 |---|---|---|
 | Welle 1, a2 (F2, 7 Suchen) | 13 (F2) | hoch, Feld nicht gesättigt |
+| Welle 3, c4 Runde 2 (F2, 3 Suchen) | 3 neue (F2) | mittel; Streunetz-Hybride neu, Haar-vs-Hadamard weiter Lücke |
 
 ## Schlüsse und neue Wege (Agent)
 1. **Streunetz-Linie als Rahmen für QIRE:** Mischung + Betrag ist strukturell ein Streunetz mit Hadamard statt Wavelet. Belege: [arXiv:1203.1513, arXiv:1312.5940, arXiv:2409.12924]. Langweiligste Erklärung: reine Faltungs-/Mischungs-Nichtlinearität, nichts Quantenhaftes. Quantenbezug: nur Analogie; Wavelet-MERA [arXiv:1602.01166] ist die echte Brücke.
 2. **Test: Haar-Pyramide statt Hadamard** (gleiche Parameter, gleiche Auslese). Belege: WaveletGPT, Evenbly-White. Langweiligste Erklärung: kein Unterschied (Z3-Muster). Quantenbezug: wMERA/MERA-Struktur als Begründung, Wirkung klassisch.
 3. **Ehrlicher Gegner einplanen:** MERA-Schicht und Hourglass in die Vergleichstabelle, sonst fehlt der stärkste klassische/quanten-inspirierte Gegner. Langweiligste Erklärung: Hourglass gewinnt durch Rechenverteilung, nicht Mischung.
+4. **(R2) Hadamard-Frontend gegen fest-vs-gelernt-Befund prüfen:** Parametric Scattering zeigt, dass gelernte Wavelet-Parameter bei wenig Daten helfen [arXiv:2107.09539]. Idee: Hadamard mit lernbarer Diagonale (Fastfood-artig) ist schon dieser Mittelweg. Langweiligste Erklärung: bessere Initialisierung, nicht Struktur. Quantenbezug: Analogie.

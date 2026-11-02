@@ -45,3 +45,11 @@
 2. **Schluss:** Es fehlt ein gemeinsames Gesetz Destillation x Bits; QIRE könnte es klein messen (Schülergröße, Bits, Tokens). Belege: [arXiv:2502.08606], [arXiv:2505.14302]. Langweiligste Erklärung: Effekte addieren sich einfach, kein neues Gesetz. Quantenbezug: keiner.
 3. **Schluss:** Kanalsicht: Schüler-Kapazität in Bits begrenzt destillierbare Information; Rate-Distortion-Grenze (N8) prüfen. Beleg: [arXiv:2411.07483]. Langweiligste Erklärung: bekannte Kapazitätsgrenze, nur neu formuliert. Quantenbezug: Analogie (Kanal/Messung).
 4. **Schluss:** Pruning+KD (Minitron) gegen Quantisierung+KD bei gleichen Bytes als fairer Gegner einplanen. Beleg: [arXiv:2407.14679]. Langweiligste Erklärung: Pruning gewinnt bei hoher Bitbreite, Quantisierung bei niedriger. Quantenbezug: keiner.
+
+## Runde 2 (Welle 3, c5, 02.11.2026): Ergänzungen
+- **Ternäre/2-Bit-Schüler:** TernaryBERT (Schüler gleich groß wie Lehrer) [arXiv:2009.12812]; Self-Supervised QAT-KD ohne Labels, einphasig [arXiv:2403.11106]. BitDistiller nutzt Selbst-Destillation (FP-Modell als eigener Lehrer) [arXiv:2402.10631]. Alle nur Abstract, ungeprüft.
+- **Kosten der Logit-Destillation:** Speicher der Lehrer-Logits ist der Engpass; Kürzung auf top-100 spart ~4000x (ungeprüft) [arXiv:2410.16215]. Naives Top-K ist verzerrt; Random-Sampling-KD unverzerrt mit <10 % Mehrkosten gegenüber CE (Abstract bestätigt) [arXiv:2503.16870]. Für QIRE: Kleinmodell-KD kann Logits online berechnen; Kostenvergleich gegen CE-Training mit ausweisen.
+- **Weiter Lücke:** Skalengesetz Destillation x Bits nicht gefunden (Suche "distillation scaling law low-bit ternary" liefert nur DSL [arXiv:2502.08606] und BitNet Distillation getrennt).
+- Neue Lücke: KD-QAT-Arbeiten sind Vision/Encoder oder Großmodell; Kleinstmodell-Regime (QIRE) unbelegt.
+
+| Welle 3 c5 (Runde 2) | 4 | 4 neu zu 16 Bestand (ca. 20 %) |
