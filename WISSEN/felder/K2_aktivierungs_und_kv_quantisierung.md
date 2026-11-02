@@ -62,3 +62,10 @@ Nur Abstracts/Suchauszüge; Zahlen ungeprüft. 6 Suchen, Einträge in `neu/w3_c6
 |---|---|---|
 | Welle 1 (a5) | 10 | – (Feld hatte bereits ~25 Einträge) |
 | Runde 2 (Welle 3, c6) | 6 (K2), 2 weitere geteilt mit K1/K8/K4 | ~50 % der relevanten Treffer neu; Treffer zu Rotation/Gruppenskala bekannt; 6 Suchen, Lücken (Kleinmodell-KV, Isolation Lloyd vs Rotation) unverändert |
+
+## Runde 3 (Welle 5, e6): Nachtrag
+Nur Suchauszüge/Abstract; 1 Suche (Nutzungslimit unterbrach, Rest gespart). Eintrag in `neu/w5_e6.json`.
+- NSNQuant [arXiv:2505.18231]: Hadamard als Verteilungsangleichung für ein festes KV-Buch (kalibrierungsfrei, 1–2 Bit). Weiterhin kein Sub-1B-Vergleich Hadamard vs Gruppen-Codebuch gefunden; VecInfer (ACL 2026) und TurboAngle nur 1B–8B. Ein NeurIPS-2026-Abstract nennt Rotationskosten bei kleinen Modellen (nicht bestätigt, nicht eingetragen).
+- Kein Widerspruch zu Z3. Quantenbezug: keiner/Analogie.
+
+| Runde 3 (Welle 5, e6) | 1 | ~25 %; 1 Suche, Lücken Kleinmodell-KV und Isolation unverändert: Feld gesättigt |

@@ -53,3 +53,8 @@
 - Neue Lücke: KD-QAT-Arbeiten sind Vision/Encoder oder Großmodell; Kleinstmodell-Regime (QIRE) unbelegt.
 
 | Welle 3 c5 (Runde 2) | 4 | 4 neu zu 16 Bestand (ca. 20 %) |
+
+## Runde 3 (Welle 5, e6): Nachtrag
+1 Suche. Kapazitätslücke: optimaler Lehrer wächst linear mit Schülergröße unter 3B [arXiv:2311.07052] (Suchauszug); Lehrer nicht zu groß wählen. Weiter nichts zu ternären/Niedrigbit-Schülern mit rechengleicher Basis; DSL [arXiv:2502.08606]: bei festem Lehrer-CE kein besseres Skalengesetz als überwachtes Training. Kein Widerspruch.
+
+| Runde 3 (Welle 5, e6) | 1 | gering (~20 %); Lücke Destillation x Bits bleibt: Feld gesättigt |

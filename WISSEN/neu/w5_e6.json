@@ -1,0 +1,51 @@
+[
+ {
+  "jahr": 2025,
+  "zahlen": [
+   {
+    "wert": "bis 3x Durchsatz gegen FP",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "quantenbezug": "keiner",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e6",
+  "id": "arXiv:2505.18231",
+  "titel": "NSNQuant: A Double Normalization Approach for Calibration-Free Low-Bit Vector Quantization of KV Cache",
+  "autoren": "Donghyun Son, Euntae Choi, Sungjoo Yoo",
+  "feld": [
+   "K2",
+   "K4"
+  ],
+  "kernaussage": "Normalize-Shift-Normalize plus Hadamard richtet KV-Verteilung auf Standardnormal aus; ein wiederverwendbares Codebuch, kalibrierungsfrei, 1 und 2 Bit (Abstract bestätigt).",
+  "baseline_fuer_qire": "Gegner: Hadamard + festes VQ-Buch fuer KV bei 1-2 Bit.",
+  "bezug_qire_befund": [
+   "Z3b: Hadamard hier Teil der Verteilungsangleichung fuer ein festes Buch; kein Vergleich gegen g16+Lloyd"
+  ],
+  "stuetzt_widerspricht": "neutral"
+ },
+ {
+  "jahr": 2023,
+  "zahlen": [],
+  "quantenbezug": "keiner",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e6",
+  "id": "arXiv:2311.07052",
+  "titel": "Towards the Law of Capacity Gap in Distilling Language Models",
+  "autoren": "Zhang et al. (laut Suchauszug)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Optimaler Lehrer skaliert linear mit der Schuelergroesse fuer Modelle unter 3B (Suchauszug, Titel per arXiv bestätigt). Quantisierte/ternaere Schueler nicht behandelt.",
+  "baseline_fuer_qire": "Lehrerwahl fuer KD-Kleinmodelle: Lehrer nicht zu gross waehlen.",
+  "bezug_qire_befund": [
+   "Passt zur Luecke Kleinstmodell-KD"
+  ],
+  "stuetzt_widerspricht": "neutral"
+ }
+]

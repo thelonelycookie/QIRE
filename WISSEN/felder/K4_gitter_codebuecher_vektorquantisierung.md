@@ -64,3 +64,8 @@ Nur Abstracts/Suchauszüge; Zahlen ungeprüft. 4 Suchen (Rest wegen Sättigung g
 2. **Test: E8-Gitter vs. Lloyd-Skalar bei gleichen Bits, mit/ohne Hadamard, auf Tuning-Seeds.** Erwartung nach Theorie max. ~0,65 dB (~0,1 Bit). Belege: [arXiv:2606.23406], [arXiv:2402.04396]. Langweilig: Gewinn verschwindet gegen Gruppenskala+Entropiecodierung. Quantenbezug: keiner direkt.
 3. **Winkelcodebuch aus Clifford-/Kerdock-Phasen (Z4/Z8) für Paare nach Hadamard.** Belege: [arXiv:1904.07842], [arXiv:2603.27467]. Langweilig: gleichförmige Winkelquantisierung, Z4 ist nur 4 Winkel. Quantenbezug: direkt in der Struktur, klassisch in der Wirkung (I-038).
 4. **Dekodierkosten als Bewertungsachse** (Bytes gelesen, nicht nur Bits): Trellis/regelmäßiges Gitter vs. Tabelle. Belege: [arXiv:2609.02652]. Langweilig: reine Kernel-Eigenschaft.
+
+## Runde 3 (Welle 5, e6): Nachtrag
+1 Suche (Limit), Treffer nur über [arXiv:2608.25188]: Gaußquelle 2 Bit, Verzerrung etwa 0,118 Lloyd-Max, 0,089 E8P, 0,069 bei Dim 256 (Suchauszug, ungeprüft); E8P ist keine volle E8-Quantisierung. Keine Ablation E8 ohne Hadamard gefunden (QuIP# isoliert das Gitter nicht). Neue Quelle: NSNQuant [arXiv:2505.18231] (festes VQ-Buch nach Hadamard). Kein Widerspruch zu Z3b.
+
+| Runde 3 (Welle 5, e6) | 1 (geteilt mit K2) | gering; Lücke "Gitter ohne Rotation" bestätigt, Feld gesättigt |
