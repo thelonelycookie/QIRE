@@ -37,3 +37,13 @@
 1. **Rotation lohnt vor allem ohne feine Gruppenskalen.** Belege: [arXiv:2506.15689], [arXiv:2608.25188], Z3. Langweiligste Erklärung: Gruppenskalen fangen Ausreißer schon ab, Rotation wird redundant. Quantenbezug: keiner.
 2. **Gelernte Rotation ≈ Hadamard-Start.** Belege: ReSpinQuant, HARP-Initialisierung, BASE-Q. Langweiligste Erklärung: Optimierung bleibt im Becken des Starts. Konsequenz: Hadamard fest lassen, Budget in Skalen/Bias stecken. Quantenbezug: Analogie (feste Clifford-Gatter reichen).
 3. **Test-Idee:** Permutation + Hadamard (DuQuant-Zickzack) gegen reinen Hadamard auf Raven, gleiche Bytes. Langweiligste Erklärung: Permutation ändert nichts bei kleinen Modellen ohne massive Ausreißer. Quantenbezug: Analogie (SWAP-Gatter).
+
+## Runde 2 (Welle 4, d2)
+Suchen: Online-Hadamard-Laufzeit, Rotation im Gradientenpfad, Rotation + Bitflips, Fester vs. gelernter Hadamard bei gleichem Budget (5 Suchen).
+- Laufzeit: Fusion entscheidet (QuaRot: 3 Online-Hadamards ca. 0,26x Verlangsamung, fusioniert ca. 0,07x laut Survey [arXiv:2608.25188], ungeprüft); bei nicht-Zweierpotenz-Kopfzahl große Latenz [arXiv:2503.19353]. Kein sauberer End-to-End-W4A4-Wert gefunden.
+- Gradientenpfad: nur Feintuning mit Hadamard in Vor- und Rückwärtspass (HALO [arXiv:2501.02625]); Rotation im Vortraining mit STE nicht gefunden.
+- Bitflips: nur RoR (Householder, +9 % Latenz, Selbstbericht) [arXiv:2603.16382]; kein Hadamard-Test.
+- Fest vs. gelernt: keine Quelle mit gleichem Gruppenskalen-Budget; InfoQuant zeigt ca. 2 PPL-Punkte für gelernt (LLaMA, ohne Budgetkontrolle) [arXiv:2605.26175], PolarQuant ca. 98 % Gewinn schon durch Hadamard allein [arXiv:2603.29078]. Lücke bleibt.
+- Neu: QUAD [arXiv:2503.19353], Perplexity-Kritik [arXiv:2609.23125] (Fähigkeitstests ergänzen).
+- Neue Idee: Rotationsvergleich zusätzlich mit Retrieval-/Induktionstest bewerten; Bitflip-Robustheit von Hadamard in QIRE billig testbar (Analogie: Fehlerverteilung wie Stabilizer-Code).
+- Sättigung Runde 2: 2 neue Quellen / 5 Suchen, ca. 2 % von ~87; Feld weitgehend gesättigt.

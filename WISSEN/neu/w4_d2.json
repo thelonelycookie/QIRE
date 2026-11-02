@@ -1,0 +1,113 @@
+[
+ {
+  "id": "arXiv:2406.16450",
+  "titel": "Building on Efficient Foundations: Effectively Training LLMs with Structured Feedforward Layers",
+  "jahr": 2024,
+  "autoren": "Wei, Moalla, Pascanu, Gulcehre",
+  "feld": [
+   "K7"
+  ],
+  "kernaussage": "FFN aus Low-Rank bzw. Blockdiagonal von Null bis 1,3B trainiert; schlechte Trainingsdynamik (Lossspitzen), Abhilfe per Self-Guided Training; steilere Verlust-FLOPs-Kurven. Strukturierte Matrizen brauchen eigene Initialisierung/Trainingstricks.",
+  "zahlen": [
+   {
+    "wert": "steilere Skalenkurven, 1,3B",
+    "kontext": "Abstract; Zahlen nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starke Baseline für jede strukturierte FFN von QIRE (Training von Null, gleiche FLOPs).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3-Muster: einfache Struktur (Low-Rank) stark; Warnung für Hadamard-MLP: Trainingsdynamik muss geprüft werden"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d2"
+ },
+ {
+  "id": "arXiv:2503.19353",
+  "titel": "QUAD: Quantization and Parameter-Efficient Tuning of LLM with Activation Decomposition",
+  "jahr": 2025,
+  "autoren": "Hu, Chen, Li, Chen, Zhang",
+  "feld": [
+   "K3",
+   "K2"
+  ],
+  "kernaussage": "SVD-basierte orthogonale Transformation schiebt Ausreißer in wenige volle-Präzision-Dimensionen; Rest W4A4. Nebenbefund der Suche: Online-Hadamard ist nur bei Zweierpotenz-Kopfzahl effizient, sonst Latenz (Qwen-2.5-7B, Llama-2-13B); Latenzaussage aus Suchauszug, nicht im Abstract.",
+  "zahlen": [
+   {
+    "wert": "94-96 % Genauigkeit W4A4; 98 % mit PEFT",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner zu fester Hadamard: datengetriebene Rotation plus FP-Ausreißerkanäle (mehr Bytes).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: Rotation ist nur ein Hebel; gleiche Bytes vergleichen"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d2"
+ },
+ {
+  "id": "arXiv:2609.23125",
+  "titel": "Perplexity Cost Understates What Activation Quantisation Breaks",
+  "jahr": 2026,
+  "autoren": "Sathyanarayanan",
+  "feld": [
+   "K3",
+   "K2"
+  ],
+  "kernaussage": "Perplexity verdeckt Funktionsverlust (Retrieval 0,554 bei PPL 1,2-1,5x). Quantisierung in rotierter Basis rettet Induktion von 0,001 auf 0,980, Retrieval nur 0,694. Mahnt, Rotationsvergleiche nicht nur an Perplexität zu messen.",
+  "zahlen": [
+   {
+    "wert": "Induktion 0,001->0,980 (rotiert, 3 Bit), Retrieval 0,694",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Bewertungsmaßstab: Fähigkeitstests zusätzlich zu Perplexität.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: faire Gegner nur an Perplexität verglichen? Zusätzlich Retrieval-/Induktionstest erwägen"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d2"
+ },
+ {
+  "id": "arXiv:2512.05620",
+  "titel": "Hyperparameter Transfer Enables Consistent Gains of Matrix-Preconditioned Optimizers Across Scales",
+  "jahr": 2025,
+  "autoren": "Qiu, Chen, Phan, Lei, Wilson",
+  "feld": [
+   "K7",
+   "N1"
+  ],
+  "kernaussage": "muP-Transfer für Shampoo/SOAP/Muon: Weight Decay ~1/Breite, Speedup 1,4x über AdamW (190M-1,4B) nur bei richtiger Skalierung. Nur dichte Matrizen; für strukturierte Schichten liefert nur Compute Better Spent [arXiv:2406.06248] muP-Regeln.",
+  "zahlen": [
+   {
+    "wert": "1,4x Speedup, 190M-1,4B",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Lehre: unfaire Hyperparameter machen Struktur-Vergleiche wertlos; muP je Struktur nötig.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Fairness der Tuning-Budgets bei Hadamard-MLP vs Low-Rank"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d2"
+ }
+]

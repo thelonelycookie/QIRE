@@ -37,3 +37,10 @@
 1. **Fairer Test fehlt: Hadamard-MLP vs. Low-Rank-FFN bei gleichen Parametern/FLOPs.** Belege: [arXiv:2407.09835], [arXiv:2406.06248]. Langweiligste Erklärung: Low-Rank ist gleich gut oder besser (siehe [arXiv:2406.11307]). Quantenbezug: Analogie (Walsh-Hadamard-Gatter).
 2. **Compute-Gleichheit entscheidet.** Strukturierte Schichten sparen Parameter, aber nur BTT-artige Parametrisierung gewinnt bei Compute. Langweiligste Erklärung: Parameterzahl ≠ FLOPs. Prüfen, bevor QIRE "effizienter" sagt.
 3. **WHT-Ausgabeprojektion als billiger Zusatz** [arXiv:2603.08343] zu QIRE testen (Gewicht sparen, danach quantisieren). Langweiligste Erklärung: Gewinn nur bei kleiner Modellgröße, Autoren-Selbstbericht, unabhängig nicht bestätigt. Quantenbezug: Analogie.
+
+## Runde 2 (Welle 4, d2)
+Suchen: Monarch/BTT in Kleinmodellen, muP für strukturierte Matrizen, Fastfood/ACDC/Kronecker in Sprachmodellen (3 Suchen).
+- Von Null trainierte strukturierte FFN: Wei et al. [arXiv:2406.16450] (Low-Rank/Blockdiagonal bis 1,3B, Trainingsdynamik problematisch, Self-Guided Training); Monarch GPT-2 ca. 2x Speedup bei gleicher Qualität [arXiv:2204.00595]. Fastfood/ACDC in Sprachmodellen: nichts gefunden. Monarch-Pretraining 2025–26 in Kleinmodellen: nichts gefunden.
+- muP: nur Compute Better Spent [arXiv:2406.06248] liefert Regeln für strukturierte Schichten (Init/LR weichen vom dichten Fall ab); Transfer bei Matrix-Optimierern nur dicht [arXiv:2512.05620]. Konsequenz: Hadamard-MLP-Test braucht eigenes LR-Tuning je Variante.
+- Lücke bleibt: Hadamard-MLP vs. Low-Rank bei gleichen FLOPs, Kleinmodell, fair getunt.
+- Sättigung Runde 2: 2 neue Quellen / 3 Suchen, ca. 5 % von ~37; Feld gesättigt.
