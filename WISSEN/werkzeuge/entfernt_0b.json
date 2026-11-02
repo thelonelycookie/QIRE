@@ -1,0 +1,38 @@
+[
+ {
+  "id": "url:https://open.hpi.de/courses/qc-schule2024",
+  "titel": "nicht gefunden",
+  "kernaussage": "Jugend forscht / Schule; Kein eigenes Quantenhardware-Programm gefunden; Wege: HPI-Onlinekurs Quantencomputing (kostenlos), Juelicher „Quantum Computing @ School\"/JUNIQ-Workshops mit Zugang zu IBM und D-Wave, Betreuer an Uni/Forschungszentrum fragen; ;; [nur Auszug]. Konkretes Förderprogramm für Schüler-Rechenzeit: . (Kontext aus 08_hardware.md)",
+  "grund": "Kein Literatureintrag: nur ein Hinweis auf Kursangebote/Schulprogramme (HPI-Onlinekurs), keine wissenschaftliche Quelle."
+ },
+ {
+  "id": "bib:lu2023qasbench",
+  "titel": "QAS-Bench: Rethinking Quantum Architecture Search and A Benchmark",
+  "kernaussage": "Benchmark für Quantum Architecture Search: vergleicht Brute Force, Simulated Annealing, genetische Algorithmen, Reinforcement Learning und differenzierbare Suche; Simulated Annealing skaliert schwach.",
+  "grund": "Duplikat von url:https://proceedings.mlr.press/v202/lu23f/lu23f.pdf (Befund-Bezüge und Herkunft übernommen)"
+ },
+ {
+  "id": "url:https://research.google/pubs/barren-plateaus-in-quantum-neural-network-training-landscapes/",
+  "titel": "Barren plateaus in quantum neural network training landscapes",
+  "kernaussage": "Gradientenvarianz zufälliger tiefer parametrisierter Quantenschaltungen fällt exponentiell mit der Qubitzahl (Barren Plateaus).",
+  "grund": "Duplikat von bib:mcclean2018bp (Bezüge, Herkunft, Zahlen übernommen)"
+ },
+ {
+  "id": "url:https://proceedings.mlr.press/v235/qiu24f.html:",
+  "titel": "Compute Better Spent: Replacing Dense Layers with Structured Matrices",
+  "kernaussage": "Low-Rank, Monarch, Kronecker und BTT ersetzen dichte Schichten; Skalierung von Breite und Lernrate hängt von der Struktur ab; BTT erreicht dichtes ViT-S/32 auf ImageNet mit 3,8-fach weniger Rechenaufwand. Nur Auszug gesehen.",
+  "grund": "Duplikat von arXiv:2406.06248 (Bezüge, Herkunft, Zahlen übernommen)"
+ },
+ {
+  "id": "url:https://pubmed.ncbi.nlm.nih.gov/38177434/:",
+  "titel": "Theory of overparametrization in quantum neural networks",
+  "kernaussage": "Überparametrisierung beginnt bei einer kritischen Parameterzahl M_c ≤ dim(Lie-Algebra); darunter gibt es falsche lokale Minima, darüber ist die Schaltung gut trainierbar.",
+  "grund": "Duplikat von arXiv:2109.11676 (Bezüge, Herkunft, Zahlen übernommen)"
+ },
+ {
+  "id": "url:https://www.scottaaronson.com/papers/chp6.pdf",
+  "titel": "Improved simulation of stabilizer circuits",
+  "kernaussage": "Gottesman-Knill: Clifford-Schaltungen sind klassisch effizient simulierbar (CHP-Simulator). Im Projekt als Hintergrund für eine multiplikationsfreie Merkmalsabbildung (Fastfood/Walsh-Hadamard) herangezogen.",
+  "grund": "Duplikat von arXiv:quant-ph/0406196 (Bezüge, Herkunft, Zahlen übernommen)"
+ }
+]

@@ -19,7 +19,7 @@ FELDER = {
 }
 QB = {"direkt", "analogie", "keiner"}
 SW = {"stuetzt", "widerspricht", "neutral", "unklar"}
-ID_RE = re.compile(r"^(arXiv:\d{4}\.\d{4,5}|doi:.+|url:.+)$")
+ID_RE = re.compile(r"^(arXiv:(\d{4}\.\d{4,5}|[a-z-]+/\d{7})|doi:.+|url:.+|bib:.+)$")
 DATUM_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 

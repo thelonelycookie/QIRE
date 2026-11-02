@@ -1,0 +1,177 @@
+2308.11616|K6,F6|direkt|Eine aus der Magie-Theorie abgeleitete Klasse von Ähnlichkeitstransformationen vereinfacht Vielteilchen-Hamiltonians klassisch vorab und verkürzt so die nötige Schaltungstiefe für Quantensimulationen bei Null- und endlicher Temperatur.
+2505.17185|K6|direkt|Untersucht den Ressourcenbedarf des QAOA mit der Ressourcentheorie der Nichtstabilizerness (Magie) und fragt, welche Rolle diese Ressource für den Erfolg der Quantenoptimierung spielt.
+2512.24685|K3,K6|direkt|Exakter, schneller Algorithmus für die Stabilizer-Rényi-Entropie (Magiemaß) über die schnelle Walsh-Hadamard-Transformation mit XOR-Operationen; ersetzt Brute-Force-Auswertung für allgemeine Vielteilchenzustände.
+2406.04190|K6|direkt|Zeigt, dass Stabilizer-Rényi-Entropien ihren Maximalwert bei einer kritischen Zahl von Nicht-Clifford-Gattern sättigen; die Sättigung dient als universelles Maß für Quantenkomplexität.
+quant-ph/0007081|K6|direkt|Führt das Schmidt-Maß als Verschränkungsmaß für Mehrteilchensysteme ein (Verallgemeinerung des Schmidt-Rangs, Entanglement-Monotone unter lokalen Operationen).
+2505.15917|K6|direkt|Senkt die Schätzung für das Faktorisieren von RSA-2048 auf unter eine Million verrauschter Qubits und unter eine Woche Laufzeit, u. a. durch Magic-State-Cultivation und effizientere Arithmetik.
+1905.06903|K6|direkt|Zeigt, dass Magic-State-Destillation deutlich billiger ist als angenommen, indem Schaltungen so geschrieben werden, dass fehlerdetektierende Qubits getrennt vom Rest behandelt werden.
+quant-ph/0403025|K6,F1|direkt|Primärquelle zur Magic-State-Destillation: Mit idealen Clifford-Gattern und verrauschten Hilfs-Qubits lässt sich universelle Quantenberechnung erreichen, sofern der Hilfszustand eine Schwelle überschreitet.
+2203.10064|K6|direkt|Neues Verfahren zur Approximation von Ein-Qubit-Unitaritäten aus endlichen Gattersätzen; verkürzt die Sequenzlänge um den Faktor 7/9, gemischte Kanäle sparen weitere Gatter.
+2504.15990|K6|direkt|Architekturanpassungen für Reinforcement-Learning-Netze verbessern die approximative Clifford+T-Schaltungssynthese.
+2607.17872|K5,K6|direkt|Die Verschränkungsgeometrie (MPS- und Baum-Tensornetz-Schaltungen mit konstanter Bonddimension) bestimmt gemeinsam, ob Schaltungsschneiden billig, die Schaltung klassisch schwer und trainierbar ist.
+2508.06131|K6|direkt|Untersucht, wie klassische Surrogate trainierter Quantenmodelle für reale QML-Anwendungen skalieren, um fehlenden Hardwarezugang zu umgehen.
+2406.07072|K6|direkt|Formalisiert den Zusammenhang zwischen Trainierbarkeit und Dequantisierung variationaler Quantenmodelle und diskutiert, wann beide zugleich erfüllbar sind.
+2308.01432|F6,K6|direkt|Klassische Simulation von Quantendynamik über Lie-Algebren: effizient, wenn die dynamische Lie-Algebra polynomiell groß ist; verallgemeinert Clifford-, Matchgate- und Tensornetz-Methoden.
+2308.09109|F6,K6|direkt|LOWESA: klassisch aufgebaute Surrogat-Landschaft von Erwartungswerten, mit der ganze Familien von Hamiltonians simuliert werden (Fallstudie: 127-Qubit-Ising-Modell).
+2409.01706|F6,K6|direkt|Klassischer Pauli-Propagations-Algorithmus schätzt Observablen zufälliger unstrukturierter Quantenschaltungen für die meisten Fälle effizient.
+2406.11805|K6|direkt|Sagt die Lernbarkeit von Quantum Neural Networks aus Landschaftsfluktuationen voraus, ohne aufwändiges Training (Clifford-Sampling).
+2404.17560|K6,F6|direkt|Initialisierung eines Floquet-strukturierten Ansatzes in der many-body-lokalisierten Phase vermeidet Barren Plateaus und macht variationale Quantensimulation skalierbar.
+2405.00781|K6|direkt|Übersichtsartikel zu Barren Plateaus in variationalem Quantenrechnen: Ursachen, Formalisierung und Gegenmaßnahmen.
+2109.11676|K6,N1|direkt|Theorie der Überparametrisierung in Quantum Neural Networks: ab einer kritischen Parameterzahl (höchstens die Dimension der dynamischen Lie-Algebra) sättigt der Rang der Quanten-Fisher-Matrix.
+2203.09376|K6|direkt|Gauß-verteilte Initialisierung der Parameter tiefer variationaler Schaltungen vermeidet Barren Plateaus; Gradienten fallen nicht mehr exponentiell.
+2308.11269|K5,K6|analogie|Übersicht über quanten-inspiriertes maschinelles Lernen (QiML): klassische Verfahren, die Prinzipien der Quantenmechanik nutzen, mit Systematik und offenen Fragen.
+2604.14287|K5,K6|analogie|Überblick über quanten-inspirierte Tensornetze in ML-Modellen: komprimierte Darstellungen aus der Vielteilchenphysik, die nur relevante Korrelationen erfassen.
+2011.02832|N1|keiner|Methodikquelle: typische Fehler im ML-Entwicklungszyklus (schwache Datenhygiene, mangelnde statistische Strenge) und Empfehlungen für saubere Auswertung.
+2504.15964|K6|direkt|Zeigt Quantenlernvorteile, die aus dem Lernprozess selbst entstehen und nicht nur aus der Schwierigkeit, die Zielfunktion auszuwerten.
+2601.01576|N2|keiner|Methodikwerkzeug: LLM-gestütztes Agentensystem, das Neuheit wissenschaftlicher Arbeiten durch Literaturrecherche und Belege bewertet.
+2104.07085|K3,K7|analogie|Schicht aus schneller Walsh-Hadamard-Transformation und Smooth-Thresholding ersetzt 1x1-Faltungen in tiefen Netzen und spart Parameter.
+2506.16418|K3,K7,F3|keiner|Vergleicht FFT, Walsh-Hadamard- und Kosinustransformation in ResNet50 hinsichtlich Rechenaufwand, Energie und Klassifikationsgenauigkeit.
+2407.11033|N2|keiner|Hadamard-Adapter: extrem parameter-effizientes Feintuning vortrainierter Sprachmodelle über elementweise Skalierung (Hadamard-Produkt) statt voller Gewichtsupdates.
+1810.03644|K6,N8|direkt|Beweist Konvexität der Quanten-Informationsflaschenhals-Funktion und gibt ihr eine operationelle Interpretation als verlustbehaftete Kompression.
+2307.15712|N5|analogie|Optische neuronale Netze, die mit wenigen Photonen je Aktivierung am Quantenrauschlimit arbeiten und Rauschen als stochastische Ressource nutzen; MNIST-Genauigkeit bleibt trotz extrem niedriger Energie hoch.
+2512.20492|K6|direkt|End-to-End-Optimierung von Quantum Machine Learning unter endlichem Messbudget (Single-Shot), direkt auf das Aufgabenrisiko, getestet an Bayes'scher Quantenmetrologie.
+2502.11412|K6,N8|direkt|Entscheidungsbaum-Klassifikator für Quantenzustände, der Informationsgewinn über bedingte Wahrscheinlichkeiten berechnet und pro Messschuss die informativste Observable wählt.
+2606.26312|K6,N8|direkt|Variationaler Autoencoder lernt aufgabenspezifische Quanten-Einbettungen klassischer Daten für Quantum Machine Learning.
+1901.00555|N8|keiner|Einführender Leitfaden zur Fano-Ungleichung als Werkzeug für informationstheoretische Unmöglichkeitsaussagen in Statistik und maschinellem Lernen.
+2311.12618|K6,N8|direkt|Zeigt Grenzen von Measure-first-Protokollen (Classical Shadows, Shadow Tomography): eine fest gewählte Messstrategie kann bei konstruierten Aufgaben prinzipiell nicht mit adaptivem Quantenlernen mithalten.
+2412.03381|K6|direkt|Verbessert die Median-of-Means-Schätzung der Classical Shadows mit engeren Konstanten und reduziert den Messaufwand.
+2108.06150|K6|direkt|Beweist asymptotisch optimale Schaltungstiefe für Quantenzustandspräparation und allgemeine Unitaritätssynthese in Abhängigkeit von der Zahl der Hilfsqubits.
+2202.11302|K6|direkt|Optimale Schaltungen für kontrollierte Zustandspräparation und verbesserte Unitaritätssynthese bei beliebiger Zahl von Hilfsqubits.
+2111.03132|K6,N8|direkt|Zustandspräparation für niedrigen Rang: nutzt die Low-Rank-Struktur der Daten, um den exponentiellen CNOT-Aufwand deutlich zu senken.
+2303.01562|K5|analogie|Präparation von Normalverteilungen als Quantenzustand über Matrix-Product-States mit sehr flachen Schaltungen (eine Lage Zwei-Qubit-Gatter) und Hardware-Demonstration.
+2311.07666|K5,F3|analogie|Bilddaten mit schnell abfallendem Fourier-Spektrum lassen sich über niedrige Fourier-Moden effizient als MPS darstellen und mit flachen Quantenschaltungen laden.
+2204.11170|K5|analogie|Datenkompression per Tensornetz vor dem Quantenlernen, sodass reale Daten auf wenige Qubits passen.
+2307.01696|K5,F2|analogie|Präparation von Matrix-Product-States mit logarithmischer Tiefe; der Algorithmus nutzt eine Renormierungsgruppen-Transformation, die Tiefenuntergrenze ist logarithmisch in der Systemgröße.
+2404.16083|K5|direkt|Adaptive Schaltungen mit Zwischenmessungen und Feedforward präparieren Matrix-Product-States in konstanter Tiefe.
+2307.08384|K3,K6|direkt|Walsh Series Loader: Näherung von Quantenzuständen aus reellen Funktionen per abgeschnittener Walsh-Reihe mit qubitzahl-unabhängiger Schaltungstiefe.
+2410.09121|K6|direkt|Vergleicht Verfahren, klassische Daten in Quantenzustände zu kodieren (u. a. Amplituden-, Winkelkodierung) nach Qubitbedarf und Genauigkeit.
+2507.22039|K6|direkt|Analysiert Quantenbild-Darstellungen (FRQI, NEQR u. a.) für überwachte Bildklassifikation.
+2103.13211|K6|direkt|Approximative Amplitudenkodierung mit flachen parametrisierten Schaltungen als Alternative zur exakten Kodierung; lädt auch Vorzeichen reeller Daten.
+2606.05387|K6|direkt|Übersicht und Praxisleitfaden zur Merkmalskodierung in QML nach Ressourcenkosten, Ausdrucksstärke und Rauschrobustheit.
+2604.06135|K6|direkt|Shot-based Quantum Encoding: Datenkodierung über Messschüsse als flache Alternative zu Winkel-, Amplituden- und Basiskodierung.
+2609.32025|K6|direkt|Zeigt, dass die Verschränkungslage einer Quantum-Circuit-Born-Machine eine Clifford-Schaltung sein kann (keine Nichtstabilizerness) und nur Ein-Qubit-Rotationen trainiert werden müssen.
+2511.03556|K6|direkt|Erweitert Clifford Data Regression zur Fehlerminderung bei VQE mit Energie-Sampling und Extrapolation (H4-Molekül).
+2412.01311|K6|direkt|Reduziert den Sampling-Overhead der Probabilistic Error Cancellation durch Propagation von Pauli-Fehlern.
+2408.06482|K6|direkt|Demonstriert VQE mit CAFQA-Startzustand auf einem Ionenfallen-Quantencomputer.
+2509.04955|K6,F6|direkt|Skalierbare parallele Simulation von Quantenschaltungen auf CPU- und GPU-Systemen.
+2406.06210|K6|direkt|Übersicht über Quantum Architecture Search (automatische Schaltungssuche) mit Methoden und offenen Problemen.
+2401.09393|K6|direkt|Élivágar: effiziente, rauschrobuste Quantenschaltungssuche für Klassifikation ohne teures Training aller Kandidaten.
+2407.12506|K3,K6|direkt|Klassifikation und Rekonstruktion bei Single-Pixel-Imaging mit Hadamard-Mustern, klassische und Quanten-Netze im Vergleich.
+2609.10974|K6|direkt|Bestimmt die exakte Konstante der Kopienzahl, die zum Lernen eines n-Qubit-Stabilizerzustands nötig ist (linear in n).
+2607.02444|K6|direkt|Optimales Testen und Lernen von Stabilizerzuständen mit begrenztem kohärenten Quantenspeicher.
+2604.15405|K6|direkt|Optimale dichte Materialisierung des Stabilizer-Formalismus (Wellenfunktion/Clifford-Matrix) ohne polynomiellen Zusatzaufwand.
+2408.03351|K6|direkt|Hybrides Quanten-Klassisch-Modell für MNIST: Autoencoder komprimiert Bilder auf 64 Dimensionen, die auf einen 5-Qubit-Zustand abgebildet und quantenseitig klassifiziert werden.
+1605.04711|K8,K1|keiner|Ternary Weight Networks: Gewichte auf {-1, 0, +1} mit Skalierungsfaktor; die Skalierung und Schwelle werden durch Minimierung des euklidischen Abstands zu den Gleitkommagewichten gewählt.
+2508.08350|N4,N2|keiner|Fuzzy-Pattern Tsetlin Machine: lockert die Alles-oder-nichts-Klauselauswertung, wodurch weit weniger Klauseln und Literale (Pruning) nötig sind.
+2212.10650|K7,N2|keiner|KronA: parameter-effizientes Feintuning vortrainierter Sprachmodelle mit Kronecker-Produkt-Adaptern statt Low-Rank-Updates.
+2502.06916|K6,K7|analogie|QuIC: quanten-inspirierte Adapter (Hamming-Gewicht-erhaltende Schaltungen) für parameter-effizientes Feintuning mit sehr wenigen zusätzlichen Parametern.
+2512.14237|N2|keiner|Ladder Side Tuning: leichtes Seitennetz für Feintuning großer Sprachmodelle senkt den Speicher des Backward-Passes gegenüber QLoRA.
+2601.07824|K6|direkt|Effiziente numerische Berechnung von Magie (Stabilizer-Rényi-Entropie, Mana) für Zustandsvektoren.
+2503.15482|K6|direkt|Natürliche Quantisierung neuronaler Netze: Neuronen als Qubits, Aktivierungen über Quantengatter und Messungen; einfachster Fall sind Ein-Qubit-Rotationen mit gewichtsabhängigen Winkeln.
+2603.29078|K1,K3|analogie|PolarQuant: Post-Training-Gewichtsquantisierung mit blockweiser Normierung, Walsh-Hadamard-Rotation zu näherungsweise gaußschen Koordinaten und optimaler Gauß-Quantisierung; nahezu verlustfreie LLM-Kompression.
+2404.00456|K1,K2,K3|analogie|QuaRot: orthogonale Rotationen (Hadamard) entfernen Ausreißer im Hidden State, ohne die Ausgabe zu ändern; Gewichte, Aktivierungen und KV-Cache lassen sich durchgängig in 4 Bit quantisieren.
+2405.16406|K1,K2,K3|analogie|SpinQuant: gelernte Rotationsmatrizen (Cayley-Optimierung) mindern Quantisierungsfehler durch Ausreißer bei der LLM-Quantisierung von Gewichten, Aktivierungen und KV-Cache.
+2506.13514|K5|analogie|TensorSLM: Tensor-Train-Kompression der Embeddings kleiner Sprachmodelle für energieeffiziente Ausführung auf schwacher Hardware.
+2505.13208|K6|direkt|Effiziente Erzeugung parametrisierter Quantenschaltungen aus langen Texten (DisCoCirc-Rahmen), damit ganze Dokumente als Schaltung kodiert werden.
+2408.06061|K6|direkt|QDisCoCirc: Quantenadaption des kompositionellen Sprachrahmens DisCoCirc für interpretierbare Textverarbeitung auf Quantencomputern.
+2603.03318|K6|analogie|Quanten-inspirierte Self-Attention in einem großen Sprachmodell, an der Schnittstelle von Transformer und Quanten-NLP.
+2411.13520|K6|direkt|Hybrider Quanten-Klassisch-Vision-Transformer mit quantenorthogonalen Netzen (QONN) für Anwendungen der Hochenergiephysik.
+2504.03192|K6|direkt|Systematische Übersicht über Quanten-Transformer: Architekturen, Herausforderungen und Ausblick.
+2605.25365|K6|direkt|Quantenparametrisierte Self-Attention für Bildklassifikation: ersetzt die Scoring-Funktion der Attention durch eine Quantenschaltung.
+1603.06560|N5|keiner|Hyperband: beschleunigt Zufallssuche für Hyperparameter durch adaptive Ressourcenzuteilung und frühes Abbrechen (Bandit-Ansatz).
+1701.06538|N4,N2|keiner|Sparsely-gated Mixture-of-Experts: bedingte Berechnung steigert die Modellkapazität stark, ohne dass der Rechenaufwand proportional wächst.
+1411.4028|K6|direkt|Ursprungsarbeit zum Quantum Approximate Optimization Algorithm (QAOA) für kombinatorische Optimierung; Approximationsgüte steigt mit der Tiefe p.
+1808.09830|N2,N5|keiner|Neuronale Architektursuche, die neben Genauigkeit auch Latenz und Energie auf der Zielhardware berücksichtigt (Pareto-optimal).
+2405.08319|K6|direkt|Messbasiertes Quantum Machine Learning (MBQC) als Alternative zum Schaltungsmodell.
+2412.08207|K6|direkt|Messbasiertes Quanten-CNN: Deep Learning über Messungen auf Graphzuständen statt dynamischer Gattersteuerung.
+0812.4625|K6|direkt|Klassifikation aller 8-Qubit-Graphzustände in 101 Äquivalenzklassen unter lokalen Clifford-Operationen, mit minimalen CZ-Gatterzahlen und Schmidt-Maß.
+1807.10296|K6|direkt|Neuer Algorithmus für die Robustness of Magic und Symmetrien des Stabilizer-Polytops.
+2504.10595|K5,K6|direkt|Bildklassifikation auf Quantinuum H2 und IBM Heron mit bis zu 72 Qubits; hierarchisches Lernen (Tensornetz-artig) lädt Bilder bis 2 Mio. Pixel approximativ.
+1905.01426|K5,K6|analogie|Klassifikator auf Basis von Matrix Product States, übertragen aus der Tensornetz-Physik.
+2608.15617|K6|direkt|Benchmark von Fidelity-Kernel-SVMs und variationalen Klassifikatoren gegen sechs klassische Modelle bei Angriffserkennung in Stromnetzen; die Evaluationswahl entscheidet über das Ergebnis.
+2304.04932|K6|direkt|Robuste Dequantisierung der Quantum Singular Value Transformation und QML-Algorithmen, auch bei approximativem Sampling-Zugang.
+2508.00230|K7,N2|keiner|Khatri-Rao-Produkt für höheren effektiven Rang bei parameter-effizientem Feintuning als Alternative zu LoRA.
+2606.21686|K6|direkt|Leitet Fehlergrenzen bei endlicher Schusszahl für Probabilistic Error Cancellation und Clifford Data Regression her und bestimmt Betriebsfenster.
+2608.24891|K6,N8|direkt|Aufteilung eines Messbudgets in Trainingszustände und Schüsse je Zustand bei Quantenklassifikatoren, mit Generalisierungsgarantien bei endlicher Schusszahl.
+2510.10964|K1,K2,N1|keiner|Für Reasoning-Modelle ist 4-Bit nicht universell speicheroptimal, weil der KV-Cache statt der Modellgröße den Speicher dominiert; das beste Bit-Budget hängt von der Modellgröße ab (1.700 Inferenzszenarien).
+2605.01188|N1|keiner|Untersucht, wie die Informationsdichte von Tokens (Bytes je Token) die Skalengesetze beeinflusst, anhand von 988 trainierten Modellen mit verschiedenen Tokenisierungen.
+2602.17837|K1|keiner|Gezielter Bit-Flip-Angriff auf LLM-Gewichte im Arbeitsspeicher; zeigt die Verwundbarkeit quantisierter Modelle gegen Fehlerinjektion.
+2605.18475|K1|keiner|GAMMA: globale Bit-Zuteilung für Mixed-Precision-Quantisierung von LLMs unter beliebigen Budgets, ohne Neuberechnung je Budget und ohne Quantization-Aware-Training.
+2509.17791|K8,K2|keiner|Systematische Untersuchung des Designraums für FP4-Training großer Modelle; vergleicht Stabilisierungstechniken auf Rechenaufwand und Genauigkeit.
+2504.08850|N2|keiner|SpecEE: spekulatives frühes Beenden (Early Exit) mit leichtem Prädiktor beschleunigt die LLM-Inferenz.
+2404.16710|N2|keiner|LayerSkip: Layer-Dropout beim Training plus Early-Exit-Verlust ermöglichen frühes Beenden und selbstspekulatives Decodieren ohne Zusatzmodell.
+2310.02410|K1,N2|keiner|MoQE: Niedrigbit-Quantisierung nur der Experten-Gewichte von Mixture-of-Experts-Modellen senkt Speicher und ist robuster als bei dichten Modellen.
+2606.02823|K1,K3,K4|keiner|Qift: Zwei-Bit-Gewichtsquantisierung mit verschiebungsfreundlicher Stufenmenge ohne Null in einer Hadamard-rotierten Pipeline für W2A4/KV4-Inferenz.
+2604.18837|K6|direkt|Rigoroser Benchmark von Quantenkernel-SVMs gegen klassische Baselines auf neun tabellarischen Datensätzen, mit Hardware-Validierung.
+2111.09079|K6|direkt|Härte der klassischen Simulation der Quantum Singular Value Transformation (Dequantisierung) und Folgen für Quantenchemie und Quanten-PCP.
+1911.05035|N2,F6|analogie|Rekurrente Netze aus Hamilton-Dynamik: Gradienten bleiben kontrollierbar, wodurch lange Abhängigkeiten gelernt werden können.
+2605.13383|N2,F6|analogie|Analysiert Signalausbreitung in GNNs über Observablen jenseits von Oversquashing; nutzt quantenwanderungs-artige unitäre Propagation.
+2608.20738|N2,F6|analogie|Graph-Netz auf Basis zeitkontinuierlicher Quantenwanderungen (CTQW): der unitäre Propagator verhindert Over-Smoothing und funktioniert auf heterophilen Graphen.
+1410.3831|F2,K6|analogie|Exakte Abbildung zwischen der variationellen Renormierungsgruppe und tiefen Netzen (restricted Boltzmann machines).
+1909.13334|F6,N2|keiner|Symplektische RNNs lernen Hamilton-Dynamik physikalischer Systeme aus Trajektorien mit symplektischer Integration.
+2102.04394|K6,N6|analogie|Dichtematrizen und Random Features als Bausteine für Lernverfahren: Dichteschätzung und Klassifikation mit quanten-inspiriertem Formalismus.
+2608.04028|F5,N2,N6|analogie|Lindblad-inspiriertes Reservoir Computing mit getrennter Rotation und Dissipation auf mehreren Zeitskalen.
+2504.12285|K8|keiner|BitNet b1.58 2B4T: erstes offenes natives 1-Bit-(ternäres) LLM mit 2 Mrd. Parametern, auf 4 Bio. Token trainiert, mit vergleichbarer Leistung zu Vollpräzisionsmodellen.
+2503.14456|N2|keiner|RWKV-7 Goose: Sequenzarchitektur mit konstantem Speicher und konstanter Zeit je Token und ausdrucksstarker dynamischer Zustandsentwicklung.
+2407.16674|N2,N7|keiner|Fairer Vergleich von KAN und MLP bei gleicher Parameter- und FLOP-Zahl: KAN gewinnt nur bei symbolischer Formeldarstellung.
+2406.14529|N2,N7|keiner|Benchmark von Kolmogorov-Arnold-Netzen auf realen tabellarischen Datensätzen im Vergleich zu MLPs.
+2310.04564|N4,N7|keiner|ReLU in LLMs nutzt Aktivierungs-Sparsity, spart Rechenaufwand bei der Inferenz mit kaum Genauigkeitsverlust.
+2407.10969|N4|keiner|Q-Sparse: Top-K-Sparsifizierung der Aktivierungen mit Straight-Through-Estimator ermöglicht vollständig dünn aktivierte LLMs.
+2503.16672|N2,N4|keiner|2:4-Sparsity auf Aktivierungen (Squared-ReLU) beschleunigt FFN in Training und Inferenz ohne Genauigkeitsverlust.
+2303.06349|N2|keiner|Linear Recurrent Unit: stabile, diagonale RNNs erreichen die Leistung tiefer State-Space-Modelle auf langen Sequenzen.
+2312.00752|N2|keiner|Mamba: selektive State-Space-Modelle mit linearer Laufzeit als Alternative zur Transformer-Attention.
+2407.04149|N7,N2|keiner|SineKAN: Kolmogorov-Arnold-Netze mit sinusförmigen statt Spline-Aktivierungen.
+2606.30461|K3,N2|analogie|MuonSSM: stabilisiert State-Space-Modelle durch Orthogonalisierung der Zustandsupdates (Muon-artig) und verbessert Langzeitgedächtnis.
+2504.18415|K8,K2,K3|keiner|BitNet v2: native 4-Bit-Aktivierungen für 1-Bit-LLMs durch H-BitLinear, eine Online-Hadamard-Transformation, die Aktivierungsausreißer glättet.
+2408.01008|K5|analogie|TT-LoRA: Tensor-Train-Niedrigrang-Adaption für parameter-effizientes LLM-Feintuning.
+2402.11417|K5|analogie|LoRETTA: Tensor-Train-Adaption für extrem parameterarmes Feintuning großer Sprachmodelle.
+2506.09105|K5|analogie|MetaTT: ein gemeinsamer Tensor-Train-Adapter faktorisiert alle Transformer-Teilmodule (Schicht, Matrixtyp, Köpfe) für parameter-effizientes Feintuning.
+2311.05050|K5,K6|analogie|Tensornetz-Born-Maschine (MPS) mit trainierbarem Token-Embedding für sequenzielles generatives Lernen.
+2502.16982|N2|keiner|Muon-Optimierer (Matrix-Orthogonalisierung) skaliert auf große LLMs durch Weight Decay und angepasste Update-Skalierung.
+2505.02222|N1|keiner|Muon erweitert die Pareto-Front gegenüber AdamW im Rechenzeit-Kompromiss und bleibt bei großen Batchgrößen datenseffizient.
+2404.03708|F4,N2|keiner|Dendriten-inspirierte künstliche Netze erreichen mit weit weniger trainierbaren Parametern genaue und robuste Ergebnisse.
+2004.09569|F3,K7|analogie|Komprimiert lineare Schichten neuronaler Netze mit lernbaren schnellen Wavelet-Transformationen.
+2603.07975|N5|keiner|Verschachtelte diffraktive optische Netze übertragen Information passiv durch unbekannte Streumedien; Randbezug zu optischem Rechnen.
+2601.04111|F6|keiner|Stigmergischer optimaler Transport: Schwarmnavigation als stochastisches Kontrollproblem (Randbezug, keine ML-Effizienzquelle).
+2110.06081|N7,N2|keiner|Analysiert Ausdrucksstärke und Trainierbarkeit von Netzen aus quadratischen Neuronen, die das Skalarprodukt durch eine quadratische Funktion ersetzen.
+2401.06118|K1,K4|keiner|AQLM: extreme LLM-Kompression auf 2 bis 3 Bit je Parameter mit additiver Multi-Codebook-Quantisierung.
+2410.10714|N6,K1|keiner|SeedLM: komprimiert Gewichtsblöcke zu Seeds von Pseudozufallsgeneratoren plus wenigen Koeffizienten und rekonstruiert sie zur Laufzeit.
+2402.02750|K2|keiner|KIVI: tuning-freie asymmetrische 2-Bit-Quantisierung des KV-Cache (Keys pro Kanal, Values pro Token) senkt den Speicher bei kleinem Qualitätsverlust.
+2401.15077|N2|keiner|EAGLE: spekulatives Sampling auf Feature-Ebene beschleunigt die LLM-Inferenz verlustfrei.
+1909.11942|N2|keiner|ALBERT: Parameterreduktion durch faktorisierte Embeddings und schichtübergreifendes Teilen der Gewichte senkt Speicher und Trainingszeit von BERT.
+1902.05522|N6,N2|keiner|Speichert viele Modelle überlagert (Superposition) in einem einzigen Parametersatz und ruft sie einzeln ab, ohne klassisches Quantenrechnen.
+2006.14769|N6,N4|keiner|Supermasks in Superposition: aus einem zufällig initialisierten, festen Basisnetz wird je Aufgabe ein Teilnetz (Supermask) gefunden; Tausende Aufgaben ohne Vergessen.
+2308.03303|K7,N2|keiner|LoRA-FA: friert die Down-Projektion der LoRA-Matrizen ein und spart Aktivierungsspeicher beim Feintuning.
+2110.02861|K1|keiner|8-Bit-Optimierer: blockweise Quantisierung der Optimiererzustände spart Speicher bei gleichbleibender Leistung.
+2309.01507|K1|keiner|Optimiererzustände mit 4 Bit: weiter komprimierte Zustände (Adam) senken den Trainingsspeicher.
+1310.4546|N2|keiner|Word2vec-Erweiterungen: Subsampling häufiger Wörter und Negative Sampling beschleunigen das Training von Skip-gram-Vektoren.
+2310.17157|N4|keiner|Deja Vu: kontextabhängige Sparsity sagt pro Eingabe voraus, welche Köpfe und MLP-Neuronen nötig sind, und beschleunigt die LLM-Inferenz.
+2003.00152|N6|keiner|Es werden nur BatchNorm-Parameter trainiert, die Gewichte bleiben zufällig; zeigt die Ausdrucksstärke zufälliger Features.
+2303.15665|K6|direkt|Quanten-Feature-Maps für Quantendaten: Kernel-Trick im Hilbertraum der Quantenzustände für Klassifikation.
+2605.23138|K6|direkt|Reinforcement Learning findet klassisch simulierbare Clifford-Startzustände für variationale Quantenalgorithmen und lindert Barren Plateaus und lokale Minima.
+2608.01653|K3,K1,N8|keiner|HaTQ: Quantisierung im Hadamard-Transformationsbereich für gelernte Bildkompression (INT8) verbessert die Rate-Distortion-Leistung bei schwerschwänzigen Tensoren.
+2411.04330|N1,K8|keiner|Präzisionsbewusste Skalengesetze: niedrigere Trainingspräzision senkt die effektive Parameterzahl und sagt den Zusatzverlust von Training und Quantisierung voraus.
+2404.05405|N1,N8|keiner|Skalengesetze für Wissenskapazität: misst gespeicherte Wissens-Bits je Parameter (etwa 2 Bit pro Parameter) in kontrollierten Experimenten.
+2406.11235|K1,K4|keiner|QTIP: Quantisierung mit Trellis-Codes und Incoherence-Processing erlaubt Vektorquantisierung mit hoher Dimension bei LLM-PTQ.
+1811.00414|K6|direkt|Tang: Quanten-PCA-Beschleunigung entsteht nur durch Annahmen zur Zustandspräparation; klassische Algorithmen mit l2-Norm-Sampling leisten dasselbe (Dequantisierung).
+2602.06694|K1,K8|keiner|NanoQuant: erste Post-Training-Quantisierung unter 1 Bit je Gewicht für LLMs.
+2402.10631|N3,K1|keiner|BitDistiller: Quantization-Aware Training mit Selbst-Distillation für LLMs unter 4 Bit.
+2410.11305|K1,K2,N2|keiner|QSpec: spekulatives Decodieren mit komplementären Quantisierungsschemata (Entwurf W4A4, Prüfung W4A16) mit gleichem Gewichtsspeicher.
+2310.11454|N6,K7|keiner|VeRA: gemeinsame, feste Zufallsmatrizen über alle Schichten und nur kleine trainierbare Skalierungsvektoren senken die Adapterparameter weit unter LoRA.
+2610.09342|N2,N4|keiner|Datenfreie MoE-Kompression über eine gemeinsame niedrigrangige Basisfaktorisierung der Experten mit Fehlergrenzen für Pruning und Merging.
+2405.14852|K1|keiner|PV-Tuning: Feintuning über die Straight-Through-Schätzung hinaus für extreme LLM-Kompression auf 1 bis 2 Bit.
+2409.17066|K1,K4|keiner|VPTQ: Vektor-Post-Training-Quantisierung für extrem niedrige Bitbreiten (bis 2 Bit) von LLM-Gewichten.
+2402.11295|K8,K1|keiner|OneBit: LLM-Gewichte mit 1 Bit durch Vorzeichenmatrix plus Wertvektoren und gutes Initialisieren bei starker Kompression.
+2505.00850|K1,F1|keiner|ICQuant: Index Coding zur Ausreißerbehandlung bei Niedrigbit-LLM-Quantisierung mit sehr geringem Zusatz-Overhead.
+2603.04162|K1|keiner|Vergleich von sechs 2-Bit-PTQ-Verfahren (u. a. QuIP#, SpinQuant+GPTQ, QTIP, VPTQ, AQLM) an einem polnischen 11B-Sprachmodell.
+2512.21651|K1,K8|keiner|1-Bit-Post-Training-Quantisierung mit neu gedachter Ausgabeausrichtung für LLMs.
+2501.19392|K2|keiner|Adaptive KV-Cache-Quantisierung für LLMs senkt den Speicherbedarf langer Kontexte.
+2405.03917|K2|keiner|Coupled Quantization: Kanäle des KV-Cache werden gemeinsam quantisiert, bis zu 1 Bit je Kanal.
+2603.28534|K5|analogie|Kompression von Transformern über Matrix-Product-Operator-Zerlegung der Gewichtsmatrizen, Fallstudie PicoGPT.
+2410.17397|K5,K6|direkt|Hybride Quanten-Klassisch-Darstellung vortrainierter LLMs, die das Original exakt reproduziert; Gewichtsmatrizen werden durch Tensornetze mit Disentanglern ersetzt.
+2206.08464|N6|keiner|PRANC: ein tiefes Modell als Linearkombination fester, zufällig initialisierter Basisnetze; nur die Koeffizienten (Seed + Koeffizienten) werden gespeichert.
+2310.02556|K7,N6|keiner|NOLA: LoRA-Matrizen als Linearkombination zufälliger Basismatrizen; nur die Koeffizienten werden trainiert und gespeichert.
+2502.00987|N6,K7|keiner|RandLoRA: Feintuning mit vollem Rang über Linearkombinationen fester Zufallsbasen bei wenigen trainierbaren Parametern.
+2509.25149|K8,K2|keiner|Vortraining großer Sprachmodelle in NVFP4 (4-Bit-Gleitkomma) mit genauem Anschluss an FP8.
+2505.14669|K8|keiner|Quartet: natives FP4-Training für LLMs kann optimal sein; Hardware-Kernels für Blackwell-GPUs.
+2407.12327|K8|keiner|Spectra: Vortraining ternärer Sprachmodelle in großem Maßstab, die mit Vollpräzisionsmodellen mithalten.

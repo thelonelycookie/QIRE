@@ -5,7 +5,7 @@
   "required": ["id","titel","jahr","autoren","feld","kernaussage","zahlen","baseline_fuer_qire","quantenbezug","bezug_qire_befund","stuetzt_widerspricht","volltext_gelesen","gefunden_am","welle","herkunft"],
   "additionalProperties": false,
   "properties": {
-    "id": {"type":"string","pattern":"^(arXiv:\\d{4}\\.\\d{4,5}|doi:.+|url:.+)$"},
+    "id": {"type":"string","pattern":"^(arXiv:(\\d{4}\\.\\d{4,5}|[a-z-]+/\\d{7})|doi:.+|url:.+|bib:.+)$"},
     "titel": {"type":"string","minLength":1},
     "jahr": {"type":["integer","null"]},
     "autoren": {"type":"string"},

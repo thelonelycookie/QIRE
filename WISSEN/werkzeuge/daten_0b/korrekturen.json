@@ -1,0 +1,191 @@
+{
+ "2603.25101": {
+  "quantenbezug": "direkt"
+ },
+ "2601.10111": {
+  "quantenbezug": "direkt"
+ },
+ "quant-ph/0307130": {
+  "quantenbezug": "direkt"
+ },
+ "2502.01743": {
+  "quantenbezug": "direkt"
+ },
+ "2408.12739": {
+  "quantenbezug": "direkt",
+  "feld": [
+   "K6",
+   "F6"
+  ]
+ },
+ "2312.09121": {
+  "quantenbezug": "direkt",
+  "feld": [
+   "K6",
+   "F6"
+  ]
+ },
+ "2403.04844": {
+  "quantenbezug": "direkt",
+  "feld": [
+   "K6"
+  ]
+ },
+ "2509.20090": {
+  "quantenbezug": "direkt"
+ },
+ "2411.06600": {
+  "quantenbezug": "direkt"
+ },
+ "2410.14654": {
+  "quantenbezug": "direkt"
+ },
+ "2607.28260": {
+  "quantenbezug": "direkt",
+  "feld": [
+   "K6",
+   "N4"
+  ]
+ },
+ "2509.26494": {
+  "quantenbezug": "direkt",
+  "feld": [
+   "K6",
+   "F1"
+  ]
+ },
+ "2305.10310": {
+  "quantenbezug": "direkt",
+  "feld": [
+   "K6",
+   "N5"
+  ]
+ },
+ "2406.15721": {
+  "quantenbezug": "direkt"
+ },
+ "2208.07851": {
+  "quantenbezug": "direkt"
+ },
+ "2604.06007": {
+  "quantenbezug": "direkt"
+ },
+ "2608.20603": {
+  "quantenbezug": "direkt"
+ },
+ "2406.04305": {
+  "quantenbezug": "direkt"
+ },
+ "2409.08777": {
+  "quantenbezug": "direkt"
+ },
+ "2609.24657": {
+  "quantenbezug": "direkt"
+ },
+ "2509.09679": {
+  "quantenbezug": "analogie"
+ },
+ "2602.15283": {
+  "quantenbezug": "analogie"
+ },
+ "2602.22255": {
+  "quantenbezug": "analogie"
+ },
+ "2608.14691": {
+  "quantenbezug": "analogie"
+ },
+ "1605.05775": {
+  "quantenbezug": "analogie"
+ },
+ "2605.06014": {
+  "quantenbezug": "analogie"
+ },
+ "2601.22347": {
+  "quantenbezug": "analogie"
+ },
+ "2604.11080": {
+  "quantenbezug": "analogie"
+ },
+ "2604.17789": {
+  "quantenbezug": "analogie"
+ },
+ "2511.22316": {
+  "quantenbezug": "analogie"
+ },
+ "2501.13484": {
+  "quantenbezug": "analogie"
+ },
+ "2601.12375": {
+  "quantenbezug": "analogie"
+ },
+ "2608.17288": {
+  "quantenbezug": "analogie"
+ },
+ "2605.13979": {
+  "quantenbezug": "analogie"
+ },
+ "1807.04271": {
+  "quantenbezug": "analogie"
+ },
+ "2406.00132": {
+  "quantenbezug": "analogie"
+ },
+ "2008.05859": {
+  "quantenbezug": "analogie"
+ },
+ "2605.08114": {
+  "quantenbezug": "analogie",
+  "feld": [
+   "K2",
+   "K4"
+  ]
+ },
+ "2604.06836": {
+  "quantenbezug": "keiner"
+ },
+ "2602.22592": {
+  "quantenbezug": "keiner"
+ },
+ "2608.06763": {
+  "quantenbezug": "keiner"
+ },
+ "2604.04013": {
+  "quantenbezug": "keiner"
+ },
+ "2609.19880": {
+  "quantenbezug": "keiner"
+ },
+ "2511.13023": {
+  "quantenbezug": "keiner"
+ },
+ "2408.06003": {
+  "quantenbezug": "keiner",
+  "feld": [
+   "K1",
+   "N5"
+  ]
+ },
+ "1510.06664": {
+  "feld": [
+   "N5",
+   "N6"
+  ]
+ },
+ "1802.07044": {
+  "feld": [
+   "N8"
+  ]
+ },
+ "2405.21052": {
+  "feld": [
+   "K6",
+   "F6"
+  ],
+  "quantenbezug": "direkt"
+ },
+ "1403.2975": {
+  "feld": [
+   "K6"
+  ]
+ }
+}

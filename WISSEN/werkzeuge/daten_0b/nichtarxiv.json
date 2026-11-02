@@ -1,0 +1,307 @@
+{
+ "bib:grewal2025t_dotiert": {
+  "titel": "Lernen von t-dotierten Stabilizerzuständen (Arbeitstitel, Grewal, Iyer, Kretschmer, Liang)",
+  "jahr": null,
+  "autoren": null,
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Lernalgorithmus für Zustände aus Clifford-Gattern plus t Nicht-Clifford-Gattern mit Laufzeit poly(n, 2^t, 1/eps). Titel nicht verifiziert (Arbeitstitel), Quelle prüfen."
+ },
+ "doi:10.1103/PRXQuantum.4.040335": {
+  "titel": "Efficient estimation of trainability for variational quantum circuits",
+  "jahr": 2023,
+  "autoren": "Heyraud, Holmes, Cerezo u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Die Gradientenvarianz zufällig initialisierter variationaler Schaltungen lässt sich exakt über eine Abbildung auf Clifford-Schaltungen berechnen und damit effizient klassisch abschätzen."
+ },
+ "bib:rff_kritik_quantum2025": {
+  "titel": "Kritik und Grenzen der RFF-Dequantisierung variationaler QML-Modelle",
+  "jahr": null,
+  "autoren": null,
+  "feld": [
+   "K6",
+   "N6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Kritik an der Dequantisierung variationaler Quantenmodelle durch Random Fourier Features: Die Näherung hat Grenzen. Inhalt unbekannt im Detail, Quelle prüfen."
+ },
+ "bib:dequant_stoc2022": {
+  "titel": "Dequantisierung der Quantum Singular Value Transformation (STOC 2022)",
+  "jahr": 2022,
+  "autoren": "Chia, Gilyén u. a.; Gharibian, Le Gall",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Rahmen zur Dequantisierung der QSVT: Unter Sampling-Zugang lassen sich viele Quantenalgorithmen der linearen Algebra klassisch nachbilden. Genaue Zitation prüfen."
+ },
+ "bib:araujo2021approx": {
+  "titel": "Approximative Zustandspräparation (Araujo 2021)",
+  "jahr": 2021,
+  "autoren": "Araujo u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Näherungsverfahren zur Präparation von Quantenzuständen mit flachen Schaltungen. Inhalt unbekannt im Detail, Quelle prüfen."
+ },
+ "bib:lu2023qasbench": {
+  "titel": "QAS-Bench: Rethinking Quantum Architecture Search and A Benchmark",
+  "jahr": 2023,
+  "autoren": "Lu u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Benchmark für Quantum Architecture Search: vergleicht Brute Force, Simulated Annealing, genetische Algorithmen, Reinforcement Learning und differenzierbare Suche; Simulated Annealing skaliert schwach."
+ },
+ "bib:strom_bitflip_fehler_in_llms_analyse_abwehr_ch": {
+  "titel": "Bitflip-Fehler in LLMs: Analyse und Abwehr (Chen u. a.)",
+  "jahr": 2025,
+  "autoren": "Chen u. a.",
+  "feld": [
+   "K1"
+  ],
+  "quantenbezug": "keiner",
+  "kernaussage": "Analysiert Bitflip-Fehler in LLM-Gewichten und Abwehrmaßnahmen; Motivation für eine Robustheitsachse. Nur Snippet gesehen, Quelle prüfen."
+ },
+ "url:https://past.date-conference.com/.../2026/DATA/3036.pdf": {
+  "titel": "DAIQUIRI: gemischte 2/3-Bit-Quantisierung (DATE 2026)",
+  "jahr": 2026,
+  "autoren": "",
+  "feld": [
+   "K1"
+  ],
+  "quantenbezug": "keiner",
+  "kernaussage": "Gegner-Ansatz: gemischte 2/3-Bit-Quantisierung (meist 2 Bit, empfindlichste Schichten 3 Bit) statt uniformer 2 Bit. Nur Snippet gesehen, Quelle prüfen."
+ },
+ "doi:10.1109/tit.2017.2719044": {
+  "titel": "Sample-optimal tomography of quantum states",
+  "jahr": 2017,
+  "autoren": "Haah, Harrow, Ji, Wu, Yu",
+  "feld": [
+   "K6",
+   "N8"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Volle Zustandstomographie eines Rang-r-Zustands braucht etwa (d·r/δ)·ln(d/δ) Kopien mit passender Untergrenze; die 2ⁿ Amplituden erfordern exponentiell viele Schüsse, M Kopien liefern höchstens M·n Bit Information."
+ },
+ "url:https://www.semanticscholar.org/paper/Optimal-lower-bounds-for-quantum-automata-and-codes-Nayak/ca86a3524b766f97850e04c78a3a4cda00a75a55": {
+  "titel": "Optimal lower bounds for quantum automata and random access codes (Nayak)",
+  "jahr": 1999,
+  "autoren": "Nayak",
+  "feld": [
+   "K6",
+   "N8"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Quantum Random Access Codes: n Bit in m Qubits, jedes einzelne Bit mit Erfolgswahrscheinlichkeit p>1/2 abrufbar; Untergrenze m ≥ (1−H(p))·n, klassisch genügt m = (1−H(p))n + O(log n); der Beweis nutzt Holevo."
+ },
+ "url:https://www.nature.com/articles/nphys3272": {
+  "titel": "Quantum algorithms: read the fine print (Aaronson)",
+  "jahr": 2015,
+  "autoren": "Aaronson",
+  "feld": [
+   "K6",
+   "N8"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Unitäre wirken auf 2ⁿ Amplituden gleichzeitig, doch Nutzen entsteht nur, wenn die gesuchte Ausgabe klein ist; das Laden der Eingabe kostet etwa die Datengröße."
+ },
+ "url:https://research.google/pubs/barren-plateaus-in-quantum-neural-network-training-landscapes/": {
+  "titel": "Barren plateaus in quantum neural network training landscapes",
+  "jahr": 2018,
+  "autoren": "McClean u. a.",
+  "feld": [
+   "K6",
+   "F6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Gradientenvarianz zufälliger tiefer parametrisierter Quantenschaltungen fällt exponentiell mit der Qubitzahl (Barren Plateaus)."
+ },
+ "url:https://www.nature.com/articles/s41467-021-21728-w": {
+  "titel": "Cost function dependent barren plateaus in shallow parametrized quantum circuits",
+  "jahr": 2021,
+  "autoren": "Cerezo, Sone, Volkoff, Cincio, Coles",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Barren Plateaus hängen von der Kostenfunktion ab: globale Kosten führen schon bei flachen Schaltungen zu verschwindenden Gradienten, lokale Kosten nicht."
+ },
+ "url:https://www.nature.com/articles/s41467-024-49909-3": {
+  "titel": "Ragone u. a. 2024 und Fontana u. a. 2024: Lie-algebraische Theorie der Barren Plateaus",
+  "jahr": 2024,
+  "autoren": "Ragone, Fontana u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Lie-algebraische Theorie der Barren Plateaus für tiefe parametrisierte Schaltungen (Nat. Commun. 15) sowie Varianzformel über die adjungierte Darstellung. Zitation prüfen, hier nur Teilzitat."
+ },
+ "url:https://www.nature.com/articles/s42254-025-00813-9": {
+  "titel": "Barren plateaus in variational quantum computing (Larocca u. a., Nat. Rev. Phys. 2025)",
+  "jahr": 2025,
+  "autoren": "Larocca u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Übersichtsartikel zu Barren Plateaus im variationalen Quantenrechnen."
+ },
+ "url:https://www.nature.com/articles/s41467-022-35364-5": {
+  "titel": "Quantum variational algorithms are swamped with traps",
+  "jahr": 2022,
+  "autoren": "Anschuetz, Kiani",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Auch ohne Barren Plateaus sind flache Modelle voller lokaler Minima (Fallen); Optimierung mit verrauschten Abfragen im SQ-Modell ist oft unmöglich."
+ },
+ "doi:10.1103/8qt9-72ts": {
+  "titel": "Quantum convolutional neural networks are (effectively) classically simulable (Bermejo u. a.)",
+  "jahr": 2026,
+  "autoren": "Bermejo u. a.",
+  "feld": [
+   "K6",
+   "F6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "QCNNs sind effektiv klassisch simulierbar, selbst das Training lässt sich auf einer simulierten Landschaft nachbilden; typische Benchmarks sind lokal einfache Datensätze. Nur Auszug gesehen."
+ },
+ "url:https://www.nature.com/articles/s41534-019-0223-2": {
+  "titel": "Quantum Generative Adversarial Networks for learning and loading random distributions",
+  "jahr": 2019,
+  "autoren": "Zoufal, Lucchi, Woerner",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "qGAN-Laden lernt eine Verteilung mit poly(n) Gattern statt O(2^n); gilt für glatte Verteilungen (Amplituden = √p, reell), nicht für allgemeine Daten."
+ },
+ "url:https://www.nature.com/articles/s41586-019-0980-2": {
+  "titel": "Supervised learning with quantum-enhanced feature spaces",
+  "jahr": 2019,
+  "autoren": "Havlíček u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Quantenkern mit ZZ-Merkmalsabbildung (Winkelkodierung plus Verschränkung), Kernschätzung oder variationaler Klassifikator auf supraleitender Hardware. Nur Auszug gesehen."
+ },
+ "url:https://www.nature.com/articles/s41467-021-22539-9": {
+  "titel": "Power of data in quantum machine learning",
+  "jahr": 2021,
+  "autoren": "Huang u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Kriterium, wann ein Quantenmodell auf gegebenen Daten klassisch nicht einholbar ist (geometrische Differenz der Kerne); Daten, nicht Modell, entscheiden. Nur Auszug gesehen."
+ },
+ "url:https://aclanthology.org/2025.acl-long.1163.pdf": {
+  "titel": "Scaling Laws for Neural Language Models",
+  "jahr": 2020,
+  "autoren": "Kaplan u. a.",
+  "feld": [
+   "N1"
+  ],
+  "quantenbezug": "keiner",
+  "kernaussage": "Test-Verlust fällt als Potenzgesetz in Modellgröße, Datenmenge und Rechenaufwand über mehrere Größenordnungen. Die Quelle (ACL-URL) verweist auf eine Zitation dieser Arbeit, Original prüfen."
+ },
+ "url:https://jmlr.org/papers/volume26/24-1000/24-1000.pdf:": {
+  "titel": "Scaling Data-Constrained Language Models",
+  "jahr": 2025,
+  "autoren": "Muennighoff u. a.",
+  "feld": [
+   "N1"
+  ],
+  "quantenbezug": "keiner",
+  "kernaussage": "Bis etwa 4 Epochen Datenwiederholung wirken fast wie neue Daten, danach geht der Wert zusätzlicher Rechenzeit gegen null; Gesetz mit abnehmendem Wert wiederholter Token. Relevant: Maltes Daten sind klein, QIRE arbeitet datenbeschränkt."
+ },
+ "url:https://proceedings.mlr.press/v235/qiu24f.html:": {
+  "titel": "Compute Better Spent: Replacing Dense Layers with Structured Matrices",
+  "jahr": 2024,
+  "autoren": "Qiu u. a.",
+  "feld": [
+   "K7",
+   "N1"
+  ],
+  "quantenbezug": "keiner",
+  "kernaussage": "Low-Rank, Monarch, Kronecker und BTT ersetzen dichte Schichten; Skalierung von Breite und Lernrate hängt von der Struktur ab; BTT erreicht dichtes ViT-S/32 auf ImageNet mit 3,8-fach weniger Rechenaufwand. Nur Auszug gesehen."
+ },
+ "url:https://zenodo.org/records/23005853:": {
+  "titel": "Empirical Scaling Laws of Quantum Vision Transformers",
+  "jahr": 2026,
+  "autoren": "",
+  "feld": [
+   "K6",
+   "N1"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Validierungsverlust folgt einem gemeinsamen verschobenen Potenzgesetz in Qubitzahl, Transformer-Tiefe und Datenmenge; mehr Qubits können klassische Parameter ersetzen. Nur Auszug gesehen, Autoren und Exponenten unbekannt."
+ },
+ "url:https://pubmed.ncbi.nlm.nih.gov/38177434/:": {
+  "titel": "Theory of overparametrization in quantum neural networks",
+  "jahr": 2023,
+  "autoren": "Larocca u. a.",
+  "feld": [
+   "K6",
+   "N1"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Überparametrisierung beginnt bei einer kritischen Parameterzahl M_c ≤ dim(Lie-Algebra); darunter gibt es falsche lokale Minima, darüber ist die Schaltung gut trainierbar."
+ },
+ "url:https://quantum-journal.org/papers/q-2024-02-22-1265/": {
+  "titel": "Quantum Vision Transformers",
+  "jahr": 2024,
+  "autoren": "Cherrat u. a.",
+  "feld": [
+   "K6",
+   "N2"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Datenlader plus trainierbare Quanten-Orthogonalschichten; Simulationen auf medizinischen Bilddatensätzen sind konkurrenzfähig, Hardware-Experimente bis 6 Qubits. Orthogonale Schichten sind QIRE strukturell verwandt."
+ },
+ "url:https://open.hpi.de/courses/qc-schule2024": {
+  "entfernen": "Kein Literatureintrag: nur ein Hinweis auf Kursangebote/Schulprogramme (HPI-Onlinekurs), keine wissenschaftliche Quelle."
+ },
+ "url:https://quantum.cloud.ibm.com/docs/en/guides/configure-error-mitigation": {
+  "titel": "IBM Quantum Docs: Fehlermitigation konfigurieren",
+  "jahr": null,
+  "autoren": "IBM",
+  "feld": [
+   "K6",
+   "N5"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Dokumentation: SamplerV2 unterstützt Dynamical Decoupling und Gate-Twirling; ZNE, PEC und PEA sind Estimator-Optionen (Resilience Level). Softwaredokumentation, keine Primärliteratur."
+ },
+ "url:https://www.scottaaronson.com/papers/chp6.pdf": {
+  "titel": "Improved simulation of stabilizer circuits",
+  "jahr": 2004,
+  "autoren": "Aaronson, Gottesman",
+  "feld": [
+   "K6",
+   "F1"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Gottesman-Knill: Clifford-Schaltungen sind klassisch effizient simulierbar (CHP-Simulator). Im Projekt als Hintergrund für eine multiplikationsfreie Merkmalsabbildung (Fastfood/Walsh-Hadamard) herangezogen."
+ },
+ "url:https://proceedings.mlr.press/v202/lu23f/lu23f.pdf": {
+  "titel": "QAS-Bench: Rethinking Quantum Architecture Search and A Benchmark",
+  "jahr": 2023,
+  "autoren": "Lu u. a.",
+  "feld": [
+   "K6"
+  ],
+  "quantenbezug": "direkt",
+  "kernaussage": "Benchmark für Quantum Architecture Search: vergleicht Brute Force, Simulated Annealing, genetische Algorithmen, Reinforcement Learning und differenzierbare Suche; Simulated Annealing skaliert schwach."
+ }
+}
