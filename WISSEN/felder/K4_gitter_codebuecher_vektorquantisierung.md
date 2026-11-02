@@ -44,10 +44,20 @@ Decode ist speicherbandbreitenbegrenzt; Gewinn nur, wenn Entpackung günstiger a
 - Reiner Gitter-Gewinn (E8 vs Lloyd-Skalar, gleiche Bits, mit/ohne Rotation) bei kleinen Modellen unbekannt.
 - Clifford/Stabilisator-Codebuch ungetestet.
 
+## Runde 2 (Welle 3, c6): Nachtrag
+Nur Abstracts/Suchauszüge; Zahlen ungeprüft. 4 Suchen (Rest wegen Sättigung gespart), Einträge in `neu/w3_c6.json`.
+- **Trellis-Dekodierkosten:** QTIP ersetzt gespeicherte Codebücher durch rechenbasierte Gauß-Codes auf Bitshift-Trellis, Kosten linear in der Dimension; ein 16D-Vektorquantisierer wäre laut Blog 256x teurer zu dekodieren als QuIP# (Suchauszug). Ableger: CCQ (Faltungscode, 2,0 bis 2,75 Bit, Bitshift-Dekodierung) [arXiv:2507.07145], Q-Palette (gebrochene Bits, Trellis, Latenzbewusst) [arXiv:2509.20214], Proteus (tabellenfrei, ICML 2026, Llama-2 7B bis 70B, GPU).
+- **CPU:** T-MAC [arXiv:2407.00088]: LUT-Kernels statt Dequantisierung, Mittel 3,6x gegen llama.cpp, 2,8x Ende-zu-Ende Llama-2-7B 2 Bit. OASIS [arXiv:2507.23035] zeigt: nichtuniforme Gitter brauchen LUT-GEMM. Keine Arbeit zu Gitter/Trellis auf Kleinmodellen (0,5B bis 1B) mit CPU-Kernel gefunden; Trellis-Ergebnisse stammen fast nur von GPU und 7B+.
+- **Stabilisator/Clifford-Codebuch:** zweite Suche negativ; nur Stabilisatorzustände als Netzdarstellung (RBM) oder Zielgröße, nie als Gewichtsbuch. Lücke bleibt, ist kein Beweis.
+- **Bezug zu eigenen Befunden:** kein Widerspruch; stützt die Dekodierkosten-Achse (K4-Schluss 4).
+- **Quantenbezug:** CCQ/Trellis stammen aus der Kanalcodierung (Analogie zu F1), Clifford-Buch bleibt ungetestet.
+- **Neuer Vorschlag (Agent):** Für Maltes Ryzen-5-Ziel Dekodierkosten als gemessene Größe (Tok/s auf CPU, Bytes gelesen) neben Bits führen; Gitter/Trellis nur dann gegen Lloyd-Skalar testen, wenn ein T-MAC-artiger LUT-Kernel oder Bitshift-Dekoder vorhanden ist. Langweiligste Erklärung: Skalar-Lloyd + Gruppenskala liegt auf CPU vorn, weil der Kernel einfach ist.
+
 ## Sättigung: Runde | neue Quellen | Anteil neu
 | Runde | neue Quellen | Anteil neu |
 |---|---|---|
 | Welle 1 (a6) | 11 | ~hoch (9 Suchen, Feld vorher fast leer von Klassikern) |
+| Runde 2 (Welle 3, c6) | 3 (K4) | ~45 % der relevanten Treffer neu (T-MAC schon bekannt); 4 Suchen; Clifford-Suche zum zweiten Mal negativ; Lücke Kleinmodell+CPU bleibt |
 
 ## Schlüsse und neue Wege (Agent)
 1. **Rotation wirkt nur mit festem Skalenformat; die verbleibende Hebelkraft liegt im Block-Gitter.** Belege: Z3b, [arXiv:2608.25188], [arXiv:2603.11021]. Langweiligste Erklärung: Rotation glättet nur Ausreißer, Gruppenskalen tun dasselbe. Quantenbezug: gering (Hadamard als Clifford-Element).

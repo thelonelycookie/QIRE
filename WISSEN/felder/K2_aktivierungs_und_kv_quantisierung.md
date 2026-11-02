@@ -48,7 +48,17 @@ Belege aus Abstracts (kein Volltext):
 3. **Vorschlag:** Blockrotation (Block = Gruppengröße 16/32) als Kombi-Arm gegen g16-Lloyd testen; entspricht „grobe Rotation + feine Gruppen“ [arXiv:2607.27694]. Langweiligste Erklärung: Ergebnis wird ≈ g16. Quantenbezug: Analogie (lokale Basisdrehung).
 4. **Schluss:** Great-Inversion-Theorie [arXiv:2608.25188] liefert Begründung, warum kein universeller Sieger existiert; als Erklärungsrahmen für die Arbeit nutzen (Volltext vorher lesen).
 
+## Runde 2 (Welle 3, c6): Nachtrag
+Nur Abstracts/Suchauszüge; Zahlen ungeprüft. 6 Suchen, Einträge in `neu/w3_c6.json`.
+- **Lloyd/nichtuniform ohne Rotation für Aktivierungen:** OASIS (früher KLLM) [arXiv:2507.23035] quantisiert Gewichte und Aktivierungen per k-means; Vorversion W4A4 LLaMA-2-7B PPL 5,90 (+0,43 gegen FP16, 34 % weniger Verlust als Atom, laut Suchauszug). Preis: Index/LUT-GEMM, da nichtuniforme Daten nicht auf Integer-Einheiten laufen. LO-BCQ (blockgruppierte Codebücher) steht bereits in der Basis. Gegenseite: RUQuant [arXiv:2604.04013] begründet Rotation gerade mit Lloyd-Max (macht Verteilung gleichförmig), InfoQuant [arXiv:2605.26175] formt die Verteilung. Beide Seiten erfüllen dieselbe Lloyd-Max-Bedingung auf verschiedenen Wegen. Eine kontrollierte Isolation (gleiches Modell, gleiche Bits, g16-uniform vs g16-Lloyd vs Rotation) fand sich weiterhin nicht.
+- **KV in Kleinmodellen:** Keine Studie speziell zu Kleinmodellen gefunden (Lücke bestätigt). Rotationsfreie KV-Gegner: LogQuant [arXiv:2503.19950], Outlier-Token-Tracing [arXiv:2505.10938]; Bitzuteilung Keys > Values [arXiv:2502.15075].
+- **Mixed-Precision-Aktivierungen:** Spike-aware (wenige Schichten hoch) [arXiv:2504.21553]; schichtweise Aktivierungs-Bits per DP [arXiv:2606.13054]. Keine Arbeit mit tokenweiser Bitzuteilung zur Laufzeit gefunden.
+- **Bezug zu eigenen Befunden:** stützt Z3/Z3b (rotationsfreie lokale Lösungen sind konkurrenzfähig); kein neuer Widerspruch. Neue Lücke: Hardwarekosten nichtuniformer Aktivierungen (LUT) ungeprüft, entscheidend für den CPU-Nutzen.
+- **Quantenbezug:** unverändert keiner/Analogie.
+- **Neuer Vorschlag (Agent):** Z3b-Arm „g16-Lloyd-Aktivierungen“ mit Kosten als Tabellenzugriff (Index + 16-Einträge-Buch je Gruppe) ausweisen, nicht nur PPL. Langweiligste Erklärung: Gewinn gegen g16-uniform klein, LUT-Kosten fressen ihn auf.
+
 ## Sättigung: Runde | neue Quellen | Anteil neu
 | Runde | neue Quellen | Anteil neu |
 |---|---|---|
 | Welle 1 (a5) | 10 | – (Feld hatte bereits ~25 Einträge) |
+| Runde 2 (Welle 3, c6) | 6 (K2), 2 weitere geteilt mit K1/K8/K4 | ~50 % der relevanten Treffer neu; Treffer zu Rotation/Gruppenskala bekannt; 6 Suchen, Lücken (Kleinmodell-KV, Isolation Lloyd vs Rotation) unverändert |

@@ -1,0 +1,178 @@
+[
+ {
+  "id": "arXiv:2605.26175",
+  "titel": "InfoQuant: Shaping Activation Distributions for Low-Bit LLM Quantization",
+  "jahr": 2026,
+  "autoren": "Li, K. u. a.",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Fragt, welche Aktivierungsverteilung leicht zu diskretisieren ist; formt die Verteilung per Peak-Unterdrückung/Rotation statt das Gitter anzupassen (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Transformbasierter Aktivierungsgegner 2026",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: Verteilung formen (Rotation) vs. Gitter anpassen (Lloyd)"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ },
+ {
+  "id": "arXiv:2502.15075",
+  "titel": "Quantize What Counts: More for Keys, Less for Values",
+  "jahr": 2025,
+  "autoren": "Hariri, M. u. a.",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Zwei Sätze begründen gemischte Genauigkeit im KV-Cache: Keys haben größere Spektral-/Frobeniusnorm als Values und brauchen mehr Bits (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Bitzuteilung Keys/Values als einfacher Hebel ohne Rotation",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Bitbudget-Verteilung ist orthogonal zu Rotation vs. Lloyd"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ },
+ {
+  "id": "arXiv:2503.19950",
+  "titel": "LogQuant: Log-Distributed 2-Bit Quantization of KV Cache",
+  "jahr": 2025,
+  "autoren": "Chen, H. u. a.",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "2-Bit-KV mit logarithmischer Tokenauswahl statt Rotation; keine Annahme, spätere Tokens seien wichtiger (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotationsfreier 2-Bit-KV-Gegner",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: rotationsfreie Verfahren sind bei 2 Bit KV konkurrenzfähig"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ },
+ {
+  "id": "arXiv:2505.10938",
+  "titel": "Accurate KV Cache Quantization with Outlier Tokens Tracing",
+  "jahr": 2025,
+  "autoren": "Su, Y. u. a.",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Wenige Ausreißer-Tokens dominieren den KV-Quantisierungsfehler; Verfolgung dieser Tokens statt Rotation (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotationsfreier KV-Gegner über Ausreißer-Tokens",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: lokale Behandlung von Ausreißern statt globaler Rotation"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ },
+ {
+  "id": "arXiv:2504.21553",
+  "titel": "Precision Where It Matters: Spike-Aware Mixed-Precision Quantization for LLaMA-Models",
+  "jahr": 2025,
+  "autoren": "Maisonnave, L. u. a.",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Aktivierungsspitzen in LLaMA-artigen Modellen sitzen in wenigen Schichten; diese bleiben FP16/FP8, der Rest geht tiefer (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Einfache Mixed-Precision-Baseline gegen Rotation",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: wenige Ausreißer-Stellen gezielt lösen statt global rotieren"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ },
+ {
+  "id": "arXiv:2507.23035",
+  "titel": "OASIS (früher KLLM): LUT-GEMM mit nichtuniformer Gewichts- und Aktivierungsquantisierung",
+  "jahr": 2025,
+  "autoren": "Wu, X. u. a.",
+  "feld": [
+   "K2",
+   "K4"
+  ],
+  "kernaussage": "Nichtuniforme (k-means) Quantisierung von Gewichten UND Aktivierungen; Index/LUT-basiertes GEMM, weil nichtuniforme Daten nicht auf Integer-Einheiten laufen. Frühere Version KLLM meldete W4A4 PPL 5,90 bei LLaMA-2-7B, 0,43 über FP16, 34 % weniger Verlust als Atom (Suchauszug).",
+  "zahlen": [
+   {
+    "wert": "W4A4 LLaMA-2-7B Wiki2-PPL 5,90 (FP16 +0,43)",
+    "kontext": "Suchauszug zur Vorversion KLLM, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Direkter Gegner: nichtuniforme Aktivierungsgitter ohne Rotation, samt Hardwarekosten",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3b: Lloyd/k-means ohne Rotation für Aktivierungen funktioniert; Preis ist LUT-Hardware"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ },
+ {
+  "id": "arXiv:2509.20214",
+  "titel": "Q-Palette: Fractional-Bit Quantizers for Optimal Bit Allocation",
+  "jahr": 2025,
+  "autoren": "Lee, D. u. a.",
+  "feld": [
+   "K4",
+   "K1"
+  ],
+  "kernaussage": "Gewichts-PTQ mit rotationsbasierten Quantisierern (inkl. Trellis) mit gebrochenen Bitbreiten und Bitzuteilung unter Latenz-/Edge-Bedingung (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Trellis-/Rotations-Familie mit Kernels für kleinen Batch",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Dekodierkosten als Bewertungsachse (K4-Schluss 4)"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ },
+ {
+  "id": "arXiv:2507.07145",
+  "titel": "CCQ: Convolutional Code for Extreme Low-bit Quantization in LLMs",
+  "jahr": 2025,
+  "autoren": "Zhou, Z. u. a.",
+  "feld": [
+   "K4"
+  ],
+  "kernaussage": "Faltungscode-Quantisierung mit hardwarenaher Bit-Shift-Kodierung/-Dekodierung, 2,0 bis 2,75 Bit; statt fehleranfälligem Skalar-Q oder langsamer VQ (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Codierungstheoretischer (Faltungscode) Gegner zu QTIP",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Faltungs-/Trellis-Codes stammen aus der Kanalcodierung (F1-Nähe), kein echter Quantenbezug"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c6"
+ }
+]
