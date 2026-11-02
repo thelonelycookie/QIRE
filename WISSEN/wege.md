@@ -15,3 +15,11 @@ Hier steht noch **keine Ideenbewertung**. Die Wege sind Material für Phase 2 (K
 | W9 | **Multiskala MERA/Wavelet** statt Hourglass+LRU: Haar-Pyramide gegen Hadamard bei gleichen Parametern. | F2, F3 | MERA (direkt) | Feste Mischer sind alle gleich (WHTMix) | Mischer-Tausch im Byte-LM |
 
 **Vorschlag für die Reihenfolge in Phase 2:** W1 und W2 bilden das Rückgrat der Arbeit (ehrlich, machbar, neu). W3 bis W5 sind Chancen auf einen echten Vorteil. W6 bis W9 sind billige Vortests mit hohem Quantenbezug.
+
+## Nachtrag Querschnitt 2 (02.11., nach Wellen 4–5)
+- **W1:** RAPL ist auf Zen 2 machbar, braucht aber Root und hat keine DRAM-Domäne. Erster Schritt: `ls /sys/class/powercap` am PC, dazu ein Steckdosen-Messgerät für die Gegenprüfung.
+- **W2:** Neue Pflichtgegner sind MSB, VBQ und ein gated diagonales SSM. Die Skalenbytes (g16 = 1 Bit/Gewicht) werden ausgewiesen. Neben bpc kommt mindestens eine Aufgabenmetrik dazu (S-009).
+- **W5:** Die Literaturlücke ist dreifach bestätigt. Damit hat W5 die höchste Neuheit bei kleinen Kosten.
+- **W7:** Die Kurtosis wird nach OSP/KurTail gemessen.
+- **W9:** Fourier kommt als Gegner dazu (FNet: Hadamard ≈ 2 Punkte schlechter, ungeprüft).
+- **Neue Reihenfolge (Vorschlag):** W2 als Rückgrat, dann W5 und W6 als billige Vortests mit hoher Neuheit, dann W1 (wartet auf den PC), dann W3, W4, W7, W8 und W9.
