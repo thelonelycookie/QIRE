@@ -245,25 +245,25 @@ def main():
                 if best is None or m < best[0]: best = (m, Wn, L)
             add(R, "Kerdock-Winkelbuch (bester Split)", best[0]); extras.setdefault(f"polar_best_R{R}", []).append((best[1], best[2]))
             # 4D k-means (unstrukturierte Obergrenze) und Orbit-Lloyd 4D
-            X4 = rng.standard_normal((120000, 4)); T4 = rng.standard_normal((200000, 4))
-            C4 = kmeans(X4, 2**(4*R), rng, 25); add(R, "k-means 4D (unstrukturiert)", mse_cb(T4, C4))
+            X4 = rng.standard_normal((60000, 4)); T4 = rng.standard_normal((150000, 4))
+            C4 = kmeans(X4, 2**(4*R), rng, 15); add(R, "k-means 4D (unstrukturiert)", mse_cb(T4, C4))
             for (n, nm), Gm in grp.items():
                 if n != 2: continue
                 o = len(Gm); K = 2**(4*R)
                 if K % o or K//o < 1: continue
-                V4, Cb = orbit_lloyd(Gm, K//o, X4, rng, 25)
+                V4, Cb = orbit_lloyd(Gm, K//o, X4, rng, 15)
                 add(R, f"Orbit-Lloyd 4D [{nm}, |G|={o}, m={K//o}]", mse_cb(T4, Cb))
             # E8
             X8 = rng.standard_normal((20000, 8)); T8 = rng.standard_normal((40000, 8))
             m8, D, bk = e8_arm(8*R, X8, T8); add(R, "E8 Kugelschnitt (nachgebaut)", m8); extras.setdefault(f"E8_D_R{R}", []).append(float(D))
             log(f"seed {seed} R={R}: L1D {rows[(R,'Lloyd-1D')][-1]:.3f} L2D {rows[(R,'Lloyd-2D')][-1]:.3f} E8 {rows[(R,'E8 Kugelschnitt (nachgebaut)')][-1]:.3f}")
         # Orbit-Lloyd 8D, nur 2 Bit
-        R = 2; X8 = rng.standard_normal((16000, 8)); T8 = rng.standard_normal((20000, 8))
+        R = 2; X8 = rng.standard_normal((12000, 8)); T8 = rng.standard_normal((20000, 8))
         for (n, nm), Gm in grp.items():
             if n != 3: continue
             o = len(Gm); K = 2**16
-            if K % o: continue
-            V8, Cb = orbit_lloyd(Gm, K//o, X8, rng, 18)
+            if K % o or o < 1024: continue
+            V8, Cb = orbit_lloyd(Gm, K//o, X8, rng, 12)
             uq = len(np.unique(np.rint(Cb*1e5).astype(np.int64), axis=0))
             add(R, f"Orbit-Lloyd 8D [{nm}, |G|={o}, m={K//o}]", mse_cb(T8, Cb)); extras.setdefault(f"unique_{nm}", []).append(uq)
             log(f"seed {seed} Orbit8D {nm}: {rows[(R, f'Orbit-Lloyd 8D [{nm}, |G|={o}, m={K//o}]')][-1]:.3f} dB, einzigartige Punkte {uq}")
@@ -301,7 +301,7 @@ def write_md(res, table):
         L.append("")
     L += ["## Einordnung (vorläufig, ehrlich)", "- Zahlen siehe Tabellen; Auswertung unten vom Autor des Skripts nachzutragen/prüfen.",
           "- E8-Nachbau: Nächster-Punkt-Algorithmus (Conway/Sloane) + Schnitt auf Kugelschalen mit hashbasierter Teilschale, Skala auf Train getunt; Kandidaten-Suche (Schrumpfung + Wurzel-Nachbarn) ist nahezu, nicht garantiert exakt nächstgelegen im Buch (leichte Unterschätzung möglich). Kein E8P (Flip-Aufbau von QuIP#).",
-          "- Orbit-Lloyd: Lloyd mit gruppeninvariantem Buch (Schwerpunkte in kanonischer Lage gemittelt), Zufallsinit aus Trainingsvektoren, 18-25 Iterationen, keine Mehrfach-Neustarts; lokales Optimum möglich.",
+          "- Orbit-Lloyd: Lloyd mit gruppeninvariantem Buch (Schwerpunkte in kanonischer Lage gemittelt), Zufallsinit aus Trainingsvektoren, 12 (8D) bzw. 15 (4D) Iterationen, keine Mehrfach-Neustarts; lokales Optimum möglich.",
           "- 8D-Orbit-Lloyd nur bei 2 Bit (2^24 Punkte bei 3 Bit sind per Brute-Force nicht in der Laufzeit); bei 3 Bit nur 4D.",
           "- Winkelbuch: bester Split auf den Testdaten gewählt (leichter Optimismus, 2-6 Kandidaten).",
           "- Clifford-Wirkung bleibt klassisch (I-038); Formulierung 'quanten-inspiriert'."]
