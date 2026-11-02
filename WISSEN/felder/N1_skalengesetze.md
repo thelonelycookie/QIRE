@@ -38,3 +38,10 @@
 | Runde | neue Quellen | Anteil neu |
 |---|---|---|
 | W2 b5 | 8 (N1: 5 eigene) | Anteil neu nicht berechnet |
+
+## Runde 2 (Welle 4, d5)
+- Suchen: 5 von 8. Kein Gesetz speziell für Modelle < 100M gefunden; nächste Treffer: Compression Scaling Laws mit 100M-Konfiguration bei 2 Bit [arXiv:2502.16440], QAT-Gesetz 74M-595M [arXiv:2505.14302], Ternär-Training in MLP/Kleintransformern gleichauf [arXiv:2411.05882] (neu).
+- Exponenten des Schadens: Precision-Scaling: Schaden wächst mit Tokens je Parameter, sinkt mit Größe [arXiv:2411.04330]; Sekundärquelle nennt etwa 1,1 (Daten) und 0,8 (Größe), ungeprüft; QiD-Tokenexponent ≈ 0,53 [arXiv:2411.17691]. Die Zahlen unterscheiden sich (anderes Maß), nicht vergleichbar.
+- Rotation im Skalengesetz: nichts gefunden (nur Block-Hadamard-Schranken [arXiv:2601.22347], DFRot [arXiv:2412.00648]). Lücke bleibt, Schluss 2 bleibt ungeprüfte Vermutung.
+- Bits je Parameter bei QAT: kein neuer Konsens; Apple-Gesetz [arXiv:2509.22935] und ParetoQ bleiben die Referenz.
+- Sättigung Runde 2: nur 1 neue Quelle für N1 bei 5 Suchen, Feld nahezu gesättigt; offene Lücke ist empirisch (eigene Messreihe), nicht Literatur.

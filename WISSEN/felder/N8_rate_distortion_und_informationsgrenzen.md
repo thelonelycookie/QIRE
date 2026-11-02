@@ -37,3 +37,11 @@
 | Runde | neue Quellen | Anteil neu |
 |---|---|---|
 | W2 b5 | 10 | Anteil neu nicht berechnet |
+
+## Runde 2 (Welle 4, d5)
+- WaterSIC jetzt als Quelle: [arXiv:2603.04956] (Lücke ≤ 0,255 Bit zur Grenze, Spalten-Waterfilling; GPTQ kann beliebig weit entfernt sein), Theorie [arXiv:2601.17187], [arXiv:2605.13768]. Wichtig: GPTQ mit Zufallsrotation liegt je Schichttyp innerhalb 0,1 Bit von WaterSIC (Llama-3-8B-Σ), Abstract, ungeprüft. Das stützt Z3/S-001: Rotation plus GPTQ holt fast alles; für Rotations-Neuheit bleibt <= 0,1 Bit.
+- Entropiekodierung praktisch: [arXiv:2505.18758], EntQuant [arXiv:2601.22787] (Snippets, ungeprüft): entropiebeschränkte Quantisierung als Gegner bei gleichen Bytes.
+- Bits je Parameter bei QAT: kein neuer Befund; Kleinmodelle ternär gleichauf [arXiv:2411.05882].
+- Lücke bleibt: keine Grenze für reale, nicht-gaußsche Gewichte kleiner Modelle; Skaleneffizienz der Waterfilling-Idee (Spaltenraten) für QIRE ungeprüft.
+- Neuer Weg (Vorschlag): Spaltenraten nach Aktivierungsvarianz als billiger Gegner testen. Langweiligste Erklärung: entspricht gemischter Genauigkeit. Quantenbezug: Analogie (keine).
+- Sättigung Runde 2: 3 neue Kernquellen bei 3 Suchen, N8 noch nicht gesättigt (Anteil neu hoch).

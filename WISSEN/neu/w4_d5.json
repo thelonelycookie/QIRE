@@ -1,0 +1,160 @@
+[
+ {
+  "id": "arXiv:2603.04956",
+  "titel": "WaterSIC: Information-Theoretically (Near) Optimal Linear Layer Quantization",
+  "jahr": 2026,
+  "autoren": "Egor Lifar, Semyon Savkin, Or Ordentlich, Yury Polyanskiy",
+  "feld": [
+   "N8",
+   "K1"
+  ],
+  "kernaussage": "GPTQ kann beliebig weit von der informationstheoretischen Grenze liegen; WaterSIC verteilt Raten je Spalte per Reverse-Waterfilling, Abstand zur Grenze höchstens 0,255 Bit für jede Aktivierungskovarianz; SOTA auf Llama/Qwen bei 1-4 Bit (Selbstangabe). Nur Abstract bestätigt.",
+  "zahlen": [
+   {
+    "wert": "0,255 Bit Abstand zur IT-Grenze",
+    "kontext": "Abstract, gleichmäßig über alle Kovarianzen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster informationstheoretisch begründeter PTQ-Gegner für jede Rotations-/Gitter-Methode; Spaltenraten statt Rotation.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d5"
+ },
+ {
+  "id": "arXiv:2601.17187",
+  "titel": "High-Rate Quantized Matrix Multiplication I",
+  "jahr": 2026,
+  "autoren": "Or Ordentlich, Yury Polyanskiy",
+  "feld": [
+   "N8",
+   "K1"
+  ],
+  "kernaussage": "Rate-Distortion-Theorie für quantisierte Matrixprodukte im Hochratenbereich; vergleicht absmax-INT und Gleitkomma mit der Grenze, Teil 2 behandelt Weight-only mit Aktivierungskovarianz. Abstract ohne Zahlen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Theorierahmen für den Vergleich Gruppenskala gegen Rotation gegen Gitter.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d5"
+ },
+ {
+  "id": "arXiv:2605.13768",
+  "titel": "High-Rate Quantized Matrix Multiplication II",
+  "jahr": 2026,
+  "autoren": "Or Ordentlich, Yury Polyanskiy",
+  "feld": [
+   "N8",
+   "K1",
+   "K3"
+  ],
+  "kernaussage": "Weight-only-PTQ als gewichtetes MSE-Quellcodieren; WaterSIC basisfrei, bis 2πe/12 (≈0,25 Bit) an der Grenze; GPTQ mit Zufallsrotation liegt je Schichttyp innerhalb 0,1 Bit von WaterSIC (Llama-3-8B-Kovarianzen).",
+  "zahlen": [
+   {
+    "wert": "GPTQ+Zufallsrotation innerhalb 0,1 Bit von WaterSIC",
+    "kontext": "Abstract, Llama-3-8B-Σ",
+    "geprueft": false
+   },
+   {
+    "wert": "2πe/12 ≈ 0,25 Bit",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "GPTQ+Rotation fast an der Grenze: kaum Spielraum für Rotations-Tricks darüber.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "S-001",
+   "S-008"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d5"
+ },
+ {
+  "id": "arXiv:2411.05882",
+  "titel": "When are 1.58 bits enough? A Bottom-up Exploration of BitNet Quantization",
+  "jahr": 2024,
+  "autoren": "Jacob Nielsen, Lukas Galke, Peter Schneider-Kamp",
+  "feld": [
+   "N1",
+   "K8"
+  ],
+  "kernaussage": "Ternäres (1,58 Bit) Training in MLP, GNN und kleinen Transformern gleichauf mit 16/32 Bit, teils besser; Kapazitätszugewinn gleicht kleinere Bitzahl nur unterproportional aus.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kleinmodell-Referenz (MLP/Encoder) für QAT bei niedrigen Bits.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-045",
+   "Z3b"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d5"
+ },
+ {
+  "id": "arXiv:2505.18758",
+  "titel": "Reducing Storage of Pretrained Neural Networks by Rate-Constrained Quantization and Entropy Coding",
+  "jahr": 2025,
+  "autoren": "unbekannt (Suchtreffer)",
+  "feld": [
+   "N8",
+   "K1"
+  ],
+  "kernaussage": "Gewichtskompression je Schicht als Rate-Distortion-Problem mit Lagrange-Multiplikator, getrennt in Quantisierung und Entropiekodierung. Nur Suchsnippet.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Entropiekodierung als Gegner bei gleichen Bytes.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d5"
+ },
+ {
+  "id": "arXiv:2601.22787",
+  "titel": "Float8@2bits: Entropy Coding Enables Data-Free Model Compression (EntQuant)",
+  "jahr": 2026,
+  "autoren": "unbekannt (Suchtreffer)",
+  "feld": [
+   "N8",
+   "K1"
+  ],
+  "kernaussage": "Entropiebeschränkte Quantisierung von Float8/Int8-Gewichten, schichtweise per L-BFGS und STE, kodiert auf rund 2 Bit effektiv. Nur Suchsnippet.",
+  "zahlen": [
+   {
+    "wert": "≈2 Bit effektiv",
+    "kontext": "Titel/Snippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Entropiekodierter Gegner ohne Daten und ohne Rotation.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d5"
+ }
+]
