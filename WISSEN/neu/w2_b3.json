@@ -1,0 +1,209 @@
+[
+ {
+  "id": "arXiv:2602.01613",
+  "titel": "A Practical Tensor-Network Compression Pipeline for Production-Scale Large Language Models (Minima)",
+  "jahr": 2026,
+  "autoren": "Kozyrev, S.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Mischung aus Tucker, TT und TR mit gelerntem Sensitivitätsmodell, kurzem Heilen und eigenen Triton/CUDA-Kernen; Ziel sind echte Serving-Gewinne, nicht nur Parameterzahl.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2606.03465",
+  "titel": "Rethinking the Role of Tensor Decompositions in Post-Training LLM Compression",
+  "jahr": 2026,
+  "autoren": "Zagitov, A. u. a.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Systematische Bewertung von Tensorzerlegungen für dichte und MoE-LLMs: Nutzen ist eng begrenzt; grundlegende Nichtübereinstimmung zwischen gemeinsamen Unterräumen der Zerlegung und den heterogenen gelernten Darstellungen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kritische Referenz zu CompactifAI/MPO-Kompression nach dem Training.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2507.08836",
+  "titel": "Accuracy and Consumption analysis from a compressed model by CompactifAI from Multiverse Computing",
+  "jahr": 2025,
+  "autoren": "Fovet, D. u. a.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Fremdbewertung von CompactifAI auf Llama 3.1 8B (Codecarbon für Energie, Ragas für Genauigkeit): weniger Ressourcen bei erhaltener Genauigkeit. Abstract-Aussage; Zahlen nicht gelesen, Autoren mit Herstellerbezug nicht ausgeschlossen.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2608.30505",
+  "titel": "Tensor Methods for Language Models: From Token Representation to Training, Adaptation, Inference, Compression, and Interpretability",
+  "jahr": 2026,
+  "autoren": "Tarasov, M. u. a.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Übersichtsarbeit: Lebenszyklus-Taxonomie (Tokenisierung bis Interpretierbarkeit); führt die Kennzahl rho_gap für die Lücke zwischen theoretischer Speicherersparnis und gemessenem Speedup ein (laut Suchtreffer, nur Abstract bestätigt).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2410.20926",
+  "titel": "Long Sequence Modeling with Attention Tensorization: From Sequence to Tensor Learning",
+  "jahr": 2024,
+  "autoren": "Feng, A. u. a.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Lange Eingaben werden zu Tensoren gefaltet, Attention je Tensormode; Tensorized Attention mit Triton-Kernel, nachträglich auf vortrainierte LLMs anwendbar.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2412.02919",
+  "titel": "Higher-Order Transformers With Kronecker-Structured Attention",
+  "jahr": 2024,
+  "autoren": "Omranpour, S. u. a.",
+  "feld": [
+   "K5",
+   "K7"
+  ],
+  "kernaussage": "Mehrwegige Attention als Summe von Kronecker-Produkten bzw. modenweisen Attention-Matrizen; senkt die quadratischen Kosten für Tensordaten.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2604.01757",
+  "titel": "Attention Mechanisms Through the Lens of Numerical Methods: Approximation Methods and Alternative Formulations",
+  "jahr": 2026,
+  "autoren": "Serret, M. F. u. a.",
+  "feld": [
+   "K5",
+   "N2"
+  ],
+  "kernaussage": "Übersicht zu schneller Attention aus Sicht der numerischen linearen Algebra (Approximation und Umformulierung).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2211.14657",
+  "titel": "Variational Tensor Neural Networks for Deep Learning",
+  "jahr": 2022,
+  "autoren": "Jahromi, S. S., Orús, R.",
+  "feld": [
+   "K5",
+   "F6"
+  ],
+  "kernaussage": "MPO-Gewichte werden mit DMRG-artigem Zwei-Orts-Sweep trainiert (lokale Gradientenschritte, SVD-Teilung passt die Bonddimension an); getestet auf MNIST und Regression. Übertragung eines Simulationsverfahrens (DMRG) auf ML-Training.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Mögliche Abhilfe für I-047: Bonddimension adaptiv statt fest.",
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2209.09098",
+  "titel": "Deep tensor networks with matrix product operators",
+  "jahr": 2022,
+  "autoren": "Žunkovič, B.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Tiefe MPO-Netze mit exponentiell breiten Schichten; 0,49 % Fehler MNIST, 8,3 % FashionMNIST; verbessert MPS-Baselines.",
+  "zahlen": [
+   {
+    "wert": "0,49 % MNIST-Fehler, 8,3 % Fashion-Fehler",
+    "kontext": "Abstract, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Obere Referenz für MPS/MPO-Klassifikatoren auf MNIST/Fashion.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ },
+ {
+  "id": "arXiv:2205.07408",
+  "titel": "Training neural networks using Metropolis Monte Carlo and an adaptive variant",
+  "jahr": 2022,
+  "autoren": "Whitelam, S. u. a.",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "Metropolis-Monte-Carlo (Temperatur null) trainiert Netze mit Gradientenabstieg-ähnlicher Genauigkeit, aber langsamer; adaptive Variante aMC für heterogene Netze. Hinweis: Autorenliste nicht bestätigt, nur erster Autor.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Keine Effizienzgewinn-Baseline: MC ist langsamer als SGD.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b3"
+ }
+]
