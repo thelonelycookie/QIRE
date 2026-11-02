@@ -1,0 +1,213 @@
+[
+ {
+  "id": "arXiv:2502.08606",
+  "titel": "Distillation Scaling Laws",
+  "jahr": 2025,
+  "autoren": "Busbridge, D. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Skalengesetz für destillierte Modelle aus Rechenbudget und dessen Aufteilung auf Schüler und Lehrer; Destillation schlägt überwachtes Training nur bis zu einem Rechenniveau, wenn ein Lehrer schon existiert oder viele Schüler entstehen (nur Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "143M bis >12B Parameter",
+    "kontext": "Spanne der Experimente laut Sekundärquelle",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Entscheidet, ob Destillation bei gleichen FLOPs lohnt; Pflichtbezug für jeden Kosten-Nutzen-Vergleich.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Kosten-Nutzen bei gleichen FLOPs"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2407.14679",
+  "titel": "Compact Language Models via Pruning and Knowledge Distillation",
+  "jahr": 2024,
+  "autoren": "Muralidharan, S. et al. (NVIDIA)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Pruning eines großen LLM plus Destillations-Nachtraining mit <3 % der Daten ersetzt Neutraining; Minitron 8B/4B.",
+  "zahlen": [
+   {
+    "wert": "<3 % der Originaldaten",
+    "kontext": "Abstract",
+    "geprueft": false
+   },
+   {
+    "wert": "bis +16 % MMLU gegenüber Training von null",
+    "kontext": "Sekundärquelle",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starke Baseline für ressourceneffiziente kleine Modelle; Pruning+KD vs. Quantisierung+KD.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2408.11796",
+  "titel": "LLM Pruning and Distillation in Practice: The Minitron Approach",
+  "jahr": 2024,
+  "autoren": "Sreenivas, S. T. et al. (NVIDIA)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Praxisbericht: Llama 3.1 8B auf 4B, Mistral NeMo 12B auf 8B per Tiefen- oder Breiten-Pruning plus Destillation.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Praxisrezept für Pruning+KD als Vergleichsbasis.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2409.16694",
+  "titel": "A Survey of Low-bit Large Language Models: Basics, Systems, and Algorithms",
+  "jahr": 2024,
+  "autoren": "Gong, R. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Übersicht über Niedrigbit-Quantisierung von LLMs, trennt QAT und PTQ; ordnet LLM-QAT (Daten-freie KD) und BitDistiller ein.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Übersichtsquelle für QAT+KD.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2601.14888",
+  "titel": "What Makes Low-Bit Quantization-Aware Training Work for Reasoning LLMs? A Systematic Study",
+  "jahr": 2026,
+  "autoren": "Lv, K. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Systematische Studie: Wissensdestillation ist das robuste QAT-Ziel für Reasoning-Modelle, SFT wie RL.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stützt KD als Standardverlust bei QAT, auch für QIRE-Trainingsrezepte.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Rotation gegen faire Gegner ≈ gleichwertig (Z3): KD-Verlust gehört bei fairen Gegnern zu allen Armen"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2411.07483",
+  "titel": "Quantifying Knowledge Distillation Using Partial Information Decomposition",
+  "jahr": 2024,
+  "autoren": "Dissanayake, P. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Informationstheoretische Grenzen der Destillation: Nur die für die Aufgabe relevante, redundante Information des Lehrers zählt; Störinformation kann einen kapazitätsbegrenzten Schüler behindern.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kanal-Sicht: Schüler-Kapazität begrenzt den Wissenstransfer.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Kanalsicht passt zu N8 (Rate-Distortion)"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2505.14302",
+  "titel": "Scaling Law for Quantization-Aware Training",
+  "jahr": 2025,
+  "autoren": "Chen, M. et al. (HKU, ByteDance Seed)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Einheitliches Skalengesetz für W4A4-QAT-Fehler aus Modellgröße, Tokenzahl, Gruppengröße; 268 QAT-Läufe; FC2-Aktivierungs-Ausreißer sind der Engpass.",
+  "zahlen": [
+   {
+    "wert": "268 QAT-Läufe",
+    "kontext": "Abstract",
+    "geprueft": false
+   },
+   {
+    "wert": "Fehler sinkt mit Modellgröße, steigt mit Tokens und gröberer Granularität",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rahmen für QAT-Kosten; Ausreißer-Engpass ist der Ansatzpunkt für Rotationen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Rotation wirkt über Ausreißer; Z3 sieht aber Gleichwertigkeit gegen faire Gegner"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2508.13054",
+  "titel": "Quantum Relational Knowledge Distillation",
+  "jahr": 2025,
+  "autoren": "Liu, C.-Y. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "QRKD bildet Merkmale auf Quantenzustände (parametrisierte Schaltkreise) ab, um relationale Struktur zu destillieren; Schüler bleibt klassisch.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Quantenhardware nur im Training, kein Effizienzbeweis"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2505.13205",
+  "titel": "Quantum Knowledge Distillation for Large Language Models",
+  "jahr": 2025,
+  "autoren": "Li, L. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "QD-LLM: variationaler Quantenschaltkreis als Schüler; in klassischer Simulation besser als klassische Schüler (nur Abstract bestätigt); Simulation als quanten-inspirierter klassischer Algorithmus.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Quanten-inspirierter Schüler denkbar, aber Gewinn ungeprüft"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ }
+]
