@@ -35,6 +35,19 @@ Stand Welle 1, Agent a1 (≈ 10 Suchen, F5 und F1 teils gemeinsam). Nur Abstract
 - Kein Vergleich Rauschinjektion gegen Rotation bei gleichem Bit-Budget gefunden.
 - Kein Volltext gelesen.
 
+## Runde 2 (Welle 3, c3; nur Abstracts, Zahlen ungeprüft)
+- **Stochastische Rundung im Training:** BF16 mit SR schlägt Mischpräzision, impliziter Regularisierungseffekt unter Adam [arXiv:2502.20566]. SR ist der naheliegende Gegner zu „Rauschtraining".
+- **Rauschinjektion vor PTQ:** mittelwertfreies Differential-Rauschen erzeugt flache Minima [arXiv:2511.01462]; Standard-Injektion verzerrt das Ziel. Ergänzt [arXiv:2306.08553].
+- **Analog-Hardware:** Lipschitz-Regularisierung + Kompensation [arXiv:2211.14917]. Keine Arbeit gefunden, die Hadamard-Rotation unter analogem Gewichtsrauschen untersucht.
+- **Dephasierungs-Schicht:** keine Arbeit zu Lindblad-/Dephasierungs-Schichten in klassischen NN gefunden. Nächster klassischer Nachbar: Dropout, mit Theorie in [arXiv:2505.07792]. Bestätigt die langweiligste Erklärung (Dämpfung/Dropout).
+- **SDC:** Fehler im Training können wie Rauschen wirken oder Gradienten zerstören [arXiv:2604.00726]; Randthema.
+
+## Sättigung: Runde | neue Quellen | Anteil neu
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 1, a1 (F1/F5 gemeinsam, ≈ 10 Suchen) | siehe Welle 1 | hoch |
+| Welle 3, c3 Runde 2 (F5, gemeinsame Suchen) | 5 (F5) | mittel, Funde bestätigen eher bekannte Linien (Regularisierung, Dropout) |
+
 ## Schlüsse und neue Wege (Agent)
 1. **Rauschtraining (R1-Typ) in QIRE-Trainings als Regularisierer testen**, Gegner Standard-QAT. Beleg: [arXiv:2306.08553], [arXiv:2311.14114]. Langweiligste Erklärung: übliche Regularisierung, kein Quanteneffekt. Quantenbezug: Analogie (Dekohärenz).
 2. **Lindblad-artige Schicht** (Mischung + Dephasierung = Diagonale abdämpfen) als formale Brücke zur Born-Auslese. Beleg: [arXiv:2307.12293]. Langweiligste Erklärung: entspricht Dämpfung/Dropout. Quantenbezug: echte Formalisierung, klassisch simulierbar.

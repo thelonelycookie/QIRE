@@ -1,0 +1,197 @@
+[
+ {
+  "id": "url:https://neurips.cc/virtual/2024/poster/96461",
+  "titel": "Error Correction Output Codes for Robust Neural Networks against Weight-errors: A Neural Tangent Kernel Point of View",
+  "jahr": 2024,
+  "autoren": "Anlan Yu, Shusen Jing, Ning Lyu, Wujie Wen, Zhiyuan Yan",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "ECOC (nicht One-Hot) mit Mehrbit-Fehlerkorrektur macht Netze robuster gegen Gewichtsfehler; NTK-Theorie mit Schwelle (Abstand Ausgabe zu naechstem Codewort); Codeentwurf: Orthogonalitaet gegen Distanz. Nur Abstract/Poster gelesen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "ECOC-Ausgabecodierung als Gegner/Vorbild fuer Walsh-Hadamard-Ausgabecode",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2211.14917",
+  "titel": "CorrectNet: Robustness Enhancement of Analog In-Memory Computing for Neural Networks by Error Suppression and Compensation",
+  "jahr": 2022,
+  "autoren": "Amro Eldebiky, Grace Li Zhang, Georg Boecherer u. a.",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Lipschitz-Regularisierung im Training begrenzt Fehlerverstaerkung durch Schichten plus Fehlerkompensation; fuer analoge RRAM-Rechner. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Lipschitz-Regularisierung als billiger Rauschgegner ohne Redundanz",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2603.03723",
+  "titel": "A New Class of Geometric Analog Error Correction Codes for Crossbar Based In-Memory Computing",
+  "jahr": 2026,
+  "autoren": "Ziyuan Zhu, Changcheng Yuan, Ron M. Roth u. a.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Analoge Fehlerkorrekturcodes fuer Crossbar-Vektor-Matrix-Produkte bei gemischtem Rauschen (kleine Stoerungen plus Ausreisser); geometrische Konstruktion. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Analoge ECC als Redundanz-Gegner zu redundanzfreien Tricks",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2507.16676",
+  "titel": "Custom Algorithm-based Fault Tolerance for Attention Layers in Transformers",
+  "jahr": 2025,
+  "autoren": "Vasileios Titopoulos, Kosmas Alexandridis, Giorgos Dimitrakopoulos",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "ABFT-Pruefsummen fuer den ganzen Attention-Block statt einzelner Matmuls, gegen Hardwarefehler in Beschleunigern. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2504.02211",
+  "titel": "FT-Transformer: Resilient and Reliable Transformer with End-to-End Fault Tolerant Attention",
+  "jahr": 2025,
+  "autoren": "Huangliang Dai, Shixun Wu, Jiajun Huang u. a.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Ende-zu-Ende-ABFT fuer Attention mit Tensor-Pruefsummen plus Wertbegrenzung fuer Softmax; Suchauszug nennt ca. 13,9 % Mehraufwand (ungeprueft). Nur Abstract.",
+  "zahlen": [
+   {
+    "wert": "13,9 %",
+    "kontext": "mittlerer Fehlertoleranz-Overhead laut Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2604.00726",
+  "titel": "Exploring Silent Data Corruption as a Reliability Challenge in LLM Training",
+  "jahr": 2026,
+  "autoren": "Anton Altenbernd, Philipp Wiesner, Odej Kao",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Kontrollierte Fehlerinjektion im LLM-Training: stille Datenkorruption kann wie harmloses Rauschen wirken oder Gradienten zerstoeren; Neuberechnung des letzten Schritts hilft. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2502.20566",
+  "titel": "Stochastic Rounding for LLM Training: Theory and Practice",
+  "jahr": 2025,
+  "autoren": "Kaan Ozkara, Tao Yu, Youngsuk Park",
+  "feld": [
+   "F5",
+   "K8"
+  ],
+  "kernaussage": "BF16 mit stochastischer Rundung schlaegt gemischte Praezision (bis 6,7B); Theorie: impliziter Regularisierungseffekt unter Adam (AISTATS 2025). Zahlen aus Suchauszug.",
+  "zahlen": [
+   {
+    "wert": "bis 1,54x Durchsatz, 30 % weniger Speicher",
+    "kontext": "BF16+SR gegen BF16/FP32-Mischpraezision",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stochastische Rundung als Rauschtraining-Gegner fuer Niedrigbit-Training",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2511.01462",
+  "titel": "Efficiently Training A Flat Neural Network Before It has been Quantizated",
+  "jahr": 2025,
+  "autoren": "Peng Xia, Junbiao Pang, Tianyang Cai u. a.",
+  "feld": [
+   "F5",
+   "K1"
+  ],
+  "kernaussage": "Differentielles, mittelwertfreies Rauschen im Vortraining (DNQ) regularisiert den Hessian implizit und erzeugt flache Minima fuer spaetere PTQ (ViT); Standard-Rauschinjektion verzerrt das Ziel. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rauschinjektion vor PTQ als Gegner",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ },
+ {
+  "id": "arXiv:2505.07792",
+  "titel": "Analytic theory of dropout regularization",
+  "jahr": 2025,
+  "autoren": "Francesco Mori, Francesca Mignacco",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Analytische Theorie von Dropout in Zwei-Schicht-Netzen: Dropout senkt Korrelationen der versteckten Knoten, optimale Wahrscheinlichkeit steigt mit Labelrauschen. Naechster klassischer Nachbar einer Dephasierungs-Schicht. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Dropout als langweilige Erklaerung fuer Dephasierungs-Schichten",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c3"
+ }
+]

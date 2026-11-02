@@ -36,6 +36,19 @@ Stand Welle 1, Agent a1 (≈ 9 Suchen). Nur Abstracts/Suchauszüge, kein Volltex
 - ECOC-Arbeit ohne arXiv-ID; kein Survey zu Codierung für NN-Gewichte gefunden.
 - Kein Volltext gelesen.
 
+## Runde 2 (Welle 3, c3; gemeinsame Suchen mit F5, nur Abstracts, Zahlen ungeprüft)
+- **ECOC bestätigt:** Yu et al., NeurIPS 2024 [url:https://neurips.cc/virtual/2024/poster/96461]: Mehrbit-ECOC gegen Gewichtsfehler, NTK-Schwelle; Codeentwurf balanciert Orthogonalität und Distanz. Lücke aus Runde 1 (ID) damit geschlossen. Walsh-Hadamard-Ausgabecode wäre ein Spezialfall dieser Linie.
+- **Fehlerkorrektur in Analog/In-Memory-Hardware:** analoge ECC für Crossbars bei gemischtem Rauschen (klein plus Ausreißer) [arXiv:2603.03723]; Prüfsummen-/AN-Code-Ansätze [arXiv:2404.09818]; Lipschitz-Regularisierung statt Redundanz [arXiv:2211.14917]. Gemeinsame Linie: kleines Rauschen tolerieren, nur große Ausreißer korrigieren.
+- **ABFT für Transformer:** [arXiv:2507.16676], [arXiv:2504.02211] (Overhead ca. 13,9 %, ungeprüft); Training: stille Datenkorruption [arXiv:2604.00726]. Das ist Rechenfehlerschutz, nicht Gewichtscodierung; für QIRE nur Randthema.
+- **Rotation gegen Bitflips gegen faire Gegner:** erneute Suche ergibt weiter nur RoR [arXiv:2603.16382]; kein Clipping-Gegner im Suchauszug belegt (Volltext prüfen). Lücke bleibt offen.
+- **Neue Lücke:** analoge ECC-Literatur trennt „kleines Rauschen" und „Ausreißer" explizit; passt zu Z3 (Rotation glättet Ausreißer, Gruppenskalen auch).
+
+## Sättigung: Runde | neue Quellen | Anteil neu
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 1, a1 (F1/F5 gemeinsam, ≈ 9 Suchen) | siehe Welle 1 | hoch |
+| Welle 3, c3 Runde 2 (F1, 8 gemeinsame Suchen) | 7 (F1; davon 1 ohne arXiv-ID) | ca. 7 neue auf ca. 8 Fundstellen, noch nicht gesättigt |
+
 ## Schlüsse und neue Wege (Agent)
 1. **Bitflip-Robustheit als neue QIRE-Achse testen.** Beleg: [arXiv:2603.16382] (Rotation), [arXiv:2606.02430] (Integer robuster). Langweiligste Erklärung: Rotation macht nur Ausreißer kleiner, Clipping leistet dasselbe. Quantenbezug: Analogie (Streuung der Information über Basis).
 2. **Fester Gegner: Clipping + Gewichtsskalierung** vor jedem Rotationsanspruch. Beleg: [arXiv:2006.13977], [arXiv:2411.18993]. Langweiligste Erklärung: Gleichstand wie in Z3. Quantenbezug: keiner.
