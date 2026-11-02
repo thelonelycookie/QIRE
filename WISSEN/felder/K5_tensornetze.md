@@ -48,3 +48,15 @@ Stand 02.11.2026, Welle 2 (b3). Nur Abstracts gelesen, kein Volltext. Zahlen dah
 2. **Regel „viele Parameter pro FLOP, voller Rang“ als Entwurfsprinzip für QIRE-Schichten.** Beleg: [arXiv:2410.02117]. Langweiligste Erklärung: es ist einfach Monarch/Kronecker-Sparsität, nichts Quantenhaftes. Quantenbezug: nur als Schaltkreis-Analogie (Brickwork).
 3. **Adaptive Bonddimension per DMRG-Sweep** statt fester χ. Beleg: [arXiv:2211.14657] (nur MNIST/Regression). Langweiligste Erklärung: adaptive Rangwahl ist generische Rangauswahl (AdaLoRA-artig). Quantenbezug: direkt übertragenes Simulationsverfahren, aber klassische Wirkung.
 4. **Ehrliche Aussage für die Arbeit:** Post-Training-Tensorkompression hat engen Nutzen [arXiv:2606.03465]; nicht als QIRE-Vorteil verkaufen.
+
+## Runde 2 (Welle 4, d3)
+8 Suchen, nur Abstracts (arXiv-API bestätigt), Zahlen ungeprüft.
+- **Init/Skalierung für TT:** Standardinit liegt bei Tensornetzen falsch (Varianz des Produkts über Kerne) [arXiv:2205.15307]; Kernvarianz-Formel Var(w)=σ^(2n)·∏r_k [arXiv:2006.05442, aus Snippet]; Init über partielle Normen [arXiv:2309.06577]. Keine Arbeit zu muP/LR-Skalierung für TT gefunden (Suche ergab nur dichte muP). Die dichte-äquivalente Init in I-047 deckt den Varianzpunkt ab; fehlend bleibt die LR-Skalierung je Kern.
+- **TT von Grund auf im kleinen LM:** GPT-2 mit TT-Matrix, ca. 40 % weniger Parameter bei ähnlicher Perplexität [arXiv:2306.02697]; gleiche FLOPs nicht belegt. Übersicht [arXiv:2608.30505] nennt nur zwei Methoden mit Perplexität auf zwei Größen (Snippet).
+- **Tensornetz plus Quantisierung:** [arXiv:2306.01076] (QAT auf TT-Kernen, NLU), [arXiv:2512.09202] (PINN). Im LM-Pretraining nichts gefunden.
+- **Adaptiver Rang:** MetaTT [arXiv:2506.09105] (hoher TT-Rang, dann DMRG-artige SVD-Kompression, Adam-Momente neu starten); bestätigt Idee aus Runde 1, nur für Feintuning.
+- **MERA:** MERA ersetzt FC-Schichten in CNNs, ca. 1 % Genauigkeitsverlust [arXiv:1711.03357]; Baum-/Multiskalen-Klassifikatoren [arXiv:1710.04833], [arXiv:2001.08286]. Alles klein (CIFAR/MNIST), nichts für LMs.
+- **Neuer Lückenbefund:** kein Vergleich TT/MERA gegen BTT bei gleichen FLOPs im LM.
+
+Sättigung Runde 2: 8 Suchen, 8 neue Quellen von ca. 14 Treffern (ca. 55 % neu); Feld weiter nicht gesättigt.
+Neuer Schluss: Für I-047-Wiederholung zuerst Init prüfen (Partialnorm), dann LR je Kern; BTT als Pflichtarm. Langweiligste Erklärung bleibt: bei kleinem d ist dicht optimal.

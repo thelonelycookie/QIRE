@@ -1,0 +1,263 @@
+[
+ {
+  "id": "arXiv:2306.02697",
+  "titel": "Efficient GPT Model Pre-training using Tensor Train Matrix Representation",
+  "jahr": 2023,
+  "autoren": "Chekalina u. a.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "GPT-2 mit TT-Matrix-Schichten von Grund auf trainiert; laut Abstract ca. 40 % weniger Parameter bei vergleichbarer Perplexität. Nur Abstract bestätigt (arXiv-API).",
+  "zahlen": [
+   {
+    "wert": "ca. 40 % weniger Parameter",
+    "kontext": "Abstract-Selbstangabe; Details nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Einzige direkte TT-von-Grund-auf-Referenz im Sprachmodell; gleiche FLOPs nicht belegt.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2306.01076",
+  "titel": "Quantization-Aware and Tensor-Compressed Training of Transformers for Natural Language Understanding",
+  "jahr": 2023,
+  "autoren": "Yang u. a.",
+  "feld": [
+   "K5",
+   "K1"
+  ],
+  "kernaussage": "TT-Kerne direkt trainiert plus QAT mit lernbarem Skalenfaktor und schichtweiser Distillation; Ziel NLU-Feintuning, keine Perplexität. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Zeigt Kombination TT plus Niedrigbit; Gegenstück für TT+Quantisierung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2512.09202",
+  "titel": "Tensor-Compressed and Fully-Quantized Training of Neural PDE Solvers",
+  "jahr": 2025,
+  "autoren": "Autoren laut Abstract nicht erfasst",
+  "feld": [
+   "K5",
+   "F6"
+  ],
+  "kernaussage": "TT-Schichten mit voll quantisiertem Training für PINNs auf Randgeräten. Nur Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Randfall: TT plus Quantisierung im Training, Physik-Anwendung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2001.08286",
+  "titel": "A Multi-Scale Tensor Network Architecture for Classification and Regression",
+  "jahr": 2020,
+  "autoren": "Reyes, Stoudenmire",
+  "feld": [
+   "K5",
+   "F2"
+  ],
+  "kernaussage": "MERA-artige Tensornetz-Schichten als Wavelet-Vorverarbeitung für Klassifikation und Regression; MERA-Parameter nicht trainiert. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kein Gegner für LMs; nur Beleg, dass MERA im ML marginal bleibt.",
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:1710.04833",
+  "titel": "Machine Learning by Unitary Tensor Network of Hierarchical Tree Structure",
+  "jahr": 2017,
+  "autoren": "Liu u. a.",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Unitäres Baum-Tensornetz als Klassifikator, Verschränkung der trainierten Zustände untersucht. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2006.05442",
+  "titel": "Tensor train decompositions on recurrent networks",
+  "jahr": 2020,
+  "autoren": "Autoren nicht erfasst",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "TT in RNNs; leitet laut Suchtreffer Kernvarianz her (Var(w)=σ^{2n}·∏r_k) für Glorot-artige Init. Nur Abstract bestätigt, Formel aus Suchsnippet.",
+  "zahlen": [
+   {
+    "wert": "Var(w)=σ^(2n)·∏ r_k",
+    "kontext": "Suchsnippet, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Init-Regel für TT: Kernvarianz so wählen, dass Gesamtvarianz dichte-äquivalent ist (bei I-047 bereits so).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2309.06577",
+  "titel": "Efficient Finite Initialization with Partial Norms for Tensorized Neural Networks and Tensor Networks Algorithms",
+  "jahr": 2023,
+  "autoren": "Autoren nicht erfasst",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Initialisierung von Tensornetz-Schichten über partielle Frobenius-Normen, vermeidet explodierende oder verschwindende Einträge. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Init-Werkzeug für TT-Wiederholung von I-047.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2205.15307",
+  "titel": "A Unified Weight Initialization Paradigm for Tensorial Convolutional Neural Networks",
+  "jahr": 2022,
+  "autoren": "Pan u. a. (ICML 2022)",
+  "feld": [
+   "K5"
+  ],
+  "kernaussage": "Init für tensorielle CNNs, die Varianz von Merkmalen und Gradienten steuert; Standardinit liegt bei Tensornetzen falsch. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stützt den Einwand: Standardinit passt nicht zu TT; nur CNN, nicht dichte LM-Schichten.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-047"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2501.12739",
+  "titel": "Multiscale Training of Convolutional Neural Networks",
+  "jahr": 2025,
+  "autoren": "Zakariaei, Ahamed, Haber, Eliasof",
+  "feld": [
+   "F6",
+   "F2"
+  ],
+  "kernaussage": "Multilevel-Monte-Carlo-artiger Gradientenschätzer (MGE) für CNNs auf grober Gitterauflösung; Rechenkosten sparen. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kein Quanten-, aber Simulationsmethodenbezug (MLMC); Gegner ist normales Training mit Downsampling.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:1906.01504",
+  "titel": "Embedded hyper-parameter tuning by Simulated Annealing",
+  "jahr": 2019,
+  "autoren": "Fischetti, Stringher",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "SGD plus Simulated Annealing über diskrete Nachbarschaft: Hybrid statt Ersatz; CIFAR-10 mit VGG16/ResNet34, Baseline SGD mit fester LR ohne Momentum. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Fairness-Hinweis: SA-Baselines nutzen schwache SGD-Baseline.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2107.07558",
+  "titel": "SA-GD: Improved Gradient Descent Learning Strategy with Simulated Annealing",
+  "jahr": 2021,
+  "autoren": "Autoren nicht erfasst",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "Annealing-Akzeptanzregel auf Gradientenabstieg, um lokale Minima zu verlassen. Abstract bestätigt; keine Gleiche-Rechenzeit-Prüfung bekannt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Annealing nur als SGD-Zusatz belegt.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ },
+ {
+  "id": "arXiv:2305.17333",
+  "titel": "Fine-Tuning Language Models with Just Forward Passes (MeZO)",
+  "jahr": 2023,
+  "autoren": "Malladi u. a.",
+  "feld": [
+   "F6",
+   "N5"
+  ],
+  "kernaussage": "Nullte-Ordnung-SGD (zwei Vorwärtsläufe) für LM-Feintuning mit Inferenz-Speicher; laut Abstract/Suche bis 12x weniger Speicher, passabel gegen Backprop. Abstract bestätigt, Zahlen aus Suchsnippet.",
+  "zahlen": [
+   {
+    "wert": "bis 12x Speicher",
+    "kontext": "Selbstangabe, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster belegter Gegner/Beispiel für Monte-Carlo-artige, gradientenfreie Verfahren im LM; Gewinn ist Speicher, nicht FLOPs.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d3"
+ }
+]

@@ -41,3 +41,13 @@ Keine verlässlichen Zahlen erhoben (nur Abstracts, keine Effizienzzahlen). Kein
 1. **Negativbefund ist Befund:** Physik-Simulationsmethoden wurden kaum erfolgreich als ML-Effizienz übertragen (MC langsamer als SGD, HMC für ReLU ineffizient). Belege: [arXiv:2205.07408], NeurIPS 2024 HMC-Treffer. Langweiligste Erklärung: SGD ist für hochdimensionale Netze schlicht optimal; kein Wunder. Quantenbezug: keiner.
 2. **Budgetprinzip „Kosten ∝ Magie/Verschränkung“ als Messgröße in QIRE** (z. B. Rang oder T-Zahl pro Schicht gegen Genauigkeit). Belege: Stabilisator-Simulation [arXiv:1808.00128], Pauli-Propagation [arXiv:2409.01706]. Langweiligste Erklärung: Parameter-/Rang-Budgetkurve, in K7 schon bekannt. Quantenbezug: direkt für die Kostenbegründung, Wirkung klassisch.
 3. **DMRG-Sweep für adaptive Raten** (siehe K5, [arXiv:2211.14657]) als einzige konkrete Übertragung mit Substanz; kleine Vortestprobe auf Tuning-Seeds möglich. Langweiligste Erklärung: generische Rangwahl. Quantenbezug: Analogie.
+
+## Runde 2 (Welle 4, d3)
+Suchen: RG-Training, Annealing vs SGD, gradientenfreie LM-Verfahren (nur Abstracts).
+- **Annealing als Training:** Ältere Monte-Carlo-Studie (Hamm/Brorsen/Hagan, Snippet, nicht eingetragen): globale Verfahren kosten mehrfach Rechenzeit, kaum Vorteil gegen lokale Suche. SA nur als SGD-Zusatz [arXiv:1906.01504], [arXiv:2107.07558]; Baselines schwach (feste LR, kein Momentum). Faires Protokoll fehlt; Mindestanforderung: gleiche Rechenzeit, getunter SGD/Adam, mehrere Seeds.
+- **Gradientenfrei im LM:** MeZO [arXiv:2305.17333]: nur Vorwärtsläufe, Speichergewinn bis 12x (Selbstangabe), Gewinn ist Speicher, nicht FLOPs.
+- **Renormierung/Multiskala:** MLMC-artiger Gradientenschätzer für CNNs [arXiv:2501.12739]; RG-Rahmen (AAAI 2025 Studentenabstract, nur Snippet, nicht eingetragen). Kein belegter Effizienzgewinn bei LMs.
+- **Befund:** bestätigt Negativbefund aus Runde 1: Simulationsverfahren (SA, MC) schlagen SGD nicht bei Rechenzeit; Ausnahme nur Speicher (MeZO).
+
+Sättigung Runde 2: 4 Suchen F6, 4 neue Quellen von ca. 8 Treffern (ca. 50 % neu); Feld bleibt dünn aber ohne Gegenbeleg.
+Neuer Schluss: SA-Test nur mit fairer Gleiche-Zeit-Regel; als QIRE-Hebel wenig Hoffnung.
