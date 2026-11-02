@@ -1,0 +1,302 @@
+[
+ {
+  "id": "arXiv:2402.04396",
+  "titel": "QuIP#: Even Better LLM Quantization with Hadamard Incoherence and Lattice Codebooks",
+  "jahr": 2024,
+  "autoren": "Tseng, Chee, Sun, Kuleshov, De Sa",
+  "feld": [
+   "K4",
+   "K3",
+   "K1"
+  ],
+  "kernaussage": "Zufalls-Hadamard-Inkohärenz plus E8P-Codebuch (8D, 2 Bit, aus E8-Gitter, Symmetrie macht es ~1000x kleiner als naives Buch) plus Fine-Tuning; Referenz für Gitter+Hadamard.",
+  "zahlen": [
+   {
+    "wert": "Llama-2-7B 2 Bit Wiki2-PPL 8,22 ohne FT, 6,19 mit FT (FP16 5,12)",
+    "kontext": "aus Foliensuchauszug, nicht am Paper geprüft",
+    "geprueft": false
+   },
+   {
+    "wert": "E8P-Buch 1 KiB statt 1 MiB",
+    "kontext": "Foliensuchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster klassischer Gegner für Hadamard+Gitter bei 2 Bit; QIRE-Hadamard ist hier Vorstufe, der Gewinn liegt im Gitter (VQ) plus FT.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig",
+   "I-038: Fastfood≈Haar"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2402.15319",
+  "titel": "GPTVQ: The Blessing of Dimensionality for LLM Quantization",
+  "jahr": 2024,
+  "autoren": "van Baalen, Kuzmin, Koryakovskiy et al. (Qualcomm)",
+  "feld": [
+   "K4",
+   "K1"
+  ],
+  "kernaussage": "Höhere VQ-Dimension verbessert Größe-Genauigkeit; GPTQ-artige Hessian-Updates, EM-Initialisierung, Codebuch selbst quantisiert/SVD-komprimiert; mobile CPU-Dekodierung schneller als INT4 (v2: DRAM -19 %, Token-Rate +10 %).",
+  "zahlen": [
+   {
+    "wert": "70B in 3-11 h auf einer H100",
+    "kontext": "Abstract, bestätigt",
+    "geprueft": false
+   },
+   {
+    "wert": "v2: 19 % weniger DRAM, 10 % mehr Token/s vs INT4",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Datengetriebene VQ-Baseline ohne Rotation; zeigt Dekodierkosten messbar.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: faire Gegner"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2603.11021",
+  "titel": "Leech Lattice Vector Quantization for Efficient LLM Compression",
+  "jahr": 2026,
+  "autoren": "van der Ouderaa et al. (Qualcomm)",
+  "feld": [
+   "K4"
+  ],
+  "kernaussage": "Buchlose 24D-Leech-Gitter-VQ mit Indexierung ohne Codebuch-Materialisierung, Winkelsuche über Schalen, Spherical GPTQ (Shape-Gain). Behauptet SOTA bei 2 Bit vor QuIP#, QTIP, PVQ; geringere Empfindlichkeit gegenüber Hadamard-Vorverarbeitung.",
+  "zahlen": [
+   {
+    "wert": "LLVQ schlägt QuIP#/QTIP/AQLM bei 2 Bit",
+    "kontext": "Selbstangabe der Autoren, Abstract/Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkste Gitter-Gegnerin (Dimension 24); Hinweis: gutes Gitter macht Rotation weniger wichtig.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2502.09720",
+  "titel": "NestQuant: Nested Lattice Quantization for Matrix Products and LLMs",
+  "jahr": 2025,
+  "autoren": "Savkin, Porat, Ordentlich, Polyanskiy",
+  "feld": [
+   "K4",
+   "K2",
+   "K1"
+  ],
+  "kernaussage": "Selbstähnliche genestete Gitter (Gosset/E8) für Gewichte, Aktivierungen und KV; informationstheoretisch motiviert für Matrixprodukte.",
+  "zahlen": [
+   {
+    "wert": "Llama-3-8B W/A/KV 4 Bit Wiki2-PPL 6,6 (FP 6,14; SpinQuant 7,3; QuaRot 8,2)",
+    "kontext": "Abstract v3 bestätigt",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gitter-Baseline für W+A+KV mit Rotation.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2305.14314",
+  "titel": "QLoRA: Efficient Finetuning of Quantized LLMs (NF4)",
+  "jahr": 2023,
+  "autoren": "Dettmers, Pagnoni, Holtzman, Zettlemoyer",
+  "feld": [
+   "K4",
+   "K1"
+  ],
+  "kernaussage": "NF4: Quantilgitter der Normalverteilung nach Absmax-Normierung, 'informationstheoretisch optimal für normalverteilte Gewichte' (Behauptung der Autoren; Lloyd-Max wäre MSE-optimal, nicht Quantil).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Standard-Nichtuniform-Baseline, fairer Gegner ohne Rotation.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3b: Lloyd-Gitter ohne Rotation ≤ Hadamard bei 2 Bit"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2606.23406",
+  "titel": "HyperQuant: A Rate-Distortion-Optimal Quantization Pipeline for LLMs and Diffusion Models",
+  "jahr": 2026,
+  "autoren": "(nicht geprüft)",
+  "feld": [
+   "K4",
+   "K3"
+  ],
+  "kernaussage": "Pro-Kachel-Hadamard, dann E8/D4/A2/Z-Gitter, Rice-Entropiecodierung der Indizes, Bias-Korrektur für KV; schlägt HIGGS bei 3-5 Bit. Tabelle der Gittergewinne: Z 1,53 dB, E8 0,88 dB Abstand zu Shannon.",
+  "zahlen": [
+   {
+    "wert": "E8 holt ~0,65 dB von 1,53 dB (42 %), Leech weitere ~0,38 dB",
+    "kontext": "Suchauszug, theoretische Hochratenwerte, nicht am Paper geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt den theoretischen Raumfüllgewinn: max. 1,53 dB ≈ 0,25 Bit je Gewicht.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig",
+   "I-038 Hadamard als billige Mischung"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2411.17525",
+  "titel": "Pushing the Limits of LLM Quantization via the Linearity Theorem (HIGGS)",
+  "jahr": 2024,
+  "autoren": "Malinovskii et al.",
+  "feld": [
+   "K4",
+   "K3",
+   "K1"
+  ],
+  "kernaussage": "Linearitätssatz: layerweiser l2-Fehler ~ Perplexity-Anstieg; datenfreies HIGGS = Hadamard + MSE-optimale Gitter, schlägt NF4; dynamische Programmierung für Bitallokation.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Direkteste datenfreie Baseline für Hadamard+Lloyd-Gitter.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3b",
+   "Z3_gitter_block"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2506.05432",
+  "titel": "PCDVQ: Polar Coordinate Decoupled Vector Quantization",
+  "jahr": 2025,
+  "autoren": "(nicht geprüft)",
+  "feld": [
+   "K4"
+  ],
+  "kernaussage": "Richtung ist weit empfindlicher als Betrag (Genauigkeitsverlust beim Clustern nur der Richtungen 46,5 % vs 2,3 % der Beträge, LLaMA-2-7B); getrennte Richtungs-/Betragsbücher.",
+  "zahlen": [
+   {
+    "wert": "Genauigkeitsverlust 46,5 % (Richtung) vs 2,3 % (Betrag)",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Winkelbuch-Idee; Argument für Shape-Gain-Aufteilung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2603.27467",
+  "titel": "TurboAngle: Near-Lossless KV Cache Compression via Uniform Angle Quantization",
+  "jahr": 2026,
+  "autoren": "Patel",
+  "feld": [
+   "K4",
+   "K2"
+  ],
+  "kernaussage": "Winkel im Walsh-Hadamard-Bereich: Zufallsdiagonale macht Paare nahezu gleichverteilt auf dem Kreis, gleichförmige Winkelquantisierung ohne Kalibrierung.",
+  "zahlen": [
+   {
+    "wert": "3,28-3,67 Winkelbits/Element, verlustfrei auf 4 von 7 Modellen",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Winkelcodebuch auf U(1), nächster Verwandter einer Phasen-/Qubit-Codierung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038: Fastfood"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2502.02617",
+  "titel": "PolarQuant: Quantizing KV Caches with Polar Transformation",
+  "jahr": 2025,
+  "autoren": "Han, Kacham, Karbasi, Mirrokni, Zandieh",
+  "feld": [
+   "K4",
+   "K2"
+  ],
+  "kernaussage": "Zufallsvorbehandlung, dann rekursive Polarkoordinaten; Winkel analytisch konzentriert, daher keine Normalisierungsparameter.",
+  "zahlen": [
+   {
+    "wert": "KV >4,2x komprimiert",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Datenfreies Winkelbuch.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:1904.07842",
+  "titel": "Kerdock Codes Determine Unitary 2-Designs",
+  "jahr": 2019,
+  "autoren": "Can, Rengaswamy, Calderbank, Pfister",
+  "feld": [
+   "K4",
+   "F1"
+  ],
+  "kernaussage": "Kerdock-Codes liefern Stabilisatorzustände als N+1 gegenseitig unverzerrte Basen; Cliffordgruppen-Untergruppe, Pauli-mischend, unitäres 2-Design. Echte Brücke Codes↔Quantenzustände.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Z3: Rotation"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ }
+]
