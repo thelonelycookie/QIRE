@@ -1,0 +1,557 @@
+[
+ {
+  "id": "arXiv:1301.3124",
+  "titel": "Deep learning and the renormalization group",
+  "jahr": 2013,
+  "autoren": "Cédric Bény",
+  "feld": [
+   "F2"
+  ],
+  "kernaussage": "Vergleicht RG und tiefes Lernen (Tiefe entspricht Skala) und zeigt am MERA, wie ein RG-Verfahren zu einem Lernalgorithmus für klassische Verteilungen wird.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2510.25553",
+  "titel": "Renormalization group for deep neural networks: Universality of learning and scaling laws",
+  "jahr": 2025,
+  "autoren": "Gorka Peraza Coppola, Moritz Helias, Zohar Ringel",
+  "feld": [
+   "F2"
+  ],
+  "kernaussage": "RG-Rahmen für Lernkurven schwach nichtlinearer Netze auf Potenzgesetz-Daten: Skalenintervalle statt Skalendimensionen, relevante/irrelevante Störungen, Gauß-Prozess-artiger UV-Fixpunkt. Enthält Kurzüberblick der RG-und-NN-Literatur.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1711.03357",
+  "titel": "Compact Neural Networks based on the Multiscale Entanglement Renormalization Ansatz",
+  "jahr": 2017,
+  "autoren": "Andrew Hallam, Edward Grant, Vid Stojevic",
+  "feld": [
+   "F2",
+   "K5"
+  ],
+  "kernaussage": "MERA ersetzt die vollverbundenen Schichten eines CNN (CIFAR-10/100); besser als Tensor-Train bei gleicher Kompression.",
+  "zahlen": [
+   {
+    "wert": "ca. 14000-fache Parameterreduktion bei <1 % Genauigkeitsverlust",
+    "kontext": "Suchauszug, nicht im Abstract bestätigt [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Direkter quanten-inspirierter Gegner zu QIRE-Mischung: MERA-Schicht statt Hadamard·Diagonal (Parameter vs. Genauigkeit).",
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038",
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1602.01166",
+  "titel": "Entanglement renormalization and wavelets",
+  "jahr": 2016,
+  "autoren": "Glen Evenbly, Steven R. White",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Präziser Zusammenhang diskrete Wavelet-Transformation und Entanglement-Renormierung (MERA); Daubechies-Wavelets liefern analytisches MERA für kritischen Ising-Grundzustand.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2404.11715",
+  "titel": "Entanglement Renormalization for Quantum Field Theories with Discrete Wavelet Transforms",
+  "jahr": 2024,
+  "autoren": "Daniele S. M. Alves",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "wMERA: Entanglement-Renormierung für Feldtheorien mit diskreten Wavelet-Transformationen im Ortsraum, parallel zur MERA-Tensornetz-Architektur.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2110.13711",
+  "titel": "Hierarchical Transformers Are More Efficient Language Models (Hourglass)",
+  "jahr": 2021,
+  "autoren": "Piotr Nawrot, Szymon Tworkowski, Michał Tyrolski u. a.",
+  "feld": [
+   "F2",
+   "N2"
+  ],
+  "kernaussage": "Hourglass: Transformer mit Down-/Upsampling der Aktivierungen; bei gleichem Rechenaufwand besser als flacher Transformer (enwik8, ImageNet32).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Starke klassische Multiskala-Baseline für Sprachmodelle mit gleichem Rechenbudget.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2507.07955",
+  "titel": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (H-Net)",
+  "jahr": 2025,
+  "autoren": "Sukjun Hwang, Brandon Wang, Albert Gu",
+  "feld": [
+   "F2",
+   "N2"
+  ],
+  "kernaussage": "Lernbares dynamisches Chunking ersetzt Tokenisierung; einstufiger Byte-H-Net schlägt BPE-Transformer bei gleichem Rechen- und Datenaufwand, mehrstufig besser. Trainings-Implementierung etwa 2-mal langsamer als isotrop (Suchauszug).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stärkste aktuelle hierarchische Sprachmodell-Baseline.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2409.12924",
+  "titel": "Wavelet GPT: Wavelet Inspired Large Language Models",
+  "jahr": 2024,
+  "autoren": "Prateek Verma",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Haar-Wavelet-artige Mehrskalen-Filter auf Zwischen-Einbettungen eines GPT, ohne zusätzliche Parameter; gleiche Vortrainingsgüte fast doppelt so schnell (Text, Audio, Bild).",
+  "zahlen": [
+   {
+    "wert": "fast 2x schneller bis gleiche Güte",
+    "kontext": "Vortraining, akademischer Aufbau [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Fester Wavelet-Mischer ohne Parameter: nächster Verwandter zu Hadamard-Mischung im Sprachmodell.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2504.08801",
+  "titel": "Learnable Multi-Scale Wavelet Transformer: A Novel Alternative to Self-Attention",
+  "jahr": 2025,
+  "autoren": "Andrew Kiruluta, Priscilla Burity, Samantha Williams",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Ersetzt Skalarprodukt-Attention durch lernbare Mehrskalen-Haar-Wavelet-Transformation (Test: WMT16 En-De laut Suche).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2509.20581",
+  "titel": "Hierarchical Resolution Transformers: A Wavelet-Inspired Architecture for Multi-Scale Language Understanding",
+  "jahr": 2025,
+  "autoren": "Ayan Sar, Sampurna Roy, Kanav Gupta u. a.",
+  "feld": [
+   "F2"
+  ],
+  "kernaussage": "Wavelet-inspirierter Transformer, der Sprache auf mehreren Auflösungen (Zeichen bis Diskurs) verarbeitet; Cross-Resolution-Attention. Qualität der Evidenz nicht geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1203.1513",
+  "titel": "Invariant Scattering Convolution Networks",
+  "jahr": 2012,
+  "autoren": "Joan Bruna, Stéphane Mallat",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Streunetz: Kaskade aus Wavelet-Faltung, Betrag |·| und Mittelung; translationsinvariant, deformationsstabil, ohne Lernen der Filter.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Fester Wavelet + Betrag: struktureller Vorläufer von Mischung + Betragsquadrat-Auslese.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1312.5940",
+  "titel": "Generic Deep Networks with Wavelet Scattering",
+  "jahr": 2013,
+  "autoren": "Edouard Oyallon, Stéphane Mallat, Laurent Sifre",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Zweischicht-Streunetz ohne Lernen und ohne Max-Pooling klassifiziert komplexe Bilddaten; Idee: Anfangsschichten mit Wavelets initialisieren.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2201.02711",
+  "titel": "Block Walsh-Hadamard Transform Based Binary Layers in Deep Neural Networks",
+  "jahr": 2022,
+  "autoren": "Hongyi Pan, Diaa Badawi, Ahmet Enis Cetin",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Binäre Block-WHT-Schichten mit Weich-Schwellen-Nichtlinearität ersetzen 1x1-/3x3-Faltungen und Squeeze-and-Excite.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2105.03824",
+  "titel": "FNet: Mixing Tokens with Fourier Transforms",
+  "jahr": 2021,
+  "autoren": "James Lee-Thorp, Joshua Ainslie, Ilya Eckstein u. a.",
+  "feld": [
+   "F3",
+   "N2"
+  ],
+  "kernaussage": "Parameterfreie Fourier-Transformation statt Self-Attention: 92-97 % der BERT-Genauigkeit auf GLUE, auf GPU 80 % schneller; Ablation nennt auch DCT, Hadamard, Hartley (Ergebnis nicht gelesen).",
+  "zahlen": [
+   {
+    "wert": "92-97 % BERT/GLUE; 80 % schneller GPU",
+    "kontext": "512 Token [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Klassische Referenz für feste Mischung statt gelernter Mischung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2307.13304",
+  "titel": "QuIP: 2-Bit Quantization of Large Language Models With Guarantees",
+  "jahr": 2023,
+  "autoren": "Jerry Chee, Yaohui Cai, Volodymyr Kuleshov",
+  "feld": [
+   "F3",
+   "K1",
+   "K3"
+  ],
+  "kernaussage": "Inkohärenz-Verarbeitung: zufällige orthogonale Rotation von Gewichten und Hessian vor der Rundung ermöglicht erste brauchbare 2-Bit-LLM-Quantisierung mit Garantie.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotationsbasierte Quantisierung als Standard-Gegner zu Hadamard-Vormischung.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2604.04440",
+  "titel": "Training Transformers in Cosine Coefficient Space",
+  "jahr": 2026,
+  "autoren": "Mohamed Amine Bergach",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Lineare Schichten als K von mn 2D-DCT-Koeffizienten, von Grund auf trainiert (4 Schichten, 128 Dim, Shakespeare-Zeichen): bei K=mn/2 Verlust 1,604 gegen 1,580 dicht; Rang-48-LoRA 1,801. Zufällige Orthonormalbasis gleichwertig zur DCT; Mechanismus ist Rangflexibilität.",
+  "zahlen": [
+   {
+    "wert": "1,604 vs 1,580 dicht vs 1,801 LoRA",
+    "kontext": "Validierungsverlust, kleines Modell [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zufallsbasis = DCT innerhalb Rauschen: stützt Z3, dämpft Hadamard-Sonderrolle.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2410.09103",
+  "titel": "MaCP: Minimal yet Mighty Adaptation via Hierarchical Cosine Projection",
+  "jahr": 2024,
+  "autoren": "Yixian Shen, Qi Bi, Jia-Hong Huang u. a.",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Feinabstimmung: LoRA-Änderung in den DCT-Raum projiziert, nach Spektrumsebenen partitioniert, wichtigste Frequenzen gewählt; wenig Parameter und Speicher.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1506.04449",
+  "titel": "Compressing Convolutional Neural Networks (FreshNets)",
+  "jahr": 2015,
+  "autoren": "Wenlin Chen, James T. Wilson, Stephen Tyree u. a.",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Filtergewichte per DCT in den Frequenzraum, Koeffizienten per Hash-Funktion in Eimer gruppiert; Speichereinsparung, weil gelernte Filter glatt/niederfrequent sind.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1805.07258",
+  "titel": "Neural Network Compression using Transform Coding and Clustering",
+  "jahr": 2018,
+  "autoren": "Thorsten Laude, Yannick Richter, Jörn Ostermann",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Codec für Netzgewichte mit Transformcodierung (Faltungs-/dichte Schichten) und Clustering (Biases/Normierung).",
+  "zahlen": [
+   {
+    "wert": "Kompressionsfaktor 7,9-9,3 bei 1-2 % Genauigkeitsverlust",
+    "kontext": "Bildklassifikation [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2009.01174",
+  "titel": "Transform Quantization for CNN Compression",
+  "jahr": 2020,
+  "autoren": "Sean I. Young, Wang Zhe, David Taubman",
+  "feld": [
+   "F3",
+   "K1"
+  ],
+  "kernaussage": "Nachträgliche Dekorrelation (Transformation) und Quantisierung von CNN-Gewichten im Rate-Distortion-Rahmen; vereinigt Quantisierung und Dimensionsreduktion.",
+  "zahlen": [
+   {
+    "wert": "1-2 Bit Gewichtsrate",
+    "kontext": "laut Suchauszug [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2512.00862",
+  "titel": "HBLLM: Wavelet-Enhanced High-Fidelity 1-Bit Quantization for LLMs",
+  "jahr": 2025,
+  "autoren": "Ningning Chen, Weicai Ye, Ying Jiang u. a.",
+  "feld": [
+   "F3",
+   "K1",
+   "K8"
+  ],
+  "kernaussage": "Einstufige Haar-Wavelet-Zerlegung der Gewichte, frequenzbewusste Gruppierung, 1-Bit-PTQ.",
+  "zahlen": [
+   {
+    "wert": "Perplexität 6,71 LLaMA2-13B bei 1,08 Bit",
+    "kontext": "Suchauszug, nicht im Abstract geprüft [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Wavelet-Gegner zu Hadamard-Rotation in Niedrigbit-PTQ.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2103.05804",
+  "titel": "Reframing Neural Networks: Deep Structure in Overcomplete Representations",
+  "jahr": 2021,
+  "autoren": "Calvin Murdock, George Cazenavette, Simon Lucey",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Deep frame approximation: Netze als Näherung der Inferenz mit strukturierten überkomplettenen Rahmen; datenunabhängiges Rahmenpotenzial verbindet Kapazität mit Tiefe/Breite/Skip.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1504.05487",
+  "titel": "Deep Convolutional Neural Networks Based on Semi-Discrete Frames",
+  "jahr": 2015,
+  "autoren": "Thomas Wiatowski, Helmut Bölcskei",
+  "feld": [
+   "F3",
+   "F2"
+  ],
+  "kernaussage": "Erweitert Mallats Streutheorie auf beliebige semi-diskrete Rahmen (Gabor, Curvelets, Shearlets) je Schicht: Translationsinvarianz und Deformationsstabilität.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2002.03711",
+  "titel": "Learning End-to-End Lossy Image Compression: A Benchmark",
+  "jahr": 2020,
+  "autoren": "Yueyu Hu, Wenhan Yang, Zhan Ma u. a.",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Literaturübersicht und Benchmark gelernter Bildkompression (Transform, Quantisierung, Entropiemodell).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2503.01505",
+  "titel": "Lossy Neural Compression for Geospatial Analytics: A Review",
+  "jahr": 2025,
+  "autoren": "Carlos Gomes, Isabelle Wittmann, Damien Robert u. a.",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Rahmt neuronale Kompression als gelernte nichtlineare Erweiterung der Transformcodierung.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ }
+]
