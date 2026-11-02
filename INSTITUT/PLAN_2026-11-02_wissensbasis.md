@@ -1,4 +1,4 @@
-# PLAN 02.11.2026: Wissensbasis, dann Kreativ-Neustart (Entwurf, noch nicht gestartet)
+# PLAN 02.11.2026: Wissensbasis, dann Kreativ-Neustart (freigegeben 02.11., Start auf Zuruf)
 
 ## Ziel (Malte, 02.11.)
 Alles, was auch nur entfernt für QIRE relevant ist, dokumentieren. Dabei schon logische Schlüsse ziehen und neue Wege und Perspektiven finden. Der quanten-inspirierte Aspekt bleibt immer im Blick. Erst wenn die Wissensbasis gesättigt ist, startet der kreative Teil (Ideen-Loop) wieder.
@@ -14,7 +14,7 @@ Alles, was auch nur entfernt für QIRE relevant ist, dokumentieren. Dabei schon 
 ## Bestand (wird übernommen, nicht neu gesucht)
 - `LITERATUR/literatur.bib`, `notizen.md`, `quellen_daten.py` → `neuheit_index.json`
 - `INSTITUT/recherche/*` (Breitrecherche 05.10., Vertiefung, Chat-Sweep, Volltexte)
-- Branch `welle-2026-10-27-ergebnisse`: `zyklus/STROM.md` (Späher-Funde), `REAKTOR.md`, `ARCHIV.md`, `Z1–Z4_*`
+- `INSTITUT/recherche/zyklus/` (aus Welle-Branch übernommen): `STROM.md` (Späher-Funde), `REAKTOR.md`, `ARCHIV.md`, `Z1–Z4_*`
 - Eigene Befunde: `LABORBUCH.md`, `FEHLERBUCH.md`, Z3-Ernte (Rotation gegen faire Gegner ≈ gleichwertig)
 
 ## Ablage
@@ -74,8 +74,8 @@ Danach Opus: Duplikate/Qualität prüfen, Sättigungszahl je Feld eintragen.
 - Nur auf Zuruf, ≤ 6 Sonnet-Agenten je Welle, ≤ 12 Suchen je Agent.
 - Wenn das Nutzungslimit erreicht wird: sauber abbrechen, Zwischenstand committen. Der Zuruf geht dann einfach weiter.
 
-## Offene Fragen an Malte
-1. Themenfelder so in Ordnung? Fehlt etwas oder ist etwas zu viel?
-2. Ort: neuer Ordner `WISSEN/` auf `main`, oder unter `LITERATUR/`?
-3. Branch `welle-2026-10-27-ergebnisse`: STROM/REAKTOR/ARCHIV nach `main` übernehmen und den Branch archivieren?
-4. Sollen Volltexte (PDF) lokal gespeichert werden (gitignored) oder nur Links?
+## Entscheidungen Malte (02.11.)
+1. Die Themenfelder passen so.
+2. `WISSEN/` wird ein eigener Ordner auf `main`.
+3. Der Inhalt des Branches `welle-2026-10-27-ergebnisse` (zyklus/, 2026-10-27_welle/, 2026-10-28_welle2/ …) ist nach `main` übernommen. Der Branch liegt jetzt als Archiv auf `archiv/welle-2026-10-27-ergebnisse`.
+4. Volltexte werden lokal in `WISSEN/volltexte/` gespeichert (gitignored).

@@ -24,3 +24,6 @@ INSTITUT/daten/
 INSTITUT/ergebnisse/*.log
 INSTITUT/laeufe/
 INSTITUT/ergebnisse/_ckpt_*/
+
+# Volltexte der Wissensbasis (nur lokal)
+WISSEN/volltexte/

@@ -1,0 +1,4 @@
+{"arm": "D", "seed": 903, "lr": 0.002, "schritte": 1500, "bpc": 2.6459046373345063, "kurve_val8k": [3.3075, 2.885, 2.6849], "param_ffn": 263424, "flops_ffn_token": 525568, "param_ges": 437760, "sek": 120.4, "instabil": false, "val": true}
+{"arm": "TT4", "seed": 903, "lr": 0.002, "schritte": 1500, "bpc": 2.825855323788397, "kurve_val8k": [3.345, 3.0438, 2.8405], "param_ffn": 4864, "flops_ffn_token": 328960, "param_ges": 179200, "sek": 126.8, "instabil": false, "val": true}
+{"arm": "TT16", "seed": 903, "lr": 0.002, "schritte": 1500, "bpc": 2.7217652673892867, "kurve_val8k": [3.2396, 2.9384, 2.7502], "param_ffn": 40192, "flops_ffn_token": 3671296, "param_ges": 214528, "sek": 99.8, "instabil": false, "val": true}
+{"arm": "Dn24", "seed": 903, "lr": 0.002, "schritte": 1500, "bpc": 2.8337859112597066, "kurve_val8k": [3.3383, 3.0195, 2.8545], "param_ffn": 12592, "flops_ffn_token": 24880, "param_ges": 186928, "sek": 55.2, "instabil": false, "val": true}
