@@ -1,0 +1,138 @@
+[
+ {
+  "id": "arXiv:2601.04732",
+  "titel": "The Role of Quantum in Hybrid Quantum-Classical Neural Networks: An Empirical Assessment",
+  "jahr": 2026,
+  "autoren": "Dominik Freinberger, Philipp Moser",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Statistische Studie (rauschfreie Simulation, drei medizinische Binärtasks): Hybride QNN erreichen im besten Fall klassische Gegenstücke, meist werden Metriken schlechter, wenn QNN-Teile gleich große klassische Schichten ersetzen. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "best case: vergleichbar; meist schlechter",
+    "kontext": "HQNN vs. klassische Schichten gleicher Rolle",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Fair gepaarte klassische Schichten als Pflichtgegner.",
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d4"
+ },
+ {
+  "id": "arXiv:2512.01208",
+  "titel": "Language as a Wave Phenomenon: Semantic Phase Locking and Interference in Neural Networks (PRISM)",
+  "jahr": 2025,
+  "autoren": "Alper Yıldırım, İbrahim Yücedağ",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Komplexes Phasenmodell mit Einheitsnorm und harmonischer Faltung statt Attention; Autoren berichten Vorteil gegenüber reellem Spektral-Baseline. Autoren räumen ein, ein freies reelles Modell könne dasselbe lernen. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "PPL 5,80 (12,9 M) vs. 6,15 (13,5 M reell)",
+    "kontext": "komplex vs. reeller Spektral-Baseline",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Reeller Spektralblock gleicher Größe; Hinweis: Autoren-Baseline, nicht unabhängig getunt.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d4"
+ },
+ {
+  "id": "arXiv:2605.10123",
+  "titel": "Complex-Valued Phase-Coherent Transformer",
+  "jahr": 2026,
+  "autoren": "Leona Hioki",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Komplexe Attention mit glattem Gate statt Softmax; bei Parameter-Gleichheit besser als reelle Softmax-Attention auf synthetischen/Langkontext-Aufgaben, kein natürliches Sprachmodell. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "besser als reelle Softmax-Attention bei gleicher Parameterzahl",
+    "kontext": "synthetische Gedächtnis-/Retrieval-Tasks",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster reeller Nicht-Softmax-Gegner.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d4"
+ },
+ {
+  "id": "arXiv:2610.08592",
+  "titel": "CNet: A Complex-Valued Deep Learning Framework with Wirtinger Autodifferentiation and FFT-Hadamard Convolution",
+  "jahr": 2026,
+  "autoren": "Marcel Crasmaru",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Komplexes kausales LM mit Fourier-Mischer ≈ parameter-gleicher reeller FNet auf Tiny Shakespeare in unter halb so vielen Schritten; Born-Score-Attention |<Q,K>|² ersetzt Softmax und erreicht 1,52 nats/char wie Softmax-Attention. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "1,52 nats/char",
+    "kontext": "Born-Attention vs. Softmax, tiny-shakespeare",
+    "geprueft": false
+   },
+   {
+    "wert": "1,31 nats/char",
+    "kontext": "byte-level",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Softmax-Attention gleicher Größe (Born-Score nur gleichwertig); reeller FNet.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d4"
+ },
+ {
+  "id": "arXiv:2605.03023",
+  "titel": "Arts & crafts: Strong random unitaries and geometric locality",
+  "jahr": 2026,
+  "autoren": "Marten Folkertsma, Lorenzo Grevink, Jonas Helsen",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Konstruktion starker approximativer unitärer k-Designs auf Gittern mit optimaler Tiefe; liefert Rahmen, wie wenige lokale zufällige Schichten Haar-Zufälligkeit annähern (Nähe zu Mischen mit festen Rotationen). (nur Abstract, arXiv-API)",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "S-008"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d4"
+ }
+]
