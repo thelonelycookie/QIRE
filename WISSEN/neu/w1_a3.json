@@ -1,0 +1,323 @@
+[
+ {
+  "id": "arXiv:2002.05202",
+  "titel": "GLU Variants Improve Transformer",
+  "jahr": 2020,
+  "autoren": "Noam Shazeer",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Gated Linear Units (komponentenweises Produkt zweier linearer Projektionen, eine davon nichtlinear) in den FFN-Schichten; einige Varianten (GEGLU, SwiGLU) schlagen ReLU/GELU. Das GLU-Produkt ist selbst eine quadratische (bilineare) Form: x·σ(x) bzw. (Wx)⊙(Vx).",
+  "zahlen": [
+   {
+    "wert": "GEGLU/SwiGLU beste Perplexity (T5-Pretraining)",
+    "kontext": "Abstract-Ebene, Suchtreffer; Werte nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkste FFN-Baseline (SwiGLU) gegen ReLU²/Born-Quadrat im selben Parameter- und Bitbudget.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038",
+   "I-039-v2",
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2409.08290",
+  "titel": "Reconsidering the Energy Efficiency of Spiking Neural Networks Inference from Analytical Perspectives",
+  "jahr": 2024,
+  "autoren": "Zhanglu Yan, Zhenyu Bai, Kaiwen Tang, Weng-Fai Wong",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Faire Neubewertung: SNN-Energievorteile verschwinden, wenn Datenbewegung/Speicherzugriffe mitgezählt und gegen quantisierte ANNs verglichen wird; Vorteil nur bei sehr hoher Spärlichkeit und kleinem Zeitfenster.",
+  "zahlen": [
+   {
+    "wert": "Neuronen-Sparsity >93 % bei VGG16, T=6",
+    "kontext": "v1-Abstract (Suchtreffer); nicht im Volltext geprüft",
+    "geprueft": false
+   },
+   {
+    "wert": "SNN optimiert 85 %/78 % der ANN-Energie (klassische/Spatial-Dataflow-Architektur)",
+    "kontext": "v1-Abstract, Suchtreffer",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner für jede Behauptung 'bio-inspiriert = energieeffizient': Vergleich muss gegen quantisiertes ANN mit vollem Speicherzugriff laufen.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2001.04907",
+  "titel": "Bio-Inspired Hashing for Unsupervised Similarity Search",
+  "jahr": 2020,
+  "autoren": "Chaitanya K. Ryali, John J. Hopfield, Leopold Grinberg, Dmitry Krotov",
+  "feld": [
+   "F4",
+   "N6"
+  ],
+  "kernaussage": "FlyHash (Fliegen-Geruchsschaltkreis: zufällige spärliche Expansion + Winner-take-all) ist ein LSH-Verfahren mit spärlichen hochdimensionalen Codes; BioHash lernt die Projektionen mit lokaler Plastizitätsregel und schlägt FlyHash/klassisches LSH.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Fliegen-Hash (feste Zufallsprojektion + Top-k) als Null-Parameter-Baseline gegen die feste Hadamard-Mischung plus Quadrat-Auslese.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2111.05498",
+  "titel": "Attention Approximates Sparse Distributed Memory",
+  "jahr": 2021,
+  "autoren": "Trenton Bricken, Cengiz Pehlevan",
+  "feld": [
+   "F4",
+   "N2"
+  ],
+  "kernaussage": "Transformer-Attention entspricht unter Datenbedingungen Kanervas Sparse Distributed Memory (biologisch plausibles Assoziativgedächtnis); Bedingungen in GPT-2 erfüllt.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2102.11972",
+  "titel": "Do Transformer Modifications Transfer Across Implementations and Applications?",
+  "jahr": 2021,
+  "autoren": "Sharan Narang, Hyung Won Chung, Yi Tay, William Fedus",
+  "feld": [
+   "N7",
+   "N2"
+  ],
+  "kernaussage": "Die meisten Transformer-Änderungen (darunter viele Aktivierungsvarianten) bringen in gemeinsamem Setting keine bedeutende Verbesserung; Gewinner stammen oft aus derselben Codebasis. GLU-Varianten gehören zu den wenigen, die helfen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Methodische Mahnung: kleine Aktivierungsunterschiede übertragen sich selten; passt zu gleichwertigen Ergebnissen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-039-v2",
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2003.03828",
+  "titel": "Pi-nets: Deep Polynomial Neural Networks",
+  "jahr": 2020,
+  "autoren": "Grigorios G. Chrysos, Stylianos Moschoglou, Giorgos Bouritsas, Yannis Panagakis",
+  "feld": [
+   "N7",
+   "K7"
+  ],
+  "kernaussage": "Netze, deren Ausgabe ein Polynom hoher Ordnung der Eingabe ist (Hadamard-Produkte, Skip-Verbindungen, faktorisierte Tensoren); funktionieren auch ohne Aktivierungsfunktion, mit Aktivierung besser.",
+  "zahlen": [
+   {
+    "wert": "FID CIFAR-10: 40,45 ohne vs. 16,79 mit Aktivierung",
+    "kontext": "nur Drittseite hyper.ai, nicht im Original geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Polynomnetz als Gegner/Verwandte von Quadrat-Auslese: Polynom ohne Aktivierung trägt, aber schwächer.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2006.13026",
+  "titel": "Deep Polynomial Neural Networks",
+  "jahr": 2020,
+  "autoren": "Grigorios Chrysos, Stylianos Moschoglou, Giorgos Bouritsas, Jiankang Deng",
+  "feld": [
+   "N7",
+   "K7"
+  ],
+  "kernaussage": "Erweiterte Fassung der Pi-nets: gekoppelte Tensorfaktorisierung der Polynomparameter; SOTA bei Bilderzeugung, Gesichtsverifikation, 3D-Meshes mit Aktivierungen.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2510.04595",
+  "titel": "SpikingMamba: Towards Energy-Efficient Large Language Models via Knowledge Distillation from Mamba",
+  "jahr": 2025,
+  "autoren": "Yulong Huang, Jianxiong Tang, Chao Wang, Ziyi Wang",
+  "feld": [
+   "F4",
+   "N3"
+  ],
+  "kernaussage": "Spiking-LLM durch Distillation aus Mamba statt Vortraining.",
+  "zahlen": [
+   {
+    "wert": "ca. 4,76x Energievorteil gegen Mamba2 (1,3B), Zero-Shot ca. 4,78 % unter Basis",
+    "kontext": "Suchtreffer-Zusammenfassung, Abstract nicht ganz gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt: SNN-Vorteil zählt nur mit Energieproxy; vgl. 2409.08290.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2407.04752",
+  "titel": "SpikeLLM: Scaling up Spiking Neural Network to Large Language Models via Saliency-based Spiking",
+  "jahr": 2024,
+  "autoren": "Xingrun Xing, Boyan Gao, Zheng Zhang, David A. Clifton",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Erstes spiking LLM (7-70B) mit salienzbasiertem Spiking und generalisierten Integrate-and-Fire-Neuronen; Motivation: Gehirn (ca. 86 Mrd. Neuronen) effizienter als LLMs.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:1710.05941",
+  "titel": "Searching for Activation Functions",
+  "jahr": 2017,
+  "autoren": "Prajit Ramachandran, Barret Zoph, Quoc V. Le",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Automatische Suche findet Swish x·sigmoid(βx), meist besser als ReLU in tiefen Netzen.",
+  "zahlen": [
+   {
+    "wert": "+0,9 pp Top-1 ImageNet (Mobile NASNet-A), +0,6 pp (Inception-ResNet-v2)",
+    "kontext": "Abstract, Suchtreffer",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Referenz für 'gleichwertig bis leicht besser' bei Glattaktivierungen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:1606.08415",
+  "titel": "Gaussian Error Linear Units (GELUs)",
+  "jahr": 2016,
+  "autoren": "Dan Hendrycks, Kevin Gimpel",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "GELU x·Φ(x) gewichtet Eingaben nach Wert statt Vorzeichen; besser als ReLU/ELU in Vision, NLP, Sprache.",
+  "zahlen": [],
+  "baseline_fuer_qire": "GELU ist die in QIRE-Vergleichen genannte Referenz (ReLU² ≈ GELU).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2411.02335",
+  "titel": "Sparsing Law: Towards Large Language Models with Greater Activation Sparsity",
+  "jahr": 2024,
+  "autoren": "Yuqi Luo, Chenyang Song, Xu Han, Yingfa Chen",
+  "feld": [
+   "N7",
+   "N4"
+  ],
+  "kernaussage": "Systematische Studie zur Aktivierungssparsity: ReLU-Aktivierung erreicht höhere Sparsity bei gleicher Güte als SiLU; Potenzgesetz Sparsity gegen Datenmenge.",
+  "zahlen": [
+   {
+    "wert": "2,4B-Modell, 93,52 % Sparsity, 4,1x Speedup",
+    "kontext": "Suchtreffer zur ICML-Seite; nicht im Volltext geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Aktivierungswahl bestimmt Sparsity: ReLU/ReLU² gegen SwiGLU für ressourceneffiziente Inferenz.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "doi:10.7554/eLife.10778",
+  "titel": "Nanoconnectomic upper bound on the variability of synaptic plasticity",
+  "jahr": 2015,
+  "autoren": "Thomas M. Bartol Jr. u. a.",
+  "feld": [
+   "F4",
+   "K1"
+  ],
+  "kernaussage": "3D-Elektronenmikroskopie CA1: Spinepaare mit gleicher Vorgeschichte haben sehr ähnliche Größen; mindestens 26 unterscheidbare Synapsenstärken, also etwa 4,7 Bit je Synapse.",
+  "zahlen": [
+   {
+    "wert": "26 Stärken ≈ 4,7 Bit/Synapse",
+    "kontext": "Abstract; kleine Probe 6x6x5 µm³, obere Schranke; keine In-vivo-Kapazität",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Biologische Rechtfertigung für 4-5-Bit-Gewichte (passt zu 4-Bit-Quantisierung, K1).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ }
+]

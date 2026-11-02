@@ -12235,5 +12235,2210 @@
   "gefunden_am": "2026-10-28",
   "welle": 0,
   "herkunft": "INSTITUT/recherche/zyklus/Z1_literatur.md"
+ },
+ {
+  "id": "arXiv:2004.10700",
+  "titel": "CodNN -- Robust Neural Networks From Coded Classification",
+  "jahr": 2020,
+  "autoren": "Netanel Raviv et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Paritätscode als Klassifikations-Ausgabecodierung macht DNNs robust gegen Bitfehler/Löschungen in der Hardware; Abstract nur aus arXiv-API und Suchauszug.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2001.03814",
+  "titel": "Functional Error Correction for Robust Neural Networks",
+  "jahr": 2020,
+  "autoren": "Kunping Huang, Paul H. Siegel, Anxiao Jiang",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "ECC für gespeicherte Gewichte mit Ziel Modellgenauigkeit statt Bitfehlerrate: nur wichtige Bits schützen, Schutzstärke je Schicht.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Selektiver ECC-Schutz als Gegner zu codierungsbasierter Robustheit",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2508.12347",
+  "titel": "An ECC-based Fault Tolerance Approach for DNNs",
+  "jahr": 2025,
+  "autoren": "Mohsen Raji et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "SECDED-Hamming für DNN-Parameter plus SPW (Einzelbit korrigieren, unkorrigierbare Gewichte auf 0).",
+  "zahlen": [
+   {
+    "wert": "ca. 47,5 % Flächenaufwand",
+    "kontext": "laut Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "SECDED als Standard-Gegner für Bitflip-Schutz",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2404.09818",
+  "titel": "Error Detection and Correction Codes for Safe In-Memory Computations",
+  "jahr": 2024,
+  "autoren": "Luca Parrini et al.",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Prüfsummenblöcke als IMC-Crossbars erkennen/korrigieren arithmetische Fehler.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2411.18993",
+  "titel": "Harden Deep Neural Networks Against Fault Injections Through Weight Scaling",
+  "jahr": 2024,
+  "autoren": "Ninnart Fuengfusin, Hakaru Tamukoh",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Multiplikation der Gewichte mit Konstanten vor Speicherung senkt absoluten Bitflip-Fehler, ohne ECC-Redundanz.",
+  "zahlen": [
+   {
+    "wert": "Top-1-Gewinn 8-Bit-ResNet50 bei BER 1e-4",
+    "kontext": "Suchauszug, Betrag nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Billiger Gegner (Skalierung statt Code)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2405.13891",
+  "titel": "DeepNcode: Encoding-Based Protection against Bit-Flip Attacks on Neural Networks",
+  "jahr": 2024,
+  "autoren": "Patrik Velčický, Jakub Breier, Xiaolu Hou, Mladen Kovačević",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Hamming-/erweiterte Hamming-Codewörter statt Zweierkomplement für quantisierte Gewichte, ohne Neutraining.",
+  "zahlen": [
+   {
+    "wert": "Schutzmarge bis 7,6x (4 Bit), 12,4x (8 Bit)",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Codierungs-Baseline gegen Bitflip-Angriffe",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2602.00076",
+  "titel": "Repair Brain Damage: Real-Numbered Error Correction Code for Neural Network",
+  "jahr": 2026,
+  "autoren": "Ziqing Lu et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Reellwertige ECC: lineare Nebenbedingungen auf Gewichten korrigieren Speicher- und Rechenfehler ohne Zusatzparameter.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Nächster Verwandter zu strukturierten Mischungen als Code",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2502.07408",
+  "titel": "Maximal Brain Damage Without Data or Optimization: Disrupting Neural Networks via Sign-Bit Flips",
+  "jahr": 2025,
+  "autoren": "Ido Galil et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Wenige Vorzeichenbit-Flips zerstören DNNs; Gray-Box-Angriff umgeht Codebuchschutz wie DeepNcode.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2606.02430",
+  "titel": "Not All Errors Are Equal: A Systematic Study of Error Propagation in Large Language Model Inference",
+  "jahr": 2026,
+  "autoren": "Yafan Huang et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Ganzzahl-Formate erholen sich von Bitflips besser als FP16/BF16 (größerer Exponent verstärkt Fehler).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Niedrigbit ist bei Soft Errors nicht schlechter",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2006.13977",
+  "titel": "Bit Error Robustness for Energy-Efficient DNN Accelerators",
+  "jahr": 2020,
+  "autoren": "David Stutz, Nandhini Chandramoorthy, Matthias Hein, Bernt Schiele",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Robuste Festkomma-Quantisierung, Weight Clipping und Random Bit Error Training machen niedrigbittige DNNs fehlertolerant bei Niedrigspannung.",
+  "zahlen": [
+   {
+    "wert": "ca. 20 % (8 Bit) / 30 % (4 Bit) Energie gespart, Verlust < 0,8 / 2 pp, CIFAR-10",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Gegner für Rauschrobustheit niedrigbittiger Netze (Clipping allein stark)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2104.08323",
+  "titel": "Random and Adversarial Bit Error Robustness: Energy-Efficient and Secure DNN Accelerators",
+  "jahr": 2021,
+  "autoren": "David Stutz et al.",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Erweiterung um adversariale Bitfehler (AdvBET).",
+  "zahlen": [
+   {
+    "wert": "Testfehler von >90 % auf 26,22 % bei 320 Bitfehlern, CIFAR-10",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2510.22724",
+  "titel": "Scalable Neural Decoders for Practical Real-Time Quantum Error Correction",
+  "jahr": 2025,
+  "autoren": "Changwon Lee et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Mamba-artiger neuronaler QEC-Decoder; Kritik an der O(d^4)-Laufzeit von AlphaQubit.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2509.03815",
+  "titel": "Learning Neural Decoding with Parallelism and Self-Coordination for Quantum Error Correction",
+  "jahr": 2025,
+  "autoren": "Kai Zhang et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Rekurrenter Transformer-Decoder mit Schiebefenster für lange Speicherexperimente.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:1902.05131",
+  "titel": "Neural-Network Approach to Dissipative Quantum Many-Body Dynamics",
+  "jahr": 2019,
+  "autoren": "Michael J. Hartmann, Giuseppe Carleo",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "RBM-Parametrisierung von Dichtematrizen löst Lindblad-Dynamik (NN dient der Quantenphysik, nicht umgekehrt).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2005.12458",
+  "titel": "Trainability of Dissipative Perceptron-Based Quantum Neural Networks",
+  "jahr": 2020,
+  "autoren": "Kunal Sharma et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Dissipative QNN (Beer) leiden bei Tiefe/Breite doch an Barren Plateaus, gegen die Vermutung der Erstarbeit.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2307.12293",
+  "titel": "Dissipative learning of a quantum classifier",
+  "jahr": 2023,
+  "autoren": "Ufuk Korkmaz, Deniz Türkpençe",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Klassifikator aus wiederholter Wechselwirkung (Kollisionsmodell) mit Dissipation als Lernmechanismus.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2007.14384",
+  "titel": "Noise-Induced Barren Plateaus in Variational Quantum Algorithms",
+  "jahr": 2020,
+  "autoren": "Samson Wang et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Lokales Pauli-Rauschen lässt Gradienten exponentiell in der Schichtzahl verschwinden.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2402.08475",
+  "titel": "HQNET: Harnessing Quantum Noise for Effective Training of Quantum Neural Networks in NISQ Era",
+  "jahr": 2024,
+  "autoren": "Muhammad Kashif, Muhammad Shafique",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Rauschen beschleunigt Barren Plateaus; passende Observable kann Rauschnutzen geben.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2207.07924",
+  "titel": "Quantum Noise-Induced Reservoir Computing",
+  "jahr": 2022,
+  "autoren": "Tomoyuki Kubota et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Informationsverarbeitungskapazität steigt mit Quantenrauschen/Fehlerraten.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2409.07886",
+  "titel": "Non-unital noise in a superconducting quantum computer as a computational resource for reservoir computing",
+  "jahr": 2024,
+  "autoren": "Francesco Monzani et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Amplitudendämpfung (nicht-unital) wirkt als Ressource im Reservoir auf realer Hardware.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2409.17734",
+  "titel": "Role of coherence in many-body Quantum Reservoir Computing",
+  "jahr": 2024,
+  "autoren": "Ana Palacios et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Leistung steigt monoton mit Kohärenz; Dämpfung/Rauschen begrenzen Quanteneffekte (teils Widerspruch zu Rausch-Nutzen).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2504.17837",
+  "titel": "Quantumness can enhance resilience to statistical noise in spin-network quantum reservoir computing",
+  "jahr": 2025,
+  "autoren": "Youssef Kora, Christoph Simon",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Statistisches Messrauschen schadet, aber weniger bei mehr Kohärenz.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2508.11940",
+  "titel": "Extending Straight-Through Estimation for Robust Neural Networks on Analog CIM Hardware",
+  "jahr": 2025,
+  "autoren": "Yuannuo Feng et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Entkoppelter Straight-Through-Schätzer: Rauschmodell im Vorwärts-, Gradient im Rückwärtspass.",
+  "zahlen": [
+   {
+    "wert": "bis +5,3 % Genauigkeit, -0,72 Perplexität, 2,2x Training",
+    "kontext": "Suchauszug, v1",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Moderne rauschbewusste Trainingsbaseline",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2501.14531",
+  "titel": "On Hardening DNNs against Noisy Computations",
+  "jahr": 2025,
+  "autoren": "Xiao Wang et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "QAT mit konstanten Skalierungsfaktoren erhöht Robustheit gegen Rechenrauschen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "QAT als Gegner für Rauschrobustheit",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2311.14114",
+  "titel": "SONIQ: System-Optimized Noise-Injected Ultra-Low-Precision Quantization with Full-Precision Parity",
+  "jahr": 2023,
+  "autoren": "Cyrus Zhou et al.",
+  "feld": [
+   "F5",
+   "K8"
+  ],
+  "kernaussage": "Rauschinjektion beim Training für Ultra-Niedrigbit; flachere Minima, robustere Tests.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rauschinjektion + Niedrigbit",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2608.20988",
+  "titel": "Jacobian-guided Noise Injection for Quantization Robustness in Large Language Models",
+  "jahr": 2026,
+  "autoren": "Deepanshu Pandey et al.",
+  "feld": [
+   "F5",
+   "K2"
+  ],
+  "kernaussage": "Gaußsches Rauschen in Attention-Logits mit Jacobi-gestützter Varianz verbessert PTQ/QAT bei W4A4.",
+  "zahlen": [
+   {
+    "wert": "bis +9 % (ERQ), +37 % (RepQViT) bei W4A4",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rauschregularisierung gegen Quantisierungsfehler",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2306.08553",
+  "titel": "Noise Stability Optimization for Finding Flat Minima: A Hessian-based Regularization Approach",
+  "jahr": 2023,
+  "autoren": "Hongyang R. Zhang et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Isotrope Gewichtsrauschen liefert Hessian-Spur-Schätzer; Rauschen als Flachheits-Regularisierer.",
+  "zahlen": [
+   {
+    "wert": "bis +2,4 % Test, Spur -15,8 %",
+    "kontext": "Suchauszug, Feinabstimmung ResNet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Theorie: Rauschen als Regularisierer",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:1301.3124",
+  "titel": "Deep learning and the renormalization group",
+  "jahr": 2013,
+  "autoren": "Cédric Bény",
+  "feld": [
+   "F2"
+  ],
+  "kernaussage": "Vergleicht RG und tiefes Lernen (Tiefe entspricht Skala) und zeigt am MERA, wie ein RG-Verfahren zu einem Lernalgorithmus für klassische Verteilungen wird.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2510.25553",
+  "titel": "Renormalization group for deep neural networks: Universality of learning and scaling laws",
+  "jahr": 2025,
+  "autoren": "Gorka Peraza Coppola, Moritz Helias, Zohar Ringel",
+  "feld": [
+   "F2"
+  ],
+  "kernaussage": "RG-Rahmen für Lernkurven schwach nichtlinearer Netze auf Potenzgesetz-Daten: Skalenintervalle statt Skalendimensionen, relevante/irrelevante Störungen, Gauß-Prozess-artiger UV-Fixpunkt. Enthält Kurzüberblick der RG-und-NN-Literatur.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1711.03357",
+  "titel": "Compact Neural Networks based on the Multiscale Entanglement Renormalization Ansatz",
+  "jahr": 2017,
+  "autoren": "Andrew Hallam, Edward Grant, Vid Stojevic",
+  "feld": [
+   "F2",
+   "K5"
+  ],
+  "kernaussage": "MERA ersetzt die vollverbundenen Schichten eines CNN (CIFAR-10/100); besser als Tensor-Train bei gleicher Kompression.",
+  "zahlen": [
+   {
+    "wert": "ca. 14000-fache Parameterreduktion bei <1 % Genauigkeitsverlust",
+    "kontext": "Suchauszug, nicht im Abstract bestätigt [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Direkter quanten-inspirierter Gegner zu QIRE-Mischung: MERA-Schicht statt Hadamard·Diagonal (Parameter vs. Genauigkeit).",
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038",
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1602.01166",
+  "titel": "Entanglement renormalization and wavelets",
+  "jahr": 2016,
+  "autoren": "Glen Evenbly, Steven R. White",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Präziser Zusammenhang diskrete Wavelet-Transformation und Entanglement-Renormierung (MERA); Daubechies-Wavelets liefern analytisches MERA für kritischen Ising-Grundzustand.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2404.11715",
+  "titel": "Entanglement Renormalization for Quantum Field Theories with Discrete Wavelet Transforms",
+  "jahr": 2024,
+  "autoren": "Daniele S. M. Alves",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "wMERA: Entanglement-Renormierung für Feldtheorien mit diskreten Wavelet-Transformationen im Ortsraum, parallel zur MERA-Tensornetz-Architektur.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2110.13711",
+  "titel": "Hierarchical Transformers Are More Efficient Language Models (Hourglass)",
+  "jahr": 2021,
+  "autoren": "Piotr Nawrot, Szymon Tworkowski, Michał Tyrolski u. a.",
+  "feld": [
+   "F2",
+   "N2"
+  ],
+  "kernaussage": "Hourglass: Transformer mit Down-/Upsampling der Aktivierungen; bei gleichem Rechenaufwand besser als flacher Transformer (enwik8, ImageNet32).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Starke klassische Multiskala-Baseline für Sprachmodelle mit gleichem Rechenbudget.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2507.07955",
+  "titel": "Dynamic Chunking for End-to-End Hierarchical Sequence Modeling (H-Net)",
+  "jahr": 2025,
+  "autoren": "Sukjun Hwang, Brandon Wang, Albert Gu",
+  "feld": [
+   "F2",
+   "N2"
+  ],
+  "kernaussage": "Lernbares dynamisches Chunking ersetzt Tokenisierung; einstufiger Byte-H-Net schlägt BPE-Transformer bei gleichem Rechen- und Datenaufwand, mehrstufig besser. Trainings-Implementierung etwa 2-mal langsamer als isotrop (Suchauszug).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stärkste aktuelle hierarchische Sprachmodell-Baseline.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2409.12924",
+  "titel": "Wavelet GPT: Wavelet Inspired Large Language Models",
+  "jahr": 2024,
+  "autoren": "Prateek Verma",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Haar-Wavelet-artige Mehrskalen-Filter auf Zwischen-Einbettungen eines GPT, ohne zusätzliche Parameter; gleiche Vortrainingsgüte fast doppelt so schnell (Text, Audio, Bild).",
+  "zahlen": [
+   {
+    "wert": "fast 2x schneller bis gleiche Güte",
+    "kontext": "Vortraining, akademischer Aufbau [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Fester Wavelet-Mischer ohne Parameter: nächster Verwandter zu Hadamard-Mischung im Sprachmodell.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2504.08801",
+  "titel": "Learnable Multi-Scale Wavelet Transformer: A Novel Alternative to Self-Attention",
+  "jahr": 2025,
+  "autoren": "Andrew Kiruluta, Priscilla Burity, Samantha Williams",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Ersetzt Skalarprodukt-Attention durch lernbare Mehrskalen-Haar-Wavelet-Transformation (Test: WMT16 En-De laut Suche).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2509.20581",
+  "titel": "Hierarchical Resolution Transformers: A Wavelet-Inspired Architecture for Multi-Scale Language Understanding",
+  "jahr": 2025,
+  "autoren": "Ayan Sar, Sampurna Roy, Kanav Gupta u. a.",
+  "feld": [
+   "F2"
+  ],
+  "kernaussage": "Wavelet-inspirierter Transformer, der Sprache auf mehreren Auflösungen (Zeichen bis Diskurs) verarbeitet; Cross-Resolution-Attention. Qualität der Evidenz nicht geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1203.1513",
+  "titel": "Invariant Scattering Convolution Networks",
+  "jahr": 2012,
+  "autoren": "Joan Bruna, Stéphane Mallat",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Streunetz: Kaskade aus Wavelet-Faltung, Betrag |·| und Mittelung; translationsinvariant, deformationsstabil, ohne Lernen der Filter.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Fester Wavelet + Betrag: struktureller Vorläufer von Mischung + Betragsquadrat-Auslese.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1312.5940",
+  "titel": "Generic Deep Networks with Wavelet Scattering",
+  "jahr": 2013,
+  "autoren": "Edouard Oyallon, Stéphane Mallat, Laurent Sifre",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Zweischicht-Streunetz ohne Lernen und ohne Max-Pooling klassifiziert komplexe Bilddaten; Idee: Anfangsschichten mit Wavelets initialisieren.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2201.02711",
+  "titel": "Block Walsh-Hadamard Transform Based Binary Layers in Deep Neural Networks",
+  "jahr": 2022,
+  "autoren": "Hongyi Pan, Diaa Badawi, Ahmet Enis Cetin",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Binäre Block-WHT-Schichten mit Weich-Schwellen-Nichtlinearität ersetzen 1x1-/3x3-Faltungen und Squeeze-and-Excite.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2105.03824",
+  "titel": "FNet: Mixing Tokens with Fourier Transforms",
+  "jahr": 2021,
+  "autoren": "James Lee-Thorp, Joshua Ainslie, Ilya Eckstein u. a.",
+  "feld": [
+   "F3",
+   "N2"
+  ],
+  "kernaussage": "Parameterfreie Fourier-Transformation statt Self-Attention: 92-97 % der BERT-Genauigkeit auf GLUE, auf GPU 80 % schneller; Ablation nennt auch DCT, Hadamard, Hartley (Ergebnis nicht gelesen).",
+  "zahlen": [
+   {
+    "wert": "92-97 % BERT/GLUE; 80 % schneller GPU",
+    "kontext": "512 Token [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Klassische Referenz für feste Mischung statt gelernter Mischung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2307.13304",
+  "titel": "QuIP: 2-Bit Quantization of Large Language Models With Guarantees",
+  "jahr": 2023,
+  "autoren": "Jerry Chee, Yaohui Cai, Volodymyr Kuleshov",
+  "feld": [
+   "F3",
+   "K1",
+   "K3"
+  ],
+  "kernaussage": "Inkohärenz-Verarbeitung: zufällige orthogonale Rotation von Gewichten und Hessian vor der Rundung ermöglicht erste brauchbare 2-Bit-LLM-Quantisierung mit Garantie.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotationsbasierte Quantisierung als Standard-Gegner zu Hadamard-Vormischung.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2604.04440",
+  "titel": "Training Transformers in Cosine Coefficient Space",
+  "jahr": 2026,
+  "autoren": "Mohamed Amine Bergach",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Lineare Schichten als K von mn 2D-DCT-Koeffizienten, von Grund auf trainiert (4 Schichten, 128 Dim, Shakespeare-Zeichen): bei K=mn/2 Verlust 1,604 gegen 1,580 dicht; Rang-48-LoRA 1,801. Zufällige Orthonormalbasis gleichwertig zur DCT; Mechanismus ist Rangflexibilität.",
+  "zahlen": [
+   {
+    "wert": "1,604 vs 1,580 dicht vs 1,801 LoRA",
+    "kontext": "Validierungsverlust, kleines Modell [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zufallsbasis = DCT innerhalb Rauschen: stützt Z3, dämpft Hadamard-Sonderrolle.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2410.09103",
+  "titel": "MaCP: Minimal yet Mighty Adaptation via Hierarchical Cosine Projection",
+  "jahr": 2024,
+  "autoren": "Yixian Shen, Qi Bi, Jia-Hong Huang u. a.",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Feinabstimmung: LoRA-Änderung in den DCT-Raum projiziert, nach Spektrumsebenen partitioniert, wichtigste Frequenzen gewählt; wenig Parameter und Speicher.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1506.04449",
+  "titel": "Compressing Convolutional Neural Networks (FreshNets)",
+  "jahr": 2015,
+  "autoren": "Wenlin Chen, James T. Wilson, Stephen Tyree u. a.",
+  "feld": [
+   "F3",
+   "K7"
+  ],
+  "kernaussage": "Filtergewichte per DCT in den Frequenzraum, Koeffizienten per Hash-Funktion in Eimer gruppiert; Speichereinsparung, weil gelernte Filter glatt/niederfrequent sind.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1805.07258",
+  "titel": "Neural Network Compression using Transform Coding and Clustering",
+  "jahr": 2018,
+  "autoren": "Thorsten Laude, Yannick Richter, Jörn Ostermann",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Codec für Netzgewichte mit Transformcodierung (Faltungs-/dichte Schichten) und Clustering (Biases/Normierung).",
+  "zahlen": [
+   {
+    "wert": "Kompressionsfaktor 7,9-9,3 bei 1-2 % Genauigkeitsverlust",
+    "kontext": "Bildklassifikation [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2009.01174",
+  "titel": "Transform Quantization for CNN Compression",
+  "jahr": 2020,
+  "autoren": "Sean I. Young, Wang Zhe, David Taubman",
+  "feld": [
+   "F3",
+   "K1"
+  ],
+  "kernaussage": "Nachträgliche Dekorrelation (Transformation) und Quantisierung von CNN-Gewichten im Rate-Distortion-Rahmen; vereinigt Quantisierung und Dimensionsreduktion.",
+  "zahlen": [
+   {
+    "wert": "1-2 Bit Gewichtsrate",
+    "kontext": "laut Suchauszug [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2512.00862",
+  "titel": "HBLLM: Wavelet-Enhanced High-Fidelity 1-Bit Quantization for LLMs",
+  "jahr": 2025,
+  "autoren": "Ningning Chen, Weicai Ye, Ying Jiang u. a.",
+  "feld": [
+   "F3",
+   "K1",
+   "K8"
+  ],
+  "kernaussage": "Einstufige Haar-Wavelet-Zerlegung der Gewichte, frequenzbewusste Gruppierung, 1-Bit-PTQ.",
+  "zahlen": [
+   {
+    "wert": "Perplexität 6,71 LLaMA2-13B bei 1,08 Bit",
+    "kontext": "Suchauszug, nicht im Abstract geprüft [nur Abstract]",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Wavelet-Gegner zu Hadamard-Rotation in Niedrigbit-PTQ.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2103.05804",
+  "titel": "Reframing Neural Networks: Deep Structure in Overcomplete Representations",
+  "jahr": 2021,
+  "autoren": "Calvin Murdock, George Cazenavette, Simon Lucey",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Deep frame approximation: Netze als Näherung der Inferenz mit strukturierten überkomplettenen Rahmen; datenunabhängiges Rahmenpotenzial verbindet Kapazität mit Tiefe/Breite/Skip.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:1504.05487",
+  "titel": "Deep Convolutional Neural Networks Based on Semi-Discrete Frames",
+  "jahr": 2015,
+  "autoren": "Thomas Wiatowski, Helmut Bölcskei",
+  "feld": [
+   "F3",
+   "F2"
+  ],
+  "kernaussage": "Erweitert Mallats Streutheorie auf beliebige semi-diskrete Rahmen (Gabor, Curvelets, Shearlets) je Schicht: Translationsinvarianz und Deformationsstabilität.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2002.03711",
+  "titel": "Learning End-to-End Lossy Image Compression: A Benchmark",
+  "jahr": 2020,
+  "autoren": "Yueyu Hu, Wenhan Yang, Zhan Ma u. a.",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Literaturübersicht und Benchmark gelernter Bildkompression (Transform, Quantisierung, Entropiemodell).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2503.01505",
+  "titel": "Lossy Neural Compression for Geospatial Analytics: A Review",
+  "jahr": 2025,
+  "autoren": "Carlos Gomes, Isabelle Wittmann, Damien Robert u. a.",
+  "feld": [
+   "F3"
+  ],
+  "kernaussage": "Rahmt neuronale Kompression als gelernte nichtlineare Erweiterung der Transformcodierung.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a2"
+ },
+ {
+  "id": "arXiv:2002.05202",
+  "titel": "GLU Variants Improve Transformer",
+  "jahr": 2020,
+  "autoren": "Noam Shazeer",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Gated Linear Units (komponentenweises Produkt zweier linearer Projektionen, eine davon nichtlinear) in den FFN-Schichten; einige Varianten (GEGLU, SwiGLU) schlagen ReLU/GELU. Das GLU-Produkt ist selbst eine quadratische (bilineare) Form: x·σ(x) bzw. (Wx)⊙(Vx).",
+  "zahlen": [
+   {
+    "wert": "GEGLU/SwiGLU beste Perplexity (T5-Pretraining)",
+    "kontext": "Abstract-Ebene, Suchtreffer; Werte nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkste FFN-Baseline (SwiGLU) gegen ReLU²/Born-Quadrat im selben Parameter- und Bitbudget.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038",
+   "I-039-v2",
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2409.08290",
+  "titel": "Reconsidering the Energy Efficiency of Spiking Neural Networks Inference from Analytical Perspectives",
+  "jahr": 2024,
+  "autoren": "Zhanglu Yan, Zhenyu Bai, Kaiwen Tang, Weng-Fai Wong",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Faire Neubewertung: SNN-Energievorteile verschwinden, wenn Datenbewegung/Speicherzugriffe mitgezählt und gegen quantisierte ANNs verglichen wird; Vorteil nur bei sehr hoher Spärlichkeit und kleinem Zeitfenster.",
+  "zahlen": [
+   {
+    "wert": "Neuronen-Sparsity >93 % bei VGG16, T=6",
+    "kontext": "v1-Abstract (Suchtreffer); nicht im Volltext geprüft",
+    "geprueft": false
+   },
+   {
+    "wert": "SNN optimiert 85 %/78 % der ANN-Energie (klassische/Spatial-Dataflow-Architektur)",
+    "kontext": "v1-Abstract, Suchtreffer",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner für jede Behauptung 'bio-inspiriert = energieeffizient': Vergleich muss gegen quantisiertes ANN mit vollem Speicherzugriff laufen.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2001.04907",
+  "titel": "Bio-Inspired Hashing for Unsupervised Similarity Search",
+  "jahr": 2020,
+  "autoren": "Chaitanya K. Ryali, John J. Hopfield, Leopold Grinberg, Dmitry Krotov",
+  "feld": [
+   "F4",
+   "N6"
+  ],
+  "kernaussage": "FlyHash (Fliegen-Geruchsschaltkreis: zufällige spärliche Expansion + Winner-take-all) ist ein LSH-Verfahren mit spärlichen hochdimensionalen Codes; BioHash lernt die Projektionen mit lokaler Plastizitätsregel und schlägt FlyHash/klassisches LSH.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Fliegen-Hash (feste Zufallsprojektion + Top-k) als Null-Parameter-Baseline gegen die feste Hadamard-Mischung plus Quadrat-Auslese.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2111.05498",
+  "titel": "Attention Approximates Sparse Distributed Memory",
+  "jahr": 2021,
+  "autoren": "Trenton Bricken, Cengiz Pehlevan",
+  "feld": [
+   "F4",
+   "N2"
+  ],
+  "kernaussage": "Transformer-Attention entspricht unter Datenbedingungen Kanervas Sparse Distributed Memory (biologisch plausibles Assoziativgedächtnis); Bedingungen in GPT-2 erfüllt.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2102.11972",
+  "titel": "Do Transformer Modifications Transfer Across Implementations and Applications?",
+  "jahr": 2021,
+  "autoren": "Sharan Narang, Hyung Won Chung, Yi Tay, William Fedus",
+  "feld": [
+   "N7",
+   "N2"
+  ],
+  "kernaussage": "Die meisten Transformer-Änderungen (darunter viele Aktivierungsvarianten) bringen in gemeinsamem Setting keine bedeutende Verbesserung; Gewinner stammen oft aus derselben Codebasis. GLU-Varianten gehören zu den wenigen, die helfen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Methodische Mahnung: kleine Aktivierungsunterschiede übertragen sich selten; passt zu gleichwertigen Ergebnissen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-039-v2",
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2003.03828",
+  "titel": "Pi-nets: Deep Polynomial Neural Networks",
+  "jahr": 2020,
+  "autoren": "Grigorios G. Chrysos, Stylianos Moschoglou, Giorgos Bouritsas, Yannis Panagakis",
+  "feld": [
+   "N7",
+   "K7"
+  ],
+  "kernaussage": "Netze, deren Ausgabe ein Polynom hoher Ordnung der Eingabe ist (Hadamard-Produkte, Skip-Verbindungen, faktorisierte Tensoren); funktionieren auch ohne Aktivierungsfunktion, mit Aktivierung besser.",
+  "zahlen": [
+   {
+    "wert": "FID CIFAR-10: 40,45 ohne vs. 16,79 mit Aktivierung",
+    "kontext": "nur Drittseite hyper.ai, nicht im Original geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Polynomnetz als Gegner/Verwandte von Quadrat-Auslese: Polynom ohne Aktivierung trägt, aber schwächer.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2006.13026",
+  "titel": "Deep Polynomial Neural Networks",
+  "jahr": 2020,
+  "autoren": "Grigorios Chrysos, Stylianos Moschoglou, Giorgos Bouritsas, Jiankang Deng",
+  "feld": [
+   "N7",
+   "K7"
+  ],
+  "kernaussage": "Erweiterte Fassung der Pi-nets: gekoppelte Tensorfaktorisierung der Polynomparameter; SOTA bei Bilderzeugung, Gesichtsverifikation, 3D-Meshes mit Aktivierungen.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2510.04595",
+  "titel": "SpikingMamba: Towards Energy-Efficient Large Language Models via Knowledge Distillation from Mamba",
+  "jahr": 2025,
+  "autoren": "Yulong Huang, Jianxiong Tang, Chao Wang, Ziyi Wang",
+  "feld": [
+   "F4",
+   "N3"
+  ],
+  "kernaussage": "Spiking-LLM durch Distillation aus Mamba statt Vortraining.",
+  "zahlen": [
+   {
+    "wert": "ca. 4,76x Energievorteil gegen Mamba2 (1,3B), Zero-Shot ca. 4,78 % unter Basis",
+    "kontext": "Suchtreffer-Zusammenfassung, Abstract nicht ganz gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt: SNN-Vorteil zählt nur mit Energieproxy; vgl. 2409.08290.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2407.04752",
+  "titel": "SpikeLLM: Scaling up Spiking Neural Network to Large Language Models via Saliency-based Spiking",
+  "jahr": 2024,
+  "autoren": "Xingrun Xing, Boyan Gao, Zheng Zhang, David A. Clifton",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Erstes spiking LLM (7-70B) mit salienzbasiertem Spiking und generalisierten Integrate-and-Fire-Neuronen; Motivation: Gehirn (ca. 86 Mrd. Neuronen) effizienter als LLMs.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:1710.05941",
+  "titel": "Searching for Activation Functions",
+  "jahr": 2017,
+  "autoren": "Prajit Ramachandran, Barret Zoph, Quoc V. Le",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "Automatische Suche findet Swish x·sigmoid(βx), meist besser als ReLU in tiefen Netzen.",
+  "zahlen": [
+   {
+    "wert": "+0,9 pp Top-1 ImageNet (Mobile NASNet-A), +0,6 pp (Inception-ResNet-v2)",
+    "kontext": "Abstract, Suchtreffer",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Referenz für 'gleichwertig bis leicht besser' bei Glattaktivierungen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:1606.08415",
+  "titel": "Gaussian Error Linear Units (GELUs)",
+  "jahr": 2016,
+  "autoren": "Dan Hendrycks, Kevin Gimpel",
+  "feld": [
+   "N7"
+  ],
+  "kernaussage": "GELU x·Φ(x) gewichtet Eingaben nach Wert statt Vorzeichen; besser als ReLU/ELU in Vision, NLP, Sprache.",
+  "zahlen": [],
+  "baseline_fuer_qire": "GELU ist die in QIRE-Vergleichen genannte Referenz (ReLU² ≈ GELU).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2411.02335",
+  "titel": "Sparsing Law: Towards Large Language Models with Greater Activation Sparsity",
+  "jahr": 2024,
+  "autoren": "Yuqi Luo, Chenyang Song, Xu Han, Yingfa Chen",
+  "feld": [
+   "N7",
+   "N4"
+  ],
+  "kernaussage": "Systematische Studie zur Aktivierungssparsity: ReLU-Aktivierung erreicht höhere Sparsity bei gleicher Güte als SiLU; Potenzgesetz Sparsity gegen Datenmenge.",
+  "zahlen": [
+   {
+    "wert": "2,4B-Modell, 93,52 % Sparsity, 4,1x Speedup",
+    "kontext": "Suchtreffer zur ICML-Seite; nicht im Volltext geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Aktivierungswahl bestimmt Sparsity: ReLU/ReLU² gegen SwiGLU für ressourceneffiziente Inferenz.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "doi:10.7554/eLife.10778",
+  "titel": "Nanoconnectomic upper bound on the variability of synaptic plasticity",
+  "jahr": 2015,
+  "autoren": "Thomas M. Bartol Jr. u. a.",
+  "feld": [
+   "F4",
+   "K1"
+  ],
+  "kernaussage": "3D-Elektronenmikroskopie CA1: Spinepaare mit gleicher Vorgeschichte haben sehr ähnliche Größen; mindestens 26 unterscheidbare Synapsenstärken, also etwa 4,7 Bit je Synapse.",
+  "zahlen": [
+   {
+    "wert": "26 Stärken ≈ 4,7 Bit/Synapse",
+    "kontext": "Abstract; kleine Probe 6x6x5 µm³, obere Schranke; keine In-vivo-Kapazität",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Biologische Rechtfertigung für 4-5-Bit-Gewichte (passt zu 4-Bit-Quantisierung, K1).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a3"
+ },
+ {
+  "id": "arXiv:2502.08606",
+  "titel": "Distillation Scaling Laws",
+  "jahr": 2025,
+  "autoren": "Busbridge, D. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Skalengesetz für destillierte Modelle aus Rechenbudget und dessen Aufteilung auf Schüler und Lehrer; Destillation schlägt überwachtes Training nur bis zu einem Rechenniveau, wenn ein Lehrer schon existiert oder viele Schüler entstehen (nur Abstract bestätigt).",
+  "zahlen": [
+   {
+    "wert": "143M bis >12B Parameter",
+    "kontext": "Spanne der Experimente laut Sekundärquelle",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Entscheidet, ob Destillation bei gleichen FLOPs lohnt; Pflichtbezug für jeden Kosten-Nutzen-Vergleich.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Kosten-Nutzen bei gleichen FLOPs"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2407.14679",
+  "titel": "Compact Language Models via Pruning and Knowledge Distillation",
+  "jahr": 2024,
+  "autoren": "Muralidharan, S. et al. (NVIDIA)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Pruning eines großen LLM plus Destillations-Nachtraining mit <3 % der Daten ersetzt Neutraining; Minitron 8B/4B.",
+  "zahlen": [
+   {
+    "wert": "<3 % der Originaldaten",
+    "kontext": "Abstract",
+    "geprueft": false
+   },
+   {
+    "wert": "bis +16 % MMLU gegenüber Training von null",
+    "kontext": "Sekundärquelle",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starke Baseline für ressourceneffiziente kleine Modelle; Pruning+KD vs. Quantisierung+KD.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2408.11796",
+  "titel": "LLM Pruning and Distillation in Practice: The Minitron Approach",
+  "jahr": 2024,
+  "autoren": "Sreenivas, S. T. et al. (NVIDIA)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Praxisbericht: Llama 3.1 8B auf 4B, Mistral NeMo 12B auf 8B per Tiefen- oder Breiten-Pruning plus Destillation.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Praxisrezept für Pruning+KD als Vergleichsbasis.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2409.16694",
+  "titel": "A Survey of Low-bit Large Language Models: Basics, Systems, and Algorithms",
+  "jahr": 2024,
+  "autoren": "Gong, R. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Übersicht über Niedrigbit-Quantisierung von LLMs, trennt QAT und PTQ; ordnet LLM-QAT (Daten-freie KD) und BitDistiller ein.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Übersichtsquelle für QAT+KD.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2601.14888",
+  "titel": "What Makes Low-Bit Quantization-Aware Training Work for Reasoning LLMs? A Systematic Study",
+  "jahr": 2026,
+  "autoren": "Lv, K. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Systematische Studie: Wissensdestillation ist das robuste QAT-Ziel für Reasoning-Modelle, SFT wie RL.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stützt KD als Standardverlust bei QAT, auch für QIRE-Trainingsrezepte.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Rotation gegen faire Gegner ≈ gleichwertig (Z3): KD-Verlust gehört bei fairen Gegnern zu allen Armen"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2411.07483",
+  "titel": "Quantifying Knowledge Distillation Using Partial Information Decomposition",
+  "jahr": 2024,
+  "autoren": "Dissanayake, P. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Informationstheoretische Grenzen der Destillation: Nur die für die Aufgabe relevante, redundante Information des Lehrers zählt; Störinformation kann einen kapazitätsbegrenzten Schüler behindern.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kanal-Sicht: Schüler-Kapazität begrenzt den Wissenstransfer.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Kanalsicht passt zu N8 (Rate-Distortion)"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2505.14302",
+  "titel": "Scaling Law for Quantization-Aware Training",
+  "jahr": 2025,
+  "autoren": "Chen, M. et al. (HKU, ByteDance Seed)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Einheitliches Skalengesetz für W4A4-QAT-Fehler aus Modellgröße, Tokenzahl, Gruppengröße; 268 QAT-Läufe; FC2-Aktivierungs-Ausreißer sind der Engpass.",
+  "zahlen": [
+   {
+    "wert": "268 QAT-Läufe",
+    "kontext": "Abstract",
+    "geprueft": false
+   },
+   {
+    "wert": "Fehler sinkt mit Modellgröße, steigt mit Tokens und gröberer Granularität",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rahmen für QAT-Kosten; Ausreißer-Engpass ist der Ansatzpunkt für Rotationen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Rotation wirkt über Ausreißer; Z3 sieht aber Gleichwertigkeit gegen faire Gegner"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2508.13054",
+  "titel": "Quantum Relational Knowledge Distillation",
+  "jahr": 2025,
+  "autoren": "Liu, C.-Y. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "QRKD bildet Merkmale auf Quantenzustände (parametrisierte Schaltkreise) ab, um relationale Struktur zu destillieren; Schüler bleibt klassisch.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Quantenhardware nur im Training, kein Effizienzbeweis"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2505.13205",
+  "titel": "Quantum Knowledge Distillation for Large Language Models",
+  "jahr": 2025,
+  "autoren": "Li, L. et al.",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "QD-LLM: variationaler Quantenschaltkreis als Schüler; in klassischer Simulation besser als klassische Schüler (nur Abstract bestätigt); Simulation als quanten-inspirierter klassischer Algorithmus.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Quanten-inspirierter Schüler denkbar, aber Gewinn ungeprüft"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a4"
+ },
+ {
+  "id": "arXiv:2509.23202",
+  "titel": "Bridging the Gap Between Promise and Performance for Microscaling FP4 Quantization",
+  "jahr": 2025,
+  "autoren": "Autoren nicht geprüft",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Erste breite PTQ-Studie zu MXFP4/NVFP4. Die kleine Gruppengröße von NVFP4 neutralisiert laut Abstract beweisbar klassische Ausreißer-Gegenmittel; MXFP4 leidet unter Zweierpotenz-Skalen. Gegenmittel MR-GPTQ: blockweise Hadamard plus formatspezifische Optimierung.",
+  "zahlen": [
+   {
+    "wert": "Speedup bis 3,6x schichtweise, 2,2x Ende-zu-Ende (B200)",
+    "kontext": "Abstract; Autorenangabe",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Beleg, dass bei g16 Rotation kaum noch etwas bringt; Rotation nur blockweise (Blockgröße = Gruppe) sinnvoll",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "Z3a",
+   "Z3b"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2511.04214",
+  "titel": "Block Rotation is All You Need for MXFP4 Quantization",
+  "jahr": 2025,
+  "autoren": "laut arXiv-Eintrag (Autorenliste nicht geprüft)",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Benchmark von PTQ-Verfahren unter MXFP4: GPTQ ist stark, globale Rotation ist mit MXFP4 unverträglich (Zweierpotenz-Blockskala gegen Umverteilung der Ausreißerenergie). Blockrotation behebt das.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Faire Nicht-Rotations-Baseline (GPTQ ohne Rotation) schlägt globale Rotation bei MXFP4",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2506.01967",
+  "titel": "Turning LLM Activations Quantization-Friendly",
+  "jahr": 2025,
+  "autoren": "Czakó, Kertész, Szénási",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Analysiert Ausreißer und wie Glättung und Rotation sie verändern; führt eine Kanalmetrik ein und schlägt Kanalskalierung vor der Rotation vor. Rotation kann bei massiven Ausreißern schlechter sein als gar nichts (laut Snippet einer Suche, im Abstract nicht bestätigt).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Skalierung+Rotation als Kombi-Arm",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2411.09909",
+  "titel": "AMXFP4: Taming Activation Outliers with Asymmetric Microscaling Floating-Point for 4-bit LLM Inference",
+  "jahr": 2024,
+  "autoren": "laut arXiv-Eintrag",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Rotationsfreie, kalibrierungsfreie Alternative: asymmetrische gemeinsame Skalen in MX-Gruppen. Rotationsverfahren brauchen Stunden Kalibrierung. Aussage (Suchauszug, nicht im Abstract): SpinQuant schlägt bei g32 die Nicht-Rotations-Basis nicht.",
+  "zahlen": [
+   {
+    "wert": "SpinQuant bei Gruppe 32 nicht besser als ohne Rotation",
+    "kontext": "Suchauszug, nicht im Abstract bestätigt",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Asymmetrische Gruppenskala g32 als fairer Gegner",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "Z3c"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2504.19874",
+  "titel": "TurboQuant: Online Vector Quantization with Near-optimal Distortion Rate",
+  "jahr": 2025,
+  "autoren": "Autoren nicht geprüft",
+  "feld": [
+   "K2",
+   "K4",
+   "K3"
+  ],
+  "kernaussage": "Zufallsrotation macht Koordinaten Beta-verteilt und fast unabhängig, dann optimaler Skalarquantisierer (Lloyd-Max) je Koordinate; plus 1-Bit-QJL-Rest für erwartungstreue Skalarprodukte. Nahe an der Informationsgrenze.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotation+Lloyd ist der datenfreie Gegenpol zu Gruppenskala; Z3b zeigt: Lloyd ohne Rotation reicht bei 2 Bit",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3b"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2401.18079",
+  "titel": "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization",
+  "jahr": 2024,
+  "autoren": "Hooper u. a.",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Rotationsfreie KV-Quantisierung: Keys pro Kanal, vor RoPE, nichtuniforme sensitivitätsgewichtete Datentypen, Dense-and-Sparse-Ausreißer je Vektor. Unter 0,1 Perplexity-Verlust bei 3 Bit (v6 vom Mai 2025).",
+  "zahlen": [
+   {
+    "wert": "<0,1 PPL-Verlust bei 3-Bit-KV",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starker rotationsfreier KV-Gegner mit Lloyd-artigem Gitter",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3b"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2405.04532",
+  "titel": "QServe: W4A8KV4 Quantization and System Co-design for Efficient LLM Serving",
+  "jahr": 2024,
+  "autoren": "Autoren nicht geprüft",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "QoQ: W4A8KV4 mit progressiver Quantisierung und SmoothAttention (Schwierigkeit von Keys auf Queries verschoben); Systemseite zählt. Kein Hadamard als Kern.",
+  "zahlen": [
+   {
+    "wert": "1,2-2,4x Durchsatz (A100) ggü. TensorRT-LLM",
+    "kontext": "Abstract; Autorenangabe",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Glättung statt Rotation; Systemkosten (Dequantisierung) sind der echte Engpass",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2410.09426",
+  "titel": "FlatQuant: Flatness Matters for LLM Quantization",
+  "jahr": 2024,
+  "autoren": "Sun u. a.",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Gelernte affine Transformation je Schicht (Kronecker-Struktur) macht Gewichte und Aktivierungen flacher; W4A4 unter 1 % Genauigkeitsverlust bei LLaMA-3-70B, 7,5 % besser als SpinQuant. Zeigt: Gelernt schlägt fest-Hadamard; sagt nichts über g16/g32.",
+  "zahlen": [
+   {
+    "wert": "<1 % Genauigkeitsverlust W4A4 LLaMA-3-70B; +7,5 % vs SpinQuant",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster gelernter Transform-Gegner",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2409.20361",
+  "titel": "Rotated Runtime Smooth: Training-Free Activation Smoother for accurate INT4 inference",
+  "jahr": 2024,
+  "autoren": "laut arXiv-Eintrag",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Kanalausreißer per Laufzeit-Glättung (Kanalmaxima), Spitzenausreißer per Rotation: beide Typen brauchen verschiedene Mittel.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kombi-Arm Glättung+Rotation",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2502.00527",
+  "titel": "PolarQuant: Leveraging Polar Transformation for Efficient Key Cache Quantization and Decoding Acceleration",
+  "jahr": 2025,
+  "autoren": "laut arXiv-Eintrag",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Keys in 2D-Paaren (RoPE-Paare) als Radius und Winkel quantisieren statt Rotation; Skalarprodukt per Tabellenzugriff. Ausreißer liegen meist in nur einer der beiden RoPE-Dimensionen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotationsfreie Key-Quantisierung",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2402.04396",
+  "titel": "QuIP#: Even Better LLM Quantization with Hadamard Incoherence and Lattice Codebooks",
+  "jahr": 2024,
+  "autoren": "Tseng, Chee, Sun, Kuleshov, De Sa",
+  "feld": [
+   "K4",
+   "K3",
+   "K1"
+  ],
+  "kernaussage": "Zufalls-Hadamard-Inkohärenz plus E8P-Codebuch (8D, 2 Bit, aus E8-Gitter, Symmetrie macht es ~1000x kleiner als naives Buch) plus Fine-Tuning; Referenz für Gitter+Hadamard.",
+  "zahlen": [
+   {
+    "wert": "Llama-2-7B 2 Bit Wiki2-PPL 8,22 ohne FT, 6,19 mit FT (FP16 5,12)",
+    "kontext": "aus Foliensuchauszug, nicht am Paper geprüft",
+    "geprueft": false
+   },
+   {
+    "wert": "E8P-Buch 1 KiB statt 1 MiB",
+    "kontext": "Foliensuchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster klassischer Gegner für Hadamard+Gitter bei 2 Bit; QIRE-Hadamard ist hier Vorstufe, der Gewinn liegt im Gitter (VQ) plus FT.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig",
+   "I-038: Fastfood≈Haar"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2402.15319",
+  "titel": "GPTVQ: The Blessing of Dimensionality for LLM Quantization",
+  "jahr": 2024,
+  "autoren": "van Baalen, Kuzmin, Koryakovskiy et al. (Qualcomm)",
+  "feld": [
+   "K4",
+   "K1"
+  ],
+  "kernaussage": "Höhere VQ-Dimension verbessert Größe-Genauigkeit; GPTQ-artige Hessian-Updates, EM-Initialisierung, Codebuch selbst quantisiert/SVD-komprimiert; mobile CPU-Dekodierung schneller als INT4 (v2: DRAM -19 %, Token-Rate +10 %).",
+  "zahlen": [
+   {
+    "wert": "70B in 3-11 h auf einer H100",
+    "kontext": "Abstract, bestätigt",
+    "geprueft": false
+   },
+   {
+    "wert": "v2: 19 % weniger DRAM, 10 % mehr Token/s vs INT4",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Datengetriebene VQ-Baseline ohne Rotation; zeigt Dekodierkosten messbar.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: faire Gegner"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2603.11021",
+  "titel": "Leech Lattice Vector Quantization for Efficient LLM Compression",
+  "jahr": 2026,
+  "autoren": "van der Ouderaa et al. (Qualcomm)",
+  "feld": [
+   "K4"
+  ],
+  "kernaussage": "Buchlose 24D-Leech-Gitter-VQ mit Indexierung ohne Codebuch-Materialisierung, Winkelsuche über Schalen, Spherical GPTQ (Shape-Gain). Behauptet SOTA bei 2 Bit vor QuIP#, QTIP, PVQ; geringere Empfindlichkeit gegenüber Hadamard-Vorverarbeitung.",
+  "zahlen": [
+   {
+    "wert": "LLVQ schlägt QuIP#/QTIP/AQLM bei 2 Bit",
+    "kontext": "Selbstangabe der Autoren, Abstract/Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkste Gitter-Gegnerin (Dimension 24); Hinweis: gutes Gitter macht Rotation weniger wichtig.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2502.09720",
+  "titel": "NestQuant: Nested Lattice Quantization for Matrix Products and LLMs",
+  "jahr": 2025,
+  "autoren": "Savkin, Porat, Ordentlich, Polyanskiy",
+  "feld": [
+   "K4",
+   "K2",
+   "K1"
+  ],
+  "kernaussage": "Selbstähnliche genestete Gitter (Gosset/E8) für Gewichte, Aktivierungen und KV; informationstheoretisch motiviert für Matrixprodukte.",
+  "zahlen": [
+   {
+    "wert": "Llama-3-8B W/A/KV 4 Bit Wiki2-PPL 6,6 (FP 6,14; SpinQuant 7,3; QuaRot 8,2)",
+    "kontext": "Abstract v3 bestätigt",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gitter-Baseline für W+A+KV mit Rotation.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2305.14314",
+  "titel": "QLoRA: Efficient Finetuning of Quantized LLMs (NF4)",
+  "jahr": 2023,
+  "autoren": "Dettmers, Pagnoni, Holtzman, Zettlemoyer",
+  "feld": [
+   "K4",
+   "K1"
+  ],
+  "kernaussage": "NF4: Quantilgitter der Normalverteilung nach Absmax-Normierung, 'informationstheoretisch optimal für normalverteilte Gewichte' (Behauptung der Autoren; Lloyd-Max wäre MSE-optimal, nicht Quantil).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Standard-Nichtuniform-Baseline, fairer Gegner ohne Rotation.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3b: Lloyd-Gitter ohne Rotation ≤ Hadamard bei 2 Bit"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2606.23406",
+  "titel": "HyperQuant: A Rate-Distortion-Optimal Quantization Pipeline for LLMs and Diffusion Models",
+  "jahr": 2026,
+  "autoren": "(nicht geprüft)",
+  "feld": [
+   "K4",
+   "K3"
+  ],
+  "kernaussage": "Pro-Kachel-Hadamard, dann E8/D4/A2/Z-Gitter, Rice-Entropiecodierung der Indizes, Bias-Korrektur für KV; schlägt HIGGS bei 3-5 Bit. Tabelle der Gittergewinne: Z 1,53 dB, E8 0,88 dB Abstand zu Shannon.",
+  "zahlen": [
+   {
+    "wert": "E8 holt ~0,65 dB von 1,53 dB (42 %), Leech weitere ~0,38 dB",
+    "kontext": "Suchauszug, theoretische Hochratenwerte, nicht am Paper geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt den theoretischen Raumfüllgewinn: max. 1,53 dB ≈ 0,25 Bit je Gewicht.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: Rotation gegen faire Gegner ≈ gleichwertig",
+   "I-038 Hadamard als billige Mischung"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2411.17525",
+  "titel": "Pushing the Limits of LLM Quantization via the Linearity Theorem (HIGGS)",
+  "jahr": 2024,
+  "autoren": "Malinovskii et al.",
+  "feld": [
+   "K4",
+   "K3",
+   "K1"
+  ],
+  "kernaussage": "Linearitätssatz: layerweiser l2-Fehler ~ Perplexity-Anstieg; datenfreies HIGGS = Hadamard + MSE-optimale Gitter, schlägt NF4; dynamische Programmierung für Bitallokation.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Direkteste datenfreie Baseline für Hadamard+Lloyd-Gitter.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3b",
+   "Z3_gitter_block"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2506.05432",
+  "titel": "PCDVQ: Polar Coordinate Decoupled Vector Quantization",
+  "jahr": 2025,
+  "autoren": "(nicht geprüft)",
+  "feld": [
+   "K4"
+  ],
+  "kernaussage": "Richtung ist weit empfindlicher als Betrag (Genauigkeitsverlust beim Clustern nur der Richtungen 46,5 % vs 2,3 % der Beträge, LLaMA-2-7B); getrennte Richtungs-/Betragsbücher.",
+  "zahlen": [
+   {
+    "wert": "Genauigkeitsverlust 46,5 % (Richtung) vs 2,3 % (Betrag)",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Winkelbuch-Idee; Argument für Shape-Gain-Aufteilung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2603.27467",
+  "titel": "TurboAngle: Near-Lossless KV Cache Compression via Uniform Angle Quantization",
+  "jahr": 2026,
+  "autoren": "Patel",
+  "feld": [
+   "K4",
+   "K2"
+  ],
+  "kernaussage": "Winkel im Walsh-Hadamard-Bereich: Zufallsdiagonale macht Paare nahezu gleichverteilt auf dem Kreis, gleichförmige Winkelquantisierung ohne Kalibrierung.",
+  "zahlen": [
+   {
+    "wert": "3,28-3,67 Winkelbits/Element, verlustfrei auf 4 von 7 Modellen",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Winkelcodebuch auf U(1), nächster Verwandter einer Phasen-/Qubit-Codierung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038: Fastfood"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:2502.02617",
+  "titel": "PolarQuant: Quantizing KV Caches with Polar Transformation",
+  "jahr": 2025,
+  "autoren": "Han, Kacham, Karbasi, Mirrokni, Zandieh",
+  "feld": [
+   "K4",
+   "K2"
+  ],
+  "kernaussage": "Zufallsvorbehandlung, dann rekursive Polarkoordinaten; Winkel analytisch konzentriert, daher keine Normalisierungsparameter.",
+  "zahlen": [
+   {
+    "wert": "KV >4,2x komprimiert",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Datenfreies Winkelbuch.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
+ },
+ {
+  "id": "arXiv:1904.07842",
+  "titel": "Kerdock Codes Determine Unitary 2-Designs",
+  "jahr": 2019,
+  "autoren": "Can, Rengaswamy, Calderbank, Pfister",
+  "feld": [
+   "K4",
+   "F1"
+  ],
+  "kernaussage": "Kerdock-Codes liefern Stabilisatorzustände als N+1 gegenseitig unverzerrte Basen; Cliffordgruppen-Untergruppe, Pauli-mischend, unitäres 2-Design. Echte Brücke Codes↔Quantenzustände.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "Z3: Rotation"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a6"
  }
 ]
