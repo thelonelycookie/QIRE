@@ -1,0 +1,205 @@
+[
+ {
+  "id": "arXiv:2610.42069",
+  "titel": "The Quartic Gap Between Quantum and Dequantized Algorithms for Linear Algebra Is Tight",
+  "jahr": 2026,
+  "autoren": "Shouvanik Chakrabarti, Dylan Herman, Junhyung Lyle Kim u. a.",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Bei Zugriff über QRAM braucht der Quantenalgorithmus Õ(ρ) Anfragen, der beste dequantisierte klassische Õ(ρ^4) (ρ=‖A‖_F/‖A‖). Die Lücke ist im Worst Case bis auf Logfaktor scharf: Dequantisierung ist polynomiell, aber nicht verlustfrei. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "Õ(ρ) vs. Õ(ρ^4)",
+    "kontext": "Anfragen, Linearsysteme fester Kondition",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2606.18324",
+  "titel": "Why SWAVE May Not Be All You Need: A Concept-Evolution Retrospective on Complex-Valued Recurrent Language Models",
+  "jahr": 2026,
+  "autoren": "Ramprasath Ganesaraja, Swathika N, Sahil Dilip Panse",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Ehrliche Rückschau auf ein komplexwertiges rekurrentes LM (169 M Parameter, Cayley-unitärer Übergang, FineWeb-Edu): Resonance Head kollabiert (cos-domination), vier Mehrskalen-Retention-Ideen ohne messbaren Nutzen, komplexes Gated Unit durch reellen Squared-ReLU-Mixer mit weniger Parametern ersetzt. Nur ComplexNorm und Wave-Propagation-Scan tragen. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "best-step PPL 22,0",
+    "kontext": "Schritt 89.861 von 200.000, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Reelle Ersatzblöcke schlagen Teile des komplexen Entwurfs: Gegner für jede Phasen-/Welle-Behauptung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038",
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2605.13370",
+  "titel": "Phasor Memory Networks: Stable Backpropagation Through Time for Scalable Explicit Memory",
+  "jahr": 2026,
+  "autoren": "Sungwoo Goo, Hwi-yeol Yun, Sangkeun Jung",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Rekurrente Zustände nur als Phasendrehungen auf dem komplexen Einheitskreis (unitär) halten Gradientennormen stabil; 119 M Parameter, byte-level, 85-Slot-Speicherbaum, nahezu 100 % Copy-Paste jenseits des Gleitfensters, Long-Context wie ein 3x größeres Mamba. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "119 M; 18,8 B Token; ~100 % Retrieval",
+    "kontext": "Behauptung des Abstracts, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2609.38598",
+  "titel": "Reinforcement Learning with Complex (valued) Memories",
+  "jahr": 2026,
+  "autoren": "Sathya Kamesh Bhethanabhotla, Efstratios Gavves, André Biedenkapp",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Drei uRNN-Varianten (norm-erhaltend, komplexer Vektorraum) als Drop-in für rekurrentes PPO in teilbeobachtbaren Umgebungen; Wiederbelebung unitärer RNNs. (nur Abstract, arXiv-API)",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2608.03425",
+  "titel": "State Propagation Also Satisfies: A Complex-Valued State-Space Model for Deterministic State Tracking",
+  "jahr": 2026,
+  "autoren": "Xiaohe Li, Yang Lu",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Complex State Propagator: rein phasenbasiert (atan2-Aktivierung, keine Amplitude, keine Pro-Schritt-Nichtlinearität); Phase überlebt große Tiefe ohne Dämpfung, soll OOD-Kollaps von Transformer/Mamba beim Zustandsverfolgen vermeiden. Stark werbende Sprache, nur Abstract. (nur Abstract, arXiv-API)",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2509.19331",
+  "titel": "Holographic Transformers for Complex-Valued Signal Processing: Integrating Phase Interference into Self-Attention",
+  "jahr": 2025,
+  "autoren": "Enhao Huang, Zhiyu Zhang, Tianxiang Xu",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Attention moduliert nach relativer Phase und überlagert Werte kohärent (Interferenzoperator); Tests auf PolSAR und Funkkanal, ohne Quantenanspruch. (nur Abstract, arXiv-API)",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2607.09905",
+  "titel": "When Classical Baselines Are Tuned as Carefully as the Quantum Model, Does Quantum Reservoir Computing Still Win?",
+  "jahr": 2026,
+  "autoren": "Tushar Pandey",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Bei gleicher Größe und gleichem Tuning-Aufwand verschwindet der Quantenvorteil in zwei gängigen Quanten-Reservoir-Mechanismen (exakte Simulation bis 11 Qubit); Rückkopplung hilft dem Quantenmodell, ein gut getuntes klassisches Netz holt es aber ein. (nur Abstract, arXiv-API)",
+  "zahlen": [
+   {
+    "wert": "bis 11 Qubit",
+    "kontext": "exakte Simulation",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Fairer Gegner gleicher Größe und gleichen Tunings.",
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038",
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2610.00841",
+  "titel": "Neural Fourier Surrogates for Data Reuploading Quantum Neural Networks",
+  "jahr": 2026,
+  "autoren": "Autoren nicht abgerufen",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Klassisches Fourier-Surrogat (NFS) erreicht Leistung von Data-Reuploading-QNNs und eines Random-Fourier-Features-Modells; vorgeschlagen als natürliche klassische Baseline für QNNs. (nur Abstract, arXiv-API)",
+  "zahlen": [],
+  "baseline_fuer_qire": "NFS / Random Fourier Features als klassischer Gegner zu Phasen-/Fourier-Modellen",
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ },
+ {
+  "id": "arXiv:2610.21672",
+  "titel": "Diffusion Language Models as Open Quantum Systems",
+  "jahr": 2026,
+  "autoren": "Akinori Tanaka, Yukinao Akamatsu, Takuki Tomita",
+  "feld": [
+   "K6"
+  ],
+  "kernaussage": "Diffusions-LMs als offenes Quantensystem eingebettet; daraus Superposition of Prompts/Thoughts und Quantum-Inspired Remasking (konfidenzbasierte Regel). Quanten-inspirierter Sampling-Hebel, kein Effizienznachweis im Abstract. (nur Abstract, arXiv-API)",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b4"
+ }
+]

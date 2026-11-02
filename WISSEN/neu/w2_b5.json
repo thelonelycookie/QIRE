@@ -1,0 +1,357 @@
+[
+ {
+  "id": "arXiv:2411.17691",
+  "titel": "Low-Bit Quantization Favors Undertrained LLMs: Scaling Laws for Quantized LLMs with 100T Training Tokens",
+  "jahr": 2024,
+  "autoren": "Ouyang, Ge, Hartvigsen et al.",
+  "feld": [
+   "N1",
+   "K1"
+  ],
+  "kernaussage": "Über 1500 Checkpoints: Quantisierungsschaden (QiD) wächst mit Trainingstokens, sinkt mit Modellgröße; kleine, lang trainierte Modelle leiden am meisten. Skalengesetz für QiD in Tokens, Parametern, Bits.",
+  "zahlen": [
+   {
+    "wert": "Token-Exponent beta≈0,5316",
+    "kontext": "Sekundärzusammenfassung, Abstract nennt keine Zahl (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zentraler Gegenspieler: kleine, gut trainierte Modelle sind am schadensanfälligsten, also genau QIREs Regime; Rotation/Gitter müssen dort gewinnen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-038: klassische Wirkung",
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2605.23901",
+  "titel": "LLMs as Noisy Channels: A Shannon Perspective on Model Capacity and Scaling Laws",
+  "jahr": 2026,
+  "autoren": "Ouyang, Liu, Cai et al.",
+  "feld": [
+   "N1",
+   "N8"
+  ],
+  "kernaussage": "Shannon Scaling Law: Training als Übertragung über verrauschten Kanal; erklärt nicht-monotone Effekte (Overtraining, QiD) mit Signal-Rausch-Verhältnis.",
+  "zahlen": [
+   {
+    "wert": "R² ca. 0,95-0,98 für QiD (GPTQ/AWQ, auch 2 Bit)",
+    "kontext": "Sekundärzusammenfassungen (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Theorie-Rahmen, kein Verfahren; Kanalbild passt zu Quantisierung als Rauschen.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2212.09720",
+  "titel": "The case for 4-bit precision: k-bit Inference Scaling Laws",
+  "jahr": 2022,
+  "autoren": "Dettmers, Zettlemoyer",
+  "feld": [
+   "N1",
+   "K1"
+  ],
+  "kernaussage": "Über 35 000 Zero-Shot-Läufe: bei fester Gesamtbitzahl ist 4 Bit meist optimal; Datentyp und Blockgröße sind die Hebel, bei 6-8 Bit hilft keine Methode.",
+  "zahlen": [
+   {
+    "wert": "4 Bit optimal bei fester Bitzahl; kleine Blockgröße ≈ +1 Bit",
+    "kontext": "Zusammenfassung (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Maßstab für jede Bit-je-Parameter-Aussage (Modellgröße in Bits statt Parametern).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2505.24832",
+  "titel": "How much do language models memorize?",
+  "jahr": 2025,
+  "autoren": "Morris, Sitawarin, Guo et al.",
+  "feld": [
+   "N8",
+   "N1"
+  ],
+  "kernaussage": "Trennt unbeabsichtigtes Memorieren von Generalisierung; Kapazität GPT-artiger Modelle ca. 3,6 Bit je Parameter; danach Wechsel zu Generalisierung (Grokking).",
+  "zahlen": [
+   {
+    "wert": "ca. 3,6 Bit/Parameter",
+    "kontext": "Abstract; Sekundärquellen 3,5-4 (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   },
+   {
+    "wert": "bf16 → fp32 nur kleiner Gewinn",
+    "kontext": "Sekundärquelle (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Obergrenze der Informationsdichte: unter ca. 3-4 Bit/Gewicht muss Kapazität verloren gehen, sofern Modell ausgelastet ist.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2505.03031",
+  "titel": "Radio: Rate-Distortion Optimization for Large Language Model Compression",
+  "jahr": 2025,
+  "autoren": "Young",
+  "feld": [
+   "N8",
+   "K1"
+  ],
+  "kernaussage": "Formuliert LLM-Quantisierung aus Rate-Distortion-Sicht und löst per stochastischem Aufstieg die Bitzuteilung; ohne Gewichts-Feintuning wie OPTQ.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rate-Distortion-Baseline für Bitzuteilung je Schicht.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2409.02026",
+  "titel": "Foundations of Large Language Model Compression -- Part 1: Weight Quantization",
+  "jahr": 2024,
+  "autoren": "Young",
+  "feld": [
+   "N8",
+   "K1"
+  ],
+  "kernaussage": "Konvexe Optimierungssicht auf Gewichtsquantisierung; nutzt Hochraten-Regel (Fehler halbiert sich je Bit) für Bitzuteilung.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Theoretische Grundlage der Bitzuteilung.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2602.05790",
+  "titel": "Price of metric universality in vector quantization is at most 0.11 bit",
+  "jahr": 2026,
+  "autoren": "Harbuzova, Ordentlich, Polyanskiy",
+  "feld": [
+   "N8",
+   "K4"
+  ],
+  "kernaussage": "Ein universelles Codebuch kostet höchstens 0,11 Bit/Dimension gegenüber an Eingangsstatistik angepasstem Waterfilling-Codebuch; gaußsche Gewichte angenommen.",
+  "zahlen": [
+   {
+    "wert": "<= 0,11 Bit je Dimension",
+    "kontext": "Abstract (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rate-Distortion-Anker: zeigt, wie wenig adaptive Rotation/Codebuch jenseits eines universellen Gitters bringen kann; passt zu Z3 (Rotation ≈ gleichwertig).",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2606.15789",
+  "titel": "Approaching Shannon Bound with Lossless LLM Weight Compression",
+  "jahr": 2026,
+  "autoren": "Tan, Chen, Alonso",
+  "feld": [
+   "N8"
+  ],
+  "kernaussage": "Entropiestudie von 1,5B bis 405B Parametern, bf16 bis int4: verlustfreie Untergrenze ist die Entropie der Gewichtsverteilung; Verfahren nähert sich ihr.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Zeigt verlustfreien Spielraum von int4/bf16-Formaten (Entropiekodierung) als Gegner zu Bit-Tricks.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2510.11234",
+  "titel": "Neural Weight Compression for Language Models",
+  "jahr": 2025,
+  "autoren": "Ryu, Kim, Shin et al.",
+  "feld": [
+   "N8",
+   "K1"
+  ],
+  "kernaussage": "Gewichtskompression als gelernter Codec mit Entropiekodierung; Spitzenwerte im Bereich 4-6 Bit.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Starker Gegner mit gelerntem Transform statt fester Rotation.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:1908.01364",
+  "titel": "The Capacity of Quantum Neural Networks",
+  "jahr": 2019,
+  "autoren": "Wright, McMahon",
+  "feld": [
+   "N8",
+   "K6"
+  ],
+  "kernaussage": "Gedächtniskapazität C eines QNN ist durch die Zahl der trainierten Parameter beschränkt; klassisch parametrisierte QNN haben keinen Kapazitätsvorteil gegenüber gleich großen klassischen Netzen.",
+  "zahlen": [
+   {
+    "wert": "C <= W (Parameterzahl)",
+    "kontext": "Abstract (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038: Wirkung klassisch"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2101.02464",
+  "titel": "Information-theoretic bounds on quantum advantage in machine learning",
+  "jahr": 2021,
+  "autoren": "Huang, Kueng, Preskill",
+  "feld": [
+   "N8",
+   "K6"
+  ],
+  "kernaussage": "Klassische ML-Modelle brauchen 2^Ω(n) Kopien, quantenmechanische O(n) für Pauli-Observablen; im Mittel kann klassisch fast gleich gut sein. Vorteil hängt vom Gütemaß ab.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2604.07639",
+  "titel": "Exponential quantum advantage in processing massive classical data",
+  "jahr": 2026,
+  "autoren": "Zhao, Zlokapa, Neven et al.",
+  "feld": [
+   "N8",
+   "K6"
+  ],
+  "kernaussage": "Kleiner Quantenrechner (polylog. Größe) klassifiziert und reduziert Dimension massiver klassischer Daten im Datenstrom; jede klassische Maschine bräuchte exponentiell mehr Speicher. Gilt für SVM/PCA, nicht für Deep Learning.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2401.00448",
+  "titel": "Beyond Chinchilla-Optimal: Accounting for Inference in Language Model Scaling Laws",
+  "jahr": 2023,
+  "autoren": "Sardana, Portes, Doubov, Frankle",
+  "feld": [
+   "N1"
+  ],
+  "kernaussage": "Mit Inferenzkosten ist es optimal, kleiner und länger als Chinchilla zu trainieren; 47 Modelle 150M-6B, bis 10 000 Tokens/Parameter, Qualität steigt weiter.",
+  "zahlen": [
+   {
+    "wert": "10-10 000 Tokens/Parameter",
+    "kontext": "Abstract/Suchauszug (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Begründet überlange Trainingsläufe kleiner Modelle, also das Regime mit größtem Quantisierungsschaden (Ouyang).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ },
+ {
+  "id": "arXiv:2503.19206",
+  "titel": "Overtrained Language Models Are Harder to Fine-Tune",
+  "jahr": 2025,
+  "autoren": "Springer, Goyal, Wen et al.",
+  "feld": [
+   "N1"
+  ],
+  "kernaussage": "Katastrophales Overtraining: mehr Pretraining macht Parameter empfindlicher gegen Änderungen; OLMo-1B 3T-Tokens über 2 % schlechter nach Instruktions-Tuning als 2,3T.",
+  "zahlen": [
+   {
+    "wert": "über 2 % schlechter (OLMo-1B, 3T vs 2,3T)",
+    "kontext": "Suchauszug (nur Abstract/Suchauszug, nicht am Volltext)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stützt die Empfindlichkeitsthese; Quantisierung nicht direkt getestet.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b5"
+ }
+]
