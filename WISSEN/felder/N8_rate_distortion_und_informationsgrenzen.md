@@ -45,3 +45,12 @@
 - Lücke bleibt: keine Grenze für reale, nicht-gaußsche Gewichte kleiner Modelle; Skaleneffizienz der Waterfilling-Idee (Spaltenraten) für QIRE ungeprüft.
 - Neuer Weg (Vorschlag): Spaltenraten nach Aktivierungsvarianz als billiger Gegner testen. Langweiligste Erklärung: entspricht gemischter Genauigkeit. Quantenbezug: Analogie (keine).
 - Sättigung Runde 2: 3 neue Kernquellen bei 3 Suchen, N8 noch nicht gesättigt (Anteil neu hoch).
+
+## Runde 3 (Welle 5, e1)
+- Suche nach gemessener nicht-gaußscher R(D)-Grenze für trainierte Transformer: nichts gefunden. Nur Theorie für lineare Modelle [arXiv:1810.06401] (Autoren/Abstract nicht bestätigt), Pruning als notwendiger Teil guter Kompression [arXiv:2102.08329] (bestätigt), Laplace passt besser als Gauß (Isik/No/Weissman 2021, Suchtreffer, nicht eingetragen; ungeprüft).
+- Folge: Gauß-Kurve bleibt nur Näherung; Grenzabstand (Schluss 1) mit Laplace-Variante als Zweitkurve angeben. Langweiligste Erklärung: Laplace-Entropie liegt knapp unter Gauß, Unterschied klein. Quantenbezug: keiner.
+- Sättigung Runde 3: 1 Suche N8, 2 neue Quellen, 0 zur Kernlücke (reale Grenze): Lücke bleibt, weitere Suchen bringen vermutlich Theorie statt Messung: gesättigt.
+
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| 5 (e1, Runde 3) | 2 | niedrig; Kernlücke 0 |

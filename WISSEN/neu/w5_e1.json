@@ -1,0 +1,72 @@
+[
+ {
+  "id": "arXiv:2509.03054",
+  "titel": "Calibration and Transformation-Free Weight-Only LLMs Quantization via Dynamic Grouping",
+  "jahr": 2025,
+  "autoren": "Zheng, Yang, Liu, Xie, Qin, Chen, Lin",
+  "feld": [
+   "K1"
+  ],
+  "kernaussage": "MSB: kalibrier- und transformationsfreie PTQ mit dynamischer Gruppierung (Varianzminimierung je Gruppe, Blockgröße 64); Abstract per Seitenabruf bestätigt.",
+  "zahlen": [
+   {
+    "wert": "Llama 3.2 3B, 4 Bit blockweise: Wiki2-PPL 8,43 (MSB) gegen 12,23 (GPTQ), FP 7,81",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rotationsfreier Gegner: gruppenadaptive Gitter ohne Rotation.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e1"
+ },
+ {
+  "id": "arXiv:2102.08329",
+  "titel": "An Information-Theoretic Justification for Model Pruning",
+  "jahr": 2021,
+  "autoren": "Isik, Weissman, No",
+  "feld": [
+   "N8",
+   "N4"
+  ],
+  "kernaussage": "Rate-Distortion-Analyse der Modellkompression mit ausgabebezogenem Verzerrungsmaß; Pruning ist implizit nötiger Teil guter Kompression. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Gegner-Idee: Pruning plus Quantisierung als R(D)-nahe Kombination.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e1"
+ },
+ {
+  "id": "arXiv:1810.06401",
+  "titel": "Rate Distortion For Model Compression: From Theory To Practice",
+  "jahr": 2018,
+  "autoren": "Gao u. a. (Autoren laut Suchtreffer, nicht bestätigt)",
+  "feld": [
+   "N8"
+  ],
+  "kernaussage": "Untere Schranke der Rate-Distortion-Funktion für Modellkompression, für lineare Modelle erreichbar. Nur Suchtreffer-Beschreibung, Abstract nicht per Seitenabruf bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Theorie nur für lineare Modelle, keine Grenze für trainierte Transformer.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e1"
+ }
+]

@@ -39,6 +39,15 @@
 |---|---|---|
 | W3 c2 | 10 | ca. 10 von 10 Treffern neu bei 9 Suchen; Feld noch nicht gesättigt (Reservoir/ELM, Supermasken dünn) |
 
+## Runde 2 (Welle 5, e3), 2026-11-02
+- SeedLM-Folgearbeiten: Suche fand keine (nur Original [arXiv:2410.10714], ICLR 2025). Lücke bleibt wahrscheinlich echt; Zitat-Suche (Zitierende) wäre ein anderer Weg.
+- Reservoir/ELM gegen faire Baselines: nur Methodik gefunden, nämlich gleiche Parameterzahl und Hyperparametersuche [arXiv:2405.06561], Übersicht [arXiv:2504.02639]. Harte Zahlen fehlen. Supermasken: keine neue Suche möglich (Limit erreicht).
+- Hinweis: arXiv-API nicht erreichbar, Einträge nur über Suchtreffer.
+
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 5 e3 | 2 | niedrig (2 Suchen); Feld nahezu gesättigt, Supermasken ungeprüft |
+
 ## Schlüsse und neue Wege (Agent)
 1. Schluss: QIRE-Rotation als SeedLM-Variante testen (Hadamard/Diagonal-Struktur aus Seed + wenige Koeffizienten). Belege: [arXiv:2410.10714], [arXiv:1408.3060], [arXiv:1502.07514]. Langweiligste Erklärung: gleich gut wie SeedLM, weil beides Zufallsbasis ist. Quantenbezug: 2-Design-Struktur als Begründung.
 2. Schluss: Zufallsbasis muss nicht gelernt werden (A fest in LoRA reicht). Belege: [arXiv:2402.16842], [arXiv:2310.11454]. Langweiligste Erklärung: Überparametrisierung macht jede Basis ausreichend. Quantenbezug: Haar-Mittelung analog.

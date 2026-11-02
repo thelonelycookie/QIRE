@@ -1,0 +1,131 @@
+[
+ {
+  "id": "url:https://docs.codecarbon.io/latest/explanation/rapl/",
+  "titel": "CodeCarbon: RAPL Metrics (Dokumentation)",
+  "jahr": 2026,
+  "autoren": "CodeCarbon-Projekt",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Auf AMD melden RAPL-Domänen 'core' sehr niedrige Werte, unklar ob in 'package' enthalten; Herstellerdoku dünn. Zugriff seit CVE-2020-8694 nur mit Root/udev-Rechten. Powercap unterstützt AMD ab Linux 5.8 (Zen 2+).",
+  "zahlen": [
+   {
+    "wert": "Powercap-AMD-Unterstützung ab Kernel 5.8, Zen 2 und neuer",
+    "kontext": "Suchtreffer-Zusammenfassung, Seite nicht geöffnet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Messmethodik für Joule auf Maltes Ryzen 3600 (Zen 2): RAPL-Paket nutzbar, aber ohne DRAM-Domäne und Genauigkeit unverifiziert.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "url:https://indico.cern.ch/event/1708318/contributions/7185021/attachments/3324707/5953607/RAPL_HEPiX_Aug2026_v2.pdf",
+  "titel": "RAPL (HEPiX, August 2026): Vergleich RAPL gegen IPMI-Wandmessung",
+  "jahr": 2026,
+  "autoren": "CERN/HEPiX-Beitrag (Autoren nicht erfasst)",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "RAPL liegt unter IPMI-Wandmessung, Abstand nicht linear und nicht konstant; Genauigkeit stark hardwareabhängig, schlechter bei einem Ein-Sockel-AMD-System.",
+  "zahlen": [
+   {
+    "wert": "Abweichung 5 bis 43 % je nach Hardware",
+    "kontext": "Suchtreffer-Zusammenfassung, PDF nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "RAPL auf Ryzen nur als relative Größe nutzen; absolute Joule mit Steckdosenmessgerät gegenprüfen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "arXiv:2312.08595",
+  "titel": "Limits to the Energy Efficiency of CMOS Microprocessors",
+  "jahr": 2023,
+  "autoren": "nicht erfasst (Suchtreffer)",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Suchtreffer nennt: DRAM-Zugriff ca. 5 pJ/Bit, FP16-Op ca. 150 fJ; Titel nur aus Suchtreffer, arXiv-API nicht erreichbar.",
+  "zahlen": [
+   {
+    "wert": "DRAM ca. 5 pJ/Bit gegen FP16-Op ca. 150 fJ (Verhältnis ca. 30 je Bit, ca. 2000 je 64 Bit nach Näherung)",
+    "kontext": "Suchtreffer, ungeprüft",
+    "geprueft": false
+   },
+   {
+    "wert": "Logik 45 nm zu 7 nm ca. 3x; DDR-Zugriff konstant ca. 1300 pJ je 64 Bit (Angabe aus arXiv:2603.26053-Treffer)",
+    "kontext": "Suchtreffer, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stützt Bytes-vor-Ops (S-004) mit neueren Knoten: Logik skaliert, DRAM nicht.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "arXiv:2405.06561",
+  "titel": "Kritik der Bewertungsmethoden im Reservoir Computing (Wringe, Trefzer, Stepney)",
+  "jahr": 2025,
+  "autoren": "Wringe, Trefzer, Stepney",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "Übersicht und Kritik der Evaluation von Reservoir Computing (v2 Feb 2025); Titel gekürzt aus Suchtreffer, arXiv-API nicht erreichbar.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Methodik für fairen Reservoir/ELM-Vergleich: gleiche Parameterzahl und gleiche Hyperparametersuche für feste und trainierte Gegner.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "arXiv:2504.02639",
+  "titel": "Reservoir Computing: A New Paradigm for Neural Networks",
+  "jahr": 2025,
+  "autoren": "nicht erfasst (Suchtreffer)",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "Übersicht Reservoir/ELM; Vergleiche mit Backprop und SVM werden genannt; Details nicht gelesen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Hintergrund für feste Zufallsdynamik plus Readout; keine harten Zahlen gegen faire Baselines erfasst.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ }
+]

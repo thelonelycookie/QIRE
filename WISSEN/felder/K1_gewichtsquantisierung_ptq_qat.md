@@ -45,3 +45,14 @@
 | Runde | neue Quellen | Anteil neu |
 |---|---|---|
 | 4 (d1, Runde 2) | 7 (K1 anteilig) | hoch bei Randthemen, 0 bei Kernlücke |
+
+## Runde 3 (Welle 5, e1)
+- Neue Begriffe gesucht (Skalen-Overhead, effektive Bits je Gewicht, Sub-1B). Byte-Buchhaltung: Skala FP16 je Gruppe g kostet 16/g Bit je Gewicht (g=128: 0,125; g=16: 1,0), Skala+Zero-Point 0,19 bei g128; AWQ g128 ca. 0,25 [arXiv:2510.11234, arXiv:2505.08620, Suchtreffer, ungeprüft]. Bei g16 sind die Skalen so teuer wie ein halbes 2-Bit-Gewicht: der faire Vergleich muss sie einrechnen (stützt S-002/S-003).
+- Neuer rotationsfreier Gegner MSB [arXiv:2509.03054] (Llama 3.2 3B, 4 Bit blockweise 8,43 gegen GPTQ 12,23; Abstract bestätigt, Zahl ungeprüft).
+- Kleinmodelle: Einbettung, Normen, LM-Kopf bleiben oft unquantisiert; bei <1B verzerrt das die "Bit je Gewicht"-Angabe (eigene Überlegung, keine Quelle). Für QIRE: Bytes der Gesamtdatei berichten.
+- Keine Studie Sub-1B Rotation gegen Gruppenskala bytegleich gefunden; Kernlücke unverändert.
+- Sättigung Runde 3: 1 Suche K1, 1 neue Quelle, 0 zur Kernlücke: gesättigt.
+
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| 5 (e1, Runde 3) | 1 | niedrig; Kernlücke 0 |

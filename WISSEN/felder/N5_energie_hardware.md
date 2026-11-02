@@ -60,6 +60,16 @@ Energie je Token:  E ≈ B_DRAM·e_B + Σ_b N_b·e_op(b) + N_LUT·e_LUT + N_had�
 |---|---|---|
 | Welle 3 c1 | 10 | hoch (Feld bisher nur Snippets), 10 von ca. 31 |
 
+## Runde 2 (Welle 5, e3), 2026-11-02
+- RAPL auf Ryzen: Powercap-AMD ab Kernel 5.8 (Zen 2+), Root nötig, keine DRAM-Domäne, 'core' unklar; HEPiX: Abweichung zu Wandmessung 5-43 %, bei AMD schlechter. Folge: RAPL nur relativ nutzen, Steckdosenmessgerät als Gegenprobe (url:CodeCarbon, url:HEPiX).
+- Neuere Knoten: Logik 45 -> 7 nm ca. 3x effizienter, DRAM-Zugriff nahezu konstant [arXiv:2603.26053] (Suchtreffer), DRAM ca. 5 pJ/Bit gegen FP16-Op ca. 150 fJ [arXiv:2312.08595]; LPDDR5 ca. 3 pJ/Bit (JEDEC-Faustwert). Alles ungeprüft. Stützt S-004 (Bytes vor Ops).
+- Online-Hadamard End-to-End auf CPU: weiter nicht gefunden. Nur GPU-Kernelzahlen (HadaCore 3,46x) und Aussage, dass Rotation Overhead bleibt [arXiv:2601.22347]; [arXiv:2609.23125] misst dichte Rotation, nicht fusiert. Lücke bleibt, also selbst messen.
+- Erkenntnis: arXiv-API war nicht erreichbar, Einträge nur über Suchtreffer bestätigt.
+
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 5 e3 | 3 (2 Web, 1 arXiv) | niedrig (3 Suchen, kaum neue Primärquellen): Feld nahezu gesättigt |
+
 ## Schlüsse und neue Wege (Agent)
 1. **Energie folgt Bytes, nicht Ops.** Belege: [arXiv:2403.14123], Horowitz-Verhältnis DRAM:Op ≈ 10²-10³, [arXiv:2503.06862]. Langweiligste Erklärung: Decoding ist bandbreitengebunden, also Energie ∝ Modellgröße. Quantenbezug: keiner; QIRE-Nutzen = Bytes sparen.
 2. **Hadamard-Betrieb kostet ≈ 0,3 % der Ops, aber Speicherpässe.** Belege: eigene Rechnung, [arXiv:2412.08832]. Langweiligste Erklärung: bei fusionierter Implementierung nicht messbar. Daher Wallclock-Test auf dem Ryzen statt Op-Zählung. Quantenbezug: Analogie.
