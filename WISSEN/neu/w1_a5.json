@@ -1,0 +1,250 @@
+[
+ {
+  "id": "arXiv:2509.23202",
+  "titel": "Bridging the Gap Between Promise and Performance for Microscaling FP4 Quantization",
+  "jahr": 2025,
+  "autoren": "Autoren nicht geprüft",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Erste breite PTQ-Studie zu MXFP4/NVFP4. Die kleine Gruppengröße von NVFP4 neutralisiert laut Abstract beweisbar klassische Ausreißer-Gegenmittel; MXFP4 leidet unter Zweierpotenz-Skalen. Gegenmittel MR-GPTQ: blockweise Hadamard plus formatspezifische Optimierung.",
+  "zahlen": [
+   {
+    "wert": "Speedup bis 3,6x schichtweise, 2,2x Ende-zu-Ende (B200)",
+    "kontext": "Abstract; Autorenangabe",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Beleg, dass bei g16 Rotation kaum noch etwas bringt; Rotation nur blockweise (Blockgröße = Gruppe) sinnvoll",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "Z3a",
+   "Z3b"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2511.04214",
+  "titel": "Block Rotation is All You Need for MXFP4 Quantization",
+  "jahr": 2025,
+  "autoren": "laut arXiv-Eintrag (Autorenliste nicht geprüft)",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Benchmark von PTQ-Verfahren unter MXFP4: GPTQ ist stark, globale Rotation ist mit MXFP4 unverträglich (Zweierpotenz-Blockskala gegen Umverteilung der Ausreißerenergie). Blockrotation behebt das.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Faire Nicht-Rotations-Baseline (GPTQ ohne Rotation) schlägt globale Rotation bei MXFP4",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2506.01967",
+  "titel": "Turning LLM Activations Quantization-Friendly",
+  "jahr": 2025,
+  "autoren": "Czakó, Kertész, Szénási",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Analysiert Ausreißer und wie Glättung und Rotation sie verändern; führt eine Kanalmetrik ein und schlägt Kanalskalierung vor der Rotation vor. Rotation kann bei massiven Ausreißern schlechter sein als gar nichts (laut Snippet einer Suche, im Abstract nicht bestätigt).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Skalierung+Rotation als Kombi-Arm",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2411.09909",
+  "titel": "AMXFP4: Taming Activation Outliers with Asymmetric Microscaling Floating-Point for 4-bit LLM Inference",
+  "jahr": 2024,
+  "autoren": "laut arXiv-Eintrag",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Rotationsfreie, kalibrierungsfreie Alternative: asymmetrische gemeinsame Skalen in MX-Gruppen. Rotationsverfahren brauchen Stunden Kalibrierung. Aussage (Suchauszug, nicht im Abstract): SpinQuant schlägt bei g32 die Nicht-Rotations-Basis nicht.",
+  "zahlen": [
+   {
+    "wert": "SpinQuant bei Gruppe 32 nicht besser als ohne Rotation",
+    "kontext": "Suchauszug, nicht im Abstract bestätigt",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Asymmetrische Gruppenskala g32 als fairer Gegner",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "Z3c"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2504.19874",
+  "titel": "TurboQuant: Online Vector Quantization with Near-optimal Distortion Rate",
+  "jahr": 2025,
+  "autoren": "Autoren nicht geprüft",
+  "feld": [
+   "K2",
+   "K4",
+   "K3"
+  ],
+  "kernaussage": "Zufallsrotation macht Koordinaten Beta-verteilt und fast unabhängig, dann optimaler Skalarquantisierer (Lloyd-Max) je Koordinate; plus 1-Bit-QJL-Rest für erwartungstreue Skalarprodukte. Nahe an der Informationsgrenze.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotation+Lloyd ist der datenfreie Gegenpol zu Gruppenskala; Z3b zeigt: Lloyd ohne Rotation reicht bei 2 Bit",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3b"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2401.18079",
+  "titel": "KVQuant: Towards 10 Million Context Length LLM Inference with KV Cache Quantization",
+  "jahr": 2024,
+  "autoren": "Hooper u. a.",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Rotationsfreie KV-Quantisierung: Keys pro Kanal, vor RoPE, nichtuniforme sensitivitätsgewichtete Datentypen, Dense-and-Sparse-Ausreißer je Vektor. Unter 0,1 Perplexity-Verlust bei 3 Bit (v6 vom Mai 2025).",
+  "zahlen": [
+   {
+    "wert": "<0,1 PPL-Verlust bei 3-Bit-KV",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starker rotationsfreier KV-Gegner mit Lloyd-artigem Gitter",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3b"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2405.04532",
+  "titel": "QServe: W4A8KV4 Quantization and System Co-design for Efficient LLM Serving",
+  "jahr": 2024,
+  "autoren": "Autoren nicht geprüft",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "QoQ: W4A8KV4 mit progressiver Quantisierung und SmoothAttention (Schwierigkeit von Keys auf Queries verschoben); Systemseite zählt. Kein Hadamard als Kern.",
+  "zahlen": [
+   {
+    "wert": "1,2-2,4x Durchsatz (A100) ggü. TensorRT-LLM",
+    "kontext": "Abstract; Autorenangabe",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Glättung statt Rotation; Systemkosten (Dequantisierung) sind der echte Engpass",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2410.09426",
+  "titel": "FlatQuant: Flatness Matters for LLM Quantization",
+  "jahr": 2024,
+  "autoren": "Sun u. a.",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Gelernte affine Transformation je Schicht (Kronecker-Struktur) macht Gewichte und Aktivierungen flacher; W4A4 unter 1 % Genauigkeitsverlust bei LLaMA-3-70B, 7,5 % besser als SpinQuant. Zeigt: Gelernt schlägt fest-Hadamard; sagt nichts über g16/g32.",
+  "zahlen": [
+   {
+    "wert": "<1 % Genauigkeitsverlust W4A4 LLaMA-3-70B; +7,5 % vs SpinQuant",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster gelernter Transform-Gegner",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2409.20361",
+  "titel": "Rotated Runtime Smooth: Training-Free Activation Smoother for accurate INT4 inference",
+  "jahr": 2024,
+  "autoren": "laut arXiv-Eintrag",
+  "feld": [
+   "K2",
+   "K3"
+  ],
+  "kernaussage": "Kanalausreißer per Laufzeit-Glättung (Kanalmaxima), Spitzenausreißer per Rotation: beide Typen brauchen verschiedene Mittel.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kombi-Arm Glättung+Rotation",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ },
+ {
+  "id": "arXiv:2502.00527",
+  "titel": "PolarQuant: Leveraging Polar Transformation for Efficient Key Cache Quantization and Decoding Acceleration",
+  "jahr": 2025,
+  "autoren": "laut arXiv-Eintrag",
+  "feld": [
+   "K2"
+  ],
+  "kernaussage": "Keys in 2D-Paaren (RoPE-Paare) als Radius und Winkel quantisieren statt Rotation; Skalarprodukt per Tabellenzugriff. Ausreißer liegen meist in nur einer der beiden RoPE-Dimensionen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rotationsfreie Key-Quantisierung",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a5"
+ }
+]
