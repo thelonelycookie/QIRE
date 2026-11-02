@@ -52,3 +52,10 @@ Stand Welle 1, Agent a1 (≈ 10 Suchen, F5 und F1 teils gemeinsam). Nur Abstract
 1. **Rauschtraining (R1-Typ) in QIRE-Trainings als Regularisierer testen**, Gegner Standard-QAT. Beleg: [arXiv:2306.08553], [arXiv:2311.14114]. Langweiligste Erklärung: übliche Regularisierung, kein Quanteneffekt. Quantenbezug: Analogie (Dekohärenz).
 2. **Lindblad-artige Schicht** (Mischung + Dephasierung = Diagonale abdämpfen) als formale Brücke zur Born-Auslese. Beleg: [arXiv:2307.12293]. Langweiligste Erklärung: entspricht Dämpfung/Dropout. Quantenbezug: echte Formalisierung, klassisch simulierbar.
 3. **Nicht behaupten**, dass Rauschen hilft, ohne Gegner mit Clipping/Gruppenskalen. Beleg: [arXiv:2409.17734] widerspricht [arXiv:2207.07924].
+
+
+## Runde 3 (Welle 5, e4; 1 Suche, nur Abstracts, ungeprüft)
+- Noise-induzierte Regularisierung in Quanten-NN mit Phasen-/Amplitudendämpfung [arXiv:2410.19921]: Dekohärenz als Regularisierer nur auf Quantenseite. Dephasierungs-Schicht in klassischen NN wieder nicht gefunden (dritte negative Suche).
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 5, e4 Runde 3 (F5, 1 Suche) | 1 | niedrig; gesättigt |

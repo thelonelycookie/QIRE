@@ -1,0 +1,78 @@
+[
+ {
+  "id": "arXiv:2501.14741",
+  "titel": "On Design Choices in Similarity-Preserving Sparse Randomized Embeddings",
+  "jahr": 2024,
+  "autoren": "Kleyko, Rachkovskij",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Untersucht Designwahl bei FlyHash (Vorverarbeitung, sparsifizierende Aktivierung, Projektionsmatrix); die richtige Kombination ändert die Suchleistung stark. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "analogie",
+  "quantenbezug": "FlyHash-Varianten als Gegner zu Hadamard+Quadrat; Aktivierungswahl zählt.",
+  "bezug_qire_befund": "stuetzt",
+  "stuetzt_widerspricht": "Hinweis: Wirkung liegt in der Nichtlinearität/Sparsifizierung, nicht in der Projektion allein (passt zu I-038).",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ },
+ {
+  "id": "arXiv:2410.19921",
+  "titel": "Method for noise-induced regularization in quantum neural networks",
+  "jahr": 2024,
+  "autoren": "Kuzmin, Somogyi, Pankovets, Melnikov",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Abstimmbares Hardware-Rauschen (Amplituden-/Phasendämpfung, Depolarisierung) als Regularisierer in Quanten-NN; Validierungsverlust sinkt in Regression. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": "direkt",
+  "quantenbezug": null,
+  "bezug_qire_befund": "neutral",
+  "stuetzt_widerspricht": "Dekohärenz als Regularisierung nur auf Quanten-NN-Seite; keine klassische Übertragung gefunden.",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ },
+ {
+  "id": "arXiv:2502.16286",
+  "titel": "Verification of Bit-Flip Attacks against Quantized Neural Networks",
+  "jahr": 2025,
+  "autoren": "(Autoren nicht geprüft)",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "BFAVerifier: symbolische Prüfung, ob Bitflips in quantisierten Netzen die Ausgabe kippen können; zertifiziert statt nur empirisch zu messen. Nur Suchauszug.",
+  "zahlen": [],
+  "baseline_fuer_qire": "keiner",
+  "quantenbezug": "Zertifizierungswerkzeug, falls Bitflip-Achse für QIRE getestet wird.",
+  "bezug_qire_befund": "neutral",
+  "stuetzt_widerspricht": "Kein Vergleich mit Rotation.",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ },
+ {
+  "id": "arXiv:2103.13813",
+  "titel": "RA-BNN: Robust & Accurate Binary Neural Network against Adversarial Bit-Flip Attack",
+  "jahr": 2021,
+  "autoren": "(Autoren nicht geprüft)",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Binäre Gewichte erhöhen Bitflip-Robustheit, kosten aber Genauigkeit; RA-BNN schließt die Lücke teilweise. Nur Suchauszug.",
+  "zahlen": [],
+  "baseline_fuer_qire": "keiner",
+  "quantenbezug": "Niedrigbit-Gegner für Bitflip-Robustheit.",
+  "bezug_qire_befund": "neutral",
+  "stuetzt_widerspricht": "Stützt: Robustheit kommt aus Niedrigbit/Wertebereich, nicht aus Mischung.",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ }
+]

@@ -53,3 +53,11 @@ Stand Welle 1, Agent a1 (≈ 9 Suchen). Nur Abstracts/Suchauszüge, kein Volltex
 1. **Bitflip-Robustheit als neue QIRE-Achse testen.** Beleg: [arXiv:2603.16382] (Rotation), [arXiv:2606.02430] (Integer robuster). Langweiligste Erklärung: Rotation macht nur Ausreißer kleiner, Clipping leistet dasselbe. Quantenbezug: Analogie (Streuung der Information über Basis).
 2. **Fester Gegner: Clipping + Gewichtsskalierung** vor jedem Rotationsanspruch. Beleg: [arXiv:2006.13977], [arXiv:2411.18993]. Langweiligste Erklärung: Gleichstand wie in Z3. Quantenbezug: keiner.
 3. **Hadamard-Zeilen als Codewörter für Ausgabe-Codierung (ECOC mit Walsh-Code).** Beleg: [arXiv:2004.10700], ECOC-Linie. Langweiligste Erklärung: bekannte ECOC mit anderem Namen. Quantenbezug: Analogie.
+
+
+## Runde 3 (Welle 5, e4; 1 Suche, nur Abstracts, ungeprüft)
+- Suche „Walsh-Hadamard + Bitflip-Robustheit": keine Arbeit zu Hadamard/Walsh-Transformation und Bitflips gefunden. Nächste: DeepNcode [arXiv:2405.13891], BFAVerifier [arXiv:2502.16286], RA-BNN [arXiv:2103.13813]; gelernte Quantisierungsbereiche gegen Bitflips (Chitsaz, TMLR 2023, keine arXiv-ID, nicht aufgenommen).
+- Lücke „Rotation vs. Clipping bei Bitflips" bleibt offen (jetzt dreimal negativ gesucht).
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 5, e4 Runde 3 (F1, 1 Suche) | 2 | niedrig bis mittel; Kernlücke unverändert, Feld weitgehend gesättigt |

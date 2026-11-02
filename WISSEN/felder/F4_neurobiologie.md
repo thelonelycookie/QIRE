@@ -52,3 +52,9 @@ Stand Welle 1 (a3, 02.11.2026). Zahlen aus Abstracts/Suchtreffern, nichts im Vol
 2. **Energie nur mit ehrlichem Modell behaupten:** Schluss: QIRE-Effizienz in Parametern/FLOPs und Speicherzugriffen ausweisen, nicht nur Operationen. Belege: [arXiv:2409.08290]. Langweiligste Erklärung: Zählfehler. Quantenbezug: keiner.
 3. **Bit-Budget-Argument:** Schluss: ca. 4-5 Bit als biologisch plausible Zielpräzision für QIRE-Gewichte zitieren (Hinweis, kein Beleg). Belege: [doi:10.7554/eLife.10778] (kleine Probe). Langweiligste Erklärung: Messgrenze statt Kapazität. Quantenbezug: keiner.
 4. **(R2) Bit-Budget mit Spanne zitieren:** 1 bis 5 Bit statt einer Punktzahl. Belege [arXiv:1602.04129, doi:10.7554/eLife.10778]. Langweiligste Erklärung: unterschiedliche Messmodelle. Quantenbezug: keiner.
+
+## Runde 3 (Welle 5, e4; 1 Suche, nur Abstracts, ungeprüft)
+- Kleyko & Rachkovskij [arXiv:2501.14741]: FlyHash-Designwahl (Aktivierung, Projektionsmatrix) bestimmt die Leistung stark; BioHash [arXiv:2001.04907] bleibt der einzige Lern-gegen-Zufall-Vergleich. Eine kontrollierte Studie FlyHash gegen dichte Zufallsprojektion/Hadamard fehlt weiterhin.
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| Welle 5, e4 Runde 3 (F4, 1 Suche) | 1 | niedrig; weitgehend gesättigt |
