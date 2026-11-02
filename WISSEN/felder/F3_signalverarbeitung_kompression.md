@@ -53,3 +53,8 @@
 2. **Parametrisierungs-Gegner:** feste Basis + K trainierte Koeffizienten (DCT) als zusätzliche Baseline neben Fastfood. Belege [arXiv:2604.04440], [arXiv:1506.04449]. Langweiligste Erklärung: Rangflexibilität, nicht Struktur. Quantenbezug: keiner.
 3. **Rahmen-Sicht:** überkomplette Hadamard-Mischung (Expansion plus Betrag) als Frame mit Rahmengrenzen messen [arXiv:2103.05804, arXiv:1504.05487]. Langweiligste Erklärung: Kohärenzmaß sagt nichts über Genauigkeit voraus. Quantenbezug: Analogie (Born-Quadrat als Phasen-Löschung).
 4. **(R2) Fastfood-vs-DCT-Koeffizienten selbst messen:** Literatur vergleicht nie beide. Belege: [arXiv:2604.04440, arXiv:2502.06820]. Langweiligste Erklärung: bei gleicher Parameterzahl gleich. Quantenbezug: keiner.
+
+## Runde 3 (Welle 5, e5; 1 Suche)
+- **FNet-Ablation (Lücke aus R2) teilweise geschlossen:** laut Suchzusammenfassung zu [arXiv:2105.03824] Anhang: Hadamard etwas schneller als DFT, aber etwa -2 Punkte Genauigkeit; DCT etwa -4; Hartley gleich (GLUE 76,7 vs 76,7). Ungeprüft, Tabellen nicht gelesen. Heißt: Hadamard ist nicht gleichwertig zu Fourier bei Token-Mischung; Z3-Befund (Rotation gleichwertig) betrifft Gewichtsrotation, nicht Token-Mischung.
+- Neu: [arXiv:2606.02631] (Haar-Frontend, Energieauswahl).
+- Sättigung F3: 1 neue Quelle, Feld weitgehend gesättigt (ca. 10 %).

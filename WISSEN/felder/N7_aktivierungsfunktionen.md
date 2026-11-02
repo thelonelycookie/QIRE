@@ -50,3 +50,10 @@ Stand Welle 1 (a3, 02.11.2026). Zahlen aus Abstracts/Suchtreffern, nichts im Vol
 - Querverweis I-039-v2: Gleichwertigkeit bleibt; keine neue Quelle widerspricht.
 
 | Welle 3 c5 (Runde 2) | 6 | 6 neu zu 14 Bestand (ca. 30 %) |
+
+
+## Runde 3 (Welle 5, e5; 1 Suche, nur Abstracts)
+- Direkter Vergleich z² / ReLU² / |z| unter 4-Bit-Aktivierungen weiter nicht gefunden. Neu: Ausreißer entstehen durch Training, nicht nur Aktivierung: OSP senkt Excess Kurtosis von 1818,56 auf 0,04 [arXiv:2506.19697]; Kurtosis-Rotation KurTail [arXiv:2503.01483]. Kurtosis ist damit die Messgröße für den QIRE-Test.
+- Sättigung N7: 2 neue von ca. 6 (ca. 30 %), aber randständig; Kernlücke bleibt eigener Versuch.
+
+| Welle 5 e5 (Runde 3) | 2 | randständig neu |

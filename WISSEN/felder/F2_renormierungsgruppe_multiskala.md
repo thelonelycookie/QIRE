@@ -49,3 +49,7 @@
 2. **Test: Haar-Pyramide statt Hadamard** (gleiche Parameter, gleiche Auslese). Belege: WaveletGPT, Evenbly-White. Langweiligste Erklärung: kein Unterschied (Z3-Muster). Quantenbezug: wMERA/MERA-Struktur als Begründung, Wirkung klassisch.
 3. **Ehrlicher Gegner einplanen:** MERA-Schicht und Hourglass in die Vergleichstabelle, sonst fehlt der stärkste klassische/quanten-inspirierte Gegner. Langweiligste Erklärung: Hourglass gewinnt durch Rechenverteilung, nicht Mischung.
 4. **(R2) Hadamard-Frontend gegen fest-vs-gelernt-Befund prüfen:** Parametric Scattering zeigt, dass gelernte Wavelet-Parameter bei wenig Daten helfen [arXiv:2107.09539]. Idee: Hadamard mit lernbarer Diagonale (Fastfood-artig) ist schon dieser Mittelweg. Langweiligste Erklärung: bessere Initialisierung, nicht Struktur. Quantenbezug: Analogie.
+
+## Runde 3 (Welle 5, e5; 1 Suche, nur Abstract)
+- Haar-Pyramide gegen Hadamard weiter nicht gefunden. Neu: Haar-DWT-Frontend mit energiebasierter Koeffizientenauswahl [arXiv:2606.02631] (Audio/Bild/Video, ungeprüft); Mehrskalen-Haar-Sprachmodelle LMWT [arXiv:2504.08801] bekannt. WNet (2-Tap-Haar verbindet nie über Blöcke) weiter ohne bestätigten arXiv-Eintrag.
+- Sättigung F2: 1 neue von ca. 5 Treffern (ca. 20 %), Kernlücke Haar vs. Hadamard bleibt; weitere Suche bringt kaum etwas, selbst messen.

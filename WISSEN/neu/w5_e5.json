@@ -1,0 +1,86 @@
+[
+ {
+  "id": "arXiv:2606.02631",
+  "titel": "Wavelet as Tokenizer: Preliminary Results on a Shared Wavelet Token Schema for Natural Signals",
+  "jahr": 2026,
+  "autoren": "Shenghao Ding",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Haar-DWT/IDWT-Frontend mit gemeinsamem Koeffizienten-Layout und geteiltem Encoder-Decoder fuer Audio, Bild, Video; energiebasierte Auswahl der Koeffizienten schlaegt uniforme Auswahl; Abstract bestaetigt, Volltext nicht gelesen.",
+  "zahlen": [
+   {
+    "wert": "39,92/29,37/23,93 dB PSNR (Audio/Bild/Video), 34,45 dB Video bei 50 % Token",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt Haar-Mehrskalen-Frontend plus Sparse-Auswahl nach Energie; Vorbild fuer Betrags-/Energie-Auslese, kein Vergleich mit Hadamard.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e5"
+ },
+ {
+  "id": "arXiv:2506.19697",
+  "titel": "Outlier-Safe Pre-Training for Robust 4-Bit Quantization of Large Language Models",
+  "jahr": 2025,
+  "autoren": "Jungwoo Park, Taewhoo Lee, Chanwoong Yoon, Hyeon Hwang, Jaewoo Kang",
+  "feld": [
+   "N7",
+   "K2"
+  ],
+  "kernaussage": "Outlier-Entstehung im Training verhindern (Muon, Single-Scale-RMSNorm, lernbare Embedding-Projektion); Excess Kurtosis 0,04 statt 1818,56; Abstract bestaetigt.",
+  "zahlen": [
+   {
+    "wert": "35,7 vs 26,5 Punkte (10 Benchmarks, 4 Bit), 1,4B, 1T Tokens",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner fuer jede Aussage zu Quantisierbarkeit quadratischer Auslese: Optimierer/Norm statt Aktivierung loesen Ausreisser.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e5"
+ },
+ {
+  "id": "arXiv:2503.01483",
+  "titel": "KurTail: Kurtosis-based LLM Quantization",
+  "jahr": 2025,
+  "autoren": "Mohammad Sadegh Akhondzadeh, Aleksandar Bojchevski, Evangelos Eleftheriou, Martino Dazzi",
+  "feld": [
+   "N7",
+   "K3"
+  ],
+  "kernaussage": "Kurtosis-gesteuerte Rotationen gegen Aktivierungsausreisser, W4A4A4 PTQ; Abstract bestaetigt.",
+  "zahlen": [
+   {
+    "wert": "+13,3 % MMLU, -15,5 % Wiki-PPL gegen QuaRot; +2,6 %/-2,9 % gegen SpinQuant",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Kurtosis als Messgroesse fuer QIRE-Aktivierungstest (z2 vs ReLU2 vs |z|).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e5"
+ }
+]
