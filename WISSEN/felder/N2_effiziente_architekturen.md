@@ -52,3 +52,11 @@ Nur Abstracts über arXiv-API bestätigt, kein Volltext, alle Zahlen ungeprüft.
 2. Schluss: Eine Messreihe „Hybridanteil und Rekurrenzvariante bei 1–50M, Byte-Ebene, CPU-Wallclock und Joule“ füllt eine echte Lücke (nächste Arbeiten: 340M [arXiv:2507.06457], 150M [arXiv:2608.20210]). Langweiligste Erklärung: Lücke besteht, weil Ergebnisse bei kleinem Maßstab nichts Neues zeigen. Quantenbezug: keiner; passt zu S-003.
 3. Schluss: Gewinnkriterium vor dem Lauf festlegen, auch Misserfolge berichten, so wie Daedalus [arXiv:2608.20210] und Nemotron-Flash [arXiv:2511.18890] (Latenz statt Parameter). Langweiligste Erklärung: reine Methodik. Quantenbezug: keiner.
 4. Schluss: Bei Quantisierung der Rekurrenz ist der Zustand die Schwachstelle; Hadamard auf den Ausgaben wirkt dort (Quamba [arXiv:2410.13229]). Das ist ein möglicher Ort, wo Rotation sinnvoll bleibt (S-007). Langweiligste Erklärung: wieder nur Ausreißerglättung. Quantenbezug: Analogie (Hadamard/Clifford), direkt als Baustein.
+
+## Runde 3 (Welle 5, e2)
+1 Suche (Kleinstmodelle unter 50M, Byte-Ebene, CPU/Energie), Abstracts per arXiv-API bestätigt, Zahlen ungeprüft.
+- Neu: Super Tiny Language Models, 10–100M Byte-Ebene [arXiv:2405.14159]; Architekturvergleich kleiner Modelle bei knappem Budget, Attention pro FLOP besser als MLP [arXiv:2512.20877]; Re-Examination bei 60K Parametern: der Vorteil hing an der Baseline-Form, gated diagonaler SSM schlägt das geroutete Ternärmodell [arXiv:2609.29397] (stützt S-002).
+- Weiter nicht gefunden: Messung in Joule pro Token auf CPU für Rekurrenz gegen Attention bei Kleinmodellen.
+
+Sättigung Runde 3: 1 Suche, 3 neue Quellen von ca. 7 Treffern (ca. 40 % neu); Kernlücke (Joule/CPU, unter 50M) bleibt offen und scheint echt.
+Neuer Schluss: Baseline-Form ist die häufigste Fehlerquelle im Kleinstbereich [arXiv:2609.29397]; gated Diagonal-SSM als Pflichtgegner neben flachem Transformer. Langweiligste Erklärung: schlecht getunte Baselines. Quantenbezug: keiner.

@@ -18468,5 +18468,546 @@
   "gefunden_am": "2026-11-02",
   "welle": 4,
   "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2509.03054",
+  "titel": "Calibration and Transformation-Free Weight-Only LLMs Quantization via Dynamic Grouping",
+  "jahr": 2025,
+  "autoren": "Zheng, Yang, Liu, Xie, Qin, Chen, Lin",
+  "feld": [
+   "K1"
+  ],
+  "kernaussage": "MSB: kalibrier- und transformationsfreie PTQ mit dynamischer Gruppierung (Varianzminimierung je Gruppe, Blockgröße 64); Abstract per Seitenabruf bestätigt.",
+  "zahlen": [
+   {
+    "wert": "Llama 3.2 3B, 4 Bit blockweise: Wiki2-PPL 8,43 (MSB) gegen 12,23 (GPTQ), FP 7,81",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rotationsfreier Gegner: gruppenadaptive Gitter ohne Rotation.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e1"
+ },
+ {
+  "id": "arXiv:2102.08329",
+  "titel": "An Information-Theoretic Justification for Model Pruning",
+  "jahr": 2021,
+  "autoren": "Isik, Weissman, No",
+  "feld": [
+   "N8",
+   "N4"
+  ],
+  "kernaussage": "Rate-Distortion-Analyse der Modellkompression mit ausgabebezogenem Verzerrungsmaß; Pruning ist implizit nötiger Teil guter Kompression. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Gegner-Idee: Pruning plus Quantisierung als R(D)-nahe Kombination.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e1"
+ },
+ {
+  "id": "arXiv:1810.06401",
+  "titel": "Rate Distortion For Model Compression: From Theory To Practice",
+  "jahr": 2018,
+  "autoren": "Gao u. a. (Autoren laut Suchtreffer, nicht bestätigt)",
+  "feld": [
+   "N8"
+  ],
+  "kernaussage": "Untere Schranke der Rate-Distortion-Funktion für Modellkompression, für lineare Modelle erreichbar. Nur Suchtreffer-Beschreibung, Abstract nicht per Seitenabruf bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Theorie nur für lineare Modelle, keine Grenze für trainierte Transformer.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e1"
+ },
+ {
+  "id": "arXiv:2512.20877",
+  "titel": "Architectural Trade-offs in Small Language Models Under Compute Constraints",
+  "jahr": 2025,
+  "autoren": "Shivraj Singh Bhatti",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Vergleich kleiner Modelle vom linearen Prädiktor bis zum mehrlagigen Transformer bei knappem Rechenbudget: Attention ist pro FLOP effizienter als MLP, manche Großmodell-Tricks (RoPE) übertragen sich nicht. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kleinmodell-Referenz für FLOP-faire Architekturvergleiche",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049",
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2609.29397",
+  "titel": "Baseline Shape Decides the Verdict: A Controlled Re-Examination of Ternary Language Models at 60K Parameters",
+  "jahr": 2026,
+  "autoren": "Gautam Veldanda",
+  "feld": [
+   "N2",
+   "K8"
+  ],
+  "kernaussage": "Wiederholung einer Behauptung (geroutetes Ternärmodell schlägt Transformer bei 60K Parametern) mit Mehrseed-Kontrolle: der Vorteil hängt stark von der Form des Transformer-Baselines ab; ein schlichter gated diagonaler SSM-Block schlägt das geroutete Modell bei größeren Budgets. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Warnung: Baseline-Form und gated Diagonal-SSM als Gegner im Kleinstmodell",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-002",
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2405.14159",
+  "titel": "Super Tiny Language Models",
+  "jahr": 2024,
+  "autoren": "Hillier, Guertler, Tan, Agrawal, Chen, Cheng",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Zielt auf 10M–100M Parameter mit Byte-Tokenisierung samt Pooling, Gewichtsteilung und effizientem Training; Plan für Folgearbeiten. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Nächster Verwandter für Byte-LMs im Bereich 10–100M",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2408.15715",
+  "titel": "Autoregressive model path dependence near Ising criticality",
+  "jahr": 2024,
+  "autoren": "Yi Hong Teoh, Roger G. Melko",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "RNNs und Transformer auf 2D-Ising-Daten nahe der Kritikalität: die Wahl der 1D-Ordnung beeinflusst das Training; Pfade mit langen 1D-Segmenten trainieren effizienter als raumfüllende Kurven. Physikdaten, kein Effizienzgewinn für Sprache. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2506.04016",
+  "titel": "Dreaming up scale invariance via inverse renormalization group",
+  "jahr": 2025,
+  "autoren": "Rançon, Rançon, Ivek, Balog",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "Minimale Netze (bis hinab zu drei trainierbaren Parametern) invertieren die Realraum-Renormierung und erzeugen kritische 2D-Ising-Konfigurationen; zusätzliche Lagen bringen wenig. Physikanwendung, kein ML-Effizienzvergleich. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2607.00170",
+  "titel": "Scaling Up Thermodynamic AI Models",
+  "jahr": 2026,
+  "autoren": "Andrew G. Moore",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "Backprop-basiertes Training tiefer CNNs für Inferenz auf Ising-Maschinen-Hardware: 94,9 % CIFAR-10, 76,0 % CIFAR-100 unter binärem Gibbs-Sampling. Nur Abstract geprüft; Hardwarebezug, keine Sprachmodelle.",
+  "zahlen": [
+   {
+    "wert": "94,9 % CIFAR-10; 76,0 % CIFAR-100",
+    "kontext": "binäres Gibbs-Sampling, Ising-Maschine (Abstract)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner nur bei Ising-Hardware, nicht auf CPU",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "url:https://docs.codecarbon.io/latest/explanation/rapl/",
+  "titel": "CodeCarbon: RAPL Metrics (Dokumentation)",
+  "jahr": 2026,
+  "autoren": "CodeCarbon-Projekt",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Auf AMD melden RAPL-Domänen 'core' sehr niedrige Werte, unklar ob in 'package' enthalten; Herstellerdoku dünn. Zugriff seit CVE-2020-8694 nur mit Root/udev-Rechten. Powercap unterstützt AMD ab Linux 5.8 (Zen 2+).",
+  "zahlen": [
+   {
+    "wert": "Powercap-AMD-Unterstützung ab Kernel 5.8, Zen 2 und neuer",
+    "kontext": "Suchtreffer-Zusammenfassung, Seite nicht geöffnet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Messmethodik für Joule auf Maltes Ryzen 3600 (Zen 2): RAPL-Paket nutzbar, aber ohne DRAM-Domäne und Genauigkeit unverifiziert.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "url:https://indico.cern.ch/event/1708318/contributions/7185021/attachments/3324707/5953607/RAPL_HEPiX_Aug2026_v2.pdf",
+  "titel": "RAPL (HEPiX, August 2026): Vergleich RAPL gegen IPMI-Wandmessung",
+  "jahr": 2026,
+  "autoren": "CERN/HEPiX-Beitrag (Autoren nicht erfasst)",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "RAPL liegt unter IPMI-Wandmessung, Abstand nicht linear und nicht konstant; Genauigkeit stark hardwareabhängig, schlechter bei einem Ein-Sockel-AMD-System.",
+  "zahlen": [
+   {
+    "wert": "Abweichung 5 bis 43 % je nach Hardware",
+    "kontext": "Suchtreffer-Zusammenfassung, PDF nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "RAPL auf Ryzen nur als relative Größe nutzen; absolute Joule mit Steckdosenmessgerät gegenprüfen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "arXiv:2312.08595",
+  "titel": "Limits to the Energy Efficiency of CMOS Microprocessors",
+  "jahr": 2023,
+  "autoren": "nicht erfasst (Suchtreffer)",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Suchtreffer nennt: DRAM-Zugriff ca. 5 pJ/Bit, FP16-Op ca. 150 fJ; Titel nur aus Suchtreffer, arXiv-API nicht erreichbar.",
+  "zahlen": [
+   {
+    "wert": "DRAM ca. 5 pJ/Bit gegen FP16-Op ca. 150 fJ (Verhältnis ca. 30 je Bit, ca. 2000 je 64 Bit nach Näherung)",
+    "kontext": "Suchtreffer, ungeprüft",
+    "geprueft": false
+   },
+   {
+    "wert": "Logik 45 nm zu 7 nm ca. 3x; DDR-Zugriff konstant ca. 1300 pJ je 64 Bit (Angabe aus arXiv:2603.26053-Treffer)",
+    "kontext": "Suchtreffer, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stützt Bytes-vor-Ops (S-004) mit neueren Knoten: Logik skaliert, DRAM nicht.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "arXiv:2405.06561",
+  "titel": "Kritik der Bewertungsmethoden im Reservoir Computing (Wringe, Trefzer, Stepney)",
+  "jahr": 2025,
+  "autoren": "Wringe, Trefzer, Stepney",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "Übersicht und Kritik der Evaluation von Reservoir Computing (v2 Feb 2025); Titel gekürzt aus Suchtreffer, arXiv-API nicht erreichbar.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Methodik für fairen Reservoir/ELM-Vergleich: gleiche Parameterzahl und gleiche Hyperparametersuche für feste und trainierte Gegner.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "arXiv:2504.02639",
+  "titel": "Reservoir Computing: A New Paradigm for Neural Networks",
+  "jahr": 2025,
+  "autoren": "nicht erfasst (Suchtreffer)",
+  "feld": [
+   "N6"
+  ],
+  "kernaussage": "Übersicht Reservoir/ELM; Vergleiche mit Backprop und SVM werden genannt; Details nicht gelesen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Hintergrund für feste Zufallsdynamik plus Readout; keine harten Zahlen gegen faire Baselines erfasst.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e3"
+ },
+ {
+  "id": "arXiv:2501.14741",
+  "titel": "On Design Choices in Similarity-Preserving Sparse Randomized Embeddings",
+  "jahr": 2024,
+  "autoren": "Kleyko, Rachkovskij",
+  "feld": [
+   "F4"
+  ],
+  "kernaussage": "Untersucht Designwahl bei FlyHash (Vorverarbeitung, sparsifizierende Aktivierung, Projektionsmatrix); die richtige Kombination ändert die Suchleistung stark. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "analogie",
+  "quantenbezug": "FlyHash-Varianten als Gegner zu Hadamard+Quadrat; Aktivierungswahl zählt.",
+  "bezug_qire_befund": "stuetzt",
+  "stuetzt_widerspricht": "Hinweis: Wirkung liegt in der Nichtlinearität/Sparsifizierung, nicht in der Projektion allein (passt zu I-038).",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ },
+ {
+  "id": "arXiv:2410.19921",
+  "titel": "Method for noise-induced regularization in quantum neural networks",
+  "jahr": 2024,
+  "autoren": "Kuzmin, Somogyi, Pankovets, Melnikov",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Abstimmbares Hardware-Rauschen (Amplituden-/Phasendämpfung, Depolarisierung) als Regularisierer in Quanten-NN; Validierungsverlust sinkt in Regression. Nur Abstract.",
+  "zahlen": [],
+  "baseline_fuer_qire": "direkt",
+  "quantenbezug": null,
+  "bezug_qire_befund": "neutral",
+  "stuetzt_widerspricht": "Dekohärenz als Regularisierung nur auf Quanten-NN-Seite; keine klassische Übertragung gefunden.",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ },
+ {
+  "id": "arXiv:2502.16286",
+  "titel": "Verification of Bit-Flip Attacks against Quantized Neural Networks",
+  "jahr": 2025,
+  "autoren": "(Autoren nicht geprüft)",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "BFAVerifier: symbolische Prüfung, ob Bitflips in quantisierten Netzen die Ausgabe kippen können; zertifiziert statt nur empirisch zu messen. Nur Suchauszug.",
+  "zahlen": [],
+  "baseline_fuer_qire": "keiner",
+  "quantenbezug": "Zertifizierungswerkzeug, falls Bitflip-Achse für QIRE getestet wird.",
+  "bezug_qire_befund": "neutral",
+  "stuetzt_widerspricht": "Kein Vergleich mit Rotation.",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ },
+ {
+  "id": "arXiv:2103.13813",
+  "titel": "RA-BNN: Robust & Accurate Binary Neural Network against Adversarial Bit-Flip Attack",
+  "jahr": 2021,
+  "autoren": "(Autoren nicht geprüft)",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Binäre Gewichte erhöhen Bitflip-Robustheit, kosten aber Genauigkeit; RA-BNN schließt die Lücke teilweise. Nur Suchauszug.",
+  "zahlen": [],
+  "baseline_fuer_qire": "keiner",
+  "quantenbezug": "Niedrigbit-Gegner für Bitflip-Robustheit.",
+  "bezug_qire_befund": "neutral",
+  "stuetzt_widerspricht": "Stützt: Robustheit kommt aus Niedrigbit/Wertebereich, nicht aus Mischung.",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e4"
+ },
+ {
+  "id": "arXiv:2606.02631",
+  "titel": "Wavelet as Tokenizer: Preliminary Results on a Shared Wavelet Token Schema for Natural Signals",
+  "jahr": 2026,
+  "autoren": "Shenghao Ding",
+  "feld": [
+   "F2",
+   "F3"
+  ],
+  "kernaussage": "Haar-DWT/IDWT-Frontend mit gemeinsamem Koeffizienten-Layout und geteiltem Encoder-Decoder fuer Audio, Bild, Video; energiebasierte Auswahl der Koeffizienten schlaegt uniforme Auswahl; Abstract bestaetigt, Volltext nicht gelesen.",
+  "zahlen": [
+   {
+    "wert": "39,92/29,37/23,93 dB PSNR (Audio/Bild/Video), 34,45 dB Video bei 50 % Token",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt Haar-Mehrskalen-Frontend plus Sparse-Auswahl nach Energie; Vorbild fuer Betrags-/Energie-Auslese, kein Vergleich mit Hadamard.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e5"
+ },
+ {
+  "id": "arXiv:2506.19697",
+  "titel": "Outlier-Safe Pre-Training for Robust 4-Bit Quantization of Large Language Models",
+  "jahr": 2025,
+  "autoren": "Jungwoo Park, Taewhoo Lee, Chanwoong Yoon, Hyeon Hwang, Jaewoo Kang",
+  "feld": [
+   "N7",
+   "K2"
+  ],
+  "kernaussage": "Outlier-Entstehung im Training verhindern (Muon, Single-Scale-RMSNorm, lernbare Embedding-Projektion); Excess Kurtosis 0,04 statt 1818,56; Abstract bestaetigt.",
+  "zahlen": [
+   {
+    "wert": "35,7 vs 26,5 Punkte (10 Benchmarks, 4 Bit), 1,4B, 1T Tokens",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner fuer jede Aussage zu Quantisierbarkeit quadratischer Auslese: Optimierer/Norm statt Aktivierung loesen Ausreisser.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-042"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e5"
+ },
+ {
+  "id": "arXiv:2503.01483",
+  "titel": "KurTail: Kurtosis-based LLM Quantization",
+  "jahr": 2025,
+  "autoren": "Mohammad Sadegh Akhondzadeh, Aleksandar Bojchevski, Evangelos Eleftheriou, Martino Dazzi",
+  "feld": [
+   "N7",
+   "K3"
+  ],
+  "kernaussage": "Kurtosis-gesteuerte Rotationen gegen Aktivierungsausreisser, W4A4A4 PTQ; Abstract bestaetigt.",
+  "zahlen": [
+   {
+    "wert": "+13,3 % MMLU, -15,5 % Wiki-PPL gegen QuaRot; +2,6 %/-2,9 % gegen SpinQuant",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Kurtosis als Messgroesse fuer QIRE-Aktivierungstest (z2 vs ReLU2 vs |z|).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e5"
+ },
+ {
+  "jahr": 2025,
+  "zahlen": [
+   {
+    "wert": "bis 3x Durchsatz gegen FP",
+    "kontext": "Abstract",
+    "geprueft": false
+   }
+  ],
+  "quantenbezug": "keiner",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e6",
+  "id": "arXiv:2505.18231",
+  "titel": "NSNQuant: A Double Normalization Approach for Calibration-Free Low-Bit Vector Quantization of KV Cache",
+  "autoren": "Donghyun Son, Euntae Choi, Sungjoo Yoo",
+  "feld": [
+   "K2",
+   "K4"
+  ],
+  "kernaussage": "Normalize-Shift-Normalize plus Hadamard richtet KV-Verteilung auf Standardnormal aus; ein wiederverwendbares Codebuch, kalibrierungsfrei, 1 und 2 Bit (Abstract bestätigt).",
+  "baseline_fuer_qire": "Gegner: Hadamard + festes VQ-Buch fuer KV bei 1-2 Bit.",
+  "bezug_qire_befund": [
+   "Z3b: Hadamard hier Teil der Verteilungsangleichung fuer ein festes Buch; kein Vergleich gegen g16+Lloyd"
+  ],
+  "stuetzt_widerspricht": "neutral"
+ },
+ {
+  "jahr": 2023,
+  "zahlen": [],
+  "quantenbezug": "keiner",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e6",
+  "id": "arXiv:2311.07052",
+  "titel": "Towards the Law of Capacity Gap in Distilling Language Models",
+  "autoren": "Zhang et al. (laut Suchauszug)",
+  "feld": [
+   "N3"
+  ],
+  "kernaussage": "Optimaler Lehrer skaliert linear mit der Schuelergroesse fuer Modelle unter 3B (Suchauszug, Titel per arXiv bestätigt). Quantisierte/ternaere Schueler nicht behandelt.",
+  "baseline_fuer_qire": "Lehrerwahl fuer KD-Kleinmodelle: Lehrer nicht zu gross waehlen.",
+  "bezug_qire_befund": [
+   "Passt zur Luecke Kleinstmodell-KD"
+  ],
+  "stuetzt_widerspricht": "neutral"
  }
 ]

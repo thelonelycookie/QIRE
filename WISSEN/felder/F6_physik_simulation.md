@@ -51,3 +51,10 @@ Suchen: RG-Training, Annealing vs SGD, gradientenfreie LM-Verfahren (nur Abstrac
 
 Sättigung Runde 2: 4 Suchen F6, 4 neue Quellen von ca. 8 Treffern (ca. 50 % neu); Feld bleibt dünn aber ohne Gegenbeleg.
 Neuer Schluss: SA-Test nur mit fairer Gleiche-Zeit-Regel; als QIRE-Hebel wenig Hoffnung.
+
+## Runde 3 (Welle 5, e2)
+1 Suche (Ising/RG/Cluster-Update als Trainingsverfahren), Abstracts per arXiv-API bestätigt, ungeprüfte Zahlen.
+- Neu: Ising-Maschinen-Hardware für tiefe CNNs [arXiv:2607.00170] (94,9 % CIFAR-10, Selbstangabe; Hardware, nicht CPU); Pfadabhängigkeit autoregressiver Modelle bei Ising-Kritikalität [arXiv:2408.15715]; inverse Realraum-RG mit wenigen Parametern [arXiv:2506.04016]. Alles Physikanwendung oder Spezialhardware.
+- Kein Cluster-Algorithmus (Swendsen-Wang) oder Replica-Verfahren als Trainingsbeschleunigung für LMs gefunden.
+
+Sättigung Runde 3: 1 Suche, 3 neue Quellen von ca. 8 Treffern (ca. 35 % neu), aber ohne Effizienzbezug; Negativbefund bleibt, Feld faktisch gesättigt.

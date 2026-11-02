@@ -1,0 +1,135 @@
+[
+ {
+  "id": "arXiv:2512.20877",
+  "titel": "Architectural Trade-offs in Small Language Models Under Compute Constraints",
+  "jahr": 2025,
+  "autoren": "Shivraj Singh Bhatti",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Vergleich kleiner Modelle vom linearen Prädiktor bis zum mehrlagigen Transformer bei knappem Rechenbudget: Attention ist pro FLOP effizienter als MLP, manche Großmodell-Tricks (RoPE) übertragen sich nicht. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kleinmodell-Referenz für FLOP-faire Architekturvergleiche",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049",
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2609.29397",
+  "titel": "Baseline Shape Decides the Verdict: A Controlled Re-Examination of Ternary Language Models at 60K Parameters",
+  "jahr": 2026,
+  "autoren": "Gautam Veldanda",
+  "feld": [
+   "N2",
+   "K8"
+  ],
+  "kernaussage": "Wiederholung einer Behauptung (geroutetes Ternärmodell schlägt Transformer bei 60K Parametern) mit Mehrseed-Kontrolle: der Vorteil hängt stark von der Form des Transformer-Baselines ab; ein schlichter gated diagonaler SSM-Block schlägt das geroutete Modell bei größeren Budgets. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Warnung: Baseline-Form und gated Diagonal-SSM als Gegner im Kleinstmodell",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-002",
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2405.14159",
+  "titel": "Super Tiny Language Models",
+  "jahr": 2024,
+  "autoren": "Hillier, Guertler, Tan, Agrawal, Chen, Cheng",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Zielt auf 10M–100M Parameter mit Byte-Tokenisierung samt Pooling, Gewichtsteilung und effizientem Training; Plan für Folgearbeiten. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Nächster Verwandter für Byte-LMs im Bereich 10–100M",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2408.15715",
+  "titel": "Autoregressive model path dependence near Ising criticality",
+  "jahr": 2024,
+  "autoren": "Yi Hong Teoh, Roger G. Melko",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "RNNs und Transformer auf 2D-Ising-Daten nahe der Kritikalität: die Wahl der 1D-Ordnung beeinflusst das Training; Pfade mit langen 1D-Segmenten trainieren effizienter als raumfüllende Kurven. Physikdaten, kein Effizienzgewinn für Sprache. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2506.04016",
+  "titel": "Dreaming up scale invariance via inverse renormalization group",
+  "jahr": 2025,
+  "autoren": "Rançon, Rançon, Ivek, Balog",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "Minimale Netze (bis hinab zu drei trainierbaren Parametern) invertieren die Realraum-Renormierung und erzeugen kritische 2D-Ising-Konfigurationen; zusätzliche Lagen bringen wenig. Physikanwendung, kein ML-Effizienzvergleich. Nur Abstract geprüft.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ },
+ {
+  "id": "arXiv:2607.00170",
+  "titel": "Scaling Up Thermodynamic AI Models",
+  "jahr": 2026,
+  "autoren": "Andrew G. Moore",
+  "feld": [
+   "F6"
+  ],
+  "kernaussage": "Backprop-basiertes Training tiefer CNNs für Inferenz auf Ising-Maschinen-Hardware: 94,9 % CIFAR-10, 76,0 % CIFAR-100 unter binärem Gibbs-Sampling. Nur Abstract geprüft; Hardwarebezug, keine Sprachmodelle.",
+  "zahlen": [
+   {
+    "wert": "94,9 % CIFAR-10; 76,0 % CIFAR-100",
+    "kontext": "binäres Gibbs-Sampling, Ising-Maschine (Abstract)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner nur bei Ising-Hardware, nicht auf CPU",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 5,
+  "herkunft": "Welle 5, e2"
+ }
+]

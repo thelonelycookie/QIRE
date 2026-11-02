@@ -60,3 +60,10 @@ Stand 02.11.2026, Welle 2 (b3). Nur Abstracts gelesen, kein Volltext. Zahlen dah
 
 Sättigung Runde 2: 8 Suchen, 8 neue Quellen von ca. 14 Treffern (ca. 55 % neu); Feld weiter nicht gesättigt.
 Neuer Schluss: Für I-047-Wiederholung zuerst Init prüfen (Partialnorm), dann LR je Kern; BTT als Pflichtarm. Langweiligste Erklärung bleibt: bei kleinem d ist dicht optimal.
+
+## Runde 3 (Welle 5, e2)
+2 Suchen (LR-Skalierung je TT-Kern gegen BTT/Monarch; MPS/Baum-Tensornetz-Attention im LM). Kein neuer bestätigter Eintrag.
+- Nichts Neues zu muP/LR je Kern: die Skalierungsregeln stehen weiter nur in [arXiv:2406.06248]; GPT-2-TT [arXiv:2306.02697] nutzt einen einzigen Zeitplan ohne Kernskalierung.
+- Keine MPS-/Baum-Tensornetz-Attention für LMs gefunden (nur Kronecker-/Tucker-Arbeiten, schon im Feld; MPS-Sprachmodell von 2020 ist ein Wahrscheinlichkeitsmodell, nicht bestätigt).
+
+Sättigung Runde 3: 2 Suchen, 0 neue Quellen (0 % neu); K5 gesättigt, Lücken bleiben echte Lücken (TT/MERA gegen BTT bei gleichen FLOPs, LR je Kern).
