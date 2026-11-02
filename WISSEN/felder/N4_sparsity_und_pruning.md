@@ -35,3 +35,14 @@
 1. Schluss: Vor Behauptungen "gleiche Bytes" einen Wanda/SparseGPT+4-Bit-Gegner mit eingerechneter Maske aufnehmen. Belege: [arXiv:2301.00774, arXiv:2410.09615]. Langweiligste Erklärung: Sparsität ist bei Großmodellen billig, bei Kleinmodellen nicht. Quantenbezug: keiner.
 2. Schluss: Rotation (QIRE) plus Aktivierungssparsity testen, da Rotation Ausreißer glättet [arXiv:2507.01299]. Langweiligste Erklärung: klassischer Glättungseffekt wie bei Hadamard-Quantisierung. Quantenbezug: Analogie (unitäre Basiswahl).
 3. Schluss: 2:4 nur als Bytes-Rechnung, nicht als Geschwindigkeit auf CPU ausweisen [arXiv:2102.04010]. Langweiligste Erklärung: Hardwareabhängigkeit. Quantenbezug: keiner.
+
+## Runde 2 (Welle 4, d1)
+- Kleinmodelle: Quantisierung schlägt Pruning konsistent (SparseGPT/Wanda gegen GPTQ/AWQ, 5 SLMs, 710 Auswertungen); Wandas LLM-Vorteil überträgt sich nicht [doi:10.18653/v1/2025.findings-emnlp.645] (Sekundärsnippet). Das verschiebt Schluss 1: Pruning-Gegner nur nachrangig.
+- Kombination: [arXiv:2505.07289] meldet +20 % gegen Nur-Quantisierung bei gleicher theoretischer Rate (Abstract); IJCAI-2026-Beitrag zu Wechselwirkungen (nichtmonoton, 4 Bit dominiert Speichergewinn; nur Snippet, unbestätigt).
+- CPU: Unstrukturierte Sparsität bringt ohne Spezialkern kaum Speedup, Quantisierung spart v.a. Speicherverkehr (nur Blog/Modellkarte; Intel 1x4-Blocksparsität nur BERT-artig). Kein llama.cpp-Vergleich gefunden.
+- Ternär + Sparsität bei gleichem Speicher: nichts gefunden.
+- Sättigung Runde 2: Kernlücke (Gleich-Bytes, <100M, CPU) bleibt offen; 2 bestätigende Treffer, 0 Widerspruch.
+
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| 4 (d1, Runde 2) | 2-3 (N4 anteilig) | niedrig, Feld weitgehend gesättigt |

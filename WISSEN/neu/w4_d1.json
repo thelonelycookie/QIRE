@@ -1,0 +1,260 @@
+[
+ {
+  "id": "arXiv:2607.02893",
+  "titel": "Variable Bit-width Quantization: Learning Per-Group Precision for \"Bigger-but-Smaller\" Language Models",
+  "jahr": 2026,
+  "autoren": "Hamish Ogilvy",
+  "feld": [
+   "K1",
+   "K8"
+  ],
+  "kernaussage": "Trainingszeitmethode: jede 64er-Gruppe lernt 1/2/4/8 Bit (Gumbel-Softmax). 69 % der Gruppen kollabieren auf 1 Bit. Kleinmodell-Bereich (55M-131M) mit Qualität pro Byte gemessen; Abstract bestätigt, Volltext nicht gelesen.",
+  "zahlen": [
+   {
+    "wert": "131M bei 1,82 Bit: PPL 4,2 TinyStories gegen 55M FP16 PPL 4,4 bei 3,8x weniger Speicher",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   },
+   {
+    "wert": "Decode-Speedup: Parität bei 131M, 1,9x bei 1,0B, 4,7x bei 9B (Apple Silicon)",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner für Byte-Fairness im Kleinmodell: gemischte Bitbreite pro Gruppe statt fester Bits; Gegner für jede QIRE-Aussage zu 'gleiche Bytes' im Bereich <200M. Nicht CPU x86.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3",
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "arXiv:2505.07289",
+  "titel": "Semantic Retention and Extreme Compression in LLMs: Can We Have Both?",
+  "jahr": 2025,
+  "autoren": "Stanislas Laborde, Martin Cousseau, Antoun Yaacoub",
+  "feld": [
+   "N4",
+   "K1"
+  ],
+  "kernaussage": "Gemeinsame Pruning+Quantisierung-Kompression; neue Metrik SrCr; empfohlene Kombination gewinnt gegen reine Quantisierung bei gleicher theoretischer Kompressionsrate.",
+  "zahlen": [
+   {
+    "wert": "im Mittel +20 % Leistung gegen Nur-Quantisierung bei gleicher Kompressionsrate",
+    "kontext": "Selbstangabe, Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt Sparsity+Quant als fairen Gegner; Maskenbytes in 'theoretischer Rate' nicht erkennbar eingerechnet (Abstract).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "doi:10.18653/v1/2025.findings-emnlp.645",
+  "titel": "Revisiting Pruning vs Quantization for Small Language Models",
+  "jahr": 2025,
+  "autoren": "Zhou, Kurz, Zhao",
+  "feld": [
+   "N4",
+   "K1"
+  ],
+  "kernaussage": "710 Auswertungen: SparseGPT/Wanda gegen GPTQ/AWQ auf 5 Kleinmodellen, 7 Sprachen, 7 Aufgaben. Quantisierung (v.a. AWQ) schlägt Pruning in Treue und Perplexität; Wandas Überlegenheit über SparseGPT aus LLMs übertragen sich nicht. Nur Sekundärsnippet (Anthology/Suchtreffer), Abstract nicht per API bestätigt.",
+  "zahlen": [
+   {
+    "wert": "Quantisierung > Pruning konsistent; Vorsprung schrumpft bei OpenBookQA",
+    "kontext": "Suchsnippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Direkt einschlägig: bei Kleinmodellen ist Quantisierung der stärkere Hebel als Pruning; Pruning-Gegner nur als schwacher Nebengegner einplanen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-002",
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "url:https://www.ijcai.org/proceedings/2026/631",
+  "titel": "Interaction Effects in Hybrid Compression of Small Language Models (IJCAI 2026)",
+  "jahr": 2026,
+  "autoren": "unbekannt (nur Titel/Snippet gesehen)",
+  "feld": [
+   "N4",
+   "K1"
+  ],
+  "kernaussage": "Kombination Pruning+Quantisierung in Kleinmodellen: nichtmonotone Wechselwirkungen; Speichergewinn wird von 4-Bit dominiert, Pruning allein bringt wenig. Nur Suchsnippet, unbestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Hybrid-Gegner im Kleinmodell; bei Bestätigung die direkteste Literatur zur Lücke N4.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "arXiv:2604.07955",
+  "titel": "Rethinking Residual Errors in Compensation-based LLM Quantization",
+  "jahr": 2026,
+  "autoren": "Shuaiting Li, Juncan Deng, Kedong Xu u. a.",
+  "feld": [
+   "K1"
+  ],
+  "kernaussage": "GPTQ/GPTAQ-Nachfolger: 'compensation-aware error' im Residual; passt auf GPTQ und GPTAQ ohne Feintuning. Abstract per API bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stärkster Rundungsgegner (GPTQ-Familie) für byte-faire Tests; zeigt, dass die Rundung selbst noch Gewinn hat.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "arXiv:2508.04853",
+  "titel": "Provable Post-Training Quantization: Theoretical Analysis of OPTQ and Qronos",
+  "jahr": 2025,
+  "autoren": "Haoyu Zhang, Shihao Zhang, Ian Colbert u. a.",
+  "feld": [
+   "K1"
+  ],
+  "kernaussage": "Erste quantitative Fehlerschranken für OPTQ (deterministisch/stochastisch) und Qronos. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Theoriegrundlage für die Aussage 'Rundung mit Fehlerkorrektur ist eigenständiger Hebel'.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "arXiv:2305.19268",
+  "titel": "Intriguing Properties of Quantization at Scale",
+  "jahr": 2023,
+  "autoren": "Arash Ahmadian, Saurabh Dash, Hongyu Chen u. a.",
+  "feld": [
+   "K1"
+  ],
+  "kernaussage": "Quantisierungseinbruch ab ~6B ist nicht allein Skalen-Effekt, sondern hängt von Trainingsrezept (Ausreißer) ab. Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Erklärt, warum Kleinmodelle keine massiven Ausreißer haben müssen (Rotation dort wenig nötig).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3",
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "arXiv:2410.12119",
+  "titel": "Scaling Laws for Post Training Quantized Large Language Models",
+  "jahr": 2024,
+  "autoren": "Zifei Xu, Alexander Lan, Wanzin Yazar u. a.",
+  "feld": [
+   "K1",
+   "N1"
+  ],
+  "kernaussage": "Statistisches Modell sagt PTQ-Qualität aus Merkmalen der lokalen Loss-Landschaft voraus. Zusätzliche Einzelheiten (<=220M, übertrainierte Modelle leiden stärker) nur aus Sekundärsnippet.",
+  "zahlen": [
+   {
+    "wert": "übertrainierte Modelle leiden stärker unter PTQ",
+    "kontext": "Sekundärsnippet, unbestätigt",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Vorhersage statt Probieren; Hinweis, dass Trainingslänge das PTQ-Ergebnis verschiebt (passt zu S-002 mehrere Trainingslängen).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-045-v4",
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "arXiv:2512.06443",
+  "titel": "Vec-LUT: Vector Table Lookup for Parallel Ultra-Low-Bit LLM Inference on Edge Devices",
+  "jahr": 2025,
+  "autoren": "Li, Yin, Wang, Wei, Cao, Liu",
+  "feld": [
+   "K1",
+   "N5",
+   "K8"
+  ],
+  "kernaussage": "LUT-Inferenz nutzt Speicherbandbreite bei paralleler Inferenz schlecht aus; Vektor-LUT für Ternär/Ultra-Low-Bit auf Edge-CPU. Abstract bestätigt (MobiSys 26 laut Suche).",
+  "zahlen": [],
+  "baseline_fuer_qire": "CPU-Inferenzgegner für Gitter/Codebuch-Verfahren; nichtuniforme Gitter nicht abgedeckt.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ },
+ {
+  "id": "arXiv:2506.23025",
+  "titel": "Spectra 1.1: Scaling Laws and Efficient Inference for Ternary Language Models",
+  "jahr": 2025,
+  "autoren": "Spectra-Autoren (Details nicht gelesen)",
+  "feld": [
+   "K8",
+   "K1",
+   "N1"
+  ],
+  "kernaussage": "Ternäre Modelle (TriLM): Daten-Skalierung wirkt stärker als Parameter-Skalierung; 2-Bit-Packkernel. Abstract bestätigt (Zahlen 8x Speedup nur Snippet).",
+  "zahlen": [
+   {
+    "wert": "bis 8x gegen float16 (2-Bit-Kernel)",
+    "kontext": "Suchsnippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starker Gegner bei Bytes: ternär von Grund auf gegen nachträgliche 2-Bit-Quantisierung.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-002"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d1"
+ }
+]

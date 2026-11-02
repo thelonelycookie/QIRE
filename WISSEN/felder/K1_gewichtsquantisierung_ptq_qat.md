@@ -33,3 +33,15 @@
 1. **Schluss:** Rotation lohnt nur, wenn die Skalengranularität grob ist (pro Kanal, g≥32 mit FP-Gitter) oder Ausreißer stark sind; bei g16 oder gutem Lloyd-Gitter ist sie gleichwertig. Belege: [arXiv:2509.23202], Z3. Langweiligste Erklärung: Gruppenskalen leisten selbst schon Ausreißer-Isolation. Quantenbezug: Analogie (Zufallsunitär).
 2. **Schluss:** Neben Rotation sind Rundung (Qronos/GPTQ) und Bitzuteilung (KronQ) eigenständige Hebel; QIRE sollte Rotation gegen GPTQ-gerundete Gruppenquantisierung testen, nicht gegen RTN. Belege: [arXiv:2505.11695], [arXiv:2607.07964]. Langweilig: GPTQ-Rundung allein erklärt die Gewinne. Quantenbezug: keiner.
 3. **Schluss:** Gelernte Rotation (OptRot) vs. feste Hadamard bei gleichen Bytes ist ein offener, billiger Test. Beleg: [arXiv:2512.24124]. Langweilig: mehr Freiheitsgrade, nicht Struktur. Quantenbezug: Analogie.
+
+## Runde 2 (Welle 4, d1)
+- Byte-fair im Kleinmodell: VBQ [arXiv:2607.02893] misst Qualität pro Byte bei 55-131M (131M bei 1,82 Bit schlägt 55M FP16 bei 3,8x weniger Speicher; Selbstangabe, ungeprüft). Gemischte Bitbreite je 64er-Gruppe ist damit ein neuer Gegner. Decode-Speedup erst ab ~1B (Parität bei 131M, Apple Silicon).
+- GPTQ-Nachfolger: Qronos-Theorie [arXiv:2508.04853], Compensation-aware error [arXiv:2604.07955]; Rundung bleibt eigener Hebel (siehe Schluss 2).
+- Kleinmodell-Sensitivität: Ausreißer sind Trainingsrezept-, nicht Skalenfolge [arXiv:2305.19268]; PTQ-Voraussagemodell [arXiv:2410.12119]; übertrainierte Modelle leiden stärker (Sekundärsnippet).
+- CPU: Vec-LUT [arXiv:2512.06443], T-MAC [arXiv:2407.00088]; Ternär von Grund auf: Spectra 1.1 [arXiv:2506.23025]. Nichtuniforme Gitter mit CPU-LUT-Kern: nichts gefunden.
+- Weiter Lücke: keine Studie rechnet Skalenbytes streng im <1B-Vergleich Rotation gegen Gruppenskala (Suchergebnis, kein Beweis).
+- Sättigung Runde 2: 9 Treffer neu / 0 bestätigen nur Bekanntes für K1-Kernfrage; Kernlücke unverändert, also für die Hauptfrage gesättigt.
+
+| Runde | neue Quellen | Anteil neu |
+|---|---|---|
+| 4 (d1, Runde 2) | 7 (K1 anteilig) | hoch bei Randthemen, 0 bei Kernlücke |
