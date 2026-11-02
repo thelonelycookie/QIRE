@@ -1,0 +1,286 @@
+[
+ {
+  "id": "arXiv:2305.07185",
+  "titel": "MEGABYTE: Predicting Million-byte Sequences with Multiscale Transformers",
+  "jahr": 2023,
+  "autoren": "Lili Yu, Daniel Simig, Colin Flaherty u. a.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Multiskalen-Decoder auf Bytes: lokales Teilmodell im Patch, globales zwischen Patches; Sub-Quadratik, größere FFN bei gleichem Rechenaufwand. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Byte-Hierarchie-Gegner zu Hourglass+LRU (I-049); gleiche FLOPs vergleichen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2412.09871",
+  "titel": "Byte Latent Transformer: Patches Scale Better Than Tokens",
+  "jahr": 2024,
+  "autoren": "Artidoro Pagnoni, Ram Pasunuru, Pedro Rodriguez u. a.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Byte-LLM mit entropiebasierten dynamischen Patches; erste FLOP-kontrollierte Skalierungsstudie bis 8B / 4T Bytes; Token-Niveau erreicht. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [
+   {
+    "wert": "bis 8B Parameter, 4T Bytes",
+    "kontext": "Skala der Studie, nicht Kleinmodell",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Byte-Level-Gegner; zeigt FLOP-kontrollierten Vergleich als Methodenvorbild.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2401.13660",
+  "titel": "MambaByte: Token-free Selective State Space Model",
+  "jahr": 2024,
+  "autoren": "Junxiong Wang, Tushaar Gangavarapu, Jing Nathan Yan u. a.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Mamba direkt auf Bytes; konkurrenzfähig mit Byte-Transformern und Subword-Modellen, effizientes Dekodieren durch festen Zustand. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rekurrenz-auf-Bytes-Baseline für Byte-LM von QIRE (feste Zustandsgröße).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2608.20210",
+  "titel": "Daedalus-150M: A Convolution-Attention Hybrid Designed for CPU Inference",
+  "jahr": 2026,
+  "autoren": "Christos Koutsiaris",
+  "feld": [
+   "N2",
+   "N5"
+  ],
+  "kernaussage": "Hybrid mit Attention in nur 6 von 18 Blöcken, Rest kurze Faltungen; 4-Bit, CPU-Dekodierung. Selbstberichtet, Einzelautor-Preprint; Autoren nennen auch Misserfolge (4-Bit-Qualitätsverlust, ca. halbe Faltungskanäle inaktiv). Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [
+   {
+    "wert": "1,76x schnelleres Dekodieren bei 2048 Kontext; Hybrid +0,81 % bei val-bpb 0,8685 gegen Voll-Attention gleicher Größe",
+    "kontext": "Selbstangabe; Bandbreitenrechnung sagt nur 1,17x voraus",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Nächstliegender CPU-Kleinmodell-Gegner (150M, knapp über QIRE-Skala); Vorbild für vorab festgelegtes Gewinnkriterium.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049",
+   "S-003"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2511.18890",
+  "titel": "Nemotron-Flash: Towards Latency-Optimal Hybrid Small Language Models",
+  "jahr": 2025,
+  "autoren": "Yonggan Fu, Xin Dong, Shizhe Diao u. a.",
+  "feld": [
+   "N2",
+   "N5"
+  ],
+  "kernaussage": "Reale Geräte-Latenz statt Parameterzahl als Zielgröße; Tiefe-Breite-Verhältnis und Operatorwahl als Haupttreiber bei kleinen Hybridmodellen. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Methodisch: Latenz messen statt FLOPs/Parameter nennen (S-004).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "S-004"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2604.05030",
+  "titel": "Phase-Associative Memory: Sequence Modeling in Complex Hilbert Space",
+  "jahr": 2026,
+  "autoren": "Gowrav Vishwakarma, Christopher J. Agostino",
+  "feld": [
+   "N2",
+   "K6"
+  ],
+  "kernaussage": "Komplexwertiges Rekurrenzmodell mit Matrixzustand in C^(dxd), Ausgleich über Konjugat-Innenprodukt; gegen strukturgleiche reelle Ablation, 5M-100M Parameter auf WikiText-103. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [
+   {
+    "wert": "PAM höherer absoluter Verlust bei jeder Größe, aber steilerer Exponent: -0,15 gegen -0,12 (Loss)",
+    "kontext": "Selbstangabe, Skalierungsfit über 5M-100M",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Direkter Gegner/Beleg für Phasen-Rekurrenz im Kleinmodell: komplex ist hier bei jeder Größe schlechter als reell.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2407.12397",
+  "titel": "Mamba-PTQ: Outlier Channels in Recurrent Large Language Models",
+  "jahr": 2024,
+  "autoren": "Alessandro Pierro, Steven Abreu",
+  "feld": [
+   "N2",
+   "K2"
+  ],
+  "kernaussage": "Frühe Studie: Rekurrente Schichten (Mamba) haben Aktivierungsausreißer wie Transformer, erschweren PTQ. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stützt: Ausreißerproblem besteht auch in SSM, also Rotation/Gruppenskala dort relevant.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2510.04800",
+  "titel": "Hybrid Architectures for Language Models: Systematic Analysis and Design Insights",
+  "jahr": 2025,
+  "autoren": "Sangmin Bae, Bilge Acun, Chien-Yu Lin u. a.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Systematischer Vergleich von Hybridisierung (zwischen Schichten sequenziell oder innerhalb parallel) von Attention und Mamba nach Qualität und Effizienz. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Quelle für die Frage Hybridanteil und Anordnung (Griffin-artiger Gegner).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2512.01208",
+  "titel": "Language as a Wave Phenomenon: Semantic Phase Locking and Interference in Neural Networks",
+  "jahr": 2025,
+  "autoren": "Alper Yildirim, Ibrahim Yucedag",
+  "feld": [
+   "N2",
+   "K6"
+  ],
+  "kernaussage": "PRISM: komplexwertig mit |z|=1, Phase trägt Information, Attention ersetzt durch gated harmonische Faltungen; Interferenz als Rauschunterdrückung. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Phasen-Analogie-Arbeit; nur mit Vorbehalt zitieren (kleines Team, Behauptungen groß).",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2603.15569",
+  "titel": "Mamba-3: Improved Sequence Modeling using State Space Principles",
+  "jahr": 2026,
+  "autoren": "Aakash Lahoti, Kevin Y. Li, Berlin Chen, Tri Dao, Albert Gu u. a.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Komplexwertige SSM-Aktualisierung = datenabhängige Rotation (2x2-Blöcke, RoPE-artig); löst Zustandsverfolgung, die Mamba-2 nicht löst; inference-first. Details aus Websuche, im Abstract bestätigt nur: expressivere Rekurrenz, Zustandsverfolgung. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stärkster klassischer Beleg: Rotation im Zustand ist Stand der Technik (kein Neuheitsanspruch); Gegner für jede Phasen-Rekurrenz.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3",
+   "S-001"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2411.13676",
+  "titel": "Hymba: A Hybrid-head Architecture for Small Language Models",
+  "jahr": 2024,
+  "autoren": "Xin Dong, Yonggan Fu, Shizhe Diao u. a.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Parallele Attention- und SSM-Köpfe in einer Schicht, Meta-Tokens, KV-Teilen, Gleitfenster; kontrollierte Architekturstudie bei kleinen Modellen. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kleinmodell-Hybridgegner (1,5B Skala laut Selbstangabe, ungeprüft).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ },
+ {
+  "id": "arXiv:2507.06457",
+  "titel": "A Systematic Analysis of Hybrid Linear Attention",
+  "jahr": 2025,
+  "autoren": "Dustin Wang, Rui-Jie Zhu, Steven Abreu u. a.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "72 Modelle (340M/20B Tokens, 1,3B/100B Tokens), sechs Linear-Attention-Varianten x fünf Hybridanteile, offen veröffentlicht; Erinnerungsaufgaben und LM. Nur Abstract (arXiv-API) bestätigt.",
+  "zahlen": [
+   {
+    "wert": "72 Modelle, 6 Varianten x 5 Anteile",
+    "kontext": "Studienumfang",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Kleinster belastbarer Hybrid-Anteil-Scan (340M); Gated DeltaNet/gated Varianten als Gegner.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 4,
+  "herkunft": "Welle 4, d6"
+ }
+]
