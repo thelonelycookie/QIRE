@@ -1,0 +1,572 @@
+[
+ {
+  "id": "arXiv:2004.10700",
+  "titel": "CodNN -- Robust Neural Networks From Coded Classification",
+  "jahr": 2020,
+  "autoren": "Netanel Raviv et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Paritätscode als Klassifikations-Ausgabecodierung macht DNNs robust gegen Bitfehler/Löschungen in der Hardware; Abstract nur aus arXiv-API und Suchauszug.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2001.03814",
+  "titel": "Functional Error Correction for Robust Neural Networks",
+  "jahr": 2020,
+  "autoren": "Kunping Huang, Paul H. Siegel, Anxiao Jiang",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "ECC für gespeicherte Gewichte mit Ziel Modellgenauigkeit statt Bitfehlerrate: nur wichtige Bits schützen, Schutzstärke je Schicht.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Selektiver ECC-Schutz als Gegner zu codierungsbasierter Robustheit",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2508.12347",
+  "titel": "An ECC-based Fault Tolerance Approach for DNNs",
+  "jahr": 2025,
+  "autoren": "Mohsen Raji et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "SECDED-Hamming für DNN-Parameter plus SPW (Einzelbit korrigieren, unkorrigierbare Gewichte auf 0).",
+  "zahlen": [
+   {
+    "wert": "ca. 47,5 % Flächenaufwand",
+    "kontext": "laut Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "SECDED als Standard-Gegner für Bitflip-Schutz",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2404.09818",
+  "titel": "Error Detection and Correction Codes for Safe In-Memory Computations",
+  "jahr": 2024,
+  "autoren": "Luca Parrini et al.",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Prüfsummenblöcke als IMC-Crossbars erkennen/korrigieren arithmetische Fehler.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2411.18993",
+  "titel": "Harden Deep Neural Networks Against Fault Injections Through Weight Scaling",
+  "jahr": 2024,
+  "autoren": "Ninnart Fuengfusin, Hakaru Tamukoh",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Multiplikation der Gewichte mit Konstanten vor Speicherung senkt absoluten Bitflip-Fehler, ohne ECC-Redundanz.",
+  "zahlen": [
+   {
+    "wert": "Top-1-Gewinn 8-Bit-ResNet50 bei BER 1e-4",
+    "kontext": "Suchauszug, Betrag nicht gelesen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Billiger Gegner (Skalierung statt Code)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2405.13891",
+  "titel": "DeepNcode: Encoding-Based Protection against Bit-Flip Attacks on Neural Networks",
+  "jahr": 2024,
+  "autoren": "Patrik Velčický, Jakub Breier, Xiaolu Hou, Mladen Kovačević",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Hamming-/erweiterte Hamming-Codewörter statt Zweierkomplement für quantisierte Gewichte, ohne Neutraining.",
+  "zahlen": [
+   {
+    "wert": "Schutzmarge bis 7,6x (4 Bit), 12,4x (8 Bit)",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Codierungs-Baseline gegen Bitflip-Angriffe",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2602.00076",
+  "titel": "Repair Brain Damage: Real-Numbered Error Correction Code for Neural Network",
+  "jahr": 2026,
+  "autoren": "Ziqing Lu et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Reellwertige ECC: lineare Nebenbedingungen auf Gewichten korrigieren Speicher- und Rechenfehler ohne Zusatzparameter.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Nächster Verwandter zu strukturierten Mischungen als Code",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-038"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2502.07408",
+  "titel": "Maximal Brain Damage Without Data or Optimization: Disrupting Neural Networks via Sign-Bit Flips",
+  "jahr": 2025,
+  "autoren": "Ido Galil et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Wenige Vorzeichenbit-Flips zerstören DNNs; Gray-Box-Angriff umgeht Codebuchschutz wie DeepNcode.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2606.02430",
+  "titel": "Not All Errors Are Equal: A Systematic Study of Error Propagation in Large Language Model Inference",
+  "jahr": 2026,
+  "autoren": "Yafan Huang et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Ganzzahl-Formate erholen sich von Bitflips besser als FP16/BF16 (größerer Exponent verstärkt Fehler).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Niedrigbit ist bei Soft Errors nicht schlechter",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2006.13977",
+  "titel": "Bit Error Robustness for Energy-Efficient DNN Accelerators",
+  "jahr": 2020,
+  "autoren": "David Stutz, Nandhini Chandramoorthy, Matthias Hein, Bernt Schiele",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Robuste Festkomma-Quantisierung, Weight Clipping und Random Bit Error Training machen niedrigbittige DNNs fehlertolerant bei Niedrigspannung.",
+  "zahlen": [
+   {
+    "wert": "ca. 20 % (8 Bit) / 30 % (4 Bit) Energie gespart, Verlust < 0,8 / 2 pp, CIFAR-10",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Gegner für Rauschrobustheit niedrigbittiger Netze (Clipping allein stark)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2104.08323",
+  "titel": "Random and Adversarial Bit Error Robustness: Energy-Efficient and Secure DNN Accelerators",
+  "jahr": 2021,
+  "autoren": "David Stutz et al.",
+  "feld": [
+   "F1",
+   "F5"
+  ],
+  "kernaussage": "Erweiterung um adversariale Bitfehler (AdvBET).",
+  "zahlen": [
+   {
+    "wert": "Testfehler von >90 % auf 26,22 % bei 320 Bitfehlern, CIFAR-10",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2510.22724",
+  "titel": "Scalable Neural Decoders for Practical Real-Time Quantum Error Correction",
+  "jahr": 2025,
+  "autoren": "Changwon Lee et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Mamba-artiger neuronaler QEC-Decoder; Kritik an der O(d^4)-Laufzeit von AlphaQubit.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2509.03815",
+  "titel": "Learning Neural Decoding with Parallelism and Self-Coordination for Quantum Error Correction",
+  "jahr": 2025,
+  "autoren": "Kai Zhang et al.",
+  "feld": [
+   "F1"
+  ],
+  "kernaussage": "Rekurrenter Transformer-Decoder mit Schiebefenster für lange Speicherexperimente.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:1902.05131",
+  "titel": "Neural-Network Approach to Dissipative Quantum Many-Body Dynamics",
+  "jahr": 2019,
+  "autoren": "Michael J. Hartmann, Giuseppe Carleo",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "RBM-Parametrisierung von Dichtematrizen löst Lindblad-Dynamik (NN dient der Quantenphysik, nicht umgekehrt).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2005.12458",
+  "titel": "Trainability of Dissipative Perceptron-Based Quantum Neural Networks",
+  "jahr": 2020,
+  "autoren": "Kunal Sharma et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Dissipative QNN (Beer) leiden bei Tiefe/Breite doch an Barren Plateaus, gegen die Vermutung der Erstarbeit.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2307.12293",
+  "titel": "Dissipative learning of a quantum classifier",
+  "jahr": 2023,
+  "autoren": "Ufuk Korkmaz, Deniz Türkpençe",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Klassifikator aus wiederholter Wechselwirkung (Kollisionsmodell) mit Dissipation als Lernmechanismus.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2007.14384",
+  "titel": "Noise-Induced Barren Plateaus in Variational Quantum Algorithms",
+  "jahr": 2020,
+  "autoren": "Samson Wang et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Lokales Pauli-Rauschen lässt Gradienten exponentiell in der Schichtzahl verschwinden.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2402.08475",
+  "titel": "HQNET: Harnessing Quantum Noise for Effective Training of Quantum Neural Networks in NISQ Era",
+  "jahr": 2024,
+  "autoren": "Muhammad Kashif, Muhammad Shafique",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Rauschen beschleunigt Barren Plateaus; passende Observable kann Rauschnutzen geben.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2207.07924",
+  "titel": "Quantum Noise-Induced Reservoir Computing",
+  "jahr": 2022,
+  "autoren": "Tomoyuki Kubota et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Informationsverarbeitungskapazität steigt mit Quantenrauschen/Fehlerraten.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2409.07886",
+  "titel": "Non-unital noise in a superconducting quantum computer as a computational resource for reservoir computing",
+  "jahr": 2024,
+  "autoren": "Francesco Monzani et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Amplitudendämpfung (nicht-unital) wirkt als Ressource im Reservoir auf realer Hardware.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2409.17734",
+  "titel": "Role of coherence in many-body Quantum Reservoir Computing",
+  "jahr": 2024,
+  "autoren": "Ana Palacios et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Leistung steigt monoton mit Kohärenz; Dämpfung/Rauschen begrenzen Quanteneffekte (teils Widerspruch zu Rausch-Nutzen).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2504.17837",
+  "titel": "Quantumness can enhance resilience to statistical noise in spin-network quantum reservoir computing",
+  "jahr": 2025,
+  "autoren": "Youssef Kora, Christoph Simon",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Statistisches Messrauschen schadet, aber weniger bei mehr Kohärenz.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "direkt",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2508.11940",
+  "titel": "Extending Straight-Through Estimation for Robust Neural Networks on Analog CIM Hardware",
+  "jahr": 2025,
+  "autoren": "Yuannuo Feng et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Entkoppelter Straight-Through-Schätzer: Rauschmodell im Vorwärts-, Gradient im Rückwärtspass.",
+  "zahlen": [
+   {
+    "wert": "bis +5,3 % Genauigkeit, -0,72 Perplexität, 2,2x Training",
+    "kontext": "Suchauszug, v1",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Moderne rauschbewusste Trainingsbaseline",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2501.14531",
+  "titel": "On Hardening DNNs against Noisy Computations",
+  "jahr": 2025,
+  "autoren": "Xiao Wang et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "QAT mit konstanten Skalierungsfaktoren erhöht Robustheit gegen Rechenrauschen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "QAT als Gegner für Rauschrobustheit",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2311.14114",
+  "titel": "SONIQ: System-Optimized Noise-Injected Ultra-Low-Precision Quantization with Full-Precision Parity",
+  "jahr": 2023,
+  "autoren": "Cyrus Zhou et al.",
+  "feld": [
+   "F5",
+   "K8"
+  ],
+  "kernaussage": "Rauschinjektion beim Training für Ultra-Niedrigbit; flachere Minima, robustere Tests.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Rauschinjektion + Niedrigbit",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2608.20988",
+  "titel": "Jacobian-guided Noise Injection for Quantization Robustness in Large Language Models",
+  "jahr": 2026,
+  "autoren": "Deepanshu Pandey et al.",
+  "feld": [
+   "F5",
+   "K2"
+  ],
+  "kernaussage": "Gaußsches Rauschen in Attention-Logits mit Jacobi-gestützter Varianz verbessert PTQ/QAT bei W4A4.",
+  "zahlen": [
+   {
+    "wert": "bis +9 % (ERQ), +37 % (RepQViT) bei W4A4",
+    "kontext": "Suchauszug",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rauschregularisierung gegen Quantisierungsfehler",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ },
+ {
+  "id": "arXiv:2306.08553",
+  "titel": "Noise Stability Optimization for Finding Flat Minima: A Hessian-based Regularization Approach",
+  "jahr": 2023,
+  "autoren": "Hongyang R. Zhang et al.",
+  "feld": [
+   "F5"
+  ],
+  "kernaussage": "Isotrope Gewichtsrauschen liefert Hessian-Spur-Schätzer; Rauschen als Flachheits-Regularisierer.",
+  "zahlen": [
+   {
+    "wert": "bis +2,4 % Test, Spur -15,8 %",
+    "kontext": "Suchauszug, Feinabstimmung ResNet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Theorie: Rauschen als Regularisierer",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 1,
+  "herkunft": "Welle 1, a1"
+ }
+]
