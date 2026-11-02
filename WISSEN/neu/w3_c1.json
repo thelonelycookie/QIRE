@@ -1,0 +1,252 @@
+[
+ {
+  "id": "arXiv:2410.16144",
+  "titel": "1-bit AI Infra: Part 1.1, Fast and Lossless BitNet b1.58 Inference on CPUs (bitnet.cpp)",
+  "jahr": 2024,
+  "autoren": "Jinheng Wang, Hansong Zhou, Ting Song u. a.",
+  "feld": [
+   "N5",
+   "K8"
+  ],
+  "kernaussage": "bitnet.cpp: verlustfreie Ternär-Inferenz auf CPU (I2_S, TL1/TL2-LUT-Kerne); Energie je Token gegen llama.cpp gemessen. Nur Abstract/Suchsnippet bestätigt.",
+  "zahlen": [
+   {
+    "wert": "ARM: -55,4 bis -70,0 % Energie; x86: 2,37-6,17x schneller, -71,9 bis -82,2 % Energie",
+    "kontext": "Selbstangabe, Vergleich mit FP16-llama.cpp; Suchsnippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster CPU-Gegner für ternäre Kerne; Vergleich Wallclock+Joule/Token muss gegen llama.cpp-Basis fair sein.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Lauf 8/11/12/15 (Energielücke)"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:2403.14123",
+  "titel": "AI and Memory Wall",
+  "jahr": 2024,
+  "autoren": "Amir Gholami, Zhewei Yao, Sehoon Kim u. a.",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Speicherbandbreite, nicht FLOPS, limitiert Decoder-Inferenz; FLOPS wachsen 3,0x/2 Jahre, DRAM-Bandbreite 1,6x, Interconnect 1,4x.",
+  "zahlen": [
+   {
+    "wert": "3,0x/2J (FLOPS) vs 1,6x (DRAM) vs 1,4x (Interconnect)",
+    "kontext": "Wachstum Server-Hardware über 20 Jahre; Abstract-Snippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rechtfertigt Byte-Budget als Hauptmaß statt FLOPs.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Byte-Budget-Spalte"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:2412.08832",
+  "titel": "HadaCore: Tensor Core Accelerated Hadamard Transform Kernel",
+  "jahr": 2024,
+  "autoren": "Krish Agarwal, Rishi Astra, Adnan Hoque u. a.",
+  "feld": [
+   "K3",
+   "N5"
+  ],
+  "kernaussage": "Schnelle Walsh-Hadamard-Transformation auf Tensor Cores; Kernel 1,1-1,4x (A100) bzw. 1,0-1,3x (H100) schneller als Dao-Kernel, Spitze 3,5x/3,6x. Fusion mit Quantisierung nur als Ausblick.",
+  "zahlen": [
+   {
+    "wert": "1,1-1,4x A100, 1,0-1,3x H100, Spitze 3,5x/3,6x",
+    "kontext": "gegen Dao-AILab-FWHT-Kernel, Kernel-Ebene, kein End-to-end; Snippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Betriebskosten der Hadamard-Rotation: Kernel ist speichergebunden (Dao: ca. 1,0-1,3x memcpy).",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3 (Rotation ≈ Gruppenskala)"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:1703.09039",
+  "titel": "Efficient Processing of Deep Neural Networks: A Tutorial and Survey",
+  "jahr": 2017,
+  "autoren": "Vivienne Sze, Yu-Hsin Chen, Tien-Ju Yang, Joel Emer",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Übersicht: Datenbewegung dominiert Durchsatz und Energie von DNNs; Dataflow, Reuse, Niedrigpräzision. Nur Abstract bestätigt.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Standardreferenz für Energiemodell 'Rechnen vs. Datenbewegung'.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:2505.06371",
+  "titel": "The ML.ENERGY Benchmark: Toward Automated Inference Energy Measurement and Optimization",
+  "jahr": 2025,
+  "autoren": "Jae-Won Chung u. a.",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Messmethodik Inferenzenergie: Software-GPU-Energiemessung, 40 Architekturen/6 Aufgaben; warnt, dass Energie je Token Ausgabelängen-Unterschiede verdeckt; misst unter realistischer Last.",
+  "zahlen": [
+   {
+    "wert": "40 Modellarchitekturen, 6 Aufgaben",
+    "kontext": "Umfang, Snippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Methodikvorlage: Energie je vollständiger Antwort/Aufgabe statt nur je Token; Leerlauf abziehen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:2410.00907",
+  "titel": "Addition is All You Need for Energy-efficient Language Models (L-Mul)",
+  "jahr": 2024,
+  "autoren": "Hongyin Luo, Wei Sun",
+  "feld": [
+   "N5",
+   "K8"
+  ],
+  "kernaussage": "L-Mul ersetzt FP-Multiplikation durch Ganzzahl-Addition; Energie nur modelliert (bis 95 % Element-, 80 % Skalarprodukt), nicht gemessen.",
+  "zahlen": [
+   {
+    "wert": "bis -95 % (elementweise), -80 % (Skalarprodukt)",
+    "kontext": "theoretische Hardware-Schätzung, nicht gemessen; Snippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Beispiel für Gewinn, der nur im Op-Zählmodell existiert; auf CPU ohne Spezialhardware kein Effekt.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Lauf 8/11 (Op-Zählung vs. Wallclock)"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:1602.04183",
+  "titel": "Dark Memory and Accelerator-Rich System Optimization in the Dark Silicon Era",
+  "jahr": 2016,
+  "autoren": "nicht bestätigt",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Reproduziert Horowitz-45-nm-Tabelle (Sekundärquelle): Int16 add 0,18 pJ, mult 0,62 pJ; FP64 add 5 pJ, mult 20 pJ.",
+  "zahlen": [
+   {
+    "wert": "Int16 add 0,18 pJ / mult 0,62 pJ; FP64 add 5 / mult 20 pJ",
+    "kontext": "45 nm, Sekundärabdruck von Horowitz; Snippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:2603.26053",
+  "titel": "Data Gravity and the Energy Limits of Computation",
+  "jahr": 2026,
+  "autoren": "nicht bestätigt",
+  "feld": [
+   "N5",
+   "F4"
+  ],
+  "kernaussage": "Fasst Horowitz 45 nm/0,9 V zusammen: FP-Op 0,4-3,7 pJ, Cache 10-100 pJ, Off-Chip-64-Bit-Zugriff 1300-2600 pJ; Verhältnis Rechnen:Daten als Kern.",
+  "zahlen": [
+   {
+    "wert": "FP-Op 0,4-3,7 pJ; Cache 10-100 pJ; DRAM 1300-2600 pJ je 64-Bit",
+    "kontext": "Horowitz 45 nm, Zweitquelle; Snippet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "arXiv:2608.28667",
+  "titel": "GreenBench: Benchmarking Energy Efficiency and Carbon Footprint of Open-Source LLM Inference on Apple Silicon",
+  "jahr": 2026,
+  "autoren": "nicht bestätigt",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Energie je Token auf Apple Silicon = Paketleistung / Latenz je Token (Ollama-Logs); Beispiel einfacher Edge-Methodik.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Methodik-Vergleich für CPU-Messung (Paketleistung statt Wandleistung).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ },
+ {
+  "id": "bib:horowitz_2014_isscc",
+  "titel": "Horowitz: Computing's Energy Problem (and what we can do about it), ISSCC 2014",
+  "jahr": 2014,
+  "autoren": "Mark Horowitz",
+  "feld": [
+   "N5"
+  ],
+  "kernaussage": "Standardtabelle 45 nm/0,9 V: Energie je Op nach Typ/Bitbreite, Cache, DRAM; DRAM-Zugriff um 2-3 Größenordnungen teurer als Ganzzahl-Op. Original nicht gelesen, Werte nur über Zweitquellen (arXiv:1602.04183, 2603.26053).",
+  "zahlen": [
+   {
+    "wert": "Richtwerte aus Gedächtnis, UNGEPRÜFT: Int8 add ~0,03 pJ, mult ~0,2 pJ; Int32 mult ~3,1 pJ; FP16 mult ~1,1 pJ; FP32 mult ~3,7 pJ",
+    "kontext": "nicht verifiziert, vor Zitat im Original prüfen",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Grundlage des Energiemodells; Veraltung (45 nm) offen benennen.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 3,
+  "herkunft": "Welle 3, c1"
+ }
+]
