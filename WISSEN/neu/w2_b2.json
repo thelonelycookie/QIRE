@@ -1,0 +1,225 @@
+[
+ {
+  "id": "arXiv:2406.01721",
+  "titel": "DuQuant: Distributing Outliers via Dual Transformation Makes Stronger Quantized LLMs",
+  "jahr": 2024,
+  "autoren": "Lin, Xu, Wu et al.",
+  "feld": [
+   "K3"
+  ],
+  "kernaussage": "Blockweise Rotation (gierige Suche nach Ausreisserdimensionen) + Zickzack-Permutation + zweite Rotation glaettet massive Ausreisser; W4A4 besser als Vorgaenger (NeurIPS 2024). Beweis: Rotation erhoeht das Block-Maximum nicht.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Gegner fuer Rotation mit Permutation: Rotation allein reicht fuer massive Ausreisser nicht.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3 (Raven): Rotation gegen faire Gegner (g16, Lloyd, asymmetrisch) ~gleichwertig; Permutation als zusaetzlicher Hebel, in QIRE ungetestet"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2501.13987",
+  "titel": "OSTQuant: Orthogonal and Scaling Transformations for Better Distribution Fitting",
+  "jahr": 2025,
+  "autoren": "Hu, Cheng, Yang et al.",
+  "feld": [
+   "K3"
+  ],
+  "kernaussage": "Lernbare orthogonale Matrix plus diagonale Skalierung je Block, verschmolzen in die Gewichte; Metrik QSUR (Auslastung des Quantisierungsraums); KL-Top-Verlust. ICLR 2025.",
+  "zahlen": [
+   {
+    "wert": "W4-only: 99,5 % der FP-Genauigkeit; W4A4KV4 LLaMA-3-8B: Luecke um 32 % kleiner als SOTA",
+    "kontext": "laut Abstract/Zusammenfassung, nicht nachgerechnet",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stark: Rotation + Skalierung gemeinsam gelernt (Skalierung = Gruppenskala-Verwandter).",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3 (Raven): Rotation gegen faire Gegner (g16, Lloyd, asymmetrisch) ~gleichwertig; Rotation und Skalierung zusammen ist genau der faire Gegner"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2504.13989",
+  "titel": "Gradual Binary Search and Dimension Expansion: general activation quantization in LLMs",
+  "jahr": 2025,
+  "autoren": "Maisonnave, Moineau, Bichler",
+  "feld": [
+   "K3"
+  ],
+  "kernaussage": "Theoretischer Vorteil von Hadamard gegenueber zufaelligen Rotationen fuer Ausreisser; Dimensionserweiterung erlaubt Rotationen bei Nicht-Zweierpotenz-Dimensionen (z. B. Qwen).",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Stuetzt: Hadamard > zufaellige Rotation (Z3 nutzt Hadamard)"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2506.15689",
+  "titel": "BASE-Q: Bias and Asymmetric Scaling Enhanced Rotational Quantization",
+  "jahr": 2025,
+  "autoren": "He, Zheng, Sun et al.",
+  "feld": [
+   "K3"
+  ],
+  "kernaussage": "Rotation gleicht Kanalmittelwerte nicht aus (weitere Bereiche, mehr Rundungsfehler) und macht Verteilungen gauss-aehnlich, wo dynamisches Clipping schlecht passt; Bias-Korrektur + asymmetrische Skalierung; weiteres Lernen der Rotation bringt wenig und ist speicherteuer.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Asymmetrische Quantisierung nach Rotation: starker Gegner/Ergaenzung.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Stuetzt Z3: asymmetrische Quantisierung ist der stärkste Gegner; Lernen der Rotation lohnt kaum"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2605.29843",
+  "titel": "HARP: Hadamard-Preconditioned Adaptive Rotation Processor for Extreme LLM Quantization",
+  "jahr": 2026,
+  "autoren": "Zagitov, Molodtsov, Beznosikov",
+  "feld": [
+   "K3",
+   "K7"
+  ],
+  "kernaussage": "Lernbare strukturierte Rotation als Produkt duenner butterfly-artiger Blockstufen, gemischte Radix fuer Nicht-Zweierpotenzen, Start bei randomisiertem Hadamard (RHT); exakte FP-Aequivalenz.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Butterfly-parametrisierte lernbare Rotation, naechster Verwandter von ButterflyQuant.",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Gegenstueck zu Z3: gelernte Rotation startet bei Hadamard und bleibt nah daran"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2404.04316",
+  "titel": "Parameter Efficient Quasi-Orthogonal Fine-Tuning via Givens Rotation (qGOFT)",
+  "jahr": 2024,
+  "autoren": "Ma, Chu, Yang et al.",
+  "feld": [
+   "K3"
+  ],
+  "kernaussage": "O(d) Givens-Rotationen erzeugen beliebige Orthogonale in SO(d) (beweisbar), Parameter O(d^2) auf O(d); quasi-Variante mit weicher Orthogonalitaet. ICML 2024. Sequentielle Komposition bremst.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Givens-Parametrisierung fuer lernbare Rotationen (ohne Quantisierungsbezug).",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Givens-Ketten als billige gelernte Rotation, in QIRE nicht verglichen"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2406.11307",
+  "titel": "An Empirical Investigation of Matrix Factorization Methods for Pre-trained Transformers",
+  "jahr": 2024,
+  "autoren": "Gupta, Saravani, Sadayappan et al.",
+  "feld": [
+   "K7"
+  ],
+  "kernaussage": "Auf vortrainierten Transformern schlaegt einfache Low-Rank-Faktorisierung die Monarch-Faktorisierung (6 Textklassifikationsaufgaben, verschiedene Kompressionsraten); Low-Rank instabil, gestufte Faktorisierung hilft; blockweises Low-Rank nah an Monarch.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Low-Rank ist die Baseline gegen jede strukturierte Matrix bei Kompression (nicht Training von Null).",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Strukturiert schlaegt Low-Rank nicht automatisch; passt zu Z3-Muster: einfacher Gegner stark"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2407.09835",
+  "titel": "Investigating Low-Rank Training in Transformer Language Models: Efficiency and Scaling Analysis",
+  "jahr": 2024,
+  "autoren": "Wei, Moalla, Pascanu et al.",
+  "feld": [
+   "K7"
+  ],
+  "kernaussage": "Low-Rank-FFN von Null bis 1,3B Parameter: effizient und wirksam, steilere Skalenkurven als Original.",
+  "zahlen": [
+   {
+    "wert": "2,6x FFN-Beschleunigung bei 32 % Parametern",
+    "kontext": "laut Abstract",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starker Low-Rank-Gegner fuer jede strukturierte FFN-Ersetzung (Hadamard-MLP, Monarch) bei gleichen Parametern.",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Gegner fuer Hadamard-MLP-Ansatz: Low-Rank-FFN gleiches Budget"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2506.12383",
+  "titel": "Scaling Probabilistic Circuits via Monarch Matrices",
+  "jahr": 2025,
+  "autoren": "Zhang, Dang, Wang et al.",
+  "feld": [
+   "K7"
+  ],
+  "kernaussage": "Monarch-Summenbloecke statt dichter Matrizen in Probabilistic Circuits: gleiche Leistung bei deutlich weniger Trainings-FLOPs (ICML 2025). Vergleich nur gegen dicht.",
+  "zahlen": [],
+  "baseline_fuer_qire": null,
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Monarch-Gewinn nur gegen dicht, nicht gegen Low-Rank gezeigt"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ },
+ {
+  "id": "arXiv:2109.06243",
+  "titel": "KroneckerBERT: Learning Kronecker Decomposition for Pre-trained Language Models via Distillation",
+  "jahr": 2021,
+  "autoren": "Tahaei, Charlaix, Nia et al.",
+  "feld": [
+   "K7"
+  ],
+  "kernaussage": "Kronecker-Zerlegung fuer Embedding, Attention-Projektionen und FFN von BERT, Genauigkeit per Distillation zurueckgeholt (NAACL 2022).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Kronecker-Kompressionsgegner (mit Distillation).",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Kronecker ist die klassische Tensorprodukt-Struktur, Verwandter von Kronecker-Hadamard in TWLA"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b2"
+ }
+]
