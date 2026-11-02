@@ -1,0 +1,279 @@
+[
+ {
+  "id": "arXiv:2508.09834",
+  "titel": "Speed Always Wins: A Survey on Efficient Architectures for Large Language Models",
+  "jahr": 2025,
+  "autoren": "Weigao Sun et al.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Übersicht: lineare Sequenzmodelle (lineare Attention, lineare RNNs, SSMs), Sparse Attention, MoE und Hybride; Konvergenz der linearen Familien zu einem gemeinsamen Rahmen. Nur Abstract/Suchauszug gelesen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Landkarte für alle Architekturgegner",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2507.19595",
+  "titel": "Efficient Attention Mechanisms for Large Language Models: A Survey",
+  "jahr": 2025,
+  "autoren": "Yutao Sun et al.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Übersicht über lineare, sparse und hybride Attention sowie vortrainierte Modelle mit effizienter Attention. Nur Abstract/Suchauszug.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Landkarte lineare/sparse Attention",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2406.07887",
+  "titel": "An Empirical Study of Mamba-based Language Models",
+  "jahr": 2024,
+  "autoren": "Roger Waleffe et al.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "8B-Vergleich Mamba/Mamba-2/Transformer/Hybrid bei gleichen Daten bis 3,5T Token: Hybrid (43 % Mamba-2, 7 % Attention, 50 % MLP) schlägt Transformer; reine SSMs schwächer bei Copy/In-Context-Learning.",
+  "zahlen": [
+   {
+    "wert": "Hybrid +2,65 Punkte im Mittel über 12 Aufgaben, bis 8x schnellere Generierung (vorhergesagt)",
+    "kontext": "Abstract-Angabe, nicht im Volltext geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Hybrid-Beleg: wenig Attention in SSM-Stapel (Maßstab 8B, nicht Kleinmodell)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2402.19427",
+  "titel": "Griffin: Mixing Gated Linear Recurrences with Local Attention for Efficient Language Models",
+  "jahr": 2024,
+  "autoren": "Soham De et al.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Hawk (RG-LRU, gated lineare Rekurrenz) und Griffin (RG-LRU plus lokale Attention) bis 14B; Griffin erreicht Llama-2-Niveau mit über 6x weniger Token. RG-LRU ist ein LRU-Verwandter.",
+  "zahlen": [
+   {
+    "wert": "Griffin gleich Llama-2 mit >6x weniger Token",
+    "kontext": "Abstract-Angabe",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster LRU-Gegner: Rekurrenz plus lokale Attention (kein Hourglass)",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2404.05892",
+  "titel": "Eagle and Finch: RWKV with Matrix-Valued States and Dynamic Recurrence",
+  "jahr": 2024,
+  "autoren": "Bo Peng et al.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "RWKV-5/6: matrixwertige Zustände, datenabhängige Rekurrenz, 0,46B bis 7,5B (Eagle) und 1,6/3,1B (Finch), Apache-2.0-Gewichte.",
+  "zahlen": [],
+  "baseline_fuer_qire": "RWKV-Baseline für CPU-taugliche Rekurrenz (RWKV-7 schon in Basis)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2412.06464",
+  "titel": "Gated Delta Networks: Improving Mamba2 with Delta Rule",
+  "jahr": 2024,
+  "autoren": "Songlin Yang, Jan Kautz, Ali Hatamizadeh",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Gated DeltaNet kombiniert Gating (schnelles Löschen) und Delta-Regel (gezieltes Überschreiben); besser als Mamba2/DeltaNet bei LM, Retrieval, Längenextrapolation; Hybride mit Sliding-Window-Attention.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stärkster linearer Rekurrenzgegner 2025 (ICLR 2025)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "I-049"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2402.07871",
+  "titel": "Scaling Laws for Fine-Grained Mixture of Experts",
+  "jahr": 2024,
+  "autoren": "Jakub Krajewski, Jan Ludziejewski et al.",
+  "feld": [
+   "N2"
+  ],
+  "kernaussage": "Skalierungsgesetze mit Granularität; MoE-Vorteil gegenüber dicht wächst mit Modellgröße und Budget; Experten in FFN-Größe sind kaum je optimal.",
+  "zahlen": [],
+  "baseline_fuer_qire": "MoE-Gegner; Vorteil bei kleinen Modellen (QIRE-Maßstab) nicht belegt",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2301.00774",
+  "titel": "SparseGPT: Massive Language Models Can Be Accurately Pruned in One-Shot",
+  "jahr": 2023,
+  "autoren": "Elias Frantar, Dan Alistarh",
+  "feld": [
+   "N4"
+  ],
+  "kernaussage": "Einmal-Pruning großer GPT-Modelle ohne Neutraining, 50-60 % Sparsity mit geringem Verlust, auch 2:4/4:8; mit Quantisierung kombinierbar. Bei gleichem Speicher (Bitmaske + 4 Bit gleich 3 Bit) ist 50 % + 4 Bit besser als 3 Bit ab 2,7B.",
+  "zahlen": [
+   {
+    "wert": "175B: 50 % + 4 Bit Perplexität 8,29 gegen 3 Bit 8,68",
+    "kontext": "Suchauszug, nicht im Volltext geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Stärkster Gegner für Sparsity bei gleichen Bytes",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2306.11695",
+  "titel": "A Simple and Effective Pruning Approach for Large Language Models (Wanda)",
+  "jahr": 2023,
+  "autoren": "Mingjie Sun, Zhuang Liu, Anna Bair, J. Zico Kolter",
+  "feld": [
+   "N4"
+  ],
+  "kernaussage": "Wanda: Gewichtsbetrag mal Eingangsaktivierungsnorm, Vergleich je Ausgabe, ohne Gewichtsupdate; ähnlich SparseGPT bei geringerem Rechenaufwand.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Einfachster starker Prune-Gegner",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2102.04010",
+  "titel": "Learning N:M Fine-grained Structured Sparse Neural Networks From Scratch",
+  "jahr": 2021,
+  "autoren": "Aojun Zhou et al.",
+  "feld": [
+   "N4"
+  ],
+  "kernaussage": "Training von Grund auf mit N:M-Sparsity via SR-STE; 2:4 ohne Genauigkeitsverlust und 2x Speedup auf A100 (nur GPU, Bilder).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Sparsity-aus-dem-Training-Gegner (GPU-Hardware, auf CPU kein Speedup)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2308.06767",
+  "titel": "A Survey on Deep Neural Network Pruning: Taxonomy, Comparison, Analysis, and Recommendations",
+  "jahr": 2023,
+  "autoren": "Hongrong Cheng et al.",
+  "feld": [
+   "N4"
+  ],
+  "kernaussage": "Übersicht über Pruning (unstrukturiert, strukturiert, semi-strukturiert; vor/während/nach Training), Vergleich und Empfehlungen.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Landkarte Pruning",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2512.02550",
+  "titel": "Sparse Computations in Deep Learning Inference",
+  "jahr": 2025,
+  "autoren": "Ioanna Tasou et al.",
+  "feld": [
+   "N4"
+  ],
+  "kernaussage": "Übersicht über sparse Berechnung in der Inferenz (Pruning und Quantisierung, Kernel); nach Suchauszug gilt Pruning vor Quantisierung als günstigere Reihenfolge.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Übersicht Sparsity-Kernel",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ },
+ {
+  "id": "arXiv:2608.24070",
+  "titel": "Compression Trinity: Exploring Sparsity, Quantization, and Low-Rank Approximations for LLM Compression",
+  "jahr": 2026,
+  "autoren": "Mohammad Mozaffari",
+  "feld": [
+   "N4"
+  ],
+  "kernaussage": "Dissertation: Sparsity, Quantisierung und Low-Rank gemeinsam (MKOR, SLoPe, OPTIMA, PATCH, SLiM); SLiM schlägt unkomprimierte dichte Modelle bei gleichem Parameterbudget um 0,6 %.",
+  "zahlen": [
+   {
+    "wert": "SLiM: +5,66 % über Stand der Technik; +0,6 % gegen dicht bei gleichem Parameterbudget",
+    "kontext": "Abstract (arXiv-API bestätigt)",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Gegner für Kombination Sparsity+Quantisierung bei gleichen Bytes",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b6"
+ }
+]
