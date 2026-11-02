@@ -1,0 +1,310 @@
+[
+ {
+  "id": "arXiv:2505.11695",
+  "titel": "Qronos: Correcting the Past by Shaping the Future in Post-Training Quantization",
+  "jahr": 2025,
+  "autoren": "Zhang, S. u. a.",
+  "feld": [
+   "K1"
+  ],
+  "kernaussage": "PTQ-Verfahren, das beim Runden auch Fehler früherer Schichten und Aktivierungsquantisierung korrigiert; Rotation (Hadamard) nur als Transform davor. Besser als GPTAQ/OPTQ bei 2 Bit und 1,58 Bit (Abstract; Zahlen aus Sekundärseite).",
+  "zahlen": [
+   {
+    "wert": "Llama3 1B/3B/8B, 2 Bit, Wiki2-PPL 17,8/11,4/9,3 gegen OPTQ 24,6/13,2/10,4",
+    "kontext": "aus Suchzusammenfassung, nicht im Volltext geprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starker Rundungs-Gegner (GPTQ-Nachfolger) bei gleicher Bitzahl; kein Bytegleich-Vergleich",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Z3: faire Gegner schlagen reine Rotation; Rundung/Fehlerkorrektur ist der zweite Hebel neben Rotation"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2602.02546",
+  "titel": "D2Quant: Accurate Low-bit Post-Training Weight Quantization for LLMs",
+  "jahr": 2026,
+  "autoren": "Yan, X. u. a.",
+  "feld": [
+   "K1"
+  ],
+  "kernaussage": "Gewichts-PTQ unter 4 Bit ohne Rotation; adressiert Down-Projection-Matrizen und Aktivierungsdrift durch Gewichtsfehler.",
+  "zahlen": [
+   {
+    "wert": "Qwen3-8B, 2 Bit, Mittel über 7 Zero-Shot-Aufgaben 57,22 gegen 54,05 (bester Vorgänger)",
+    "kontext": "Suchzusammenfassung, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Rotationsfreier Gegner für 2-Bit-Gewichte",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "stützt Z3: starke Gegner ohne Rotation existieren"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2512.24124",
+  "titel": "OptRot: Mitigating Weight Outliers via Data-Free Rotations for Post-Training Quantization",
+  "jahr": 2025,
+  "autoren": "Gadhikar, A. u. a.",
+  "feld": [
+   "K1",
+   "K3"
+  ],
+  "kernaussage": "Lernt fusionierbare Rotationen, die die vierte Potenz der rotierten Gewichte minimieren (GPTQ-Fehlerschranke hängt an Inkohärenz); besser als QuaRot/SpinQuant bei Gewichts-Quantisierung; bei W4A4 Zielkonflikt mit Aktivierungen (Abstract + Sekundärseite).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Stärkster Rotations-Vertreter für reine Gewichtsquantisierung; Gegner, falls QIRE Rotation als Hebel verkauft",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Z3: fester Hadamard lässt Gewinn liegen, gelernte Rotation kann mehr; offen ob gegen Gruppenskalen byte-fair"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2509.23202",
+  "titel": "Bridging the Gap Between Promise and Performance for Microscaling FP4 Quantization",
+  "jahr": 2025,
+  "autoren": "Egiazarian, V. u. a.",
+  "feld": [
+   "K1",
+   "K3"
+  ],
+  "kernaussage": "Studie MXFP4/NVFP4 für PTQ. Kleine Gruppe (16) neutralisiert klassische Ausreißer-Rotation: Hadamard hilft bei NVFP4 nicht, bei MXFP4 (Gruppe 32) und INT-Formaten schon (MR-GPTQ, ICLR 2026).",
+  "zahlen": [
+   {
+    "wert": "Hadamard negativ für NVFP4, positiv für NVINT4",
+    "kontext": "Suchzusammenfassung, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Zeigt: Rotation hilft nur, wenn Gruppenskala grob ist",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "bestätigt Z3 (Gruppenskalen g16/g32 sind stärkster Gegner)"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2510.18784",
+  "titel": "CAGE: Curvature-Aware Gradient Estimation For Accurate Quantization-Aware Training",
+  "jahr": 2025,
+  "autoren": "Tabesh, S. u. a.",
+  "feld": [
+   "K1",
+   "K8"
+  ],
+  "kernaussage": "STE plus krümmungsbewusste Korrektur; halbiert Genauigkeitsverlust gegenüber bestem QAT-Vorgänger; im Vortraining W3A3 ≈ W4A4 des Vorgängers (Abstract).",
+  "zahlen": [],
+  "baseline_fuer_qire": "STE-Variante, stärkere QAT-Gegner",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "einziger Eintrag mit arXiv-ID; bib:strom_cage… ist dieselbe Arbeit"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2601.19320",
+  "titel": "StableQAT: Stable Quantization-Aware Training at Ultra-Low Bitwidths",
+  "jahr": 2026,
+  "autoren": "Chen, T. u. a.",
+  "feld": [
+   "K8"
+  ],
+  "kernaussage": "Ersetzt STE durch leichten rotierten Fourier-Surrogaten; stabiler bei Ultra-Niedrigbit.",
+  "zahlen": [],
+  "baseline_fuer_qire": "STE-Alternative für 1–2 Bit",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Fourier + Rotation im Surrogat; Verbindung zu QIRE-Rotation nur analog"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2509.00097",
+  "titel": "Progressive Element-wise Gradient Estimation for Neural Network Quantization",
+  "jahr": 2025,
+  "autoren": "Zhao, K. u. a.",
+  "feld": [
+   "K8"
+  ],
+  "kernaussage": "Behebt STE-Diskretisierungsfehler progressiv, vor allem bei sehr niedrigen Bitbreiten.",
+  "zahlen": [],
+  "baseline_fuer_qire": "STE-Variante",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2411.04965",
+  "titel": "BitNet a4.8: 4-bit Activations for 1-bit LLMs",
+  "jahr": 2024,
+  "autoren": "Wang, H.; Ma, S.; Wei, F.",
+  "feld": [
+   "K8",
+   "K2"
+  ],
+  "kernaussage": "4-Bit-Aktivierungen für 1,58-Bit-Gewichte durch Hybrid aus Quantisierung und Sparsifizierung (8 Bit für Zwischenzustände); ca. 55 % Parameter aktiv.",
+  "zahlen": [
+   {
+    "wert": "55 % aktive Parameter",
+    "kontext": "Sekundärzusammenfassung, ungeprüft",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "BitNet-Linie, Vorgänger von BitNet v2 (Hadamard)",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Rotation (v2) ist dort Aktivierungs-Hebel, nicht Gewichts-Hebel"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2501.02423",
+  "titel": "Scaling Laws for Floating Point Quantization Training",
+  "jahr": 2025,
+  "autoren": "Sun, X. u. a.",
+  "feld": [
+   "K1",
+   "K8"
+  ],
+  "kernaussage": "Skalengesetz für FP-Quantisierungstraining; optimale FP-Präzision grob 4–8 Bit, zu viele Daten schaden (Sekundärangabe). Widerspricht scheinbar ParetoQ (2–3 Bit); Setups nicht vergleichbar.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Gegenpol zu ParetoQ bei Bitbreite",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "Offene Frage Bitbreite bei festen Bytes"
+  ],
+  "stuetzt_widerspricht": "neutral",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2512.02010",
+  "titel": "Four Over Six: More Accurate NVFP4 Quantization with Adaptive Block Scaling",
+  "jahr": 2025,
+  "autoren": "Cook, J. u. a.",
+  "feld": [
+   "K8",
+   "K1"
+  ],
+  "kernaussage": "Wählt je Block zwischen Skalenziel 4 und 6 für NVFP4; verhindert Divergenz im FP4-Training, Loss näher an BF16.",
+  "zahlen": [],
+  "baseline_fuer_qire": "FP4-Trainings-Gegner ohne Rotation, nur bessere Blockskala",
+  "quantenbezug": "keiner",
+  "bezug_qire_befund": [
+   "stützt: Skalenwahl statt Rotation"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2605.09825",
+  "titel": "Pretraining large language models with MXFP4 on Native FP4 Hardware",
+  "jahr": 2026,
+  "autoren": "Cim, M. u. a.",
+  "feld": [
+   "K8"
+  ],
+  "kernaussage": "Vollständiges FP4-Training divergiert, sobald Wgrad quantisiert wird; deterministische Hadamard-Rotation stabilisiert, stochastisches Runden und zufällige Hadamard nicht (Llama 3.1-8B, C4; Abstract/Sekundärseite).",
+  "zahlen": [],
+  "baseline_fuer_qire": "Fall, in dem Rotation wirklich hilft (Gradientenpfad)",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Rotation hilft bei Gradienten mit Ausreißern; im Z3-Gewichtspfad nicht"
+  ],
+  "stuetzt_widerspricht": "widerspricht",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2606.20381",
+  "titel": "Rethinking Shrinkage Bias in LLM FP4 Pretraining: Geometric Origin, Systemic Impact, and UFP4 Recipe",
+  "jahr": 2026,
+  "autoren": "Zhao, Q. u. a.",
+  "feld": [
+   "K8"
+  ],
+  "kernaussage": "E2M1-Gitter hat systematisch negativen Rundungsfehler (Shrinkage Bias), Hadamard verstärkt ihn; gleichmäßiges E1M2/INT4-Gitter nach Rotation besser.",
+  "zahlen": [],
+  "baseline_fuer_qire": "Gitterwahl zählt neben Rotation",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "passt zu Z3b: Gitter ohne Nullstufe macht Rotationsgewinn künstlich"
+  ],
+  "stuetzt_widerspricht": "stuetzt",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ },
+ {
+  "id": "arXiv:2607.07964",
+  "titel": "KronQ: LLM Quantization via Kronecker-Factored Hessian",
+  "jahr": 2026,
+  "autoren": "Lee, D.; Li, Y.; Yin, R.; Panda, P.",
+  "feld": [
+   "K1",
+   "K5"
+  ],
+  "kernaussage": "2-Bit-Gewichts-PTQ mit Gradientenkovarianz und Rotation auch auf der Ausgabeseite plus Bitzuteilung; Llama-3-70B 2 Bit: GPTQ/GPTAQ divergieren, KronQ PPL 7,93 (Abstract; Autorenkommentar nennt 8,43, Widerspruch ungeklärt). COLM 2026.",
+  "zahlen": [
+   {
+    "wert": "PPL 7,93 gegen >2000 (GPTQ)",
+    "kontext": "Abstract laut Suche, Widerspruch 8,43",
+    "geprueft": false
+   }
+  ],
+  "baseline_fuer_qire": "Starker 2-Bit-Gegner mit Kronecker-Struktur",
+  "quantenbezug": "analogie",
+  "bezug_qire_befund": [
+   "Kronecker-Rotation ist verwandt mit QIRE-Strukturen"
+  ],
+  "stuetzt_widerspricht": "unklar",
+  "volltext_gelesen": false,
+  "gefunden_am": "2026-11-02",
+  "welle": 2,
+  "herkunft": "Welle 2, b1"
+ }
+]
