@@ -16,3 +16,7 @@
 - Der Gewinn kommt aus der 8D-Packung (≈ +1,2 dB), nicht speziell aus der Quantenstruktur. Orbit und E8 sind gleichwertig (−0,012 bpc, ein Seed, nicht belegt).
 - g16 mit fp16-Skala ist bei gleichen Bytes chancenlos. Ein fairer g16 mit 8-Bit-Skalen fehlt noch.
 - **Kandidat für die Vorregistrierung (wartet auf Malte):** Äquivalenztest Orbit-8D gegen E8 (Grenze ±0,02 bpc), beide gegen Lloyd-1D, Hadamard+Lloyd und g16 mit 8-Bit-Skalen; 2 und 3 Bit, 2 Trainingslängen, 5 Mess-Seeds; eventuell auf dem Cluster.
+
+## Runde 3 (W4, W7), Bewertung
+- **W4:** keine Vorregistrierung. Es gibt kein Instabilitätssignal, Clipping liegt vorn, und Rotation kostet +13–15 % Zeit. Zurückgestellt, bis ein Regime mit echter Wgrad-Divergenz gefunden ist (3 Bit/FP4).
+- **W7:** keine eigene Vorregistrierung. Mit Hadamard sind alle Aktivierungen gleich (Glättung, S-001). Die Kurtosis sagt den Verlust nicht voraus (ReLU² hat die höchste Kurtosis, aber einen kleinen Verlust). Höchstens als Nebenfaktor später.

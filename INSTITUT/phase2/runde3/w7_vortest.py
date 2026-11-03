@@ -139,6 +139,16 @@ def messe(akt, T, res):
     CFG.update(ein=False, mitte=False, had=False)
     m["fertig"] = True; res["laufzeit_s"] = time.time() - T0; json.dump(res, open(JS, "w"), indent=1)
 
+
+AUSWERTUNG = """## Lesart (Erkundung, Einzelseed)
+- **Quadrat erzeugt Ausreisser: ja.** Excess-Kurtosis der Zwischenaktivierung (T=3000): GELU 32, SwiGLU 193, z2 140, ReLU2 1096 (84 % exakte Nullen), |z| 1,6. FFN-Eingang (nach LayerNorm) bei allen ca. 0,3-1.
+- **ReLU2 gewinnt: nur im Quantisierungsverlust, nicht absolut.** fp32 ist ReLU2 bei beiden Laengen ca. 0,09-0,15 bpc schlechter als GELU. Auch nach W4A4+Hadamard bleibt GELU vorn (T=8000: 2,211 gegen 2,303; T=3000: 2,550 gegen 2,696; SwiGLU 2,558).
+- **Kurtosis sagt den Verlust nicht voraus:** roh, nur Mitte (T=3000): |z| +0,009 (Kurt. 1,6), ReLU2 +0,012 (1096), z2 +0,055 (140), SwiGLU +0,068 (193), GELU +0,080 (32). ReLU2 hat die groesste Kurtosis und fast den kleinsten Verlust (Ausreisser tragen das Signal, die vielen Nullen kosten nichts). Der naive Zusammenhang "Quadrat -> Ausreisser -> Verlust" stimmt nur zur Haelfte.
+- **Langweiligste Erklaerung bestaetigt:** Mit Hadamard davor sind alle Aktivierungen gleich (A4 beide: +0,013 bis +0,021 bei T=3000, +0,035 bei T=8000 fuer GELU/ReLU2; max/rms nach Rotation 2,7-3,4, Kurtosis 1-9). Rotation glaettet die Quadrat-Ausreisser (S-001); eine Aktivierungswahl wird danach kaum noch gebraucht. Gewichte W4: ca. +0,02 (T=3000) bzw. +0,035 (T=8000) fuer alle gleich.
+- **Laenge:** Der Verlust durch Quantisierung waechst mit T (Hadamard-A4: 0,016 -> 0,035 bei GELU). Das ist wichtiger als der Aktivierungsunterschied.
+- **Grenzen:** Ein Seed; z2, |z|, SwiGLU bei T=8000 fehlen (Zeitbudget 40 min, Lauf abgebrochen); Unterschiede < 0,02 bpc nicht belastbar; nur Fake-Quant; Eingang der Aktivierungsquantisierung symmetrisch (verschwendet bei ReLU2 das Vorzeichenbit, asymmetrisch/unsigned waere fairer fuer ReLU2); Val-Bytes nur 32768 und nur die ersten; kein Gegner Clipping/Kanalskalen.
+"""
+
 def bericht(res):
     L = ["# W7-Vortest (Phase 2, Runde 3): Quadrat-Familie unter 4-Bit-Quantisierung", "",
          "Erkundung, kein Befund. Tuning-Seed 950, Byte-LM d=128, f=512, 4 Lagen (Rezept W2), Val-Bytes: erste 32768 (gepaart). Einzelseed: Unterschiede < ca. 0,02 bpc sind nicht belastbar.",
@@ -157,6 +167,7 @@ def bericht(res):
                 k = m["kurtosis"][ort]
                 L.append(f"| {m['akt']} | {ort} | {k['kurt_mittel']:.1f} | {k['kurt_max']:.1f} | {k['kurt_had_mittel']:.1f} | {k['maxrms_roh']:.1f} | {k['maxrms_had']:.1f} | {k.get('nullanteil', float('nan')):.2f} |")
         L.append("")
+    L.append(AUSWERTUNG)
     json.dump(res, open(JS, "w"), indent=1); open(MD, "w").write("\n".join(L) + "\n")
 
 def main(Ts):
