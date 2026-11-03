@@ -1,0 +1,525 @@
+{
+ "seed": 950,
+ "T": 8000,
+ "n_gewichte": 786432,
+ "matrizen": [
+  [
+   "bl.0.att.qkv",
+   [
+    384,
+    128
+   ]
+  ],
+  [
+   "bl.0.att.proj",
+   [
+    128,
+    128
+   ]
+  ],
+  [
+   "bl.0.ffn.a",
+   [
+    512,
+    128
+   ]
+  ],
+  [
+   "bl.0.ffn.b",
+   [
+    128,
+    512
+   ]
+  ],
+  [
+   "bl.1.att.qkv",
+   [
+    384,
+    128
+   ]
+  ],
+  [
+   "bl.1.att.proj",
+   [
+    128,
+    128
+   ]
+  ],
+  [
+   "bl.1.ffn.a",
+   [
+    512,
+    128
+   ]
+  ],
+  [
+   "bl.1.ffn.b",
+   [
+    128,
+    512
+   ]
+  ],
+  [
+   "bl.2.att.qkv",
+   [
+    384,
+    128
+   ]
+  ],
+  [
+   "bl.2.att.proj",
+   [
+    128,
+    128
+   ]
+  ],
+  [
+   "bl.2.ffn.a",
+   [
+    512,
+    128
+   ]
+  ],
+  [
+   "bl.2.ffn.b",
+   [
+    128,
+    512
+   ]
+  ],
+  [
+   "bl.3.att.qkv",
+   [
+    384,
+    128
+   ]
+  ],
+  [
+   "bl.3.att.proj",
+   [
+    128,
+    128
+   ]
+  ],
+  [
+   "bl.3.ffn.a",
+   [
+    512,
+    128
+   ]
+  ],
+  [
+   "bl.3.ffn.b",
+   [
+    128,
+    512
+   ]
+  ]
+ ],
+ "fp32_val_bpc": 2.141521350408964,
+ "arme": {
+  "lloyd1d_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.8471712960881073,
+   "delta_bpc_vs_fp32": 0.7056499456791432,
+   "index_bits": 1572864,
+   "scale_bits": 73728,
+   "cb_bits": 1024,
+   "sign_bits": 0,
+   "total_bits": 1647616,
+   "bpw": 2.0950520833333335,
+   "bpw_index": 2.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 0.0013020833333333333,
+   "snr_db_gepoolt": 9.152689933776855,
+   "snr_db_mittel_matrizen": 9.23818063735962,
+   "fit_s": 1.5870044231414795,
+   "enc_s": 0.0,
+   "decode": {
+    "decode_us": 292.819999913263,
+    "matvec_us": 6.35099991086463,
+    "gesamt_us": 350.53499993864534,
+    "fp32_matvec_us": 6.323999969026772
+   },
+   "info": {
+    "decoder": "1d"
+   }
+  },
+  "g16_lloyd_b1": {
+   "bits_index": 1,
+   "val_bpc": 6.162977526511235,
+   "delta_bpc_vs_fp32": 4.021456176102271,
+   "index_bits": 786432,
+   "scale_bits": 786432,
+   "cb_bits": 512,
+   "sign_bits": 0,
+   "total_bits": 1573376,
+   "bpw": 2.0006510416666665,
+   "bpw_index": 1.0,
+   "bpw_scale": 1.0,
+   "bpw_cb": 0.0006510416666666666,
+   "snr_db_gepoolt": 4.538684844970703,
+   "snr_db_mittel_matrizen": 4.612070322036743,
+   "fit_s": 1.3802812099456787,
+   "enc_s": 0.0,
+   "decode": {
+    "decode_us": 289.0609998758009,
+    "matvec_us": 6.148000011307886,
+    "gesamt_us": 334.1860000318775,
+    "fp32_matvec_us": 5.50549998479255
+   },
+   "info": {
+    "decoder": "1d"
+   }
+  },
+  "g16_uniform_b1": {
+   "bits_index": 1,
+   "val_bpc": 6.326303242505287,
+   "delta_bpc_vs_fp32": 4.184781892096323,
+   "index_bits": 786432,
+   "scale_bits": 786432,
+   "cb_bits": 0,
+   "sign_bits": 0,
+   "total_bits": 1572864,
+   "bpw": 2.0,
+   "bpw_index": 1.0,
+   "bpw_scale": 1.0,
+   "bpw_cb": 0.0,
+   "snr_db_gepoolt": 4.5641069412231445,
+   "snr_db_mittel_matrizen": 4.635969519615173,
+   "fit_s": 0.0,
+   "enc_s": 0.08640670776367188,
+   "decode": {
+    "decode_us": 124.18749997777923,
+    "matvec_us": 6.094999889683095,
+    "gesamt_us": 143.67450012287009,
+    "fp32_matvec_us": 6.069499931982136
+   },
+   "info": {
+    "decoder": "g16u"
+   }
+  },
+  "had_lloyd1d_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.8169241936888394,
+   "delta_bpc_vs_fp32": 0.6754028432798753,
+   "index_bits": 1572864,
+   "scale_bits": 73728,
+   "cb_bits": 1024,
+   "sign_bits": 3584,
+   "total_bits": 1651200,
+   "bpw": 2.099609375,
+   "bpw_index": 2.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 0.0013020833333333333,
+   "snr_db_gepoolt": 9.354652404785156,
+   "snr_db_mittel_matrizen": 9.350384414196014,
+   "fit_s": 1.8175933361053467,
+   "enc_s": 0.0,
+   "decode": {
+    "decode_us": 271.4935000085461,
+    "matvec_us": 75.87400000375055,
+    "gesamt_us": 378.7545000477621,
+    "fp32_matvec_us": 5.51400012227532
+   },
+   "info": {
+    "decoder": "1d"
+   }
+  },
+  "had_e8_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.52851131025016,
+   "delta_bpc_vs_fp32": 0.3869899598411961,
+   "index_bits": 1572864,
+   "scale_bits": 73728,
+   "cb_bits": 16,
+   "sign_bits": 3584,
+   "total_bits": 1650192,
+   "bpw": 2.09832763671875,
+   "bpw_index": 2.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 2.0345052083333332e-05,
+   "snr_db_gepoolt": 10.48472785949707,
+   "snr_db_mittel_matrizen": 10.490625560283661,
+   "fit_s": 18.10901141166687,
+   "enc_s": 7.8495869636535645,
+   "decode": {
+    "decode_us": 125.1659999752519,
+    "matvec_us": 72.60000006681366,
+    "gesamt_us": 264.3430000262015,
+    "fp32_matvec_us": 5.3644999979951535
+   },
+   "info": {
+    "D": 0.97265625,
+    "decoder": "vq",
+    "d": 8,
+    "idx_bits": 16
+   }
+  },
+  "had_e8_exakt_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.5298480173011515,
+   "delta_bpc_vs_fp32": 0.3883266668921874,
+   "index_bits": 1572864,
+   "scale_bits": 73728,
+   "cb_bits": 16,
+   "sign_bits": 3584,
+   "total_bits": 1650192,
+   "bpw": 2.09832763671875,
+   "bpw_index": 2.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 2.0345052083333332e-05,
+   "snr_db_gepoolt": 10.48835277557373,
+   "snr_db_mittel_matrizen": 10.493929505348206,
+   "fit_s": 17.56416654586792,
+   "enc_s": 23.966646194458008,
+   "decode": {
+    "decode_us": 136.18549996863294,
+    "matvec_us": 72.92000009329058,
+    "gesamt_us": 272.234500016566,
+    "fp32_matvec_us": 5.378999958338682
+   },
+   "info": {
+    "D": 0.97265625,
+    "n_punkte": 65633,
+    "decoder": "vq",
+    "d": 8,
+    "idx_bits": 16
+   }
+  },
+  "had_orbit8_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.516299456966364,
+   "delta_bpc_vs_fp32": 0.37477810655739985,
+   "index_bits": 1572864,
+   "scale_bits": 73728,
+   "cb_bits": 8192,
+   "sign_bits": 3584,
+   "total_bits": 1658368,
+   "bpw": 2.1087239583333335,
+   "bpw_index": 2.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 0.010416666666666666,
+   "snr_db_gepoolt": 10.612001419067383,
+   "snr_db_mittel_matrizen": 10.610986888408661,
+   "fit_s": 86.73393893241882,
+   "enc_s": 19.54702925682068,
+   "decode": {
+    "decode_us": 132.99599993388256,
+    "matvec_us": 80.9659999276846,
+    "gesamt_us": 283.5264999703213,
+    "fp32_matvec_us": 5.534000024454144
+   },
+   "info": {
+    "gruppe": "D8^n lokal (H,X,Z je Qubit)",
+    "G": 1024,
+    "m": 64,
+    "n_punkte": 65536,
+    "decoder": "vq",
+    "d": 8,
+    "idx_bits": 16
+   }
+  },
+  "had_orbit4_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.654594649673363,
+   "delta_bpc_vs_fp32": 0.5130732992643989,
+   "index_bits": 1572864,
+   "scale_bits": 73728,
+   "cb_bits": 256,
+   "sign_bits": 3584,
+   "total_bits": 1650432,
+   "bpw": 2.0986328125,
+   "bpw_index": 2.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 0.0003255208333333333,
+   "snr_db_gepoolt": 9.776776313781738,
+   "snr_db_mittel_matrizen": 9.792461156845093,
+   "fit_s": 0.3894326686859131,
+   "enc_s": 0.05977129936218262,
+   "decode": {
+    "decode_us": 120.74950006990548,
+    "matvec_us": 73.1119999954899,
+    "gesamt_us": 205.14599998477934,
+    "fp32_matvec_us": 5.333499984772061
+   },
+   "info": {
+    "gruppe": "Pauli+H^n",
+    "G": 64,
+    "m": 4,
+    "n_punkte": 256,
+    "decoder": "vq",
+    "d": 4,
+    "idx_bits": 8
+   }
+  },
+  "lloyd1d_b3": {
+   "bits_index": 3,
+   "val_bpc": 2.276770152157452,
+   "delta_bpc_vs_fp32": 0.13524880174848786,
+   "index_bits": 2359296,
+   "scale_bits": 73728,
+   "cb_bits": 2048,
+   "sign_bits": 0,
+   "total_bits": 2435072,
+   "bpw": 3.0963541666666665,
+   "bpw_index": 3.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 0.0026041666666666665,
+   "snr_db_gepoolt": 14.44951057434082,
+   "snr_db_mittel_matrizen": 14.559193074703217,
+   "fit_s": 2.22404408454895,
+   "enc_s": 0.0,
+   "decode": {
+    "decode_us": 573.6495000974173,
+    "matvec_us": 6.361500027196598,
+    "gesamt_us": 584.8795000247264,
+    "fp32_matvec_us": 6.385000006048358
+   },
+   "info": {
+    "decoder": "1d"
+   }
+  },
+  "g16_lloyd_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.7096648434159643,
+   "delta_bpc_vs_fp32": 0.5681434930070002,
+   "index_bits": 1572864,
+   "scale_bits": 786432,
+   "cb_bits": 1024,
+   "sign_bits": 0,
+   "total_bits": 2360320,
+   "bpw": 3.0013020833333335,
+   "bpw_index": 2.0,
+   "bpw_scale": 1.0,
+   "bpw_cb": 0.0013020833333333333,
+   "snr_db_gepoolt": 9.617568016052246,
+   "snr_db_mittel_matrizen": 9.71102112531662,
+   "fit_s": 1.6500024795532227,
+   "enc_s": 0.0,
+   "decode": {
+    "decode_us": 299.5805000409746,
+    "matvec_us": 5.56050008526654,
+    "gesamt_us": 284.1924999756884,
+    "fp32_matvec_us": 6.343499990180135
+   },
+   "info": {
+    "decoder": "1d"
+   }
+  },
+  "g16_uniform_b2": {
+   "bits_index": 2,
+   "val_bpc": 2.678785504521004,
+   "delta_bpc_vs_fp32": 0.53726415411204,
+   "index_bits": 1572864,
+   "scale_bits": 786432,
+   "cb_bits": 0,
+   "sign_bits": 0,
+   "total_bits": 2359296,
+   "bpw": 3.0,
+   "bpw_index": 2.0,
+   "bpw_scale": 1.0,
+   "bpw_cb": 0.0,
+   "snr_db_gepoolt": 9.910263061523438,
+   "snr_db_mittel_matrizen": 10.007912456989288,
+   "fit_s": 0.0,
+   "enc_s": 0.06481027603149414,
+   "decode": {
+    "decode_us": 107.67649996523687,
+    "matvec_us": 5.051500011177268,
+    "gesamt_us": 134.115000150814,
+    "fp32_matvec_us": 5.350500032363925
+   },
+   "info": {
+    "decoder": "g16u"
+   }
+  },
+  "had_lloyd1d_b3": {
+   "bits_index": 3,
+   "val_bpc": 2.255757418228298,
+   "delta_bpc_vs_fp32": 0.11423606781933371,
+   "index_bits": 2359296,
+   "scale_bits": 73728,
+   "cb_bits": 2048,
+   "sign_bits": 3584,
+   "total_bits": 2438656,
+   "bpw": 3.1009114583333335,
+   "bpw_index": 3.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 0.0026041666666666665,
+   "snr_db_gepoolt": 14.69152545928955,
+   "snr_db_mittel_matrizen": 14.699897825717926,
+   "fit_s": 2.5125927925109863,
+   "enc_s": 0.0,
+   "decode": {
+    "decode_us": 496.08749998242274,
+    "matvec_us": 64.59099995481665,
+    "gesamt_us": 618.0940000604096,
+    "fp32_matvec_us": 6.193999979586806
+   },
+   "info": {
+    "decoder": "1d"
+   }
+  },
+  "had_e8_b3": {
+   "bits_index": 3,
+   "val_bpc": 2.206666173408382,
+   "delta_bpc_vs_fp32": 0.06514482299941804,
+   "index_bits": 2359296,
+   "scale_bits": 73728,
+   "cb_bits": 16,
+   "sign_bits": 3584,
+   "total_bits": 2436624,
+   "bpw": 3.09832763671875,
+   "bpw_index": 3.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 2.0345052083333332e-05,
+   "snr_db_gepoolt": 15.917303085327148,
+   "snr_db_mittel_matrizen": 15.939921259880066,
+   "fit_s": 17.573123931884766,
+   "enc_s": 7.4096269607543945,
+   "decode": null,
+   "info": {
+    "D": 0.54931640625,
+    "decoder": "vq",
+    "d": 8,
+    "idx_bits": 24
+   }
+  },
+  "had_orbit4_b3": {
+   "bits_index": 3,
+   "val_bpc": 2.2136518192440033,
+   "delta_bpc_vs_fp32": 0.07213046883503926,
+   "index_bits": 2359296,
+   "scale_bits": 73728,
+   "cb_bits": 4096,
+   "sign_bits": 3584,
+   "total_bits": 2440704,
+   "bpw": 3.103515625,
+   "bpw_index": 3.0,
+   "bpw_scale": 0.09375,
+   "bpw_cb": 0.005208333333333333,
+   "snr_db_gepoolt": 15.896663665771484,
+   "snr_db_mittel_matrizen": 15.902690768241882,
+   "fit_s": 11.538269996643066,
+   "enc_s": 1.5982387065887451,
+   "decode": {
+    "decode_us": 143.78699995631905,
+    "matvec_us": 84.71499995721388,
+    "gesamt_us": 242.8545001293969,
+    "fp32_matvec_us": 5.374000011215685
+   },
+   "info": {
+    "gruppe": "Pauli+H^n",
+    "G": 64,
+    "m": 64,
+    "n_punkte": 4096,
+    "decoder": "vq",
+    "d": 4,
+    "idx_bits": 12
+   }
+  }
+ },
+ "fp16_gewichte_val_bpc": 2.141519993395171,
+ "laufzeit_s": 242.80230116844177
+}

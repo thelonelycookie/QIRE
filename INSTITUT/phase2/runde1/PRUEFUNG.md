@@ -10,3 +10,9 @@
   - Langweiligste Erklärung: Jede gute 8D-VQ landet bei ≈ +1,1–1,2 dB.
   - Offen: Dekodierkosten (Brute-Force), echte Gewichte, Skalen eingerechnet, Gegner E8P.
 - **Vorschlag:** W6 kommt in den nächsten Schritt: Vortest auf echten Gewichten (Byte-LM, PTQ) mit Bytes inkl. Skalen und gemessener Dekodierzeit. Danach eventuell Vorregistrierung (Freigabe Malte).
+
+## Vortest 2 W6 (echte Gewichte, Byte-LM, Tuning-Seed 950, Erkundung)
+- 2,10 bpw byte-gleich, Val-bpc: Orbit-8D 2,516 · E8 2,529 · Orbit-4D 2,655 · Hadamard+Lloyd 2,817 · Lloyd-1D 2,847 (fp32 2,142).
+- Der Gewinn kommt aus der 8D-Packung (≈ +1,2 dB), nicht speziell aus der Quantenstruktur. Orbit und E8 sind gleichwertig (−0,012 bpc, ein Seed, nicht belegt).
+- g16 mit fp16-Skala ist bei gleichen Bytes chancenlos. Ein fairer g16 mit 8-Bit-Skalen fehlt noch.
+- **Kandidat für die Vorregistrierung (wartet auf Malte):** Äquivalenztest Orbit-8D gegen E8 (Grenze ±0,02 bpc), beide gegen Lloyd-1D, Hadamard+Lloyd und g16 mit 8-Bit-Skalen; 2 und 3 Bit, 2 Trainingslängen, 5 Mess-Seeds; eventuell auf dem Cluster.
